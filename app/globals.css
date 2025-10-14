@@ -150,6 +150,16 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Page transition optimization */
+main {
+  will-change: transform, opacity;
+}
+
+/* Prevent scroll jump during transitions */
+html, body {
+  overflow-x: hidden;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

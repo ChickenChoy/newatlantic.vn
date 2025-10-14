@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
+import ProgressBar from "@/components/ProgressBar";
 
 const inter = Inter({
   subsets: ["latin", "vietnamese"],
@@ -23,10 +25,13 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={`${inter.variable} antialiased`}>
+        <ProgressBar />
         <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <PageTransition>
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </PageTransition>
         <Footer />
       </body>
     </html>
