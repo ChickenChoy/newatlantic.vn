@@ -33,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
         <div className="p-6 flex flex-col flex-grow">
-          <span className="inline-block text-xs text-[#5f7ab8] font-bold bg-[#5f7ab8]/10 px-3 py-1 rounded-full mb-3">
+          <span className="inline-block w-fit text-xs text-[#5f7ab8] font-bold bg-[#5f7ab8]/10 px-3 py-1 rounded-full mb-3">
             {product.category}
           </span>
           <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#5f7ab8] transition-colors">
