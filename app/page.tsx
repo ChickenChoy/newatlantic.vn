@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import PostCard from '@/components/PostCard';
 import { products, posts } from '@/lib/data';
@@ -72,19 +73,26 @@ export default function HomePage() {
                 <div className="grid grid-cols-2 gap-2 md:gap-3 lg:gap-5 xl:gap-6 items-stretch">
                   {/* WILL-BURT Card */}
                   <Link href="/san-pham/cot-tu-nang-will-burt" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] lg:min-h-[180px] xl:min-h-[200px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl lg:rounded-3xl p-4 md:p-6 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col items-center justify-center h-full min-h-[140px] md:min-h-[180px] lg:min-h-[240px] xl:min-h-[280px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       {/* Background glow effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
-                      <div className="relative z-10">
-                        <div className="text-2xl md:text-3xl lg:text-5xl xl:text-6xl mb-1.5 md:mb-2 lg:mb-4 group-hover:scale-110 transition-transform duration-300">🏗️</div>
-                        <div className="text-sm md:text-base lg:text-xl xl:text-2xl font-bold mb-0.5 md:mb-1 lg:mb-2 group-hover:text-white transition-colors">WILL-BURT</div>
-                        <div className="text-xs md:text-sm lg:text-base text-gray-200 group-hover:text-white transition-colors">Cột tự nâng</div>
+                      <div className="relative z-10 text-center flex flex-col items-center">
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <Image
+                            src="/images/place-holder/placeholder.jpg"
+                            alt="WILL-BURT"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="text-base md:text-lg lg:text-2xl xl:text-3xl font-bold mb-1 md:mb-2 group-hover:text-white transition-colors">WILL-BURT</div>
+                        <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-200 group-hover:text-white transition-colors">Cột tự nâng</div>
                       </div>
                       
                       {/* Arrow indicator */}
-                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 lg:bottom-4 lg:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 lg:bottom-5 lg:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -93,17 +101,24 @@ export default function HomePage() {
 
                   {/* HIAB Card */}
                   <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] lg:min-h-[180px] xl:min-h-[200px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl lg:rounded-3xl p-4 md:p-6 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col items-center justify-center h-full min-h-[140px] md:min-h-[180px] lg:min-h-[240px] xl:min-h-[280px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
-                      <div className="relative z-10">
-                        <div className="text-2xl md:text-3xl lg:text-5xl xl:text-6xl mb-1.5 md:mb-2 lg:mb-4 group-hover:scale-110 transition-transform duration-300">🚚</div>
-                        <div className="text-sm md:text-base lg:text-xl xl:text-2xl font-bold mb-0.5 md:mb-1 lg:mb-2 group-hover:text-white transition-colors">HIAB</div>
-                        <div className="text-xs md:text-sm lg:text-base text-gray-200 group-hover:text-white transition-colors">Cẩu & xe nâng</div>
+                      <div className="relative z-10 text-center flex flex-col items-center">
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <Image
+                            src="/images/place-holder/placeholder.jpg"
+                            alt="HIAB"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="text-base md:text-lg lg:text-2xl xl:text-3xl font-bold mb-1 md:mb-2 group-hover:text-white transition-colors">HIAB</div>
+                        <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-200 group-hover:text-white transition-colors">Cẩu & xe nâng</div>
                       </div>
                       
-                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 lg:bottom-4 lg:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 lg:bottom-5 lg:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -112,17 +127,24 @@ export default function HomePage() {
 
                   {/* LOVOL Card */}
                   <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] lg:min-h-[180px] xl:min-h-[200px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl lg:rounded-3xl p-4 md:p-6 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col items-center justify-center h-full min-h-[140px] md:min-h-[180px] lg:min-h-[240px] xl:min-h-[280px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
-                      <div className="relative z-10">
-                        <div className="text-2xl md:text-3xl lg:text-5xl xl:text-6xl mb-1.5 md:mb-2 lg:mb-4 group-hover:scale-110 transition-transform duration-300">🚜</div>
-                        <div className="text-sm md:text-base lg:text-xl xl:text-2xl font-bold mb-0.5 md:mb-1 lg:mb-2 group-hover:text-white transition-colors">LOVOL</div>
-                        <div className="text-xs md:text-sm lg:text-base text-gray-200 group-hover:text-white transition-colors">Máy móc công trình</div>
+                      <div className="relative z-10 text-center flex flex-col items-center">
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <Image
+                            src="/images/place-holder/placeholder.jpg"
+                            alt="LOVOL"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="text-base md:text-lg lg:text-2xl xl:text-3xl font-bold mb-1 md:mb-2 group-hover:text-white transition-colors">LOVOL</div>
+                        <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-200 group-hover:text-white transition-colors">Máy móc công trình</div>
                       </div>
                       
-                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 lg:bottom-4 lg:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 lg:bottom-5 lg:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -131,17 +153,24 @@ export default function HomePage() {
 
                   {/* LIUGONG Card */}
                   <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] lg:min-h-[180px] xl:min-h-[200px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl lg:rounded-3xl p-4 md:p-6 lg:p-8 xl:p-10 backdrop-blur-sm border border-white/20 flex flex-col items-center justify-center h-full min-h-[140px] md:min-h-[180px] lg:min-h-[240px] xl:min-h-[280px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
-                      <div className="relative z-10">
-                        <div className="text-2xl md:text-3xl lg:text-5xl xl:text-6xl mb-1.5 md:mb-2 lg:mb-4 group-hover:scale-110 transition-transform duration-300">⚙️</div>
-                        <div className="text-sm md:text-base lg:text-xl xl:text-2xl font-bold mb-0.5 md:mb-1 lg:mb-2 group-hover:text-white transition-colors">LIUGONG</div>
-                        <div className="text-xs md:text-sm lg:text-base text-gray-200 group-hover:text-white transition-colors">Thiết bị xây dựng</div>
+                      <div className="relative z-10 text-center flex flex-col items-center">
+                        <div className="relative w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32 mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <Image
+                            src="/images/place-holder/placeholder.jpg"
+                            alt="LIUGONG"
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="text-base md:text-lg lg:text-2xl xl:text-3xl font-bold mb-1 md:mb-2 group-hover:text-white transition-colors">LIUGONG</div>
+                        <div className="text-xs md:text-sm lg:text-base xl:text-lg text-gray-200 group-hover:text-white transition-colors">Thiết bị xây dựng</div>
                       </div>
                       
-                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 lg:bottom-4 lg:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 lg:bottom-5 lg:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
