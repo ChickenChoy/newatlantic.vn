@@ -1,0 +1,414 @@
+import { posts } from '@/lib/data';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
+import ShareButtons from '@/components/ShareButtons';
+
+interface PostPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export async function generateStaticParams() {
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: PostPageProps) {
+  const { slug } = await params;
+  const post = posts.find(p => p.slug === slug);
+  
+  if (!post) {
+    return {
+      title: 'Không tìm thấy - NEW AIT',
+    };
+  }
+
+  return {
+    title: `${post.title} - NEW AIT`,
+    description: post.excerpt,
+  };
+}
+
+export default async function PostPage({ params }: PostPageProps) {
+  const { slug } = await params;
+  const post = posts.find(p => p.slug === slug);
+  
+  if (!post) {
+    notFound();
+  }
+
+  const formattedDate = new Date(post.date).toLocaleDateString('vi-VN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  // Get related posts (excluding current post)
+  const relatedPosts = posts
+    .filter(p => p.id !== post.id)
+    .slice(0, 3);
+
+  return (
+    <div className="bg-gray-50 min-h-screen pt-32">
+      {/* Breadcrumb */}
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-4 py-4">
+          <nav className="flex items-center gap-2 text-sm text-gray-600">
+            <Link href="/" className="hover:text-[#5f7ab8] transition">Trang chủ</Link>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <Link href="/tin-tuc" className="hover:text-[#5f7ab8] transition">Tin tức</Link>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <span className="text-gray-900 font-medium line-clamp-1">{post.title}</span>
+          </nav>
+        </div>
+      </div>
+
+      {/* Post Content */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
+            {/* Main Content */}
+            <article className="lg:col-span-3 bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+          {/* Featured Image */}
+          {post.image && (
+                <div className="relative h-96 bg-gradient-to-br from-gray-100 to-gray-200">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                className="object-cover"
+              />
+                  {/* Image Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+          )}
+
+              {/* Post Header */}
+              <div className="p-8 lg:p-12">
+                {/* Meta Info */}
+                <div className="flex items-center gap-6 mb-8 pb-8 border-b">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <svg className="w-5 h-5 text-[#5f7ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="font-medium">{formattedDate}</span>
+                  </div>
+              {post.author && (
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <svg className="w-5 h-5 text-[#5f7ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <span className="font-medium">{post.author}</span>
+                    </div>
+              )}
+            </div>
+
+                <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 leading-tight text-gray-900">{post.title}</h1>
+
+                {post.excerpt && (
+                  <div className="bg-gradient-to-r from-[#5f7ab8]/5 to-[#4a6199]/5 border-l-4 border-[#5f7ab8] p-6 rounded-r-2xl mb-8">
+                    <p className="text-lg lg:text-xl text-gray-700 leading-relaxed italic">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                )}
+
+                {/* Post Content */}
+                <div className="prose prose-base lg:prose-lg max-w-none mb-10">
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              
+                  {/* Rich Content for News */}
+                  <div className="space-y-6 text-gray-700 leading-relaxed">
+                    <p className="leading-relaxed">
+                      NEW ATLANTIC tự hào là đại lý chính thức và độc quyền của các thương hiệu thiết bị công nghiệp 
+                      hàng đầu thế giới. Với cam kết mang đến giải pháp tối ưu nhất cho khách hàng, chúng tôi không ngừng 
+                      cập nhật và chia sẻ những thông tin mới nhất về sản phẩm, công nghệ và xu hướng ngành.
+                    </p>
+                    
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200 my-8">
+                      <h3 className="text-xl font-bold mb-3 text-gray-900">💡 Điểm nổi bật</h3>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-2.5">
+                          <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-sm">Sản phẩm chính hãng, nhập khẩu trực tiếp từ nhà sản xuất</span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-sm">Hỗ trợ kỹ thuật chuyên nghiệp 24/7</span>
+                        </li>
+                        <li className="flex items-start gap-2.5">
+                          <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-sm">Bảo hành chính hãng, dịch vụ sau bán hàng tận tâm</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900">Giới thiệu chi tiết</h2>
+                    <p className="leading-relaxed">
+                      Trong bối cảnh ngành công nghiệp phát triển mạnh mẽ, nhu cầu về thiết bị chuyên dụng 
+                      chất lượng cao ngày càng tăng. NEW ATLANTIC luôn đồng hành cùng khách hàng trong việc 
+                      lựa chọn và cung cấp những giải pháp thiết bị tối ưu nhất, phù hợp với từng nhu cầu cụ thể.
+                    </p>
+                    
+                    <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900">Ứng dụng thực tế</h2>
+                    <p className="leading-relaxed">
+                      Các sản phẩm của chúng tôi được ứng dụng rộng rãi trong nhiều lĩnh vực: xây dựng, công nghiệp, 
+                      quốc phòng, an ninh, và nhiều ngành nghề khác. Với độ bền cao và hiệu suất vượt trội, thiết bị 
+                      của chúng tôi đã và đang được tin dùng bởi hàng nghìn khách hàng trên toàn quốc.
+                    </p>
+
+                    <h2 className="text-2xl font-bold mt-10 mb-4 text-gray-900">Cam kết của chúng tôi</h2>
+                    <p className="leading-relaxed">
+                      NEW ATLANTIC cam kết mang đến cho khách hàng không chỉ là sản phẩm chất lượng mà còn là 
+                      dịch vụ hoàn hảo. Đội ngũ kỹ thuật viên được đào tạo bài bản, sẵn sàng tư vấn và hỗ trợ 
+                      khách hàng mọi lúc mọi nơi.
+                    </p>
+            </div>
+          </div>
+
+                {/* Share Section - Unique to News */}
+                <ShareButtons title={post.title} />
+
+                {/* Author Info - Unique to News */}
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-2xl border border-gray-200">
+                  <div className="flex items-start gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
+                      NA
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg mb-2">NEW ATLANTIC</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Đại lý chính thức và độc quyền các thương hiệu thiết bị công nghiệp hàng đầu thế giới. 
+                        Chuyên cung cấp giải pháp thiết bị chuyên dụng cho các dự án xây dựng, công nghiệp và quốc phòng.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            {/* Sidebar */}
+            <aside className="space-y-6">
+              {/* Newsletter Subscription - Unique to News */}
+              <div className="bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white p-6 rounded-2xl shadow-xl sticky top-8">
+                <div className="text-center mb-5">
+                  <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Đăng ký nhận tin</h3>
+                  <p className="text-white/90 text-sm">
+                    Nhận tin tức mới nhất
+                  </p>
+                </div>
+                <form className="space-y-3">
+                  <input
+                    type="email"
+                    placeholder="Email của bạn"
+                    className="w-full px-4 py-2.5 rounded-lg text-white-900 text-sm placeholder-white-500 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full bg-white text-[#5f7ab8] px-6 py-2.5 rounded-lg font-bold hover:bg-gray-100 transition-all text-sm"
+                  >
+                    Đăng ký ngay
+                  </button>
+                </form>
+                <p className="text-xs text-white/70 mt-3 text-center">
+                  Chúng tôi tôn trọng quyền riêng tư của bạn
+                </p>
+              </div>
+
+              {/* Contact Card - Unique to News */}
+              <div className="bg-white p-5 rounded-2xl shadow-xl border border-gray-100">
+                <h3 className="font-bold text-lg mb-3 text-gray-900">Cần hỗ trợ?</h3>
+                <p className="text-gray-600 mb-4 text-sm">
+                  Liên hệ với chúng tôi để được tư vấn
+                </p>
+                <div className="space-y-2.5">
+                  <a
+                    href="tel:+842838733686"
+                    className="flex items-center gap-2.5 text-[#5f7ab8] hover:text-[#4a6199] transition-colors group"
+                  >
+                    <div className="w-9 h-9 bg-[#5f7ab8]/10 rounded-lg flex items-center justify-center group-hover:bg-[#5f7ab8] group-hover:text-white transition-all">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500">Hotline</div>
+                      <div className="font-semibold text-sm">+84 28 3873 3686</div>
+                    </div>
+                  </a>
+                  <a
+                    href="mailto:info@newatlantic.vn"
+                    className="flex items-center gap-2.5 text-[#5f7ab8] hover:text-[#4a6199] transition-colors group"
+                  >
+                    <div className="w-9 h-9 bg-[#5f7ab8]/10 rounded-lg flex items-center justify-center group-hover:bg-[#5f7ab8] group-hover:text-white transition-all">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-xs text-gray-500">Email</div>
+                      <div className="font-semibold text-xs">info@newatlantic.vn</div>
+                    </div>
+                  </a>
+                  <Link
+                    href="/lien-he"
+                    className="block w-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white text-center px-4 py-2.5 rounded-lg font-bold hover:shadow-lg hover:scale-105 transition-all mt-3 text-sm"
+                  >
+                    Gửi yêu cầu tư vấn
+                  </Link>
+                </div>
+            </div>
+            </aside>
+          </div>
+
+          {/* Related Posts - Full Width with Real Content */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-20 relative">
+              {/* Section Header with Decorative Elements */}
+              <div className="text-center mb-12 relative">
+                <div className="inline-block relative">
+                  <h2 className="text-4xl font-bold text-gray-900 mb-3 relative z-10">
+                    Bài viết liên quan
+                  </h2>
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] rounded-full"></div>
+                </div>
+                <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+                  Khám phá thêm những bài viết và thông tin hữu ích khác
+                </p>
+              </div>
+
+              {/* Posts Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {relatedPosts.map((relatedPost) => {
+                  const relatedFormattedDate = new Date(relatedPost.date).toLocaleDateString('vi-VN', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                  });
+                  return (
+                    <Link 
+                      key={relatedPost.id} 
+                      href={`/tin-tuc/${relatedPost.slug}`}
+                      className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:-translate-y-2"
+                    >
+                      {/* Image Container with Overlay */}
+                      <div className="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                        {relatedPost.image ? (
+                          <>
+                            <Image
+                              src={relatedPost.image}
+                              alt={relatedPost.title}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                          </>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300">
+                            <svg className="w-20 h-20 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                            </svg>
+                          </div>
+                        )}
+                        
+                        {/* Date Badge */}
+                        <div className="absolute top-4 left-4 z-10">
+                          <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-white/50">
+                            <div className="flex items-center gap-2">
+                              <svg className="w-4 h-4 text-[#5f7ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                              <span className="text-xs font-bold text-gray-700">
+                                {relatedFormattedDate}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Category Badge */}
+                        <div className="absolute top-4 right-4 z-10">
+                          <div className="bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
+                            Tin tức
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-6">
+                        <h3 className="font-bold text-xl text-gray-900 line-clamp-2 mb-3 group-hover:text-[#5f7ab8] transition-colors leading-tight min-h-[3.5rem]">
+                          {relatedPost.title}
+                        </h3>
+                        
+                        <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed mb-4 min-h-[4rem]">
+                          {relatedPost.excerpt}
+                        </p>
+
+                        {/* Divider */}
+                        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4"></div>
+
+                        {/* Read More Button */}
+                        <div className="flex items-center justify-between">
+                          <span className="inline-flex items-center gap-2 text-[#5f7ab8] font-bold text-sm group-hover:gap-3 transition-all">
+                            Đọc thêm
+                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          </span>
+                          
+                          {/* Reading Time */}
+                          <div className="flex items-center gap-1.5 text-gray-400 text-xs">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>5 phút đọc</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Hover Effect Border */}
+                      <div className="absolute inset-0 border-2 border-[#5f7ab8] rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              {/* View All Button */}
+              <div className="text-center mt-12">
+                <Link 
+                  href="/tin-tuc" 
+                  className="inline-flex items-center gap-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-8 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+                >
+                  <span>Xem tất cả tin tức</span>
+                  <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+

@@ -1,103 +1,325 @@
-import Image from "next/image";
+import Link from 'next/link';
+import ProductCard from '@/components/ProductCard';
+import PostCard from '@/components/PostCard';
+import { products, posts } from '@/lib/data';
 
-export default function Home() {
+export default function HomePage() {
+  const featuredProducts = products.filter(p => p.featured).slice(0, 3);
+  const latestPosts = posts.slice(0, 3);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {/* Hero Section - Modern Design */}
+      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-[#5f7ab8] via-[#4a6199] to-[#3a4d7a] overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-96 h-96 bg-white/5 rounded-full blur-3xl -top-48 -left-48 animate-pulse"></div>
+          <div className="absolute w-96 h-96 bg-white/5 rounded-full blur-3xl -bottom-48 -right-48 animate-pulse delay-1000"></div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+
+        <div className="container mx-auto px-4 py-32 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Hero Content */}
+            <div className="text-white">
+              <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
+                <span className="text-sm font-medium">🏆 Nhà phân phối chính thức tại Việt Nam</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                Thiết Bị Công Nghiệp
+                <span className="block bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
+                  Chất Lượng Hàng Đầu
+                </span>
+              </h1>
+              <p className="text-xl mb-8 text-gray-100 leading-relaxed">
+                Đại diện phân phối độc quyền các thương hiệu WILL-BURT, HIAB, LOVOL, LIUGONG 
+                với cam kết chất lượng và dịch vụ tốt nhất
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/san-pham"
+                  className="bg-white text-[#5f7ab8] px-6 py-3 rounded-xl text-sm font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
+                >
+                  Khám phá sản phẩm
+                </Link>
+                <Link
+                  href="/lien-he"
+                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-white hover:text-[#5f7ab8] transition-all"
+                >
+                  Liên hệ tư vấn
+                </Link>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-white/20">
+                <div>
+                  <div className="text-3xl font-bold mb-1">22+</div>
+                  <div className="text-sm text-gray-200">Năm kinh nghiệm</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold mb-1">50000+</div>
+                  <div className="text-sm text-gray-200">Khách hàng</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold mb-1">100%</div>
+                  <div className="text-sm text-gray-200">Chính hãng</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Image/Visual */}
+            <div className="relative">
+              <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
+                <div className="grid grid-cols-2 gap-4 items-stretch">
+                  {/* WILL-BURT Card */}
+                  <Link href="/san-pham/cot-tu-nang-will-burt" className="group">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                      {/* Background glow effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🏗️</div>
+                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">WILL-BURT</div>
+                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Cột tự nâng</div>
+                      </div>
+                      
+                      {/* Arrow indicator */}
+                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* HIAB Card */}
+                  <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="group">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🚚</div>
+                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">HIAB</div>
+                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Cẩu & xe nâng</div>
+                      </div>
+                      
+                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* LOVOL Card */}
+                  <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="group">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🚜</div>
+                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">LOVOL</div>
+                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Máy móc công trình</div>
+                      </div>
+                      
+                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* LIUGONG Card */}
+                  <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="group">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">⚙️</div>
+                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">LIUGONG</div>
+                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Thiết bị xây dựng</div>
+                      </div>
+                      
+                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+              {/* Decorative circles */}
+              <div className="absolute -z-10 w-72 h-72 bg-white/10 rounded-full blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+              <div className="absolute -z-10 w-96 h-96 bg-[#5f7ab8]/10 rounded-full blur-3xl top-0 right-0"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </section>
+
+      {/* Trusted Partners */}
+      <section className="py-16 bg-white border-b">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">Đối Tác Toàn Cầu</h2>
+            <p className="text-gray-600">Phân phối độc quyền các thương hiệu hàng đầu thế giới</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-stretch">
+            {['WILL-BURT', 'HIAB', 'LOVOL', 'LIUGONG'].map((brand) => (
+              <div key={brand} className="group h-full">
+                <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 hover:shadow-xl transition-all border border-gray-100 group-hover:border-[#5f7ab8] h-full flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-center text-gray-700 group-hover:text-[#5f7ab8] transition-colors">
+                    {brand}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+            <div>
+              <h2 className="text-4xl font-bold mb-3">Sản Phẩm Nổi Bật</h2>
+              <p className="text-gray-600 text-lg">Khám phá các sản phẩm chất lượng cao được tin dùng</p>
+            </div>
+            <Link 
+              href="/san-pham" 
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-[#5f7ab8] hover:text-[#4a6199] font-semibold group"
+            >
+              Xem tất cả
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section className="py-20 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute w-96 h-96 bg-white/5 rounded-full blur-3xl top-0 right-0"></div>
+          <div className="absolute w-96 h-96 bg-white/5 rounded-full blur-3xl bottom-0 left-0"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-3">Tại Sao Chọn Chúng Tôi?</h2>
+            <p className="text-xl text-gray-100">Cam kết mang đến giá trị tốt nhất cho khách hàng</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all flex flex-col">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Sản Phẩm Chính Hãng</h3>
+              <p className="text-gray-100 leading-relaxed">
+                100% sản phẩm nhập khẩu trực tiếp từ nhà sản xuất, đầy đủ chứng nhận và giấy tờ xuất xứ
+              </p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all flex flex-col">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Bảo Hành Toàn Diện</h3>
+              <p className="text-gray-100 leading-relaxed">
+                Chế độ bảo hành chính hãng dài hạn, hỗ trợ kỹ thuật 24/7 với đội ngũ chuyên gia giàu kinh nghiệm
+              </p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all flex flex-col">
+              <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-3">Đội Ngũ Chuyên Nghiệp</h3>
+              <p className="text-gray-100 leading-relaxed">
+                Kỹ thuật viên được đào tạo bài bản tại nhà máy, tư vấn nhiệt tình và hỗ trợ tận nơi
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest News */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+            <div>
+              <h2 className="text-4xl font-bold mb-3">Tin Tức & Sự Kiện</h2>
+              <p className="text-gray-600 text-lg">Cập nhật thông tin mới nhất về sản phẩm và công nghệ</p>
+            </div>
+            <Link 
+              href="/tin-tuc" 
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 text-[#5f7ab8] hover:text-[#4a6199] font-semibold group"
+            >
+              Xem tất cả
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            {latestPosts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Sẵn Sàng Bắt Đầu Dự Án Của Bạn?
+            </h2>
+            <p className="text-xl text-gray-300 mb-10">
+              Liên hệ với chúng tôi ngay hôm nay để nhận tư vấn miễn phí từ đội ngũ chuyên gia
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="tel:+842838733686"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 py-3 rounded-xl text-sm font-bold hover:shadow-2xl hover:scale-105 transition-all"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                Gọi ngay: +84 2838 733 686
         </a>
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+                href="mailto:info@newatlantic.vn"
+                className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-xl text-sm font-bold hover:bg-gray-100 transition-all"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                Email: info@newatlantic.vn
+              </a>
+            </div>
+          </div>
     </div>
+      </section>
+    </>
   );
 }
