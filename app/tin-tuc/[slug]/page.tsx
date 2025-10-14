@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: PostPageProps) {
   
   if (!post) {
     return {
-      title: 'Không tìm thấy - NEW AIT',
+      title: 'Không tìm thấy - NEW ATLANTIC',
     };
   }
 
   return {
-    title: `${post.title} - NEW AIT`,
+    title: `${post.title} - NEW ATLANTIC`,
     description: post.excerpt,
   };
 }
@@ -52,20 +52,20 @@ export default async function PostPage({ params }: PostPageProps) {
     .slice(0, 3);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-32">
+    <div className="bg-gray-50 min-h-screen pt-20">
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-4">
+      <div className="bg-gray-50 border-b border-[#e5e7eb]">
+        <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#5f7ab8] transition">Trang chủ</Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <Link href="/tin-tuc" className="hover:text-[#5f7ab8] transition">Tin tức</Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-gray-900 font-medium line-clamp-1">{post.title}</span>
+            <Link href="/" className="hover:text-[#5f7ab8] transition">
+              Trang chủ
+            </Link>
+            <span>/</span>
+            <Link href="/tin-tuc" className="hover:text-[#5f7ab8] transition">
+              Tin tức
+            </Link>
+            <span>/</span>
+            <span className="text-[#5f7ab8] font-medium truncate">{post.title}</span>
           </nav>
         </div>
       </div>

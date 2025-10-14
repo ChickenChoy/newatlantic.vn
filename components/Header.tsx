@@ -8,11 +8,16 @@ import { useState, useEffect } from 'react';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   
-  // Check if current page is detail page (product or post detail)
-  const isDetailPage = (pathname?.includes('/san-pham/') && pathname?.split('/').length > 3) 
-    || (pathname?.includes('/tin-tuc/') && pathname?.split('/').length > 2);
+  // Check if current page is NOT home page (all pages except home should have white background)
+  const isNotHomePage = pathname !== '/';
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,16 +27,57 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.dropdown-container')) {
+        setOpenDropdown(null);
+      }
+      // Close mobile menu when clicking outside
+      if (mobileMenuOpen && !target.closest('.mobile-menu-container') && !target.closest('.mobile-menu-button')) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (openDropdown || mobileMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [openDropdown, mobileMenuOpen]);
+
+  // Close dropdown on ESC key
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenDropdown(null);
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, []);
+
+  const toggleDropdown = (dropdownName: string) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
+        scrolled || isNotHomePage
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}
     >
-      {/* Top bar - Only visible when not scrolled */}
-      {!scrolled && (
+      {/* Top bar - Only visible when not scrolled and on home page */}
+      {!scrolled && !isNotHomePage && (
         <div className="bg-[#5f7ab8] text-white py-2">
           <div className="container mx-auto px-4 flex justify-between items-center text-sm">
             <div className="flex items-center gap-6">
@@ -63,7 +109,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-12 h-12 group-hover:scale-105 transition-transform" suppressHydrationWarning>
               <Image
-                src={isDetailPage ? "/images/logo/logo-color.png" : (scrolled ? "/images/logo/logo-color.png" : "/images/logo/logo.png")}
+                src={isNotHomePage ? "/images/logo/logo-color.png" : (scrolled ? "/images/logo/logo-color.png" : "/images/logo/logo.png")}
                 alt="NEW ATLANTIC"
                 fill
                 className="object-contain"
@@ -72,7 +118,7 @@ export default function Header() {
             </div>
             <div suppressHydrationWarning>
               <div className={`text-xl font-bold transition-colors ${
-                isDetailPage 
+                isNotHomePage 
                   ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
                   : (scrolled 
                       ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
@@ -81,7 +127,7 @@ export default function Header() {
                 NEW ATLANTIC
               </div>
               <div className={`text-xs transition-colors ${
-                isDetailPage ? 'text-gray-500' : (scrolled ? 'text-gray-500' : 'text-gray-200')
+                isNotHomePage ? 'text-gray-500' : (scrolled ? 'text-gray-500' : 'text-gray-200')
               }`}>
                 Tân Đại Tây Dương
               </div>
@@ -93,7 +139,7 @@ export default function Header() {
             <Link 
               href="/" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isDetailPage
+                isNotHomePage
                   ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                   : (scrolled 
                       ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
@@ -105,10 +151,11 @@ export default function Header() {
             </Link>
 
             {/* Products Dropdown */}
-            <div className="relative group">
+            <div className="relative dropdown-container" suppressHydrationWarning>
               <button 
+                onClick={() => toggleDropdown('products')}
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 ${
-                  isDetailPage
+                  isNotHomePage
                     ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                     : (scrolled 
                         ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
@@ -117,35 +164,50 @@ export default function Header() {
                 suppressHydrationWarning
               >
                 Sản phẩm
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`w-4 h-4 transition-transform ${mounted && openDropdown === 'products' ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  suppressHydrationWarning
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <div className="absolute left-0 top-full mt-2 w-72 bg-white shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden border border-gray-100">
+              <div 
+                className={`absolute left-0 top-full mt-2 w-72 bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${
+                  mounted && openDropdown === 'products' ? 'opacity-100 visible' : 'opacity-0 invisible'
+                }`}
+                suppressHydrationWarning
+              >
                 <div className="p-2">
                   <Link 
-                    href="/san-pham/cot-tu-nang-will-burt" 
+                    href="/san-pham/cot-tu-nang-will-burt"
+                    onClick={() => setOpenDropdown(null)}
                     className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
                   >
                     <div className="font-semibold">Cột Tự Nâng WILL-BURT</div>
                     <div className="text-xs opacity-75">Cột nâng chuyên nghiệp</div>
                   </Link>
                   <Link 
-                    href="/san-pham/thiet-bi-nang-ha-hiab" 
+                    href="/san-pham/thiet-bi-nang-ha-hiab"
+                    onClick={() => setOpenDropdown(null)}
                     className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
                   >
                     <div className="font-semibold">Thiết Bị HIAB</div>
                     <div className="text-xs opacity-75">Cẩu & xe nâng</div>
                   </Link>
                   <Link 
-                    href="/san-pham/thiet-bi-cong-trinh-lovol" 
+                    href="/san-pham/thiet-bi-cong-trinh-lovol"
+                    onClick={() => setOpenDropdown(null)}
                     className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
                   >
                     <div className="font-semibold">Thiết Bị LOVOL</div>
                     <div className="text-xs opacity-75">Máy móc công trình</div>
                   </Link>
                   <Link 
-                    href="/san-pham/thiet-bi-cong-trinh-liugong" 
+                    href="/san-pham/thiet-bi-cong-trinh-liugong"
+                    onClick={() => setOpenDropdown(null)}
                     className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
                   >
                     <div className="font-semibold">Thiết Bị LIUGONG</div>
@@ -158,7 +220,7 @@ export default function Header() {
             <Link 
               href="/dich-vu" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isDetailPage
+                isNotHomePage
                   ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                   : (scrolled 
                       ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
@@ -171,7 +233,7 @@ export default function Header() {
             <Link 
               href="/gioi-thieu" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isDetailPage
+                isNotHomePage
                   ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                   : (scrolled 
                       ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
@@ -184,7 +246,7 @@ export default function Header() {
             <Link 
               href="/tin-tuc" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isDetailPage
+                isNotHomePage
                   ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                   : (scrolled 
                       ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
@@ -206,15 +268,21 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
-              isDetailPage 
+            className={`mobile-menu-button lg:hidden p-2 rounded-lg transition-colors ${
+              isNotHomePage 
                 ? 'text-gray-700 hover:bg-gray-100'
                 : (scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10')
             }`}
             suppressHydrationWarning
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileMenuOpen ? (
+            <svg 
+              className="w-6 h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              suppressHydrationWarning
+            >
+              {mounted && mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -224,36 +292,36 @@ export default function Header() {
         </div>
 
         {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-2 bg-white rounded-xl shadow-xl p-4 border border-gray-100">
-            <Link href="/" className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+        {mounted && mobileMenuOpen && (
+          <div className="mobile-menu-container lg:hidden mt-4 pb-4 space-y-2 bg-white rounded-xl shadow-xl p-4 border border-gray-100">
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Trang chủ
             </Link>
             <div className="border-t pt-2">
               <div className="text-xs font-semibold text-gray-400 px-4 mb-2">SẢN PHẨM</div>
-              <Link href="/san-pham/cot-tu-nang-will-burt" className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+              <Link href="/san-pham/cot-tu-nang-will-burt" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
                 Cột Tự Nâng WILL-BURT
               </Link>
-              <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+              <Link href="/san-pham/thiet-bi-nang-ha-hiab" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
                 Thiết Bị HIAB
               </Link>
-              <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+              <Link href="/san-pham/thiet-bi-cong-trinh-lovol" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
                 Thiết Bị LOVOL
               </Link>
-              <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+              <Link href="/san-pham/thiet-bi-cong-trinh-liugong" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
                 Thiết Bị LIUGONG
               </Link>
             </div>
-            <Link href="/dich-vu" className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+            <Link href="/dich-vu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Dịch vụ
             </Link>
-            <Link href="/gioi-thieu" className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+            <Link href="/gioi-thieu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Giới thiệu
             </Link>
-            <Link href="/tin-tuc" className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+            <Link href="/tin-tuc" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Tin tức
             </Link>
-            <Link href="/lien-he" className="block py-2 px-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold rounded-lg text-center mt-2">
+            <Link href="/lien-he" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold rounded-lg text-center mt-2">
               Liên hệ
             </Link>
           </div>

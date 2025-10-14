@@ -23,12 +23,12 @@ export async function generateMetadata({ params }: ProductPageProps) {
   
   if (!product) {
     return {
-      title: 'Không tìm thấy - NEW AIT',
+      title: 'Không tìm thấy - NEW ATLANTIC',
     };
   }
 
   return {
-    title: `${product.name} - NEW AIT`,
+    title: `${product.name} - NEW ATLANTIC`,
     description: product.description,
   };
 }
@@ -47,26 +47,24 @@ export default async function ProductPage({ params }: ProductPageProps) {
     .slice(0, 4);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-32">
+    <div className="bg-gray-50 min-h-screen pt-20">
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-4">
+      <div className="bg-gray-50 border-b border-[#e5e7eb]">
+        <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#5f7ab8] transition">Trang chủ</Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <Link href="/san-pham" className="hover:text-[#5f7ab8] transition">Sản phẩm</Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            <Link href="/" className="hover:text-[#5f7ab8] transition">
+              Trang chủ
+            </Link>
+            <span>/</span>
+            <Link href="/san-pham" className="hover:text-[#5f7ab8] transition">
+              Sản phẩm
+            </Link>
+            <span>/</span>
             <Link href={`/san-pham/${product.categorySlug}`} className="hover:text-[#5f7ab8] transition">
               {product.category}
             </Link>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <span>/</span>
+            <span className="text-[#5f7ab8] font-medium truncate">{product.name}</span>
           </nav>
         </div>
       </div>

@@ -17,74 +17,74 @@ export default function HomePage() {
           <div className="absolute w-96 h-96 bg-white/5 rounded-full blur-3xl -bottom-48 -right-48 animate-pulse delay-1000"></div>
         </div>
 
-        <div className="container mx-auto px-4 py-32 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container mx-auto px-4 py-24 md:py-32 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             {/* Hero Content */}
             <div className="text-white">
-              <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-white/20">
-                <span className="text-sm font-medium">🏆 Nhà phân phối chính thức tại Việt Nam</span>
+              <div className="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-4 md:mb-6 border border-white/20">
+                <span className="text-xs md:text-sm font-medium">🏆 Nhà phân phối chính thức tại Việt Nam</span>
               </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
                 Thiết Bị Công Nghiệp
                 <span className="block bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
                   Chất Lượng Hàng Đầu
                 </span>
               </h1>
-              <p className="text-xl mb-8 text-gray-100 leading-relaxed">
+              <p className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 text-gray-100 leading-relaxed">
                 Đại diện phân phối độc quyền các thương hiệu WILL-BURT, HIAB, LOVOL, LIUGONG 
                 với cam kết chất lượng và dịch vụ tốt nhất
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3 md:gap-4">
                 <Link
                   href="/san-pham"
-                  className="bg-white text-[#5f7ab8] px-6 py-3 rounded-xl text-sm font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
+                  className="bg-white text-[#5f7ab8] px-5 md:px-6 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
                 >
                   Khám phá sản phẩm
                 </Link>
                 <Link
                   href="/lien-he"
-                  className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-white hover:text-[#5f7ab8] transition-all"
+                  className="bg-transparent border-2 border-white text-white px-5 md:px-6 py-2.5 md:py-3 rounded-xl text-xs md:text-sm font-bold hover:bg-white hover:text-[#5f7ab8] transition-all"
                 >
                   Liên hệ tư vấn
                 </Link>
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 mt-12 pt-12 border-t border-white/20">
+              <div className="grid grid-cols-3 gap-3 md:gap-6 mt-6 md:mt-12 pt-6 md:pt-12 border-t border-white/20">
                 <div>
-                  <div className="text-3xl font-bold mb-1">22+</div>
-                  <div className="text-sm text-gray-200">Năm kinh nghiệm</div>
+                  <div className="text-2xl md:text-3xl font-bold mb-1">22+</div>
+                  <div className="text-xs md:text-sm text-gray-200">Năm kinh nghiệm</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold mb-1">50000+</div>
-                  <div className="text-sm text-gray-200">Khách hàng</div>
+                  <div className="text-2xl md:text-3xl font-bold mb-1">50000+</div>
+                  <div className="text-xs md:text-sm text-gray-200">Khách hàng</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold mb-1">100%</div>
-                  <div className="text-sm text-gray-200">Chính hãng</div>
+                  <div className="text-2xl md:text-3xl font-bold mb-1">100%</div>
+                  <div className="text-xs md:text-sm text-gray-200">Chính hãng</div>
                 </div>
               </div>
             </div>
 
             {/* Hero Image/Visual */}
-            <div className="relative">
-              <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
-                <div className="grid grid-cols-2 gap-4 items-stretch">
+            <div className="relative mt-8 lg:mt-0">
+              <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-3xl p-3 md:p-6 lg:p-8 border border-white/20 shadow-2xl">
+                <div className="grid grid-cols-2 gap-2 md:gap-3 lg:gap-4 items-stretch">
                   {/* WILL-BURT Card */}
                   <Link href="/san-pham/cot-tu-nang-will-burt" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       {/* Background glow effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="relative z-10">
-                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🏗️</div>
-                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">WILL-BURT</div>
-                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Cột tự nâng</div>
+                        <div className="text-2xl md:text-3xl lg:text-4xl mb-1.5 md:mb-2 lg:mb-3 group-hover:scale-110 transition-transform duration-300">🏗️</div>
+                        <div className="text-sm md:text-base lg:text-lg font-bold mb-0.5 md:mb-1 group-hover:text-white transition-colors">WILL-BURT</div>
+                        <div className="text-xs md:text-sm text-gray-200 group-hover:text-white transition-colors">Cột tự nâng</div>
                       </div>
                       
                       {/* Arrow indicator */}
-                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -93,17 +93,17 @@ export default function HomePage() {
 
                   {/* HIAB Card */}
                   <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="relative z-10">
-                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🚚</div>
-                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">HIAB</div>
-                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Cẩu & xe nâng</div>
+                        <div className="text-2xl md:text-3xl lg:text-4xl mb-1.5 md:mb-2 lg:mb-3 group-hover:scale-110 transition-transform duration-300">🚚</div>
+                        <div className="text-sm md:text-base lg:text-lg font-bold mb-0.5 md:mb-1 group-hover:text-white transition-colors">HIAB</div>
+                        <div className="text-xs md:text-sm text-gray-200 group-hover:text-white transition-colors">Cẩu & xe nâng</div>
                       </div>
                       
-                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -112,17 +112,17 @@ export default function HomePage() {
 
                   {/* LOVOL Card */}
                   <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="relative z-10">
-                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🚜</div>
-                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">LOVOL</div>
-                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Máy móc công trình</div>
+                        <div className="text-2xl md:text-3xl lg:text-4xl mb-1.5 md:mb-2 lg:mb-3 group-hover:scale-110 transition-transform duration-300">🚜</div>
+                        <div className="text-sm md:text-base lg:text-lg font-bold mb-0.5 md:mb-1 group-hover:text-white transition-colors">LOVOL</div>
+                        <div className="text-xs md:text-sm text-gray-200 group-hover:text-white transition-colors">Máy móc công trình</div>
                       </div>
                       
-                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -131,17 +131,17 @@ export default function HomePage() {
 
                   {/* LIUGONG Card */}
                   <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="group">
-                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
+                    <div className="relative bg-gradient-to-br from-white/20 to-white/5 rounded-xl md:rounded-2xl p-3 md:p-5 lg:p-6 backdrop-blur-sm border border-white/20 flex flex-col justify-center h-full min-h-[110px] md:min-h-[140px] overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-white/40 hover:from-white/30 hover:to-white/10">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="relative z-10">
-                        <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">⚙️</div>
-                        <div className="text-xl font-bold mb-1 group-hover:text-white transition-colors">LIUGONG</div>
-                        <div className="text-sm text-gray-200 group-hover:text-white transition-colors">Thiết bị xây dựng</div>
+                        <div className="text-2xl md:text-3xl lg:text-4xl mb-1.5 md:mb-2 lg:mb-3 group-hover:scale-110 transition-transform duration-300">⚙️</div>
+                        <div className="text-sm md:text-base lg:text-lg font-bold mb-0.5 md:mb-1 group-hover:text-white transition-colors">LIUGONG</div>
+                        <div className="text-xs md:text-sm text-gray-200 group-hover:text-white transition-colors">Thiết bị xây dựng</div>
                       </div>
                       
-                      <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </div>
@@ -165,17 +165,17 @@ export default function HomePage() {
       </section>
 
       {/* Trusted Partners */}
-      <section className="py-16 bg-white border-b">
+      <section className="py-12 md:py-16 bg-white border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold mb-2">Đối Tác Toàn Cầu</h2>
-            <p className="text-gray-600">Phân phối độc quyền các thương hiệu hàng đầu thế giới</p>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">Đối Tác Toàn Cầu</h2>
+            <p className="text-sm md:text-base text-gray-600">Phân phối độc quyền các thương hiệu hàng đầu thế giới</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-stretch">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 items-stretch">
             {['WILL-BURT', 'HIAB', 'LOVOL', 'LIUGONG'].map((brand) => (
               <div key={brand} className="group h-full">
-                <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 hover:shadow-xl transition-all border border-gray-100 group-hover:border-[#5f7ab8] h-full flex items-center justify-center">
-                  <h3 className="text-2xl font-bold text-center text-gray-700 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 md:p-8 hover:shadow-xl transition-all border border-gray-100 group-hover:border-[#5f7ab8] h-full flex items-center justify-center">
+                  <h3 className="text-lg md:text-xl font-bold text-center text-gray-700 group-hover:text-[#5f7ab8] transition-colors">
                     {brand}
                   </h3>
                 </div>
@@ -186,12 +186,12 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12">
             <div>
-              <h2 className="text-4xl font-bold mb-3">Sản Phẩm Nổi Bật</h2>
-              <p className="text-gray-600 text-lg">Khám phá các sản phẩm chất lượng cao được tin dùng</p>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-3">Sản Phẩm Nổi Bật</h2>
+              <p className="text-sm md:text-base lg:text-lg text-gray-600">Khám phá các sản phẩm chất lượng cao được tin dùng</p>
             </div>
             <Link 
               href="/san-pham" 

@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "NEW AIT - Tân Đại Tây Dương | Thiết bị công nghiệp chính hãng",
+  title: "NEW ATLANTIC - Tân Đại Tây Dương | Thiết bị công nghiệp chính hãng",
   description: "Nhà phân phối chính hãng WILL-BURT, HIAB, LOVOL, LIUGONG tại Việt Nam. Cung cấp cột tự nâng, thiết bị nâng hạ, máy móc công trình chất lượng cao.",
   keywords: "WILL-BURT, HIAB, LOVOL, LIUGONG, cột tự nâng, thiết bị nâng hạ, máy móc công trình",
 };

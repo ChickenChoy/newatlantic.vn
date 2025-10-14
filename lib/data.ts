@@ -139,9 +139,9 @@ export const posts: Post[] = [
   },
   {
     id: '3',
-    title: 'Công ty NEW AIT tham gia Triển lãm Thương mại cột nâng ở Texas',
+    title: 'Công ty NEW ATLANTIC tham gia Triển lãm Thương mại cột nâng ở Texas',
     slug: 'new-ait-trien-lam-texas',
-    excerpt: 'NEW AIT tham gia triển lãm cột nâng tại Texas, Mỹ',
+    excerpt: 'NEW ATLANTIC tham gia triển lãm cột nâng tại Texas, Mỹ',
     content: 'Nội dung bài viết...',
     image: '/images/place-holder/placeholder.jpg',
     date: '2024-05-24',
