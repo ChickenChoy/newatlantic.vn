@@ -97,42 +97,42 @@ export default function HomePage() {
               <ScrollAnimation direction="right">
                 <div className="relative">
                   {/* Main Image Container */}
-                  <div className="relative aspect-[4/3] bg-gradient-to-br from-[#5f7ab8]/10 to-[#4a6199]/10 rounded-3xl p-6 md:p-8">
-                    <div className="bg-white rounded-2xl shadow-2xl h-full overflow-hidden relative">
+                  <div className="relative aspect-[4/3] bg-gradient-to-br from-[#5f7ab8]/10 to-[#4a6199]/10 rounded-2xl md:rounded-3xl p-4 md:p-8">
+                    <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl h-full overflow-hidden relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/5 to-transparent"></div>
-                      <div className="relative z-10 p-6 md:p-8 h-full flex flex-col justify-center">
-                      <div className="space-y-6">
-                        <div className="flex items-start gap-4">
-                            <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="relative z-10 p-4 md:p-8 h-full flex flex-col justify-center">
+                      <div className="space-y-4 md:space-y-6">
+                        <div className="flex items-start gap-3 md:gap-4">
+                            <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                              <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                           </div>
-                          <div>
-                              <h4 className="font-bold text-lg text-gray-900 mb-2">Chất lượng đảm bảo</h4>
-                              <p className="text-gray-600">Sản phẩm chính hãng 100% từ nhà sản xuất</p>
+                          <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-sm md:text-lg text-gray-900 mb-1 md:mb-2">Chất lượng đảm bảo</h4>
+                              <p className="text-xs md:text-base text-gray-600 leading-relaxed">Sản phẩm chính hãng 100% từ nhà sản xuất</p>
                             </div>
                         </div>
-                        <div className="flex items-start gap-4">
-                            <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex items-start gap-3 md:gap-4">
+                            <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                              <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                           </div>
-                          <div>
-                              <h4 className="font-bold text-lg text-gray-900 mb-2">Giao hàng nhanh chóng</h4>
-                              <p className="text-gray-600">Vận chuyển toàn quốc trong 24-48h</p>
+                          <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-sm md:text-lg text-gray-900 mb-1 md:mb-2">Giao hàng nhanh chóng</h4>
+                              <p className="text-xs md:text-base text-gray-600 leading-relaxed">Vận chuyển toàn quốc trong 24-48h</p>
                             </div>
                         </div>
-                        <div className="flex items-start gap-4">
-                            <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex items-start gap-3 md:gap-4">
+                            <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                              <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                           </div>
-                          <div>
-                              <h4 className="font-bold text-lg text-gray-900 mb-2">Hỗ trợ chuyên nghiệp</h4>
-                              <p className="text-gray-600">Đội ngũ kỹ thuật 24/7 tận tâm</p>
+                          <div className="flex-1 min-w-0">
+                              <h4 className="font-bold text-sm md:text-lg text-gray-900 mb-1 md:mb-2">Hỗ trợ chuyên nghiệp</h4>
+                              <p className="text-xs md:text-base text-gray-600 leading-relaxed">Đội ngũ kỹ thuật 24/7 tận tâm</p>
                             </div>
                           </div>
                         </div>

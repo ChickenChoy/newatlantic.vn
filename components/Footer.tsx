@@ -159,11 +159,11 @@ export default function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400">
-              &copy; 2025 <span className="text-white font-semibold">NewAtlantic.vn</span> - Bản quyền thuộc về Công ty CP TM QT Tân Đại Tây Dương
+              &copy; 2025 <span className="text-white font-semibold">newatlantic.vn</span> - Bản quyền thuộc về Công ty CP TM QT Tân Đại Tây Dương
             </p>
             <div className="flex gap-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">Chính sách bảo mật</a>
-              <a href="#" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">Điều khoản dịch vụ</a>
+              <Link href="/chinh-sach-bao-mat" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">Chính sách bảo mật</Link>
+              <Link href="/dieu-khoan-dich-vu" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">Điều khoản dịch vụ</Link>
             </div>
           </div>
         </div>
