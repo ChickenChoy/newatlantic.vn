@@ -218,32 +218,6 @@ export default function Header() {
             </div>
 
             <Link 
-              href="/dich-vu" 
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isNotHomePage
-                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                  : (scrolled 
-                      ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
-                      : 'text-white hover:bg-white/10')
-              }`}
-              suppressHydrationWarning
-            >
-              Dịch vụ
-            </Link>
-            <Link 
-              href="/gioi-thieu" 
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isNotHomePage
-                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                  : (scrolled 
-                      ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
-                      : 'text-white hover:bg-white/10')
-              }`}
-              suppressHydrationWarning
-            >
-              Giới thiệu
-            </Link>
-            <Link 
               href="/tin-tuc" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
                 isNotHomePage
@@ -312,12 +286,6 @@ export default function Header() {
                 Thiết Bị LIUGONG
               </Link>
             </div>
-            <Link href="/dich-vu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
-              Dịch vụ
-            </Link>
-            <Link href="/gioi-thieu" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
-              Giới thiệu
-            </Link>
             <Link href="/tin-tuc" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Tin tức
             </Link>

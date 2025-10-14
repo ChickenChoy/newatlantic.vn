@@ -4,28 +4,6 @@ import Image from 'next/image';
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300">
-      {/* Newsletter Section */}
-      <div className="border-b border-gray-700">
-        <div className="container mx-auto px-4 py-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">Đăng ký nhận tin tức mới nhất</h3>
-            <p className="text-gray-400 mb-6">Cập nhật sản phẩm mới, ưu đãi đặc biệt và tin tức công nghiệp</p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Nhập email của bạn"
-                className="flex-1 px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#5f7ab8] text-white"
-              />
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
-              >
-                Đăng ký
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
 
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
@@ -110,15 +88,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/gioi-thieu" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
+                <Link href="/san-pham" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></span>
-                  Giới thiệu
-                </Link>
-              </li>
-              <li>
-                <Link href="/dich-vu" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></span>
-                  Dịch vụ
+                  Sản phẩm
                 </Link>
               </li>
               <li>
