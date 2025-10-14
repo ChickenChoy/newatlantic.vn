@@ -78,7 +78,7 @@ export default function Header() {
     >
       {/* Top bar - Only visible when not scrolled and on home page */}
       {!scrolled && !isNotHomePage && (
-        <div className="bg-[#5f7ab8] text-white py-2">
+        <div className="bg-[#5f7ab8] text-white py-2 hidden md:block">
           <div className="container mx-auto px-4 flex justify-between items-center text-sm">
             <div className="flex items-center gap-6">
               <a href="mailto:info@newatlantic.vn" className="hover:text-gray-200 transition flex items-center gap-2">
@@ -95,7 +95,7 @@ export default function Header() {
                 +84 2838 733 686
               </a>
             </div>
-            <div className="hidden md:block text-xs">
+            <div className="text-xs">
               Nhà phân phối chính thức WILL-BURT | HIAB | LOVOL | LIUGONG
             </div>
           </div>
@@ -103,13 +103,13 @@ export default function Header() {
       )}
 
       {/* Main navigation */}
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-4 py-3 md:py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12 group-hover:scale-105 transition-transform" suppressHydrationWarning>
+            <div className="relative w-10 h-10 md:w-12 md:h-12 group-hover:scale-105 transition-transform" suppressHydrationWarning>
               <Image
-                src={isNotHomePage ? "/images/logo/logo-color.png" : (scrolled ? "/images/logo/logo-color.png" : "/images/logo/logo.png")}
+                src="/images/logo/logo-color.png"
                 alt="NEW ATLANTIC"
                 fill
                 className="object-contain"

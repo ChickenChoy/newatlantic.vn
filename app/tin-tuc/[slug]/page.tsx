@@ -202,36 +202,6 @@ export default async function PostPage({ params }: PostPageProps) {
 
             {/* Sidebar */}
             <aside className="space-y-6">
-              {/* Newsletter Subscription - Unique to News */}
-              <div className="bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white p-6 rounded-2xl shadow-xl sticky top-8">
-                <div className="text-center mb-5">
-                  <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-3">
-                    <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Đăng ký nhận tin</h3>
-                  <p className="text-white/90 text-sm">
-                    Nhận tin tức mới nhất
-                  </p>
-                </div>
-                <form className="space-y-3">
-                  <input
-                    type="email"
-                    placeholder="Email của bạn"
-                    className="w-full px-4 py-2.5 rounded-lg text-white-900 text-sm placeholder-white-500 focus:outline-none focus:ring-2 focus:ring-white/50"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full bg-white text-[#5f7ab8] px-6 py-2.5 rounded-lg font-bold hover:bg-gray-100 transition-all text-sm"
-                  >
-                    Đăng ký ngay
-                  </button>
-                </form>
-                <p className="text-xs text-white/70 mt-3 text-center">
-                  Chúng tôi tôn trọng quyền riêng tư của bạn
-                </p>
-              </div>
 
               {/* Contact Card - Unique to News */}
               <div className="bg-white p-5 rounded-2xl shadow-xl border border-gray-100">
