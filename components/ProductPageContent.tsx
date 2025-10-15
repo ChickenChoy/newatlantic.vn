@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -11,6 +11,7 @@ interface ProductPageContentProps {
 
 export default function ProductPageContent({ product, relatedProducts }: ProductPageContentProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
   
   const images = product.images || [product.image];
   
@@ -25,6 +26,69 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   const goToImage = (index: number) => {
     setCurrentImageIndex(index);
   };
+
+  // Navigation functions for related products slider
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -272, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 272, behavior: 'smooth' });
+    }
+  };
+
+  // Auto-scroll for related products slider
+  useEffect(() => {
+    const slider = sliderRef.current;
+    if (!slider || relatedProducts.length <= 3) return;
+
+    let scrollInterval: NodeJS.Timeout;
+    let isUserInteracting = false;
+
+    const startAutoScroll = () => {
+      scrollInterval = setInterval(() => {
+        if (!isUserInteracting && slider) {
+          const maxScroll = slider.scrollWidth - slider.clientWidth;
+          const currentScroll = slider.scrollLeft;
+          
+          if (currentScroll >= maxScroll - 10) {
+            // Reset to start
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            // Scroll by card width (w-64 = 256px + gap 16px)
+            slider.scrollBy({ left: 272, behavior: 'smooth' });
+          }
+        }
+      }, 3000); // Auto-scroll every 3 seconds
+    };
+
+    const handleUserInteraction = () => {
+      isUserInteracting = true;
+      clearInterval(scrollInterval);
+      
+      // Resume auto-scroll after 5 seconds of no interaction
+      setTimeout(() => {
+        isUserInteracting = false;
+        startAutoScroll();
+      }, 5000);
+    };
+
+    slider.addEventListener('mouseenter', handleUserInteraction);
+    slider.addEventListener('touchstart', handleUserInteraction);
+
+    startAutoScroll();
+
+    return () => {
+      clearInterval(scrollInterval);
+      if (slider) {
+        slider.removeEventListener('mouseenter', handleUserInteraction);
+        slider.removeEventListener('touchstart', handleUserInteraction);
+      }
+    };
+  }, [relatedProducts.length]);
 
   return (
     <div className="bg-gray-50 min-h-screen pt-20">
@@ -298,10 +362,34 @@ export default function ProductPageContent({ product, relatedProducts }: Product
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Sản phẩm liên quan</h2>
             
-            {/* Slider Container */}
-            <div className="relative">
-              {/* Slider Track */}
-              <div className="overflow-x-auto scrollbar-hide">
+              {/* Slider Container */}
+              <div className="relative group">
+                {/* Navigation Arrows */}
+                {relatedProducts.length > 3 && (
+                  <>
+                    <button
+                      onClick={scrollLeft}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
+                      aria-label="Scroll left"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={scrollRight}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
+                      aria-label="Scroll right"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </>
+                )}
+
+                {/* Slider Track */}
+                <div ref={sliderRef} className="overflow-x-auto scrollbar-hide">
                 <div className="flex gap-4 pb-4">
                   {relatedProducts.map((relatedProduct) => (
                     <Link 
