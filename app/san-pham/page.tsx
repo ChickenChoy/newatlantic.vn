@@ -83,7 +83,7 @@ export default function ProductsPage() {
           <p className="text-gray-600 text-lg">Tìm thấy <span className="font-bold text-[#5f7ab8] text-xl">{products.length}</span> sản phẩm</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
