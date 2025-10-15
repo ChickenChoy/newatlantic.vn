@@ -188,12 +188,8 @@ export default function HomePage() {
             {/* WILL-BURT Card */}
             <ScrollAnimation direction="left" delay={0}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-48 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
-                  <div className="relative z-10 text-white text-center p-6">
-                    <div className="text-3xl lg:text-4xl font-bold mb-2 group-hover:scale-105 transition-transform duration-300">WILL-BURT</div>
-                    <div className="text-xs opacity-90 bg-white/20 px-3 py-1 rounded-full inline-block">USA - 1918</div>
-                  </div>
+                <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+                  <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-lg lg:text-xl text-gray-900 mb-3">CỘT TỰ NÂNG WILL-BURT</h3>
@@ -213,12 +209,8 @@ export default function HomePage() {
             {/* HIAB Card */}
             <ScrollAnimation direction="left" delay={100}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-48 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
-                  <div className="relative z-10 text-white text-center p-6">
-                    <div className="text-3xl lg:text-4xl font-bold mb-2 group-hover:scale-105 transition-transform duration-300">HIAB</div>
-                    <div className="text-xs opacity-90 bg-white/20 px-3 py-1 rounded-full inline-block">SWEDEN - 1944</div>
-                  </div>
+                <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+                  <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-lg lg:text-xl text-gray-900 mb-3">THIẾT BỊ NÂNG HIAB</h3>
@@ -238,12 +230,8 @@ export default function HomePage() {
             {/* LOVOL Card */}
             <ScrollAnimation direction="right" delay={200}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-48 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
-                  <div className="relative z-10 text-white text-center p-6">
-                    <div className="text-3xl lg:text-4xl font-bold mb-2 group-hover:scale-105 transition-transform duration-300">LOVOL</div>
-                    <div className="text-xs opacity-90 bg-white/20 px-3 py-1 rounded-full inline-block">CHINA - 1998</div>
-                  </div>
+                <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+                  <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-lg lg:text-xl text-gray-900 mb-3">THIẾT BỊ LOVOL</h3>
@@ -263,12 +251,8 @@ export default function HomePage() {
             {/* LIUGONG Card */}
             <ScrollAnimation direction="right" delay={300}>
               <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-48 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
-                  <div className="relative z-10 text-white text-center p-6">
-                    <div className="text-3xl lg:text-4xl font-bold mb-2 group-hover:scale-105 transition-transform duration-300">LIUGONG</div>
-                    <div className="text-xs opacity-90 bg-white/20 px-3 py-1 rounded-full inline-block">CHINA - 1958</div>
-                  </div>
+                <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+                  <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-lg lg:text-xl text-gray-900 mb-3">THIẾT BỊ LIUGONG</h3>
