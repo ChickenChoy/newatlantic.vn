@@ -71,9 +71,16 @@ export default function ProductsPage() {
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-10">
-          <h2 className="text-3xl font-bold mb-2">Tất cả sản phẩm</h2>
-          <p className="text-gray-600 text-lg">Tìm thấy <span className="font-semibold text-[#5f7ab8]">{products.length}</span> sản phẩm</p>
+        <div className="mb-12 text-center">
+          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
+            Tất cả sản phẩm
+          </h2>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-16 h-1 bg-gradient-to-r from-transparent to-[#5f7ab8]"></div>
+            <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>
+            <div className="w-16 h-1 bg-gradient-to-l from-transparent to-[#5f7ab8]"></div>
+          </div>
+          <p className="text-gray-600 text-lg">Tìm thấy <span className="font-bold text-[#5f7ab8] text-xl">{products.length}</span> sản phẩm</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 items-stretch">

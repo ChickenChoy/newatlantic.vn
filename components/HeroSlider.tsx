@@ -46,7 +46,7 @@ export function HeroSlider() {
   }
 
   return (
-    <section className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden mt-[140px] md:mt-[150px]">
+    <section className="relative h-[450px] md:h-[550px] lg:h-[700px] overflow-hidden mt-[80px] md:mt-[90px]">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -54,24 +54,24 @@ export function HeroSlider() {
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
         >
-          <img src={slide.image || "/images/place-holder/placeholder.jpg"} alt={slide.title} className="w-full h-full object-contain object-center scale-90" />
+          <img src={slide.image || "/images/place-holder/placeholder.jpg"} alt={slide.title} className="w-full h-full object-contain object-center md:scale-90" />
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="container mx-auto px-4">
-              <div className="inline-block bg-gradient-to-r from-black/70 via-black/50 to-black/20 backdrop-blur-md rounded-3xl p-10 md:p-12 shadow-2xl max-w-3xl">
-                <div className="inline-block px-4 py-2 bg-primary/90 text-white rounded-full text-sm font-semibold mb-6">
+              <div className="bg-gradient-to-r from-black/70 via-black/50 to-black/20 backdrop-blur-md rounded-2xl md:rounded-3xl p-5 md:p-8 lg:p-12 shadow-2xl max-w-3xl">
+                <div className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/90 text-white rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4">
                   SẢN PHẨM NỔI BẬT
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance">
+                <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 md:mb-4 lg:mb-6 leading-tight text-balance">
                   {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-200 mb-4 text-balance">{slide.subtitle}</p>
-                <p className="text-lg text-gray-300 mb-10">{slide.description}</p>
+                <p className="text-base md:text-xl lg:text-2xl text-gray-200 mb-2 md:mb-3 lg:mb-4 text-balance">{slide.subtitle}</p>
+                <p className="text-sm md:text-base lg:text-lg text-gray-300 mb-4 md:mb-6 lg:mb-10 line-clamp-2 md:line-clamp-none">{slide.description}</p>
                 <Link
                   href={slide.link}
-                  className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-white text-primary px-5 py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
                 >
                   Tìm hiểu thêm
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
@@ -82,15 +82,15 @@ export function HeroSlider() {
       ))}
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2 md:gap-3 bg-black/30 backdrop-blur-sm px-3 md:px-4 py-1.5 md:py-2 rounded-full">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
             className={`rounded-full transition-all duration-300 ${
               index === currentSlide 
-                ? "bg-white w-8 h-3 shadow-lg" 
-                : "bg-white/60 w-3 h-3 hover:bg-white/90 hover:scale-110"
+                ? "bg-white w-6 md:w-8 h-2.5 md:h-3 shadow-lg" 
+                : "bg-white/60 w-2.5 md:w-3 h-2.5 md:h-3 hover:bg-white/90 hover:scale-110"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

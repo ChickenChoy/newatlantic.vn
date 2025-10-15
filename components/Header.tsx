@@ -78,25 +78,51 @@ export default function Header() {
     >
       {/* Top bar - Only visible when not scrolled and on home page */}
       {!scrolled && !isNotHomePage && (
-        <div className="bg-[#5f7ab8]/95 text-white py-2 hidden md:block">
-          <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-            <div className="flex items-center gap-6">
-              <a href="mailto:info@newatlantic.vn" className="hover:text-gray-200 transition flex items-center gap-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                info@newatlantic.vn
-              </a>
-              <a href="tel:+842838733686" className="hover:text-gray-200 transition flex items-center gap-2">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                </svg>
-                +84 2838 733 686
-              </a>
-            </div>
-            <div className="text-xs">
-              Nhà phân phối chính thức WILL-BURT | HIAB | LOVOL | LIUGONG
+        <div className="bg-gradient-to-r from-sky-50 via-blue-50 to-sky-50 text-gray-800 py-3.5 hidden md:block border-b border-blue-100 shadow-sm">
+          <div className="container mx-auto px-6">
+            <div className="flex justify-between items-center">
+              {/* Left: Contact Info */}
+              <div className="flex items-center gap-8">
+                <a 
+                  href="mailto:info@newatlantic.vn" 
+                  className="group flex items-center gap-2.5 hover:text-blue-600 transition-all duration-300"
+                >
+                  <div className="w-9 h-9 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-all duration-300 group-hover:scale-110 shadow-sm">
+                    <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">info@newatlantic.vn</span>
+                </a>
+                
+                <div className="h-6 w-px bg-blue-200"></div>
+                
+                <a 
+                  href="tel:+842838733686" 
+                  className="group flex items-center gap-2.5 hover:text-emerald-600 transition-all duration-300"
+                >
+                  <div className="w-9 h-9 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-all duration-300 group-hover:scale-110 shadow-sm">
+                    <svg className="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">+84 2838 733 686</span>
+                </a>
+              </div>
+
+              {/* Right: Brand Partners */}
+              <div className="flex items-center gap-3 bg-gradient-to-r from-amber-100 to-orange-100 px-5 py-2 rounded-full shadow-sm border border-amber-200">
+                <span className="text-xs font-semibold tracking-wider text-gray-800">
+                  <span className="text-amber-700 font-bold">WILL-BURT</span>
+                  <span className="mx-1.5 text-gray-400">|</span>
+                  <span className="text-amber-700 font-bold">HIAB</span>
+                  <span className="mx-1.5 text-gray-400">|</span>
+                  <span className="text-amber-700 font-bold">LOVOL</span>
+                  <span className="mx-1.5 text-gray-400">|</span>
+                  <span className="text-amber-700 font-bold">LIUGONG</span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
