@@ -24,8 +24,8 @@ export default function ScrollAnimation({
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
-            // Optionally unobserve after animation
-            observer.unobserve(entry.target);
+          } else {
+            setIsVisible(false);
           }
         });
       },
