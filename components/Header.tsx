@@ -73,12 +73,12 @@ export default function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled || isNotHomePage
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-          : 'bg-transparent'
+          : 'bg-white/90 backdrop-blur-md shadow-md'
       }`}
     >
       {/* Top bar - Only visible when not scrolled and on home page */}
       {!scrolled && !isNotHomePage && (
-        <div className="bg-[#5f7ab8] text-white py-2 hidden md:block">
+        <div className="bg-[#5f7ab8]/95 text-white py-2 hidden md:block">
           <div className="container mx-auto px-4 flex justify-between items-center text-sm">
             <div className="flex items-center gap-6">
               <a href="mailto:info@newatlantic.vn" className="hover:text-gray-200 transition flex items-center gap-2">
@@ -117,18 +117,10 @@ export default function Header() {
               />
             </div>
             <div suppressHydrationWarning>
-              <div className={`text-xl font-bold transition-colors ${
-                isNotHomePage 
-                  ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
-                  : (scrolled 
-                      ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
-                      : 'text-white')
-              }`}>
+              <div className="text-xl font-bold bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
                 NEW ATLANTIC
               </div>
-              <div className={`text-xs transition-colors ${
-                isNotHomePage ? 'text-gray-500' : (scrolled ? 'text-gray-500' : 'text-gray-200')
-              }`}>
+              <div className="text-xs text-gray-600">
                 Tân Đại Tây Dương
               </div>
             </div>
@@ -138,13 +130,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-1" suppressHydrationWarning>
             <Link 
               href="/" 
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isNotHomePage
-                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                  : (scrolled 
-                      ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
-                      : 'text-white hover:bg-white/10')
-              }`}
+              className="px-4 py-2 rounded-lg font-medium transition-all text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50"
               suppressHydrationWarning
             >
               Trang chủ
@@ -154,13 +140,7 @@ export default function Header() {
             <div className="relative dropdown-container" suppressHydrationWarning>
               <button 
                 onClick={() => toggleDropdown('products')}
-                className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 ${
-                  isNotHomePage
-                    ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                    : (scrolled 
-                        ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
-                        : 'text-white hover:bg-white/10')
-                }`}
+                className="px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50"
                 suppressHydrationWarning
               >
                 Sản phẩm
@@ -219,13 +199,7 @@ export default function Header() {
 
             <Link 
               href="/tin-tuc" 
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                isNotHomePage
-                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                  : (scrolled 
-                      ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50' 
-                      : 'text-white hover:bg-white/10')
-              }`}
+              className="px-4 py-2 rounded-lg font-medium transition-all text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50"
               suppressHydrationWarning
             >
               Tin tức
@@ -242,11 +216,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`mobile-menu-button lg:hidden p-2 rounded-lg transition-colors ${
-              isNotHomePage 
-                ? 'text-gray-700 hover:bg-gray-100'
-                : (scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10')
-            }`}
+            className="mobile-menu-button lg:hidden p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
             suppressHydrationWarning
           >
             <svg 

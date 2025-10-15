@@ -46,7 +46,7 @@ export function HeroSlider() {
   }
 
   return (
-    <section className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
+    <section className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden mt-[140px] md:mt-[150px]">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -54,19 +54,18 @@ export function HeroSlider() {
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-10" />
           <img src={slide.image || "/images/place-holder/placeholder.jpg"} alt={slide.title} className="w-full h-full object-contain object-center scale-90" />
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="container mx-auto px-4">
-              <div className="max-w-3xl">
-                <div className="inline-block px-4 py-2 bg-primary/90 text-white rounded-full text-sm font-semibold mb-4">
+              <div className="inline-block bg-gradient-to-r from-black/70 via-black/50 to-black/20 backdrop-blur-md rounded-3xl p-10 md:p-12 shadow-2xl max-w-3xl">
+                <div className="inline-block px-4 py-2 bg-primary/90 text-white rounded-full text-sm font-semibold mb-6">
                   SẢN PHẨM NỔI BẬT
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight text-balance">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight text-balance">
                   {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-200 mb-3 text-balance">{slide.subtitle}</p>
-                <p className="text-lg text-gray-300 mb-8">{slide.description}</p>
+                <p className="text-xl md:text-2xl text-gray-200 mb-4 text-balance">{slide.subtitle}</p>
+                <p className="text-lg text-gray-300 mb-10">{slide.description}</p>
                 <Link
                   href={slide.link}
                   className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105"
@@ -83,13 +82,15 @@ export function HeroSlider() {
       ))}
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-3 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-full">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide ? "bg-white w-8" : "bg-white/50 hover:bg-white/75"
+            className={`rounded-full transition-all duration-300 ${
+              index === currentSlide 
+                ? "bg-white w-8 h-3 shadow-lg" 
+                : "bg-white/60 w-3 h-3 hover:bg-white/90 hover:scale-110"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
