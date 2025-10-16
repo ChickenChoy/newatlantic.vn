@@ -8,6 +8,16 @@
   --primary-light: #7a92c9;
   --secondary: #f8f9fa;
   --accent: #ff6b6b;
+  /* Additional colors for diversity */
+  --success: #10b981;
+  --success-dark: #059669;
+  --warning: #f59e0b;
+  --warning-dark: #d97706;
+  --info: #3b82f6;
+  --info-dark: #1d4ed8;
+  --teal: #14b8a6;
+  --orange: #f97316;
+  --purple: #a855f7;
 }
 
 @theme inline {

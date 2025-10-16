@@ -1,11 +1,54 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import ProductCard from '@/components/ProductCard';
+import Pagination from '@/components/Pagination';
 import { products, categories } from '@/lib/data';
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Sản phẩm - NEW ATLANTIC',
-  description: 'Danh sách sản phẩm thiết bị công nghiệp chính hãng từ WILL-BURT, HIAB, LOVOL, LIUGONG',
-};
+const ITEMS_PER_PAGE = 9;
+
+function ProductsPageContent() {
+  const searchParams = useSearchParams();
+  const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+
+  // Calculate pagination
+  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+  const validPage = Math.min(Math.max(1, page), totalPages || 1);
+  const validStartIdx = (validPage - 1) * ITEMS_PER_PAGE;
+  const validEndIdx = validStartIdx + ITEMS_PER_PAGE;
+  const validPaginatedProducts = products.slice(validStartIdx, validEndIdx);
+
+  return (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        {validPaginatedProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={validPage}
+        totalPages={totalPages}
+        totalItems={products.length}
+        itemsPerPage={ITEMS_PER_PAGE}
+        baseUrl="/san-pham"
+      />
+    </>
+  );
+}
+
+function ProductsPageFallback() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+      {[...Array(9)].map((_, i) => (
+        <div key={i} className="bg-gray-200 rounded-2xl h-96 animate-pulse"></div>
+      ))}
+    </div>
+  );
+}
 
 export default function ProductsPage() {
   return (
@@ -72,7 +115,7 @@ export default function ProductsPage() {
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
             Tất cả sản phẩm
           </h2>
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -83,11 +126,18 @@ export default function ProductsPage() {
           <p className="text-gray-600 text-lg">Tìm thấy <span className="font-bold text-[#5f7ab8] text-xl">{products.length}</span> sản phẩm</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {products.length > 0 ? (
+          <Suspense fallback={<ProductsPageFallback />}>
+            <ProductsPageContent />
+          </Suspense>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
+            <svg className="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+            </svg>
+            <p className="text-gray-500 text-xl font-medium">Chưa có sản phẩm</p>
+          </div>
+        )}
       </div>
     </div>
   );

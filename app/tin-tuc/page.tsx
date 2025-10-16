@@ -26,7 +26,7 @@ export default function NewsPage() {
       {/* Posts Grid */}
       <div className="container mx-auto px-4 py-16">
         <div className="mb-12 text-center">
-          <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
             Tin Tức & Sự Kiện
           </h2>
           <div className="flex items-center justify-center gap-3 mb-4">

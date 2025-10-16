@@ -15,6 +15,51 @@ export default function HomePage() {
       {/* Hero Slider */}
       <HeroSlider />
 
+      {/* Company Slogan Section */}
+      <section className="py-12 md:py-16 bg-gradient-to-r from-[#5f7ab8] via-[#4a6199] to-[#5f7ab8] relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='%23ffffff' fill-opacity='0.3' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ScrollAnimation direction="up">
+            <div className="text-center max-w-4xl mx-auto">
+              {/* Decorative Line */}
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="w-16 h-0.5 bg-white/40"></div>
+                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
+                <div className="w-16 h-0.5 bg-white/40"></div>
+              </div>
+              
+              {/* Slogan */}
+              <div className="space-y-3">
+                <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-relaxed tracking-wide">
+                  <span className="inline-block">PHÁT TRIỂN phồn vinh xây thịnh vượng</span>
+                </p>
+                <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-relaxed tracking-wide">
+                  <span className="inline-block">TỰ HÀO bốn chữ tân đại tây dương</span>
+                </p>
+              </div>
+              
+              {/* Decorative Line */}
+              <div className="flex items-center justify-center gap-3 mt-6">
+                <div className="w-16 h-0.5 bg-white/40"></div>
+                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
+                <div className="w-16 h-0.5 bg-white/40"></div>
+              </div>
+            </div>
+          </ScrollAnimation>
+        </div>
+      </section>
+
       {/* Company Overview - About Section */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50/50 relative overflow-hidden">
         {/* Background Elements - Simplified */}
@@ -149,6 +194,132 @@ export default function HomePage() {
                 </div>
               </ScrollAnimation>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products & Services Detail Section */}
+      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            {/* Section Header */}
+            <ScrollAnimation direction="up">
+              <div className="text-center mb-12 md:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                  </svg>
+                  Sản phẩm & Dịch vụ
+                </div>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                  Nhà phân phối hàng đầu
+                  <span className="block text-[#5f7ab8]">các thương hiệu nổi tiếng</span>
+                </h2>
+                <p className="text-gray-600 text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+                  <strong className="text-gray-900">Tân Đại Tây Dương</strong> là nhà phân phối hàng đầu tại Việt Nam cho các thương hiệu nổi tiếng thế giới như <strong className="text-[#5f7ab8]">WILL-BURT, HIAB, LOVOL, LIUGONG</strong>. Chúng tôi cung cấp sản phẩm và dịch vụ chính hãng.
+                </p>
+              </div>
+            </ScrollAnimation>
+
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              {/* Service 1 - Cẩu tự hành */}
+              <ScrollAnimation direction="left" delay={0}>
+                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Cẩu tự hành</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Cẩu tự hành HIAB với nhiều tải trọng và kích thước khác nhau, phù hợp với mọi nhu cầu của khách hàng.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollAnimation>
+
+              {/* Service 2 - Thiết bị cơ giới */}
+              <ScrollAnimation direction="right" delay={100}>
+                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#10b981] to-[#059669] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Thiết bị cơ giới</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        LOVOL, LIUGONG với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollAnimation>
+
+              {/* Service 3 - Phụ tùng */}
+              <ScrollAnimation direction="left" delay={200}>
+                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Phụ tùng thay thế</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Cung cấp đầy đủ phụ tùng thay thế chính hãng, đảm bảo chất lượng và độ bền cao.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollAnimation>
+
+              {/* Service 4 - Sửa chữa bảo trì */}
+              <ScrollAnimation direction="right" delay={300}>
+                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">Sửa chữa & Bảo trì</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        Đội ngũ kỹ thuật viên chuyên nghiệp, giàu kinh nghiệm, sẵn sàng hỗ trợ khách hàng 24/7.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </ScrollAnimation>
+            </div>
+
+            {/* Commitment Box */}
+            <ScrollAnimation direction="up" delay={400}>
+              <div className="mt-12 bg-gradient-to-r from-[#5f7ab8]/5 via-[#5f7ab8]/10 to-[#5f7ab8]/5 rounded-2xl p-6 lg:p-8 border-l-4 border-[#5f7ab8]">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-[#5f7ab8] rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Cam kết của chúng tôi</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      <strong className="text-[#5f7ab8]">Tân Đại Tây Dương</strong> cam kết mang đến cho khách hàng những sản phẩm và dịch vụ <strong>chất lượng cao nhất</strong>, với <strong>giá cả cạnh tranh</strong> và <strong>dịch vụ hậu mãi chu đáo</strong>. Chúng tôi luôn nỗ lực để trở thành đối tác tin cậy của khách hàng trong mọi lĩnh vực.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ScrollAnimation>
           </div>
         </div>
       </section>
@@ -454,26 +625,26 @@ export default function HomePage() {
 
       {/* Statistics Section */}
       <section className="py-20 md:py-28 bg-gradient-to-br from-[#5f7ab8] via-[#4a6199] to-[#3a4d7a] text-white relative overflow-hidden">
-        {/* Enhanced Background Elements */}
+        {/* Modern Geometric Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/5"></div>
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10"></div>
           
-          {/* Animated Grid Pattern */}
-          <div className="absolute inset-0 opacity-[0.08]">
-            <div className="absolute inset-0 animate-pulse" style={{
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-              backgroundSize: '60px 60px'
-            }}></div>
-          </div>
+          {/* Hexagon Pattern - Modern & Clean */}
+          <div className="absolute inset-0 opacity-[0.15]" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}></div>
           
-          {/* Floating Geometric Shapes */}
-          <div className="absolute top-20 left-10 w-20 h-20 bg-white/5 rounded-full blur-xl animate-bounce" style={{animationDelay: '0s', animationDuration: '6s'}}></div>
-          <div className="absolute top-40 right-20 w-16 h-16 bg-white/5 rounded-full blur-xl animate-bounce" style={{animationDelay: '2s', animationDuration: '8s'}}></div>
-          <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white/5 rounded-full blur-xl animate-bounce" style={{animationDelay: '4s', animationDuration: '7s'}}></div>
+          {/* Topography Pattern Layer */}
+          <div className="absolute inset-0 opacity-[0.08]" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+            backgroundSize: '100px 100px'
+          }}></div>
           
-          {/* Gradient Orbs */}
-          <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-r from-white/10 to-transparent rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute bottom-1/4 left-1/3 w-24 h-24 bg-gradient-to-l from-white/10 to-transparent rounded-full blur-2xl animate-pulse" style={{animationDelay: '3s'}}></div>
+          {/* Subtle animated circles */}
+          <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDuration: '8s'}}></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s', animationDelay: '2s'}}></div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
