@@ -57,15 +57,15 @@ export function HeroSlider() {
           <img src={slide.image || "/images/place-holder/placeholder.jpg"} alt={slide.title} className="w-full h-full object-contain object-center md:scale-90" />
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="container mx-auto px-4">
-              <div className="bg-gradient-to-r from-black/70 via-black/50 to-black/20 backdrop-blur-md rounded-2xl md:rounded-3xl p-5 md:p-8 lg:p-12 shadow-2xl max-w-3xl">
+              <div className="bg-gradient-to-r from-[#63c9fe]/70 via-[#63c9fe]/50 to-[#63c9fe]/20 backdrop-blur-md rounded-2xl md:rounded-3xl p-5 md:p-8 lg:p-12 shadow-2xl max-w-3xl">
                 <div className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-primary/90 text-white rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4">
                   SẢN PHẨM NỔI BẬT
                 </div>
-                <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 md:mb-4 lg:mb-6 leading-tight text-balance">
+                <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 md:mb-4 lg:mb-6 leading-tight text-balance">
                   {slide.title}
                 </h1>
-                <p className="text-base md:text-xl lg:text-2xl text-gray-200 mb-2 md:mb-3 lg:mb-4 text-balance">{slide.subtitle}</p>
-                <p className="text-sm md:text-base lg:text-lg text-gray-300 mb-4 md:mb-6 lg:mb-10 line-clamp-2 md:line-clamp-none">{slide.description}</p>
+                <p className="text-base md:text-xl lg:text-2xl text-gray-800 mb-2 md:mb-3 lg:mb-4 text-balance">{slide.subtitle}</p>
+                <p className="text-sm md:text-base lg:text-lg text-gray-700 mb-4 md:mb-6 lg:mb-10 line-clamp-2 md:line-clamp-none">{slide.description}</p>
                 <Link
                   href={slide.link}
                   className="inline-flex items-center gap-2 bg-white text-primary px-5 py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
