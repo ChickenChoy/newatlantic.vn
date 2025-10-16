@@ -1,9 +1,18 @@
-import { Metadata } from 'next';
+import { generateMetadata as genMeta } from '@/lib/seo';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Chính Sách Bảo Mật | NEW ATLANTIC',
-  description: 'Chính sách bảo mật thông tin khách hàng của Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương',
-};
+export const metadata: Metadata = genMeta({
+  title: 'Chính Sách Bảo Mật',
+  description: 'Chính sách bảo mật thông tin khách hàng của Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương (NEW ATLANTIC). Cam kết bảo vệ quyền riêng tư và an toàn thông tin cá nhân.',
+  path: '/chinh-sach-bao-mat',
+  keywords: [
+    'chính sách bảo mật',
+    'bảo mật thông tin',
+    'quyền riêng tư',
+    'NEW ATLANTIC',
+    'Tân Đại Tây Dương',
+  ],
+});
 
 export default function PrivacyPolicyPage() {
   return (

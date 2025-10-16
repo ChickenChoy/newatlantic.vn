@@ -1,11 +1,13 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import { products, categories } from '@/lib/data';
 import Link from 'next/link';
+import { generateBreadcrumbSchema } from '@/lib/seo';
+import Head from 'next/head';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -51,8 +53,29 @@ function ProductsPageFallback() {
 }
 
 export default function ProductsPage() {
+  // Generate breadcrumb schema
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Sản phẩm', url: '/san-pham' },
+  ]);
+
+  // Update page title
+  useEffect(() => {
+    document.title = 'Sản phẩm - Thiết bị công nghiệp chính hãng | NEW ATLANTIC';
+  }, []);
+
   return (
-    <div className="bg-gray-50 min-h-screen pt-20">
+    <>
+      {/* JSON-LD Breadcrumb */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
+      <div className="bg-gray-50 min-h-screen pt-20">
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-[#e5e7eb] mt-6">
         <div className="container mx-auto px-4 py-3">
@@ -139,7 +162,8 @@ export default function ProductsPage() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

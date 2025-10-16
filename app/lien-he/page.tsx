@@ -1,9 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { generateBreadcrumbSchema, generateLocalBusinessSchema } from '@/lib/seo';
 
 export default function ContactPage() {
+  // Update page title
+  useEffect(() => {
+    document.title = 'Liên hệ | NEW ATLANTIC - Tân Đại Tây Dương';
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,8 +32,30 @@ export default function ContactPage() {
     });
   };
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Liên hệ', url: '/lien-he' },
+  ]);
+
+  const localBusinessSchema = generateLocalBusinessSchema();
+
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 min-h-screen pt-20">
+    <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+
+      <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 min-h-screen pt-20">
       {/* Breadcrumb */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 mt-6">
         <div className="container mx-auto px-4 py-3">
@@ -370,6 +397,7 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

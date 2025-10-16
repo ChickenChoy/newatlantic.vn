@@ -1,9 +1,18 @@
-import { Metadata } from 'next';
+import { generateMetadata as genMeta } from '@/lib/seo';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Điều Khoản Dịch Vụ | NEW ATLANTIC',
-  description: 'Điều khoản và điều kiện sử dụng dịch vụ của Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương',
-};
+export const metadata: Metadata = genMeta({
+  title: 'Điều Khoản Dịch Vụ',
+  description: 'Điều khoản và điều kiện sử dụng dịch vụ của Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương (NEW ATLANTIC). Quy định về bảo hành, đổi trả, thanh toán và giao hàng.',
+  path: '/dieu-khoan-dich-vu',
+  keywords: [
+    'điều khoản dịch vụ',
+    'điều kiện sử dụng',
+    'chính sách bảo hành',
+    'chính sách đổi trả',
+    'NEW ATLANTIC',
+  ],
+});
 
 export default function TermsOfServicePage() {
   return (

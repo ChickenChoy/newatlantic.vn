@@ -1,15 +1,40 @@
 import PostCard from '@/components/PostCard';
 import { posts } from '@/lib/data';
 import Link from 'next/link';
+import { generateMetadata, generateBreadcrumbSchema } from '@/lib/seo';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Tin tức & Sự kiện - NEW ATLANTIC',
-  description: 'Tin tức, sự kiện và bài viết mới nhất về thiết bị công nghiệp',
-};
+export const metadata: Metadata = generateMetadata({
+  title: 'Tin tức & Sự kiện',
+  description: 'Tin tức, sự kiện và bài viết mới nhất về thiết bị công nghiệp, máy móc công trình. Cập nhật thường xuyên về WILL-BURT, HIAB, LOVOL, LIUGONG và các công nghệ mới nhất trong ngành.',
+  path: '/tin-tuc',
+  keywords: [
+    'tin tức thiết bị công nghiệp',
+    'sự kiện NEW ATLANTIC',
+    'tin tức WILL-BURT',
+    'tin tức HIAB',
+    'tin tức máy móc công trình',
+    'triển lãm thiết bị',
+    'công nghệ mới',
+  ],
+});
 
 export default function NewsPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Tin tức', url: '/tin-tuc' },
+  ]);
+
   return (
     <div className="bg-gray-50 min-h-screen pt-20">
+      {/* JSON-LD Breadcrumb */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-[#e5e7eb] mt-6">
         <div className="container mx-auto px-4 py-3">

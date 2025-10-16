@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ShareButtons from '@/components/ShareButtons';
 import RelatedPostsSlider from '@/components/RelatedPostsSlider';
+import { generateMetadata as genMeta, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/seo';
+import type { Metadata } from 'next';
 
 interface PostPageProps {
   params: Promise<{
@@ -17,20 +19,33 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: PostPageProps) {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = posts.find(p => p.slug === slug);
   
   if (!post) {
-    return {
-      title: 'Không tìm thấy - NEW ATLANTIC',
-    };
+    return genMeta({
+      title: 'Không tìm thấy',
+      description: 'Bài viết không tồn tại.',
+      path: `/tin-tuc/${slug}`,
+      noIndex: true,
+    });
   }
 
-  return {
-    title: `${post.title} - NEW ATLANTIC`,
-    description: post.excerpt,
-  };
+  return genMeta({
+    title: post.title,
+    description: post.excerpt || post.title,
+    image: post.image,
+    path: `/tin-tuc/${slug}`,
+    keywords: [
+      'tin tức NEW ATLANTIC',
+      'thiết bị công nghiệp',
+      'WILL-BURT',
+      'HIAB',
+      'LOVOL',
+      'LIUGONG',
+    ],
+  });
 }
 
 export default async function PostPage({ params }: PostPageProps) {
@@ -51,8 +66,38 @@ export default async function PostPage({ params }: PostPageProps) {
   const relatedPosts = posts
     .filter(p => p.id !== post.id);
 
+  // Generate structured data
+  const articleSchema = generateArticleSchema({
+    title: post.title,
+    description: post.excerpt || post.title,
+    image: post.image,
+    datePublished: post.date,
+    author: post.author,
+    url: `/tin-tuc/${slug}`,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Trang chủ', url: '/' },
+    { name: 'Tin tức', url: '/tin-tuc' },
+    { name: post.title, url: `/tin-tuc/${slug}` },
+  ]);
+
   return (
     <div className="bg-gray-50 min-h-screen pt-20">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-[#e5e7eb] mt-6">
         <div className="container mx-auto px-4 py-3">

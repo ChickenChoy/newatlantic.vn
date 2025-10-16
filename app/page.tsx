@@ -5,13 +5,65 @@ import PostCard from '@/components/PostCard';
 import ScrollAnimation from '@/components/ScrollAnimation';
 import HeroSlider from '@/components/HeroSlider';
 import { products, posts } from '@/lib/data';
+import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = genMeta({
+  title: 'NEW ATLANTIC - Tân Đại Tây Dương | Thiết bị công nghiệp chính hãng',
+  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, LOVOL, LIUGONG tại Việt Nam. Cung cấp cột tự nâng, cẩu tự hành HIAB, thiết bị nâng hạ, máy móc công trình chất lượng cao. Hơn 22 năm kinh nghiệm, hỗ trợ 24/7.',
+  path: '/',
+  keywords: [
+    'NEW ATLANTIC',
+    'Tân Đại Tây Dương',
+    'WILL-BURT',
+    'HIAB',
+    'LOVOL',
+    'LIUGONG',
+    'cột tự nâng',
+    'cẩu tự hành',
+    'xe nâng Moffett',
+    'máy đào',
+    'thiết bị công nghiệp',
+    'máy móc công trình',
+    'thiết bị nâng hạ',
+    'Clark Masts',
+    'EFFER',
+    'nhà phân phối chính hãng',
+    'thiết bị xây dựng',
+  ],
+});
 
 export default function HomePage() {
   const featuredProducts = products.filter(p => p.featured).slice(0, 3);
   const latestPosts = posts.slice(0, 3);
 
+  // Generate JSON-LD structured data
+  const organizationSchema = generateOrganizationSchema();
+  const websiteSchema = generateWebSiteSchema();
+  const localBusinessSchema = generateLocalBusinessSchema();
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+
       {/* Hero Slider */}
       <HeroSlider />
 
