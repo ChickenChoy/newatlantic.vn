@@ -792,30 +792,34 @@ export default function HomePage() {
 
             {/* Partners Grid */}
             <ScrollAnimation direction="up">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
+              <div className="max-w-6xl mx-auto">
+                {/* First row - 4 logos */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/WillBurt.png" alt="Will-Burt" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain" />
+                  </div>
                 </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/WillBurt.png" alt="Will-Burt" className="w-full h-full object-contain" />
-                </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/clarkmasts.png" alt="Clark Masts" className="w-full h-full object-contain" />
-                </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain" />
-                </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain" />
-                </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain" />
-                </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain" />
-                </div>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                  <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain" />
+                
+                {/* Second row - 3 logos centered */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] col-span-2 md:col-span-1">
+                    <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain" />
+                  </div>
                 </div>
               </div>
             </ScrollAnimation>
