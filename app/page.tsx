@@ -50,7 +50,7 @@ export default function HomePage() {
                   <div className="text-center space-y-4">
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
                       <span className="bg-gradient-to-r from-gray-700 via-[#5f7ab8] to-gray-700 bg-clip-text text-transparent">
-                        PHÁT TRIỂN phồn vinh xây thịnh vượng
+                        PHÁT TRIỂN PHỒN VINH XÂY THỊNH VƯỢNG
                       </span>
                     </h2>
                     
@@ -63,7 +63,7 @@ export default function HomePage() {
                     
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
                       <span className="bg-gradient-to-r from-gray-700 via-[#5f7ab8] to-gray-700 bg-clip-text text-transparent">
-                        TỰ HÀO bốn chữ Tân Đại Tây Dương
+                        TỰ HÀO BỐN CHỮ TÂN ĐẠI TÂY DƯƠNG
                       </span>
                     </h2>
                   </div>
