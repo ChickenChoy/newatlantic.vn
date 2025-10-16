@@ -57,21 +57,21 @@ export function HeroSlider() {
           <img src={slide.image || "/images/place-holder/placeholder.jpg"} alt={slide.title} className="w-full h-full object-contain object-center md:scale-90" />
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="container mx-auto px-4">
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-8 shadow-xl max-w-2xl border border-gray-200">
-                <div className="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-[#5f7ab8] text-white rounded-full text-xs md:text-sm font-medium mb-2 md:mb-3">
+              <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl p-5 md:p-8 lg:p-10 shadow-xl max-w-3xl border border-gray-200">
+                <div className="inline-block px-4 py-2 md:px-5 md:py-2.5 bg-[#5f7ab8] text-white rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4">
                   SẢN PHẨM NỔI BẬT
                 </div>
-                <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-2 md:mb-3 lg:mb-4 leading-tight text-balance">
+                <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 md:mb-4 lg:mb-5 leading-tight text-balance">
                   {slide.title}
                 </h1>
-                <p className="text-sm md:text-lg lg:text-xl text-gray-700 mb-1.5 md:mb-2 lg:mb-3 text-balance">{slide.subtitle}</p>
-                <p className="text-xs md:text-sm lg:text-base text-gray-500 mb-3 md:mb-4 lg:mb-6 line-clamp-2 md:line-clamp-none">{slide.description}</p>
+                <p className="text-base md:text-xl lg:text-2xl text-gray-700 mb-2 md:mb-3 lg:mb-3 text-balance">{slide.subtitle}</p>
+                <p className="text-sm md:text-base lg:text-lg text-gray-500 mb-4 md:mb-6 lg:mb-8 line-clamp-2 md:line-clamp-none">{slide.description}</p>
                 <Link
                   href={slide.link}
-                  className="inline-flex items-center gap-2 bg-[#5f7ab8] text-white px-5 py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-lg md:rounded-xl text-sm md:text-base font-medium hover:bg-[#4a6199] transition-all duration-300 hover:scale-105 shadow-md"
+                  className="inline-flex items-center gap-2 bg-[#5f7ab8] text-white px-6 py-3 md:px-7 md:py-3.5 lg:px-9 lg:py-5 rounded-lg md:rounded-xl text-sm md:text-base lg:text-lg font-semibold hover:bg-[#4a6199] transition-all duration-300 hover:scale-105 shadow-md"
                 >
                   Tìm hiểu thêm
-                  <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
