@@ -7,8 +7,9 @@ import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
 
 const inter = Inter({
-  subsets: ["latin", "vietnamese"],
+  subsets: ["latin", "latin-ext", "vietnamese"],
   variable: "--font-inter",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -24,7 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body className={`${inter.variable} antialiased`}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+      </head>
+      <body className={`${inter.variable} antialiased`} style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
         <ProgressBar />
         <Header />
         <PageTransition>

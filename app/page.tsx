@@ -16,44 +16,75 @@ export default function HomePage() {
       <HeroSlider />
 
       {/* Company Slogan Section */}
-      <section className="py-12 md:py-16 bg-gradient-to-r from-[#5f7ab8] via-[#4a6199] to-[#5f7ab8] relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='%23ffffff' fill-opacity='0.3' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
+      <section className="py-12 md:py-16 bg-white relative overflow-hidden">
+        {/* Modern Abstract Background */}
+        <div className="absolute inset-0">
+          {/* Gradient Orbs */}
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#5f7ab8]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#4a6199]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+          
+          {/* Subtle Grid Pattern */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235f7ab8' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px'
           }}></div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollAnimation direction="up">
-            <div className="text-center max-w-4xl mx-auto">
-              {/* Decorative Line */}
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <div className="w-16 h-0.5 bg-white/40"></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-                <div className="w-16 h-0.5 bg-white/40"></div>
-              </div>
-              
-              {/* Slogan */}
-              <div className="space-y-3">
-                <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-relaxed tracking-wide">
-                  <span className="inline-block">PHÁT TRIỂN phồn vinh xây thịnh vượng</span>
-                </p>
-                <p className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-relaxed tracking-wide">
-                  <span className="inline-block">TỰ HÀO bốn chữ tân đại tây dương</span>
-                </p>
-              </div>
-              
-              {/* Decorative Line */}
-              <div className="flex items-center justify-center gap-3 mt-6">
-                <div className="w-16 h-0.5 bg-white/40"></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-                <div className="w-2 h-2 bg-white rounded-full"></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-                <div className="w-16 h-0.5 bg-white/40"></div>
+            <div className="max-w-5xl mx-auto">
+              {/* Slogan Card */}
+              <div className="bg-gradient-to-br from-white via-gray-50/50 to-white backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/60 p-6 md:p-8 lg:p-10 relative overflow-hidden">
+                {/* Accent Border Top */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#5f7ab8] to-transparent"></div>
+                
+                {/* Decorative Corner Elements */}
+                <div className="absolute top-8 left-8 w-20 h-20 border-t-2 border-l-2 border-[#5f7ab8]/20 rounded-tl-3xl"></div>
+                <div className="absolute bottom-8 right-8 w-20 h-20 border-b-2 border-r-2 border-[#5f7ab8]/20 rounded-br-3xl"></div>
+                
+                {/* Content */}
+                <div className="relative">
+                  {/* Icon/Badge */}
+                  <div className="flex justify-center mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#5f7ab8]/10 rounded-full border border-[#5f7ab8]/20">
+                      <svg className="w-4 h-4 text-[#5f7ab8]" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <span className="text-xs font-semibold text-[#5f7ab8] uppercase tracking-wider">Slogan</span>
+                    </div>
+                  </div>
+                  
+                  {/* Slogan Text */}
+                  <div className="text-center space-y-4">
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                      <span className="bg-gradient-to-r from-gray-700 via-[#5f7ab8] to-gray-700 bg-clip-text text-transparent">
+                        PHÁT TRIỂN phồn vinh xây thịnh vượng
+                      </span>
+                    </h2>
+                    
+                    {/* Divider */}
+                    <div className="flex items-center justify-center gap-2 py-1">
+                      <div className="w-10 h-px bg-gradient-to-r from-transparent to-[#5f7ab8]"></div>
+                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></div>
+                      <div className="w-10 h-px bg-gradient-to-l from-transparent to-[#5f7ab8]"></div>
+                    </div>
+                    
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                      <span className="bg-gradient-to-r from-gray-700 via-[#5f7ab8] to-gray-700 bg-clip-text text-transparent">
+                        TỰ HÀO bốn chữ Tân Đại Tây Dương
+                      </span>
+                    </h2>
+                  </div>
+                  
+                  {/* Bottom Accent */}
+                  <div className="flex justify-center mt-6">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse"></div>
+                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </ScrollAnimation>
