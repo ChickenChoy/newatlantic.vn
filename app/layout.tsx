@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
+import FloatingContactButtons from "@/components/FloatingContactButtons";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext", "vietnamese"],
@@ -38,6 +39,7 @@ export default function RootLayout({
           </main>
         </PageTransition>
         <Footer />
+        <FloatingContactButtons />
       </body>
     </html>
   );

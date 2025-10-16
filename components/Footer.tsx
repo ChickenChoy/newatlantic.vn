@@ -7,10 +7,10 @@ export default function Footer() {
 
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 ml-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_2fr] gap-6 md:gap-8 lg:gap-10">
           {/* Company Info */}
-          <div>
-            <div className="flex items-center gap-3 mb-6">
+          <div className="text-center md:text-left">
+            <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
               <div className="relative w-12 h-12">
                 <Image
                   src="/images/logo/logo.png"
@@ -27,7 +27,7 @@ export default function Footer() {
             <p className="text-sm text-gray-400 mb-4">
               Nhà phân phối hàng đầu các thương hiệu thiết bị công nghiệp: WILL-BURT, HIAB, LOVOL, LIUGONG
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center md:justify-start">
               <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-[#14b8a6] rounded-lg flex items-center justify-center transition-colors">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="lg:ml-auto lg:mr-22">
             <h4 className="text-white font-bold mb-4 text-lg">Liên kết</h4>
             <ul className="space-y-3">
               <li>
@@ -111,31 +111,31 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <h4 className="text-white font-bold mb-4 text-lg">Liên hệ</h4>
-            <div className="space-y-4 text-sm">
+            <div className="space-y-3 text-sm">
               <div>
-                <div className="flex items-start gap-2 mb-2">
+                <div className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <div className="font-semibold text-white mb-1">TP.HCM</div>
+                    <div className="font-semibold text-white mb-0.5">TP.HCM</div>
                     <p className="text-gray-400">A60 Đường Phú Thuận, Q.7</p>
                   </div>
                 </div>
               </div>
               <div>
-                <div className="flex items-start gap-2 mb-2">
+                <div className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <div className="font-semibold text-white mb-1">Hà Nội</div>
+                    <div className="font-semibold text-white mb-0.5">Hà Nội</div>
                     <p className="text-gray-400">85 Nguyễn Phong Sắc, Cầu Giấy</p>
                   </div>
                 </div>
               </div>
-              <div className="pt-2 border-t border-gray-700">
-                <a href="tel:+842838733686" className="flex items-center gap-2 text-gray-300 hover:text-[#5f7ab8] transition-colors mb-2">
+              <div className="pt-2 border-t border-gray-700 space-y-1.5">
+                <a href="tel:+842838733686" className="flex items-center gap-2 text-gray-300 hover:text-[#5f7ab8] transition-colors">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>
@@ -158,7 +158,7 @@ export default function Footer() {
       <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 text-center md:text-left">
               &copy; 2025 <span className="text-white font-semibold">newatlantic.vn</span> - Bản quyền thuộc về Công ty CP TM QT Tân Đại Tây Dương
             </p>
             <div className="flex gap-6 text-sm">
