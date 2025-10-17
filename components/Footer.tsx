@@ -7,10 +7,10 @@ export default function Footer() {
 
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Company Info */}
-          <div className="text-center md:text-left">
-            <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
+          <div className="text-center">
+            <div className="flex items-center gap-3 mb-6 justify-center">
               <div className="relative w-12 h-12">
                 <Image
                   src="/images/logo/logo.png"
@@ -27,7 +27,7 @@ export default function Footer() {
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
               Nhà phân phối hàng đầu các thương hiệu thiết bị công nghiệp: WILL-BURT, HIAB, LOVOL, LIUGONG
             </p>
-            <div className="flex gap-3 justify-center md:justify-start">
+            <div className="flex gap-3 justify-center">
               <a href="#" className="w-10 h-10 bg-gray-800 hover:bg-[#14b8a6] rounded-lg flex items-center justify-center transition-colors">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -46,10 +46,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div>
+          {/* Addresses */}
+          <div className="text-center">
             <h4 className="text-white font-bold mb-6 text-lg">Thông tin liên hệ</h4>
-            <div className="space-y-4 text-sm">
+            <div className="space-y-4 text-sm flex flex-col items-center">
               <div className="flex items-start gap-3">
                 <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -68,37 +68,42 @@ export default function Footer() {
                   <p className="text-gray-400">85 Nguyễn Phong Sắc, Cầu Giấy</p>
                 </div>
               </div>
-              <div className="pt-3 border-t border-gray-700 space-y-2">
-                <a href="tel:+842838733686" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                  +84 2838 733 686
-                </a>
-                <a href="mailto:info@newatlantic.vn" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                  info@newatlantic.vn
-                </a>
-              </div>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="text-center">
+            <h4 className="text-white font-bold mb-6 text-lg">Liên hệ</h4>
+            <div className="space-y-4 text-sm flex flex-col items-center">
+              <a href="tel:+842838733686" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
+                <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                +84 2838 733 686
+              </a>
+              <a href="mailto:info@newatlantic.vn" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
+                <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                </svg>
+                info@newatlantic.vn
+              </a>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Footer */}
-      <div className="border-t border-gray-800">
+      <div className="border-gray-800 ">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400 text-center md:text-left">
-              &copy; 2025 <span className="text-white font-semibold">newatlantic.vn</span> - Bản quyền thuộc về Công ty CP TM QT Tân Đại Tây Dương
-            </p>
+          <div className="flex flex-col items-center gap-3 text-center">
             <div className="flex gap-6 text-sm">
               <Link href="/chinh-sach-bao-mat" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">Chính sách bảo mật</Link>
               <Link href="/dieu-khoan-dich-vu" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">Điều khoản dịch vụ</Link>
             </div>
+            <p className="text-sm text-gray-400">
+              &copy; 2025 <span className="text-white font-semibold">newatlantic.vn</span> - Bản quyền thuộc về Công ty CP TM QT Tân Đại Tây Dương
+            </p>
           </div>
         </div>
       </div>
