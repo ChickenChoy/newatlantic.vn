@@ -36,7 +36,7 @@ export default function NewsPage() {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-gray-50 border-b border-[#e5e7eb] mt-6">
+      <div className="bg-gray-50 border-t border-[#e5e7eb] mt-4">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-[#5f7ab8] transition">

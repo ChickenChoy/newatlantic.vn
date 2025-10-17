@@ -7,7 +7,7 @@ export default function Footer() {
 
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_2fr] gap-6 md:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
           {/* Company Info */}
           <div className="text-center md:text-left">
             <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
@@ -24,7 +24,7 @@ export default function Footer() {
                 <div className="text-xs text-gray-400">Tân Đại Tây Dương</div>
               </div>
             </div>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-sm text-gray-400 mb-6 leading-relaxed">
               Nhà phân phối hàng đầu các thương hiệu thiết bị công nghiệp: WILL-BURT, HIAB, LOVOL, LIUGONG
             </p>
             <div className="flex gap-3 justify-center md:justify-start">
@@ -46,102 +46,36 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Products */}
-          <div>
-            <h4 className="text-white font-bold mb-4 text-lg">Sản phẩm</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/san-pham/cot-tu-nang-will-burt" className="text-sm hover:text-[#14b8a6] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#14b8a6] rounded-full"></span>
-                  Cột Tự Nâng WILL-BURT
-                </Link>
-              </li>
-              <li>
-                <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="text-sm hover:text-[#f97316] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#f97316] rounded-full"></span>
-                  Thiết Bị Nâng Hạ HIAB
-                </Link>
-              </li>
-              <li>
-                <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="text-sm hover:text-[#10b981] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#10b981] rounded-full"></span>
-                  Thiết Bị Công Trình LOVOL
-                </Link>
-              </li>
-              <li>
-                <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="text-sm hover:text-[#3b82f6] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full"></span>
-                  Thiết Bị Công Trình LIUGONG
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Quick Links */}
-          <div className="lg:ml-auto lg:mr-22">
-            <h4 className="text-white font-bold mb-4 text-lg">Liên kết</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link href="/" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></span>
-                  Trang chủ
-                </Link>
-              </li>
-              <li>
-                <Link href="/san-pham" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></span>
-                  Sản phẩm
-                </Link>
-              </li>
-              <li>
-                <Link href="/tin-tuc" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></span>
-                  Tin tức
-                </Link>
-              </li>
-              <li>
-                <Link href="/lien-he" className="text-sm hover:text-[#5f7ab8] transition-colors flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></span>
-                  Liên hệ
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Info */}
           <div>
-            <h4 className="text-white font-bold mb-4 text-lg">Liên hệ</h4>
-            <div className="space-y-3 text-sm">
-              <div>
-                <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <div className="font-semibold text-white mb-0.5">TP.HCM</div>
-                    <p className="text-gray-400">A60 Đường Phú Thuận, Q.7</p>
-                  </div>
+            <h4 className="text-white font-bold mb-6 text-lg">Thông tin liên hệ</h4>
+            <div className="space-y-4 text-sm">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                <div>
+                  <div className="font-semibold text-white mb-1">TP.HCM</div>
+                  <p className="text-gray-400">A60 Đường Phú Thuận, Q.7</p>
                 </div>
               </div>
-              <div>
-                <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <div className="font-semibold text-white mb-0.5">Hà Nội</div>
-                    <p className="text-gray-400">85 Nguyễn Phong Sắc, Cầu Giấy</p>
-                  </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                </svg>
+                <div>
+                  <div className="font-semibold text-white mb-1">Hà Nội</div>
+                  <p className="text-gray-400">85 Nguyễn Phong Sắc, Cầu Giấy</p>
                 </div>
               </div>
-              <div className="pt-2 border-t border-gray-700 space-y-1.5">
-                <a href="tel:+842838733686" className="flex items-center gap-2 text-gray-300 hover:text-[#5f7ab8] transition-colors">
+              <div className="pt-3 border-t border-gray-700 space-y-2">
+                <a href="tel:+842838733686" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>
                   +84 2838 733 686
                 </a>
-                <a href="mailto:info@newatlantic.vn" className="flex items-center gap-2 text-gray-300 hover:text-[#5f7ab8] transition-colors">
+                <a href="mailto:info@newatlantic.vn" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />

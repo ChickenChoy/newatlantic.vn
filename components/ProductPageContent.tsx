@@ -93,7 +93,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   return (
     <div className="bg-gray-50 min-h-screen pt-20">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 border-b border-[#e5e7eb] mt-6">
+      <div className="bg-gray-50 border-t border-[#e5e7eb] mt-4">
         <div className="container mx-auto px-4 py-4">
           <nav className="flex items-center space-x-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-[#5f7ab8] transition-colors">
