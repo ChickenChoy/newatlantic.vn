@@ -78,7 +78,7 @@ export default function CategoryPageContent({
   categorySlug,
 }: CategoryPageContentProps) {
   return (
-    <div className="bg-gray-50 min-h-screen pt-20">
+    <div className="bg-gray-50 min-h-screen pt-16">
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-[#e5e7eb] mt-6">
         <div className="container mx-auto px-4 py-3">
@@ -100,45 +100,22 @@ export default function CategoryPageContent({
       <div className="sticky top-20 z-40">
         <div className="container mx-auto px-4">
           {/* Desktop Filter - Grid Layout */}
-          <div className="hidden md:flex items-center gap-3 py-4 flex-wrap">
-            <span className="text-sm font-semibold text-gray-600 mr-2">Danh mục:</span>
-            <Link
-              href="/san-pham"
-              className="px-5 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-sm hover:bg-[#5f7ab8] hover:text-white transition-all"
-            >
-              Tất cả
-            </Link>
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/san-pham/${cat.slug}`}
-                className={`px-5 py-2 rounded-lg font-semibold text-sm transition-all ${
-                  cat.slug === categorySlug
-                    ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-[#5f7ab8] hover:text-white'
-                }`}
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
-
-          {/* Mobile Filter - Horizontal Scroll */}
-          <div className="md:hidden py-3 overflow-x-auto scrollbar-hide">
-            <div className="flex gap-2 min-w-max">
+          <div className="hidden md:flex items-center justify-between gap-3 py-4">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-sm font-semibold text-gray-600 mr-2">Danh mục:</span>
               <Link
                 href="/san-pham"
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-xs hover:bg-[#5f7ab8] hover:text-white transition-all whitespace-nowrap"
+                className="px-5 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-sm hover:bg-[#5f7ab8] hover:text-white transition-all"
               >
-                🏠 Tất cả
+                Tất cả
               </Link>
               {categories.map((cat) => (
                 <Link
                   key={cat.id}
                   href={`/san-pham/${cat.slug}`}
-                  className={`px-4 py-2 rounded-lg font-semibold text-xs transition-all whitespace-nowrap ${
+                  className={`px-5 py-2 rounded-lg font-semibold text-sm transition-all ${
                     cat.slug === categorySlug
-                      ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
+                      ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-700 hover:bg-[#5f7ab8] hover:text-white'
                   }`}
                 >
@@ -146,31 +123,47 @@ export default function CategoryPageContent({
                 </Link>
               ))}
             </div>
+            <p className="text-sm text-gray-500 whitespace-nowrap">
+              <span className="font-medium text-gray-700">{categoryProducts.length}</span> sản phẩm
+            </p>
+          </div>
+
+          {/* Mobile Filter - Horizontal Scroll */}
+          <div className="md:hidden">
+            <div className="py-3 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-2 min-w-max">
+                <Link
+                  href="/san-pham"
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-xs hover:bg-[#5f7ab8] hover:text-white transition-all whitespace-nowrap"
+                >
+                  🏠 Tất cả
+                </Link>
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    href={`/san-pham/${cat.slug}`}
+                    className={`px-4 py-2 rounded-lg font-semibold text-xs transition-all whitespace-nowrap ${
+                      cat.slug === categorySlug
+                        ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-[#5f7ab8] hover:text-white'
+                    }`}
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div className="pb-2 px-1">
+              <p className="text-xs text-gray-500">
+                <span className="font-medium text-gray-700">{categoryProducts.length}</span> sản phẩm
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-12 text-center">
-          <div className="inline-block mb-3">
-            <span className="px-4 py-1.5 bg-gradient-to-r from-[#63c9fe]/20 to-[#5f7ab8]/20 text-[#5f7ab8] rounded-full text-sm font-semibold border border-[#63c9fe]/30">
-              DANH MỤC SẢN PHẨM
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-[#63c9fe] via-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
-            {category.name}
-          </h2>
-          <div className="flex items-center justify-center gap-2 mb-5">
-            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#63c9fe]/50 to-[#63c9fe]"></div>
-            <div className="w-2 h-2 bg-[#63c9fe] rounded-full animate-pulse"></div>
-            <div className="w-20 h-0.5 bg-gradient-to-l from-transparent via-[#63c9fe]/50 to-[#63c9fe]"></div>
-          </div>
-          <p className="text-gray-600 text-base">
-            Tìm thấy <span className="inline-flex items-center justify-center min-w-[28px] h-7 px-2 bg-gradient-to-r from-[#63c9fe] to-[#5f7ab8] text-white rounded-lg font-bold text-sm mx-1">{categoryProducts.length}</span> sản phẩm
-          </p>
-        </div>
-
         <SuspenseBoundary fallback={<CategoryContentFallback />}>
           <CategoryContentInner 
             category={category}

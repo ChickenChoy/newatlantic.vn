@@ -12,8 +12,8 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   
-  // Check if current page is NOT home page (all pages except home should have white background)
-  const isNotHomePage = pathname !== '/';
+  // Check if current page is home page
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     setMounted(true);
@@ -71,7 +71,7 @@ export default function Header() {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || isNotHomePage
+        scrolled
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}
@@ -93,16 +93,16 @@ export default function Header() {
             </div>
             <div suppressHydrationWarning>
               <div className={`text-xl font-bold transition-all ${
-                scrolled || isNotHomePage
-                  ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
-                  : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'
+                (isHomePage && !scrolled)
+                  ? 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'
+                  : 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
               }`}>
                 NEW ATLANTIC
               </div>
               <div className={`text-xs transition-colors ${
-                scrolled || isNotHomePage
-                  ? 'text-gray-600'
-                  : 'text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
+                (isHomePage && !scrolled)
+                  ? 'text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
+                  : 'text-gray-600'
               }`}>
                 Tân Đại Tây Dương
               </div>
@@ -114,9 +114,9 @@ export default function Header() {
             <Link 
               href="/" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                scrolled || isNotHomePage
-                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                  : 'text-white hover:text-white hover:bg-white/20'
+                (isHomePage && !scrolled)
+                  ? 'text-white hover:text-white hover:bg-white/20'
+                  : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
               }`}
               suppressHydrationWarning
             >
@@ -128,9 +128,9 @@ export default function Header() {
               <button 
                 onClick={() => toggleDropdown('products')}
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 ${
-                  scrolled || isNotHomePage
-                    ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                    : 'text-white hover:text-white hover:bg-white/20'
+                  (isHomePage && !scrolled)
+                    ? 'text-white hover:text-white hover:bg-white/20'
+                    : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                 }`}
                 suppressHydrationWarning
               >
@@ -191,9 +191,9 @@ export default function Header() {
             <Link 
               href="/tin-tuc" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                scrolled || isNotHomePage
-                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
-                  : 'text-white hover:text-white hover:bg-white/20'
+                (isHomePage && !scrolled)
+                  ? 'text-white hover:text-white hover:bg-white/20'
+                  : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
               }`}
               suppressHydrationWarning
             >
@@ -202,9 +202,9 @@ export default function Header() {
             <Link 
               href="/lien-he" 
               className={`ml-4 px-6 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all ${
-                scrolled || isNotHomePage
-                  ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white'
-                  : 'border-2 border-white text-white hover:bg-white hover:text-gray-900'
+                (isHomePage && !scrolled)
+                  ? 'border-2 border-white text-white hover:bg-white hover:text-gray-900'
+                  : 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white'
               }`}
               suppressHydrationWarning
             >
@@ -216,9 +216,9 @@ export default function Header() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`mobile-menu-button lg:hidden p-2 rounded-lg transition-colors ${
-              scrolled || isNotHomePage
-                ? 'text-gray-700 hover:bg-gray-100'
-                : 'text-white hover:bg-white/20'
+              (isHomePage && !scrolled)
+                ? 'text-white hover:bg-white/20'
+                : 'text-gray-700 hover:bg-gray-100'
             }`}
             suppressHydrationWarning
           >

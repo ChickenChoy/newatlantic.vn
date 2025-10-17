@@ -33,6 +33,7 @@ body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   font-size: 14px;
   line-height: 1.6;
+  touch-action: manipulation; /* Prevent double-tap zoom on mobile */
 }
 
 /* Responsive font sizing */
@@ -168,6 +169,11 @@ main {
 /* Prevent scroll jump during transitions */
 html, body {
   overflow-x: hidden;
+}
+
+/* Prevent double-tap zoom on buttons and interactive elements */
+button, a, input, textarea, select {
+  touch-action: manipulation;
 }
 
 /* Custom scrollbar */
