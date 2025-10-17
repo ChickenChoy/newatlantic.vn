@@ -1,10 +1,32 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function FloatingContactButtons() {
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  
+  // Check if current page is NOT home page
+  const isNotHomePage = pathname !== '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 md:gap-4">
+    <div 
+      className={`fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 md:gap-4 transition-all duration-500 ${
+        scrolled || isNotHomePage
+          ? 'translate-x-0 opacity-100' 
+          : 'translate-x-24 opacity-0 pointer-events-none'
+      }`}
+    >
       {/* Facebook Messenger */}
       <Link
         href="https://www.facebook.com/aittandaitayduong"

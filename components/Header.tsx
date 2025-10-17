@@ -70,63 +70,12 @@ export default function Header() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled || isNotHomePage
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-          : 'bg-white/90 backdrop-blur-md shadow-md'
+          : 'bg-transparent'
       }`}
     >
-      {/* Top bar - Only visible when not scrolled and on home page */}
-      {!scrolled && !isNotHomePage && (
-        <div className="bg-gradient-to-r from-sky-50 via-blue-50 to-sky-50 text-gray-800 py-3.5 hidden md:block border-b border-blue-100 shadow-sm">
-          <div className="container mx-auto px-6">
-            <div className="flex justify-between items-center">
-              {/* Left: Contact Info */}
-              <div className="flex items-center gap-8">
-                <a 
-                  href="mailto:info@newatlantic.vn" 
-                  className="group flex items-center gap-2.5 hover:text-[#5f7ab8] transition-all duration-300"
-                >
-                  <div className="w-9 h-9 bg-[#5f7ab8]/10 rounded-lg flex items-center justify-center group-hover:bg-[#5f7ab8]/20 transition-all duration-300 group-hover:scale-110 shadow-sm">
-                    <svg className="w-4 h-4 text-[#5f7ab8]" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                    </svg>
-                  </div>
-                  <span className="text-sm font-medium text-gray-700">info@newatlantic.vn</span>
-                </a>
-                
-                <div className="h-6 w-px bg-[#5f7ab8]/20"></div>
-                
-                <a 
-                  href="tel:+842838733686" 
-                  className="group flex items-center gap-2.5 hover:text-[#5f7ab8] transition-all duration-300"
-                >
-                  <div className="w-9 h-9 bg-[#5f7ab8]/10 rounded-lg flex items-center justify-center group-hover:bg-[#5f7ab8]/20 transition-all duration-300 group-hover:scale-110 shadow-sm">
-                    <svg className="w-4 h-4 text-[#5f7ab8]" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                  </div>
-                  <span className="text-sm font-medium text-gray-700">+84 2838 733 686</span>
-                </a>
-              </div>
-
-              {/* Right: Brand Partners */}
-              <div className="flex items-center gap-3 bg-gradient-to-r from-[#5f7ab8]/10 to-[#4a6199]/10 px-5 py-2 rounded-full shadow-sm border border-[#5f7ab8]/20">
-                <span className="text-xs font-semibold tracking-wider text-gray-800">
-                  <span className="text-[#5f7ab8] font-bold">WILL-BURT</span>
-                  <span className="mx-1.5 text-gray-400">|</span>
-                  <span className="text-[#5f7ab8] font-bold">HIAB</span>
-                  <span className="mx-1.5 text-gray-400">|</span>
-                  <span className="text-[#5f7ab8] font-bold">LOVOL</span>
-                  <span className="mx-1.5 text-gray-400">|</span>
-                  <span className="text-[#5f7ab8] font-bold">LIUGONG</span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Main navigation */}
       <nav className="container mx-auto px-4 py-3 md:py-4">
@@ -143,10 +92,18 @@ export default function Header() {
               />
             </div>
             <div suppressHydrationWarning>
-              <div className="text-xl font-bold bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
+              <div className={`text-xl font-bold transition-all ${
+                scrolled || isNotHomePage
+                  ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
+                  : 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'
+              }`}>
                 NEW ATLANTIC
               </div>
-              <div className="text-xs text-gray-600">
+              <div className={`text-xs transition-colors ${
+                scrolled || isNotHomePage
+                  ? 'text-gray-600'
+                  : 'text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
+              }`}>
                 Tân Đại Tây Dương
               </div>
             </div>
@@ -156,7 +113,11 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-1" suppressHydrationWarning>
             <Link 
               href="/" 
-              className="px-4 py-2 rounded-lg font-medium transition-all text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50"
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                scrolled || isNotHomePage
+                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
               suppressHydrationWarning
             >
               Trang chủ
@@ -166,7 +127,11 @@ export default function Header() {
             <div className="relative dropdown-container" suppressHydrationWarning>
               <button 
                 onClick={() => toggleDropdown('products')}
-                className="px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50"
+                className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 ${
+                  scrolled || isNotHomePage
+                    ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
+                    : 'text-white hover:text-white hover:bg-white/20'
+                }`}
                 suppressHydrationWarning
               >
                 Sản phẩm
@@ -225,14 +190,22 @@ export default function Header() {
 
             <Link 
               href="/tin-tuc" 
-              className="px-4 py-2 rounded-lg font-medium transition-all text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50"
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                scrolled || isNotHomePage
+                  ? 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
+                  : 'text-white hover:text-white hover:bg-white/20'
+              }`}
               suppressHydrationWarning
             >
               Tin tức
             </Link>
             <Link 
               href="/lien-he" 
-              className="ml-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
+              className={`ml-4 px-6 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all ${
+                scrolled || isNotHomePage
+                  ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white'
+                  : 'border-2 border-white text-white hover:bg-white hover:text-gray-900'
+              }`}
               suppressHydrationWarning
             >
               Liên hệ
@@ -242,7 +215,11 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="mobile-menu-button lg:hidden p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
+            className={`mobile-menu-button lg:hidden p-2 rounded-lg transition-colors ${
+              scrolled || isNotHomePage
+                ? 'text-gray-700 hover:bg-gray-100'
+                : 'text-white hover:bg-white/20'
+            }`}
             suppressHydrationWarning
           >
             <svg 
