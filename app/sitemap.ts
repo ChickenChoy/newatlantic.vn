@@ -54,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Category pages
-  const categoryPages = categories.map((category) => ({
+  const categoryPages = categories.map((category: any) => ({
     url: `${siteConfig.url}/san-pham/${category.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
@@ -62,7 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Product pages
-  const productPages = products.map((product) => ({
+  const productPages = products.map((product: any) => ({
     url: `${siteConfig.url}/san-pham/${product.categorySlug}/${product.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
@@ -70,7 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Post pages
-  const postPages = posts.map((post) => ({
+  const postPages = posts.map((post: any) => ({
     url: `${siteConfig.url}/tin-tuc/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly' as const,
