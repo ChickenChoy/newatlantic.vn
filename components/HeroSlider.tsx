@@ -57,15 +57,15 @@ export function HeroSlider() {
           <img src={slide.image || "/images/place-holder/placeholder.jpg"} alt={slide.title} className="w-full h-full object-contain object-center md:scale-90" />
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="container mx-auto px-4">
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl md:rounded-3xl p-5 md:p-8 lg:p-10 shadow-xl max-w-3xl border border-gray-200">
+              <div className="bg-gradient-to-br from-[#63c9fe]/70 via-[#7fd4ff]/60 to-[#a8e0ff]/50 backdrop-blur-md rounded-2xl md:rounded-3xl p-5 md:p-8 lg:p-10 shadow-xl max-w-2xl border border-[#63c9fe]/30">
                 <div className="inline-block px-4 py-2 md:px-5 md:py-2.5 bg-[#5f7ab8] text-white rounded-full text-xs md:text-sm font-semibold mb-3 md:mb-4">
                   SẢN PHẨM NỔI BẬT
                 </div>
                 <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-3 md:mb-4 lg:mb-5 leading-tight text-balance">
                   {slide.title}
                 </h1>
-                <p className="text-base md:text-xl lg:text-2xl text-gray-700 mb-2 md:mb-3 lg:mb-3 text-balance">{slide.subtitle}</p>
-                <p className="text-sm md:text-base lg:text-lg text-gray-500 mb-4 md:mb-6 lg:mb-8 line-clamp-2 md:line-clamp-none">{slide.description}</p>
+                <p className="text-base md:text-xl lg:text-2xl text-gray-800 mb-2 md:mb-3 lg:mb-3 text-balance">{slide.subtitle}</p>
+                <p className="text-sm md:text-base lg:text-lg text-gray-700 mb-4 md:mb-6 lg:mb-8 line-clamp-2 md:line-clamp-none">{slide.description}</p>
                 <Link
                   href={slide.link}
                   className="inline-flex items-center gap-2 bg-[#5f7ab8] text-white px-6 py-3 md:px-7 md:py-3.5 lg:px-9 lg:py-5 rounded-lg md:rounded-xl text-sm md:text-base lg:text-lg font-semibold hover:bg-[#4a6199] transition-all duration-300 hover:scale-105 shadow-md"

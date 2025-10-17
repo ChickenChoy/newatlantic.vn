@@ -51,15 +51,22 @@ export default function NewsPage() {
       {/* Posts Grid */}
       <div className="container mx-auto px-4 py-16">
         <div className="mb-12 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
+          <div className="inline-block mb-3">
+            <span className="px-4 py-1.5 bg-gradient-to-r from-[#63c9fe]/20 to-[#5f7ab8]/20 text-[#5f7ab8] rounded-full text-sm font-semibold border border-[#63c9fe]/30">
+              TIN TỨC & SỰ KIỆN
+            </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-[#63c9fe] via-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
             Tin Tức & Sự Kiện
           </h2>
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-16 h-1 bg-gradient-to-r from-transparent to-[#5f7ab8]"></div>
-            <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>
-            <div className="w-16 h-1 bg-gradient-to-l from-transparent to-[#5f7ab8]"></div>
+          <div className="flex items-center justify-center gap-2 mb-5">
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#63c9fe]/50 to-[#63c9fe]"></div>
+            <div className="w-2 h-2 bg-[#63c9fe] rounded-full animate-pulse"></div>
+            <div className="w-20 h-0.5 bg-gradient-to-l from-transparent via-[#63c9fe]/50 to-[#63c9fe]"></div>
           </div>
-          <p className="text-gray-600 text-lg">Tìm thấy <span className="font-bold text-[#5f7ab8] text-xl">{posts.length}</span> bài viết</p>
+          <p className="text-gray-600 text-base">
+            Tìm thấy <span className="inline-flex items-center justify-center min-w-[28px] h-7 px-2 bg-gradient-to-r from-[#63c9fe] to-[#5f7ab8] text-white rounded-lg font-bold text-sm mx-1">{posts.length}</span> bài viết
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">

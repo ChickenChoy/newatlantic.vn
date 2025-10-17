@@ -72,10 +72,20 @@ export default function ContactPage() {
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
+          <div className="inline-block mb-3">
+            <span className="px-4 py-1.5 bg-gradient-to-r from-[#63c9fe]/20 to-[#5f7ab8]/20 text-[#5f7ab8] rounded-full text-sm font-semibold border border-[#63c9fe]/30">
+              LIÊN HỆ VỚI CHÚNG TÔI
+            </span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-[#63c9fe] via-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent">
             Liên Hệ Với Chúng Tôi
           </h1>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-2 mb-5">
+            <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-[#63c9fe]/50 to-[#63c9fe]"></div>
+            <div className="w-2 h-2 bg-[#63c9fe] rounded-full animate-pulse"></div>
+            <div className="w-20 h-0.5 bg-gradient-to-l from-transparent via-[#63c9fe]/50 to-[#63c9fe]"></div>
+          </div>
+          <p className="text-gray-600 text-base max-w-2xl mx-auto">
             Hãy để lại thông tin, chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất
           </p>
         </div>
