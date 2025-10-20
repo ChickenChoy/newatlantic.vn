@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -10,6 +10,9 @@ interface RelatedPostsSliderProps {
 
 export default function RelatedPostsSlider({ relatedPosts }: RelatedPostsSliderProps) {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
 
   // Navigation functions
   const scrollLeft = () => {
@@ -24,13 +27,41 @@ export default function RelatedPostsSlider({ relatedPosts }: RelatedPostsSliderP
     }
   };
 
+  // Touch handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setIsUserInteracting(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    
+    const distance = touchStartX - touchEndX;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      scrollRight();
+    } else if (isRightSwipe) {
+      scrollLeft();
+    }
+
+    // Resume auto-scroll after 3 seconds
+    setTimeout(() => {
+      setIsUserInteracting(false);
+    }, 3000);
+  };
+
   // Auto-scroll for related posts slider
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider || relatedPosts.length <= 3) return;
 
     let scrollInterval: NodeJS.Timeout;
-    let isUserInteracting = false;
 
     const startAutoScroll = () => {
       scrollInterval = setInterval(() => {
@@ -50,12 +81,12 @@ export default function RelatedPostsSlider({ relatedPosts }: RelatedPostsSliderP
     };
 
     const handleUserInteraction = () => {
-      isUserInteracting = true;
+      setIsUserInteracting(true);
       clearInterval(scrollInterval);
       
       // Resume auto-scroll after 5 seconds of no interaction
       setTimeout(() => {
-        isUserInteracting = false;
+        setIsUserInteracting(false);
         startAutoScroll();
       }, 5000);
     };
@@ -105,7 +136,13 @@ export default function RelatedPostsSlider({ relatedPosts }: RelatedPostsSliderP
         )}
 
         {/* Slider Track */}
-        <div ref={sliderRef} className="overflow-x-auto scrollbar-hide">
+        <div 
+          ref={sliderRef} 
+          className="overflow-x-auto scrollbar-hide"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="flex gap-4 pb-4">
             {relatedPosts.map((relatedPost) => {
               const relatedFormattedDate = new Date(relatedPost.date).toLocaleDateString('vi-VN', {

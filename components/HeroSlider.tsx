@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 
 const slides = [
@@ -34,20 +34,72 @@ const slides = [
 
 export function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const sliderRef = useRef<HTMLDivElement>(null)
+  const touchStartX = useRef<number>(0)
+  const touchEndX = useRef<number>(0)
 
   // Auto slide every 5 seconds
   useEffect(() => {
+    if (!isAutoPlaying) return
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
     }, 5000)
 
     return () => clearInterval(timer)
-  }, [currentSlide])
+  }, [currentSlide, isAutoPlaying])
+
+  // Touch handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX
+    setIsAutoPlaying(false) // Pause auto-play during touch
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return
+    
+    const distance = touchStartX.current - touchEndX.current
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+
+    if (isLeftSwipe) {
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    } else if (isRightSwipe) {
+      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+    }
+
+    // Resume auto-play after 3 seconds
+    setTimeout(() => {
+      setIsAutoPlaying(true)
+    }, 3000)
+  }
+
+  // Mouse handlers for desktop
+  const handleMouseEnter = () => {
+    setIsAutoPlaying(false)
+  }
+
+  const handleMouseLeave = () => {
+    setIsAutoPlaying(true)
+  }
 
   return (
     <div>
       {/* Hero Slider Section */}
-      <section className="relative h-[100vh] overflow-hidden">
+      <section 
+        ref={sliderRef}
+        className="relative h-[100vh] overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {slides.map((slide, index) => (
           <div
             key={slide.id}
@@ -107,6 +159,39 @@ export function HeroSlider() {
             </div>
           </div>
         ))}
+        
+        {/* Navigation Dots */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setCurrentSlide(index)
+                setIsAutoPlaying(false)
+                setTimeout(() => setIsAutoPlaying(true), 3000)
+              }}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? 'bg-white scale-125' 
+                  : 'bg-white/50 hover:bg-white/75'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Touch Indicator (Mobile only) */}
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30 lg:hidden">
+          <div className="flex items-center space-x-2 text-white/70 text-sm">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+            <span>Vuốt để chuyển slide</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </div>
       </section>
     </div>
   )

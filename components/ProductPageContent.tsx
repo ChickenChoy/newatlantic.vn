@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import TouchGestureWrapper from './TouchGestureWrapper';
 
 interface ProductPageContentProps {
   product: any;
@@ -120,7 +121,11 @@ export default function ProductPageContent({ product, relatedProducts }: Product
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-16">
           {/* Product Image Slider */}
           <div>
-            <div className="relative h-[600px] bg-white rounded-2xl overflow-hidden shadow-lg">
+            <TouchGestureWrapper
+              onSwipeLeft={nextImage}
+              onSwipeRight={prevImage}
+              className="relative h-[600px] bg-white rounded-2xl overflow-hidden shadow-lg"
+            >
               {/* Main Image */}
               <div className="relative w-full h-full">
                 {images[currentImageIndex] ? (
@@ -203,7 +208,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   </div>
                 </div>
               )}
-            </div>
+            </TouchGestureWrapper>
           </div>
 
           {/* Product Info */}
@@ -362,8 +367,12 @@ export default function ProductPageContent({ product, relatedProducts }: Product
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Sản phẩm liên quan</h2>
             
-              {/* Slider Container */}
-              <div className="relative group">
+            {/* Slider Container */}
+            <TouchGestureWrapper
+              onSwipeLeft={scrollRight}
+              onSwipeRight={scrollLeft}
+              className="relative group"
+            >
                 {/* Navigation Arrows */}
                 {relatedProducts.length > 3 && (
                   <>
@@ -390,7 +399,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
 
                 {/* Slider Track */}
                 <div ref={sliderRef} className="overflow-x-auto scrollbar-hide">
-                <div className="flex gap-4 pb-4">
+                  <div className="flex gap-4 pb-4">
                   {relatedProducts.map((relatedProduct) => (
                     <Link 
                       key={relatedProduct.id} 
@@ -441,19 +450,19 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                       </div>
                     </Link>
                   ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Scroll Indicator */}
-              <div className="flex justify-center mt-4 gap-2">
-                <div className="text-xs text-gray-500 flex items-center">
-                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                  Vuốt sang để xem thêm
+                {/* Scroll Indicator */}
+                <div className="flex justify-center mt-4 gap-2">
+                  <div className="text-xs text-gray-500 flex items-center">
+                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                    Vuốt sang để xem thêm
+                  </div>
                 </div>
-              </div>
-            </div>
+            </TouchGestureWrapper>
           </div>
         )}
       </div>

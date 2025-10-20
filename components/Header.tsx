@@ -4,12 +4,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import SearchResults from './SearchResults';
+import MobileTouchMenu from './MobileTouchMenu';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const pathname = usePathname();
   
   // Check if current page is home page
@@ -38,16 +42,21 @@ export default function Header() {
       if (mobileMenuOpen && !target.closest('.mobile-menu-container') && !target.closest('.mobile-menu-button')) {
         setMobileMenuOpen(false);
       }
+      // Close search when clicking outside
+      if (searchOpen && !target.closest('.search-container')) {
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
     };
 
-    if (openDropdown || mobileMenuOpen) {
+    if (openDropdown || mobileMenuOpen || searchOpen) {
       document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [openDropdown, mobileMenuOpen]);
+  }, [openDropdown, mobileMenuOpen, searchOpen]);
 
   // Close dropdown on ESC key
   useEffect(() => {
@@ -55,6 +64,8 @@ export default function Header() {
       if (event.key === 'Escape') {
         setOpenDropdown(null);
         setMobileMenuOpen(false);
+        setSearchOpen(false);
+        setSearchQuery('');
       }
     };
 
@@ -66,6 +77,20 @@ export default function Header() {
 
   const toggleDropdown = (dropdownName: string) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
+
+  const handleSearchToggle = () => {
+    setSearchOpen(!searchOpen);
+    if (searchOpen) {
+      setSearchQuery('');
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value.trim()) {
+      setSearchOpen(true);
+    }
   };
 
   return (
@@ -212,15 +237,59 @@ export default function Header() {
             </Link>
           </div>
 
+          {/* Desktop Search Bar - Right Side */}
+          <div className="hidden lg:block relative search-container">
+            <div className="flex items-center">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm sản phẩm..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  onFocus={() => searchQuery.trim() && setSearchOpen(true)}
+                  className={`px-4 py-2 pr-10 rounded-lg text-sm transition-all ${
+                    (isHomePage && !scrolled)
+                      ? 'bg-white/20 text-white placeholder-white/70 border border-white/30 focus:bg-white/30 focus:border-white/50'
+                      : 'bg-gray-50 text-gray-700 placeholder-gray-500 border border-gray-200 focus:bg-white focus:border-[#5f7ab8] focus:ring-2 focus:ring-[#5f7ab8]/20'
+                  }`}
+                  style={{ width: searchOpen ? '280px' : '200px' }}
+                />
+                <button
+                  onClick={handleSearchToggle}
+                  className={`absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded transition-colors ${
+                    (isHomePage && !scrolled)
+                      ? 'text-white/70 hover:text-white'
+                      : 'text-gray-400 hover:text-[#5f7ab8]'
+                  }`}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            {/* Search Results */}
+            <SearchResults 
+              isOpen={searchOpen} 
+              onClose={() => {
+                setSearchOpen(false);
+                setSearchQuery('');
+              }} 
+              query={searchQuery} 
+            />
+          </div>
+
           {/* Mobile menu button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`mobile-menu-button lg:hidden p-2 rounded-lg transition-colors ${
-              (isHomePage && !scrolled)
-                ? 'text-white hover:bg-white/20'
-                : 'text-gray-700 hover:bg-gray-100'
-            }`}
-            suppressHydrationWarning
+          <MobileTouchMenu className="lg:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`mobile-menu-button p-2 rounded-lg transition-colors ${
+                (isHomePage && !scrolled)
+                  ? 'text-white hover:bg-white/20'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+              suppressHydrationWarning
           >
             <svg 
               className="w-6 h-6" 
@@ -236,11 +305,48 @@ export default function Header() {
               )}
             </svg>
           </button>
+          </MobileTouchMenu>
         </div>
 
         {/* Mobile Navigation */}
         {mounted && mobileMenuOpen && (
           <div className="mobile-menu-container lg:hidden mt-4 pb-4 space-y-2 bg-white rounded-xl shadow-xl p-4 border border-gray-100">
+            {/* Mobile Search */}
+            <div className="search-container mb-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm sản phẩm..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  onFocus={() => searchQuery.trim() && setSearchOpen(true)}
+                  className="w-full px-4 py-3 pr-10 rounded-lg text-sm bg-gray-50 text-gray-700 placeholder-gray-500 border border-gray-200 focus:bg-white focus:border-[#5f7ab8] focus:ring-2 focus:ring-[#5f7ab8]/20"
+                />
+                <button
+                  onClick={handleSearchToggle}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded transition-colors text-gray-400 hover:text-[#5f7ab8]"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Mobile Search Results */}
+              {searchOpen && (
+                <div className="mt-2">
+                  <SearchResults 
+                    isOpen={searchOpen} 
+                    onClose={() => {
+                      setSearchOpen(false);
+                      setSearchQuery('');
+                    }} 
+                    query={searchQuery} 
+                  />
+                </div>
+              )}
+            </div>
+
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Trang chủ
             </Link>
