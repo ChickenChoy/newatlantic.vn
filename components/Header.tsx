@@ -225,6 +225,17 @@ export default function Header() {
               Tin tức
             </Link>
             <Link 
+              href="/page-download-catalog" 
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                (isHomePage && !scrolled)
+                  ? 'text-white hover:text-white hover:bg-white/20'
+                  : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
+              }`}
+              suppressHydrationWarning
+            >
+              Catalog sản phẩm
+            </Link>
+            <Link 
               href="/lien-he" 
               className={`ml-4 px-6 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all ${
                 (isHomePage && !scrolled)
@@ -367,6 +378,9 @@ export default function Header() {
             </div>
             <Link href="/tin-tuc" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Tin tức
+            </Link>
+            <Link href="/page-download-catalog" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+              Catalog sản phẩm
             </Link>
             <Link href="/lien-he" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold rounded-lg text-center mt-2">
               Liên hệ
