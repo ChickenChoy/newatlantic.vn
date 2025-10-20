@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Catalog Sản Phẩm | NewAtlantic',
+    title: 'Catalog Sản Phẩm | NEW ATLANTIC',
     description: 'Tải về catalog chi tiết các sản phẩm thiết bị công nghiệp chính hãng',
     images: ['/images/logo/logo-color.png']
   },
