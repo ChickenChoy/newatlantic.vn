@@ -57,8 +57,8 @@ export default function ContactPage() {
 
       <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 min-h-screen pt-16">
       {/* Breadcrumb */}
-      <div className="backdrop-blur-sm border-t border-gray-200 mt-4">
-        <div className="container mx-auto px-4 py-3">
+      <div className="bg-gray-50 mt-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-[#5f7ab8] transition">
               Trang chủ
@@ -70,9 +70,9 @@ export default function ContactPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto">
+        <div>
           <div className="mb-8">
             <h1 className="text-2xl font-semibold text-gray-900 mb-2">
               Liên Hệ Với Chúng Tôi

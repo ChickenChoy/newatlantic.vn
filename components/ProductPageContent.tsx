@@ -94,25 +94,25 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   return (
     <div className="bg-gray-50 min-h-screen pt-20">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 border-t border-[#e5e7eb] mt-4">
-        <div className="container mx-auto px-4 py-4">
-          <nav className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#5f7ab8] transition-colors">
+      <div className="bg-gray-50 mt-4">
+        <div className="container mx-auto px-4 py-3">
+          <nav className="flex items-center gap-2 text-sm text-gray-600">
+            <Link href="/" className="hover:text-[#5f7ab8] transition">
               Trang chủ
             </Link>
             <span>/</span>
-            <Link href="/san-pham" className="hover:text-[#5f7ab8] transition-colors">
+            <Link href="/san-pham" className="hover:text-[#5f7ab8] transition">
               Sản phẩm
             </Link>
             <span>/</span>
             <Link 
               href={`/san-pham/${product.categorySlug}`} 
-              className="hover:text-[#5f7ab8] transition-colors"
+              className="hover:text-[#5f7ab8] transition"
             >
               {product.category}
             </Link>
             <span>/</span>
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <span className="text-[#5f7ab8] font-medium">{product.name}</span>
           </nav>
         </div>
       </div>

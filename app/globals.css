@@ -194,6 +194,45 @@ button, a, input, textarea, select {
   background: var(--primary-dark);
 }
 
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+/* Optimize animations for performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimize image loading */
+img {
+  content-visibility: auto;
+}
+
+/* Critical above-the-fold styles */
+.hero-section {
+  contain: layout style paint;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+}
+
 /* Gradient backgrounds */
 .gradient-primary {
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);

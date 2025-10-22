@@ -85,8 +85,21 @@ export default function DownloadCatalogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      
       {/* Main Content */}
       <main className="pt-20">
+        {/* Breadcrumb */}
+        <div className="bg-gray-50 mt-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <nav className="flex items-center gap-2 text-sm text-gray-600">
+              <Link href="/" className="hover:text-[#5f7ab8] transition">
+                Trang chủ
+              </Link>
+              <span>/</span>
+              <span className="text-[#5f7ab8] font-medium">Catalog Sản Phẩm</span>
+            </nav>
+          </div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Page Title */}
           <div className="text-center mb-12 animate-fade-in-up">
