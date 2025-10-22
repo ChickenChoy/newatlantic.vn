@@ -92,9 +92,9 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   }, [relatedProducts.length]);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-20">
+    <div className="bg-gray-100 min-h-screen pt-20">
       {/* Breadcrumb */}
-      <div className="bg-gray-50 mt-4">
+      <div className="bg-gray-100 mt-4">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-[#5f7ab8] transition">
@@ -118,13 +118,13 @@ export default function ProductPageContent({ product, relatedProducts }: Product
       </div>
 
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-gray-50 rounded-3xl shadow-xl p-8 lg:p-12 mb-16">
           {/* Product Image Slider */}
           <div>
             <TouchGestureWrapper
               onSwipeLeft={nextImage}
               onSwipeRight={prevImage}
-              className="relative h-[600px] bg-white rounded-2xl overflow-hidden shadow-lg"
+              className="relative h-[600px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg"
             >
               {/* Main Image */}
               <div className="relative w-full h-full">
@@ -229,8 +229,8 @@ export default function ProductPageContent({ product, relatedProducts }: Product
               </h1>
 
               {/* Description with accent */}
-              <div className="relative pl-4 border-l-2 border-[#5f7ab8]">
-                <p className="text-sm text-gray-600 leading-relaxed font-light italic">
+              <div className="relative pl-4 border-l-4 border-[#5f7ab8]">
+                <p className="text-base text-gray-900 leading-relaxed font-medium">
                   "{product.description}"
                 </p>
               </div>
@@ -323,7 +323,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
         </div>
 
         {/* Product Details */}
-        <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12 mb-16">
+        <div className="bg-gray-50 rounded-3xl shadow-xl p-8 lg:p-12 mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Thông tin chi tiết</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -335,11 +335,11 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 </svg>
                 Thông số kỹ thuật
               </h3>
-              <div className="bg-gray-50 rounded-xl p-6 space-y-3">
+              <div className="bg-gray-100 rounded-xl p-6 space-y-3">
                 {Object.entries(product.specifications).map(([key, value]: [string, any]) => (
                   <div key={key} className="flex justify-between py-3 border-b border-gray-200 last:border-0">
-                    <span className="text-gray-600 font-medium">{key}:</span>
-                    <span className="font-semibold text-gray-900">{value}</span>
+                    <span className="text-gray-900 font-semibold">{key}:</span>
+                    <span className="font-bold text-gray-900">{value}</span>
                   </div>
                 ))}
               </div>
@@ -353,8 +353,8 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 </svg>
                 Mô tả sản phẩm
               </h3>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <p className="text-gray-700 leading-relaxed">
+              <div className="bg-gray-100 rounded-xl p-6">
+                <p className="text-gray-900 leading-relaxed text-base font-medium">
                   {product.description}
                 </p>
               </div>
@@ -364,7 +364,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
 
         {/* Related Products Slider */}
         {relatedProducts.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="bg-gray-50 rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Sản phẩm liên quan</h2>
             
             {/* Slider Container */}
@@ -404,9 +404,9 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                     <Link 
                       key={relatedProduct.id} 
                       href={`/san-pham/${relatedProduct.categorySlug}/${relatedProduct.slug}`}
-                      className="group flex-shrink-0 w-64 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                      className="group flex-shrink-0 w-64 bg-gray-100 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                     >
-                      <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-xl overflow-hidden">
+                      <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 rounded-t-xl overflow-hidden">
                         {relatedProduct.image ? (
                           <>
                             <Image

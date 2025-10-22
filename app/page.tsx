@@ -68,7 +68,7 @@ export default function HomePage() {
       <HeroSlider />
 
       {/* Company Slogan Section */}
-      <section className="py-12 md:py-16 bg-white relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-gray-50 relative overflow-hidden">
         {/* Modern Abstract Background */}
         <div className="absolute inset-0">
           {/* Gradient Orbs */}
@@ -86,7 +86,7 @@ export default function HomePage() {
           <ScrollAnimation direction="up">
             <div className="max-w-5xl mx-auto">
               {/* Slogan Card */}
-              <div className="bg-gradient-to-br from-white via-gray-50/50 to-white backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/60 p-6 md:p-8 lg:p-10 relative overflow-hidden">
+              <div className="bg-gradient-to-br from-gray-50 via-gray-100/50 to-gray-50 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/60 p-6 md:p-8 lg:p-10 relative overflow-hidden">
                 {/* Accent Border Top */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#5f7ab8] to-transparent"></div>
                 
@@ -136,7 +136,7 @@ export default function HomePage() {
       </section>
 
       {/* Company Overview - About Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50/50 relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-gray-100/50 relative overflow-hidden">
         {/* Background Elements - Simplified */}
         <div className="absolute inset-0 opacity-50">
           <div className="absolute w-96 h-96 bg-[#5f7ab8]/10 rounded-full blur-3xl top-20 -right-48"></div>
@@ -218,7 +218,7 @@ export default function HomePage() {
                 <div className="relative">
                   {/* Main Image Container */}
                   <div className="relative aspect-[4/3] bg-gradient-to-br from-[#5f7ab8]/10 to-[#4a6199]/10 rounded-2xl md:rounded-3xl p-4 md:p-8">
-                    <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl h-full overflow-hidden relative">
+                    <div className="bg-gray-50 rounded-xl md:rounded-2xl shadow-2xl h-full overflow-hidden relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-[#5f7ab8]/5 to-transparent"></div>
                       <div className="relative z-10 p-4 md:p-8 h-full flex flex-col justify-center">
                       <div className="space-y-4 md:space-y-6">
@@ -274,7 +274,7 @@ export default function HomePage() {
       </section>
 
       {/* Products & Services Detail Section */}
-      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-gray-50 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             {/* Section Header */}
@@ -301,7 +301,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
               {/* Service 1 - Cẩu tự hành */}
               <ScrollAnimation direction="left" delay={0}>
-                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                <div className="bg-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/30">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -320,7 +320,7 @@ export default function HomePage() {
 
               {/* Service 2 - Thiết bị cơ giới */}
               <ScrollAnimation direction="right" delay={100}>
-                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                <div className="bg-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/30">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#10b981] to-[#059669] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -339,7 +339,7 @@ export default function HomePage() {
 
               {/* Service 3 - Phụ tùng */}
               <ScrollAnimation direction="left" delay={200}>
-                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                <div className="bg-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/30">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -359,7 +359,7 @@ export default function HomePage() {
 
               {/* Service 4 - Sửa chữa bảo trì */}
               <ScrollAnimation direction="right" delay={300}>
-                <div className="bg-gray-50 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-[#5f7ab8]/30">
+                <div className="bg-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/30">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -400,7 +400,7 @@ export default function HomePage() {
       </section>
 
       {/* Products & Brands Section */}
-      <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-gray-50 relative overflow-hidden">
         {/* Background Pattern - Lighter */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute inset-0" style={{
@@ -435,8 +435,8 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {/* WILL-BURT Card */}
             <ScrollAnimation direction="left" delay={0}>
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+              <div className="group bg-gray-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -456,8 +456,8 @@ export default function HomePage() {
 
             {/* HIAB Card */}
             <ScrollAnimation direction="left" delay={100}>
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+              <div className="group bg-gray-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -477,8 +477,8 @@ export default function HomePage() {
 
             {/* LOVOL Card */}
             <ScrollAnimation direction="right" delay={200}>
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+              <div className="group bg-gray-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -498,8 +498,8 @@ export default function HomePage() {
 
             {/* LIUGONG Card */}
             <ScrollAnimation direction="right" delay={300}>
-              <div className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-100">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden">
+              <div className="group bg-gray-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -553,7 +553,7 @@ export default function HomePage() {
           {/* Main Services */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             <ScrollAnimation direction="left" delay={0}>
-              <div className="group bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full">
+              <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
@@ -586,7 +586,7 @@ export default function HomePage() {
             </ScrollAnimation>
 
             <ScrollAnimation direction="up" delay={150}>
-              <div className="group bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full">
+              <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -618,7 +618,7 @@ export default function HomePage() {
             </ScrollAnimation>
 
             <ScrollAnimation direction="right" delay={300}>
-              <div className="group bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full">
+              <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
@@ -822,7 +822,7 @@ export default function HomePage() {
 
 
       {/* Partners Network */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -847,26 +847,26 @@ export default function HomePage() {
               <div className="max-w-6xl mx-auto">
                 {/* First row - 4 logos */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/WillBurt.png" alt="Will-Burt" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain" />
                   </div>
                 </div>
                 
                 {/* Second row - 3 logos centered */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain" />
                   </div>
                   <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] col-span-2 md:col-span-1">
@@ -880,7 +880,7 @@ export default function HomePage() {
       </section>
 
       {/* Locations */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50/30 to-white relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-gradient-to-b from-gray-100/30 to-gray-50 relative overflow-hidden">
         {/* Background Elements - Simplified */}
         <div className="absolute inset-0 opacity-40">
           <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/8 rounded-full blur-3xl top-20 -right-48"></div>
@@ -911,7 +911,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
               {/* HCM Office */}
               <ScrollAnimation direction="left" delay={0}>
-                <div className="group bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full">
+                <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -944,7 +944,7 @@ export default function HomePage() {
 
               {/* Hanoi Office */}
               <ScrollAnimation direction="up" delay={150}>
-                <div className="group bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full">
+                <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -977,7 +977,7 @@ export default function HomePage() {
 
               {/* Quang Tri Office */}
               <ScrollAnimation direction="right" delay={300}>
-                <div className="group bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full">
+                <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -1013,7 +1013,7 @@ export default function HomePage() {
       </section>
 
       {/* Latest News */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollAnimation direction="up">
             <div className="max-w-7xl mx-auto">
