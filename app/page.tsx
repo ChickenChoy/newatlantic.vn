@@ -869,7 +869,7 @@ export default function HomePage() {
                   <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] col-span-2 md:col-span-1">
+                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain" />
                   </div>
                 </div>
