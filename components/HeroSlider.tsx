@@ -14,23 +14,6 @@ const slides = [
     video: "/videos/hero-video.mp4",
     link: "/san-pham",
   },
-  {
-    id: 2,
-    label: "GIỚI THIỆU",
-    title: "KHÁM PHÁ GIẢI PHÁP KỸ THUẬT",
-    description: "Mỗi sản phẩm tại New Atlantic là một giá trị, một chất lượng. Hãy để công nghệ nâng tầm dự án và tạo dấu ấn riêng của bạn.",
-    image: "/images/place-holder/hiab-crane-truck.jpg",
-    link: "/san-pham",
-  },
-  {
-    id: 3,
-    label: "TƯ VẤN",
-    title: "TƯ VẤN CHỌN THIẾT BỊ",
-    subtitle: "PHÙ HỢP DỰ ÁN CỦA BẠN",
-    description: "Không chỉ là nhà cung cấp thiết bị, New Atlantic giúp bạn khám phá giải pháp phù hợp với nhu cầu và dự án của mình. Liên hệ ngay để được tư vấn tận tình!",
-    image: "/images/place-holder/excavator-construction.jpg",
-    link: "/san-pham",
-  },
 ]
 
 export function HeroSlider() {
@@ -262,26 +245,6 @@ export function HeroSlider() {
           </div>
         ))}
         
-        {/* Navigation Dots */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex space-x-3">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setCurrentSlide(index)
-                setIsAutoPlaying(false)
-                setTimeout(() => setIsAutoPlaying(true), 3000)
-              }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/50 hover:bg-white/75'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
         {/* Touch Indicator (Mobile only) */}
         <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30 lg:hidden">
           <div className="flex items-center space-x-2 text-white/70 text-sm">
