@@ -841,12 +841,9 @@ export default function HomePage() {
             <ScrollAnimation direction="up">
               <div className="max-w-6xl mx-auto">
                 {/* First row - 4 logos */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-4 md:mb-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mb-4  mx-auto">
                   <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/WillBurt.png" alt="Will-Burt" className="w-full h-full object-contain" />
                   </div>
                   <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain" />
