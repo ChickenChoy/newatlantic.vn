@@ -350,3 +350,80 @@ img {
 .animate-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Enhanced Hero Animations */
+@keyframes subtleZoom {
+  0% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced hover effects */
+.hero-enhanced {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-enhanced:hover {
+  transform: scale(1.02);
+}
+
+/* Parallax effect for hero images */
+.parallax-hero {
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Video fallback styling */
+.video-fallback {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-fallback::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(95, 122, 184, 0.1), rgba(74, 97, 153, 0.1));
+  z-index: 1;
+  pointer-events: none;
+}

@@ -11,6 +11,7 @@ const slides = [
     subtitle: "THIẾT BỊ CÔNG NGHỆ CAO",
     description: "Mỗi sản phẩm New Atlantic là sự kết tinh của đẳng cấp và công nghệ tiên tiến, mang đến cho bạn những giải pháp tối ưu cho công việc và dự án.",
     image: "/images/place-holder/telescopic-mast-tower.jpg",
+    video: "/videos/hero-video.mp4",
     link: "/san-pham",
   },
   {
@@ -35,9 +36,15 @@ const slides = [
 export function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isMounted, setIsMounted] = useState(false)
   const sliderRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef<number>(0)
   const touchEndX = useRef<number>(0)
+
+  // Ensure client-side only rendering for animations
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Auto slide every 5 seconds
   useEffect(() => {
@@ -107,50 +114,145 @@ export function HeroSlider() {
               index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            {/* Background Image with Zoom Animation */}
-            <div 
-              className={`absolute inset-0 transition-transform duration-[8000ms] ease-out ${
-                index === currentSlide ? "scale-110" : "scale-100"
+            {/* Background with Enhanced Animation */}
+            <div
+              className={`absolute inset-0 transition-all duration-[1000ms] ease-out ${
+                index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
               }`}
+              style={{
+                transform: index === currentSlide ? 'scale(1.1)' : 'scale(1)'
+              }}
+              suppressHydrationWarning
             >
-              <img 
-                src={slide.image} 
-                alt={slide.title} 
-                className="w-full h-full object-cover"
-              />
-              {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-black/60 md:bg-black/65" />
+              {/* Animated Background Container */}
+              <div className="relative w-full h-full overflow-hidden" suppressHydrationWarning>
+                {/* Video Background (if available) */}
+                {slide.video ? (
+                  <>
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-out ${
+                        index === currentSlide && isMounted
+                          ? "scale-110 opacity-100"
+                          : "scale-100 opacity-90"
+                      }`}
+                      style={{
+                        animation: index === currentSlide && isMounted ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
+                      }}
+                    >
+                      <source src={slide.video} type="video/mp4" />
+                      {/* Fallback to image if video fails */}
+                      <img
+                        src={slide.image}
+                        alt={slide.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </video>
+                  </>
+                ) : (
+                  /* Enhanced Image with Animation (fallback) */
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-out ${
+                      index === currentSlide && isMounted
+                        ? "scale-110 opacity-100"
+                        : "scale-100 opacity-90"
+                    }`}
+                    style={{
+                      animation: index === currentSlide && isMounted ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
+                    }}
+                  />
+                )}
+                
+                {/* Enhanced Gradient Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70 transition-all duration-1000 ${
+                  index === currentSlide ? "opacity-100" : "opacity-90"
+                }`}>
+                  {/* Animated light rays effect */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/50 to-transparent transform rotate-12"></div>
+                    <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/30 to-transparent transform -rotate-12"></div>
+                  </div>
+                </div>
+                
+                {/* Enhanced Particle Effect Overlay */}
+                {index === currentSlide && isMounted && (
+                  <div className="absolute inset-0 opacity-40">
+                    <div className="absolute top-20 left-20 w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
+                    <div className="absolute top-1/4 right-1/4 w-1 h-1 bg-white rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
+                    <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
+                    <div className="absolute bottom-20 right-20 w-1 h-1 bg-white rounded-full animate-ping" style={{animationDelay: '3s'}}></div>
+                    <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Content */}
             <div className="relative h-full flex items-center z-20">
               <div className="container mx-auto px-4 md:px-6 lg:px-8">
-                <div 
-                  className={`max-w-5xl mx-auto text-center transition-all duration-1000 delay-300 ${
-                    index === currentSlide 
-                      ? "opacity-100 translate-y-0" 
+                <div
+                  className={`max-w-5xl mx-auto text-center transition-all duration-[1500ms] ${
+                    index === currentSlide
+                      ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
                   }`}
+                  style={{
+                    animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out' : 'none'
+                  }}
+                  suppressHydrationWarning
                 >
                   {slide.label && (
-                    <p className="text-sm md:text-base lg:text-lg text-white/90 mb-4 md:mb-6 tracking-[0.2em] uppercase drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+                    <p
+                      className="text-sm md:text-base lg:text-lg text-white/90 mb-4 md:mb-6 tracking-[0.2em] uppercase drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+                      style={{
+                        animation: index === currentSlide && isMounted ? 'slideInFromTop 1s ease-out 0.2s both' : 'none'
+                      }}
+                      suppressHydrationWarning
+                    >
                       {slide.label}
                     </p>
                   )}
-                  <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 lg:mb-8 uppercase leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-tight">
+                  <h2
+                    className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 lg:mb-8 uppercase leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-tight"
+                    style={{
+                      animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.4s both' : 'none'
+                    }}
+                    suppressHydrationWarning
+                  >
                     {slide.title}
                   </h2>
                   {slide.subtitle && (
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mb-6 md:mb-8 lg:mb-10 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
+                    <h3
+                      className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mb-6 md:mb-8 lg:mb-10 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
+                      style={{
+                        animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.6s both' : 'none'
+                      }}
+                      suppressHydrationWarning
+                    >
                       {slide.subtitle}
                     </h3>
                   )}
-                  <p className="text-base md:text-xl lg:text-2xl xl:text-3xl text-white mb-10 md:mb-12 lg:mb-14 leading-relaxed max-w-4xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+                  <p
+                    className="text-base md:text-xl lg:text-2xl xl:text-3xl text-white mb-10 md:mb-12 lg:mb-14 leading-relaxed max-w-4xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+                    style={{
+                      animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.8s both' : 'none'
+                    }}
+                    suppressHydrationWarning
+                  >
                     {slide.description}
                   </p>
                   <Link
                     href={slide.link}
                     className="inline-block px-10 py-4 md:px-12 md:py-5 bg-white/90 hover:bg-white text-gray-900 font-semibold rounded-full hover:scale-105 transition-all duration-300 shadow-lg text-base md:text-lg"
+                    style={{
+                      animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 1s both, float 3s ease-in-out 2s infinite' : 'none'
+                    }}
+                    suppressHydrationWarning
                   >
                     Xem thêm
                   </Link>
