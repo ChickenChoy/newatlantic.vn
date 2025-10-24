@@ -698,125 +698,120 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Statistics Section */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-[#5f7ab8] via-[#4a6199] to-[#3a4d7a] text-white relative overflow-hidden">
-        {/* Modern Geometric Background */}
+      {/* Video Background CTA Section */}
+      <section className="relative h-[500px] md:h-[650px] lg:h-[750px] overflow-hidden">
+        {/* Video Background */}
         <div className="absolute inset-0">
-          {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10"></div>
-          
-          {/* Hexagon Pattern - Modern & Clean */}
-          <div className="absolute inset-0 opacity-[0.15]" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
-          }}></div>
-          
-          {/* Topography Pattern Layer */}
-          <div className="absolute inset-0 opacity-[0.08]" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-            backgroundSize: '100px 100px'
-          }}></div>
-          
-          {/* Subtle animated circles */}
-          <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDuration: '8s'}}></div>
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s', animationDelay: '2s'}}></div>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/videos/hero-video-2.mp4" type="video/mp4" />
+          </video>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/65 to-black/75"></div>
         </div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Why Choose Us */}
-          <div>
-          <ScrollAnimation direction="up">
-            <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-semibold mb-6 border border-white/20">
-                  <svg className="w-4 h-4 animate-spin" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+
+        {/* Content */}
+        <div className="relative h-full flex items-center justify-center z-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <ScrollAnimation direction="up">
+              <div className="max-w-5xl mx-auto text-center">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm md:text-base font-semibold mb-8 border border-white/20">
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   TẠI SAO CHỌN CHÚNG TÔI
                 </div>
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+
+                {/* Main Heading */}
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
                   Tại Sao Chọn Chúng Tôi?
-                </h3>
-                <p className="text-lg text-gray-100 max-w-2xl mx-auto leading-relaxed">
+                </h2>
+
+                {/* Description */}
+                <p className="text-base md:text-lg lg:text-xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto drop-shadow-md">
                   Cam kết mang đến giá trị tốt nhất cho khách hàng với dịch vụ chuyên nghiệp và sản phẩm chất lượng cao
                 </p>
-            </div>
-          </ScrollAnimation>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            <ScrollAnimation direction="left" delay={0}>
-                <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl h-full relative overflow-hidden">
-                  {/* Card Background Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                  
-                  <div className="relative z-10">
-                    <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
-                      <svg className="w-8 h-8 group-hover:text-yellow-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                {/* Feature Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+                  {/* Card 1 - Sản Phẩm Chính Hãng */}
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-lg">
+                      <svg className="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <h4 className="text-lg md:text-xl font-bold mb-3 group-hover:text-yellow-100 transition-colors duration-300">
-                      Sản Phẩm Chính Hãng
-                    </h4>
-                    <p className="text-sm text-gray-100 leading-relaxed group-hover:text-white transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-3">Sản Phẩm Chính Hãng</h3>
+                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
                       100% sản phẩm nhập khẩu trực tiếp từ nhà sản xuất, đầy đủ chứng nhận và giấy tờ xuất xứ
                     </p>
-                    
-                    {/* Decorative Element */}
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-white/30 rounded-full group-hover:bg-yellow-300 transition-colors duration-300"></div>
                   </div>
-                </div>
-            </ScrollAnimation>
-              
-            <ScrollAnimation direction="up" delay={150}>
-                <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl h-full relative overflow-hidden">
-                  {/* Card Background Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                  
-                  <div className="relative z-10">
-                    <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
-                      <svg className="w-8 h-8 group-hover:text-blue-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+
+                  {/* Card 2 - Bảo Hành Toàn Diện */}
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-lg">
+                      <svg className="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
                     </div>
-                    <h4 className="text-lg md:text-xl font-bold mb-3 group-hover:text-blue-100 transition-colors duration-300">
-                      Bảo Hành Toàn Diện
-                    </h4>
-                    <p className="text-sm text-gray-100 leading-relaxed group-hover:text-white transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-3">Bảo Hành Toàn Diện</h3>
+                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
                       Chế độ bảo hành chính hãng dài hạn, hỗ trợ kỹ thuật 24/7 với đội ngũ chuyên gia giàu kinh nghiệm
                     </p>
-                    
-                    {/* Decorative Element */}
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-white/30 rounded-full group-hover:bg-blue-300 transition-colors duration-300"></div>
                   </div>
-                </div>
-            </ScrollAnimation>
-              
-            <ScrollAnimation direction="right" delay={300}>
-                <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl h-full relative overflow-hidden">
-                  {/* Card Background Glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                  
-                  <div className="relative z-10">
-                    <div className="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
-                      <svg className="w-8 h-8 group-hover:text-green-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                  {/* Card 3 - Đội Ngũ Chuyên Nghiệp */}
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-lg">
+                      <svg className="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
                     </div>
-                    <h4 className="text-lg md:text-xl font-bold mb-3 group-hover:text-green-100 transition-colors duration-300">
-                      Đội Ngũ Chuyên Nghiệp
-                    </h4>
-                    <p className="text-sm text-gray-100 leading-relaxed group-hover:text-white transition-colors duration-300">
+                    <h3 className="text-lg md:text-xl font-bold text-white mb-3">Đội Ngũ Chuyên Nghiệp</h3>
+                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
                       Kỹ thuật viên được đào tạo bài bản tại nhà máy, tư vấn nhiệt tình và hỗ trợ tận nơi
                     </p>
-                    
-                    {/* Decorative Element */}
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-white/30 rounded-full group-hover:bg-green-300 transition-colors duration-300"></div>
                   </div>
                 </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                  <Link
+                    href="/lien-he"
+                    className="group inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-sm md:text-base w-full sm:w-auto"
+                  >
+                    <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    Liên hệ ngay
+                    <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                  
+                  <Link
+                    href="/page-download-catalog"
+                    className="group inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-sm md:text-base w-full sm:w-auto"
+                  >
+                    <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Tải catalog
+                  </Link>
+                </div>
+              </div>
             </ScrollAnimation>
-            </div>
           </div>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50/50 to-transparent pointer-events-none"></div>
       </section>
 
 
