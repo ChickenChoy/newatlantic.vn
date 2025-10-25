@@ -68,12 +68,12 @@ export default function HomePage() {
       <HeroSlider />
 
       {/* Company Slogan Section */}
-      <section className="py-12 md:py-16 bg-gray-50 relative overflow-hidden">
+      <section className="py-8 sm:py-12 md:py-16 bg-gray-50 relative overflow-hidden">
         {/* Modern Abstract Background */}
         <div className="absolute inset-0">
           {/* Gradient Orbs */}
-          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#5f7ab8]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#4a6199]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+          <div className="absolute top-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#5f7ab8]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#4a6199]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
           
           {/* Subtle Grid Pattern */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -86,21 +86,21 @@ export default function HomePage() {
           <ScrollAnimation direction="up">
             <div className="max-w-5xl mx-auto">
               {/* Slogan Card */}
-              <div className="bg-gradient-to-br from-gray-50 via-gray-100/50 to-gray-50 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/60 p-6 md:p-8 lg:p-10 relative overflow-hidden">
+              <div className="bg-gradient-to-br from-gray-50 via-gray-100/50 to-gray-50 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-gray-200/60 p-4 sm:p-6 md:p-8 lg:p-10 relative overflow-hidden">
                 {/* Accent Border Top */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#5f7ab8] to-transparent"></div>
                 
-                {/* Decorative Corner Elements */}
-                <div className="absolute top-8 left-8 w-20 h-20 border-t-2 border-l-2 border-[#5f7ab8]/20 rounded-tl-3xl"></div>
-                <div className="absolute bottom-8 right-8 w-20 h-20 border-b-2 border-r-2 border-[#5f7ab8]/20 rounded-br-3xl"></div>
+                {/* Decorative Corner Elements - Hidden on mobile */}
+                <div className="hidden md:block absolute top-8 left-8 w-16 lg:w-20 h-16 lg:h-20 border-t-2 border-l-2 border-[#5f7ab8]/20 rounded-tl-3xl"></div>
+                <div className="hidden md:block absolute bottom-8 right-8 w-16 lg:w-20 h-16 lg:h-20 border-b-2 border-r-2 border-[#5f7ab8]/20 rounded-br-3xl"></div>
                 
                 {/* Content */}
                 <div className="relative">
 
                   
                   {/* Slogan Text */}
-                  <div className="text-center space-y-4">
-                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                  <div className="text-center space-y-3 sm:space-y-4">
+                    <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight px-2">
                       <span className="bg-gradient-to-r from-gray-700 via-[#5f7ab8] to-gray-700 bg-clip-text text-transparent">
                         PHÁT TRIỂN PHỒN VINH XÂY THỊNH VƯỢNG
                       </span>
@@ -108,12 +108,12 @@ export default function HomePage() {
                     
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-2 py-1">
-                      <div className="w-10 h-px bg-gradient-to-r from-transparent to-[#5f7ab8]"></div>
+                      <div className="w-8 sm:w-10 h-px bg-gradient-to-r from-transparent to-[#5f7ab8]"></div>
                       <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></div>
-                      <div className="w-10 h-px bg-gradient-to-l from-transparent to-[#5f7ab8]"></div>
+                      <div className="w-8 sm:w-10 h-px bg-gradient-to-l from-transparent to-[#5f7ab8]"></div>
                     </div>
                     
-                    <h2 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+                    <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight px-2">
                       <span className="bg-gradient-to-r from-gray-700 via-[#5f7ab8] to-gray-700 bg-clip-text text-transparent">
                         TỰ HÀO BỐN CHỮ TÂN ĐẠI TÂY DƯƠNG
                       </span>
@@ -121,7 +121,7 @@ export default function HomePage() {
                   </div>
                   
                   {/* Bottom Accent */}
-                  <div className="flex justify-center mt-6">
+                  <div className="flex justify-center mt-4 sm:mt-6">
                     <div className="flex items-center gap-1.5">
                       <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse"></div>
                       <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
@@ -144,17 +144,17 @@ export default function HomePage() {
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
               <ScrollAnimation direction="left">
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium mb-3 sm:mb-4 tracking-wide uppercase">
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
                       Về chúng tôi
                     </div>
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 leading-tight">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight">
                       Hành trình phát triển
                       <span className="block text-[#5f7ab8]">
                         từ 2003
@@ -162,7 +162,7 @@ export default function HomePage() {
                     </h2>
                   </div>
                   
-                  <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
+                  <div className="space-y-3 sm:space-y-4 text-gray-700 text-sm sm:text-base lg:text-lg leading-relaxed">
                     <p>
                       <strong className="text-gray-900">Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương</strong> thành lập ngày 14/05/2003, với nỗ lực không ngừng đã phát triển từ một doanh nghiệp nhỏ thành một công ty uy tín trong và ngoài nước.
                     </p>
@@ -172,46 +172,46 @@ export default function HomePage() {
                   </div>
                   
                   {/* Stats */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t border-gray-200">
+                  <div className="grid grid-cols-2 gap-4 sm:gap-6 py-6 sm:py-8 border-t border-gray-200">
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">22+</div>
-                      <div className="text-sm text-gray-600">Năm kinh nghiệm</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">22+</div>
+                      <div className="text-xs sm:text-sm text-gray-600">Năm kinh nghiệm</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">4</div>
-                      <div className="text-sm text-gray-600">Thương hiệu</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">4</div>
+                      <div className="text-xs sm:text-sm text-gray-600">Thương hiệu</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">1000+</div>
-                      <div className="text-sm text-gray-600">Khách hàng</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">1000+</div>
+                      <div className="text-xs sm:text-sm text-gray-600">Khách hàng</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">24/7</div>
-                      <div className="text-sm text-gray-600">Hỗ trợ</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[#5f7ab8] mb-1">24/7</div>
+                      <div className="text-xs sm:text-sm text-gray-600">Hỗ trợ</div>
                     </div>
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <Link 
                       href="/san-pham"
-                      className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                       </svg>
                       Khám phá sản phẩm
                     </Link>
                     <Link 
                       href="/lien-he"
-                      className="inline-flex items-center justify-center gap-2 border-2 border-[#5f7ab8] text-[#5f7ab8] px-8 py-4 rounded-xl font-semibold hover:bg-[#5f7ab8] hover:text-white transition-all duration-300"
+                      className="inline-flex items-center justify-center gap-2 border-2 border-[#5f7ab8] text-[#5f7ab8] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-[#5f7ab8] hover:text-white transition-all duration-300 text-sm sm:text-base"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                       Liên hệ tư vấn
                     </Link>
                   </div>
-            </div>
+                </div>
           </ScrollAnimation>
               
               <ScrollAnimation direction="right">
@@ -699,7 +699,7 @@ export default function HomePage() {
       </section>
 
       {/* Video Background CTA Section */}
-      <section className="relative h-[500px] md:h-[650px] lg:h-[750px] overflow-hidden">
+      <section className="relative min-h-[700px] sm:min-h-[650px] md:min-h-[700px] lg:min-h-[750px] overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0">
           <video
@@ -707,7 +707,7 @@ export default function HomePage() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover"
           >
             <source src="/videos/hero-video-2.mp4" type="video/mp4" />
           </video>
@@ -716,90 +716,90 @@ export default function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative h-full flex items-center justify-center z-10">
+        <div className="relative h-full flex items-center justify-center z-10 py-12 sm:py-16 md:py-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ScrollAnimation direction="up">
               <div className="max-w-5xl mx-auto text-center">
                 {/* Badge */}
-                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm md:text-base font-semibold mb-8 border border-white/20">
-                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20">
+                <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-3 bg-white/10 backdrop-blur-sm text-white rounded-full text-xs sm:text-sm md:text-base font-semibold mb-4 sm:mb-6 md:mb-8 border border-white/20">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   TẠI SAO CHỌN CHÚNG TÔI
                 </div>
 
                 {/* Main Heading */}
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6 leading-tight drop-shadow-lg px-2">
                   Tại Sao Chọn Chúng Tôi?
                 </h2>
 
                 {/* Description */}
-                <p className="text-base md:text-lg lg:text-xl text-white/90 mb-12 leading-relaxed max-w-3xl mx-auto drop-shadow-md">
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-white/90 mb-6 sm:mb-8 md:mb-10 lg:mb-12 leading-relaxed max-w-3xl mx-auto drop-shadow-md px-4">
                   Cam kết mang đến giá trị tốt nhất cho khách hàng với dịch vụ chuyên nghiệp và sản phẩm chất lượng cao
                 </p>
 
                 {/* Feature Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-6 sm:mb-8 md:mb-10 lg:mb-12 px-2 sm:px-4">
                   {/* Card 1 - Sản Phẩm Chính Hãng */}
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-lg">
-                      <svg className="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center mb-2 sm:mb-3 md:mb-4 lg:mb-6 mx-auto shadow-lg">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-3">Sản Phẩm Chính Hãng</h3>
-                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3">Sản Phẩm Chính Hãng</h3>
+                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed">
                       100% sản phẩm nhập khẩu trực tiếp từ nhà sản xuất, đầy đủ chứng nhận và giấy tờ xuất xứ
                     </p>
                   </div>
 
                   {/* Card 2 - Bảo Hành Toàn Diện */}
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-lg">
-                      <svg className="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-lg sm:rounded-xl flex items-center justify-center mb-2 sm:mb-3 md:mb-4 lg:mb-6 mx-auto shadow-lg">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-3">Bảo Hành Toàn Diện</h3>
-                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3">Bảo Hành Toàn Diện</h3>
+                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed">
                       Chế độ bảo hành chính hãng dài hạn, hỗ trợ kỹ thuật 24/7 với đội ngũ chuyên gia giàu kinh nghiệm
                     </p>
                   </div>
 
                   {/* Card 3 - Đội Ngũ Chuyên Nghiệp */}
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 md:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 mx-auto shadow-lg">
-                      <svg className="w-7 h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 hover:bg-white/15 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-lg sm:rounded-xl flex items-center justify-center mb-2 sm:mb-3 md:mb-4 lg:mb-6 mx-auto shadow-lg">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-3">Đội Ngũ Chuyên Nghiệp</h3>
-                    <p className="text-sm md:text-base text-white/80 leading-relaxed">
+                    <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1.5 sm:mb-2 md:mb-3">Đội Ngũ Chuyên Nghiệp</h3>
+                    <p className="text-xs sm:text-sm md:text-base text-white/80 leading-relaxed">
                       Kỹ thuật viên được đào tạo bài bản tại nhà máy, tư vấn nhiệt tình và hỗ trợ tận nơi
                     </p>
                   </div>
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center items-center px-2 sm:px-4">
                   <Link
                     href="/lien-he"
-                    className="group inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-6 py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-sm md:text-base w-full sm:w-auto"
+                    className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white text-gray-900 px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
                   >
-                    <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                     Liên hệ ngay
-                    <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
                   
                   <Link
                     href="/page-download-catalog"
-                    className="group inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-sm md:text-base w-full sm:w-auto"
+                    className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-transparent border-2 border-white text-white px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
                   >
-                    <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                     Tải catalog
@@ -840,8 +840,8 @@ export default function HomePage() {
             {/* Partners Grid */}
             <ScrollAnimation direction="up">
               <div className="max-w-6xl mx-auto">
-                {/* First row - 4 logos */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mb-4  mx-auto">
+                {/* First row - 3 logos */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mb-4 mx-auto">
                   <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
                   </div>
@@ -853,8 +853,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                {/* Second row - 3 logos centered */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+                {/* Second row - 3 logos */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
                   <div className="bg-gray-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3]">
                     <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain" />
                   </div>

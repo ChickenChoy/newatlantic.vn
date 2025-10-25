@@ -83,7 +83,7 @@ export function HeroSlider() {
       {/* Hero Slider Section */}
       <section 
         ref={sliderRef}
-        className="relative h-[100vh] overflow-hidden"
+        className="relative min-h-[600px] h-[calc(100vh-80px)] sm:h-[calc(100vh-60px)] md:h-screen overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -117,7 +117,7 @@ export function HeroSlider() {
                       loop
                       muted
                       playsInline
-                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-out ${
+                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-all duration-[2000ms] ease-out ${
                         index === currentSlide && isMounted
                           ? "scale-110 opacity-100"
                           : "scale-100 opacity-90"
@@ -140,7 +140,7 @@ export function HeroSlider() {
                   <img
                     src={slide.image}
                     alt={slide.title}
-                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-[2000ms] ease-out ${
+                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-all duration-[2000ms] ease-out ${
                       index === currentSlide && isMounted
                         ? "scale-110 opacity-100"
                         : "scale-100 opacity-90"
@@ -176,8 +176,8 @@ export function HeroSlider() {
             </div>
 
             {/* Content */}
-            <div className="relative h-full flex items-center z-20">
-              <div className="container mx-auto px-4 md:px-6 lg:px-8">
+            <div className="relative h-full flex items-center justify-center z-20 py-8 sm:py-12">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div
                   className={`max-w-5xl mx-auto text-center transition-all duration-[1500ms] ${
                     index === currentSlide
@@ -191,7 +191,7 @@ export function HeroSlider() {
                 >
                   {slide.label && (
                     <p
-                      className="text-sm md:text-base lg:text-lg text-white/90 mb-4 md:mb-6 tracking-[0.2em] uppercase drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+                      className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 mb-3 sm:mb-4 md:mb-6 tracking-[0.15em] sm:tracking-[0.2em] uppercase drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
                       style={{
                         animation: index === currentSlide && isMounted ? 'slideInFromTop 1s ease-out 0.2s both' : 'none'
                       }}
@@ -201,7 +201,7 @@ export function HeroSlider() {
                     </p>
                   )}
                   <h2
-                    className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 lg:mb-8 uppercase leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-tight"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white mb-3 sm:mb-4 md:mb-6 lg:mb-8 uppercase leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-tight px-2"
                     style={{
                       animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.4s both' : 'none'
                     }}
@@ -211,7 +211,7 @@ export function HeroSlider() {
                   </h2>
                   {slide.subtitle && (
                     <h3
-                      className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mb-6 md:mb-8 lg:mb-10 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
+                      className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-semibold text-white mb-4 sm:mb-6 md:mb-8 lg:mb-10 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] px-2"
                       style={{
                         animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.6s both' : 'none'
                       }}
@@ -221,7 +221,7 @@ export function HeroSlider() {
                     </h3>
                   )}
                   <p
-                    className="text-base md:text-xl lg:text-2xl xl:text-3xl text-white mb-10 md:mb-12 lg:mb-14 leading-relaxed max-w-4xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+                    className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-white/95 mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 leading-relaxed max-w-4xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-4"
                     style={{
                       animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.8s both' : 'none'
                     }}
@@ -231,7 +231,7 @@ export function HeroSlider() {
                   </p>
                   <Link
                     href={slide.link}
-                    className="inline-block px-10 py-4 md:px-12 md:py-5 bg-white/90 hover:bg-white text-gray-900 font-semibold rounded-full hover:scale-105 transition-all duration-300 shadow-lg text-base md:text-lg"
+                    className="inline-block px-8 py-3 sm:px-10 sm:py-4 md:px-12 md:py-5 bg-white/90 hover:bg-white text-gray-900 font-semibold rounded-full hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base md:text-lg"
                     style={{
                       animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 1s both, float 3s ease-in-out 2s infinite' : 'none'
                     }}
@@ -244,19 +244,6 @@ export function HeroSlider() {
             </div>
           </div>
         ))}
-        
-        {/* Touch Indicator (Mobile only) */}
-        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-30 lg:hidden">
-          <div className="flex items-center space-x-2 text-white/70 text-sm">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-            </svg>
-            <span>Vuốt để chuyển slide</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </div>
-        </div>
       </section>
     </div>
   )
