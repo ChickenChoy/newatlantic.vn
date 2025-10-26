@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
 import { siteConfig } from "@/lib/seo";
 
@@ -112,6 +113,7 @@ export default function RootLayout({
         <link rel="manifest" href="/images/logo/site.webmanifest" />
       </head>
       <body className={`${inter.variable} antialiased`} style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
+        <ScrollProgressBar />
         <ProgressBar />
         <Header />
         <PageTransition>

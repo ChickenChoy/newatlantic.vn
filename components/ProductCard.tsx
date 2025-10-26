@@ -1,15 +1,59 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { Product } from '@/types';
+import QuickViewModal from './QuickViewModal';
+import { WishlistManager } from '@/lib/wishlist';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [showQuickView, setShowQuickView] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [showWishlistToast, setShowWishlistToast] = useState(false);
+
+  useEffect(() => {
+    // Check if product is in wishlist on mount
+    setIsInWishlist(WishlistManager.isInWishlist(product.id));
+
+    // Listen for wishlist updates
+    const handleWishlistUpdate = () => {
+      setIsInWishlist(WishlistManager.isInWishlist(product.id));
+    };
+
+    window.addEventListener('wishlistUpdated', handleWishlistUpdate);
+    return () => window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
+  }, [product.id]);
+
+  const handleQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowQuickView(true);
+  };
+
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isInWishlist) {
+      WishlistManager.removeFromWishlist(product.id);
+    } else {
+      WishlistManager.addToWishlist(product);
+      setShowWishlistToast(true);
+      setTimeout(() => setShowWishlistToast(false), 2000);
+    }
+  };
+
   return (
-    <Link href={`/san-pham/${product.categorySlug}/${product.slug}`} className="h-full">
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group border border-gray-200 hover:border-gray-300 h-full flex flex-col relative">
+    <>
+      <div className="h-full relative">
+        <Link href={`/san-pham/${product.categorySlug}/${product.slug}`} className="block h-full">
+          <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group border border-gray-200 hover:border-gray-300 h-full flex flex-col relative">
         <div className="relative h-64 bg-gray-50 overflow-hidden">
           {product.image ? (
             <>
@@ -50,6 +94,40 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.category}
             </span>
           </div>
+
+          {/* Action Buttons Overlay */}
+          <div className="absolute top-4 right-4 z-20 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {/* Wishlist Button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleWishlistToggle}
+              className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors ${
+                isInWishlist 
+                  ? 'bg-red-500 text-white' 
+                  : 'bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-red-500 hover:text-white'
+              }`}
+              title={isInWishlist ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
+            >
+              <svg className="w-5 h-5" fill={isInWishlist ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </motion.button>
+
+            {/* Quick View Button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleQuickView}
+              className="w-10 h-10 bg-white/95 backdrop-blur-sm text-gray-700 rounded-full flex items-center justify-center shadow-lg hover:bg-[#5f7ab8] hover:text-white transition-colors"
+              title="Xem nhanh"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </motion.button>
+          </div>
         </div>
         {/* Content */}
         <div className="p-5 flex-1 flex flex-col">
@@ -76,7 +154,31 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
       </div>
-    </Link>
+        </Link>
+
+        {/* Wishlist Toast Notification */}
+        {showWishlistToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-24 right-4 bg-green-500 text-white px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            Đã thêm vào yêu thích
+          </motion.div>
+        )}
+      </div>
+
+      {/* Quick View Modal */}
+      <QuickViewModal
+        product={product}
+        isOpen={showQuickView}
+        onClose={() => setShowQuickView(false)}
+      />
+    </>
   );
 }
 

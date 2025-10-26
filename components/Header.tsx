@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import SearchResults from './SearchResults';
 import MobileTouchMenu from './MobileTouchMenu';
+import { WishlistManager } from '@/lib/wishlist';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,6 +15,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [wishlistCount, setWishlistCount] = useState(0);
   const pathname = usePathname();
   
   // Check if current page is home page
@@ -21,6 +23,17 @@ export default function Header() {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Load initial wishlist count
+    setWishlistCount(WishlistManager.getWishlistCount());
+    
+    // Listen for wishlist updates
+    const handleWishlistUpdate = () => {
+      setWishlistCount(WishlistManager.getWishlistCount());
+    };
+    
+    window.addEventListener('wishlistUpdated', handleWishlistUpdate);
+    return () => window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
   }, []);
 
   useEffect(() => {
@@ -152,6 +165,7 @@ export default function Header() {
             <div className="relative dropdown-container" suppressHydrationWarning>
               <button 
                 onClick={() => toggleDropdown('products')}
+                onMouseEnter={() => setOpenDropdown('products')}
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 ${
                   (isHomePage && !scrolled)
                     ? 'text-white hover:text-white hover:bg-white/20'
@@ -249,9 +263,31 @@ export default function Header() {
           </div>
 
           {/* Desktop Search Bar - Right Side */}
-          <div className="hidden lg:block relative search-container">
-            <div className="flex items-center">
-              <div className="relative">
+          <div className="hidden lg:flex items-center gap-4">
+            {/* Wishlist Icon */}
+            <Link 
+              href="/yeu-thich"
+              className={`relative p-2 rounded-lg transition-all ${
+                (isHomePage && !scrolled)
+                  ? 'text-white hover:bg-white/20'
+                  : 'text-gray-700 hover:bg-gray-50'
+              }`}
+              title="Sản phẩm yêu thích"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Search Container */}
+            <div className="relative search-container">
+              <div className="flex items-center">
+                <div className="relative">
                 <input
                   type="text"
                   placeholder="Tìm kiếm sản phẩm..."
@@ -289,6 +325,7 @@ export default function Header() {
               }} 
               query={searchQuery} 
             />
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -360,6 +397,16 @@ export default function Header() {
 
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Trang chủ
+            </Link>
+            <Link href="/yeu-thich" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors relative">
+              <div className="flex items-center justify-between">
+                <span>Sản phẩm yêu thích</span>
+                {wishlistCount > 0 && (
+                  <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                    {wishlistCount}
+                  </span>
+                )}
+              </div>
             </Link>
             <div className="border-t pt-2">
               <div className="text-xs font-semibold text-gray-400 px-4 mb-2">SẢN PHẨM</div>
