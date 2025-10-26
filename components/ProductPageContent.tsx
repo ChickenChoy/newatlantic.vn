@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import TouchGestureWrapper from './TouchGestureWrapper';
 import ImageModal from './ImageModal';
+import { WishlistManager } from '@/lib/wishlist';
 
 interface ProductPageContentProps {
   product: any;
@@ -14,9 +15,25 @@ interface ProductPageContentProps {
 export default function ProductPageContent({ product, relatedProducts }: ProductPageContentProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
   
   const images = product.images || [product.image];
+
+  // Check if product is in wishlist
+  useEffect(() => {
+    setIsInWishlist(WishlistManager.isInWishlist(product.id));
+  }, [product.id]);
+
+  const toggleWishlist = () => {
+    if (isInWishlist) {
+      WishlistManager.removeFromWishlist(product.id);
+      setIsInWishlist(false);
+    } else {
+      WishlistManager.addToWishlist(product);
+      setIsInWishlist(true);
+    }
+  };
   
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -160,6 +177,21 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                     </svg>
                   </div>
                 )}
+
+                {/* Wishlist Button */}
+                <button
+                  onClick={toggleWishlist}
+                  className={`absolute top-3 sm:top-4 md:top-6 left-3 sm:left-4 md:left-6 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10 ${
+                    isInWishlist
+                      ? 'bg-red-500 text-white'
+                      : 'bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-red-500 hover:text-white'
+                  }`}
+                  title={isInWishlist ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
+                >
+                  <svg className="w-5 h-5" fill={isInWishlist ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
                 
                 {/* Navigation Arrows - Only show if there are multiple images */}
                 {images.length > 1 && (

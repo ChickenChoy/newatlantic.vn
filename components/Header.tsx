@@ -185,43 +185,87 @@ export default function Header() {
                 </svg>
               </button>
               <div 
-                className={`absolute left-0 top-full mt-2 w-72 bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${
+                className={`absolute left-0 top-full mt-2 w-[700px] bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${
                   mounted && openDropdown === 'products' ? 'opacity-100 visible' : 'opacity-0 invisible'
                 }`}
                 suppressHydrationWarning
               >
-                <div className="p-2">
+                <div className="p-4 grid grid-cols-2 gap-4" suppressHydrationWarning>
                   <Link 
                     href="/san-pham/cot-tu-nang-will-burt"
                     onClick={() => setOpenDropdown(null)}
-                    className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
+                    className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    suppressHydrationWarning
                   >
-                    <div className="font-semibold">Cột Tự Nâng WILL-BURT</div>
-                    <div className="text-xs opacity-75">Cột nâng chuyên nghiệp</div>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                      <Image
+                        src="/images/box-image/will-burt.jpg"
+                        alt="WILL-BURT"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1" suppressHydrationWarning>
+                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Cột Tự Nâng WILL-BURT</div>
+                      <div className="text-sm opacity-75" suppressHydrationWarning>Cột nâng chuyên nghiệp</div>
+                    </div>
                   </Link>
                   <Link 
                     href="/san-pham/thiet-bi-nang-ha-hiab"
                     onClick={() => setOpenDropdown(null)}
-                    className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
+                    className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    suppressHydrationWarning
                   >
-                    <div className="font-semibold">Thiết Bị HIAB</div>
-                    <div className="text-xs opacity-75">Cẩu & xe nâng</div>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                      <Image
+                        src="/images/box-image/hiab.jpg"
+                        alt="HIAB"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1" suppressHydrationWarning>
+                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Thiết Bị HIAB</div>
+                      <div className="text-sm opacity-75" suppressHydrationWarning>Cẩu & xe nâng</div>
+                    </div>
                   </Link>
                   <Link 
                     href="/san-pham/thiet-bi-cong-trinh-lovol"
                     onClick={() => setOpenDropdown(null)}
-                    className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
+                    className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    suppressHydrationWarning
                   >
-                    <div className="font-semibold">Thiết Bị LOVOL</div>
-                    <div className="text-xs opacity-75">Máy móc công trình</div>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                      <Image
+                        src="/images/box-image/lovol.jpg"
+                        alt="LOVOL"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1" suppressHydrationWarning>
+                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Thiết Bị LOVOL</div>
+                      <div className="text-sm opacity-75" suppressHydrationWarning>Máy móc công trình</div>
+                    </div>
                   </Link>
                   <Link 
                     href="/san-pham/thiet-bi-cong-trinh-liugong"
                     onClick={() => setOpenDropdown(null)}
-                    className="block px-4 py-3 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors"
+                    className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    suppressHydrationWarning
                   >
-                    <div className="font-semibold">Thiết Bị LIUGONG</div>
-                    <div className="text-xs opacity-75">Máy xúc, máy ủi</div>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                      <Image
+                        src="/images/box-image/liugong.jpg"
+                        alt="LIUGONG"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1" suppressHydrationWarning>
+                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Thiết Bị LIUGONG</div>
+                      <div className="text-sm opacity-75" suppressHydrationWarning>Máy xúc, máy ủi</div>
+                    </div>
                   </Link>
                 </div>
               </div>

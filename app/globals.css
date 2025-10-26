@@ -432,7 +432,7 @@ img {
 @media (max-width: 640px) {
   /* Improve touch targets for mobile */
   button, a, input, textarea, select {
-    min-height: 44px;
+    /* min-height: 44px; */
     min-width: 44px;
   }
   
