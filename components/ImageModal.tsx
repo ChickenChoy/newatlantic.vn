@@ -78,17 +78,17 @@ export default function ImageModal({ images, currentIndex, isOpen, onClose }: Im
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 md:p-6"
+      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-start justify-center pt-40 sm:pt-44 p-4 sm:p-6"
       onClick={onClose}
     >
       <div
-        className="flex flex-col items-center justify-center gap-2 sm:gap-3 relative w-full max-w-full sm:max-w-6xl"
+        className="flex flex-col items-center justify-center gap-3 relative"
         onClick={(e) => e.stopPropagation()}
       >
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 z-[60] bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 rounded-full transition-all duration-300 shadow-lg"
+            className="absolute -top-3 -right-3 z-[60] bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full transition-all duration-300 shadow-lg"
             aria-label="Close modal"
           >
             <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,12 +96,12 @@ export default function ImageModal({ images, currentIndex, isOpen, onClose }: Im
             </svg>
           </button>
 
-          <div className="flex justify-center w-full">
-            <div className="relative flex items-center justify-center px-12 sm:px-14 md:px-16 w-full max-w-5xl">
+          <div className="flex justify-center">
+            <div className="relative flex items-center justify-center px-10 sm:px-14">
               {hasMultipleImages && (
                 <button
                   onClick={prevImage}
-                  className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full transition-all duration-300 shadow-lg"
+                  className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full transition-all duration-300 shadow-lg"
                   aria-label="Previous image"
                 >
                   <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ export default function ImageModal({ images, currentIndex, isOpen, onClose }: Im
                 </button>
               )}
 
-              <div className="relative flex max-h-[60vh] sm:max-h-[70vh] items-center justify-center rounded-lg sm:rounded-2xl bg-black/40 p-2 sm:p-3 md:p-4 overflow-hidden w-full">
+              <div className="relative flex max-h-[65vh] items-center justify-center rounded-2xl bg-black/40 p-3 sm:p-4 overflow-hidden">
                 {images[currentImageIndex] ? (
                   <Image
                     src={images[currentImageIndex]}
@@ -120,7 +120,7 @@ export default function ImageModal({ images, currentIndex, isOpen, onClose }: Im
                     quality={100}
                     priority
                     sizes="(min-width: 1024px) 60vw, 90vw"
-                    className="h-auto max-h-[55vh] sm:max-h-[65vh] w-auto max-w-full object-contain"
+                    className="h-auto max-h-[60vh] w-auto max-w-full object-contain"
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center text-white/60">
@@ -135,7 +135,7 @@ export default function ImageModal({ images, currentIndex, isOpen, onClose }: Im
               {hasMultipleImages && (
                 <button
                   onClick={nextImage}
-                  className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full transition-all duration-300 shadow-lg"
+                  className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 z-30 bg-white/90 hover:bg-white text-gray-800 p-2 sm:p-3 rounded-full transition-all duration-300 shadow-lg"
                   aria-label="Next image"
                 >
                   <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,16 +148,16 @@ export default function ImageModal({ images, currentIndex, isOpen, onClose }: Im
 
           {hasMultipleImages && (
             <>
-              <div className="bg-black/60 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
+              <div className="bg-black/60 text-white px-2.5 py-1 rounded-full text-xs font-medium">
                 {currentImageIndex + 1} / {images.length}
               </div>
 
-              <div className="flex gap-2 overflow-x-auto pb-2 justify-center max-w-full px-4 sm:px-0 scrollbar-hide">
+              <div className="flex gap-2 overflow-x-auto pb-1 justify-center">
                 {images.map((image: string, index: number) => (
                   <button
                     key={index}
                     onClick={() => goToImage(index)}
-                    className={`flex-shrink-0 w-14 h-14 sm:w-16 sm:h-16 bg-white/10 hover:bg-white/20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                    className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-white/10 hover:bg-white/20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
                       index === currentImageIndex ? 'border-white' : 'border-transparent'
                     }`}
                   >
