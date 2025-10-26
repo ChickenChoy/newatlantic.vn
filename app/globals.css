@@ -427,3 +427,151 @@ img {
   z-index: 1;
   pointer-events: none;
 }
+
+/* Mobile-specific enhancements */
+@media (max-width: 640px) {
+  /* Improve touch targets for mobile */
+  button, a, input, textarea, select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Improve readability on small screens */
+  .text-xs {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  
+  .text-sm {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  /* Optimize shadows for mobile */
+  .shadow-md {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 2px 2px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .shadow-lg {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Improve image loading on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Better form inputs for mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on focus in iOS */
+  }
+  
+  /* Improved button spacing */
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  .space-y-3 > * + * {
+    margin-top: 0.75rem;
+  }
+  
+  /* Better card layouts */
+  .card {
+    border-radius: 0.5rem;
+  }
+  
+  /* Improved scrolling performance */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Small mobile devices (320px - 374px) */
+@media (max-width: 374px) {
+  /* Even more compact layout for very small screens */
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Smaller text for very small screens */
+  .text-xs {
+    font-size: 0.7rem;
+  }
+  
+  .text-sm {
+    font-size: 0.8rem;
+  }
+  
+  /* Tighter spacing */
+  .space-y-2 > * + * {
+    margin-top: 0.375rem;
+  }
+  
+  .space-y-3 > * + * {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Touch-friendly hover states */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .group:hover .group-hover\:scale-110 {
+    transform: scale(1);
+  }
+  
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 0;
+  }
+  
+  /* Better touch feedback */
+  button:active, a:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease-in-out;
+  }
+}
+
+/* Improve mobile scrolling performance */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+/* Better mobile image handling */
+.mobile-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.mobile-image-container img {
+  transition: transform 0.3s ease;
+}
+
+/* Mobile-specific animations */
+@media (max-width: 640px) {
+  .mobile-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .mobile-slide-up {
+    animation: slideInFromBottom 0.4s ease-out;
+  }
+}
+
+/* Better mobile focus states */
+@media (max-width: 640px) {
+  button:focus, a:focus, input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}

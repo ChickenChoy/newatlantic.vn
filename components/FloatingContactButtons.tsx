@@ -21,6 +21,7 @@ export default function FloatingContactButtons() {
 
   return (
     <div 
+      data-floating-contact="true"
       className={`fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 md:gap-4 transition-all duration-500 ${
         scrolled || isNotHomePage
           ? 'translate-x-0 opacity-100' 
