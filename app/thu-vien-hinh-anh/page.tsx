@@ -41,6 +41,56 @@ export default function GalleryPage() {
     return () => clearInterval(interval);
   }, [isAutoPlay, galleryImages.length]);
 
+
+  // Hide navbar and floating contact buttons when image is zoomed
+  useEffect(() => {
+    if (selectedImage) {
+      // Hide navbar
+      const header = document.querySelector('header');
+      if (header) {
+        header.style.display = 'none';
+      }
+
+      // Hide floating contact buttons
+      const floatingContact = document.querySelector('[data-floating-contact="true"]');
+      if (floatingContact) {
+        (floatingContact as HTMLElement).style.display = 'none';
+      }
+
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Show navbar
+      const header = document.querySelector('header');
+      if (header) {
+        header.style.display = '';
+      }
+
+      // Show floating contact buttons
+      const floatingContact = document.querySelector('[data-floating-contact="true"]');
+      if (floatingContact) {
+        (floatingContact as HTMLElement).style.display = '';
+      }
+
+      // Restore body scroll
+      document.body.style.overflow = '';
+    }
+
+    // Cleanup function
+    return () => {
+      const header = document.querySelector('header');
+      if (header) {
+        header.style.display = '';
+      }
+
+      const floatingContact = document.querySelector('[data-floating-contact="true"]');
+      if (floatingContact) {
+        (floatingContact as HTMLElement).style.display = '';
+      }
+
+      document.body.style.overflow = '';
+    };
+  }, [selectedImage]);
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Trang chủ', url: '/' },
     { name: 'Thư viện hình ảnh', url: '/thu-vien-hinh-anh' },
@@ -263,5 +313,6 @@ export default function GalleryPage() {
     </>
   );
 }
+
 
 
