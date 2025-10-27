@@ -22,10 +22,10 @@ export default function ScrollAnimation({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // Only trigger animation when scrolling down (element enters viewport)
+          // Once visible, keep it visible even when scrolling up
           if (entry.isIntersecting) {
             setIsVisible(true);
-          } else {
-            setIsVisible(false);
           }
         });
       },
