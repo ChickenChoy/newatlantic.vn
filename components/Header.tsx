@@ -106,10 +106,13 @@ export default function Header() {
     }
   };
 
+  // Determine if we should use white theme (only after mounted on homepage without scroll)
+  const useWhiteTheme = mounted && isHomePage && !scrolled;
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
+        mounted && scrolled
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}
@@ -120,25 +123,24 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 group-hover:scale-105 transition-transform" suppressHydrationWarning>
+            <div className="relative w-10 h-10 md:w-12 md:h-12 group-hover:scale-105 transition-transform">
               <Image
                 src="/images/logo/logo-color.png"
                 alt="NEW ATLANTIC"
                 fill
                 className="object-contain"
-                suppressHydrationWarning
               />
             </div>
-            <div suppressHydrationWarning>
+            <div>
               <div className={`text-xl font-bold transition-all ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'
                   : 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] bg-clip-text text-transparent'
               }`}>
                 NEW ATLANTIC
               </div>
               <div className={`text-xs transition-colors ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
                   : 'text-gray-600'
               }`}>
@@ -148,30 +150,28 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1" suppressHydrationWarning>
+          <div className="hidden lg:flex items-center gap-1">
             <Link 
               href="/" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white hover:text-white hover:bg-white/20'
                   : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
               }`}
-              suppressHydrationWarning
             >
               Trang chủ
             </Link>
 
             {/* Products Dropdown */}
-            <div className="relative dropdown-container" suppressHydrationWarning>
+            <div className="relative dropdown-container">
               <button 
                 onClick={() => toggleDropdown('products')}
                 onMouseEnter={() => setOpenDropdown('products')}
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-1 ${
-                  (isHomePage && !scrolled)
+                  useWhiteTheme
                     ? 'text-white hover:text-white hover:bg-white/20'
                     : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
                 }`}
-                suppressHydrationWarning
               >
                 Sản phẩm
                 <svg 
@@ -179,7 +179,6 @@ export default function Header() {
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
-                  suppressHydrationWarning
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -188,16 +187,14 @@ export default function Header() {
                 className={`absolute left-0 top-full mt-2 w-[700px] bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${
                   mounted && openDropdown === 'products' ? 'opacity-100 visible' : 'opacity-0 invisible'
                 }`}
-                suppressHydrationWarning
               >
-                <div className="p-4 grid grid-cols-2 gap-4" suppressHydrationWarning>
+                <div className="p-4 grid grid-cols-2 gap-4">
                   <Link 
                     href="/san-pham/cot-tu-nang-will-burt"
                     onClick={() => setOpenDropdown(null)}
                     className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    suppressHydrationWarning
                   >
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                       <Image
                         src="/images/box-image/will-burt.jpg"
                         alt="WILL-BURT"
@@ -205,18 +202,17 @@ export default function Header() {
                         className="object-cover"
                       />
                     </div>
-                    <div className="flex-1" suppressHydrationWarning>
-                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Cột Tự Nâng WILL-BURT</div>
-                      <div className="text-sm opacity-75" suppressHydrationWarning>Cột nâng chuyên nghiệp</div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-base mb-1.5">Cột Tự Nâng WILL-BURT</div>
+                      <div className="text-sm opacity-75">Cột nâng chuyên nghiệp</div>
                     </div>
                   </Link>
                   <Link 
                     href="/san-pham/thiet-bi-nang-ha-hiab"
                     onClick={() => setOpenDropdown(null)}
                     className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    suppressHydrationWarning
                   >
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                       <Image
                         src="/images/box-image/hiab.jpg"
                         alt="HIAB"
@@ -224,18 +220,17 @@ export default function Header() {
                         className="object-cover"
                       />
                     </div>
-                    <div className="flex-1" suppressHydrationWarning>
-                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Thiết Bị HIAB</div>
-                      <div className="text-sm opacity-75" suppressHydrationWarning>Cẩu & xe nâng</div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-base mb-1.5">Thiết Bị HIAB</div>
+                      <div className="text-sm opacity-75">Cẩu & xe nâng</div>
                     </div>
                   </Link>
                   <Link 
                     href="/san-pham/thiet-bi-cong-trinh-lovol"
                     onClick={() => setOpenDropdown(null)}
                     className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    suppressHydrationWarning
                   >
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                       <Image
                         src="/images/box-image/lovol.jpg"
                         alt="LOVOL"
@@ -243,18 +238,17 @@ export default function Header() {
                         className="object-cover"
                       />
                     </div>
-                    <div className="flex-1" suppressHydrationWarning>
-                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Thiết Bị LOVOL</div>
-                      <div className="text-sm opacity-75" suppressHydrationWarning>Máy móc công trình</div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-base mb-1.5">Thiết Bị LOVOL</div>
+                      <div className="text-sm opacity-75">Máy móc công trình</div>
                     </div>
                   </Link>
                   <Link 
                     href="/san-pham/thiet-bi-cong-trinh-liugong"
                     onClick={() => setOpenDropdown(null)}
                     className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    suppressHydrationWarning
                   >
-                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100" suppressHydrationWarning>
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                       <Image
                         src="/images/box-image/liugong.jpg"
                         alt="LIUGONG"
@@ -262,9 +256,9 @@ export default function Header() {
                         className="object-cover"
                       />
                     </div>
-                    <div className="flex-1" suppressHydrationWarning>
-                      <div className="font-semibold text-base mb-1.5" suppressHydrationWarning>Thiết Bị LIUGONG</div>
-                      <div className="text-sm opacity-75" suppressHydrationWarning>Máy xúc, máy ủi</div>
+                    <div className="flex-1">
+                      <div className="font-semibold text-base mb-1.5">Thiết Bị LIUGONG</div>
+                      <div className="text-sm opacity-75">Máy xúc, máy ủi</div>
                     </div>
                   </Link>
                 </div>
@@ -274,33 +268,40 @@ export default function Header() {
             <Link 
               href="/tin-tuc" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white hover:text-white hover:bg-white/20'
                   : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
               }`}
-              suppressHydrationWarning
             >
               Tin tức
             </Link>
             <Link 
               href="/page-download-catalog" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white hover:text-white hover:bg-white/20'
                   : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
               }`}
-              suppressHydrationWarning
             >
               Catalog sản phẩm
             </Link>
             <Link 
+              href="/thu-vien-hinh-anh" 
+              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                useWhiteTheme
+                  ? 'text-white hover:text-white hover:bg-white/20'
+                  : 'text-gray-700 hover:text-[#5f7ab8] hover:bg-gray-50'
+              }`}
+            >
+              Thư viện hình ảnh
+            </Link>
+            <Link 
               href="/lien-he" 
               className={`ml-4 px-6 py-2 rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'border-2 border-white text-white hover:bg-white hover:text-gray-900'
                   : 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white'
               }`}
-              suppressHydrationWarning
             >
               Liên hệ
             </Link>
@@ -312,7 +313,7 @@ export default function Header() {
             <Link 
               href="/yeu-thich"
               className={`relative p-2 rounded-lg transition-all ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white hover:bg-white/20'
                   : 'text-gray-700 hover:bg-gray-50'
               }`}
@@ -339,7 +340,7 @@ export default function Header() {
                   onChange={handleSearchChange}
                   onFocus={() => searchQuery.trim() && setSearchOpen(true)}
                   className={`px-4 py-2 pr-10 rounded-lg text-sm transition-all ${
-                    (isHomePage && !scrolled)
+                    useWhiteTheme
                       ? 'bg-white/20 text-white placeholder-white/70 border border-white/30 focus:bg-white/30 focus:border-white/50'
                       : 'bg-gray-50 text-gray-700 placeholder-gray-500 border border-gray-200 focus:bg-white focus:border-[#5f7ab8] focus:ring-2 focus:ring-[#5f7ab8]/20'
                   }`}
@@ -348,7 +349,7 @@ export default function Header() {
                 <button
                   onClick={handleSearchToggle}
                   className={`absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded transition-colors ${
-                    (isHomePage && !scrolled)
+                    useWhiteTheme
                       ? 'text-white/70 hover:text-white'
                       : 'text-gray-400 hover:text-[#5f7ab8]'
                   }`}
@@ -377,18 +378,16 @@ export default function Header() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`mobile-menu-button p-2 rounded-lg transition-colors ${
-                (isHomePage && !scrolled)
+                useWhiteTheme
                   ? 'text-white hover:bg-white/20'
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
-              suppressHydrationWarning
           >
             <svg 
               className="w-6 h-6" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
-              suppressHydrationWarning
             >
               {mounted && mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -472,6 +471,9 @@ export default function Header() {
             </Link>
             <Link href="/page-download-catalog" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
               Catalog sản phẩm
+            </Link>
+            <Link href="/thu-vien-hinh-anh" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+              Thư viện hình ảnh
             </Link>
             <Link href="/lien-he" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold rounded-lg text-center mt-2">
               Liên hệ
