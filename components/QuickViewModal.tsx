@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,6 +13,10 @@ interface QuickViewModalProps {
 }
 
 export default function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps) {
+  const scrollPositionRef = useRef(0);
+  const restoreTimeoutRef = useRef<number | null>(null);
+  const hasScrolledToTopRef = useRef(false);
+
   // Close on ESC key and handle body scroll
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -21,19 +25,42 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
     
     if (isOpen) {
       document.addEventListener('keydown', handleEsc);
-      
+
+      // If there is a pending restore from a previous close, cancel it —
+      // otherwise a delayed scroll restore can run after a reopen.
+      if (restoreTimeoutRef.current) {
+        clearTimeout(restoreTimeoutRef.current as unknown as number);
+        restoreTimeoutRef.current = null;
+      }
+
+      // Only save scroll position if we haven't scrolled to top yet for this open
+      // This prevents saving position 0 after we've already scrolled to top
+      if (!hasScrolledToTopRef.current && window.scrollY > 0) {
+        scrollPositionRef.current = window.scrollY;
+      }
+
+      // Jump to top immediately so the modal (which is fixed) is always visible.
+      // Use 'auto' to make this deterministic (smooth sometimes gets ignored or interrupted).
+      if (!hasScrolledToTopRef.current) {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        hasScrolledToTopRef.current = true;
+      }
+
       // Prevent body scroll completely
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.documentElement.style.overflow = 'hidden';
-      
+
       // Hide header when modal is open
       const header = document.querySelector('header');
       if (header) {
         header.style.opacity = '0';
         header.style.pointerEvents = 'none';
       }
+    } else {
+      // Reset the flag when modal closes
+      hasScrolledToTopRef.current = false;
     }
     
     return () => {
@@ -41,7 +68,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
       document.documentElement.style.overflow = '';
-      
+
       // Show header when modal is closed
       const header = document.querySelector('header');
       if (header) {
@@ -50,6 +77,27 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
       }
     };
   }, [isOpen, onClose]);
+
+  // Restore scroll position when modal closes (separate effect to avoid running during re-renders)
+  useEffect(() => {
+    // When the modal closes, restore the saved scroll position after a short
+    // delay so the page layout has settled and body overflow has been restored.
+    if (!isOpen && scrollPositionRef.current > 0) {
+      restoreTimeoutRef.current = window.setTimeout(() => {
+        window.scrollTo({ top: scrollPositionRef.current, behavior: 'smooth' });
+        restoreTimeoutRef.current = null;
+        // Don't clear scrollPositionRef here - it will be overwritten on next open
+      }, 120);
+
+      return () => {
+        if (restoreTimeoutRef.current) {
+          clearTimeout(restoreTimeoutRef.current as unknown as number);
+          restoreTimeoutRef.current = null;
+        }
+      };
+    }
+    return;
+  }, [isOpen]);
 
   if (!product) return null;
 
