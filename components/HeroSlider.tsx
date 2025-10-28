@@ -20,7 +20,9 @@ export function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [isMounted, setIsMounted] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
   const sliderRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const touchStartX = useRef<number>(0)
   const touchEndX = useRef<number>(0)
 
@@ -28,6 +30,20 @@ export function HeroSlider() {
   useEffect(() => {
     setIsMounted(true)
   }, [])
+
+  // Lazy load video after component mounts
+  useEffect(() => {
+    if (isMounted && videoRef.current) {
+      // Delay video loading slightly to prioritize critical content
+      const timer = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.load()
+        }
+      }, 500)
+      
+      return () => clearTimeout(timer)
+    }
+  }, [isMounted])
 
   // Auto slide every 5 seconds
   useEffect(() => {
@@ -113,10 +129,15 @@ export function HeroSlider() {
                 {slide.video ? (
                   <>
                     <video
+                      ref={index === currentSlide ? videoRef : null}
                       autoPlay
                       loop
                       muted
                       playsInline
+                      preload="metadata"
+                      poster={slide.image}
+                      onLoadedData={() => setVideoLoaded(true)}
+                      onError={() => setVideoLoaded(false)}
                       className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-all duration-[2000ms] ease-out ${
                         index === currentSlide && isMounted
                           ? "scale-110 opacity-100"
@@ -127,13 +148,15 @@ export function HeroSlider() {
                       }}
                     >
                       <source src={slide.video} type="video/mp4" />
-                      {/* Fallback to image if video fails */}
+                    </video>
+                    {/* Fallback to image if video hasn't loaded */}
+                    {!videoLoaded && (
                       <img
                         src={slide.image}
                         alt={slide.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover"
                       />
-                    </video>
+                    )}
                   </>
                 ) : (
                   /* Enhanced Image with Animation (fallback) */
