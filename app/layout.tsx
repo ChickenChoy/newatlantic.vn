@@ -7,6 +7,7 @@ import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
+import ToastProvider from "@/components/ToastProvider";
 import { siteConfig } from "@/lib/seo";
 
 const inter = Inter({
@@ -113,16 +114,18 @@ export default function RootLayout({
         <link rel="manifest" href="/images/logo/site.webmanifest" />
       </head>
       <body className={`${inter.variable} antialiased`} style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-        <ScrollProgressBar />
-        <ProgressBar />
-        <Header />
-        <PageTransition>
-          <main className="min-h-screen">
-            {children}
-          </main>
-        </PageTransition>
-        <Footer />
-        <FloatingContactButtons />
+        <ToastProvider>
+          <ScrollProgressBar />
+          <ProgressBar />
+          <Header />
+          <PageTransition>
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </PageTransition>
+          <Footer />
+          <FloatingContactButtons />
+        </ToastProvider>
       </body>
     </html>
   );

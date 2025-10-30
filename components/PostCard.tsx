@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/types';
+import { TiltCard } from './micro-interactions';
 
 interface PostCardProps {
   post: Post;
@@ -14,8 +15,9 @@ export default function PostCard({ post }: PostCardProps) {
   });
 
   return (
-    <Link href={`/tin-tuc/${post.slug}`} className="h-full">
-      <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:border-[#5f7ab8] h-full flex flex-col">
+    <TiltCard maxTilt={5} scale={1.02} className="h-full">
+      <Link href={`/tin-tuc/${post.slug}`} className="h-full block">
+        <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:border-[#5f7ab8] h-full flex flex-col">
         <div className="relative h-44 bg-white overflow-hidden">
           {post.image ? (
             <Image
@@ -54,7 +56,8 @@ export default function PostCard({ post }: PostCardProps) {
           </span>
         </div>
       </div>
-    </Link>
+      </Link>
+    </TiltCard>
   );
 }
 
