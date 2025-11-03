@@ -1,0 +1,757 @@
+// Auto-generated from WordPress CSV export
+// Generated on: 2025-11-03T03:10:01.410Z
+
+import { Product, Category } from '@/types';
+
+// Danh mục sản phẩm
+export const categories: Category[] = [
+  {
+    id: "1",
+    name: "Cột (Trụ) Tự Nâng WILL-BURT",
+    slug: "cot-tu-nang-will-burt",
+    description: "Cột tự nâng chất lượng cao từ thương hiệu WILL-BURT"
+  },
+  {
+    id: "2",
+    name: "Thiết Bị Nâng Hạ HIAB",
+    slug: "thiet-bi-nang-ha-hiab",
+    description: "Thiết bị nâng hạ và cẩu tự hành HIAB"
+  },
+  {
+    id: "3",
+    name: "Thiết Bị Công Trình LOVOL",
+    slug: "thiet-bi-cong-trinh-lovol",
+    description: "Máy móc thiết bị công trình LOVOL"
+  },
+  {
+    id: "4",
+    name: "Thiết Bị Công Trình LIUGONG",
+    slug: "thiet-bi-cong-trinh-liugong",
+    description: "Máy móc thiết bị công trình LIUGONG"
+  }
+];
+
+// Sản phẩm (44 products)
+export const products: Product[] = [
+  {
+    id: "1",
+    name: "XE BÁN TẢI GẮN CỘT ( TRỤ) NÂNG SPM SPINDLE DRIVE MASTS",
+    slug: "xe-ban-tai-gan-cot-tru-nang-spm-spindle-drive-masts",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS là một loại cột được sản xuất từ Công ty Willburt ( Mỹ). \nVới thiết kế nâng hạ linh hoạ...",
+    image: "/images/products/SpezWw_TatODokuFzg.jpg",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "2",
+    name: "Cột ( trụ) tự nâng Stiletto® AL HEAVY DUTY (AL HD)",
+    slug: "cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột nâng Stiletto® AL HD được thiết kế để chịu được lực tác động của các hệ thống radar và video tiên tiến ngày nay trên nền tảng nâng di động, đồng thời mang lại độ ổn đị...",
+    image: "/images/products/al-hd1.png",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "3",
+    name: "HỆ THỐNG NÂNG COMPACT ELEVATION SYSTEM",
+    slug: "he-thong-nang-compact-elevation-system",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Hệ thống Nâng Di Động Gọn Nhẹ của Will-Burt là một nền tảng nâng di động chắc chắn và chính xác, cho phép triển khai nhanh chón...",
+    image: "/images/products/Telecommunications-Elevation-Solutions_A3.jpg",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "4",
+    name: "CẨU GẬP ROBOT 8 TẤN HIAB XCL-8",
+    slug: "cau-gap-robot-8-tan-hiab-xcl-8",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Là lựa chọn lý tưởng cho nhiều công việc khác nhau ,từ xây dựng công trình đến các công việc trong thành phố như : \n \n \n <li style=\"list-st...",
+    image: "/images/products/X-CL-8-2-1-300x300-1.png",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "5",
+    name: "Máy đào bánh xích 1 khối, Weichai Lovol, Model FR220D",
+    slug: "may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "MÔ TẢ SẢN PHẨM \n \nLovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. \n \nĐược phát triển trên nguồn...",
+    image: "/images/products/Weichailovol-f220d-logo-300x300-1.png",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "6",
+    name: "Máy xúc đào LiuGong CLG906E, dung tích gầu 1 khối",
+    slug: "may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "THÔNG SỐ KỸ THUẬT CHI TIẾT \nTự trọng: 5900 kg \nDung tích gầu tiêu chuẩn: 0.23 m³ \n<p...",
+    image: "/images/products/banner-906e.png",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "7",
+    name: "Cột ( trụ) tự nâng GEROH 145-12 KVL",
+    slug: "cot-tru-tu-nang-geroh-145-12-kvl",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột tự nâng WillBurt Geroh 145-12KVL là loại cột tự nâng nhỏ gọn, dể dàng lắp đặt trên các nền phương tiện cỡ nhỏ và cỡ trung. \nVới trọng...",
+    image: "/images/products/8KVL5.jpg",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "8",
+    name: "Cột (Trụ) nâng 10MTS- M7 - 2.2",
+    slug: "cot-tru-nang-10mts-m7-2-2",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột ( trụ) tự nâng WillBurt QEAM MTS Series từ Will-Burt là một Cột có thể thay đổi độ cao cao đặc biệt phù hợp cho các Ang-ten và thiết bị khá khác. Các loại thiết bị gắn...",
+    image: "/images/products/TV_QEAM-MTS-10MTS-M7-2.jpg",
+    price: "Liên hệ",
+    featured: true,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "9",
+    name: "Cột (trụ) tự nâng vác vai 12m WillBurt",
+    slug: "cot-tru-tu-nang-vac-vai-12m-willburt",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "\n \n<img class=\"alignnone wp-im...",
+    image: "/images/products/cot-vac-vai-12-m.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "10",
+    name: "Cột (trụ) tự nâng Pneumatic Heavy-Duty Non-Locking 1.6 - 6M WILL-BURT (HDNL)",
+    slug: "cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột tự nâng hạng nặng không khóa Will-Burt (HDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Sản phẩm cột không khóa nén khí sở hữu độ chính xác đ...",
+    image: "/images/products/A91fq2a6h_4lebug_eog.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "11",
+    name: "Cột (trụ) nâng Heavy-Duty Pneumatic Locking Mast 1.6-6M",
+    slug: "cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột khóa khí nén hanjg nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột b...",
+    image: "/images/products/Heavy-Duty-Locking-1.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "12",
+    name: "XE NÂNG GẮN TRÊN XE TẢI HIAB MOFFETT",
+    slug: "xe-nang-gan-tren-xe-tai-hiab-moffett",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. \nVới thiết kế vô cùng nhỏ gọn. Xe nâng MOFFE...",
+    image: "/images/products/1449-1.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "13",
+    name: "MÀY ĐÀO BÁNH XÍCH MINI 0.04 KHỐI – WEICHAI LOVOL FR18E2-u",
+    slug: "may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "14",
+    name: "CỘT ( TRỤ) TỰ NÂNG STILLETO AL",
+    slug: "cot-tru-tu-nang-stilleto-al",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Stiletto AL cung cấp một hệ thống nâng cao cực kỳ ổn định và nhỏ gọn cho các cảm biến và ăng-ten yêu cầu độ chính xác cao. Cột ống lồng cơ-điện bằng hợp kim cường độ cao n...",
+    image: "/images/products/Capture.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "15",
+    name: "CỘT NÂNG GEROH KVR",
+    slug: "cot-nang-geroh-kvr",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Dòng cột nâng thu gọn KVR hạng nặng của Will-Burt Đức có đủ tiêu chuẩn đặc biệt để ứng dụng di động và với tải trọng nặng. Sức tải trọng lớn kết hợp với chiều cao lên tới ...",
+    image: "/images/products/Capture-1.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "16",
+    name: "XE NÂNG ĐIỆN MOFFETT E5 NX",
+    slug: "xe-nang-dien-moffett-e5-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải trên toàn thế giới, giúp vận hành và vận chuyển hiệu quả hơn. MOFFETT E5 NX được phát triển từ xe ...",
+    image: "/images/products/Capture-4.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "17",
+    name: "XE NÂNG DIESEL MOFFETT M2",
+    slug: "xe-nang-diesel-moffett-m2",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Xe nâng gắn trên xe tải đang hỗ trợ các doanh nghiệp trong tất cả ngành yêu cầu thực hiện đơn chuyển giao hàng trong thời gian ngắn. \nMOFFETT M2 là một loại máy có độ lin...",
+    image: "/images/products/Capture-5.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "18",
+    name: "XE NÂNG GẮN XE TẢI MOFFETT M4 NX",
+    slug: "xe-nang-gan-xe-tai-moffett-m4-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Trải nghiệm hiệu suất vượt trội của chiếc xe nâng đáng tin cậy nhất Châu Âu - xe nâng gắn với xe tải MOFFETT M4 NX thế hệ mới. Thiết bị sở hữu nhiều cải tiến – cả bên tron...",
+    image: "/images/products/Capture-6.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "19",
+    name: "XE NÂNG GẮN XE TẢI MOFFETT M8 NX",
+    slug: "xe-nang-gan-xe-tai-moffett-m8-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "MOFFETT M8 NX thế hệ mới là xe nâng gắn trên xe tải tốt nhất thế giới. Sản phẩm đã được thiết kế lại hoàn toàn – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhi...",
+    image: "/images/products/1-4.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "20",
+    name: "XE NÂNG GẮN XE TẢI MOFFETT M9 NX",
+    slug: "xe-nang-gan-xe-tai-moffett-m9-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "M9 là thiết bị chuyên dụng cho tất cả các điều kiện ứng dụng cần chiều cao hoạt động thấp. Nhỏ gọn và mạnh mẽ MOFFET M9 vận hành trong các điều kiện hoạt động khó khăn nh...",
+    image: "/images/products/Capture-7.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "21",
+    name: "XE NÂNG ĐIỆN MOFFETT E8 NX",
+    slug: "xe-nang-dien-moffett-e8-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "MOFFETT E8 NX là xe nâng tối ưu cho các nhiệm vụ đòi hỏi khắt khe và nâng tải lớn. Sức nâng lên tới 3500 kg, xe dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận công ...",
+    image: "/images/products/1406225.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "22",
+    name: "XE NÂNG GẮN XE TẢI MOFFETT M5 NX",
+    slug: "xe-nang-gan-xe-tai-moffett-m5-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "MOFFETT M5 NX là thiết bị xe nâng chuyên dụng cho các nhiệm vụ từ trung bình đến nặng, với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Nâng được trọng lượng lên tới ...",
+    image: "/images/products/1009262.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "23",
+    name: "XE NÂNG ĐIỆN MOFFETT E2",
+    slug: "xe-nang-dien-moffett-e2",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải và xe kéo tại các địa điểm kho bãi và khu vực cung ứng hàng hóa trên toàn cầu. \nPhạm vi mẫu mã to...",
+    image: "/images/products/1406255.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "24",
+    name: "XE NÂNG ĐIỆN MOFFETT E4 NX",
+    slug: "xe-nang-dien-moffett-e4-nx",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "MOFFETT E4 NX có tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, nó mang tải nhanh chóng và an toàn – ngay cả trên những địa hình khó khăn...",
+    image: "/images/products/1209551.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "25",
+    name: "Cột nâng Super Heavy-Duty Non-Locking (SHDNL)",
+    slug: "cot-nang-super-heavy-duty-non-locking-shdnl",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột nâng không khóa siêu nặng (SHDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Cột nâng không khóa bằng khí nén của Will-Burt sở hữu độ chính xá...",
+    image: "/images/products/1-7.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "26",
+    name: "CỘT NÂNG TYPE PU",
+    slug: "cot-nang-type-pu",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "\n<span style=\"color: #2828...",
+    image: "/images/products/11-2.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "27",
+    name: "Máy xúc đào 9018F",
+    slug: "may-xuc-dao-9018f",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "\n \n \n \n<div class=\"p...",
+    image: "/images/products/9018F.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "28",
+    name: "Máy xúc đào 9057FZTS",
+    slug: "may-xuc-dao-9057fzts",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "\n \n \n \n \nLiuGong đa...",
+    image: "/images/products/9057FZTS.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "29",
+    name: "Máy ủi B160CR",
+    slug: "may-ui-b160cr",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "Trọng lượng vận hành:19,100 kg \n \nCông suất động cơ:131 kW \n \nDung tích gầu:10.4 m³...",
+    image: "/images/products/B160CR.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "30",
+    name: "Máy san gạt 4140D",
+    slug: "may-san-gat-4140d",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "...",
+    image: "/images/products/4140D.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "31",
+    name: "Máy xúc đào liên hợp 775A",
+    slug: "may-xuc-dao-lien-hop-775a",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "...",
+    image: "/images/products/775A.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "32",
+    name: "Máy rải thảm 509E",
+    slug: "may-rai-tham-509e",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "...",
+    image: "/images/products/509E.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "33",
+    name: "Máy xúc lật đa năng 365 B",
+    slug: "may-xuc-lat-da-nang-365-b",
+    category: "thiet-bi-cong-trinh-liugong",
+    categoryName: "Thiết Bị Công Trình LIUGONG",
+    description: "...",
+    image: "/images/products/365-B.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LIUGONG",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "34",
+    name: "MÁY ĐÀO BÁNH LỐP 0.3 KHỐI – WEICHAI LOVOL FP 80W",
+    slug: "may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "35",
+    name: "MÁY ĐÀO BÁNH LỐP 1.0 KHỐI – WEICHAI LOVOL FP215W",
+    slug: "may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "36",
+    name: "MÁY XÚC ĐÀO LIÊN HỢP FLB468-II",
+    slug: "may-xuc-dao-lien-hop-flb468-ii",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "37",
+    name: "XE ỦI BÁNH XÍCH 25 TẤN – WEICHAI LOVOL FD220",
+    slug: "xe-ui-banh-xich-25-tan-weichai-lovol-fd220",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "38",
+    name: "XE LU 12 TẤN – WEICHAI LOVOL FY12S",
+    slug: "xe-lu-12-tan-weichai-lovol-fy12s",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "39",
+    name: "XE NÂNG FF30D",
+    slug: "xe-nang-ff30d",
+    category: "thiet-bi-cong-trinh-lovol",
+    categoryName: "Thiết Bị Công Trình LOVOL",
+    description: "...",
+    image: "/images/products/XE-NANG-FF30D.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "LOVOL",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "40",
+    name: "EFFER 35",
+    slug: "effer-35",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Vượt qua mọi trở ngại \n \nEFFER 35 có phạm vi tiếp cận dài nhất trong danh mục của nó, giúp có...",
+    image: "/images/products/effer-35-3.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "41",
+    name: "EFFER IX.195 HP",
+    slug: "effer-ix-195-hp",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "...",
+    image: "/images/products/EFFER-IX.195-HP-4.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "42",
+    name: "EFFER IX.355 HP",
+    slug: "effer-ix-355-hp",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "Cẩu tầm xa 32,1tm, được quản lý bằng hệ thống điều khiển mới SPACEevo...",
+    image: "/images/products/EFFER-IX.355-HP-2.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "43",
+    name: "EFFER IQ.1200 HP",
+    slug: "effer-iq-1200-hp",
+    category: "thiet-bi-nang-ha-hiab",
+    categoryName: "Thiết Bị Nâng Hạ HIAB",
+    description: "\n<pre id=\"tw-target-text\" class=\"tw-data-text tw-text-large tw-ta\" dir=\"ltr\" data-plac...",
+    image: "/images/products/EFFER-IQ.1200-HP-5.png",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "HIAB",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  },
+  {
+    id: "44",
+    name: "CỘT ( TRỤ ) TỰ NÂNG WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG & TRUYỀN THÔNG",
+    slug: "cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong",
+    category: "cot-tu-nang-will-burt",
+    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
+    description: "Cột ( trụ ) tự nâng will-burt: giải pháp nâng hạ tin cậy cho ngành phát sóng & truyền thôngTrong ngành phát sóng và truyền thông hiện đ...",
+    image: "/images/products/placeholder.jpg",
+    price: "Liên hệ",
+    featured: false,
+    specifications: {
+      brand: "WILL-BURT",
+      origin: "Nhập khẩu chính hãng",
+      warranty: "12 tháng"
+    }
+  }
+];
+
+// Helper functions
+export function getProductsByCategory(categorySlug: string): Product[] {
+  return products.filter(p => p.category === categorySlug);
+}
+
+export function getProductBySlug(slug: string): Product | undefined {
+  return products.find(p => p.slug === slug);
+}
+
+export function getFeaturedProducts(): Product[] {
+  return products.filter(p => p.featured);
+}
+
+export function getCategoryBySlug(slug: string): Category | undefined {
+  return categories.find(c => c.slug === slug);
+}

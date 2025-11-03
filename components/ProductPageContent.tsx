@@ -133,10 +133,10 @@ export default function ProductPageContent({ product, relatedProducts }: Product
             </Link>
             <span className="flex-shrink-0">/</span>
             <Link
-              href={`/san-pham/${product.categorySlug}`}
+              href={`/san-pham/${product.category}`}
               className="hover:text-[#5f7ab8] transition whitespace-nowrap"
             >
-              {product.category}
+              {product.categoryName}
             </Link>
             <span className="flex-shrink-0">/</span>
             <span className="text-[#5f7ab8] font-medium truncate max-w-[120px] sm:max-w-none">{product.name}</span>
@@ -283,13 +283,6 @@ export default function ProductPageContent({ product, relatedProducts }: Product
               <h1 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight">
                 {product.name}
               </h1>
-
-              {/* Description with accent */}
-              <div className="relative pl-3 sm:pl-4 border-l-2 sm:border-l-4 border-[#5f7ab8]">
-                <p className="text-sm sm:text-base text-gray-900 leading-relaxed font-medium">
-                  "{product.description}"
-                </p>
-              </div>
             </div>
 
             {/* Price Card - Premium Design */}
@@ -378,45 +371,111 @@ export default function ProductPageContent({ product, relatedProducts }: Product
           </div>
         </div>
 
-        {/* Product Details */}
-        <div className="bg-gray-50 rounded-lg sm:rounded-xl lg:rounded-2xl xl:rounded-3xl shadow-md sm:shadow-lg lg:shadow-xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12 mb-6 sm:mb-8 lg:mb-16">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 lg:mb-8 text-center">Thông tin chi tiết</h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 xl:gap-12">
-            {/* Specifications */}
-            <div>
-              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6 flex items-center">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#5f7ab8] mr-1.5 sm:mr-2 lg:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+        {/* Product Overview Section */}
+        {product.shortDescription && (
+          <div className="mb-6 sm:mb-8 lg:mb-12">
+            <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md sm:shadow-lg lg:shadow-xl p-4 sm:p-6 lg:p-8">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#5f7ab8] mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                Thông số kỹ thuật
-              </h3>
-              <div className="bg-gray-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 space-y-2 sm:space-y-3">
-                {Object.entries(product.specifications).map(([key, value]: [string, any]) => (
-                  <div key={key} className="flex justify-between py-2 sm:py-3 border-b border-gray-200 last:border-0">
-                    <span className="text-gray-900 font-semibold text-sm sm:text-base">{key}:</span>
-                    <span className="font-bold text-gray-900 text-sm sm:text-base text-right">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+                Tổng quan sản phẩm
+              </h2>
 
-            {/* Description */}
-            <div>
-              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6 flex items-center">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#5f7ab8] mr-1.5 sm:mr-2 lg:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Mô tả sản phẩm
-              </h3>
-              <div className="bg-gray-100 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6">
-                <p className="text-gray-900 leading-relaxed text-sm sm:text-base font-medium">
-                  {product.description}
-                </p>
+              <div className="prose prose-sm sm:prose-base max-w-none">
+                {(() => {
+                  const items = product.shortDescription.split('•');
+                  const mainContent = items[0]?.trim();
+                  const bulletItems = items.slice(1).filter((item: string) => item.trim());
+
+                  // Split main content by headings
+                  const parts = mainContent?.split(/(?:Các tính năng cơ bản:|TÍNH NĂNG NỔI BẬT|CÁC TÍNH NĂNG THIẾT YẾU:|Ưu điểm của dòng|LỢI THẾ VƯỢT TRỘI:|Các tính năng:|TÍNH NĂNG CƠ BẢN:)/i) || [];
+                  const headings = mainContent?.match(/(?:Các tính năng cơ bản:|TÍNH NĂNG NỔI BẬT|CÁC TÍNH NĂNG THIẾT YẾU:|Ưu điểm của dòng|LỢI THẾ VƯỢT TRỘI:|Các tính năng:|TÍNH NĂNG CƠ BẢN:)/gi) || [];
+
+                  return (
+                    <div className="space-y-6">
+                      {/* Main description */}
+                      {parts[0] && parts[0].trim() && (
+                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-[#5f7ab8] p-4 sm:p-5 rounded-lg">
+                          <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed font-medium">
+                            {parts[0].trim()}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Headings and their content */}
+                      {headings.map((heading: string, hIndex: number) => (
+                        <div key={hIndex} className="mt-4">
+                          <h3 className="text-base sm:text-lg font-bold text-[#5f7ab8] mb-4 flex items-center">
+                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            {heading}
+                          </h3>
+                          {parts[hIndex + 1] && parts[hIndex + 1].trim() && (
+                            <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4">
+                              {parts[hIndex + 1].trim()}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+
+                      {/* Bullet items in grid layout */}
+                      {bulletItems.length > 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                          {bulletItems.map((item: string, index: number) => {
+                            const trimmedItem = item.trim();
+                            if (!trimmedItem) return null;
+
+                            return (
+                              <div key={index} className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:shadow-md hover:border-[#5f7ab8] transition-all duration-300">
+                                <div className="flex-shrink-0 w-6 h-6 bg-[#5f7ab8] rounded-full flex items-center justify-center mt-0.5">
+                                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                </div>
+                                <span className="flex-1 text-xs sm:text-sm text-gray-700 leading-relaxed">{trimmedItem}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {/* Product Details - Full Description with Specifications */}
+        {product.fullDescription && (
+          <div className="bg-gray-50 rounded-lg sm:rounded-xl lg:rounded-2xl xl:rounded-3xl shadow-md sm:shadow-lg lg:shadow-xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12 mb-6 sm:mb-8 lg:mb-16">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 lg:mb-8 text-center flex items-center justify-center">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-[#5f7ab8] mr-2 sm:mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              </svg>
+              Thông số kỹ thuật & Mô tả chi tiết
+            </h2>
+
+            {/* Full Description with HTML Table */}
+            <div
+              className="prose prose-sm sm:prose-base lg:prose-lg max-w-none
+                prose-headings:text-gray-900 prose-headings:font-bold prose-headings:text-center prose-headings:mb-4
+                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
+                prose-strong:text-gray-900 prose-strong:font-semibold
+                prose-ul:text-gray-700 prose-ul:mb-4 prose-ul:space-y-2
+                prose-ol:text-gray-700 prose-ol:mb-4 prose-ol:space-y-2
+                prose-li:text-gray-700 prose-li:leading-relaxed
+                prose-table:w-full prose-table:border-collapse prose-table:shadow-md prose-table:my-6
+                prose-th:bg-[#5f7ab8] prose-th:text-white prose-th:p-3 prose-th:text-left prose-th:font-semibold prose-th:text-sm
+                prose-td:border prose-td:border-gray-300 prose-td:p-3 prose-td:text-gray-700 prose-td:text-sm prose-td:leading-relaxed
+                prose-tr:even:bg-gray-100
+                [&>*]:mb-4 [&>p]:whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: product.fullDescription }}
+            />
+          </div>
+        )}
 
         {/* Related Products Slider */}
         {relatedProducts.length > 0 && (

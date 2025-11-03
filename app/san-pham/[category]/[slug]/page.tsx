@@ -34,10 +34,10 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     title: product.name,
     description: `${product.description}. ${specs}. Hàng chính hãng, giá tốt nhất. Liên hệ NEW ATLANTIC để được tư vấn và báo giá chi tiết.`,
     image: product.image,
-    path: `/san-pham/${product.categorySlug}/${slug}`,
+    path: `/san-pham/${product.category}/${slug}`,
     keywords: [
       product.name,
-      product.category,
+      product.categoryName,
       'NEW ATLANTIC',
       'hàng chính hãng',
       'giá tốt',
@@ -49,14 +49,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
   const product = products.find(p => p.slug === slug);
-  
+
   if (!product) {
     notFound();
   }
 
   // Get all products in the same category (excluding current product)
   const relatedProducts = products
-    .filter(p => p.categorySlug === product.categorySlug && p.id !== product.id);
+    .filter(p => p.category === product.category && p.id !== product.id);
 
   return <ProductPageContent product={product} relatedProducts={relatedProducts} />;
 }

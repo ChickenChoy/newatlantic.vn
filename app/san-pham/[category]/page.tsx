@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     });
   }
 
-  const categoryProducts = products.filter(p => p.categorySlug === categorySlug);
-  
+  const categoryProducts = products.filter(p => p.category === categorySlug);
+
   return genMeta({
     title: category.name,
     description: `${category.description}. Khám phá ${categoryProducts.length} sản phẩm ${category.name} chính hãng với giá tốt nhất tại NEW ATLANTIC. Bảo hành chính hãng, hỗ trợ 24/7.`,
@@ -48,12 +48,12 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: categorySlug } = await params;
   const category = categories.find(c => c.slug === categorySlug);
-  
+
   if (!category) {
     notFound();
   }
 
-  const categoryProducts = products.filter(p => p.categorySlug === categorySlug);
+  const categoryProducts = products.filter(p => p.category === categorySlug);
 
   return (
     <CategoryPageContent 

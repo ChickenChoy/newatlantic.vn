@@ -4,8 +4,10 @@ export interface Product {
   name: string;
   slug: string;
   category: string;
-  categorySlug: string;
+  categoryName: string;
   description?: string;
+  fullDescription?: string; // HTML content for detail page
+  shortDescription?: string; // Plain text
   image: string;
   images?: string[];
   price?: string;

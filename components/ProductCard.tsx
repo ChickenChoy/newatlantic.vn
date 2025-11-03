@@ -48,19 +48,19 @@ export default function ProductCard({ product }: ProductCardProps) {
       <TiltCard maxTilt={5} scale={1.02} className="h-full">
         <Link href={`/san-pham/${product.categorySlug}/${product.slug}`} className="block h-full">
           <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group border border-gray-200 hover:border-gray-300 h-full flex flex-col relative">
-        <div className="relative h-64 bg-gray-50 overflow-hidden">
+        <div className="relative h-64 bg-white overflow-hidden flex items-center justify-center p-4">
           {product.image ? (
             <>
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                className="object-contain group-hover:scale-105 transition-transform duration-500"
                 quality={95}
                 priority={false}
               />
               {/* Subtle Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </>
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gray-50">
@@ -120,23 +120,26 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </div>
         {/* Content */}
-        <div className="p-5 flex-1 flex flex-col">
-          <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-gray-700 transition-colors">
+        <div className="p-5 flex flex-col flex-1">
+          <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-gray-700 transition-colors min-h-[3.5rem]">
             {product.name}
           </h3>
-          <p className="text-sm text-gray-500 mb-4 line-clamp-3 flex-1">
+          <p className="text-sm text-gray-500 mb-4 line-clamp-3 min-h-[4.5rem]">
             {product.description}
           </p>
-          
+
+          {/* Spacer to push button to bottom */}
+          <div className="flex-1"></div>
+
           {/* View Details Button */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+          <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
             <span className="text-sm font-medium text-gray-900 group-hover:text-[#5f7ab8] transition-colors">
               Xem chi tiết
             </span>
-            <svg 
-              className="w-5 h-5 text-gray-400 group-hover:text-[#5f7ab8] group-hover:translate-x-1 transition-all" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="w-5 h-5 text-gray-400 group-hover:text-[#5f7ab8] group-hover:translate-x-1 transition-all"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
