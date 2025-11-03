@@ -46,7 +46,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <>
       <TiltCard maxTilt={5} scale={1.02} className="h-full">
-        <Link href={`/san-pham/${product.categorySlug}/${product.slug}`} className="block h-full">
+        <Link href={`/san-pham/${product.categorySlug || product.category}/${product.slug}`} className="block h-full">
           <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group border border-gray-200 hover:border-gray-300 h-full flex flex-col relative">
         <div className="relative h-64 bg-white overflow-hidden">
           {product.image ? (

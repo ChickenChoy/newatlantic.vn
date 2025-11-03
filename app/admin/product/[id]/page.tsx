@@ -18,6 +18,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     name: '',
     slug: '',
     category: categories[0].slug,
+    categorySlug: categories[0].slug,
     categoryName: categories[0].name,
     description: '',
     image: '/images/box-image/MAY.jpg',
@@ -48,6 +49,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           name: '',
           slug: '',
           category: categories[0].slug,
+          categorySlug: categories[0].slug,
           categoryName: categories[0].name,
           description: '',
           image: '/images/box-image/MAY.jpg',
@@ -132,13 +134,14 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Danh mục *</label>
               <select
-                value={formData.categorySlug}
+                value={formData.categorySlug || formData.category}
                 onChange={(e) => {
                   const cat = categories.find((c: any) => c.slug === e.target.value);
                   setFormData({ 
                     ...formData, 
+                    category: e.target.value,
                     categorySlug: e.target.value,
-                    category: cat?.name || ''
+                    categoryName: cat?.name || ''
                   });
                 }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"

@@ -3,7 +3,8 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
-  category: string;
+  category: string; // Category slug
+  categorySlug?: string; // Alias for category (same value)
   categoryName: string;
   description?: string;
   fullDescription?: string; // HTML content for detail page
