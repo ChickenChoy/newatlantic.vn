@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -115,7 +116,9 @@ export default function RootLayout({
         <link rel="manifest" href="/images/logo/site.webmanifest" />
       </head>
       <body className={`${inter.variable} antialiased`} style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-        <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
         <ToastProvider>
           <ScrollProgressBar />
           <ProgressBar />
