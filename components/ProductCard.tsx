@@ -48,20 +48,22 @@ export default function ProductCard({ product }: ProductCardProps) {
       <TiltCard maxTilt={5} scale={1.02} className="h-full">
         <Link href={`/san-pham/${product.categorySlug}/${product.slug}`} className="block h-full">
           <div className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group border border-gray-200 hover:border-gray-300 h-full flex flex-col relative">
-        <div className="relative h-64 bg-white overflow-hidden flex items-center justify-center p-4">
+        <div className="relative h-64 bg-white overflow-hidden">
           {product.image ? (
-            <>
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-contain group-hover:scale-105 transition-transform duration-500"
-                quality={95}
-                priority={false}
-              />
+            <div className="w-full h-full flex items-center justify-center p-4">
+              <div className="relative w-full h-full">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-contain group-hover:scale-105 transition-transform duration-500"
+                  quality={95}
+                  priority={false}
+                />
+              </div>
               {/* Subtle Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+            </div>
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gray-50">
               <svg className="w-20 h-20 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
