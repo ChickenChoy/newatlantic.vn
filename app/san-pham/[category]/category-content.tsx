@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams, usePathname } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Suspense as SuspenseBoundary } from 'react';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
@@ -23,6 +23,11 @@ function CategoryContentInner({
 }: CategoryPageContentProps) {
   const searchParams = useSearchParams();
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
 
   // Calculate pagination
   const totalPages = Math.ceil(categoryProducts.length / ITEMS_PER_PAGE);

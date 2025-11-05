@@ -92,7 +92,7 @@ export default function Pagination({
         {currentPage > 1 ? (
           <Link
             href={buildPageUrl(currentPage - 1)}
-            scroll={false}
+            scroll={true}
             prefetch={true}
             className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-[#5f7ab8] transition-all font-medium text-sm"
           >
@@ -136,7 +136,7 @@ export default function Pagination({
             <Link
               key={pageNum}
               href={buildPageUrl(pageNum)}
-              scroll={false}
+              scroll={true}
               prefetch={true}
               className="inline-flex items-center justify-center w-10 h-10 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-[#5f7ab8] hover:text-[#5f7ab8] transition-all font-medium text-sm"
             >
@@ -149,7 +149,7 @@ export default function Pagination({
         {currentPage < totalPages ? (
           <Link
             href={buildPageUrl(currentPage + 1)}
-            scroll={false}
+            scroll={true}
             prefetch={true}
             className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-[#5f7ab8] transition-all font-medium text-sm"
           >

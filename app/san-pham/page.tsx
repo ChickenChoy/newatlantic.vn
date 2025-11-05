@@ -20,6 +20,11 @@ function ProductsPageContent() {
   const [sortOption, setSortOption] = useState<string>('newest');
   const [showSortMenu, setShowSortMenu] = useState(false);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
+
   // Filter products by search query
   const filteredProducts = useMemo(() => {
     let result = [...products];

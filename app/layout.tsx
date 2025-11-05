@@ -8,6 +8,7 @@ import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
+import ScrollToTop from "@/components/ScrollToTop";
 import ToastProvider from "@/components/ToastProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { siteConfig } from "@/lib/seo";
@@ -142,6 +143,7 @@ export default function RootLayout({
           </PageTransition>
           <Footer />
           <FloatingContactButtons />
+          <ScrollToTop />
         </ToastProvider>
       </body>
     </html>
