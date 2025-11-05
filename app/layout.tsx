@@ -25,6 +25,17 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: [
+      { url: '/images/logo/favicon.ico', sizes: 'any' },
+      { url: '/images/logo/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/images/logo/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/images/logo/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/images/logo/favicon.ico',
+  },
   keywords: [
     "WILL-BURT",
     "HIAB",
@@ -109,10 +120,11 @@ export default function RootLayout({
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#5f7ab8" />
+        <link rel="icon" type="image/x-icon" href="/images/logo/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/apple-touch-icon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/images/logo/favicon.ico" />
         <link rel="manifest" href="/images/logo/site.webmanifest" />
       </head>
       <body className={`${inter.variable} antialiased`} style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
