@@ -5,6 +5,10 @@ import PostCard from '@/components/PostCard';
 import ScrollAnimation from '@/components/ScrollAnimation';
 import HeroSlider from '@/components/HeroSlider';
 import LazyVideoBackground from '@/components/LazyVideoBackground';
+import Testimonials from '@/components/Testimonials';
+import FAQs from '@/components/FAQs';
+import Certifications from '@/components/Certifications';
+import GoogleMap from '@/components/GoogleMap';
 import { products, posts } from '@/lib/data';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -864,6 +868,15 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Certifications */}
+      <Certifications />
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* FAQs */}
+      <FAQs />
+
       {/* Locations */}
       <section className="py-16 md:py-24 bg-gradient-to-b from-gray-100/30 to-gray-50 relative overflow-hidden">
         {/* Background Elements - Simplified */}
@@ -893,7 +906,7 @@ export default function HomePage() {
               </ScrollAnimation>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-12">
               {/* HCM Office */}
               <ScrollAnimation direction="left" delay={0}>
                 <div className="group bg-gray-50 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
