@@ -57,3 +57,9 @@ export function TextSkeleton({ lines = 3, className = '' }: { lines?: number; cl
   );
 }
 
+export function SkeletonLoader({ className = '' }: { className?: string }) {
+  return (
+    <div className={`bg-gray-200 rounded animate-pulse ${className}`}></div>
+  );
+}
+
