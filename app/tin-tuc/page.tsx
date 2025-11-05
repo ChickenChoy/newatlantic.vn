@@ -29,8 +29,8 @@ function NewsPageContent() {
   // Sort by date (newest first)
   const sortedPosts = useMemo(() => {
     return [...filteredPosts].sort((a, b) => {
-      const dateA = new Date(a.date || a.createdAt || 0).getTime();
-      const dateB = new Date(b.date || b.createdAt || 0).getTime();
+      const dateA = new Date(a.date || 0).getTime();
+      const dateB = new Date(b.date || 0).getTime();
       return dateB - dateA;
     });
   }, [filteredPosts]);
