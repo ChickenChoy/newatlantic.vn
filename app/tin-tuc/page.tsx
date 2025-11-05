@@ -56,23 +56,6 @@ function NewsPageContent() {
         <div className="text-sm text-gray-600">
           Hiển thị <span className="font-semibold text-[#5f7ab8]">{sortedPosts.length}</span> bài viết
         </div>
-        
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleFilterChange(cat)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                filter === cat
-                  ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                  : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
-              }`}
-            >
-              {cat === 'all' ? 'Tất cả' : cat}
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Posts Grid */}
