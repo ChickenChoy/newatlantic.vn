@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { Suspense } from 'react';
 import { Suspense as SuspenseBoundary } from 'react';
 import ProductCard from '@/components/ProductCard';
@@ -44,6 +44,43 @@ function CategoryContentInner({
 
   return (
     <>
+      {/* Filter Bar - Giống như trang sản phẩm chính */}
+      <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="text-sm text-gray-600">
+          Hiển thị <span className="font-semibold text-[#5f7ab8]">{categoryProducts.length}</span> sản phẩm
+        </div>
+        
+        {/* Category Filter Buttons */}
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/san-pham"
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              false // Always false here since we're on category page
+                ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
+                : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
+            }`}
+          >
+            Tất cả
+          </Link>
+          {categories.map((cat) => {
+            const isActive = cat.slug === categorySlug;
+            return (
+              <Link
+                key={cat.id}
+                href={`/san-pham/${cat.slug}`}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  isActive
+                    ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
+                }`}
+              >
+                {cat.name}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {paginatedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
@@ -96,71 +133,6 @@ export default function CategoryPageContent({
         </div>
       </div>
 
-      {/* Categories Filter - Sticky */}
-      <div className="sticky top-20 z-40">
-        <div className="container mx-auto px-4">
-          {/* Desktop Filter - Grid Layout */}
-          <div className="hidden md:flex items-center justify-between gap-3 py-4">
-            <div className="flex items-center gap-3 flex-wrap">
-              <span className="text-sm font-semibold text-gray-600 mr-2">Danh mục:</span>
-              <Link
-                href="/san-pham"
-                className="px-5 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-sm hover:bg-[#5f7ab8] hover:text-white transition-all"
-              >
-                Tất cả
-              </Link>
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/san-pham/${cat.slug}`}
-                  className={`px-5 py-2 rounded-lg font-semibold text-sm transition-all ${
-                    cat.slug === categorySlug
-                      ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-[#5f7ab8] hover:text-white'
-                  }`}
-                >
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-            <p className="text-sm text-gray-500 whitespace-nowrap">
-              <span className="font-medium text-gray-700">{categoryProducts.length}</span> sản phẩm
-            </p>
-          </div>
-
-          {/* Mobile Filter - Horizontal Scroll */}
-          <div className="md:hidden">
-            <div className="py-3 overflow-x-auto scrollbar-hide">
-              <div className="flex gap-2 min-w-max">
-                <Link
-                  href="/san-pham"
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-xs hover:bg-[#5f7ab8] hover:text-white transition-all whitespace-nowrap"
-                >
-                  🏠 Tất cả
-                </Link>
-                {categories.map((cat) => (
-                  <Link
-                    key={cat.id}
-                    href={`/san-pham/${cat.slug}`}
-                    className={`px-4 py-2 rounded-lg font-semibold text-xs transition-all whitespace-nowrap ${
-                      cat.slug === categorySlug
-                        ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-[#5f7ab8] hover:text-white'
-                    }`}
-                  >
-                    {cat.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div className="pb-2 px-1">
-              <p className="text-xs text-gray-500">
-                <span className="font-medium text-gray-700">{categoryProducts.length}</span> sản phẩm
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
