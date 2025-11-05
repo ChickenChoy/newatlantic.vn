@@ -263,9 +263,16 @@ export default function GalleryLightbox({
     }
   };
 
-  if (!isOpen || !currentImage) return null;
+  const [mounted, setMounted] = useState(false);
 
-  return (
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!isOpen || !currentImage || !mounted || typeof window === 'undefined') return null;
+
+  const modalContent = (
     <div
       ref={containerRef}
       className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center"
@@ -455,5 +462,8 @@ export default function GalleryLightbox({
       )}
     </div>
   );
+
+  // Use Portal to render modal at document.body level
+  return createPortal(modalContent, document.body);
 }
 
