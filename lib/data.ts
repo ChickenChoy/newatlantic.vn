@@ -2825,26 +2825,6 @@ export const products: Product[] = [
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
     }
-  },
-  {
-    id: "44",
-    name: "CỘT ( TRỤ ) TỰ NÂNG WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG & TRUYỀN THÔNG",
-    slug: "cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột ( trụ ) tự nâng will-burt: giải pháp nâng hạ tin cậy cho ngành phát sóng & truyền thôngTrong ngành phát sóng và truyền thông hiện đại, việc sở hữu các thiết bị nâng hạ đáng tin cậy là yếu tố then chốt để đảm bảo chất lượng chương trình và hiệu quả hoạt động. Với hơn 50 năm kinh nghiệm trong cả ứng dụng thương mại và quân sự, Cột ( trụ ) tự nâng khí nén không khóa của Will-Burt đã khẳng định vị thế là giải pháp nâng hạ ưu việt, được tin dùng rộng rãi bởi các chuyên gia trong ngành.Độ tin cậy và Hiệu suất vượt trội của Cột ( trụ ) tự nângtruyền hình Will-BurtCác sản phẩm của Will-Burt được thiết kế và sản xuất để chịu đựng những môi trường và điều kiện thời tiết khắc nghiệt nhất. Điều này có nghĩa là bạn có thể hoàn toàn tin tưởng vào Cột ( trụ ) tự nângtruyền hình của Will-Burt sẽ hoạt động bền bỉ và không gặp sự cố trong nhiều năm liền. Các kỹ sư của chúng tôi đã đảm bảo rằng Cột ( trụ ) tự nângWill-Burt sẽ luôn sẵn sàng làm việc tại hiện trường, giúp bạn tiết kiệm thời gian và chi phí bảo trì.Đảm bảo chất lượng phát sóng với độ chính xác tối ưuĐối với các nhà đài và đơn vị sản xuất nội dung, độ chính xác là yếu tố không thể thiếu. Các Cột ( trụ ) tự nângcủa Will-Burt được trang bị hai rãnh then dọc thân trụ, đảm bảo độ chính xác tuyệt đối khi nâng hạ thiết bị phát sóng và thiết bị truyền thông. Điều này giúp tối ưu hóa hiệu suất của mọi loại thiết bị phát sóng, từ camera tới anten, đảm bảo hiệu quả và không gián đoạn.Vận hành đơn giản, hiệu quả tối đaMột trong những ưu điểm nổi bật của Cột ( trụ ) tự nângWill-Burt là sự dễ dàng vận hành. . Thiết kế thông minh giúp đội ngũ vận hành dễ dàng điều chỉnh mà không cần mất nhiều thời gian cài đặt phức tạp.Tại Sao Nên Chọn Cột Nâng Khí Nén Không Khóa Will-Burt?✔ Độ chính xác cao✔ Hoạt động bền bỉ✔ Dễ dàng vận hành✔ Hiệu suất vượt trội",
-    fullDescription: ``,
-    shortDescription: "Cột ( trụ ) tự nâng will-burt: giải pháp nâng hạ tin cậy cho ngành phát sóng & truyền thôngTrong ngành phát sóng và truyền thông hiện đại, việc sở hữu các thiết bị nâng hạ đáng tin cậy là yếu tố then chốt để đảm bảo chất lượng chương trình và hiệu quả hoạt động. Với hơn 50 năm kinh nghiệm trong cả ứng dụng thương mại và quân sự, Cột ( trụ ) tự nâng khí nén không khóa của Will-Burt đã khẳng định vị thế là giải pháp nâng hạ ưu việt, được tin dùng rộng rãi bởi các chuyên gia trong ngành.Độ tin cậy và Hiệu suất vượt trội của Cột ( trụ ) tự nângtruyền hình Will-BurtCác sản phẩm của Will-Burt được thiết kế và sản xuất để chịu đựng những môi trường và điều kiện thời tiết khắc nghiệt nhất. Điều này có nghĩa là bạn có thể hoàn toàn tin tưởng vào Cột ( trụ ) tự nângtruyền hình của Will-Burt sẽ hoạt động bền bỉ và không gặp sự cố trong nhiều năm liền. Các kỹ sư của chúng tôi đã đảm bảo rằng Cột ( trụ ) tự nângWill-Burt sẽ luôn sẵn sàng làm việc tại hiện trường, giúp bạn tiết kiệm thời gian và chi phí bảo trì.Đảm bảo chất lượng phát sóng với độ chính xác tối ưuĐối với các nhà đài và đơn vị sản xuất nội dung, độ chính xác là yếu tố không thể thiếu. Các Cột ( trụ ) tự nângcủa Will-Burt được trang bị hai rãnh then dọc thân trụ, đảm bảo độ chính xác tuyệt đối khi nâng hạ thiết bị phát sóng và thiết bị truyền thông. Điều này giúp tối ưu hóa hiệu suất của mọi loại thiết bị phát sóng, từ camera tới anten, đảm bảo hiệu quả và không gián đoạn.Vận hành đơn giản, hiệu quả tối đaMột trong những ưu điểm nổi bật của Cột ( trụ ) tự nângWill-Burt là sự dễ dàng vận hành. . Thiết kế thông minh giúp đội ngũ vận hành dễ dàng điều chỉnh mà không cần mất nhiều thời gian cài đặt phức tạp.Tại Sao Nên Chọn Cột Nâng Khí Nén Không Khóa Will-Burt?✔ Độ chính xác cao✔ Hoạt động bền bỉ✔ Dễ dàng vận hành✔ Hiệu suất vượt trội",
-    image: "/images/products/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong/placeholder.jpg",
-    images: ["/images/products/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong/placeholder.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "WILL-BURT",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
   }
 ];
 
