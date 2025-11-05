@@ -31,7 +31,7 @@ export default function Footer() {
                 href="https://www.facebook.com/aittandaitayduong" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 hover:bg-[#14b8a6] rounded-lg flex items-center justify-center transition-colors"
+                className="w-10 h-10 bg-gray-800 hover:bg-[#14b8a6] rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-6 hover:shadow-lg"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -46,12 +46,12 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-6 text-lg">Liên kết nhanh</h4>
             <ul className="space-y-3 text-sm">
               <li>
-                <Link href="/" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">
+                <Link href="/" className="text-gray-400 hover:text-[#5f7ab8] transition-all duration-300 hover:translate-x-1 inline-block">
                   Trang chủ
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">
+                <Link href="/san-pham" className="text-gray-400 hover:text-[#5f7ab8] transition-all duration-300 hover:translate-x-1 inline-block">
                   Sản phẩm
                 </Link>
               </li>
@@ -127,11 +127,6 @@ export default function Footer() {
                   <p className="text-gray-400">85 Nguyễn Phong Sắc, Cầu Giấy</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-              </div>
               <div className="pt-2 space-y-2">
                 <a href="tel:+842838733686" className="flex items-center gap-3 text-gray-300 hover:text-[#5f7ab8] transition-colors">
                   <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -166,9 +161,6 @@ export default function Footer() {
               <Link href="/dieu-khoan-dich-vu" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">
                 Điều khoản dịch vụ
               </Link>
-              <a href="/sitemap.xml" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">
-                Sitemap
-              </a>
             </div>
           </div>
         </div>

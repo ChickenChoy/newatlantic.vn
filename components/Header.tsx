@@ -22,7 +22,11 @@ export default function Header() {
   const isHomePage = pathname === '/';
 
   useEffect(() => {
-    setMounted(true);
+    // Delay setting mounted to ensure hydration completes first
+    // This prevents hydration mismatch by ensuring initial client render matches server
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
     
     // Load initial wishlist count
     setWishlistCount(WishlistManager.getWishlistCount());
@@ -33,7 +37,10 @@ export default function Header() {
     };
     
     window.addEventListener('wishlistUpdated', handleWishlistUpdate);
-    return () => window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
+    };
   }, []);
 
   useEffect(() => {
@@ -107,6 +114,7 @@ export default function Header() {
   };
 
   // Determine if we should use white theme (only after mounted on homepage without scroll)
+  // Use false initially to match server render, then update after mount
   const useWhiteTheme = mounted && isHomePage && !scrolled;
 
   return (
@@ -116,6 +124,7 @@ export default function Header() {
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}
+      suppressHydrationWarning
     >
 
       {/* Main navigation */}
@@ -123,7 +132,7 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 group-hover:scale-105 transition-transform">
+            <div className="relative w-10 h-10 md:w-12 md:h-12 group-hover:scale-110 transition-transform duration-300 group-hover:rotate-3">
               <Image
                 src="/images/logo/logo-color.png"
                 alt="NEW ATLANTIC"
@@ -131,7 +140,7 @@ export default function Header() {
                 className="object-contain"
               />
             </div>
-            <div>
+            <div suppressHydrationWarning>
               <div className={`text-xl font-bold transition-all ${
                 useWhiteTheme
                   ? 'text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]'
@@ -150,7 +159,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1" suppressHydrationWarning>
             <Link 
               href="/" 
               className={`px-4 py-2 rounded-lg font-medium transition-all ${

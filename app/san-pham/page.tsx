@@ -1,20 +1,23 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Suspense, useEffect, useState, useMemo } from 'react';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import { products, categories } from '@/lib/data';
 import Link from 'next/link';
 import { generateBreadcrumbSchema } from '@/lib/seo';
+import { ProductCardSkeleton } from '@/components/SkeletonLoader';
 
 const ITEMS_PER_PAGE = 9;
 
 function ProductsPageContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const searchQuery = searchParams.get('q') || '';
   const [sortOption, setSortOption] = useState<string>('newest');
+  const [showSortMenu, setShowSortMenu] = useState(false);
 
   // Filter products by search query
   const filteredProducts = useMemo(() => {
@@ -48,8 +51,76 @@ function ProductsPageContent() {
   const validEndIdx = validStartIdx + ITEMS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(validStartIdx, validEndIdx);
 
+  const handleSortChange = (newSort: string) => {
+    setSortOption(newSort);
+    setShowSortMenu(false);
+    // Update URL without page parameter
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('page');
+    router.push(`/san-pham?${params.toString()}`);
+  };
+
+  const sortOptions = [
+    { value: 'newest', label: 'Mới nhất', icon: '🆕' },
+    { value: 'name-asc', label: 'Tên A-Z', icon: '🔤' },
+    { value: 'name-desc', label: 'Tên Z-A', icon: '🔤' },
+  ];
+
   return (
     <>
+      {/* Sort and Filter Bar */}
+      <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="text-sm text-gray-600">
+          Hiển thị <span className="font-semibold text-[#5f7ab8]">{filteredProducts.length}</span> sản phẩm
+        </div>
+        
+        {/* Sort Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setShowSortMenu(!showSortMenu)}
+            className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:border-[#5f7ab8] hover:bg-gray-50 transition-all shadow-sm"
+          >
+            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+            </svg>
+            <span className="text-sm font-medium text-gray-700">
+              {sortOptions.find(opt => opt.value === sortOption)?.label || 'Sắp xếp'}
+            </span>
+            <svg className={`w-4 h-4 text-gray-500 transition-transform ${showSortMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {showSortMenu && (
+            <>
+              <div 
+                className="fixed inset-0 z-10" 
+                onClick={() => setShowSortMenu(false)}
+              ></div>
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-20 overflow-hidden">
+                {sortOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleSortChange(option.value)}
+                    className={`w-full px-4 py-3 text-left hover:bg-[#5f7ab8]/10 transition-colors flex items-center gap-2 ${
+                      sortOption === option.value ? 'bg-[#5f7ab8]/10 text-[#5f7ab8] font-semibold' : 'text-gray-700'
+                    }`}
+                  >
+                    <span>{option.icon}</span>
+                    <span className="text-sm">{option.label}</span>
+                    {sortOption === option.value && (
+                      <svg className="w-4 h-4 ml-auto text-[#5f7ab8]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
         {paginatedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
@@ -85,7 +156,7 @@ function ProductsPageFallback() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
       {[...Array(9)].map((_, i) => (
-        <div key={i} className="bg-gray-200 rounded-2xl h-96 animate-pulse"></div>
+        <ProductCardSkeleton key={i} />
       ))}
     </div>
   );
@@ -177,11 +248,11 @@ export default function ProductsPage() {
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
             Tất cả sản phẩm
           </h2>
           <p className="text-sm text-gray-600">
-            Hiển thị tất cả sản phẩm có sẵn
+            Khám phá bộ sưu tập thiết bị công nghiệp chính hãng của chúng tôi
           </p>
         </div>
 

@@ -16,20 +16,99 @@ export default function ContactPage() {
     company: '',
     message: '',
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Trong thực tế, gửi data đến API
-    console.log('Form submitted:', formData);
-    alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
-    setFormData({ name: '', email: '', phone: '', company: '', message: '' });
+  const validateField = (name: string, value: string): string => {
+    switch (name) {
+      case 'name':
+        if (!value.trim()) return 'Vui lòng nhập họ và tên';
+        if (value.trim().length < 2) return 'Tên phải có ít nhất 2 ký tự';
+        return '';
+      case 'email':
+        if (!value.trim()) return 'Vui lòng nhập email';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) return 'Email không hợp lệ';
+        return '';
+      case 'phone':
+        if (!value.trim()) return 'Vui lòng nhập số điện thoại';
+        const phoneRegex = /^[0-9]{10,11}$/;
+        if (!phoneRegex.test(value.replace(/\s/g, ''))) return 'Số điện thoại không hợp lệ (10-11 số)';
+        return '';
+      case 'message':
+        if (!value.trim()) return 'Vui lòng nhập nội dung';
+        if (value.trim().length < 10) return 'Nội dung phải có ít nhất 10 ký tự';
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setTouched({ ...touched, [name]: true });
+    const error = validateField(name, value);
+    setErrors({ ...errors, [name]: error });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    
+    // Clear error when user starts typing
+    if (errors[name] && touched[name]) {
+      const error = validateField(name, value);
+      setErrors({ ...errors, [name]: error });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSuccess(false);
+    
+    // Validate all fields
+    const newErrors: Record<string, string> = {};
+    Object.keys(formData).forEach((key) => {
+      if (key !== 'company') {
+        const error = validateField(key, formData[key as keyof typeof formData]);
+        if (error) newErrors[key] = error;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setTouched(Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {}));
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      console.log('Form submitted:', formData);
+      
+      setIsSuccess(true);
+      setFormData({ name: '', email: '', phone: '', company: '', message: '' });
+      setErrors({});
+      setTouched({});
+      
+      // Scroll to top to show success message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setErrors({ submit: 'Có lỗi xảy ra. Vui lòng thử lại sau.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const breadcrumbSchema = generateBreadcrumbSchema([
@@ -133,7 +212,31 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">Gửi Yêu Cầu Tư Vấn</h2>
-                <form onSubmit={handleSubmit} className="space-y-5">
+                
+                {/* Success Message */}
+                {isSuccess && (
+                  <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3 animate-slideDown">
+                    <svg className="w-6 h-6 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p className="text-green-800 font-semibold">Gửi thành công!</p>
+                      <p className="text-green-600 text-sm">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Error Message */}
+                {errors.submit && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3">
+                    <svg className="w-6 h-6 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p className="text-red-800">{errors.submit}</p>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <label htmlFor="name" className="block text-gray-700 font-medium mb-2 text-sm">
@@ -143,12 +246,24 @@ export default function ContactPage() {
                         type="text"
                         id="name"
                         name="name"
-                        required
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent transition-all"
+                        onBlur={handleBlur}
+                        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all ${
+                          errors.name && touched.name
+                            ? 'border-red-500 focus:ring-red-500'
+                            : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                        }`}
                         placeholder="Nhập họ và tên"
                       />
+                      {errors.name && touched.name && (
+                        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -159,12 +274,24 @@ export default function ContactPage() {
                         type="tel"
                         id="phone"
                         name="phone"
-                        required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent transition-all"
+                        onBlur={handleBlur}
+                        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all ${
+                          errors.phone && touched.phone
+                            ? 'border-red-500 focus:ring-red-500'
+                            : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                        }`}
                         placeholder="0912345678"
                       />
+                      {errors.phone && touched.phone && (
+                        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -177,12 +304,24 @@ export default function ContactPage() {
                         type="email"
                         id="email"
                         name="email"
-                        required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent transition-all"
+                        onBlur={handleBlur}
+                        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all ${
+                          errors.email && touched.email
+                            ? 'border-red-500 focus:ring-red-500'
+                            : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                        }`}
                         placeholder="example@email.com"
                       />
+                      {errors.email && touched.email && (
+                        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -208,20 +347,47 @@ export default function ContactPage() {
                     <textarea
                       id="message"
                       name="message"
-                      required
                       value={formData.message}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent transition-all resize-none"
+                      className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all resize-none ${
+                        errors.message && touched.message
+                          ? 'border-red-500 focus:ring-red-500'
+                          : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                      }`}
                       placeholder="Nhập nội dung cần tư vấn..."
                     />
+                      {errors.message && touched.message && (
+                        <p className="mt-1 text-sm text-red-600 flex items-center gap-1">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                          </svg>
+                          {errors.message}
+                        </p>
+                      )}
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white py-4 rounded-xl font-bold hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+                    disabled={isSubmitting}
+                    className={`w-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                      isSubmitting
+                        ? 'opacity-70 cursor-not-allowed'
+                        : 'hover:shadow-xl hover:scale-[1.02]'
+                    }`}
                   >
-                    Gửi yêu cầu tư vấn
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Đang gửi...
+                      </>
+                    ) : (
+                      'Gửi yêu cầu tư vấn'
+                    )}
                   </button>
                 </form>
               </div>
