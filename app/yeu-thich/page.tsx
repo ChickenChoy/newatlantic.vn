@@ -132,6 +132,7 @@ export default function WishlistPage() {
                     <ProductCard 
                       product={product}
                       className=""
+                      hideQuickView={true}
                     />
                   </div>
                 ))}
