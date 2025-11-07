@@ -142,16 +142,19 @@ export default function ProductCard({ product, className = '' }: ProductCardProp
           <div 
             className="product-model transition-all duration-500"
             style={{
-              fontSize: '24px',
+              fontSize: '16px',
               fontWeight: 600,
               color: 'rgb(60, 60, 60)',
               textAlign: 'left',
-              lineHeight: '1.3',
+              lineHeight: '1.4',
               fontFamily: 'system-ui, -apple-system, sans-serif',
-              marginBottom: '6px'
+              marginBottom: '6px',
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
+              hyphens: 'auto'
             }}
           >
-            {getProductModel()}
+            {product.name}
           </div>
           {/* Product Category/Type */}
           <div 
