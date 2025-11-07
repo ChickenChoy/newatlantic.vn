@@ -111,9 +111,13 @@ function ProductsPageContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-        {paginatedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+      <div className="flex flex-wrap">
+        {paginatedProducts.map((product, index) => (
+          <ProductCard 
+            key={product.id} 
+            product={product}
+            className={index % 4 === 3 ? '!mr-0' : ''}
+          />
         ))}
       </div>
 
@@ -144,9 +148,21 @@ function ProductsPageContent() {
 
 function ProductsPageFallback() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-      {[...Array(9)].map((_, i) => (
-        <ProductCardSkeleton key={i} />
+    <div className="flex flex-wrap">
+      {[...Array(8)].map((_, i) => (
+        <div 
+          key={i}
+          className="product-card-hidrokon"
+          style={{ marginRight: i % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
+        >
+          <div 
+            className="bg-gray-200 animate-pulse"
+            style={{
+              borderRadius: '40px 150px 40px 40px',
+              height: '450px'
+            }}
+          />
+        </div>
       ))}
     </div>
   );

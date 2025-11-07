@@ -689,14 +689,17 @@ export default function HomePage() {
               </div>
             </ScrollAnimation>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          <div className="flex flex-wrap">
             {featuredProducts.map((product, index) => (
               <ScrollAnimation 
                 key={product.id}
                 direction={index % 2 === 0 ? 'left' : 'right'}
                 delay={index * 150}
               >
-                <ProductCard product={product} />
+                <ProductCard 
+                  product={product}
+                  className={index % 4 === 3 ? '!mr-0' : ''}
+                />
               </ScrollAnimation>
             ))}
           </div>

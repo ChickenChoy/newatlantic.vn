@@ -104,12 +104,12 @@ export default function WishlistPage() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex flex-wrap" style={{ margin: '0 -16px' }}>
                 {wishlist.map((product, index) => (
-                  <div
-                    key={product.id}
-                    className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group h-full flex flex-col"
-                  >
+                  <div key={product.id} className="w-full md:w-1/2 lg:w-1/3 px-4" style={{ marginBottom: '32px' }}>
+                    <div
+                      className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 group h-full flex flex-col"
+                    >
                     <Link href={`/san-pham/${product.categorySlug}/${product.slug}`}>
                       <div className="relative h-56 bg-gray-50 overflow-hidden">
                         {product.image ? (
@@ -171,6 +171,7 @@ export default function WishlistPage() {
                           Liên hệ
                         </Link>
                       </div>
+                    </div>
                     </div>
                   </div>
                 ))}

@@ -214,7 +214,7 @@ export function HeroSlider() {
                 >
                   {slide.label && (
                     <p
-                      className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 mb-3 sm:mb-4 md:mb-6 tracking-[0.15em] sm:tracking-[0.2em] uppercase drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
+                      className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-white/90 mb-3 sm:mb-4 md:mb-6 tracking-[0.15em] sm:tracking-[0.2em] uppercase drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]"
                       style={{
                         animation: index === currentSlide && isMounted ? 'slideInFromTop 1s ease-out 0.2s both' : 'none'
                       }}
@@ -224,7 +224,7 @@ export function HeroSlider() {
                     </p>
                   )}
                   <h2
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white mb-3 sm:mb-4 md:mb-6 lg:mb-8 uppercase leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-tight px-2"
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-white mb-3 sm:mb-4 md:mb-6 lg:mb-8 uppercase leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] tracking-tight px-2"
                     style={{
                       animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.4s both' : 'none'
                     }}
@@ -234,7 +234,7 @@ export function HeroSlider() {
                   </h2>
                   {slide.subtitle && (
                     <h3
-                      className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-semibold text-white mb-4 sm:mb-6 md:mb-8 lg:mb-10 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] px-2"
+                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-semibold text-white mb-4 sm:mb-6 md:mb-8 lg:mb-10 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] px-2"
                       style={{
                         animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.6s both' : 'none'
                       }}
@@ -244,7 +244,7 @@ export function HeroSlider() {
                     </h3>
                   )}
                   <p
-                    className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-white/95 mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 leading-relaxed max-w-4xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-4"
+                    className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-white/95 mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14 leading-relaxed max-w-4xl mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] px-4"
                     style={{
                       animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out 0.8s both' : 'none'
                     }}
