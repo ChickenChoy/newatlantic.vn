@@ -112,6 +112,24 @@ export default function ProductCard({ product, className = '' }: ProductCardProp
               </svg>
             </div>
           )}
+          
+          {/* Quick View Button - hiển thị khi hover */}
+          <button
+            onClick={handleQuickView}
+            className="absolute top-2 left-4 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-70 group-hover:opacity-100"
+            title="Xem nhanh"
+          >
+            <svg 
+              className="w-8 h-8 text-[#5f7ab8] group-hover:text-white drop-shadow-lg transition-colors duration-300" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth={2.5}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
         </div>
 
         {/* Title Box - giống Hidrokon */}
@@ -138,7 +156,7 @@ export default function ProductCard({ product, className = '' }: ProductCardProp
           <div 
             className="product-model transition-all duration-500"
             style={{
-              fontSize: '16px',
+              fontSize: '20px',
               fontWeight: 600,
               color: 'rgb(60, 60, 60)',
               textAlign: 'left',
@@ -147,7 +165,8 @@ export default function ProductCard({ product, className = '' }: ProductCardProp
               marginBottom: '6px',
               wordWrap: 'break-word',
               overflowWrap: 'break-word',
-              hyphens: 'auto'
+              hyphens: 'auto',
+              minHeight: '1.8em'
             }}
           >
             {product.name}

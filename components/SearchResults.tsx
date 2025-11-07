@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { products, posts } from '@/lib/data';
+import { cleanText } from '@/lib/textUtils';
 
 interface SearchResultsProps {
   isOpen: boolean;
@@ -99,9 +100,13 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
 
     // Search products
     products.forEach(product => {
+      // Search on raw description (including HTML/shortcodes) but display cleaned version
+      const rawDescription = product.description || '';
+      const cleanedDescription = rawDescription ? cleanText(rawDescription) : '';
+      
       const matches = 
         product.name.toLowerCase().includes(query) ||
-        (product.description && product.description.toLowerCase().includes(query)) ||
+        (rawDescription && rawDescription.toLowerCase().includes(query)) ||
         product.category.toLowerCase().includes(query) ||
         Object.values(product.specifications || {}).some(spec => 
           spec.toString().toLowerCase().includes(query)
@@ -111,7 +116,7 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
         searchResults.push({
           id: product.id,
           title: product.name,
-          description: product.description || '',
+          description: cleanedDescription,
           image: product.image,
           url: `/san-pham/${product.categorySlug}/${product.slug}`,
           type: 'product',

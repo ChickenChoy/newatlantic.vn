@@ -6,6 +6,7 @@ import Image from 'next/image';
 import TouchGestureWrapper from './TouchGestureWrapper';
 import ImageModal from './ImageModal';
 import { WishlistManager } from '@/lib/wishlist';
+import { cleanText, stripWordPressShortcodes } from '@/lib/textUtils';
 
 interface ProductPageContentProps {
   product: any;
@@ -384,7 +385,9 @@ export default function ProductPageContent({ product, relatedProducts }: Product
 
               <div className="prose prose-sm sm:prose-base max-w-none">
                 {(() => {
-                  const items = product.shortDescription.split('•');
+                  // Clean shortDescription first
+                  const cleanedDescription = cleanText(product.shortDescription);
+                  const items = cleanedDescription.split('•');
                   const mainContent = items[0]?.trim();
                   const bulletItems = items.slice(1).filter((item: string) => item.trim());
 
@@ -476,7 +479,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 [&>*]:mb-6 [&>p]:block [&>p]:whitespace-normal
                 [&_br]:block [&_br]:my-2
                 [&>div]:mb-6 [&>section]:mb-6"
-              dangerouslySetInnerHTML={{ __html: product.fullDescription }}
+              dangerouslySetInnerHTML={{ __html: stripWordPressShortcodes(product.fullDescription) }}
             />
           </div>
         )}
@@ -564,7 +567,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                           {relatedProduct.name}
                         </h3>
                         <p className="text-gray-600 text-xs line-clamp-2">
-                          {relatedProduct.description}
+                          {relatedProduct.description ? cleanText(relatedProduct.description) : ''}
                         </p>
                       </div>
                     </Link>

@@ -199,7 +199,7 @@ export const products: Product[] = [
     slug: "cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m",
     category: "cot-tu-nang-will-burt",
     categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột khóa khí nén hanjg nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột b...",
+    description: "Cột khóa khí nén hạng nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột b...",
     image: "/images/products/Heavy-Duty-Locking-1.jpg",
     price: "Liên hệ",
     featured: false,

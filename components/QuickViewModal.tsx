@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Product } from '@/types';
+import { formatDescription } from '@/lib/textUtils';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -16,6 +17,16 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
   const scrollPositionRef = useRef(0);
   const restoreTimeoutRef = useRef<number | null>(null);
   const hasScrolledToTopRef = useRef(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  
+  const MAX_DESCRIPTION_LENGTH = 500; // Số ký tự tối đa trước khi tóm tắt
+
+  // Reset expanded state when modal closes or product changes
+  useEffect(() => {
+    if (!isOpen) {
+      setIsDescriptionExpanded(false);
+    }
+  }, [isOpen, product?.id]);
 
   // Close on ESC key and handle body scroll
   useEffect(() => {
@@ -133,7 +144,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                 </svg>
               </button>
 
-              <div className="grid md:grid-cols-2 gap-6 p-6 md:p-8 pt-0">
+              <div className="grid md:grid-cols-2 gap-8 lg:gap-12 p-6 md:p-8 lg:p-10 pt-0">
                 {/* Product Image */}
                 <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
                   {product.image ? (
@@ -163,35 +174,81 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                 </div>
 
                 {/* Product Details */}
-                <div className="flex flex-col">
+                <div className="flex flex-col space-y-6">
                   {/* Category */}
-                  <div className="mb-3">
-                    <span className="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
-                      {product.category}
+                  <div>
+                    <span className="inline-block bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full text-xs font-medium">
+                      {product.categoryName || product.category}
                     </span>
                   </div>
 
                   {/* Product Name */}
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                     {product.name}
                   </h2>
 
                   {/* Description */}
                   {product.description && (
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {product.description}
-                    </p>
+                    <div className="w-full">
+                      {(() => {
+                        // Clean and format text: remove HTML tags and WordPress shortcodes
+                        let formatted = formatDescription(product.description);
+                        
+                        const isLong = formatted.length > MAX_DESCRIPTION_LENGTH;
+                        const displayText = isLong && !isDescriptionExpanded 
+                          ? formatted.substring(0, MAX_DESCRIPTION_LENGTH) + '...'
+                          : formatted;
+                        
+                        return (
+                          <>
+                            <div 
+                              className="text-gray-600 leading-relaxed text-base md:text-lg break-words"
+                              style={{
+                                wordWrap: 'break-word',
+                                overflowWrap: 'break-word',
+                                wordBreak: 'break-word',
+                                whiteSpace: 'pre-line'
+                              }}
+                            >
+                              {displayText}
+                            </div>
+                            {isLong && (
+                              <button
+                                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                                className="mt-3 text-[#5f7ab8] hover:text-[#4a6199] font-medium text-sm transition-colors duration-200 inline-flex items-center gap-1"
+                              >
+                                {isDescriptionExpanded ? (
+                                  <>
+                                    <span>Thu gọn</span>
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                    </svg>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span>Xem thêm</span>
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                  </>
+                                )}
+                              </button>
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
                   )}
 
                   {/* Specifications */}
                   {product.specifications && Object.keys(product.specifications).length > 0 && (
-                    <div className="mb-6">
-                      <h3 className="font-semibold text-gray-900 mb-3">Thông số kỹ thuật:</h3>
-                      <div className="space-y-2">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-4 text-lg">Thông số kỹ thuật:</h3>
+                      <div className="space-y-3 bg-gray-50 rounded-lg p-4">
                         {Object.entries(product.specifications).map(([key, value]) => (
-                          <div key={key} className="flex justify-between py-2 border-b border-gray-100">
-                            <span className="text-sm text-gray-600">{key}:</span>
-                            <span className="text-sm font-medium text-gray-900">{value}</span>
+                          <div key={key} className="flex justify-between items-start py-2 border-b border-gray-200 last:border-0">
+                            <span className="text-sm md:text-base text-gray-600 font-medium pr-4">{key}:</span>
+                            <span className="text-sm md:text-base font-medium text-gray-900 text-right flex-1">{value}</span>
                           </div>
                         ))}
                       </div>
@@ -199,7 +256,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                   )}
 
                   {/* Action Buttons */}
-                  <div className="mt-auto pt-6 space-y-3">
+                  <div className="mt-auto pt-4 space-y-3">
                     <Link
                       href={`/san-pham/${product.categorySlug}/${product.slug}`}
                       className="block w-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white py-3 px-6 rounded-xl font-semibold text-center hover:shadow-xl hover:scale-105 transition-all duration-300"
