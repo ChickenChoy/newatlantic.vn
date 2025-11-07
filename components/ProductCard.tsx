@@ -64,11 +64,7 @@ export default function ProductCard({ product, className = '' }: ProductCardProp
     <>
       <Link 
         href={`/san-pham/${product.categorySlug || product.category}/${product.slug}`} 
-        className={`block relative group product-card-hidrokon ${className}`}
-        style={{ 
-          marginRight: '32px', 
-          marginBottom: '32px' 
-        }}
+        className={`block relative group h-full ${className}`}
       >
         {/* Background - giống Hidrokon với góc bo tròn lớn */}
         <div 

@@ -113,11 +113,16 @@ function ProductsPageContent() {
 
       <div className="flex flex-wrap">
         {paginatedProducts.map((product, index) => (
-          <ProductCard 
-            key={product.id} 
-            product={product}
-            className={index % 4 === 3 ? '!mr-0' : ''}
-          />
+          <div 
+            key={product.id}
+            className="product-card-hidrokon"
+            style={{ marginRight: index % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
+          >
+            <ProductCard 
+              product={product}
+              className=""
+            />
+          </div>
         ))}
       </div>
 
