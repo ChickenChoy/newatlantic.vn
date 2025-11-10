@@ -231,33 +231,33 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 )}
               </div>
 
-              {/* Thumbnail Navigation - Only show if there are multiple images */}
-              {images.length > 1 && (
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 sm:p-3 md:p-4">
-                  <div className="flex gap-1 sm:gap-2 justify-center overflow-x-auto scrollbar-hide">
-                    {images.map((image: string, index: number) => (
-                      <button
-                        key={index}
-                        onClick={() => goToImage(index)}
-                        className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white rounded-lg overflow-hidden border-2 shadow-lg transition-all duration-300 ${
-                          index === currentImageIndex
-                            ? 'border-[#5f7ab8]'
-                            : 'border-transparent hover:border-[#5f7ab8]'
-                        }`}
-                      >
-                        <Image
-                          src={image}
-                          alt={`${product.name} - Ảnh ${index + 1}`}
-                          width={64}
-                          height={64}
-                          className="w-full h-full object-cover"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </TouchGestureWrapper>
+            {/* Thumbnail Navigation - Move outside main image to avoid covering content */}
+            {images.length > 1 && (
+              <div className="mt-3 sm:mt-4 md:mt-5">
+                <div className="flex gap-1 sm:gap-2 justify-center overflow-x-auto scrollbar-hide bg-white/90 backdrop-blur-sm border border-white/40 rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 shadow-md">
+                  {images.map((image: string, index: number) => (
+                    <button
+                      key={index}
+                      onClick={() => goToImage(index)}
+                      className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white rounded-lg overflow-hidden border-2 shadow-lg transition-all duration-300 ${
+                        index === currentImageIndex
+                          ? 'border-[#5f7ab8]'
+                          : 'border-transparent hover:border-[#5f7ab8]'
+                      }`}
+                    >
+                      <Image
+                        src={image}
+                        alt={`${product.name} - Ảnh ${index + 1}`}
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Image Modal */}
