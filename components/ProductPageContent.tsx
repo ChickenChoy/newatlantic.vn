@@ -152,7 +152,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
             <TouchGestureWrapper
               onSwipeLeft={nextImage}
               onSwipeRight={prevImage}
-              className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] bg-gray-200 rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden shadow-md sm:shadow-lg"
+              className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] bg-white-200 rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden shadow-md sm:shadow-lg"
             >
               {/* Main Image */}
               <div className="relative w-full h-full">
