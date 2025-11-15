@@ -128,7 +128,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/images/logo/favicon.ico" />
         <link rel="manifest" href="/images/logo/site.webmanifest" />
       </head>
-      <body className={`${inter.variable} antialiased`} style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
+      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
