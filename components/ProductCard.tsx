@@ -85,7 +85,7 @@ export default function ProductCard({ product, className = '', hideQuickView = f
 
         {/* Image Container - giống Hidrokon */}
         <div 
-          className="relative w-full"
+          className="relative w-full group-hover:z-30 transition-all duration-300"
           style={{ 
             padding: '60px 35px 30px', 
             zIndex: 20
@@ -114,11 +114,11 @@ export default function ProductCard({ product, className = '', hideQuickView = f
             </div>
           )}
           
-          {/* Quick View Button - hiển thị khi hover */}
+          {/* Quick View Button - desktop: hover to show, mobile: always show */}
           {!hideQuickView && (
             <button
               onClick={handleQuickView}
-              className="absolute top-2 left-4 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-70 group-hover:opacity-100"
+              className="absolute top-2 left-4 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-100 md:opacity-70 md:group-hover:opacity-100"
               title="Xem nhanh"
             >
               <svg 
