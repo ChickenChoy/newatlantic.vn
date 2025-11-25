@@ -79,7 +79,13 @@ export default function DownloadCatalogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 animate-fade-in">
+    <div className="min-h-screen bg-white animate-fade-in relative overflow-hidden">
+      {/* Background decorative elements - Subtle green accent */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-green-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-50/40 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -87,22 +93,29 @@ export default function DownloadCatalogPage() {
       />
       
       {/* Main Content */}
-      <main className="pt-20">
+      <main className="pt-20 relative z-10">
         {/* Breadcrumb */}
-        <div className="bg-gray-50 mt-4">
+        <div className="bg-white mt-4 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav className="flex items-center gap-2 text-sm text-gray-600">
-              <Link href="/" className="hover:text-[#5f7ab8] transition">
+              <Link href="/" className="hover:text-green-600 transition">
                 Trang chủ
               </Link>
               <span>/</span>
-              <span className="text-[#5f7ab8] font-medium">Catalog Sản Phẩm</span>
+              <span className="text-green-600 font-medium">Catalog Sản Phẩm</span>
             </nav>
           </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Page Title */}
           <div className="text-center mb-12 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                <path d="M15 13a1 1 0 100 2h1a2 2 0 002-2V8a2 2 0 00-2-2h-1a1 1 0 100 2h1v5h-1z" />
+              </svg>
+              Tải Catalog
+            </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4 animate-slide-in-left">
               CHỌN CATALOG BẠN CẦN
             </h1>
@@ -115,7 +128,7 @@ export default function DownloadCatalogPage() {
         <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] px-8 py-8 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-black/5"></div>
               <div className="relative flex items-center justify-between">
                 <div className="flex items-center">
@@ -148,15 +161,15 @@ export default function DownloadCatalogPage() {
             {/* Content */}
             <div className="p-8">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                  <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     Military elevation solution and tactical trailers
                   </h3>
                     <a 
                       href="https://drive.google.com/file/d/1v_Radki2cjTFfQjbZ2-od73xzmEqDY6O/view" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -165,15 +178,15 @@ export default function DownloadCatalogPage() {
                   </a>
                 </div>
 
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     Telecommunication elevation solutions
                   </h3>
                     <a 
                       href="https://drive.google.com/file/d/1AQdNA8nPMgUg3_t5QLA1pdWoRDebq7Ho/view" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -182,15 +195,15 @@ export default function DownloadCatalogPage() {
                   </a>
                 </div>
 
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     Military elevation solut. & tactical trailers 2
                   </h3>
                     <a 
                       href="https://drive.google.com/file/d/1v_Radki2cjTFfQjbZ2-od73xzmEqDY6O/view" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -207,7 +220,7 @@ export default function DownloadCatalogPage() {
         <section className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] px-8 py-8 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 px-8 py-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-black/5"></div>
               <div className="relative flex items-center justify-between">
                 <div className="flex items-center">
@@ -240,15 +253,15 @@ export default function DownloadCatalogPage() {
             {/* Content */}
             <div className="p-8">
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     All-electric Moffet E-Series nx
                   </h3>
                     <a 
                       href="https://drive.google.com/file/d/14Sa2lMixNqNVUUfrxO_3IDcQ9BqG9G4_/view" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -257,15 +270,15 @@ export default function DownloadCatalogPage() {
                   </a>
                 </div>
 
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     Deliver More HIAB MOFFET
                   </h3>
                     <a 
                       href="https://drive.google.com/file/d/1meoPLNJcUQEtn4TKctweJLNR4Plzdt96/view" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -274,15 +287,15 @@ export default function DownloadCatalogPage() {
                   </a>
                 </div>
 
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     The New MOFFET 4 <br /> NX
                   </h3>
                     <a 
                       href="https://drive.google.com/file/d/1IYD6hloU8_dalTgkSZXHuCNGjqJMrBXN/view" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -291,15 +304,15 @@ export default function DownloadCatalogPage() {
                   </a>
                 </div>
 
-                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-[#5f7ab8]/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-[#5f7ab8] transition-colors">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:shadow-lg hover:border-green-300/30 transition-all duration-300 bg-gray-50/50 flex flex-col items-center text-center hover:bg-white hover:scale-105 transform">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors">
                     Xe nâng gắn xe tải MOFFET
                   </h3>
                     <a 
                       href="https://publuu.com/flip-book/180051/1141767" 
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:shadow-md hover:scale-105 transition-all duration-200 font-medium"
                     >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

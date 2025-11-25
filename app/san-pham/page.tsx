@@ -72,22 +72,26 @@ function ProductsPageContent() {
     { value: 'name-desc', label: 'Tên Z-A', icon: '🔤' },
   ];
 
+  // Popular search keywords for suggestions
+  const popularKeywords = ['WILL-BURT', 'HIAB', 'LOVOL', 'LIUGONG', 'Cột tự nâng', 'Cẩu tự hành', 'Xe nâng'];
+
   return (
     <>
-      {/* Filter Bar - Giống như hình tin tức */}
-      <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="text-sm text-gray-600">
-          Hiển thị <span className="font-semibold text-[#5f7ab8]">{filteredProducts.length}</span> sản phẩm
-        </div>
-        
+      {/* Sticky Filter Bar */}
+      <div className="sticky top-16 z-40 mb-6 bg-white/95 backdrop-blur-md shadow-md rounded-xl p-4 border border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="text-sm text-gray-600">
+            Hiển thị <span className="font-semibold text-blue-600">{filteredProducts.length}</span> sản phẩm
+          </div>
+          
         {/* Category Filter Buttons */}
         <div className="flex flex-wrap gap-2">
           <Link
             href="/san-pham"
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
               pathname === '/san-pham'
-                ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:shadow-lg'
+                : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 shadow-sm'
             }`}
           >
             Tất cả
@@ -98,10 +102,10 @@ function ProductsPageContent() {
               <Link
                 key={category.id}
                 href={`/san-pham/${category.slug}`}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:shadow-lg'
+                    : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 shadow-sm'
                 }`}
               >
                 {category.name}
@@ -109,31 +113,70 @@ function ProductsPageContent() {
             );
           })}
         </div>
+        </div>
       </div>
 
-      <div className="flex flex-wrap">
-        {paginatedProducts.map((product, index) => (
-          <div 
+      {/* Products Grid - Using CSS Grid instead of manual margins */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+        {paginatedProducts.map((product) => (
+          <ProductCard 
             key={product.id}
-            className="product-card-hidrokon"
-            style={{ marginRight: index % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
-          >
-            <ProductCard 
-              product={product}
-              className=""
-            />
-          </div>
+            product={product}
+            className="h-full"
+          />
         ))}
       </div>
 
-      {/* Empty State */}
+      {/* Enhanced Empty State */}
       {paginatedProducts.length === 0 && (
-        <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
-          <svg className="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-          </svg>
-          <p className="text-gray-500 text-xl font-medium mb-2">Không tìm thấy sản phẩm</p>
-          <p className="text-gray-400 text-sm">Thử tìm kiếm từ khóa khác</p>
+        <div className="text-center py-20 bg-white rounded-2xl shadow-lg border border-gray-100">
+          <div className="max-w-md mx-auto">
+            <div className="w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Không tìm thấy sản phẩm</h3>
+            <p className="text-gray-600 mb-6">Thử tìm kiếm với từ khóa khác hoặc xem các gợi ý bên dưới</p>
+            
+            {/* Popular Keywords */}
+            <div className="mb-8">
+              <p className="text-sm text-gray-500 mb-3">Từ khóa phổ biến:</p>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {popularKeywords.slice(0, 4).map((keyword) => (
+                  <Link
+                    key={keyword}
+                    href={`/san-pham?q=${encodeURIComponent(keyword)}`}
+                    className="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors"
+                  >
+                    {keyword}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/san-pham"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                Xem tất cả sản phẩm
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Về trang chủ
+              </Link>
+            </div>
+          </div>
         </div>
       )}
 
@@ -153,20 +196,10 @@ function ProductsPageContent() {
 
 function ProductsPageFallback() {
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
       {[...Array(8)].map((_, i) => (
-        <div 
-          key={i}
-          className="product-card-hidrokon"
-          style={{ marginRight: i % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
-        >
-          <div 
-            className="bg-gray-200 animate-pulse"
-            style={{
-              borderRadius: '40px 150px 40px 40px',
-              height: '450px'
-            }}
-          />
+        <div key={i} className="h-full">
+          <ProductCardSkeleton />
         </div>
       ))}
     </div>
@@ -195,25 +228,36 @@ export default function ProductsPage() {
         }}
       />
 
-      <div className="bg-gray-50 min-h-screen pt-16">
+      <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+        {/* Background decorative elements - Subtle blue accent */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50/40 rounded-full blur-3xl"></div>
+        </div>
 
       {/* Breadcrumb */}
-      <div className="bg-gray-50  mt-4">
+      <div className="bg-white mt-4 relative z-10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#5f7ab8] transition">
+            <Link href="/" className="hover:text-blue-600 transition">
               Trang chủ
             </Link>
             <span>/</span>
-            <span className="text-[#5f7ab8] font-medium">Sản phẩm</span>
+            <span className="text-blue-600 font-medium">Sản phẩm</span>
           </nav>
         </div>
       </div>
 
 
       {/* Products Grid */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+            </svg>
+            Thiết bị công nghiệp
+          </div>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
             Tất cả sản phẩm
           </h2>

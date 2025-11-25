@@ -2,13 +2,35 @@
 
 export function ProductCardSkeleton() {
   return (
-    <div className="w-full animate-pulse">
-      {/* Image Container */}
-      <div className="relative w-full bg-gray-200 mb-4" style={{ minHeight: '300px', maxHeight: '400px' }}></div>
-      {/* Title Box */}
-      <div className="text-left">
-        <div className="h-6 bg-gray-200 rounded mb-2 w-3/4"></div>
-        <div className="h-5 bg-gray-200 rounded w-1/2"></div>
+    <div className="w-full h-full animate-pulse">
+      {/* Background - matching ProductCard style */}
+      <div 
+        className="relative w-full h-full bg-gray-200 rounded-[40px_150px_40px_40px]"
+        style={{ minHeight: '450px' }}
+      >
+        {/* Image Container */}
+        <div 
+          className="relative w-full bg-gray-300"
+          style={{ 
+            padding: '60px 35px 30px',
+            height: '240px'
+          }}
+        />
+        
+        {/* Title Box */}
+        <div 
+          className="relative"
+          style={{ 
+            padding: '0 35px 45px'
+          }}
+        >
+          {/* Separator */}
+          <div className="h-1.5 bg-gray-300 rounded-full mb-5 w-12"></div>
+          {/* Product Name */}
+          <div className="h-6 bg-gray-300 rounded mb-2 w-3/4"></div>
+          {/* Category */}
+          <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+        </div>
       </div>
     </div>
   );

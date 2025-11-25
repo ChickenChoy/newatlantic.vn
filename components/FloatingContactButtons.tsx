@@ -52,12 +52,11 @@ export default function FloatingContactButtons() {
         className="group relative w-12 h-12 md:w-14 md:h-14 bg-white hover:bg-gray-50 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
         title="Xem vị trí trên Google Maps"
       >
-        <svg className="w-7 h-7 md:w-8 md:h-8" viewBox="0 0 48 48" fill="none">
-          <path d="M24 4C15.163 4 8 11.163 8 20c0 12 16 24 16 24s16-12 16-24c0-8.837-7.163-16-16-16z" fill="#EA4335"/>
-          <circle cx="24" cy="20" r="6" fill="#FFF"/>
-          <path d="M24 4c-4.971 0-9 4.029-9 9 0 4.971 4.029 9 9 9s9-4.029 9-9c0-4.971-4.029-9-9-9z" fill="#FBBC04"/>
-          <path d="M24 4c-2.485 0-4.5 2.015-4.5 4.5S21.515 13 24 13s4.5-2.015 4.5-4.5S26.485 4 24 4z" fill="#34A853"/>
-        </svg>
+        <img 
+          src="/images/googlemaps-icon.png" 
+          alt="Google Maps" 
+          className="w-7 h-7 md:w-8 md:h-8 object-contain"
+        />
         <span className="absolute right-full mr-3 px-3 py-1.5 bg-gray-900 text-white text-xs md:text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
           Xem trên Maps
         </span>

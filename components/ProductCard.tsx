@@ -92,7 +92,7 @@ export default function ProductCard({ product, className = '', hideQuickView = f
           }}
         >
               {product.image ? (
-                <div className="relative w-full" style={{ height: '240px' }}>
+                <div className="relative w-full aspect-[4/3]" style={{ minHeight: '240px', maxHeight: '240px' }}>
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -104,25 +104,26 @@ export default function ProductCard({ product, className = '', hideQuickView = f
                     }}
                     quality={95}
                     priority={false}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                   />
                 </div>
               ) : (
-            <div className="w-full flex items-center justify-center text-gray-300 bg-gray-50" style={{ height: '240px' }}>
-              <svg className="w-20 h-20 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-          )}
+                <div className="w-full aspect-[4/3] flex items-center justify-center text-gray-300 bg-gray-50" style={{ minHeight: '240px', maxHeight: '240px' }}>
+                  <svg className="w-20 h-20 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              )}
           
-          {/* Quick View Button - desktop: hover to show, mobile: always show */}
+          {/* Quick View Button - Enhanced hover effect */}
           {!hideQuickView && (
             <button
               onClick={handleQuickView}
-              className="absolute top-2 left-4 z-50 w-14 h-14 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-100 md:opacity-70 md:group-hover:opacity-100"
+              className="absolute top-3 left-4 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 md:opacity-0 md:group-hover:opacity-100 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl hover:bg-white"
               title="Xem nhanh"
             >
               <svg 
-                className="w-8 h-8 text-[#5f7ab8] group-hover:text-white drop-shadow-lg transition-colors duration-300" 
+                className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors duration-300" 
                 fill="none" 
                 stroke="currentColor" 
                 strokeWidth={2.5}
@@ -133,6 +134,15 @@ export default function ProductCard({ product, className = '', hideQuickView = f
               </svg>
             </button>
           )}
+          
+          {/* Wishlist Button - Enhanced hover effect */}
+          <div className="absolute top-3 right-4 z-50 opacity-0 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+            <HeartButton
+              isLiked={isInWishlist}
+              onToggle={handleWishlistToggle}
+              size="md"
+            />
+          </div>
         </div>
 
         {/* Title Box - giống Hidrokon */}

@@ -7,6 +7,7 @@ import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import { categories } from '@/lib/data';
 import Link from 'next/link';
+import { ProductCardSkeleton } from '@/components/SkeletonLoader';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -49,55 +50,52 @@ function CategoryContentInner({
 
   return (
     <>
-      {/* Filter Bar - Giống như trang sản phẩm chính */}
-      <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="text-sm text-gray-600">
-          Hiển thị <span className="font-semibold text-[#5f7ab8]">{categoryProducts.length}</span> sản phẩm
-        </div>
-        
-        {/* Category Filter Buttons */}
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/san-pham"
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-              false // Always false here since we're on category page
-                ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
-            }`}
-          >
-            Tất cả
-          </Link>
-          {categories.map((cat) => {
-            const isActive = cat.slug === categorySlug;
-            return (
-              <Link
-                key={cat.id}
-                href={`/san-pham/${cat.slug}`}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:border-[#5f7ab8] hover:bg-gray-50'
-                }`}
-              >
-                {cat.name}
-              </Link>
-            );
-          })}
+      {/* Sticky Filter Bar */}
+      <div className="sticky top-16 z-40 mb-6 bg-white/95 backdrop-blur-md shadow-md rounded-xl p-4 border border-gray-200">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="text-sm text-gray-600">
+            Hiển thị <span className="font-semibold text-blue-600">{categoryProducts.length}</span> sản phẩm
+          </div>
+          
+          {/* Category Filter Buttons */}
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/san-pham"
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                false // Always false here since we're on category page
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:shadow-lg'
+                  : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 shadow-sm'
+              }`}
+            >
+              Tất cả
+            </Link>
+            {categories.map((cat) => {
+              const isActive = cat.slug === categorySlug;
+              return (
+                <Link
+                  key={cat.id}
+                  href={`/san-pham/${cat.slug}`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:shadow-lg'
+                      : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 shadow-sm'
+                  }`}
+                >
+                  {cat.name}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-wrap">
-        {paginatedProducts.map((product, index) => (
-          <div 
+      {/* Products Grid - Using CSS Grid instead of manual margins */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+        {paginatedProducts.map((product) => (
+          <ProductCard 
             key={product.id}
-            className="product-card-hidrokon"
-            style={{ marginRight: index % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
-          >
-            <ProductCard 
-              product={product}
-              className=""
-            />
-          </div>
+            product={product}
+          />
         ))}
       </div>
 
@@ -115,21 +113,9 @@ function CategoryContentInner({
 
 function CategoryContentFallback() {
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
       {[...Array(8)].map((_, i) => (
-        <div 
-          key={i}
-          className="product-card-hidrokon"
-          style={{ marginRight: i % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
-        >
-          <div 
-            className="bg-gray-200 animate-pulse"
-            style={{
-              borderRadius: '40px 150px 40px 40px',
-              height: '450px'
-            }}
-          />
-        </div>
+        <ProductCardSkeleton key={i} />
       ))}
     </div>
   );
@@ -141,27 +127,47 @@ export default function CategoryPageContent({
   categorySlug,
 }: CategoryPageContentProps) {
   return (
-    <div className="bg-gray-50 min-h-screen pt-16">
+    <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+      {/* Background decorative elements - Subtle blue accent */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-50/40 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Breadcrumb */}
-      <div className="bg-gray-50  mt-4">
+      <div className="bg-white mt-4 relative z-10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#5f7ab8] transition">
+            <Link href="/" className="hover:text-blue-600 transition">
               Trang chủ
             </Link>
             <span>/</span>
-            <Link href="/san-pham" className="hover:text-[#5f7ab8] transition">
+            <Link href="/san-pham" className="hover:text-blue-600 transition">
               Sản phẩm
             </Link>
             <span>/</span>
-            <span className="text-[#5f7ab8] font-medium truncate">{category.name}</span>
+            <span className="text-blue-600 font-medium truncate">{category.name}</span>
           </nav>
         </div>
       </div>
 
-
       {/* Products Grid */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        <div className="mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+            </svg>
+            Thiết bị công nghiệp
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            {category.name}
+          </h2>
+          <p className="text-sm text-gray-600">
+            Khám phá bộ sưu tập {category.name.toLowerCase()} chính hãng của chúng tôi
+          </p>
+        </div>
+
         <SuspenseBoundary fallback={<CategoryContentFallback />}>
           <CategoryContentInner 
             category={category}

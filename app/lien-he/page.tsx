@@ -134,25 +134,38 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 min-h-screen pt-16">
+      <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+        {/* Background decorative elements - Subtle cyan/teal accent */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-100/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-50/40 rounded-full blur-3xl"></div>
+        </div>
+
       {/* Breadcrumb */}
-      <div className="bg-gray-50 mt-4">
+      <div className="bg-white mt-4 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-[#5f7ab8] transition">
+            <Link href="/" className="hover:text-cyan-600 transition">
               Trang chủ
             </Link>
             <span>/</span>
-            <span className="text-[#5f7ab8] font-medium">Liên hệ</span>
+            <span className="text-cyan-600 font-medium">Liên hệ</span>
           </nav>
         </div>
       </div>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         {/* Main Content */}
         <div>
           <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cyan-50 text-cyan-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+              </svg>
+              Liên hệ
+            </div>
             <h1 className="text-2xl font-semibold text-gray-900 mb-2">
               Liên Hệ Với Chúng Tôi
             </h1>
@@ -167,13 +180,13 @@ export default function ContactPage() {
               href="tel:+842838733686"
               className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-14 h-14 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Hotline</h3>
-              <p className="text-[#5f7ab8] font-semibold text-lg">+84 2838 733 686</p>
+              <p className="text-cyan-600 font-semibold text-lg">+84 2838 733 686</p>
               <p className="text-gray-500 text-sm mt-2">Hỗ trợ 24/7</p>
             </a>
 
@@ -182,19 +195,19 @@ export default function ContactPage() {
               href="mailto:info@newatlantic.vn"
               className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div className="w-14 h-14 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">Email</h3>
-              <p className="text-[#5f7ab8] font-semibold text-sm">info@newatlantic.vn</p>
+              <p className="text-teal-600 font-semibold text-sm">info@newatlantic.vn</p>
               <p className="text-gray-500 text-sm mt-2">Phản hồi trong 24h</p>
             </a>
 
             {/* Working Hours Card */}
-            <div className="bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-2xl p-6 shadow-lg text-white">
+            <div className="bg-gradient-to-br from-cyan-600 to-teal-600 rounded-2xl p-6 shadow-lg text-white">
               <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-4">
                 <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -252,7 +265,7 @@ export default function ContactPage() {
                         className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all ${
                           errors.name && touched.name
                             ? 'border-red-500 focus:ring-red-500'
-                            : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                            : 'border-gray-300 focus:ring-cyan-500 focus:border-transparent'
                         }`}
                         placeholder="Nhập họ và tên"
                       />
@@ -280,7 +293,7 @@ export default function ContactPage() {
                         className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all ${
                           errors.phone && touched.phone
                             ? 'border-red-500 focus:ring-red-500'
-                            : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                            : 'border-gray-300 focus:ring-cyan-500 focus:border-transparent'
                         }`}
                         placeholder="0912345678"
                       />
@@ -310,7 +323,7 @@ export default function ContactPage() {
                         className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 transition-all ${
                           errors.email && touched.email
                             ? 'border-red-500 focus:ring-red-500'
-                            : 'border-gray-300 focus:ring-[#5f7ab8] focus:border-transparent'
+                            : 'border-gray-300 focus:ring-cyan-500 focus:border-transparent'
                         }`}
                         placeholder="example@email.com"
                       />
@@ -334,7 +347,7 @@ export default function ContactPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
                         placeholder="Tên công ty"
                       />
                     </div>
@@ -371,7 +384,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
+                    className={`w-full bg-gradient-to-r from-cyan-600 to-teal-600 text-white py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 ${
                       isSubmitting
                         ? 'opacity-70 cursor-not-allowed'
                         : 'hover:shadow-xl hover:scale-[1.02]'
@@ -450,7 +463,7 @@ export default function ContactPage() {
               </div>
 
               {/* Quick Actions */}
-              <div className="bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-2xl shadow-xl p-6 text-white">
+              <div className="bg-gradient-to-br from-cyan-600 to-teal-600 rounded-2xl shadow-xl p-6 text-white">
                 <h3 className="text-lg font-bold mb-4">Liên Hệ Nhanh</h3>
                 <div className="space-y-3">
                   <a

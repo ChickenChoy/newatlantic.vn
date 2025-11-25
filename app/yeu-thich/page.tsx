@@ -57,21 +57,33 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gray-50">
+    <div className="min-h-screen pt-24 pb-16 bg-white relative overflow-hidden">
+        {/* Background decorative elements - Subtle pink/rose accent */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-pink-100/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-50/40 rounded-full blur-3xl"></div>
+        </div>
+
       {/* Breadcrumb Navigation */}
-      <div className="bg-gray-50 mt-4">
+      <div className="bg-white mt-4 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link className="hover:text-[#5f7ab8] transition" href="/">Trang chủ</Link>
+            <Link className="hover:text-pink-600 transition" href="/">Trang chủ</Link>
             <span>/</span>
-            <span className="text-[#5f7ab8] font-medium">Yêu thích</span>
+            <span className="text-pink-600 font-medium">Yêu thích</span>
           </nav>
         </div>
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-50 text-pink-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+              Sản phẩm yêu thích
+            </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Sản phẩm yêu thích
             </h1>
@@ -104,12 +116,11 @@ export default function WishlistPage() {
                 </button>
               </div>
 
-              <div className="flex flex-wrap">
-                {wishlist.map((product, index) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+                {wishlist.map((product) => (
                   <div 
                     key={product.id}
-                    className="product-card-hidrokon relative"
-                    style={{ marginRight: index % 4 === 3 ? 0 : '32px', marginBottom: '32px' }}
+                    className="relative group"
                   >
                     {/* Remove from wishlist button */}
                     <button
@@ -118,11 +129,11 @@ export default function WishlistPage() {
                         e.stopPropagation();
                         removeFromWishlist(product.id);
                       }}
-                      className="absolute top-4 left-4 z-50 w-11 h-11 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                      className="absolute top-4 left-4 z-50 w-11 h-11 flex items-center justify-center transition-all duration-300 hover:scale-110 group-hover:opacity-100 opacity-70 bg-white/90 backdrop-blur-sm rounded-full shadow-lg"
                       title="Xóa khỏi yêu thích"
                     >
                       <svg 
-                        className="w-7 h-7 text-red-500 group-hover:text-red-600 transition-colors duration-300 drop-shadow-lg" 
+                        className="w-6 h-6 text-red-500 group-hover:text-red-600 transition-colors duration-300" 
                         fill="currentColor" 
                         viewBox="0 0 24 24"
                       >
@@ -131,7 +142,7 @@ export default function WishlistPage() {
                     </button>
                     <ProductCard 
                       product={product}
-                      className=""
+                      className="h-full"
                       hideQuickView={true}
                     />
                   </div>
@@ -153,7 +164,7 @@ export default function WishlistPage() {
               </p>
               <Link
                 href="/san-pham"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />

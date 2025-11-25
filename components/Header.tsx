@@ -20,6 +20,9 @@ export default function Header() {
   
   // Check if current page is home page
   const isHomePage = pathname === '/';
+  
+  // Check if current page is policy/terms page (should always show white navbar)
+  const isPolicyPage = pathname === '/dieu-khoan-dich-vu' || pathname === '/chinh-sach-bao-mat';
 
   useEffect(() => {
     // Delay setting mounted to ensure hydration completes first
@@ -115,12 +118,13 @@ export default function Header() {
 
   // Determine if we should use white theme (only after mounted on homepage without scroll)
   // Use false initially to match server render, then update after mount
-  const useWhiteTheme = mounted && isHomePage && !scrolled;
+  // Policy pages always use dark theme (white navbar), so never use white theme
+  const useWhiteTheme = mounted && isHomePage && !scrolled && !isPolicyPage;
 
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        mounted && scrolled
+        mounted && (scrolled || isPolicyPage)
           ? 'bg-white/95 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}

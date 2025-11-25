@@ -214,23 +214,35 @@ export default function GalleryPage() {
         }}
       />
 
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50/30 min-h-screen pt-16">
+      <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+        {/* Background decorative elements - Subtle purple/violet accent */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-50/40 rounded-full blur-3xl"></div>
+        </div>
+
         {/* Breadcrumb */}
-        <div className="bg-gray-50 mt-4">
+        <div className="bg-white mt-4 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav className="flex items-center gap-2 text-sm text-gray-600">
-              <Link href="/" className="hover:text-[#5f7ab8] transition">
+              <Link href="/" className="hover:text-purple-600 transition">
                 Trang chủ
               </Link>
               <span>/</span>
-              <span className="text-[#5f7ab8] font-medium">Thư viện hình ảnh</span>
+              <span className="text-purple-600 font-medium">Thư viện hình ảnh</span>
             </nav>
           </div>
         </div>
 
         {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
           <div className="mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-50 text-purple-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+              </svg>
+              Thư viện hình ảnh
+            </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
               Thư Viện Hình Ảnh
             </h1>
@@ -250,7 +262,7 @@ export default function GalleryPage() {
                     placeholder="Tìm kiếm hình ảnh..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
                   />
                   <svg
                     className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -273,7 +285,7 @@ export default function GalleryPage() {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full md:w-auto px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent outline-none transition-all"
+                  className="w-full md:w-auto px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
                 >
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>
@@ -289,7 +301,7 @@ export default function GalleryPage() {
                   onClick={() => setViewMode('grid')}
                   className={`px-4 py-3 rounded-lg transition-all ${
                     viewMode === 'grid'
-                      ? 'bg-[#5f7ab8] text-white'
+                      ? 'bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                   aria-label="Xem dạng lưới"
@@ -307,7 +319,7 @@ export default function GalleryPage() {
                   onClick={() => setViewMode('slider')}
                   className={`px-4 py-3 rounded-lg transition-all ${
                     viewMode === 'slider'
-                      ? 'bg-[#5f7ab8] text-white'
+                      ? 'bg-gradient-to-r from-purple-600 to-violet-600 text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                   aria-label="Xem dạng slider"

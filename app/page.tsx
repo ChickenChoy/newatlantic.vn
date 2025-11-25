@@ -689,24 +689,19 @@ export default function HomePage() {
               </div>
             </ScrollAnimation>
           </div>
-          <div className="flex flex-wrap justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {featuredProducts.map((product, index) => (
-              <div 
+              <ScrollAnimation 
                 key={product.id}
-                className="product-card-hidrokon"
-                style={{ marginRight: index === featuredProducts.length - 1 ? 0 : '32px', marginBottom: '32px' }}
+                direction={index % 2 === 0 ? 'left' : 'right'}
+                delay={index * 150}
+                className="h-full"
               >
-                <ScrollAnimation 
-                  direction={index % 2 === 0 ? 'left' : 'right'}
-                  delay={index * 150}
+                <ProductCard 
+                  product={product}
                   className="h-full"
-                >
-                  <ProductCard 
-                    product={product}
-                    className=""
-                  />
-                </ScrollAnimation>
-              </div>
+                />
+              </ScrollAnimation>
             ))}
           </div>
         </div>
