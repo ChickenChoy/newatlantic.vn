@@ -135,14 +135,6 @@ export default function ProductCard({ product, className = '', hideQuickView = f
             </button>
           )}
           
-          {/* Wishlist Button - Enhanced hover effect */}
-          <div className="absolute top-3 right-4 z-50 opacity-0 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-            <HeartButton
-              isLiked={isInWishlist}
-              onToggle={handleWishlistToggle}
-              size="md"
-            />
-          </div>
         </div>
 
         {/* Title Box - giống Hidrokon */}
