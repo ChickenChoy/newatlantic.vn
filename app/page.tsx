@@ -918,7 +918,7 @@ export default function HomePage() {
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <div className="inline-block px-3 py-1.5 bg-[#5f7ab8]/10 text-[#5f7ab8] rounded-full text-xs font-semibold mb-3">
+                  <div className="inline-block px-3 py-1.5 bg-[#5f7ab8]/10 text-[white] rounded-full text-xs font-semibold mb-3">
                     TRỤ SỞ CHÍNH
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-white">TP. Hồ Chí Minh</h3>
@@ -933,7 +933,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-gray-200">
-                    <a href="tel:+842838733686" className="inline-flex items-center gap-2 text-[#5f7ab8] hover:text-[#4a6199] font-semibold transition-colors text-sm">
+                    <a href="tel:+842838733686" className="inline-flex items-center gap-2 text-[white] hover:text-[#4a6199] font-semibold transition-colors text-sm">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
@@ -966,7 +966,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-gray-200">
-                    <a href="tel:+842838733686" className="inline-flex items-center gap-2 text-[#5f7ab8] hover:text-[#4a6199] font-semibold transition-colors text-sm">
+                    <a href="tel:+842838733686" className="inline-flex items-center gap-2 text-[white] hover:text-[#4a6199] font-semibold transition-colors text-sm">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
@@ -999,7 +999,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-gray-200">
-                    <a href="tel:+842838733686" className="inline-flex items-center gap-2 text-[#5f7ab8] hover:text-[#4a6199] font-semibold transition-colors text-sm">
+                    <a href="tel:+842838733686" className="inline-flex items-center gap-2 text-[white] hover:text-[#4a6199] font-semibold transition-colors text-sm">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
