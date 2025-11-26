@@ -9,7 +9,7 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-100 flex items-center justify-center px-4 pt-20 pb-16">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-100 flex items-center justify-center px-4 pt-32 md:pt-28 pb-16">
       <div className="max-w-2xl w-full text-center">
         {/* Animated 404 */}
         <div className="relative mb-8">

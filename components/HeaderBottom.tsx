@@ -109,7 +109,7 @@ export default function HeaderBottom() {
 
   return (
     <>
-      <div className="fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none" suppressHydrationWarning>
+      <div className="fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none header-bottom" data-header-bottom suppressHydrationWarning>
         <nav className="w-full max-w-7xl mx-auto pointer-events-auto">
           <div className={`bg-white/98 backdrop-blur-xl shadow-xl border border-gray-200/40 px-4 py-2 md:px-6 md:py-2.5 ${
             mobileMenuOpen ? 'rounded-2xl' : 'rounded-full'

@@ -69,6 +69,24 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
         header.style.opacity = '0';
         header.style.pointerEvents = 'none';
       }
+      
+      // Hide HeaderBottom when modal is open
+      const headerBottom = document.querySelector('[data-header-bottom]');
+      if (headerBottom) {
+        (headerBottom as HTMLElement).style.opacity = '0';
+        (headerBottom as HTMLElement).style.pointerEvents = 'none';
+        (headerBottom as HTMLElement).style.transform = 'translateY(-100%)';
+        (headerBottom as HTMLElement).style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      }
+      
+      // Hide FloatingContactButtons when modal is open
+      const floatingContact = document.querySelector('[data-floating-contact="true"]');
+      if (floatingContact) {
+        (floatingContact as HTMLElement).style.opacity = '0';
+        (floatingContact as HTMLElement).style.pointerEvents = 'none';
+        (floatingContact as HTMLElement).style.transform = 'translateX(100%)';
+        (floatingContact as HTMLElement).style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      }
     } else {
       // Reset the flag when modal closes
       hasScrolledToTopRef.current = false;
@@ -85,6 +103,24 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
       if (header) {
         header.style.opacity = '1';
         header.style.pointerEvents = 'auto';
+      }
+      
+      // Show HeaderBottom when modal is closed
+      const headerBottom = document.querySelector('[data-header-bottom]');
+      if (headerBottom) {
+        (headerBottom as HTMLElement).style.opacity = '1';
+        (headerBottom as HTMLElement).style.pointerEvents = 'auto';
+        (headerBottom as HTMLElement).style.transform = 'translateY(0)';
+        (headerBottom as HTMLElement).style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      }
+      
+      // Show FloatingContactButtons when modal is closed
+      const floatingContact = document.querySelector('[data-floating-contact="true"]');
+      if (floatingContact) {
+        (floatingContact as HTMLElement).style.opacity = '';
+        (floatingContact as HTMLElement).style.pointerEvents = '';
+        (floatingContact as HTMLElement).style.transform = '';
+        (floatingContact as HTMLElement).style.transition = '';
       }
     };
   }, [isOpen, onClose]);

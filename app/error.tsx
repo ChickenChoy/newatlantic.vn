@@ -16,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-red-50/30 to-gray-100 flex items-center justify-center px-4 pt-20 pb-16">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-red-50/30 to-gray-100 flex items-center justify-center px-4 pt-32 md:pt-28 pb-16">
       <div className="max-w-2xl w-full text-center">
         <div className="relative mb-8">
           <h1 className="text-[120px] md:text-[180px] font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-600 to-red-500 animate-pulse select-none">
