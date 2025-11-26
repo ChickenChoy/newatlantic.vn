@@ -54,7 +54,7 @@ function NewsPageContent() {
       {/* Filter Bar */}
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div className="text-sm text-gray-600">
-          Hiển thị <span className="font-semibold text-green-600">{sortedPosts.length}</span> bài viết
+          Hiển thị <span className="font-semibold text-orange-600">{sortedPosts.length}</span> bài viết
         </div>
       </div>
 
@@ -108,10 +108,10 @@ export default function NewsPage() {
 
   return (
     <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
-      {/* Background decorative elements - Subtle green accent */}
+      {/* Background decorative elements - Subtle orange accent */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-green-100/40 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-50/40 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-100/40 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-50/40 rounded-full blur-3xl"></div>
       </div>
 
       {/* JSON-LD Breadcrumb */}
@@ -126,11 +126,11 @@ export default function NewsPage() {
       <div className="bg-white mt-4 relative z-10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link href="/" className="hover:text-green-600 transition">
+            <Link href="/" className="hover:text-orange-600 transition">
               Trang chủ
             </Link>
             <span>/</span>
-            <span className="text-green-600 font-medium">Tin tức</span>
+            <span className="text-orange-600 font-medium">Tin tức</span>
           </nav>
         </div>
       </div>
@@ -138,7 +138,7 @@ export default function NewsPage() {
       {/* Posts Section */}
       <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-50 text-orange-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clipRule="evenodd" />
               <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
