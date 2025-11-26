@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
+import HeaderBottom from "@/components/HeaderBottom";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
@@ -136,8 +137,9 @@ export default function RootLayout({
           <ScrollProgressBar />
           <ProgressBar />
           <Header />
+          <HeaderBottom />
           <PageTransition>
-            <main className="min-h-screen">
+            <main className="min-h-screen pt-20 md:pt-24">
               {children}
             </main>
           </PageTransition>

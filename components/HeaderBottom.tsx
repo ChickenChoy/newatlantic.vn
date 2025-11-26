@@ -1,0 +1,421 @@
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import SearchResults from './SearchResults';
+import MobileTouchMenu from './MobileTouchMenu';
+import { WishlistManager } from '@/lib/wishlist';
+
+export default function HeaderBottom() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    
+    // Load initial wishlist count
+    setWishlistCount(WishlistManager.getWishlistCount());
+    
+    // Listen for wishlist updates
+    const handleWishlistUpdate = () => {
+      setWishlistCount(WishlistManager.getWishlistCount());
+    };
+    
+    window.addEventListener('wishlistUpdated', handleWishlistUpdate);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
+    };
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.dropdown-container')) {
+        setOpenDropdown(null);
+      }
+      // Close mobile menu when clicking outside
+      if (mobileMenuOpen && !target.closest('.mobile-menu-container') && !target.closest('.mobile-menu-button')) {
+        setMobileMenuOpen(false);
+      }
+      // Close search when clicking outside
+      if (searchOpen && !target.closest('.search-container')) {
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    };
+
+    if (openDropdown || mobileMenuOpen || searchOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [openDropdown, mobileMenuOpen, searchOpen]);
+
+  // Close dropdown on ESC key
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenDropdown(null);
+        setMobileMenuOpen(false);
+        setSearchOpen(false);
+        setSearchQuery('');
+      }
+    };
+
+    document.addEventListener('keydown', handleEscKey);
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, []);
+
+  const toggleDropdown = (dropdownName: string) => {
+    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
+  };
+
+  const handleSearchToggle = () => {
+    setSearchOpen(!searchOpen);
+    if (searchOpen) {
+      setSearchQuery('');
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value.trim()) {
+      setSearchOpen(true);
+    }
+  };
+
+  return (
+    <div className="fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none">
+      <nav className="w-full max-w-7xl mx-auto pointer-events-auto">
+        <div className="bg-white/98 backdrop-blur-xl rounded-full shadow-xl border border-gray-200/40 px-4 py-2 md:px-6 md:py-2.5">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo và Brand Name */}
+            <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
+              <div className="relative w-7 h-7 md:w-8 md:h-8 group-hover:scale-105 transition-transform duration-200">
+                <Image
+                  src="/images/logo/logo-color.png"
+                  alt="NEW ATLANTIC"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div suppressHydrationWarning className="flex items-center gap-1.5">
+                <span className="text-sm md:text-base font-semibold text-gray-900 whitespace-nowrap group-hover:text-[#5f7ab8] transition-colors">
+                  NEW ATLANTIC
+                </span>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-1 flex-1 justify-center" suppressHydrationWarning>
+              <Link 
+                href="/" 
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-800 hover:text-[#5f7ab8] hover:bg-gray-50/80 transition-all duration-200 whitespace-nowrap"
+              >
+                Trang chủ
+              </Link>
+
+              {/* Products Dropdown */}
+              <div className="relative dropdown-container">
+                <button 
+                  onClick={() => toggleDropdown('products')}
+                  onMouseEnter={() => setOpenDropdown('products')}
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-800 hover:text-[#5f7ab8] hover:bg-gray-50/80 transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap"
+                >
+                  Sản phẩm
+                  <svg 
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${mounted && openDropdown === 'products' ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div 
+                  className={`absolute left-0 top-full mt-2 w-[700px] bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${
+                    mounted && openDropdown === 'products' ? 'opacity-100 visible' : 'opacity-0 invisible'
+                  }`}
+                >
+                  <div className="p-4 grid grid-cols-2 gap-4">
+                    <Link 
+                      href="/san-pham/cot-tu-nang-will-burt"
+                      onClick={() => setOpenDropdown(null)}
+                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    >
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                        <Image
+                          src="/images/box-image/will-burt.jpg"
+                          alt="WILL-BURT"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-base mb-1.5">Cột Tự Nâng WILL-BURT</div>
+                        <div className="text-sm opacity-75">Cột nâng chuyên nghiệp</div>
+                      </div>
+                    </Link>
+                    <Link 
+                      href="/san-pham/thiet-bi-nang-ha-hiab"
+                      onClick={() => setOpenDropdown(null)}
+                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    >
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                        <Image
+                          src="/images/box-image/hiab.jpg"
+                          alt="HIAB"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-base mb-1.5">Thiết Bị HIAB</div>
+                        <div className="text-sm opacity-75">Cẩu & xe nâng</div>
+                      </div>
+                    </Link>
+                    <Link 
+                      href="/san-pham/thiet-bi-cong-trinh-lovol"
+                      onClick={() => setOpenDropdown(null)}
+                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    >
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                        <Image
+                          src="/images/box-image/lovol.jpg"
+                          alt="LOVOL"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-base mb-1.5">Thiết Bị LOVOL</div>
+                        <div className="text-sm opacity-75">Máy móc công trình</div>
+                      </div>
+                    </Link>
+                    <Link 
+                      href="/san-pham/thiet-bi-cong-trinh-liugong"
+                      onClick={() => setOpenDropdown(null)}
+                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                    >
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                        <Image
+                          src="/images/box-image/liugong.jpg"
+                          alt="LIUGONG"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-semibold text-base mb-1.5">Thiết Bị LIUGONG</div>
+                        <div className="text-sm opacity-75">Máy xúc, máy ủi</div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link 
+                href="/tin-tuc" 
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-800 hover:text-[#5f7ab8] hover:bg-gray-50/80 transition-all duration-200 whitespace-nowrap"
+              >
+                Tin tức
+              </Link>
+              <Link 
+                href="/thu-vien-hinh-anh" 
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-800 hover:text-[#5f7ab8] hover:bg-gray-50/80 transition-all duration-200 whitespace-nowrap"
+              >
+                Thư viện hình ảnh
+              </Link>
+            </div>
+
+            {/* Desktop Search Bar và Buttons - Right Side */}
+            <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+              {/* Wishlist Icon */}
+              <Link 
+                href="/yeu-thich"
+                className="relative p-2 rounded-lg text-gray-700 hover:bg-gray-50/80 transition-all duration-200"
+                title="Sản phẩm yêu thích"
+              >
+                <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Search Container */}
+              <div className="relative search-container">
+                <div className="flex items-center">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Tìm kiếm sản phẩm..."
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      onFocus={() => searchQuery.trim() && setSearchOpen(true)}
+                      className="px-3 py-1.5 pr-8 rounded-lg text-xs bg-gray-50/80 text-gray-700 placeholder-gray-400 border border-gray-200/60 focus:bg-white focus:border-[#5f7ab8] focus:ring-1 focus:ring-[#5f7ab8]/30 transition-all duration-200 h-8"
+                      style={{ width: searchOpen ? '240px' : '160px' }}
+                    />
+                    <button
+                      onClick={handleSearchToggle}
+                      className="absolute right-1.5 top-1/2 -translate-y-1/2 p-0.5 rounded transition-colors text-gray-400 hover:text-[#5f7ab8]"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Search Results */}
+                <SearchResults 
+                  isOpen={searchOpen} 
+                  onClose={() => {
+                    setSearchOpen(false);
+                    setSearchQuery('');
+                  }} 
+                  query={searchQuery} 
+                />
+              </div>
+
+              {/* Call-to-Action Buttons */}
+              <Link
+                href="/page-download-catalog"
+                className="px-4 py-2 rounded-full text-xs font-medium text-gray-800 border border-gray-300/80 bg-white hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 whitespace-nowrap"
+              >
+                Xem catalog
+              </Link>
+              <Link
+                href="/lien-he"
+                className="px-5 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] hover:from-[#4a6199] hover:to-[#3d4f7d] transition-all duration-200 shadow-md hover:shadow-xl whitespace-nowrap"
+              >
+                Liên hệ
+              </Link>
+            </div>
+
+            {/* Mobile menu button */}
+            <MobileTouchMenu className="lg:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="mobile-menu-button p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
+              >
+                <svg 
+                  className="w-6 h-6" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  {mounted && mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </MobileTouchMenu>
+          </div>
+
+          {/* Mobile Navigation */}
+          {mounted && mobileMenuOpen && (
+            <div className="mobile-menu-container lg:hidden mt-4 pb-4 space-y-2 bg-white rounded-xl shadow-xl p-4 border border-gray-100">
+              {/* Mobile Search */}
+              <div className="search-container mb-4">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm sản phẩm..."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onFocus={() => searchQuery.trim() && setSearchOpen(true)}
+                    className="w-full px-4 py-3 pr-10 rounded-lg text-sm bg-gray-50 text-gray-700 placeholder-gray-500 border border-gray-200 focus:bg-white focus:border-[#5f7ab8] focus:ring-2 focus:ring-[#5f7ab8]/20"
+                  />
+                  <button
+                    onClick={handleSearchToggle}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded transition-colors text-gray-400 hover:text-[#5f7ab8]"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </button>
+                </div>
+                
+                {/* Mobile Search Results */}
+                {searchOpen && (
+                  <div className="mt-2">
+                    <SearchResults 
+                      isOpen={searchOpen} 
+                      onClose={() => {
+                        setSearchOpen(false);
+                        setSearchQuery('');
+                      }} 
+                      query={searchQuery} 
+                    />
+                  </div>
+                )}
+              </div>
+
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                Trang chủ
+              </Link>
+              <Link href="/yeu-thich" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors relative">
+                <div className="flex items-center justify-between">
+                  <span>Sản phẩm yêu thích</span>
+                  {wishlistCount > 0 && (
+                    <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </div>
+              </Link>
+              <div className="border-t pt-2">
+                <div className="text-xs font-semibold text-gray-400 px-4 mb-2">SẢN PHẨM</div>
+                <Link href="/san-pham/cot-tu-nang-will-burt" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                  Cột Tự Nâng WILL-BURT
+                </Link>
+                <Link href="/san-pham/thiet-bi-nang-ha-hiab" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                  Thiết Bị HIAB
+                </Link>
+                <Link href="/san-pham/thiet-bi-cong-trinh-lovol" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                  Thiết Bị LOVOL
+                </Link>
+                <Link href="/san-pham/thiet-bi-cong-trinh-liugong" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-600 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                  Thiết Bị LIUGONG
+                </Link>
+              </div>
+              <Link href="/tin-tuc" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                Tin tức
+              </Link>
+              <Link href="/page-download-catalog" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                Catalog sản phẩm
+              </Link>
+              <Link href="/thu-vien-hinh-anh" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors">
+                Thư viện hình ảnh
+              </Link>
+              <Link href="/lien-he" onClick={() => setMobileMenuOpen(false)} className="block py-2 px-4 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold rounded-lg text-center mt-2">
+                Liên hệ
+              </Link>
+            </div>
+          )}
+        </div>
+      </nav>
+    </div>
+  );
+}
