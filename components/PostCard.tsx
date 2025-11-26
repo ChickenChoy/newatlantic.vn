@@ -17,7 +17,7 @@ export default function PostCard({ post }: PostCardProps) {
   return (
     <TiltCard maxTilt={5} scale={1.02} className="h-full">
       <Link href={`/tin-tuc/${post.slug}`} className="h-full block">
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-white/20 hover:border-[#5f7ab8] h-full flex flex-col">
+        <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-200 hover:border-[#5f7ab8] h-full flex flex-col">
         {/* Image Section - Fixed Height */}
         <div className="relative h-40 bg-white overflow-hidden flex-shrink-0">
           {post.image ? (
@@ -34,13 +34,13 @@ export default function PostCard({ post }: PostCardProps) {
               </svg>
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
         
         {/* Content Section - Flex to fill remaining space */}
         <div className="p-4 flex flex-col flex-grow min-h-0">
           {/* Date - Fixed */}
-          <div className="flex items-center gap-2 text-xs text-white/70 mb-2 flex-shrink-0">
+          <div className="flex items-center gap-2 text-xs text-gray-600 mb-2 flex-shrink-0">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
             </svg>
@@ -48,21 +48,21 @@ export default function PostCard({ post }: PostCardProps) {
           </div>
           
           {/* Title - Fixed height with line-clamp */}
-          <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-white/80 transition-colors leading-tight min-h-[2.5rem] flex-shrink-0">
+          <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#5f7ab8] transition-colors leading-tight min-h-[2.5rem] flex-shrink-0">
             {post.title}
           </h3>
           
           {/* Excerpt - Flexible to fill space */}
           <div className="flex-1 min-h-0 mb-3">
             {post.excerpt ? (
-              <p className="text-xs text-white line-clamp-2 leading-relaxed">{post.excerpt}</p>
+              <p className="text-xs text-gray-700 line-clamp-2 leading-relaxed">{post.excerpt}</p>
             ) : (
               <div className="h-full"></div>
             )}
           </div>
           
           {/* Read More - Fixed at bottom */}
-          <span className="inline-flex items-center gap-1.5 text-xs text-white font-semibold group-hover:gap-2 transition-all mt-auto flex-shrink-0">
+          <span className="inline-flex items-center gap-1.5 text-xs text-[#5f7ab8] font-semibold group-hover:gap-2 transition-all mt-auto flex-shrink-0">
             Đọc thêm 
             <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

@@ -176,6 +176,87 @@ button, a, input, textarea, select {
   touch-action: manipulation;
 }
 
+/* Cursor pointer for all clickable elements */
+button,
+a,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+input[type="file"],
+select,
+label[for],
+label:has(input[type="checkbox"]),
+label:has(input[type="radio"]),
+.cursor-pointer,
+[data-clickable="true"],
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer !important;
+}
+
+/* Links should always have pointer cursor */
+a,
+a:visited,
+a:hover,
+a:active,
+a:focus,
+a:focus-visible {
+  cursor: pointer !important;
+}
+
+/* Buttons should always have pointer cursor */
+button,
+button:hover,
+button:active,
+button:focus,
+button:focus-visible {
+  cursor: pointer !important;
+}
+
+/* Disabled buttons should show not-allowed */
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled {
+  cursor: not-allowed !important;
+}
+
+/* Next.js Link components (render as <a> tags) */
+a[href],
+a[href]:hover,
+a[href]:active,
+a[href]:focus {
+  cursor: pointer !important;
+}
+
+/* Note: Elements with onClick handlers added via JavaScript/React 
+   should use button elements or role="button" which are already covered above */
+
+/* Elements with role="button" */
+[role="button"],
+[role="button"]:hover,
+[role="button"]:active {
+  cursor: pointer !important;
+}
+
+/* Checkboxes and radio buttons */
+input[type="checkbox"],
+input[type="radio"],
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+  cursor: pointer !important;
+}
+
+/* Labels associated with form controls */
+label[for],
+label:has(input[type="checkbox"]),
+label:has(input[type="radio"]),
+label:has(select) {
+  cursor: pointer !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
