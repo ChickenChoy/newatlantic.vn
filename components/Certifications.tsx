@@ -82,12 +82,12 @@ export default function Certifications() {
                 delay={index * 100}
                 className="h-full"
               >
-                <div className="bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/50 text-center group h-full flex flex-col">
-                  <div className="w-16 h-16 mx-auto mb-4 text-[#5f7ab8] group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50 text-center group h-full flex flex-col">
+                  <div className="w-16 h-16 mx-auto mb-4 text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                     {cert.icon}
                   </div>
-                  <h3 className="font-bold text-gray-800 mb-2 text-lg flex-shrink-0">{cert.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed flex-grow">{cert.description}</p>
+                  <h3 className="font-bold text-white mb-2 text-lg flex-shrink-0">{cert.title}</h3>
+                  <p className="text-white text-sm leading-relaxed flex-grow">{cert.description}</p>
                 </div>
               </ScrollAnimation>
             ))}

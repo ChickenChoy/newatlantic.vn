@@ -199,7 +199,7 @@ export default function HomePage() {
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <Link 
                       href="/san-pham"
-                      className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
+                      className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/15 hover:shadow-2xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
                     >
                       <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -223,7 +223,7 @@ export default function HomePage() {
                 <div className="relative">
                   {/* Main Image Container */}
                   <div className="relative aspect-[4/3] bg-gradient-to-br from-[#5f7ab8]/20 to-[#4a6199]/20 rounded-2xl md:rounded-3xl p-4 md:p-8">
-                    <div className="bg-white/85 rounded-xl md:rounded-2xl shadow-2xl h-full overflow-hidden relative border border-gray-200">
+                    <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl shadow-2xl h-full overflow-hidden relative border border-white/20">
                       <div className="relative z-10 p-4 md:p-8 h-full flex flex-col justify-center">
                       <div className="space-y-4 md:space-y-6">
                         <div className="flex items-start gap-3 md:gap-4">
@@ -233,8 +233,8 @@ export default function HomePage() {
                             </svg>
                           </div>
                           <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-sm md:text-lg text-gray-800 mb-1 md:mb-2">Chất lượng đảm bảo</h4>
-                              <p className="text-xs md:text-base text-gray-600 leading-relaxed">Sản phẩm chính hãng 100% từ nhà sản xuất</p>
+                              <h4 className="font-bold text-sm md:text-lg text-white mb-1 md:mb-2">Chất lượng đảm bảo</h4>
+                              <p className="text-xs md:text-base text-white/90 leading-relaxed">Sản phẩm chính hãng 100% từ nhà sản xuất</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3 md:gap-4">
@@ -244,8 +244,8 @@ export default function HomePage() {
                             </svg>
                           </div>
                           <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-sm md:text-lg text-gray-800 mb-1 md:mb-2">Giao hàng nhanh chóng</h4>
-                              <p className="text-xs md:text-base text-gray-600 leading-relaxed">Vận chuyển toàn quốc trong 24-48h</p>
+                              <h4 className="font-bold text-sm md:text-lg text-white mb-1 md:mb-2">Giao hàng nhanh chóng</h4>
+                              <p className="text-xs md:text-base text-white/90 leading-relaxed">Vận chuyển toàn quốc trong 24-48h</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3 md:gap-4">
@@ -255,8 +255,8 @@ export default function HomePage() {
                             </svg>
                           </div>
                           <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-sm md:text-lg text-gray-800 mb-1 md:mb-2">Hỗ trợ chuyên nghiệp</h4>
-                              <p className="text-xs md:text-base text-gray-600 leading-relaxed">Đội ngũ kỹ thuật 24/7 tận tâm</p>
+                              <h4 className="font-bold text-sm md:text-lg text-white mb-1 md:mb-2">Hỗ trợ chuyên nghiệp</h4>
+                              <p className="text-xs md:text-base text-white/90 leading-relaxed">Đội ngũ kỹ thuật 24/7 tận tâm</p>
                             </div>
                           </div>
                         </div>
@@ -305,7 +305,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
               {/* Service 1 - Cẩu tự hành */}
               <ScrollAnimation direction="left" delay={0}>
-                <div className="bg-white/85 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/50">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -313,8 +313,8 @@ export default function HomePage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">Cẩu tự hành</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <h3 className="text-xl font-bold text-white mb-2">Cẩu tự hành</h3>
+                      <p className="text-white/90 text-sm leading-relaxed">
                         Cẩu tự hành HIAB với nhiều tải trọng và kích thước khác nhau, phù hợp với mọi nhu cầu của khách hàng.
                       </p>
                     </div>
@@ -324,7 +324,7 @@ export default function HomePage() {
 
               {/* Service 2 - Thiết bị cơ giới */}
               <ScrollAnimation direction="right" delay={100}>
-                <div className="bg-white/85 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/50">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#10b981] to-[#059669] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -332,8 +332,8 @@ export default function HomePage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">Thiết bị cơ giới</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <h3 className="text-xl font-bold text-white mb-2">Thiết bị cơ giới</h3>
+                      <p className="text-white text-sm leading-relaxed">
                         LOVOL, LIUGONG với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
                       </p>
                     </div>
@@ -343,7 +343,7 @@ export default function HomePage() {
 
               {/* Service 3 - Phụ tùng */}
               <ScrollAnimation direction="left" delay={200}>
-                <div className="bg-white/85 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/50">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#f59e0b] to-[#d97706] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -352,8 +352,8 @@ export default function HomePage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">Phụ tùng thay thế</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <h3 className="text-xl font-bold text-white mb-2">Phụ tùng thay thế</h3>
+                      <p className="text-white text-sm leading-relaxed">
                         Cung cấp đầy đủ phụ tùng thay thế chính hãng, đảm bảo chất lượng và độ bền cao.
                       </p>
                     </div>
@@ -363,7 +363,7 @@ export default function HomePage() {
 
               {/* Service 4 - Sửa chữa bảo trì */}
               <ScrollAnimation direction="right" delay={300}>
-                <div className="bg-white/85 rounded-2xl p-6 lg:p-8 hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/50">
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50">
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] rounded-xl flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -371,8 +371,8 @@ export default function HomePage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">Sửa chữa & Bảo trì</h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
+                      <h3 className="text-xl font-bold text-white mb-2">Sửa chữa & Bảo trì</h3>
+                      <p className="text-white text-sm leading-relaxed">
                         Đội ngũ kỹ thuật viên chuyên nghiệp, giàu kinh nghiệm, sẵn sàng hỗ trợ khách hàng 24/7.
                       </p>
                     </div>
@@ -383,7 +383,7 @@ export default function HomePage() {
 
             {/* Commitment Box */}
             <ScrollAnimation direction="up" delay={400}>
-              <div className="mt-12 bg-white/85 rounded-2xl p-6 lg:p-8 border-l-4 border-[#5f7ab8] shadow-lg">
+              <div className="mt-12 bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 border-l-4 border-[#5f7ab8] shadow-lg">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-[#5f7ab8] rounded-xl flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -391,9 +391,9 @@ export default function HomePage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">Cam kết của chúng tôi</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      <strong className="text-[#5f7ab8]">Tân Đại Tây Dương</strong> cam kết mang đến cho khách hàng những sản phẩm và dịch vụ <strong className="text-gray-800">chất lượng cao nhất</strong>, với <strong className="text-gray-800">giá cả cạnh tranh</strong> và <strong className="text-gray-800">dịch vụ hậu mãi chu đáo</strong>. Chúng tôi luôn nỗ lực để trở thành đối tác tin cậy của khách hàng trong mọi lĩnh vực.
+                    <h3 className="text-xl font-bold text-white mb-2">Cam kết của chúng tôi</h3>
+                    <p className="text-white leading-relaxed">
+                      <strong className="text-white">Tân Đại Tây Dương</strong> cam kết mang đến cho khách hàng những sản phẩm và dịch vụ <strong className="text-white">chất lượng cao nhất</strong>, với <strong className="text-white">giá cả cạnh tranh</strong> và <strong className="text-white">dịch vụ hậu mãi chu đáo</strong>. Chúng tôi luôn nỗ lực để trở thành đối tác tin cậy của khách hàng trong mọi lĩnh vực.
                     </p>
                   </div>
                 </div>
@@ -439,16 +439,16 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
             {/* WILL-BURT Card */}
             <ScrollAnimation direction="left" delay={0}>
-              <div className="group bg-white/85 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
                 <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-gray-800 mb-2 md:mb-3">CỘT TỰ NÂNG WILL-BURT</h3>
-                  <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-5 flex-grow leading-relaxed">
+                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">CỘT TỰ NÂNG WILL-BURT</h3>
+                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                     Cột tự nâng với hơn 100 năm lịch sử, chất lượng vượt trội cho quân sự, truyền thông và công nghiệp.
                   </p>
-                  <Link href="/san-pham/cot-tu-nang-will-burt" className="inline-flex items-center gap-2 text-[#5f7ab8] font-semibold hover:gap-3 transition-all group-hover:text-[#4a6199] text-xs md:text-sm">
+                  <Link href="/san-pham/cot-tu-nang-will-burt" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
                     Khám phá ngay
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -460,16 +460,16 @@ export default function HomePage() {
 
             {/* HIAB Card */}
             <ScrollAnimation direction="left" delay={100}>
-              <div className="group bg-white/85 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
                 <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-gray-800 mb-2 md:mb-3">THIẾT BỊ NÂNG HIAB</h3>
-                  <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-5 flex-grow leading-relaxed">
+                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ NÂNG HIAB</h3>
+                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                     Cẩu tự hành, xe nâng Moffett đa dạng tải trọng, phù hợp mọi nhu cầu vận chuyển và xây dựng.
                   </p>
-                  <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="inline-flex items-center gap-2 text-[#5f7ab8] font-semibold hover:gap-3 transition-all group-hover:text-[#4a6199] text-xs md:text-sm">
+                  <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
                     Khám phá ngay
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -481,16 +481,16 @@ export default function HomePage() {
 
             {/* LOVOL Card */}
             <ScrollAnimation direction="right" delay={200}>
-              <div className="group bg-white/85 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
                 <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-gray-800 mb-2 md:mb-3">THIẾT BỊ LOVOL</h3>
-                  <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-5 flex-grow leading-relaxed">
+                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ LOVOL</h3>
+                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                     Máy móc công trình: máy xúc, máy ủi, máy san với giá cạnh tranh, hiệu suất cao.
                   </p>
-                  <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="inline-flex items-center gap-2 text-[#5f7ab8] font-semibold hover:gap-3 transition-all group-hover:text-[#4a6199] text-xs md:text-sm">
+                  <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
                     Khám phá ngay
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -502,16 +502,16 @@ export default function HomePage() {
 
             {/* LIUGONG Card */}
             <ScrollAnimation direction="right" delay={300}>
-              <div className="group bg-white/85 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-gray-200">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
                 <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
                   <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-gray-800 mb-2 md:mb-3">THIẾT BỊ LIUGONG</h3>
-                  <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-5 flex-grow leading-relaxed">
+                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ LIUGONG</h3>
+                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                     Thiết bị cơ giới xây dựng chất lượng cao, độ bền vượt trội cho mọi công trình.
                   </p>
-                  <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="inline-flex items-center gap-2 text-[#5f7ab8] font-semibold hover:gap-3 transition-all group-hover:text-[#4a6199] text-xs md:text-sm">
+                  <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
                     Khám phá ngay
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -557,18 +557,18 @@ export default function HomePage() {
           {/* Main Services */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             <ScrollAnimation direction="left" delay={0}>
-              <div className="group bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-white/20 h-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">Thiết Bị PCCC</h3>
-                <p className="text-sm text-gray-600 mb-5 leading-relaxed">
+                <h3 className="text-xl font-bold mb-3 text-white">Thiết Bị PCCC</h3>
+                <p className="text-sm text-white mb-5 leading-relaxed">
                   Cung cấp và thi công hệ thống phòng cháy chữa cháy đạt tiêu chuẩn quốc tế, bảo vệ tài sản và tính mạng.
                 </p>
-                <ul className="space-y-2.5 text-sm text-gray-600">
+                <ul className="space-y-2.5 text-sm text-white">
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
                     Cung ứng vật tư PCCC chính hãng
@@ -590,17 +590,17 @@ export default function HomePage() {
             </ScrollAnimation>
 
             <ScrollAnimation direction="up" delay={150}>
-              <div className="group bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-white/20 h-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">Thiết Bị Điện</h3>
-                <p className="text-sm text-gray-600 mb-5 leading-relaxed">
+                <h3 className="text-xl font-bold mb-3 text-white">Thiết Bị Điện</h3>
+                <p className="text-sm text-white mb-5 leading-relaxed">
                   Cung ứng và tư vấn hệ thống điện công nghiệp, đảm bảo vận hành liên tục và an toàn tuyệt đối.
                 </p>
-                <ul className="space-y-2.5 text-sm text-gray-600">
+                <ul className="space-y-2.5 text-sm text-white">
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                     Cung ứng thiết bị điện chất lượng
@@ -622,17 +622,17 @@ export default function HomePage() {
             </ScrollAnimation>
 
             <ScrollAnimation direction="right" delay={300}>
-              <div className="group bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-white/20 h-full">
                 <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">Thiết Bị Chuyên Ngành</h3>
-                <p className="text-sm text-gray-600 mb-5 leading-relaxed">
+                <h3 className="text-xl font-bold mb-3 text-white">Thiết Bị Chuyên Ngành</h3>
+                <p className="text-sm text-white mb-5 leading-relaxed">
                   Cung cấp thiết bị chuyên dụng cho các ngành công nghiệp, xây dựng và quốc phòng với chất lượng hàng đầu.
                 </p>
-                <ul className="space-y-2.5 text-sm text-gray-600">
+                <ul className="space-y-2.5 text-sm text-white">
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>
                     Cẩu tự hành HIAB đa tải trọng
@@ -784,7 +784,7 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center items-center px-2 sm:px-4">
                   <Link
                     href="/lien-he"
-                    className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white/85 text-gray-800 px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-gray-100/85 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
+                    className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-white/10 backdrop-blur-md text-white px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-gray-100/20 transition-all duration-300 shadow-lg hover:bg-white/15 hover:shadow-2xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
                   >
                     <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -797,7 +797,7 @@ export default function HomePage() {
                   
                   <Link
                     href="/page-download-catalog"
-                    className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-transparent border-2 border-white text-white px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-white/85 hover:text-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
+                    className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-transparent border-2 border-white text-white px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-white/15 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
                   >
                     <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -842,26 +842,26 @@ export default function HomePage() {
               <div className="max-w-6xl mx-auto">
                 {/* First row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mb-4 mx-auto">
-                  <div className="bg-white/85 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-gray-200">
+                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
                     <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white/85 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-gray-200">
+                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
                     <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white/85 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-gray-200">
+                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
                     <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain" />
                   </div>
                 </div>
                 
                 {/* Second row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                  <div className="bg-white/85 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-gray-200">
+                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
                     <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white/85 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-gray-200">
+                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
                     <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain" />
                   </div>
-                  <div className="bg-white/85 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-gray-200">
+                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
                     <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain" />
                   </div>
                 </div>
@@ -912,7 +912,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-12">
               {/* HCM Office */}
               <ScrollAnimation direction="left" delay={0}>
-                <div className="group bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
+                <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-white/20 h-full">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -921,13 +921,13 @@ export default function HomePage() {
                   <div className="inline-block px-3 py-1.5 bg-[#5f7ab8]/10 text-[#5f7ab8] rounded-full text-xs font-semibold mb-3">
                     TRỤ SỞ CHÍNH
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-800">TP. Hồ Chí Minh</h3>
+                  <h3 className="text-xl font-bold mb-4 text-white">TP. Hồ Chí Minh</h3>
                   <div className="space-y-3 mb-5">
                     <div className="flex items-start gap-3">
                       <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-sm text-white leading-relaxed">
                         A60 Phú Thuận, Phường Phú Thuận, Quận 7, TP. Hồ Chí Minh
                       </p>
                     </div>
@@ -945,7 +945,7 @@ export default function HomePage() {
 
               {/* Hanoi Office */}
               <ScrollAnimation direction="up" delay={150}>
-                <div className="group bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
+                <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-white/20 h-full">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -954,13 +954,13 @@ export default function HomePage() {
                   <div className="inline-block px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-semibold mb-3">
                     CHI NHÁNH MIỀN BẮC
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-800">Hà Nội</h3>
+                  <h3 className="text-xl font-bold mb-4 text-white">Hà Nội</h3>
                   <div className="space-y-3 mb-5">
                     <div className="flex items-start gap-3">
                       <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-sm text-white leading-relaxed">
                         Số 85 Nguyễn Phong Sắc, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội
                       </p>
                     </div>
@@ -978,7 +978,7 @@ export default function HomePage() {
 
               {/* Quang Tri Office */}
               <ScrollAnimation direction="right" delay={300}>
-                <div className="group bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 h-full">
+                <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-white/20 h-full">
                   <div className="w-14 h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
@@ -987,13 +987,13 @@ export default function HomePage() {
                   <div className="inline-block px-3 py-1.5 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold mb-3">
                     CHI NHÁNH MIỀN TRUNG
                   </div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-800">Quảng Trị</h3>
+                  <h3 className="text-xl font-bold mb-4 text-white">Quảng Trị</h3>
                   <div className="space-y-3 mb-5">
                     <div className="flex items-start gap-3">
                       <svg className="w-5 h-5 text-[#5f7ab8] mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
-                      <p className="text-sm text-gray-600 leading-relaxed">
+                      <p className="text-sm text-white leading-relaxed">
                         Xã Triệu Giang, Huyện Triệu Phong, Tỉnh Quảng Trị
                       </p>
                     </div>

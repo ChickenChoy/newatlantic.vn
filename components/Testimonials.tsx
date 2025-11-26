@@ -90,7 +90,7 @@ export default function Testimonials() {
                 delay={index * 100}
               >
                 <div
-                  className={`bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-200 h-full flex flex-col ${
+                  className={`bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 h-full flex flex-col ${
                     index === currentIndex ? 'ring-2 ring-[#5f7ab8]' : ''
                   }`}
                 >
@@ -117,7 +117,7 @@ export default function Testimonials() {
                     >
                       <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
                     </svg>
-                    <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+                    <p className="text-white leading-relaxed text-sm md:text-base">
                       "{testimonial.text}"
                     </p>
                   </div>
@@ -128,13 +128,13 @@ export default function Testimonials() {
                       {testimonial.name.split(' ').pop()?.charAt(0)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-gray-800 text-sm md:text-base">
+                      <div className="font-semibold text-white text-sm md:text-base">
                         {testimonial.name}
                       </div>
-                      <div className="text-xs md:text-sm text-gray-600 truncate">
+                      <div className="text-xs md:text-sm text-white/90 truncate">
                         {testimonial.position}
                       </div>
-                      <div className="text-xs text-gray-500 truncate">
+                      <div className="text-xs text-white/70 truncate">
                         {testimonial.company}
                       </div>
                     </div>
