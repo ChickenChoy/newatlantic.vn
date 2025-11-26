@@ -11,10 +11,10 @@ interface ProductFilterProps {
   onFilterChange?: () => void;
 }
 
-export default function ProductFilter({ 
-  totalProducts, 
+export default function ProductFilter({
+  totalProducts,
   currentCategory,
-  onFilterChange 
+  onFilterChange
 }: ProductFilterProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -41,7 +41,7 @@ export default function ProductFilter({
   // Update URL with filters
   const updateFilters = (updates: { q?: string; sort?: string; page?: string }) => {
     const params = new URLSearchParams(searchParams.toString());
-    
+
     if (updates.q !== undefined) {
       if (updates.q) {
         params.set('q', updates.q);
@@ -49,7 +49,7 @@ export default function ProductFilter({
         params.delete('q');
       }
     }
-    
+
     if (updates.sort !== undefined) {
       if (updates.sort && updates.sort !== 'newest') {
         params.set('sort', updates.sort);
@@ -57,7 +57,7 @@ export default function ProductFilter({
         params.delete('sort');
       }
     }
-    
+
     if (updates.page !== undefined) {
       if (updates.page && updates.page !== '1') {
         params.set('page', updates.page);
@@ -68,7 +68,7 @@ export default function ProductFilter({
 
     const queryString = params.toString();
     router.push(`${pathname}${queryString ? `?${queryString}` : ''}`, { scroll: false });
-    
+
     if (onFilterChange) {
       onFilterChange();
     }
@@ -104,21 +104,26 @@ export default function ProductFilter({
   return (
     <>
       {/* Mobile Filter Toggle Button */}
-      <div className="lg:hidden mb-3">
+      <div className="lg:hidden mb-4">
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="w-full flex items-center justify-between px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors text-sm"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 transition-all active:scale-[0.99]"
         >
-          <span className="flex items-center gap-2 font-medium text-gray-700">
+          <span className="flex items-center gap-2 font-semibold text-gray-800">
+            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+            </svg>
             Bộ lọc & Sắp xếp
             {hasActiveFilters && (
-              <span className="px-1.5 py-0.5 bg-blue-600 text-white text-xs rounded-full">
+              <span className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white text-xs rounded-full">
                 {[searchQuery && '1', sortOption !== 'newest' && '1'].filter(Boolean).length}
               </span>
             )}
           </span>
-          <span className={`text-gray-500 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`}>
-            ▼
+          <span className={`text-gray-400 transition-transform duration-300 ${isFilterOpen ? 'rotate-180' : ''}`}>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </span>
         </button>
       </div>
@@ -129,123 +134,82 @@ export default function ProductFilter({
         className={`
           ${isFilterOpen ? 'block' : 'hidden'} 
           lg:block
-          bg-white rounded-lg shadow border border-gray-200 p-6 mb-4
-          transition-all duration-300
+          bg-white rounded-2xl p-6
+          lg:sticky lg:top-24
+          border border-gray-100 shadow-sm
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-8 pb-5 border-b border-gray-200">
-          <h3 className="text-sm font-semibold text-gray-900">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+            </svg>
             Bộ lọc
           </h3>
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="text-xs text-blue-600 hover:text-blue-700 font-medium transition-colors"
+              className="text-xs font-medium text-red-500 hover:text-red-600 transition-colors flex items-center gap-1 px-2 py-1 bg-red-50 rounded-full hover:bg-red-100"
             >
-              Xóa
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Xóa lọc
             </button>
           )}
         </div>
 
-        {/* Active Filters Display */}
-        {hasActiveFilters && (
-          <div className="mb-8 flex flex-wrap gap-1.5">
-            {searchQuery && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                "{searchQuery}"
-                <button
-                  onClick={() => handleSearch('')}
-                  className="hover:text-blue-900 transition-colors"
-                >
-                  ×
-                </button>
-              </span>
-            )}
-            {sortOption && sortOption !== 'newest' && (
-              <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                {sortOptions.find(opt => opt.value === sortOption)?.label}
-                <button
-                  onClick={() => handleSortChange('newest')}
-                  className="hover:text-blue-900 transition-colors"
-                >
-                  ×
-                </button>
-              </span>
-            )}
-          </div>
-        )}
-
         {/* Search Input */}
         <div className="mb-8">
-          <label className="block text-xs font-medium text-gray-700 mb-3">
-            Tìm kiếm
-          </label>
-          <div className="relative">
+          <div className="relative group">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              placeholder="Nhập tên sản phẩm..."
-              className="w-full px-3 py-2.5 pr-8 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+              placeholder="Tìm kiếm sản phẩm..."
+              className="w-full pl-10 pr-8 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none placeholder:text-gray-400"
             />
+            <svg className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
             {searchQuery && (
               <button
                 onClick={() => handleSearch('')}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors text-sm"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
               >
-                ×
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             )}
           </div>
         </div>
 
-        {/* Sort Options */}
+        {/* Categories */}
         <div className="mb-8">
-          <label className="block text-xs font-medium text-gray-700 mb-3">
-            Sắp xếp
-          </label>
-          <div className="space-y-3">
-            {sortOptions.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => handleSortChange(option.value)}
-                className={`
-                  w-full flex items-center justify-between px-4 py-2.5 text-sm rounded border transition-all
-                  ${sortOption === option.value
-                    ? 'bg-blue-50 border-blue-500 text-blue-700 font-medium'
-                    : 'bg-white border-gray-300 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
-                  }
-                `}
-              >
-                <span>{option.label}</span>
-                {sortOption === option.value && (
-                  <span className="text-blue-600">✓</span>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Category Filter */}
-        <div>
-          <label className="block text-xs font-medium text-gray-700 mb-3">
-            Danh mục
-          </label>
-          <div className="space-y-3">
+          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 px-1">
+            Danh mục sản phẩm
+          </h4>
+          <div className="space-y-1">
             <Link
               href="/san-pham"
               className={`
-                flex items-center justify-between px-4 py-2.5 text-sm rounded border transition-all
+                group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all duration-200
                 ${pathname === '/san-pham'
-                  ? 'bg-blue-50 border-blue-500 text-blue-700 font-medium'
-                  : 'bg-white border-gray-300 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                  ? 'bg-blue-50 text-blue-700 font-semibold'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }
               `}
             >
-              <span>Tất cả</span>
+              <div className="flex items-center gap-3">
+                <span className={`w-1.5 h-1.5 rounded-full transition-colors ${pathname === '/san-pham' ? 'bg-blue-600' : 'bg-gray-300 group-hover:bg-blue-400'}`}></span>
+                <span>Tất cả</span>
+              </div>
               {pathname === '/san-pham' && (
-                <span className="text-blue-600">✓</span>
+                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               )}
             </Link>
             {categories.map((category) => {
@@ -255,20 +219,60 @@ export default function ProductFilter({
                   key={category.id}
                   href={`/san-pham/${category.slug}`}
                   className={`
-                    flex items-center justify-between px-4 py-2.5 text-sm rounded border transition-all
+                    group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all duration-200
                     ${isActive
-                      ? 'bg-blue-50 border-blue-500 text-blue-700 font-medium'
-                      : 'bg-white border-gray-300 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                      ? 'bg-blue-50 text-blue-700 font-semibold'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                     }
                   `}
                 >
-                  <span>{category.name}</span>
+                  <div className="flex items-center gap-3">
+                    <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isActive ? 'bg-blue-600' : 'bg-gray-300 group-hover:bg-blue-400'}`}></span>
+                    <span>{category.name}</span>
+                  </div>
                   {isActive && (
-                    <span className="text-blue-600">✓</span>
+                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   )}
                 </Link>
               );
             })}
+          </div>
+        </div>
+
+        {/* Sort Options */}
+        <div>
+          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 px-1">
+            Sắp xếp theo
+          </h4>
+          <div className="space-y-2">
+            {sortOptions.map((option) => (
+              <button
+                key={option.value}
+                onClick={() => handleSortChange(option.value)}
+                className={`
+                  w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-all duration-200 text-left
+                  ${sortOption === option.value
+                    ? 'bg-blue-50/50 text-blue-700 font-medium ring-1 ring-blue-100'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }
+                `}
+              >
+                <div className={`
+                  w-4 h-4 rounded-full border flex items-center justify-center transition-colors
+                  ${sortOption === option.value
+                    ? 'border-blue-600 bg-blue-600'
+                    : 'border-gray-300 group-hover:border-blue-400'
+                  }
+                `}>
+                  {sortOption === option.value && (
+                    <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                  )}
+                </div>
+                <span>{option.label}</span>
+              </button>
+            ))}
           </div>
         </div>
 

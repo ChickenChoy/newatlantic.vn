@@ -18,7 +18,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
-  
+
   const images = product.images || [product.image];
 
   // Check if product is in wishlist
@@ -35,15 +35,15 @@ export default function ProductPageContent({ product, relatedProducts }: Product
       setIsInWishlist(true);
     }
   };
-  
+
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
-  
+
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
-  
+
   const goToImage = (index: number) => {
     setCurrentImageIndex(index);
   };
@@ -82,7 +82,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
         if (!isUserInteracting && slider) {
           const maxScroll = slider.scrollWidth - slider.clientWidth;
           const currentScroll = slider.scrollLeft;
-          
+
           if (currentScroll >= maxScroll - 10) {
             // Reset to start
             slider.scrollTo({ left: 0, behavior: 'smooth' });
@@ -97,7 +97,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
     const handleUserInteraction = () => {
       isUserInteracting = true;
       clearInterval(scrollInterval);
-      
+
       // Resume auto-scroll after 5 seconds of no interaction
       setTimeout(() => {
         isUserInteracting = false;
@@ -120,32 +120,14 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   }, [relatedProducts.length]);
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-20 md:pt-24">
-      {/* Breadcrumb */}
-      <div className="bg-gray-100 mt-12 md:mt-16">
-        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
-          <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-600 overflow-x-auto scrollbar-hide">
-            <Link href="/" className="hover:text-[#5f7ab8] transition whitespace-nowrap">
-              Trang chủ
-            </Link>
-            <span className="flex-shrink-0">/</span>
-            <Link href="/san-pham" className="hover:text-[#5f7ab8] transition whitespace-nowrap">
-              Sản phẩm
-            </Link>
-            <span className="flex-shrink-0">/</span>
-            <Link
-              href={`/san-pham/${product.category}`}
-              className="hover:text-[#5f7ab8] transition whitespace-nowrap"
-            >
-              {product.categoryName}
-            </Link>
-            <span className="flex-shrink-0">/</span>
-            <span className="text-[#5f7ab8] font-medium truncate max-w-[120px] sm:max-w-none">{product.name}</span>
-          </nav>
-        </div>
+    <div className="bg-[#FAFAFA] min-h-screen pt-20 md:pt-24 relative overflow-hidden">
+      {/* Background decorative elements - Subtle blue accent */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100/40 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
       </div>
 
-      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8 lg:py-12">
+      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-10 md:py-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 bg-gray-50 rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-md sm:shadow-lg lg:shadow-xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12 mb-6 sm:mb-8 lg:mb-16">
           {/* Product Image Slider */}
           <div className="order-1 lg:order-1">
@@ -182,18 +164,17 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 {/* Wishlist Button */}
                 <button
                   onClick={toggleWishlist}
-                  className={`absolute top-3 sm:top-4 md:top-6 left-3 sm:left-4 md:left-6 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10 ${
-                    isInWishlist
+                  className={`absolute top-3 sm:top-4 md:top-6 left-3 sm:left-4 md:left-6 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10 ${isInWishlist
                       ? 'bg-red-500 text-white'
                       : 'bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-red-500 hover:text-white'
-                  }`}
+                    }`}
                   title={isInWishlist ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
                 >
                   <svg className="w-5 h-5" fill={isInWishlist ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 </button>
-                
+
                 {/* Navigation Arrows - Only show if there are multiple images */}
                 {images.length > 1 && (
                   <>
@@ -240,11 +221,10 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                     <button
                       key={index}
                       onClick={() => goToImage(index)}
-                      className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white rounded-lg overflow-hidden border-2 shadow-lg transition-all duration-300 ${
-                        index === currentImageIndex
+                      className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white rounded-lg overflow-hidden border-2 shadow-lg transition-all duration-300 ${index === currentImageIndex
                           ? 'border-[#5f7ab8]'
                           : 'border-transparent hover:border-[#5f7ab8]'
-                      }`}
+                        }`}
                     >
                       <Image
                         src={image}
@@ -292,7 +272,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 {/* Decorative elements */}
                 <div className="absolute top-0 right-0 w-16 h-16 sm:w-24 sm:h-24 bg-white/10 rounded-full -mr-8 -mt-8 sm:-mr-12 sm:-mt-12"></div>
                 <div className="absolute bottom-0 left-0 w-12 h-12 sm:w-20 sm:h-20 bg-black/10 rounded-full -ml-6 -mb-6 sm:-ml-10 sm:-mb-10"></div>
-                
+
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-white/90 text-xs font-semibold uppercase tracking-wider">Giá sản phẩm</span>
@@ -330,7 +310,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 </svg>
                 Cam kết chất lượng
               </h3>
-              
+
               <div className="space-y-1.5 sm:space-y-2">
                 <div className="flex items-start space-x-2 group">
                   <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
@@ -488,40 +468,40 @@ export default function ProductPageContent({ product, relatedProducts }: Product
         {relatedProducts.length > 0 && (
           <div className="bg-gray-50 rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md sm:shadow-lg p-3 sm:p-4 md:p-6">
             <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6 text-center">Sản phẩm liên quan</h2>
-            
+
             {/* Slider Container */}
             <TouchGestureWrapper
               onSwipeLeft={scrollRight}
               onSwipeRight={scrollLeft}
               className="relative group"
             >
-                {/* Navigation Arrows */}
-                {relatedProducts.length > 2 && (
-                  <>
-                    <button
-                      onClick={scrollLeft}
-                      className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 md:p-3 rounded-full shadow-md sm:shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
-                      aria-label="Scroll left"
-                    >
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={scrollRight}
-                      className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 md:p-3 rounded-full shadow-md sm:shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
-                      aria-label="Scroll right"
-                    >
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </>
-                )}
+              {/* Navigation Arrows */}
+              {relatedProducts.length > 2 && (
+                <>
+                  <button
+                    onClick={scrollLeft}
+                    className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 md:p-3 rounded-full shadow-md sm:shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
+                    aria-label="Scroll left"
+                  >
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={scrollRight}
+                    className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-1.5 sm:p-2 md:p-3 rounded-full shadow-md sm:shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
+                    aria-label="Scroll right"
+                  >
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </>
+              )}
 
-                {/* Slider Track */}
-                <div ref={sliderRef} className="overflow-x-auto scrollbar-hide">
-                  <div className="flex gap-2 sm:gap-3 md:gap-4 pb-3 sm:pb-4">
+              {/* Slider Track */}
+              <div ref={sliderRef} className="overflow-x-auto scrollbar-hide">
+                <div className="flex gap-2 sm:gap-3 md:gap-4 pb-3 sm:pb-4">
                   {relatedProducts.map((relatedProduct) => (
                     <Link
                       key={relatedProduct.id}
@@ -548,20 +528,20 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                             </svg>
                           </div>
                         )}
-                        
+
                         {/* Featured Badge */}
                         {relatedProduct.featured && (
                           <div className="absolute top-1.5 sm:top-2 right-1.5 sm:right-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-bold">
                             ⭐ Nổi bật
                           </div>
                         )}
-                        
+
                         {/* Price Badge */}
                         <div className="absolute bottom-1.5 sm:bottom-2 left-1.5 sm:left-2 right-1.5 sm:right-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold text-center">
                           {relatedProduct.price}
                         </div>
                       </div>
-                      
+
                       <div className="p-2 sm:p-3 md:p-4">
                         <h3 className="text-xs sm:text-sm font-bold text-gray-900 mb-1 group-hover:text-[#5f7ab8] transition-colors line-clamp-2">
                           {relatedProduct.name}
@@ -572,19 +552,19 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                       </div>
                     </Link>
                   ))}
-                  </div>
                 </div>
+              </div>
 
-                {/* Scroll Indicator */}
-                <div className="flex justify-center mt-3 sm:mt-4 gap-2">
-                  <div className="text-xs text-gray-500 flex items-center">
-                    <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                    <span className="hidden sm:inline">Vuốt sang để xem thêm</span>
-                    <span className="sm:hidden">Vuốt</span>
-                  </div>
+              {/* Scroll Indicator */}
+              <div className="flex justify-center mt-3 sm:mt-4 gap-2">
+                <div className="text-xs text-gray-500 flex items-center">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                  <span className="hidden sm:inline">Vuốt sang để xem thêm</span>
+                  <span className="sm:hidden">Vuốt</span>
                 </div>
+              </div>
             </TouchGestureWrapper>
           </div>
         )}

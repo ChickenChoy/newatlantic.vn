@@ -51,76 +51,66 @@ export default function WishlistPage() {
   if (!hasMounted) {
     return (
       <div className="min-h-screen pt-24 pb-16 bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#5f7ab8]"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-20 md:pt-24 pb-16 bg-white relative overflow-hidden">
-        {/* Background decorative elements - Subtle pink/rose accent */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-pink-100/40 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-50/40 rounded-full blur-3xl"></div>
-        </div>
-
-      {/* Breadcrumb Navigation */}
-      <div className="bg-white mt-12 md:mt-16 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <nav className="flex items-center gap-2 text-sm text-gray-600">
-            <Link className="hover:text-pink-600 transition" href="/">Trang chủ</Link>
-            <span>/</span>
-            <span className="text-pink-600 font-medium">Yêu thích</span>
-          </nav>
-        </div>
+    <div className="min-h-screen pt-20 md:pt-24 pb-16 bg-[#FAFAFA] relative overflow-hidden">
+      {/* Background decorative elements - Subtle pink/rose accent */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-pink-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-rose-100/40 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
       </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-pink-50 text-pink-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
-              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-              </svg>
-              Sản phẩm yêu thích
+
+      {/* Header Section */}
+      <div className="relative z-10 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4 py-12 md:py-16">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+              Danh sách quan tâm
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Sản phẩm yêu thích
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+              Sản Phẩm <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">Yêu Thích</span>
             </h1>
-            <p className="text-gray-600">
-              {isLoading 
-                ? 'Đang tải danh sách...' 
-                : wishlist.length > 0 
-                  ? `Bạn có ${wishlist.length} sản phẩm trong danh sách yêu thích` 
-                  : 'Chưa có sản phẩm nào trong danh sách yêu thích'}
+            <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+              {isLoading
+                ? 'Đang tải danh sách...'
+                : wishlist.length > 0
+                  ? `Bạn đang quan tâm đến ${wishlist.length} sản phẩm. Hãy liên hệ ngay để được tư vấn chi tiết.`
+                  : 'Lưu lại những sản phẩm bạn quan tâm để xem lại sau.'}
             </p>
           </div>
+        </div>
+      </div>
 
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12">
+        <div className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="text-center py-16">
-              <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#5f7ab8]"></div>
-              </div>
+            <div className="text-center py-20">
+              <div className="w-20 h-20 border-4 border-pink-200 border-t-pink-600 rounded-full animate-spin mx-auto"></div>
             </div>
           ) : wishlist.length > 0 ? (
-            <>
-              <div className="flex justify-end mb-6">
+            <div className="animate-fade-in">
+              <div className="flex justify-end mb-8">
                 <button
                   onClick={clearAll}
-                  className="inline-flex items-center gap-2 text-red-600 hover:text-red-700 font-medium text-sm transition-colors"
+                  className="group inline-flex items-center gap-2 px-4 py-2 bg-white border border-red-100 text-red-600 rounded-xl hover:bg-red-50 hover:border-red-200 font-medium text-sm transition-all duration-300 shadow-sm hover:shadow-md"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
                   Xóa tất cả
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 {wishlist.map((product) => (
-                  <div 
+                  <div
                     key={product.id}
-                    className="relative group"
+                    className="relative group animate-fade-in-up"
                   >
                     {/* Remove from wishlist button */}
                     <button
@@ -129,42 +119,45 @@ export default function WishlistPage() {
                         e.stopPropagation();
                         removeFromWishlist(product.id);
                       }}
-                      className="absolute top-4 left-4 z-50 w-11 h-11 flex items-center justify-center transition-all duration-300 hover:scale-110 group-hover:opacity-100 opacity-70 bg-white/90 backdrop-blur-sm rounded-full shadow-lg"
+                      className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 border border-gray-100"
                       title="Xóa khỏi yêu thích"
                     >
-                      <svg 
-                        className="w-6 h-6 text-red-500 group-hover:text-red-600 transition-colors duration-300" 
-                        fill="currentColor" 
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
-                    <ProductCard 
-                      product={product}
-                      className="h-full"
-                      hideQuickView={true}
-                    />
+                    <div className="h-full transform transition-all duration-500 hover:-translate-y-2">
+                      <ProductCard
+                        product={product}
+                        className="h-full shadow-lg hover:shadow-2xl hover:shadow-pink-500/10 border border-gray-100 rounded-2xl overflow-hidden"
+                        hideQuickView={true}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
-            </>
+            </div>
           ) : (
-            <div className="text-center py-16">
-              <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-20 bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 max-w-2xl mx-auto animate-fade-in-up">
+              <div className="w-24 h-24 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce-slow">
+                <svg className="w-12 h-12 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 Chưa có sản phẩm yêu thích
               </h3>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                Thêm sản phẩm vào danh sách yêu thích để dễ dàng theo dõi và so sánh
+              <p className="text-gray-600 mb-10 max-w-md mx-auto leading-relaxed">
+                Hãy dạo qua danh mục sản phẩm của chúng tôi và thả tim cho những sản phẩm bạn quan tâm nhé!
               </p>
               <Link
                 href="/san-pham"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-rose-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 hover:-translate-y-1 transition-all duration-300"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
