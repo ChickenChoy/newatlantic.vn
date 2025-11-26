@@ -45,6 +45,26 @@ export default function HeaderBottom() {
     }
   }, [mobileMenuOpen]);
 
+  // Hide FloatingContactButtons when mobile menu is open
+  useEffect(() => {
+    const floatingContact = document.querySelector('[data-floating-contact="true"]');
+    if (floatingContact) {
+      if (mobileMenuOpen) {
+        // Hide when menu opens
+        (floatingContact as HTMLElement).style.opacity = '0';
+        (floatingContact as HTMLElement).style.pointerEvents = 'none';
+        (floatingContact as HTMLElement).style.transform = 'translateX(100%)';
+        (floatingContact as HTMLElement).style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+      } else {
+        // Show when menu closes - reset to let component manage its own state
+        (floatingContact as HTMLElement).style.opacity = '';
+        (floatingContact as HTMLElement).style.pointerEvents = '';
+        (floatingContact as HTMLElement).style.transform = '';
+        (floatingContact as HTMLElement).style.transition = '';
+      }
+    }
+  }, [mobileMenuOpen]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
