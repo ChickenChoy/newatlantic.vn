@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white py-20 md:py-28">
+      <section className="relative bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white pt-32 md:pt-28 pb-20 md:pb-28">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
