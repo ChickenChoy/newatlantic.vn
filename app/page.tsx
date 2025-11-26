@@ -79,14 +79,14 @@ export default function HomePage() {
           {/* Gradient Orbs */}
           <div className="absolute top-0 left-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#5f7ab8]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute bottom-0 right-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#4a6199]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-          
+
           {/* Subtle Grid Pattern */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235f7ab8' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E")`,
             backgroundSize: '40px 40px'
           }}></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <ScrollAnimation direction="up">
             <div className="max-w-5xl mx-auto">
@@ -94,15 +94,15 @@ export default function HomePage() {
               <div className="bg-gradient-to-br from-gray-800/90 via-gray-900/90 to-black/90 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-gray-700/60 p-4 sm:p-6 md:p-8 lg:p-10 relative overflow-hidden">
                 {/* Accent Border Top */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#5f7ab8] to-transparent"></div>
-                
+
                 {/* Decorative Corner Elements - Hidden on mobile */}
                 <div className="hidden md:block absolute top-8 left-8 w-16 lg:w-20 h-16 lg:h-20 border-t-2 border-l-2 border-[#5f7ab8]/20 rounded-tl-3xl"></div>
                 <div className="hidden md:block absolute bottom-8 right-8 w-16 lg:w-20 h-16 lg:h-20 border-b-2 border-r-2 border-[#5f7ab8]/20 rounded-br-3xl"></div>
-                
+
                 {/* Content */}
                 <div className="relative">
 
-                  
+
                   {/* Slogan Text */}
                   <div className="text-center space-y-3 sm:space-y-4">
                     <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight px-2">
@@ -110,27 +110,27 @@ export default function HomePage() {
                         PHÁT TRIỂN PHỒN VINH XÂY THỊNH VƯỢNG
                       </span>
                     </h2>
-                    
+
                     {/* Divider */}
                     <div className="flex items-center justify-center gap-2 py-1">
                       <div className="w-8 sm:w-10 h-px bg-gradient-to-r from-transparent to-[#5f7ab8]"></div>
                       <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full"></div>
                       <div className="w-8 sm:w-10 h-px bg-gradient-to-l from-transparent to-[#5f7ab8]"></div>
                     </div>
-                    
+
                     <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight px-2">
                       <span className="bg-gradient-to-r from-white via-[#5f7ab8] to-white bg-clip-text text-transparent">
                         TỰ HÀO BỐN CHỮ TÂN ĐẠI TÂY DƯƠNG
                       </span>
                     </h2>
                   </div>
-                  
+
                   {/* Bottom Accent */}
                   <div className="flex justify-center mt-4 sm:mt-6">
                     <div className="flex items-center gap-1.5">
                       <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse"></div>
-                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                     </div>
                   </div>
                 </div>
@@ -146,13 +146,13 @@ export default function HomePage() {
         <div className="absolute inset-0 opacity-50">
           <div className="absolute w-96 h-96 bg-[#5f7ab8]/10 rounded-full blur-3xl top-20 -right-48"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
               <ScrollAnimation direction="left">
                 <div className="space-y-6 sm:space-y-8">
-                <div>
+                  <div>
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-800 text-gray-300 rounded-full text-xs font-medium mb-3 sm:mb-4 tracking-wide uppercase border border-gray-700">
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -166,7 +166,7 @@ export default function HomePage() {
                       </span>
                     </h2>
                   </div>
-                  
+
                   <div className="space-y-3 sm:space-y-4 text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                     <p>
                       <strong className="text-white">Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương</strong> thành lập ngày 14/05/2003, với nỗ lực không ngừng đã phát triển từ một doanh nghiệp nhỏ thành một công ty uy tín trong và ngoài nước.
@@ -175,7 +175,7 @@ export default function HomePage() {
                       Với doanh thu nhiều năm nằm trong <strong className="text-white">top 5 doanh nghiệp lớn nhất tại Quận 7, TP. Hồ Chí Minh</strong>, chúng tôi tự hào là đối tác tin cậy của các thương hiệu hàng đầu thế giới.
                     </p>
                   </div>
-                  
+
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4 sm:gap-6 py-6 sm:py-8 border-t border-gray-700">
                     <div className="text-center">
@@ -195,9 +195,9 @@ export default function HomePage() {
                       <div className="text-xs sm:text-sm text-gray-300">Hỗ trợ</div>
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <Link 
+                    <Link
                       href="/san-pham"
                       className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/15 hover:shadow-2xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
                     >
@@ -206,7 +206,7 @@ export default function HomePage() {
                       </svg>
                       Khám phá sản phẩm
                     </Link>
-                    <Link 
+                    <Link
                       href="/lien-he"
                       className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300 text-sm sm:text-base"
                     >
@@ -217,44 +217,44 @@ export default function HomePage() {
                     </Link>
                   </div>
                 </div>
-          </ScrollAnimation>
-              
+              </ScrollAnimation>
+
               <ScrollAnimation direction="right">
                 <div className="relative">
                   {/* Main Image Container */}
                   <div className="relative aspect-[4/3] bg-gradient-to-br from-[#5f7ab8]/20 to-[#4a6199]/20 rounded-2xl md:rounded-3xl p-4 md:p-8">
                     <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl shadow-2xl h-full overflow-hidden relative border border-white/20">
                       <div className="relative z-10 p-4 md:p-8 h-full flex flex-col justify-center">
-                      <div className="space-y-4 md:space-y-6">
-                        <div className="flex items-start gap-3 md:gap-4">
+                        <div className="space-y-4 md:space-y-6">
+                          <div className="flex items-start gap-3 md:gap-4">
                             <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                               <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                          </div>
-                          <div className="flex-1 min-w-0">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
                               <h4 className="font-bold text-sm md:text-lg text-white mb-1 md:mb-2">Chất lượng đảm bảo</h4>
                               <p className="text-xs md:text-base text-white/90 leading-relaxed">Sản phẩm chính hãng 100% từ nhà sản xuất</p>
                             </div>
-                        </div>
-                        <div className="flex items-start gap-3 md:gap-4">
+                          </div>
+                          <div className="flex items-start gap-3 md:gap-4">
                             <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                               <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
-                          </div>
-                          <div className="flex-1 min-w-0">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
                               <h4 className="font-bold text-sm md:text-lg text-white mb-1 md:mb-2">Giao hàng nhanh chóng</h4>
                               <p className="text-xs md:text-base text-white/90 leading-relaxed">Vận chuyển toàn quốc trong 24-48h</p>
                             </div>
-                        </div>
-                        <div className="flex items-start gap-3 md:gap-4">
+                          </div>
+                          <div className="flex items-start gap-3 md:gap-4">
                             <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                               <svg className="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                          </div>
-                          <div className="flex-1 min-w-0">
+                              </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
                               <h4 className="font-bold text-sm md:text-lg text-white mb-1 md:mb-2">Hỗ trợ chuyên nghiệp</h4>
                               <p className="text-xs md:text-base text-white/90 leading-relaxed">Đội ngũ kỹ thuật 24/7 tận tâm</p>
                             </div>
@@ -263,7 +263,7 @@ export default function HomePage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Floating Elements - Simplified */}
                   <div className="absolute -top-3 -right-3 w-16 h-16 bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-xl flex items-center justify-center shadow-lg opacity-90">
                     <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -412,7 +412,7 @@ export default function HomePage() {
             backgroundSize: '50px 50px'
           }}></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 md:mb-20">
@@ -440,8 +440,8 @@ export default function HomePage() {
             {/* WILL-BURT Card */}
             <ScrollAnimation direction="left" delay={0}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                  <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
+                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+                  <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">CỘT TỰ NÂNG WILL-BURT</h3>
@@ -461,8 +461,8 @@ export default function HomePage() {
             {/* HIAB Card */}
             <ScrollAnimation direction="left" delay={100}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                  <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
+                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+                  <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ NÂNG HIAB</h3>
@@ -482,8 +482,8 @@ export default function HomePage() {
             {/* LOVOL Card */}
             <ScrollAnimation direction="right" delay={200}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                  <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
+                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+                  <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ LOVOL</h3>
@@ -503,8 +503,8 @@ export default function HomePage() {
             {/* LIUGONG Card */}
             <ScrollAnimation direction="right" delay={300}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                  <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500" />
+                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+                  <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
                   <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ LIUGONG</h3>
@@ -530,7 +530,7 @@ export default function HomePage() {
         <div className="absolute inset-0 opacity-40">
           <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/8 rounded-full blur-3xl -top-48 -left-48"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             <ScrollAnimation direction="up">
@@ -553,7 +553,7 @@ export default function HomePage() {
               </div>
             </ScrollAnimation>
           </div>
-          
+
           {/* Main Services */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             <ScrollAnimation direction="left" delay={0}>
@@ -676,8 +676,8 @@ export default function HomePage() {
                     Khám phá các sản phẩm chất lượng cao được tin dùng
                   </p>
                 </div>
-                <Link 
-                  href="/san-pham" 
+                <Link
+                  href="/san-pham"
                   className="inline-flex items-center gap-2 text-white hover:text-white/80 font-medium text-sm md:text-base group transition-colors duration-200"
                 >
                   Xem tất cả sản phẩm
@@ -690,13 +690,13 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {featuredProducts.map((product, index) => (
-              <ScrollAnimation 
+              <ScrollAnimation
                 key={product.id}
                 direction={index % 2 === 0 ? 'left' : 'right'}
                 delay={index * 150}
                 className="h-full"
               >
-                <ProductCard 
+                <ProductCard
                   product={product}
                   className="h-full"
                 />
@@ -709,7 +709,7 @@ export default function HomePage() {
       {/* Video Background CTA Section */}
       <section className="relative min-h-[700px] sm:min-h-[650px] md:min-h-[700px] lg:min-h-[750px] overflow-hidden">
         {/* Lazy Video Background */}
-        <LazyVideoBackground 
+        <LazyVideoBackground
           videoSrc="/videos/hero-video-2.mp4"
           posterImage="/images/place-holder/telescopic-mast-tower.jpg"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover"
@@ -794,7 +794,7 @@ export default function HomePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
-                  
+
                   <Link
                     href="/page-download-catalog"
                     className="group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-transparent border-2 border-white text-white px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 rounded-full font-semibold hover:bg-white/15 hover:text-white transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-xs sm:text-sm md:text-base w-full sm:w-auto"
@@ -852,7 +852,7 @@ export default function HomePage() {
                     <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
                 </div>
-                
+
                 {/* Second row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
                   <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
@@ -886,7 +886,7 @@ export default function HomePage() {
         <div className="absolute inset-0 opacity-40">
           <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/8 rounded-full blur-3xl top-20 -right-48"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
@@ -937,8 +937,8 @@ export default function HomePage() {
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
-                        +84 2838 733 686
-                      </a>
+                      +84 2838 733 686
+                    </a>
                   </div>
                 </div>
               </ScrollAnimation>
@@ -970,8 +970,8 @@ export default function HomePage() {
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
-                        +84 2838 733 686
-                      </a>
+                      +84 2838 733 686
+                    </a>
                   </div>
                 </div>
               </ScrollAnimation>
@@ -1003,8 +1003,8 @@ export default function HomePage() {
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
-                        +84 2838 733 686
-                      </a>
+                      +84 2838 733 686
+                    </a>
                   </div>
                 </div>
               </ScrollAnimation>
@@ -1033,8 +1033,8 @@ export default function HomePage() {
                     Thông tin về sản phẩm, công nghệ và các sự kiện quan trọng trong ngành
                   </p>
                 </div>
-                <Link 
-                  href="/tin-tuc" 
+                <Link
+                  href="/tin-tuc"
                   className="inline-flex items-center gap-2 text-white hover:text-white/80 font-medium text-sm md:text-base group transition-colors duration-200"
                 >
                   Xem tất cả tin tức
@@ -1047,7 +1047,7 @@ export default function HomePage() {
           </ScrollAnimation>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
             {latestPosts.map((post, index) => (
-              <ScrollAnimation 
+              <ScrollAnimation
                 key={post.id}
                 direction={index % 2 === 0 ? 'left' : 'right'}
                 delay={index * 150}
@@ -1058,8 +1058,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
- 
+
+
 
     </>
   );
