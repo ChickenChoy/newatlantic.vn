@@ -58,11 +58,11 @@ export default function FAQs() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/10 rounded-full blur-3xl top-20 right-0"></div>
-        <div className="absolute w-[400px] h-[400px] bg-[#4a6199]/10 rounded-full blur-3xl bottom-20 left-0"></div>
+        <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/20 rounded-full blur-3xl top-20 right-0"></div>
+        <div className="absolute w-[400px] h-[400px] bg-[#4a6199]/20 rounded-full blur-3xl bottom-20 left-0"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -70,7 +70,7 @@ export default function FAQs() {
           {/* Section Header */}
           <ScrollAnimation direction="up">
             <div className="text-center mb-12 md:mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase shadow-sm">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-900/40 to-indigo-900/40 text-blue-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase shadow-sm border border-blue-700/30">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
@@ -80,10 +80,10 @@ export default function FAQs() {
                 </svg>
                 Câu hỏi thường gặp
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 leading-tight">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
                 Bạn có câu hỏi?
               </h2>
-              <p className="text-gray-600 text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+              <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
                 Tìm câu trả lời cho những thắc mắc phổ biến về sản phẩm và dịch vụ của chúng tôi
               </p>
             </div>
@@ -96,7 +96,7 @@ export default function FAQs() {
                 <div
                   className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border overflow-hidden group ${
                     openIndex === index
-                      ? 'border-[#5f7ab8] shadow-lg shadow-blue-100/50'
+                      ? 'border-[#5f7ab8] shadow-lg shadow-[#5f7ab8]/20'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -104,8 +104,8 @@ export default function FAQs() {
                     onClick={() => toggleFAQ(index)}
                     className={`w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-all duration-300 ${
                       openIndex === index
-                        ? 'bg-gradient-to-r from-blue-50 to-indigo-50'
-                        : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50/30'
+                        ? 'bg-gradient-to-r from-[#5f7ab8]/10 to-[#4a6199]/10'
+                        : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-[#5f7ab8]/5'
                     }`}
                   >
                     <div className="flex items-start gap-4 flex-1">
@@ -113,7 +113,7 @@ export default function FAQs() {
                         className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${
                           openIndex === index
                             ? 'bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                            : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-blue-100'
+                            : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-[#5f7ab8]/20'
                         }`}
                       >
                         <svg
@@ -142,7 +142,7 @@ export default function FAQs() {
                       className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
                         openIndex === index
                           ? 'bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white rotate-180 shadow-md'
-                          : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-blue-100 group-hover:scale-110'
+                          : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-[#5f7ab8]/20 group-hover:scale-110'
                       }`}
                     >
                       <svg
@@ -169,7 +169,7 @@ export default function FAQs() {
                       <div className="pl-12 pr-4">
                         <div className="relative">
                           <div className="absolute -left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#5f7ab8] to-[#4a6199] rounded-full"></div>
-                          <p className="text-gray-600 text-sm md:text-base leading-relaxed pl-4">
+                          <p className="text-gray-700 text-sm md:text-base leading-relaxed pl-4">
                             {faq.answer}
                           </p>
                         </div>

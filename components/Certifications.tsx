@@ -47,10 +47,10 @@ const certifications = [
 
 export default function Certifications() {
   return (
-    <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/5 rounded-full blur-3xl top-0 left-1/2 -translate-x-1/2"></div>
+        <div className="absolute w-[500px] h-[500px] bg-[#5f7ab8]/20 rounded-full blur-3xl top-0 left-1/2 -translate-x-1/2"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -58,35 +58,36 @@ export default function Certifications() {
           {/* Section Header */}
           <ScrollAnimation direction="up">
             <div className="text-center mb-12 md:mb-16">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100/80 text-green-600 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-900/40 text-green-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-green-700/30">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 Chứng nhận & Giải thưởng
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 leading-tight">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
                 Uy tín & Chất lượng được công nhận
               </h2>
-              <p className="text-gray-600 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
+              <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
                 Những chứng nhận và giải thưởng khẳng định chất lượng dịch vụ và sản phẩm của chúng tôi
               </p>
             </div>
           </ScrollAnimation>
 
           {/* Certifications Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-stretch">
             {certifications.map((cert, index) => (
               <ScrollAnimation
                 key={cert.id}
                 direction="up"
                 delay={index * 100}
+                className="h-full"
               >
-                <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/30 text-center group">
-                  <div className="w-16 h-16 mx-auto mb-4 text-[#5f7ab8] group-hover:scale-110 transition-transform duration-300">
+                <div className="bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[#5f7ab8]/50 text-center group h-full flex flex-col">
+                  <div className="w-16 h-16 mx-auto mb-4 text-[#5f7ab8] group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                     {cert.icon}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2 text-lg">{cert.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{cert.description}</p>
+                  <h3 className="font-bold text-gray-900 mb-2 text-lg flex-shrink-0">{cert.title}</h3>
+                  <p className="text-gray-700 text-sm leading-relaxed flex-grow">{cert.description}</p>
                 </div>
               </ScrollAnimation>
             ))}
