@@ -436,7 +436,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50">
             {/* WILL-BURT Card */}
             <ScrollAnimation direction="left" delay={0}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
@@ -842,27 +842,27 @@ export default function HomePage() {
               <div className="max-w-6xl mx-auto">
                 {/* First row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mb-4 mx-auto">
-                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
-                    <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain" />
+                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
-                    <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain" />
+                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
-                    <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain" />
+                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
                 </div>
                 
                 {/* Second row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
-                    <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain" />
+                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
-                    <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain" />
+                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-xl shadow-md hover:bg-white/60 hover:shadow-2xl transition-all duration-300 hover:scale-105 p-6 md:p-8 flex items-center justify-center aspect-[4/3] border border-white/20">
-                    <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain" />
+                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
+                    <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
                   </div>
                 </div>
               </div>
