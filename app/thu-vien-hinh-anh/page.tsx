@@ -214,7 +214,7 @@ export default function GalleryPage() {
         }}
       />
 
-      <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+      <div className="bg-white min-h-screen pt-20 md:pt-24 relative overflow-hidden">
         {/* Background decorative elements - Subtle purple/violet accent */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl"></div>
@@ -222,7 +222,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Breadcrumb */}
-        <div className="bg-white mt-4 relative z-10">
+        <div className="bg-white mt-12 md:mt-16 relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav className="flex items-center gap-2 text-sm text-gray-600">
               <Link href="/" className="hover:text-purple-600 transition">

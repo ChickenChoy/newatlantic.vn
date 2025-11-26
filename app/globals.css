@@ -1176,3 +1176,10 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* Product Card Background Border Radius - Desktop */
+@media (min-width: 768px) {
+  .product-card-bg {
+    border-radius: 40px 150px 40px 40px !important;
+  }
+}

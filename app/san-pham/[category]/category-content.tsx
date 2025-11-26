@@ -126,7 +126,7 @@ function CategoryContentInner({
           {/* Main Content */}
           <div className="flex-1 min-w-0">
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {paginatedProducts.map((product) => (
             <ProductCard 
               key={product.id}
@@ -183,7 +183,7 @@ export default function CategoryPageContent({
   categorySlug,
 }: CategoryPageContentProps) {
   return (
-    <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+    <div className="bg-white min-h-screen pt-20 md:pt-24 relative overflow-hidden">
       {/* Background decorative elements - Subtle blue accent */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl"></div>
@@ -191,7 +191,7 @@ export default function CategoryPageContent({
       </div>
 
       {/* Breadcrumb */}
-      <div className="bg-white mt-4 relative z-10">
+      <div className="bg-white mt-12 md:mt-16 relative z-10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-blue-600 transition">

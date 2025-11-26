@@ -120,9 +120,9 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   }, [relatedProducts.length]);
 
   return (
-    <div className="bg-gray-100 min-h-screen pt-16 sm:pt-20">
+    <div className="bg-gray-100 min-h-screen pt-20 md:pt-24">
       {/* Breadcrumb */}
-      <div className="bg-gray-100 mt-2 sm:mt-4">
+      <div className="bg-gray-100 mt-12 md:mt-16">
         <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
           <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-600 overflow-x-auto scrollbar-hide">
             <Link href="/" className="hover:text-[#5f7ab8] transition whitespace-nowrap">

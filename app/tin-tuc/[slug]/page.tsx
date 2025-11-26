@@ -83,7 +83,7 @@ export default async function PostPage({ params }: PostPageProps) {
   ]);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-16">
+    <div className="bg-gray-50 min-h-screen pt-20 md:pt-24">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
@@ -99,7 +99,7 @@ export default async function PostPage({ params }: PostPageProps) {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-gray-50  mt-4">
+      <div className="bg-gray-50 mt-12 md:mt-16">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-[#5f7ab8] transition">

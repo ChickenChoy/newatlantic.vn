@@ -139,7 +139,7 @@ export default function RootLayout({
           <Header />
           <HeaderBottom />
           <PageTransition>
-            <main className="min-h-screen pt-20 md:pt-24">
+            <main className="min-h-screen">
               {children}
             </main>
           </PageTransition>

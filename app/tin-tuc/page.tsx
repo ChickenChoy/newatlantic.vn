@@ -107,7 +107,7 @@ export default function NewsPage() {
   ]);
 
   return (
-    <div className="bg-white min-h-screen pt-16 relative overflow-hidden">
+    <div className="bg-white min-h-screen pt-20 md:pt-24 relative overflow-hidden">
       {/* Background decorative elements - Subtle orange accent */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-0 w-96 h-96 bg-orange-100/40 rounded-full blur-3xl"></div>
@@ -123,7 +123,7 @@ export default function NewsPage() {
       />
 
       {/* Breadcrumb */}
-      <div className="bg-white mt-6 md:mt-8 relative z-10">
+      <div className="bg-white mt-12 md:mt-16 relative z-10">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-600">
             <Link href="/" className="hover:text-orange-600 transition">
