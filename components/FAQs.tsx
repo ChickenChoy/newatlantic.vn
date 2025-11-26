@@ -94,7 +94,7 @@ export default function FAQs() {
             {faqs.map((faq, index) => (
               <ScrollAnimation key={faq.id} direction="up" delay={index * 100}>
                 <div
-                  className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border overflow-hidden group ${
+                  className={`bg-white/85 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border overflow-hidden group ${
                     openIndex === index
                       ? 'border-[#5f7ab8] shadow-lg shadow-[#5f7ab8]/20'
                       : 'border-gray-200 hover:border-gray-300'
@@ -132,7 +132,7 @@ export default function FAQs() {
                       </div>
                       <span
                         className={`font-semibold text-sm md:text-base flex-1 leading-relaxed transition-colors ${
-                          openIndex === index ? 'text-[#5f7ab8]' : 'text-gray-900'
+                          openIndex === index ? 'text-[#5f7ab8]' : 'text-gray-800'
                         }`}
                       >
                         {faq.question}
@@ -169,7 +169,7 @@ export default function FAQs() {
                       <div className="pl-12 pr-4">
                         <div className="relative">
                           <div className="absolute -left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#5f7ab8] to-[#4a6199] rounded-full"></div>
-                          <p className="text-gray-700 text-sm md:text-base leading-relaxed pl-4">
+                          <p className="text-gray-600 text-sm md:text-base leading-relaxed pl-4">
                             {faq.answer}
                           </p>
                         </div>
@@ -184,7 +184,7 @@ export default function FAQs() {
           {/* CTA */}
           <ScrollAnimation direction="up" delay={600}>
             <div className="mt-12 text-center">
-              <p className="text-gray-600 mb-4 text-sm md:text-base">
+              <p className="text-white mb-4 text-sm md:text-base">
                 Vẫn còn thắc mắc? Chúng tôi sẵn sàng hỗ trợ bạn!
               </p>
               <a

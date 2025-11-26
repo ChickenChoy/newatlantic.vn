@@ -17,7 +17,7 @@ export default function PostCard({ post }: PostCardProps) {
   return (
     <TiltCard maxTilt={5} scale={1.02} className="h-full">
       <Link href={`/tin-tuc/${post.slug}`} className="h-full block">
-        <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:border-[#5f7ab8] h-full flex flex-col">
+        <div className="bg-white/85 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 hover:border-[#5f7ab8] h-full flex flex-col">
         {/* Image Section - Fixed Height */}
         <div className="relative h-56 bg-white overflow-hidden flex-shrink-0">
           {post.image ? (
@@ -48,7 +48,7 @@ export default function PostCard({ post }: PostCardProps) {
           </div>
           
           {/* Title - Fixed height with line-clamp */}
-          <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-[#5f7ab8] transition-colors leading-tight min-h-[3.5rem] flex-shrink-0">
+          <h3 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#5f7ab8] transition-colors leading-tight min-h-[3.5rem] flex-shrink-0">
             {post.title}
           </h3>
           

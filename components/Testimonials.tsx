@@ -90,7 +90,7 @@ export default function Testimonials() {
                 delay={index * 100}
               >
                 <div
-                  className={`bg-white rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-200 h-full flex flex-col ${
+                  className={`bg-white/85 rounded-2xl shadow-lg p-6 lg:p-8 hover:shadow-xl transition-all duration-300 border border-gray-200 h-full flex flex-col ${
                     index === currentIndex ? 'ring-2 ring-[#5f7ab8]' : ''
                   }`}
                 >
@@ -117,7 +117,7 @@ export default function Testimonials() {
                     >
                       <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
                     </svg>
-                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                    <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                       "{testimonial.text}"
                     </p>
                   </div>
@@ -128,7 +128,7 @@ export default function Testimonials() {
                       {testimonial.name.split(' ').pop()?.charAt(0)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-gray-900 text-sm md:text-base">
+                      <div className="font-semibold text-gray-800 text-sm md:text-base">
                         {testimonial.name}
                       </div>
                       <div className="text-xs md:text-sm text-gray-600 truncate">
