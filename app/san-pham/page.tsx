@@ -1,10 +1,11 @@
 'use client';
 
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { Suspense, useEffect, useState, useMemo } from 'react';
+import { useSearchParams, usePathname } from 'next/navigation';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
-import { products, categories } from '@/lib/data';
+import ProductFilter from '@/components/ProductFilter';
+import { products } from '@/lib/data';
 import Link from 'next/link';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
@@ -13,28 +14,30 @@ const ITEMS_PER_PAGE = 9;
 
 function ProductsPageContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const pathname = usePathname();
+  const [refreshKey, setRefreshKey] = useState(0);
+  
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const searchQuery = searchParams.get('q') || '';
-  const [sortOption, setSortOption] = useState<string>('newest');
-  const [showSortMenu, setShowSortMenu] = useState(false);
+  const sortOption = searchParams.get('sort') || 'newest';
 
   // Scroll to top when page changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [page]);
+  }, [page, searchQuery, sortOption]);
 
-  // Filter products by search query
+  // Filter and sort products
   const filteredProducts = useMemo(() => {
     let result = [...products];
     
+    // Filter by search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(product =>
         product.name.toLowerCase().includes(query) ||
         (product.description && product.description.toLowerCase().includes(query)) ||
-        product.category.toLowerCase().includes(query)
+        product.category.toLowerCase().includes(query) ||
+        product.categoryName.toLowerCase().includes(query)
       );
     }
 
@@ -48,7 +51,7 @@ function ProductsPageContent() {
       default:
         return result.sort((a, b) => parseInt(b.id) - parseInt(a.id));
     }
-  }, [searchQuery, sortOption]);
+  }, [searchQuery, sortOption, refreshKey]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -57,78 +60,59 @@ function ProductsPageContent() {
   const validEndIdx = validStartIdx + ITEMS_PER_PAGE;
   const paginatedProducts = filteredProducts.slice(validStartIdx, validEndIdx);
 
-  const handleSortChange = (newSort: string) => {
-    setSortOption(newSort);
-    setShowSortMenu(false);
-    // Update URL without page parameter
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('page');
-    router.push(`/san-pham?${params.toString()}`);
-  };
-
-  const sortOptions = [
-    { value: 'newest', label: 'Mới nhất', icon: '🆕' },
-    { value: 'name-asc', label: 'Tên A-Z', icon: '🔤' },
-    { value: 'name-desc', label: 'Tên Z-A', icon: '🔤' },
-  ];
-
   // Popular search keywords for suggestions
   const popularKeywords = ['WILL-BURT', 'HIAB', 'LOVOL', 'LIUGONG', 'Cột tự nâng', 'Cẩu tự hành', 'Xe nâng'];
 
   return (
     <>
-      {/* Sticky Filter Bar */}
-      <div className="sticky top-16 z-40 mb-6 bg-white/95 backdrop-blur-md shadow-md rounded-xl p-4 border border-gray-200">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div className="text-sm text-gray-600">
-            Hiển thị <span className="font-semibold text-blue-600">{filteredProducts.length}</span> sản phẩm
+      {/* Header Section */}
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+              Thiết bị công nghiệp
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              Tất cả sản phẩm
+            </h2>
+            <p className="text-sm text-gray-600">
+              Khám phá bộ sưu tập thiết bị công nghiệp chính hãng của chúng tôi
+            </p>
           </div>
-          
-        {/* Category Filter Buttons */}
-        <div className="flex flex-wrap gap-2">
-          <Link
-            href="/san-pham"
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-              pathname === '/san-pham'
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:shadow-lg'
-                : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 shadow-sm'
-            }`}
-          >
-            Tất cả
-          </Link>
-          {categories.map((category) => {
-            const isActive = pathname === `/san-pham/${category.slug}`;
-            return (
-              <Link
-                key={category.id}
-                href={`/san-pham/${category.slug}`}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:shadow-lg'
-                    : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-700 shadow-sm'
-                }`}
-              >
-                {category.name}
-              </Link>
-            );
-          })}
-        </div>
+          <div className="text-sm text-gray-600">
+            Tìm thấy <span className="font-bold text-blue-600 text-lg">{filteredProducts.length}</span> sản phẩm
+          </div>
         </div>
       </div>
 
-      {/* Products Grid - Using CSS Grid instead of manual margins */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-        {paginatedProducts.map((product) => (
-          <ProductCard 
-            key={product.id}
-            product={product}
-            className="h-full"
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Filter Sidebar */}
+        <aside className="lg:w-80 flex-shrink-0">
+          <ProductFilter 
+            totalProducts={filteredProducts.length}
+            onFilterChange={() => setRefreshKey(prev => prev + 1)}
           />
-        ))}
-      </div>
+        </aside>
 
-      {/* Enhanced Empty State */}
-      {paginatedProducts.length === 0 && (
+        {/* Main Content */}
+        <div className="flex-1 min-w-0">
+
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+          {paginatedProducts.map((product) => (
+            <ProductCard 
+              key={product.id}
+              product={product}
+              className="h-full"
+            />
+          ))}
+        </div>
+
+        {/* Enhanced Empty State */}
+        {paginatedProducts.length === 0 && (
         <div className="text-center py-20 bg-white rounded-2xl shadow-lg border border-gray-100">
           <div className="max-w-md mx-auto">
             <div className="w-32 h-32 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -178,18 +162,20 @@ function ProductsPageContent() {
             </div>
           </div>
         </div>
-      )}
+        )}
 
-      {/* Pagination */}
-      {paginatedProducts.length > 0 && (
-        <Pagination
-          currentPage={validPage}
-          totalPages={totalPages}
-          totalItems={filteredProducts.length}
-          itemsPerPage={ITEMS_PER_PAGE}
-          baseUrl="/san-pham"
-        />
-      )}
+        {/* Pagination */}
+        {paginatedProducts.length > 0 && (
+          <Pagination
+            currentPage={validPage}
+            totalPages={totalPages}
+            totalItems={filteredProducts.length}
+            itemsPerPage={ITEMS_PER_PAGE}
+            baseUrl="/san-pham"
+          />
+        )}
+      </div>
+    </div>
     </>
   );
 }
@@ -251,21 +237,6 @@ export default function ProductsPage() {
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8 relative z-10">
-        <div className="mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-xs font-medium mb-4 tracking-wide uppercase">
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-            </svg>
-            Thiết bị công nghiệp
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            Tất cả sản phẩm
-          </h2>
-          <p className="text-sm text-gray-600">
-            Khám phá bộ sưu tập thiết bị công nghiệp chính hãng của chúng tôi
-          </p>
-        </div>
-
         <Suspense fallback={<ProductsPageFallback />}>
           <ProductsPageContent />
         </Suspense>
