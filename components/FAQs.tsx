@@ -94,27 +94,24 @@ export default function FAQs() {
             {faqs.map((faq, index) => (
               <ScrollAnimation key={faq.id} direction="up" delay={index * 100}>
                 <div
-                  className={`bg-white/10 backdrop-blur-md rounded-2xl shadow-sm hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border overflow-hidden group ${
-                    openIndex === index
-                      ? 'border-[#5f7ab8] shadow-lg shadow-[#5f7ab8]/20'
-                      : 'border-white/20 hover:border-white/30'
-                  }`}
+                  className={`bg-white/10 backdrop-blur-md rounded-2xl shadow-sm hover:bg-white/5 hover:shadow-2xl transition-all duration-300 border overflow-hidden group ${openIndex === index
+                    ? 'border-[#5f7ab8] shadow-lg shadow-[#5f7ab8]/20'
+                    : 'border-white/20 hover:border-white/30'
+                    }`}
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className={`w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-all duration-300 ${
-                      openIndex === index
-                        ? 'bg-gradient-to-r from-[#5f7ab8]/10 to-[#4a6199]/10'
-                        : 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-[#5f7ab8]/5'
-                    }`}
+                    className={`w-full px-6 py-5 text-left flex items-center justify-between gap-4 transition-all duration-300 ${openIndex === index
+                      ? 'bg-gradient-to-r from-[#5f7ab8]/10 to-[#4a6199]/10'
+                      : 'hover:bg-white/5'
+                      }`}
                   >
                     <div className="flex items-start gap-4 flex-1">
                       <div
-                        className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                          openIndex === index
-                            ? 'bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
-                            : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-[#5f7ab8]/20'
-                        }`}
+                        className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${openIndex === index
+                          ? 'bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white shadow-md'
+                          : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-[#5f7ab8]/20'
+                          }`}
                       >
                         <svg
                           className="w-4 h-4"
@@ -137,11 +134,10 @@ export default function FAQs() {
                       </span>
                     </div>
                     <div
-                      className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                        openIndex === index
-                          ? 'bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white rotate-180 shadow-md'
-                          : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-[#5f7ab8]/20 group-hover:scale-110'
-                      }`}
+                      className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${openIndex === index
+                        ? 'bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] text-white rotate-180 shadow-md'
+                        : 'bg-gray-100 text-[#5f7ab8] group-hover:bg-[#5f7ab8]/20 group-hover:scale-110'
+                        }`}
                     >
                       <svg
                         className="w-5 h-5 transition-transform duration-300"
@@ -159,9 +155,8 @@ export default function FAQs() {
                     </div>
                   </button>
                   <div
-                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
+                    className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                      }`}
                   >
                     <div className="px-6 pb-6 pt-2">
                       <div className="pl-12 pr-4">
