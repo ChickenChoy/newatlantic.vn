@@ -436,11 +436,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto bg-gradient-to-br from-gray-800/60 via-gray-900/60 to-black/60 backdrop-blur-xl rounded-2xl p-6 lg:p-8 hover:from-gray-700/70 hover:via-gray-800/70 hover:to-gray-900/70 hover:shadow-2xl hover:shadow-[#5f7ab8]/10 transition-all duration-500 border border-gray-600/30 hover:border-[#5f7ab8]/50">
             {/* WILL-BURT Card */}
             <ScrollAnimation direction="left" delay={0}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
                   <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -460,8 +460,8 @@ export default function HomePage() {
 
             {/* HIAB Card */}
             <ScrollAnimation direction="left" delay={100}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
                   <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -481,8 +481,8 @@ export default function HomePage() {
 
             {/* LOVOL Card */}
             <ScrollAnimation direction="right" delay={200}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
                   <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -502,8 +502,8 @@ export default function HomePage() {
 
             {/* LIUGONG Card */}
             <ScrollAnimation direction="right" delay={300}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col border border-white/20">
-                <div className="h-40 sm:h-44 md:h-48 bg-white flex items-center justify-center relative overflow-hidden p-6">
+              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
+                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
                   <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -842,27 +842,27 @@ export default function HomePage() {
               <div className="max-w-6xl mx-auto">
                 {/* First row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mb-4 mx-auto">
-                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
+                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                    <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
+                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                    <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
+                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                    <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 </div>
 
                 {/* Second row - 3 logos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
+                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                    <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
+                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                    <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <div className="bg-white/50 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/60 hover:shadow-2xl transition-all duration-300 border border-white/40 hover:border-[#5f7ab8]/50 flex items-center justify-center aspect-[4/3]">
-                    <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain brightness-[200%] contrast-[200%] saturate-150 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" />
+                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                    <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 </div>
               </div>
@@ -918,7 +918,7 @@ export default function HomePage() {
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <div className="inline-block px-3 py-1.5 bg-[#5f7ab8]/10 text-[white] rounded-full text-xs font-semibold mb-3">
+                  <div className="inline-block px-3 py-1.5 bg-[#5f7ab8]/20 backdrop-blur-sm text-[#5f7ab8] rounded-full text-xs font-semibold mb-3 border border-[#5f7ab8]/30">
                     TRỤ SỞ CHÍNH
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-white">TP. Hồ Chí Minh</h3>
@@ -951,7 +951,7 @@ export default function HomePage() {
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <div className="inline-block px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-semibold mb-3">
+                  <div className="inline-block px-3 py-1.5 bg-green-500/20 backdrop-blur-sm text-green-300 rounded-full text-xs font-semibold mb-3 border border-green-500/30">
                     CHI NHÁNH MIỀN BẮC
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-white">Hà Nội</h3>
@@ -984,7 +984,7 @@ export default function HomePage() {
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <div className="inline-block px-3 py-1.5 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold mb-3">
+                  <div className="inline-block px-3 py-1.5 bg-orange-500/20 backdrop-blur-sm text-orange-300 rounded-full text-xs font-semibold mb-3 border border-orange-500/30">
                     CHI NHÁNH MIỀN TRUNG
                   </div>
                   <h3 className="text-xl font-bold mb-4 text-white">Quảng Trị</h3>
