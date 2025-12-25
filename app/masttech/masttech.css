@@ -674,6 +674,41 @@
 }
 
 /* ===================================
+   Intro Series
+   =================================== */
+.mast-intro-series-section {
+    padding: 6rem 2rem;
+    background-color: var(--mast-secondary);
+    border-top: 1px solid var(--mast-gray-200);
+}
+
+.mast-intro-series-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mast-text-center {
+    text-align: center;
+}
+
+.mast-intro-description p {
+    font-size: 1.15rem;
+    color: var(--mast-gray-600);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.mast-intro-description p:last-child {
+    margin-bottom: 0;
+}
+
+.mast-intro-description p strong {
+    color: var(--mast-primary);
+    font-weight: 600;
+}
+
+/* ===================================
    Responsive Adjustments
    =================================== */
 @media (max-width: 640px) {

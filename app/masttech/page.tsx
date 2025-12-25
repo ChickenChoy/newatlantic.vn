@@ -229,6 +229,29 @@ export default function MasttechPage() {
                 </div>
             </section>
 
+            {/* MTS Series Intro */}
+            <section className="mast-section mast-intro-series-section">
+                <div className="mast-section-container">
+                    <div className="mast-intro-series-content animate-on-scroll">
+                        <p className="mast-section-label mast-text-center">Tổng quan sản phẩm</p>
+                        <h2 className="mast-section-title mast-heading mast-text-center">
+                            MTS Series
+                        </h2>
+                        <div className="mast-intro-description">
+                            <p>
+                                Dòng <strong>MTS Series</strong> nổi bật với trọng lượng nhẹ (19-49 kg) nhờ cấu trúc thân composite sợi thủy tinh bền bỉ.
+                            </p>
+                            <p>
+                                Với thiết kế tối ưu cho tính cơ động, sản phẩm dễ dàng vận chuyển và mang lại lợi thế chiến thuật vượt trội trên thực địa.
+                            </p>
+                            <p>
+                                Đây là giải pháp kinh tế hiệu quả cho tải trọng lên đến <strong>70 kg</strong>, hỗ trợ vận hành linh hoạt bằng tay hoặc động cơ điện.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Product 1: 18MTS */}
             <section id="18mts" className="mast-product">
                 <div className="mast-product-container">
