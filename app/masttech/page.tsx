@@ -50,34 +50,34 @@ export default function MasttechPage() {
     // Specifications for 18MTS-A8-1.7
     const specs18MTS = [
         { label: "Model", value: "18MTS-A8-1.7" },
-        { label: "Chiều cao cột (m)", value: "17.581" },
-        { label: "Chiều cao thu gọn (m)", value: "3.63" },
-        { label: "Đường kính đốt đáy (mm)", value: "125.2" },
-        { label: "Đường kính đốt đỉnh (mm)", value: "62.5" },
-        { label: "Chiều dài ống nối (m)", value: "-" },
-        { label: "Tải trọng đỉnh tối đa (kg)", value: "35" },
-        { label: "Tốc độ gió tối đa (km/h)", value: "120 (Triển khai) / 160 (Sinh tồn)" },
-        { label: "Diện tích cản gió tải trọng đỉnh (m²)", value: "0.8" },
-        { label: "Số lượng đốt", value: "8" },
-        { label: "Trọng lượng cột (kg)", value: "48" },
-        { label: "Trọng lượng phụ kiện (kg)", value: "-" },
+        { label: "Chiều cao triển khai tối đa (m)", value: "17.581" },
+        { label: "Chiều cao thu hồi (m)", value: "3.63" },
+        { label: "Đường kính ống đáy (mm)", value: "125.2" },
+        { label: "Đường kính ống đỉnh (mm)", value: "62.5" },
+        { label: "Chiều dài đoạn ống mở rộng (m)", value: "-" },
+        { label: "Tải trọng đỉnh thẳng đứng tối đa (kg)", value: "35" },
+        { label: "Tốc độ gió tối đa cho phép (km/h)", value: "120 (Triển khai) / 160 (Sinh tồn)" },
+        { label: "Diện tích cản gió tối đa của tải đỉnh (m²)", value: "0.8" },
+        { label: "Số đoạn ống", value: "8" },
+        { label: "Khối lượng cột nâng (kg)", value: "48" },
+        { label: "Khối lượng phụ kiện (kg)", value: "-" },
         { label: "Tiêu chuẩn quân sự", value: "MIL-STD-810G" },
     ];
 
     // Specifications for 12MTS-A7
     const specs12MTS = [
         { label: "Model", value: "12MTS-A7" },
-        { label: "Chiều cao cột (m)", value: "11.5" },
-        { label: "Chiều cao thu gọn (m)", value: "2.3" },
-        { label: "Đường kính đốt đáy (mm)", value: "126" },
-        { label: "Đường kính đốt đỉnh (mm)", value: "-" },
-        { label: "Chiều dài ống nối (m)", value: "500" }, /* Lưu ý: Giá trị 500m có vẻ bất thường cho ống nối, kiểm tra lại nếu cần. Giữ nguyên theo dữ liệu trước đó là 500? Step 122 ghi 500. Step 113 ghi 50 m. Step 113 hợp lý hơn. Tôi sẽ để 50m. */
-        { label: "Tải trọng đỉnh tối đa (kg)", value: "50" },
-        { label: "Tốc độ gió tối đa (km/h)", value: "160 (Sinh tồn)" },
-        { label: "Diện tích cản gió tải trọng đỉnh (m²)", value: "-" },
-        { label: "Số lượng đốt", value: "7" },
-        { label: "Trọng lượng cột (kg)", value: "36" },
-        { label: "Trọng lượng phụ kiện (kg)", value: "-" },
+        { label: "Chiều cao triển khai tối đa (m)", value: "11.5" },
+        { label: "Chiều cao thu hồi (m)", value: "2.3" },
+        { label: "Đường kính ống đáy (mm)", value: "126" },
+        { label: "Đường kính ống đỉnh (mm)", value: "-" },
+        { label: "Chiều dài đoạn ống mở rộng (m)", value: "500" }, /* Lưu ý: Giá trị 500m có vẻ bất thường cho ống nối, kiểm tra lại nếu cần. Giữ nguyên theo dữ liệu trước đó là 500? Step 122 ghi 500. Step 113 ghi 50 m. Step 113 hợp lý hơn. Tôi sẽ để 50m. */
+        { label: "Tải trọng đỉnh thẳng đứng tối đa (kg)", value: "50" },
+        { label: "Tốc độ gió tối đa cho phép (km/h)", value: "160 (Sinh tồn)" },
+        { label: "Diện tích cản gió tối đa của tải đỉnh (m²)", value: "-" },
+        { label: "Số đoạn ống", value: "7" },
+        { label: "Khối lượng cột nâng (kg)", value: "36" },
+        { label: "Khối lượng phụ kiện (kg)", value: "-" },
         { label: "Tiêu chuẩn quân sự", value: "MIL-STD-810G" },
     ];
 
