@@ -2,16 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
-import Header from "@/components/Header";
-import HeaderBottom from "@/components/HeaderBottom";
-import Footer from "@/components/Footer";
-import PageTransition from "@/components/PageTransition";
 import ProgressBar from "@/components/ProgressBar";
-import ScrollProgressBar from "@/components/ScrollProgressBar";
-import FloatingContactButtons from "@/components/FloatingContactButtons";
-import ScrollToTop from "@/components/ScrollToTop";
 import ToastProvider from "@/components/ToastProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import LayoutWrapper from "@/components/LayoutWrapper";
 import { siteConfig } from "@/lib/seo";
 
 const inter = Inter({
@@ -134,18 +128,8 @@ export default function RootLayout({
           <GoogleAnalytics />
         </Suspense>
         <ToastProvider>
-          <ScrollProgressBar />
           <ProgressBar />
-          <Header />
-          <HeaderBottom />
-          <PageTransition>
-            <main className="min-h-screen">
-              {children}
-            </main>
-          </PageTransition>
-          <Footer />
-          <FloatingContactButtons />
-          <ScrollToTop />
+          <LayoutWrapper>{children}</LayoutWrapper>
         </ToastProvider>
       </body>
     </html>
