@@ -16,7 +16,9 @@
     --mast-gradient: linear-gradient(135deg, #c9a962 0%, #e8d5a3 50%, #c9a962 100%);
     --mast-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     --mast-shadow-sm: 0 10px 30px -12px rgba(0, 0, 0, 0.1);
-    --mast-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --mast-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --mast-transition-fast: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --mast-transition-slow: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
     --font-heading: var(--font-playfair), 'Playfair Display', serif;
     --font-body: var(--font-outfit), 'Outfit', sans-serif;
     --mast-glow-gold: 0 0 40px rgba(201, 169, 98, 0.4);
@@ -501,9 +503,30 @@
     transition: var(--mast-transition);
 }
 
+/* Ken Burns subtle zoom effect for about image */
+.mast-about-image img {
+    animation: kenBurns 20s ease-in-out infinite alternate;
+}
+
+@keyframes kenBurns {
+    0% {
+        transform: scale(1) translateX(0);
+    }
+
+    100% {
+        transform: scale(1.08) translateX(-2%);
+    }
+}
+
 .mast-about-image:hover {
     transform: scale(1.02);
     box-shadow: var(--mast-shadow);
+}
+
+.mast-about-image:hover img {
+    animation-play-state: paused;
+    transform: scale(1.05);
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .mast-placeholder-image {
@@ -625,6 +648,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.mast-product-image:hover img {
+    transform: scale(1.08);
 }
 
 .mast-product-badge {
@@ -980,6 +1008,283 @@
 }
 
 /* ===================================
+   Extra Animations & Effects
+   =================================== */
+
+/* Shine sweep effect for images */
+.mast-product-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.25),
+            transparent);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.mast-product-image:hover::after {
+    animation: shineSweep 0.8s ease forwards;
+}
+
+@keyframes shineSweep {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Floating badge animation */
+.mast-product-badge {
+    animation: badgePulse 2s ease-in-out infinite, floatBadge 3s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-5px) scale(1.02);
+    }
+}
+
+/* Glowing border effect for sections */
+.mast-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--mast-accent), transparent);
+    animation: glowExpand 3s ease-in-out infinite;
+}
+
+@keyframes glowExpand {
+
+    0%,
+    100% {
+        width: 100px;
+        opacity: 0.5;
+    }
+
+    50% {
+        width: 200px;
+        opacity: 1;
+    }
+}
+
+/* Text reveal animation for highlights */
+.mast-about-highlight {
+    position: relative;
+    overflow: hidden;
+}
+
+.mast-about-highlight::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--mast-secondary);
+    animation: textReveal 1.5s ease forwards 0.5s;
+}
+
+@keyframes textReveal {
+    0% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0%;
+    }
+}
+
+/* Gradient border animation for specs */
+.mast-specs-grid {
+    position: relative;
+}
+
+.mast-specs-grid::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, var(--mast-accent), transparent, var(--mast-accent), transparent);
+    background-size: 400% 400%;
+    border-radius: 6px;
+    z-index: -1;
+    opacity: 0;
+    animation: gradientRotate 4s linear infinite;
+    transition: opacity 0.5s ease;
+}
+
+.mast-specs-grid:hover::before {
+    opacity: 1;
+}
+
+@keyframes gradientRotate {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Typing cursor effect for hero label */
+.mast-hero-label::after {
+    content: '|';
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+    opacity: 0;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Section fade-in with slide */
+.mast-section-header {
+    position: relative;
+}
+
+.mast-section-label {
+    animation: slideInFromLeft 0.8s ease forwards;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* CTA button ripple effect */
+.mast-hero-cta::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.mast-hero-cta:active::after {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+}
+
+/* Floating particles in hero (additional) */
+.mast-hero {
+    position: relative;
+}
+
+.mast-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Enhanced scroll indicator */
+.mast-hero-scroll::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 15px;
+    background: linear-gradient(to bottom, transparent, var(--mast-accent));
+    animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+
+    0%,
+    100% {
+        height: 15px;
+        opacity: 0.5;
+    }
+
+    50% {
+        height: 25px;
+        opacity: 1;
+    }
+}
+
+/* Logo hover effect */
+.mast-logo {
+    position: relative;
+}
+
+.mast-logo::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--mast-accent);
+    transition: width 0.4s ease;
+}
+
+.mast-logo:hover::before {
+    width: 100%;
+}
+
+/* Footer subtle animation */
+.mast-footer-logo {
+    animation: subtlePulse 4s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* ===================================
    Intro Series
    =================================== */
 .mast-intro-series-section {
@@ -1045,6 +1350,43 @@
     }
 
     .mast-hero-content {
-        padding: 1rem;
+        padding: 2rem 1.5rem;
+        transform: scale(1.1);
+    }
+
+    /* Mobile Hero - Bigger Title, Smaller Subtitle */
+    .mast-hero-label {
+        font-size: 0.85rem;
+        letter-spacing: 0.25em;
+        margin-bottom: 1rem;
+    }
+
+    .mast-hero-title {
+        font-size: 5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1;
+    }
+
+    .mast-hero-subtitle {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin: 0 auto 2rem;
+        padding: 0 0.5rem;
+        opacity: 0.8;
+    }
+
+    .mast-hero-cta {
+        padding: 0.9rem 2rem;
+        font-size: 0.75rem;
+    }
+
+    .mast-hero-scroll {
+        font-size: 0.65rem;
+        bottom: 1.5rem;
+    }
+
+    .mast-hero-scroll svg {
+        width: 16px;
+        height: 16px;
     }
 }
