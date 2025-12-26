@@ -1727,23 +1727,6 @@
     }
 }
 
-/* Interactive Navbar Links */
-.mast-nav-link::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--mast-accent);
-    transform: translateX(-50%);
-    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.mast-nav-link:hover::before {
-    width: 110%;
-}
-
 /* Scroll Progress Indicator */
 .mast-scroll-progress {
     position: fixed;
@@ -1946,10 +1929,6 @@
 
     .mast-intro-series-content::before,
     .mast-intro-series-content::after {
-        display: none;
-    }
-
-    .mast-nav-link::before {
         display: none;
     }
 
