@@ -23,6 +23,9 @@
     --font-body: var(--font-outfit), 'Outfit', sans-serif;
     --mast-glow-gold: 0 0 40px rgba(201, 169, 98, 0.4);
     --mast-glow-gold-intense: 0 0 60px rgba(201, 169, 98, 0.6);
+    --mast-neon-glow: 0 0 10px rgba(201, 169, 98, 0.3), 0 0 20px rgba(201, 169, 98, 0.2), 0 0 40px rgba(201, 169, 98, 0.1);
+    --mast-glass: rgba(255, 255, 255, 0.15);
+    --mast-glass-border: rgba(255, 255, 255, 0.2);
 }
 
 /* Reset & Base */
@@ -214,6 +217,96 @@
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a962' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     opacity: 0.5;
     animation: patternFloat 20s ease-in-out infinite;
+}
+
+/* Floating Geometric Shapes */
+.mast-hero .mast-floating-shape {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.mast-floating-shape-1 {
+    top: 15%;
+    left: 10%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--mast-accent);
+    opacity: 0.15;
+    animation: floatRotate 15s ease-in-out infinite;
+}
+
+.mast-floating-shape-2 {
+    top: 60%;
+    right: 15%;
+    width: 120px;
+    height: 120px;
+    border: 2px solid var(--mast-accent);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: floatRotate 20s ease-in-out infinite reverse;
+}
+
+.mast-floating-shape-3 {
+    bottom: 20%;
+    left: 15%;
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 70px solid rgba(201, 169, 98, 0.08);
+    animation: floatRotate 18s ease-in-out infinite;
+}
+
+.mast-floating-shape-4 {
+    top: 25%;
+    right: 20%;
+    width: 60px;
+    height: 60px;
+    background: rgba(201, 169, 98, 0.05);
+    border-radius: 8px;
+    animation: floatRotate 12s ease-in-out infinite reverse, pulse3D 4s ease-in-out infinite;
+}
+
+.mast-floating-shape-5 {
+    bottom: 35%;
+    right: 8%;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba(201, 169, 98, 0.1), transparent);
+    animation: floatRotate 25s ease-in-out infinite;
+}
+
+@keyframes floatRotate {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(-3deg);
+    }
+
+    75% {
+        transform: translateY(-25px) rotate(2deg);
+    }
+}
+
+@keyframes pulse3D {
+
+    0%,
+    100% {
+        transform: scale(1) rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotateX(10deg) rotateY(10deg);
+    }
 }
 
 /* Floating Particles */
@@ -1388,5 +1481,516 @@
     .mast-hero-scroll svg {
         width: 16px;
         height: 16px;
+    }
+
+    /* Hide floating shapes on mobile */
+    .mast-floating-shape-1,
+    .mast-floating-shape-2,
+    .mast-floating-shape-3,
+    .mast-floating-shape-4,
+    .mast-floating-shape-5 {
+        display: none;
+    }
+}
+
+/* ===================================
+   Advanced Effects & Animations
+   =================================== */
+
+/* 3D Card Perspective Effect */
+.mast-product-image {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.mast-product-image:hover {
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg) scale(1.03);
+}
+
+/* Magnetic Button Effect Base */
+.mast-hero-cta,
+.mast-back-btn {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+/* Animated Gradient Text Effect */
+.mast-section-title {
+    background: linear-gradient(90deg,
+            var(--mast-primary) 0%,
+            var(--mast-accent) 15%,
+            var(--mast-primary) 30%,
+            var(--mast-accent) 50%,
+            var(--mast-primary) 70%,
+            var(--mast-accent) 85%,
+            var(--mast-primary) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientText 6s linear infinite;
+}
+
+@keyframes gradientText {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* Enhanced Spec Row Animation with Counter Effect */
+.mast-spec-row {
+    counter-increment: spec-counter;
+    position: relative;
+}
+
+.mast-spec-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--mast-accent), transparent);
+    transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mast-spec-row:hover::after {
+    width: 100%;
+}
+
+/* Staggered Row Animation */
+.mast-specs-grid .mast-spec-row:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(6) {
+    animation-delay: 0.3s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(8) {
+    animation-delay: 0.4s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(9) {
+    animation-delay: 0.45s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(10) {
+    animation-delay: 0.5s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(11) {
+    animation-delay: 0.55s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(12) {
+    animation-delay: 0.6s;
+}
+
+.mast-specs-grid .mast-spec-row:nth-child(13) {
+    animation-delay: 0.65s;
+}
+
+/* Morphing Background for CTA Section */
+.mast-cta-section::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 500px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse, rgba(201, 169, 98, 0.15) 0%, transparent 70%);
+    animation: morphBg 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes morphBg {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+    }
+
+    25% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(90deg);
+        border-radius: 60% 40% 40% 60% / 40% 60% 40% 60%;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(0.95) rotate(180deg);
+        border-radius: 50% 50% 40% 60% / 60% 50% 50% 40%;
+    }
+
+    75% {
+        transform: translate(-50%, -50%) scale(1.05) rotate(270deg);
+        border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+    }
+}
+
+/* Enhanced Hover Effects for About Section */
+.mast-about-text p {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.mast-about-text:hover p {
+    transform: translateX(8px);
+}
+
+/* Glowing Border Animation */
+.mast-about-highlight {
+    position: relative;
+}
+
+/* Only apply glowing animation on desktop (mobile already has border-left from base styles) */
+@media (min-width: 769px) {
+    .mast-about-highlight {
+        border-left: none;
+        padding-left: 1.5rem;
+    }
+
+    .mast-about-highlight::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: linear-gradient(to bottom, var(--mast-accent), rgba(201, 169, 98, 0.3), var(--mast-accent));
+        background-size: 100% 200%;
+        animation: glowingBorder 3s ease-in-out infinite;
+    }
+}
+
+@keyframes glowingBorder {
+
+    0%,
+    100% {
+        background-position: 0% 0%;
+        box-shadow: 0 0 10px rgba(201, 169, 98, 0.3);
+    }
+
+    50% {
+        background-position: 0% 100%;
+        box-shadow: 0 0 20px rgba(201, 169, 98, 0.6);
+    }
+}
+
+/* Floating Animation for Product Badge */
+.mast-product-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    animation: badgeShine 3s ease-in-out infinite;
+}
+
+@keyframes badgeShine {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+/* Interactive Navbar Links */
+.mast-nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--mast-accent);
+    transform: translateX(-50%);
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mast-nav-link:hover::before {
+    width: 110%;
+}
+
+/* Scroll Progress Indicator */
+.mast-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--mast-accent), #e8d5a3);
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 10px rgba(201, 169, 98, 0.5);
+}
+
+/* Enhanced Label Effect */
+.mast-section-label {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.mast-section-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--mast-accent);
+    animation: labelLine 2s ease-in-out infinite;
+}
+
+@keyframes labelLine {
+
+    0%,
+    100% {
+        width: 40px;
+        opacity: 1;
+    }
+
+    50% {
+        width: 80px;
+        opacity: 0.7;
+    }
+}
+
+/* Footer Enhancement */
+.mast-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--mast-accent),
+            transparent);
+    animation: footerLine 4s ease-in-out infinite;
+}
+
+@keyframes footerLine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Product Section Decorative Lines */
+.mast-product::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 1px;
+    height: 100px;
+    background: linear-gradient(to bottom, var(--mast-accent), transparent);
+    animation: lineGrow 1.5s ease-out forwards;
+    opacity: 0.3;
+}
+
+.mast-product::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    width: 1px;
+    height: 100px;
+    background: linear-gradient(to top, var(--mast-accent), transparent);
+    animation: lineGrow 1.5s ease-out forwards;
+    opacity: 0.3;
+}
+
+@keyframes lineGrow {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+
+    100% {
+        height: 100px;
+        opacity: 0.3;
+    }
+}
+
+/* Intro Series Enhanced */
+.mast-intro-series-content::before,
+.mast-intro-series-content::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(201, 169, 98, 0.2);
+    pointer-events: none;
+}
+
+.mast-intro-series-content::before {
+    top: -20px;
+    left: -20px;
+    border-right: none;
+    border-bottom: none;
+    animation: cornerPulse 3s ease-in-out infinite;
+}
+
+.mast-intro-series-content::after {
+    bottom: -20px;
+    right: -20px;
+    border-left: none;
+    border-top: none;
+    animation: cornerPulse 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes cornerPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* ===================================
+   Mobile Performance Optimizations
+   =================================== */
+@media (max-width: 768px) {
+
+    /* Disable heavy animations on mobile for performance */
+    .mast-section-title {
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: var(--mast-primary) !important;
+        background-clip: unset !important;
+        animation: none !important;
+    }
+
+    .mast-product-image {
+        perspective: none;
+        transform-style: flat;
+    }
+
+    .mast-product-image:hover {
+        transform: none;
+    }
+
+    .mast-spec-row::after,
+    .mast-spec-row::before {
+        display: none;
+    }
+
+    .mast-section-label::after {
+        animation: none;
+        width: 40px;
+    }
+
+    .mast-cta-section::after {
+        display: none;
+    }
+
+    .mast-about-highlight::before,
+    .mast-about-highlight::after {
+        animation: none;
+    }
+
+    .mast-footer::before {
+        display: none;
+    }
+
+    .mast-product::before,
+    .mast-product::after {
+        display: none;
+    }
+
+    .mast-intro-series-content::before,
+    .mast-intro-series-content::after {
+        display: none;
+    }
+
+    .mast-nav-link::before {
+        display: none;
+    }
+
+    .mast-product-badge::before {
+        display: none;
+    }
+
+    /* Ensure menu toggle is always visible */
+    .mast-menu-toggle {
+        display: flex !important;
+        z-index: 1001;
+        position: relative;
+    }
+
+    /* Disable scroll progress on mobile */
+    .mast-scroll-progress {
+        display: none;
+    }
+
+    /* Simplify hover effects */
+    .mast-about-text:hover p {
+        transform: none;
+    }
+
+    /* Reduce animation complexity */
+    .animate-on-scroll {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .animate-on-scroll.visible {
+        transition: none;
+    }
+
+    /* Fix text reveal overlay hiding text on mobile */
+    .mast-about-highlight::after {
+        display: none !important;
+    }
+
+    .mast-about-highlight {
+        overflow: visible;
     }
 }

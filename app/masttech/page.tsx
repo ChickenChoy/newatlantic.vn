@@ -7,14 +7,38 @@ import Image from "next/image";
 export default function MasttechPage() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrollProgress, setScrollProgress] = useState(0);
+    const [mounted, setMounted] = useState(false);
 
-    // Handle navbar scroll effect
+    // Set mounted after client-side hydration
     useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Handle navbar scroll effect and scroll progress (optimized for mobile)
+    useEffect(() => {
+        let ticking = false;
+        const isMobile = window.innerWidth <= 768;
+
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    setIsScrolled(window.scrollY > 50);
+
+                    // Only calculate scroll progress on desktop
+                    if (!isMobile) {
+                        const scrollTop = window.scrollY;
+                        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                        setScrollProgress(progress);
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -83,6 +107,14 @@ export default function MasttechPage() {
 
     return (
         <>
+            {/* Scroll Progress Indicator - Only render on client */}
+            {mounted && (
+                <div
+                    className="mast-scroll-progress"
+                    style={{ width: `${scrollProgress}%` }}
+                />
+            )}
+
             {/* Navbar */}
             <nav className={`mast-navbar ${isScrolled ? "scrolled" : ""}`}>
                 <div className="mast-navbar-container">
@@ -146,6 +178,13 @@ export default function MasttechPage() {
 
             {/* Hero Section */}
             <section id="hero" className="mast-hero">
+                {/* Floating Geometric Shapes */}
+                <div className="mast-floating-shape mast-floating-shape-1"></div>
+                <div className="mast-floating-shape mast-floating-shape-2"></div>
+                <div className="mast-floating-shape mast-floating-shape-3"></div>
+                <div className="mast-floating-shape mast-floating-shape-4"></div>
+                <div className="mast-floating-shape mast-floating-shape-5"></div>
+
                 <div className="mast-hero-content">
                     <p className="mast-hero-label mast-subheading">
                         Công nghệ nâng hạ tiên tiến
