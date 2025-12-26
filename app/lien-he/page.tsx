@@ -447,13 +447,13 @@ export default function ContactPage() {
                     href="tel:+842838733686"
                     className="block w-full bg-white text-cyan-700 text-center py-4 rounded-xl font-bold hover:bg-cyan-50 hover:shadow-lg transition-all transform hover:-translate-y-1"
                   >
-                    📞 Gọi ngay
+                    Gọi ngay
                   </a>
                   <a
                     href="mailto:info@newatlantic.vn"
                     className="block w-full bg-white/20 backdrop-blur-sm text-white text-center py-4 rounded-xl font-bold hover:bg-white/30 hover:shadow-lg transition-all transform hover:-translate-y-1 border border-white/30"
                   >
-                    ✉️ Gửi email
+                    Gửi email
                   </a>
                 </div>
               </div>
