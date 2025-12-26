@@ -78,13 +78,13 @@ export default function MasttechPage() {
         { label: "Chiều cao thu hồi (m)", value: "3.63" },
         { label: "Đường kính ống đáy (mm)", value: "125.2" },
         { label: "Đường kính ống đỉnh (mm)", value: "62.5" },
-        { label: "Chiều dài đoạn ống mở rộng (m)", value: "-" },
+        // { label: "Chiều dài đoạn ống mở rộng (m)", value: "-" },
         { label: "Tải trọng đỉnh thẳng đứng tối đa (kg)", value: "35" },
         { label: "Tốc độ gió tối đa cho phép (km/h)", value: "120 (Triển khai) / 160 (Sinh tồn)" },
         { label: "Diện tích cản gió tối đa của tải đỉnh (m²)", value: "0.8" },
         { label: "Số đoạn ống", value: "8" },
         { label: "Khối lượng cột nâng (kg)", value: "48" },
-        { label: "Khối lượng phụ kiện (kg)", value: "-" },
+        // { label: "Khối lượng phụ kiện (kg)", value: "-" },
         { label: "Tiêu chuẩn quân sự", value: "MIL-STD-810G" },
     ];
 
@@ -94,14 +94,14 @@ export default function MasttechPage() {
         { label: "Chiều cao triển khai tối đa (m)", value: "11.5" },
         { label: "Chiều cao thu hồi (m)", value: "2.3" },
         { label: "Đường kính ống đáy (mm)", value: "126" },
-        { label: "Đường kính ống đỉnh (mm)", value: "-" },
+        // { label: "Đường kính ống đỉnh (mm)", value: "-" },
         { label: "Chiều dài đoạn ống mở rộng (m)", value: "500" }, /* Lưu ý: Giá trị 500m có vẻ bất thường cho ống nối, kiểm tra lại nếu cần. Giữ nguyên theo dữ liệu trước đó là 500? Step 122 ghi 500. Step 113 ghi 50 m. Step 113 hợp lý hơn. Tôi sẽ để 50m. */
         { label: "Tải trọng đỉnh thẳng đứng tối đa (kg)", value: "50" },
         { label: "Tốc độ gió tối đa cho phép (km/h)", value: "160 (Sinh tồn)" },
-        { label: "Diện tích cản gió tối đa của tải đỉnh (m²)", value: "-" },
+        // { label: "Diện tích cản gió tối đa của tải đỉnh (m²)", value: "-" },
         { label: "Số đoạn ống", value: "7" },
         { label: "Khối lượng cột nâng (kg)", value: "36" },
-        { label: "Khối lượng phụ kiện (kg)", value: "-" },
+        // { label: "Khối lượng phụ kiện (kg)", value: "-" },
         { label: "Tiêu chuẩn quân sự", value: "MIL-STD-810G" },
     ];
 
@@ -297,7 +297,7 @@ export default function MasttechPage() {
                     <div className="mast-product-header animate-on-scroll">
                         <p className="mast-product-model mast-subheading">MTS Model</p>
                         <h2 className="mast-product-title mast-heading">
-                            Cột Masttech 18MTS
+                            Masttech 18MTS
                         </h2>
                     </div>
 
@@ -336,7 +336,7 @@ export default function MasttechPage() {
                     <div className="mast-product-header animate-on-scroll">
                         <p className="mast-product-model mast-subheading">MTS Model</p>
                         <h2 className="mast-product-title mast-heading">
-                            Cột Masttech 12MTS
+                            Masttech 12MTS
                         </h2>
                     </div>
 
