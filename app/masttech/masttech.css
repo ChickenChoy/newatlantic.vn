@@ -9,6 +9,7 @@
     --mast-accent: #4a5d23;
     --mast-accent-hover: #3d4d1e;
     --mast-accent-light: #6b8e23;
+    --mast-army-dark: #2d3a14;
     --mast-gray-100: #f9f9f9;
     --mast-gray-200: #e5e5e5;
     --mast-gray-300: #cccccc;
@@ -430,7 +431,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 1rem 2.5rem;
-    background: var(--mast-primary);
+    background: var(--mast-accent);
     color: var(--mast-secondary);
     text-decoration: none;
     font-size: 0.85rem;
@@ -461,7 +462,7 @@
 }
 
 .mast-hero-cta:hover {
-    background: var(--mast-accent);
+    background: var(--mast-accent-hover);
     transform: translateY(-4px);
     box-shadow: var(--mast-glow);
 }
@@ -806,7 +807,7 @@
     display: grid;
     gap: 1px;
     background: var(--mast-gray-200);
-    border: 1px solid var(--mast-gray-200);
+    border: 1px solid var(--mast-accent);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -882,7 +883,7 @@
    =================================== */
 .mast-cta-section {
     padding: 6rem 2rem;
-    background: linear-gradient(-45deg, #1a1a1a, #2d2d2d, #1a1a1a, #333333);
+    background: linear-gradient(-45deg, #2d3a14, #3d4d1e, #4a5d23, #2d3a14);
     background-size: 400% 400%;
     animation: gradientShift 10s ease infinite;
     text-align: center;
@@ -970,6 +971,7 @@
     padding: 3rem 2rem;
     background: var(--mast-gray-100);
     text-align: center;
+    border-top: 2px solid var(--mast-accent);
 }
 
 .mast-footer-logo {
