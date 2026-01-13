@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       'WILL-BURT',
       'HIAB',
       'LOVOL',
-      'LIUGONG',
+      'SKYMARK',
     ],
   });
 }

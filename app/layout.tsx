@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "WILL-BURT",
     "HIAB",
     "LOVOL",
-    "LIUGONG",
+    "SKYMARK",
     "cột tự nâng",
     "thiết bị nâng hạ",
     "máy móc công trình",

@@ -15,7 +15,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = genMeta({
   title: 'NEW ATLANTIC - Tân Đại Tây Dương | Thiết bị công nghiệp chính hãng',
-  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, LOVOL, LIUGONG tại Việt Nam. Cung cấp cột tự nâng, cẩu tự hành HIAB, thiết bị nâng hạ, máy móc công trình chất lượng cao. Hơn 22 năm kinh nghiệm, hỗ trợ 24/7.',
+  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, LOVOL, SKYMARK tại Việt Nam. Cung cấp cột tự nâng, cẩu tự hành HIAB, thiết bị nâng hạ, máy móc công trình chất lượng cao. Hơn 22 năm kinh nghiệm, hỗ trợ 24/7.',
   path: '/',
   keywords: [
     'NEW ATLANTIC',
@@ -23,7 +23,7 @@ export const metadata: Metadata = genMeta({
     'WILL-BURT',
     'HIAB',
     'LOVOL',
-    'LIUGONG',
+    'SKYMARK',
     'cột tự nâng',
     'cẩu tự hành',
     'xe nâng Moffett',
@@ -267,7 +267,7 @@ export default function HomePage() {
                   <span className="block text-white">các thương hiệu nổi tiếng</span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
-                  <strong className="text-white">Tân Đại Tây Dương</strong> là nhà phân phối hàng đầu tại Việt Nam cho các thương hiệu nổi tiếng thế giới như <strong className="text-white">WILL-BURT, HIAB, LOVOL, LIUGONG</strong>. Chúng tôi cung cấp sản phẩm và dịch vụ chính hãng.
+                  <strong className="text-white">Tân Đại Tây Dương</strong> là nhà phân phối hàng đầu tại Việt Nam cho các thương hiệu nổi tiếng thế giới như <strong className="text-white">WILL-BURT, HIAB, LOVOL, SKYMARK</strong>. Chúng tôi cung cấp sản phẩm và dịch vụ chính hãng.
                 </p>
               </div>
             </ScrollAnimation>
@@ -291,7 +291,7 @@ export default function HomePage() {
                   <span className="text-[#10b981] text-sm font-semibold uppercase tracking-wider mb-2 block">02</span>
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Thiết bị cơ giới</h3>
                   <p className="text-white/80 text-base leading-relaxed">
-                    LOVOL, LIUGONG với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
+                    LOVOL, SKYMARK với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
                   </p>
                 </div>
               </ScrollAnimation>
@@ -359,7 +359,7 @@ export default function HomePage() {
                   </span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
-                  Nhà phân phối chính thức của <strong className="text-white">WILL-BURT, HIAB, LOVOL, LIUGONG</strong> tại Việt Nam với cam kết chất lượng và dịch vụ tốt nhất
+                  Nhà phân phối chính thức của <strong className="text-white">WILL-BURT, HIAB, LOVOL, SKYMARK</strong> tại Việt Nam với cam kết chất lượng và dịch vụ tốt nhất
                 </p>
               </ScrollAnimation>
             </div>
@@ -429,18 +429,18 @@ export default function HomePage() {
               </div>
             </ScrollAnimation>
 
-            {/* LIUGONG Card */}
+            {/* SKYMARK Card */}
             <ScrollAnimation direction="right" delay={300}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
                 <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
-                  <img src="/images/box-image/liugong.jpg" alt="LIUGONG" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
+                  <img src="/images/box-image/skymark.jpg" alt="SKYMARK" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ LIUGONG</h3>
+                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ HÀNG KHÔNG SKYMARK</h3>
                   <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                     Thiết bị cơ giới xây dựng chất lượng cao, độ bền vượt trội cho mọi công trình.
                   </p>
-                  <Link href="/san-pham/thiet-bi-cong-trinh-liugong" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
+                  <Link href="/san-pham/thiet-bi-cong-trinh-SKYMARK" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
                     Khám phá ngay
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -555,7 +555,7 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>
-                    Máy móc LOVOL, LIUGONG
+                    Máy móc LOVOL, SKYMARK
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>
@@ -760,7 +760,7 @@ export default function HomePage() {
                     <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/LS.png" alt="LiuGong" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                    <img src="/images/partner/LS.png" alt="SKYMARK" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
                     <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />

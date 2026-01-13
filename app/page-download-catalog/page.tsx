@@ -5,13 +5,13 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Catalog Sản Phẩm | NewAtlantic - Thiết Bị Công Nghiệp Chính Hãng',
-  description: 'Tải về catalog chi tiết các sản phẩm Will-Burt, Hiab, Lovol, Liugong. Cột tự nâng, thiết bị nâng hạ, máy móc công trình chính hãng tại Việt Nam.',
+  description: 'Tải về catalog chi tiết các sản phẩm Will-Burt, Hiab, Lovol, SKYMARK. Cột tự nâng, thiết bị nâng hạ, máy móc công trình chính hãng tại Việt Nam.',
   keywords: [
     'catalog sản phẩm',
     'Will-Burt catalog',
     'Hiab catalog',
     'Lovol catalog',
-    'Liugong catalog',
+    'SKYMARK catalog',
     'cột tự nâng',
     'thiết bị nâng hạ',
     'máy móc công trình',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Catalog Sản Phẩm | NewAtlantic',
-    description: 'Tải về catalog chi tiết các sản phẩm thiết bị công nghiệp chính hãng Will-Burt, Hiab, Lovol, Liugong',
+    description: 'Tải về catalog chi tiết các sản phẩm thiết bị công nghiệp chính hãng Will-Burt, Hiab, Lovol, SKYMARK',
     type: 'website',
     images: [
       {
@@ -48,7 +48,7 @@ export default function DownloadCatalogPage() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Catalog Sản Phẩm | NewAtlantic",
-    "description": "Tải về catalog chi tiết các sản phẩm thiết bị công nghiệp chính hãng Will-Burt, Hiab, Lovol, Liugong",
+    "description": "Tải về catalog chi tiết các sản phẩm thiết bị công nghiệp chính hãng Will-Burt, Hiab, Lovol, SKYMARK",
     "url": "https://newatlantic.vn/page-download-catalog",
     "mainEntity": {
       "@type": "ItemList",

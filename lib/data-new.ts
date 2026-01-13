@@ -25,9 +25,9 @@ export const categories: Category[] = [
   },
   {
     id: "4",
-    name: "Thiết Bị Công Trình LIUGONG",
-    slug: "thiet-bi-cong-trinh-liugong",
-    description: "Máy móc thiết bị công trình LIUGONG"
+    name: "Thiết Bị Hàng Không SKYMARK",
+    slug: "thiet-bi-cong-trinh-SKYMARK",
+    description: "Máy móc Thiết Bị Hàng Không SKYMARK"
   }
 ];
 
@@ -115,16 +115,16 @@ export const products: Product[] = [
   },
   {
     id: "6",
-    name: "Máy xúc đào LiuGong CLG906E, dung tích gầu 1 khối",
-    slug: "may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    name: "Máy xúc đào SKYMARK CLG906E, dung tích gầu 1 khối",
+    slug: "may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "THÔNG SỐ KỸ THUẬT CHI TIẾT \nTự trọng: 5900 kg \nDung tích gầu tiêu chuẩn: 0.23 m³ \n<p...",
     image: "/images/products/banner-906e.png",
     price: "Liên hệ",
     featured: true,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -453,14 +453,14 @@ export const products: Product[] = [
     id: "27",
     name: "Máy xúc đào 9018F",
     slug: "may-xuc-dao-9018f",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "\n \n \n \n<div class=\"p...",
     image: "/images/products/9018F.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -469,14 +469,14 @@ export const products: Product[] = [
     id: "28",
     name: "Máy xúc đào 9057FZTS",
     slug: "may-xuc-dao-9057fzts",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
-    description: "\n \n \n \n \nLiuGong đa...",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
+    description: "\n \n \n \n \nSKYMARK đa...",
     image: "/images/products/9057FZTS.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -485,14 +485,14 @@ export const products: Product[] = [
     id: "29",
     name: "Máy ủi B160CR",
     slug: "may-ui-b160cr",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "Trọng lượng vận hành:19,100 kg \n \nCông suất động cơ:131 kW \n \nDung tích gầu:10.4 m³...",
     image: "/images/products/B160CR.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -501,14 +501,14 @@ export const products: Product[] = [
     id: "30",
     name: "Máy san gạt 4140D",
     slug: "may-san-gat-4140d",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "...",
     image: "/images/products/4140D.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -517,14 +517,14 @@ export const products: Product[] = [
     id: "31",
     name: "Máy xúc đào liên hợp 775A",
     slug: "may-xuc-dao-lien-hop-775a",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "...",
     image: "/images/products/775A.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -533,14 +533,14 @@ export const products: Product[] = [
     id: "32",
     name: "Máy rải thảm 509E",
     slug: "may-rai-tham-509e",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "...",
     image: "/images/products/509E.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }
@@ -549,14 +549,14 @@ export const products: Product[] = [
     id: "33",
     name: "Máy xúc lật đa năng 365 B",
     slug: "may-xuc-lat-da-nang-365-b",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "...",
     image: "/images/products/365-B.png",
     price: "Liên hệ",
     featured: false,
     specifications: {
-      brand: "LIUGONG",
+      brand: "SKYMARK",
       origin: "Nhập khẩu chính hãng",
       warranty: "12 tháng"
     }

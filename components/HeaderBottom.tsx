@@ -239,20 +239,20 @@ export default function HeaderBottom() {
                       </div>
                     </Link>
                     <Link 
-                      href="/san-pham/thiet-bi-cong-trinh-liugong"
+                      href="/san-pham/thiet-bi-cong-trinh-SKYMARK"
                       onClick={() => setOpenDropdown(null)}
                       className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
                     >
                       <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
                         <Image
-                          src="/images/box-image/liugong.jpg"
-                          alt="LIUGONG"
+                          src="/images/box-image/skymark.jpg"
+                          alt="SKYMARK"
                           fill
                           className="object-cover"
                         />
                       </div>
                       <div className="flex-1">
-                        <div className="font-semibold text-base mb-1.5">Thiết Bị LIUGONG</div>
+                        <div className="font-semibold text-base mb-1.5">THIẾT BỊ HÀNG KHÔNG SKYMARK</div>
                         <div className="text-sm opacity-75">Máy xúc, máy ủi</div>
                       </div>
                     </Link>
@@ -454,11 +454,11 @@ export default function HeaderBottom() {
                     Thiết Bị LOVOL
                   </Link>
                   <Link 
-                    href="/san-pham/thiet-bi-cong-trinh-liugong" 
+                    href="/san-pham/thiet-bi-cong-trinh-SKYMARK" 
                     onClick={() => setMobileMenuOpen(false)} 
                     className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
                   >
-                    Thiết Bị LIUGONG
+                    THIẾT BỊ HÀNG KHÔNG SKYMARK
                   </Link>
                 </div>
                 <div className="border-t border-gray-200 my-2"></div>

@@ -8,7 +8,7 @@ const faqs = [
     id: 1,
     question: 'NEW ATLANTIC cung cấp những sản phẩm gì?',
     answer:
-      'NEW ATLANTIC là nhà phân phối chính hãng các thương hiệu WILL-BURT, HIAB, LOVOL, LIUGONG tại Việt Nam. Chúng tôi cung cấp cột tự nâng, cẩu tự hành, xe nâng Moffett, máy móc công trình và thiết bị công nghiệp chất lượng cao.',
+      'NEW ATLANTIC là nhà phân phối chính hãng các thương hiệu WILL-BURT, HIAB, LOVOL, SKYMARK tại Việt Nam. Chúng tôi cung cấp cột tự nâng, cẩu tự hành, xe nâng Moffett, máy móc công trình và thiết bị công nghiệp chất lượng cao.',
   },
   {
     id: 2,

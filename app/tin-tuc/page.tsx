@@ -21,7 +21,7 @@ const CATEGORIES = [
   { id: 'will-burt', label: 'WILL-BURT' },
   { id: 'hiab', label: 'HIAB' },
   { id: 'lovol', label: 'LOVOL' },
-  { id: 'liugong', label: 'LIUGONG' },
+  { id: 'SKYMARK', label: 'SKYMARK' },
 ];
 
 function FeaturedPost({ post }: { post: any }) {

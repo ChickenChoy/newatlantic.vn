@@ -51,7 +51,7 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
 
     const query = searchQuery.toLowerCase();
     const suggestions: SearchSuggestion[] = [];
-    const brands = ['WILL-BURT', 'HIAB', 'LOVOL', 'LIUGONG'];
+    const brands = ['WILL-BURT', 'HIAB', 'LOVOL', 'SKYMARK'];
     const categories = [
       'Cột Tự Nâng',
       'Thiết Bị Nâng Hạ',
@@ -152,7 +152,7 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
       { name: 'Cột Tự Nâng WILL-BURT', slug: 'cot-tu-nang-will-burt' },
       { name: 'Thiết Bị HIAB', slug: 'thiet-bi-nang-ha-hiab' },
       { name: 'Thiết Bị LOVOL', slug: 'thiet-bi-cong-trinh-lovol' },
-      { name: 'Thiết Bị LIUGONG', slug: 'thiet-bi-cong-trinh-liugong' }
+      { name: 'THIẾT BỊ HÀNG KHÔNG SKYMARK', slug: 'thiet-bi-cong-trinh-SKYMARK' }
     ];
 
     categories.forEach(category => {

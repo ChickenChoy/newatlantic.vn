@@ -67,7 +67,7 @@ export const partners: Partner[] = [
   { id: '1', name: 'WILL-BURT', logo: '/logos/willburt.png' },
   { id: '2', name: 'HIAB', logo: '/logos/hiab.png' },
   { id: '3', name: 'LOVOL', logo: '/logos/lovol.png' },
-  { id: '4', name: 'LIUGONG', logo: '/logos/liugong.png' },
+  { id: '4', name: 'SKYMARK', logo: '/logos/SKYMARK.png' },
 ];
 `;
 

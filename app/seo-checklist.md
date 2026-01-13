@@ -90,7 +90,7 @@
 #### B. Landing Pages
 ```bash
 # Tạo landing pages cho:
-- Từng thương hiệu (WILL-BURT, HIAB, LOVOL, LIUGONG)
+- Từng thương hiệu (WILL-BURT, HIAB, LOVOL, SKYMARK)
 - Từng ngành nghề (xây dựng, quân sự, truyền thông)
 - Từng khu vực (TP.HCM, Hà Nội, Đà Nẵng)
 - Từng use case

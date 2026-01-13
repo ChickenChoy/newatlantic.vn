@@ -26,9 +26,9 @@ export const categories: Category[] = [
   },
   {
     id: "4",
-    name: "Thiết Bị Công Trình LIUGONG",
-    slug: "thiet-bi-cong-trinh-liugong",
-    description: "Máy móc thiết bị công trình LIUGONG"
+    name: "Thiết Bị Hàng Không SKYMARK",
+    slug: "thiet-bi-cong-trinh-SKYMARK",
+    description: "Máy móc Thiết Bị Hàng Không SKYMARK"
   }
 ];
 
@@ -577,10 +577,10 @@ export const products: Product[] = [
   },
   {
     id: "6",
-    name: "Máy xúc đào LiuGong CLG906E, dung tích gầu 1 khối",
-    slug: "may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    name: "Máy xúc đào SKYMARK CLG906E, dung tích gầu 1 khối",
+    slug: "may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "THÔNG SỐ KỸ THUẬT CHI TIẾT Tự trọng: 5900 kg Dung tích gầu tiêu chuẩn: 0.23 m³ Bề rộng dải xích: 400 mm Chiều cao đào lớn nhất: 6205 mm Chiều sâu đào lớn nhất: 3875 mm Tầm với đào lớn nhất: 6205 mm KT tổng thể (DxRxC): 5900x1900x2830 mm Động cơ: Yanmar Tiêu chuẩn khí thải: EU III Công suất/ Vòng quay: 36.2/2100 Kw/rpm Momen xoắn lớn nhất: 212.7/1260 N.m/rpm Hệ thống thủy lực: KAWASAKI Bơm chính: Bơm Piston kép Lưu lượng: 142.8 L/phút Áp lực bơm: 25 MPa Lực gầu đào lớn nhất: 41 kN Lực đào tay gầu lớn nhất: 31 kN Tốc độ di chuyển:4.6 Km/h Cabin: Cabin tiêu chuẩn (option chống lật), chống ồn, chống bụi, có điều hòa.",
     fullDescription: `<i>Trọng lượng vận hành:</i>1,750-1,850 kg
 \n
@@ -588,16 +588,16 @@ export const products: Product[] = [
 \n
 \n<i>Dung tích gầu: </i>0.015-0.065 m³
 \n
-\nLiuGong đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.
+\nSKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.
 \n
 \n&nbsp;`,
     shortDescription: "THÔNG SỐ KỸ THUẬT CHI TIẾT Tự trọng: 5900 kg Dung tích gầu tiêu chuẩn: 0.23 m³ Bề rộng dải xích: 400 mm Chiều cao đào lớn nhất: 6205 mm Chiều sâu đào lớn nhất: 3875 mm Tầm với đào lớn nhất: 6205 mm KT tổng thể (DxRxC): 5900x1900x2830 mm Động cơ: Yanmar Tiêu chuẩn khí thải: EU III Công suất/ Vòng quay: 36.2/2100 Kw/rpm Momen xoắn lớn nhất: 212.7/1260 N.m/rpm Hệ thống thủy lực: KAWASAKI Bơm chính: Bơm Piston kép Lưu lượng: 142.8 L/phút Áp lực bơm: 25 MPa Lực gầu đào lớn nhất: 41 kN Lực đào tay gầu lớn nhất: 31 kN Tốc độ di chuyển:4.6 Km/h Cabin: Cabin tiêu chuẩn (option chống lật), chống ồn, chống bụi, có điều hòa.",
-    image: "/images/products/may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi/banner-906e.png",
-    images: ["/images/products/may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi/banner-906e.png", "/images/products/may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi/xe-cuoc-liugong-model-906e.jpg", "/images/products/may-xuc-dao-liugong-clg906e-dung-tich-gau-1-khoi/xe-cuoc-liugong-model-906e.png"],
+    image: "/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/banner-906e.png",
+    images: ["/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/banner-906e.png", "/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/xe-cuoc-SKYMARK-model-906e.jpg", "/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/xe-cuoc-SKYMARK-model-906e.png"],
     price: "Liên hệ",
     featured: true,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -1917,9 +1917,9 @@ export const products: Product[] = [
     id: "27",
     name: "Máy xúc đào 9018F",
     slug: "may-xuc-dao-9018f",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
-    description: "LiuGong đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
+    description: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
     fullDescription: `<strong>GIỚI THIỆU SẢN PHẨM:</strong>
 \n
 \n– Tấm pin năng lượng mặt trời GIVASOLAR Mono MSP có kiểu dáng hình chữ nhật đứng đẹp mắt, dễ lắp đặt, giữa các cell (tế bào) có khoảng trống màu trắng.
@@ -1936,16 +1936,16 @@ export const products: Product[] = [
 \n
 \n<strong>HÌNH ẢNH SẢN PHẨM</strong>
 \n
-\n<img class="aligncenter wp-image-590 size-full lazy-load-active" src="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png" sizes="(max-width: 880px) 100vw, 880px" srcset="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png 880w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-300x194.png 300w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-500x323.png 500w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-768x496.png 768w" alt="" width="880" height="568" data-src="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png" data-srcset="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png 880w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-300x194.png 300w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-500x323.png 500w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-768x496.png 768w" />
+\n<img class="aligncenter wp-image-590 size-full lazy-load-active" src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png" sizes="(max-width: 880px) 100vw, 880px" srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-500x323.png 500w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-768x496.png 768w" alt="" width="880" height="568" data-src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png" data-srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-500x323.png 500w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-768x496.png 768w" />
 \n
 \nGiá sản phẩm trên đã bao gồm thuế theo luật hiện hành. Tuy nhiên tuỳ vào từng loại sản phẩm hoặc phương thức, địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, …`,
-    shortDescription: "LiuGong đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
+    shortDescription: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
     image: "/images/products/may-xuc-dao-9018f/9018F.png",
     images: ["/images/products/may-xuc-dao-9018f/9018F.png"],
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -1955,9 +1955,9 @@ export const products: Product[] = [
     id: "28",
     name: "Máy xúc đào 9057FZTS",
     slug: "may-xuc-dao-9057fzts",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
-    description: "LiuGong đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
+    description: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
     fullDescription: `<strong>GIỚI THIỆU SẢN PHẨM:</strong>
 \n
 \n– Tấm pin năng lượng mặt trời GIVASOLAR Mono MSP có kiểu dáng hình chữ nhật đứng đẹp mắt, dễ lắp đặt, giữa các cell (tế bào) có khoảng trống màu trắng.
@@ -1974,16 +1974,16 @@ export const products: Product[] = [
 \n
 \n<strong>HÌNH ẢNH SẢN PHẨM</strong>
 \n
-\n<img class="aligncenter wp-image-599 size-full lazy-load-active" src="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png" sizes="(max-width: 880px) 100vw, 880px" srcset="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png 880w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-300x194.png 300w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-768x496.png 768w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-500x323.png 500w" alt="" width="880" height="568" data-src="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png" data-srcset="https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png 880w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-300x194.png 300w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-768x496.png 768w, https://liugong-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-500x323.png 500w" />
+\n<img class="aligncenter wp-image-599 size-full lazy-load-active" src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png" sizes="(max-width: 880px) 100vw, 880px" srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-768x496.png 768w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-500x323.png 500w" alt="" width="880" height="568" data-src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png" data-srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-768x496.png 768w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-500x323.png 500w" />
 \n
 \nGiá sản phẩm trên đã bao gồm thuế theo luật hiện hành. Tuy nhiên tuỳ vào từng loại sản phẩm hoặc phương thức, địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, …`,
-    shortDescription: "LiuGong đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
+    shortDescription: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
     image: "/images/products/may-xuc-dao-9057fzts/9057FZTS.png",
     images: ["/images/products/may-xuc-dao-9057fzts/9057FZTS.png"],
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -1993,8 +1993,8 @@ export const products: Product[] = [
     id: "29",
     name: "Máy ủi B160CR",
     slug: "may-ui-b160cr",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "Trọng lượng vận hành:19,100 kg Công suất động cơ:131 kW Dung tích gầu:10.4 m³",
     fullDescription: ``,
     shortDescription: "Trọng lượng vận hành:19,100 kg Công suất động cơ:131 kW Dung tích gầu:10.4 m³",
@@ -2003,7 +2003,7 @@ export const products: Product[] = [
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -2013,8 +2013,8 @@ export const products: Product[] = [
     id: "30",
     name: "Máy san gạt 4140D",
     slug: "may-san-gat-4140d",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "Trọng lượng vận hành:12,600 kg Công suất động cơ:118 kW Dung tích gầu:3.660 m³",
     fullDescription: `<i>Trọng lượng vận hành:</i>12,600 kg
 \n
@@ -2027,7 +2027,7 @@ export const products: Product[] = [
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -2037,8 +2037,8 @@ export const products: Product[] = [
     id: "31",
     name: "Máy xúc đào liên hợp 775A",
     slug: "may-xuc-dao-lien-hop-775a",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "Trọng lượng vận hành:8,600 kg Công suất động cơ:75 kW Dung tích gầu:1 / 0.2 m³",
     fullDescription: `<i>Trọng lượng vận hành:</i>8,600 kg
 \n
@@ -2051,7 +2051,7 @@ export const products: Product[] = [
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -2061,8 +2061,8 @@ export const products: Product[] = [
     id: "32",
     name: "Máy rải thảm 509E",
     slug: "may-rai-tham-509e",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "Trọng lượng vận hành:kg Công suất động cơ:169 kW Dung tích gầu:m³",
     fullDescription: `<i>Trọng lượng vận hành:</i>kg
 \n
@@ -2075,7 +2075,7 @@ export const products: Product[] = [
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -2085,8 +2085,8 @@ export const products: Product[] = [
     id: "33",
     name: "Máy xúc lật đa năng 365 B",
     slug: "may-xuc-lat-da-nang-365-b",
-    category: "thiet-bi-cong-trinh-liugong",
-    categoryName: "Thiết Bị Công Trình LIUGONG",
+    category: "thiet-bi-cong-trinh-SKYMARK",
+    categoryName: "Thiết Bị Hàng Không SKYMARK",
     description: "Trọng lượng vận hành:795 kg Công suất động cơ:48 kW Dung tích gầu:m³",
     fullDescription: `<i>Trọng lượng vận hành:</i>795 kg
 \n
@@ -2099,7 +2099,7 @@ export const products: Product[] = [
     price: "Liên hệ",
     featured: false,
     specifications: {
-      "Thương hiệu": "LIUGONG",
+      "Thương hiệu": "SKYMARK",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -3007,5 +3007,5 @@ export const partners: Partner[] = [
   { id: '1', name: 'WILL-BURT', logo: '/logos/willburt.png' },
   { id: '2', name: 'HIAB', logo: '/logos/hiab.png' },
   { id: '3', name: 'LOVOL', logo: '/logos/lovol.png' },
-  { id: '4', name: 'LIUGONG', logo: '/logos/liugong.png' },
+  { id: '4', name: 'SKYMARK', logo: '/logos/SKYMARK.png' },
 ];

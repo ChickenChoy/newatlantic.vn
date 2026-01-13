@@ -151,10 +151,10 @@ export const categories: Category[] = [
   },
   {
     id: '4',
-    name: 'Thiết Bị Công Trình LIUGONG',
-    slug: 'thiet-bi-cong-trinh-liugong',
-    description: 'Thiết bị công trình LIUGONG chất lượng',
-    image: '/images/categories/liugong.jpg',
+    name: 'Thiết Bị Hàng Không SKYMARK',
+    slug: 'thiet-bi-cong-trinh-SKYMARK',
+    description: 'Thiết Bị Hàng Không SKYMARK chất lượng',
+    image: '/images/categories/skymark.jpg',
   },
 ];
 `;

@@ -27,11 +27,11 @@ const categoryMapping = {
     slug: 'thiet-bi-cong-trinh-lovol',
     description: 'Máy móc thiết bị công trình LOVOL chất lượng cao'
   },
-  'THIẾT BỊ CƠ GIỚI LIUGONG': {
+  'THIẾT BỊ CƠ GIỚI SKYMARK': {
     id: '4',
-    name: 'Thiết Bị Công Trình LIUGONG',
-    slug: 'thiet-bi-cong-trinh-liugong',
-    description: 'Máy móc thiết bị công trình LIUGONG'
+    name: 'Thiết Bị Hàng Không SKYMARK',
+    slug: 'thiet-bi-cong-trinh-SKYMARK',
+    description: 'Máy móc Thiết Bị Hàng Không SKYMARK'
   }
 };
 
@@ -226,7 +226,7 @@ export const partners: Partner[] = [
   { id: '1', name: 'WILL-BURT', logo: '/logos/willburt.png' },
   { id: '2', name: 'HIAB', logo: '/logos/hiab.png' },
   { id: '3', name: 'LOVOL', logo: '/logos/lovol.png' },
-  { id: '4', name: 'LIUGONG', logo: '/logos/liugong.png' },
+  { id: '4', name: 'SKYMARK', logo: '/logos/SKYMARK.png' },
 ];
 `;
 
@@ -240,7 +240,7 @@ console.log(`   Total products: ${convertedProducts.length}`);
 console.log(`   WILL-BURT: ${convertedProducts.filter(p => p.category === 'cot-tu-nang-will-burt').length}`);
 console.log(`   HIAB: ${convertedProducts.filter(p => p.category === 'thiet-bi-nang-ha-hiab').length}`);
 console.log(`   LOVOL: ${convertedProducts.filter(p => p.category === 'thiet-bi-cong-trinh-lovol').length}`);
-console.log(`   LIUGONG: ${convertedProducts.filter(p => p.category === 'thiet-bi-cong-trinh-liugong').length}`);
+console.log(`   SKYMARK: ${convertedProducts.filter(p => p.category === 'thiet-bi-cong-trinh-SKYMARK').length}`);
 
 // Save detailed products with full HTML for reference
 fs.writeFileSync(
