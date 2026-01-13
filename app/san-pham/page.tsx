@@ -60,7 +60,7 @@ function ProductsPageContent() {
   const paginatedProducts = filteredProducts.slice(validStartIdx, validEndIdx);
 
   // Popular search keywords for suggestions
-  const popularKeywords = ['WILL-BURT', 'HIAB', 'LOVOL', 'SKYMARK', 'Cột tự nâng', 'Cẩu tự hành', 'Xe nâng'];
+  const popularKeywords = ['WILL-BURT', 'HIAB', 'SKYMARK', 'Cột tự nâng', 'Cẩu tự hành', 'Xe nâng'];
 
   return (
     <>

@@ -15,12 +15,6 @@ export const categories: Category[] = [
     "description": "Thiết bị nâng hạ, cẩu tự hành và xe nâng Moffett từ HIAB"
   },
   {
-    "id": "3",
-    "name": "Thiết Bị Công Trình LOVOL",
-    "slug": "thiet-bi-cong-trinh-lovol",
-    "description": "Máy móc thiết bị công trình LOVOL chất lượng cao"
-  },
-  {
     "id": "4",
     "name": "Thiết Bị Hàng Không SKYMARK",
     "slug": "thiet-bi-cong-trinh-SKYMARK",
@@ -124,31 +118,6 @@ export const products: Product[] = [
     "featured": true,
     "specifications": {
       "Thương hiệu": "HIAB",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    "id": "5",
-    "name": "Máy đào bánh xích 1 khối, Weichai Lovol, Model FR220D",
-    "slug": "may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d",
-    "category": "thiet-bi-cong-trinh-lovol",
-    "categoryName": "Thiết Bị Công Trình LOVOL",
-    "description": "MÔ TẢ SẢN PHẨM Lovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. Được phát triển trên nguồn lực sẳn có. Công nghệ tiếp thu từ các thương hiệu lớn trên thế giới như Komatsu, Kobelco, Volvo, CAT, Kawasaki, ... Weichai Lovol tự tin đem đến sản phẩm chất lượng tốt nhất với giá thành cạnh tranh nhất đến với khách hàng.",
-    "fullDescription": "<p style=\"padding-left: 40px;\">– Nhãn hiệu: Lovol</p>\n\n<p style=\"padding-left: 40px;\">– Model: FR220D</p>\n\n<p style=\"padding-left: 40px;\">– Xuất xứ: Nhà máy Weichai Lovol</p>\n\n<p style=\"padding-left: 40px;\">– Trọng lượng vận hành (kg): 21800</p>\n\n<p style=\"padding-left: 40px;\">– Dung tích gầu đào ( m<sup>3</sup>) : 0.96</p>\n\n<p style=\"padding-left: 40px;\">– Bán kinh đào lớn nhất (mm): 9875</p>\n\n<p style=\"padding-left: 40px;\">– Chiều cao đổ đào có tải lớn nhất (mm): 7260</p>\n\n<p style=\"padding-left: 40px;\">– Động cơ:</p>\n\n<p style=\"padding-left: 40px;\">+ Model: <strong>CUMMINS 6BTAA5_9-C150 (HOA KỲ)/ ISUZU AA-6BG1TRP  (NHẬT BẢN)</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Công suất động cơ (KW/vòng/phút): 112-113.2kW/1950 vòng/phút/(CUMMINS/ISUZU)</p>\n\n<p style=\"padding-left: 40px;\">– Bộ phận chính:</p>\n\n<p style=\"padding-left: 40px;\">+ Bơm chính: <strong>KAWASAKI/2X123 ( NHẬT BẢN)</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Van chính:  <strong>KAWASAKI ( NHẬT BẢN)</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Motor di chuyển: <strong>EDDIE</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Motor quay toa: <strong>KAWASAKI ( NHẬT BẢN)</strong></p>",
-    "shortDescription": "MÔ TẢ SẢN PHẨM Lovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. Được phát triển trên nguồn lực sẳn có. Công nghệ tiếp thu từ các thương hiệu lớn trên thế giới như Komatsu, Kobelco, Volvo, CAT, Kawasaki, ... Weichai Lovol tự tin đem đến sản phẩm chất lượng tốt nhất với giá thành cạnh tranh nhất đến với khách hàng.",
-    "image": "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-f220d-logo-300x300-1.png",
-    "images": [
-      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-f220d-logo-300x300-1.png",
-      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-04-logo-300x300-1.jpg",
-      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-02-logo-300x300-1.jpg",
-      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-01-logo-300x300-1.jpg"
-    ],
-    "price": "Liên hệ",
-    "featured": true,
-    "specifications": {
-      "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -291,29 +260,6 @@ export const products: Product[] = [
     "featured": true,
     "specifications": {
       "Thương hiệu": "HIAB",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    "id": "13",
-    "name": "MÀY ĐÀO BÁNH XÍCH MINI 0.04 KHỐI – WEICHAI LOVOL FR18E2-u",
-    "slug": "may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u",
-    "category": "thiet-bi-cong-trinh-lovol",
-    "categoryName": "Thiết Bị Công Trình LOVOL",
-    "description": "MÁY ĐÀO BÁNH XÍCH MINI WEICHAI LOVOL FR18E2-u 0.04 KHỐI – Nhãn hiệu: Lovol – Model: FR18E2-u – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 1810 – Dung tích gầu đào ( m3) : 0.04 – Bán kinh đào lớn nhất (mm): 3905 – Chiều cao đổ đào có tải lớn nhất (mm): 2440 – Động cơ: + Model: YANMAR",
-    "fullDescription": "MÁY ĐÀO BÁNH XÍCH MINI WEICHAI LOVOL FR18E2-u 0.04 KHỐI\n\n\n\n<img src=\"https://weichailovol.com.vn/wp-content/uploads/2023/07/Weichailovol-xe-dao-banh-xich-fr18e2-u-1-logo.jpg\" />\n\n\n\n– Nhãn hiệu: Lovol\n\n\n\n– Model: FR18E2-u\n\n\n\n– Xuất xứ: Nhà máy Weichai Lovol\n\n\n\n– Trọng lượng vận hành (kg): 1810\n\n\n\n– Dung tích gầu đào ( m3) : 0.04\n\n\n\n– Bán kinh đào lớn nhất (mm): 3905\n\n\n\n– Chiều cao đổ đào có tải lớn nhất (mm): 2440\n\n\n\n– Động cơ:\n\n\n\n+ Model: YANMAR Tier Ⅲ (NHẬT BẢN)\n\n\n\n+ Công suất động cơ (KW/vòng/phút): 11.5/2400\n\n\n\n– Bộ phận chính:\n\n\n\n+ Bơm chính: NACHI\n\n\n\n+ Van chính: NABTESCO\n\n\n\n+ Motor di chuyển: EDDIE/NACHI\n\n\n\n+ Motor quay toa: EATON\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.",
-    "shortDescription": "",
-    "image": "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg",
-    "images": [
-      "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg",
-      "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-1-logo.jpg"
-    ],
-    "price": "Liên hệ",
-    "featured": true,
-    "specifications": {
-      "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
@@ -612,50 +558,6 @@ export const products: Product[] = [
     }
   },
   {
-    "id": "34",
-    "name": "MÁY ĐÀO BÁNH LỐP 0.3 KHỐI – WEICHAI LOVOL FP 80W",
-    "slug": "may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w",
-    "category": "thiet-bi-cong-trinh-lovol",
-    "categoryName": "Thiết Bị Công Trình LOVOL",
-    "description": "– Model: FP80W – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 7090 – Dung tích gầu đào ( m3) : 0.3 – Bán kinh đào lớn nhất (mm): 6385 – Chiều cao đổ đào có tải lớn nhất (mm): 5160 – Động cơ: + Model: Yanmar 4TNV98 (Nhật Bản) + Công suất động cơ (KW/vòng/phút): 46.3/2200 – Bộ phận chín",
-    "fullDescription": "– Model: FP80W\n\n\n\n– Xuất xứ: Nhà máy Weichai Lovol\n\n\n\n– Trọng lượng vận hành (kg):  7090\n\n\n\n– Dung tích gầu đào ( m<sup>3</sup>) : 0.3\n\n\n\n– Bán kinh đào lớn nhất (mm): 6385\n\n\n\n– Chiều cao đổ đào có tải lớn nhất (mm): 5160\n\n\n\n– Động cơ:\n\n\n\n+ Model: <strong>Yanmar 4TNV98 (Nhật Bản)</strong>\n\n\n\n+ Công suất động cơ (KW/vòng/phút): 46.3/2200\n\n\n\n– Bộ phận chính:\n\n\n\n+ Bơm chính: <strong>SANY</strong>\n\n\n\n+ Van chính:  <strong>HUSSCO</strong>\n\n\n\n+ Motor di chuyển:\n\n\n\n+ Motor quay toa: <strong>EATON/LKC</strong>\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
-    "shortDescription": "",
-    "image": "/images/products/may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg",
-    "images": [
-      "/images/products/may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg"
-    ],
-    "price": "Liên hệ",
-    "featured": true,
-    "specifications": {
-      "Thương hiệu": "LOVOL",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    "id": "35",
-    "name": "MÁY ĐÀO BÁNH LỐP 1.0 KHỐI – WEICHAI LOVOL FP215W",
-    "slug": "may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w",
-    "category": "thiet-bi-cong-trinh-lovol",
-    "categoryName": "Thiết Bị Công Trình LOVOL",
-    "description": "– Model: FP215W – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 21450 – Dung tích gầu đào ( m3) : 1.0 – Bán kinh đào lớn nhất (mm): 9900 – Chiều cao đổ đào có tải lớn nhất (mm): 7700 – Động cơ: + Model: CUMMINS (SIX) (HOA KỲ) + Công suất động cơ (KW/vòng/phút): 132kW – Bộ phận chính: +",
-    "fullDescription": "– Model: FP215W\n\n\n\n– Xuất xứ: Nhà máy Weichai Lovol\n\n\n\n– Trọng lượng vận hành (kg):  21450\n\n\n\n– Dung tích gầu đào ( m<sup>3</sup>) : 1.0\n\n\n\n– Bán kinh đào lớn nhất (mm): 9900\n\n\n\n– Chiều cao đổ đào có tải lớn nhất (mm): 7700\n\n\n\n– Động cơ:\n\n\n\n+ Model: <strong>CUMMINS (SIX)</strong>  <strong>(HOA KỲ)</strong>\n\n\n\n+ Công suất động cơ (KW/vòng/phút): 132kW\n\n\n\n– Bộ phận chính:\n\n\n\n+ Bơm chính: <strong>KAWASAKI ( NHẬT BẢN)</strong>\n\n\n\n+ Van chính:  <strong>PARKER (HOA KỲ)</strong>\n\n\n\n+ Motor di chuyển:\n\n\n\n+ Motor quay toa: <strong>EATON/LKC (HOA KỲ)</strong>\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
-    "shortDescription": "",
-    "image": "/images/products/may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg",
-    "images": [
-      "/images/products/may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg"
-    ],
-    "price": "Liên hệ",
-    "featured": true,
-    "specifications": {
-      "Thương hiệu": "LOVOL",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
     "id": "36",
     "name": "MÁY XÚC ĐÀO LIÊN HỢP FLB468-II",
     "slug": "may-xuc-dao-lien-hop-flb468-ii",
@@ -667,50 +569,6 @@ export const products: Product[] = [
     "image": "/images/products/may-xuc-dao-lien-hop-flb468-ii/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg",
     "images": [
       "/images/products/may-xuc-dao-lien-hop-flb468-ii/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg"
-    ],
-    "price": "Liên hệ",
-    "featured": true,
-    "specifications": {
-      "Thương hiệu": "LOVOL",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    "id": "37",
-    "name": "XE ỦI BÁNH XÍCH 25 TẤN – WEICHAI LOVOL FD220",
-    "slug": "xe-ui-banh-xich-25-tan-weichai-lovol-fd220",
-    "category": "thiet-bi-cong-trinh-lovol",
-    "categoryName": "Thiết Bị Công Trình LOVOL",
-    "description": "– Model: FD220 – Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai. – Trọng lượng vận hành (kg): 23.450 – Động cơ: CUMMINS NT855-C280S10 – Tổng công suất (Kw/ vòng/phút): 175/ 1800 – Lưỡi ủi: + Kiểu lưỡi: Lưỡi than U + Dung tích lưỡi ủi (m3): 8.0 + Chiều dài lưỡi ủi (mm): 4200 – Tình trạng: mới 100%",
-    "fullDescription": "– Model: FD220\n\n\n\n– Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai.\n\n\n\n– Trọng lượng vận hành (kg): 23.450\n\n\n\n– Động cơ: <strong>CUMMINS NT855-C280S10</strong>\n\n\n\n– Tổng công suất (Kw/ vòng/phút): 175/ 1800\n\n\n\n– Lưỡi ủi:\n\n\n\n+ Kiểu lưỡi: Lưỡi than U\n\n\n\n+ Dung tích lưỡi ủi (m3): 8.0\n\n\n\n+ Chiều dài lưỡi ủi (mm): 4200\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
-    "shortDescription": "",
-    "image": "/images/products/xe-ui-banh-xich-25-tan-weichai-lovol-fd220/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg",
-    "images": [
-      "/images/products/xe-ui-banh-xich-25-tan-weichai-lovol-fd220/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg"
-    ],
-    "price": "Liên hệ",
-    "featured": true,
-    "specifications": {
-      "Thương hiệu": "LOVOL",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    "id": "38",
-    "name": "XE LU 12 TẤN – WEICHAI LOVOL FY12S",
-    "slug": "xe-lu-12-tan-weichai-lovol-fy12s",
-    "category": "thiet-bi-cong-trinh-lovol",
-    "categoryName": "Thiết Bị Công Trình LOVOL",
-    "description": "– Model: FY12S – Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai. – Trọng lượng vận hành (kg): 12.000 – Động cơ: Weichai WP6G140E22 – Tổng công suất (Kw/ vòng/phút): 105/2200 – Hệ thống truyền động: Thủy tĩnh ,dẫn động 4 bánh – Bề rộng trống (mm): 2130 – Tần số rung cao nhất (Hz) : 35 – Biên độ ru",
-    "fullDescription": "– Model: FY12S\n\n\n\n– Xuất xứ: Nhà Máy Weichai Lovol\n\n\n\n– Tập đoàn Weichai.\n\n\n\n– Trọng lượng vận hành (kg): 12.000\n\n\n\n– Động cơ: <strong>Weichai WP6G140E22</strong>\n\n\n\n– Tổng công suất (Kw/ vòng/phút): 105/2200\n\n\n\n– Hệ thống truyền động: Thủy tĩnh ,dẫn động 4 bánh\n\n\n\n– Bề rộng trống (mm): 2130\n\n\n\n– Tần số rung cao nhất (Hz) : 35\n\n\n\n– Biên độ rung cao nhất (mm): 2\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
-    "shortDescription": "",
-    "image": "/images/products/xe-lu-12-tan-weichai-lovol-fy12s/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg",
-    "images": [
-      "/images/products/xe-lu-12-tan-weichai-lovol-fy12s/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg"
     ],
     "price": "Liên hệ",
     "featured": true,

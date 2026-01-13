@@ -24,7 +24,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-              Nhà phân phối hàng đầu các thương hiệu thiết bị công nghiệp: WILL-BURT, HIAB, LOVOL, SKYMARK tại Việt Nam
+              Nhà phân phối hàng đầu các thương hiệu thiết bị công nghiệp: WILL-BURT, HIAB, SKYMARK tại Việt Nam
             </p>
             <div className="flex gap-3">
               <a 
@@ -66,13 +66,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">
-                  Thiết Bị LOVOL
-                </Link>
-              </li>
-              <li>
                 <Link href="/san-pham/thiet-bi-cong-trinh-SKYMARK" className="text-gray-400 hover:text-[#5f7ab8] transition-colors">
-                  THIẾT BỊ HÀNG KHÔNG SKYMARK
+                  Thiết Bị Hàng Không SKYMARK
                 </Link>
               </li>
               <li>

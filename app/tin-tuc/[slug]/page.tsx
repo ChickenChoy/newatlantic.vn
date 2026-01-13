@@ -42,7 +42,6 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       'thiết bị công nghiệp',
       'WILL-BURT',
       'HIAB',
-      'LOVOL',
       'SKYMARK',
     ],
   });

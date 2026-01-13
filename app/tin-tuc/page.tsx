@@ -20,7 +20,6 @@ const CATEGORIES = [
   { id: 'su-kien', label: 'Sự kiện' },
   { id: 'will-burt', label: 'WILL-BURT' },
   { id: 'hiab', label: 'HIAB' },
-  { id: 'lovol', label: 'LOVOL' },
   { id: 'SKYMARK', label: 'SKYMARK' },
 ];
 

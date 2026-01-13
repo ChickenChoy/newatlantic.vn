@@ -35,7 +35,6 @@ export const metadata: Metadata = {
   keywords: [
     "WILL-BURT",
     "HIAB",
-    "LOVOL",
     "SKYMARK",
     "cột tự nâng",
     "thiết bị nâng hạ",

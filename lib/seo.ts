@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 // Website base configuration
 export const siteConfig = {
   name: 'NEW ATLANTIC - Tân Đại Tây Dương',
-  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, LOVOL, SKYMARK tại Việt Nam. Cung cấp cột tự nâng, thiết bị nâng hạ, máy móc công trình chất lượng cao.',
+  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, SKYMARK tại Việt Nam. Cung cấp cột tự nâng, thiết bị nâng hạ, máy móc công trình chất lượng cao.',
   url: 'https://newatlantic.vn',
   ogImage: 'https://newatlantic.vn/images/logo/android-chrome-512x512.png',
   locale: 'vi_VN',

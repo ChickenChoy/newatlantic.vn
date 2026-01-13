@@ -15,14 +15,13 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = genMeta({
   title: 'NEW ATLANTIC - Tân Đại Tây Dương | Thiết bị công nghiệp chính hãng',
-  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, LOVOL, SKYMARK tại Việt Nam. Cung cấp cột tự nâng, cẩu tự hành HIAB, thiết bị nâng hạ, máy móc công trình chất lượng cao. Hơn 22 năm kinh nghiệm, hỗ trợ 24/7.',
+  description: 'Nhà phân phối chính hãng WILL-BURT, HIAB, SKYMARK tại Việt Nam. Cung cấp cột tự nâng, cẩu tự hành HIAB, thiết bị nâng hạ chất lượng cao. Hơn 22 năm kinh nghiệm, hỗ trợ 24/7.',
   path: '/',
   keywords: [
     'NEW ATLANTIC',
     'Tân Đại Tây Dương',
     'WILL-BURT',
     'HIAB',
-    'LOVOL',
     'SKYMARK',
     'cột tự nâng',
     'cẩu tự hành',
@@ -267,7 +266,7 @@ export default function HomePage() {
                   <span className="block text-white">các thương hiệu nổi tiếng</span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
-                  <strong className="text-white">Tân Đại Tây Dương</strong> là nhà phân phối hàng đầu tại Việt Nam cho các thương hiệu nổi tiếng thế giới như <strong className="text-white">WILL-BURT, HIAB, LOVOL, SKYMARK</strong>. Chúng tôi cung cấp sản phẩm và dịch vụ chính hãng.
+                  <strong className="text-white">Tân Đại Tây Dương</strong> là nhà phân phối hàng đầu tại Việt Nam cho các thương hiệu nổi tiếng thế giới như <strong className="text-white">WILL-BURT, HIAB, SKYMARK</strong>. Chúng tôi cung cấp sản phẩm và dịch vụ chính hãng.
                 </p>
               </div>
             </ScrollAnimation>
@@ -291,7 +290,7 @@ export default function HomePage() {
                   <span className="text-[#10b981] text-sm font-semibold uppercase tracking-wider mb-2 block">02</span>
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Thiết bị cơ giới</h3>
                   <p className="text-white/80 text-base leading-relaxed">
-                    LOVOL, SKYMARK với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
+                    SKYMARK với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
                   </p>
                 </div>
               </ScrollAnimation>
@@ -359,7 +358,7 @@ export default function HomePage() {
                   </span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
-                  Nhà phân phối chính thức của <strong className="text-white">WILL-BURT, HIAB, LOVOL, SKYMARK</strong> tại Việt Nam với cam kết chất lượng và dịch vụ tốt nhất
+                  Nhà phân phối chính thức của <strong className="text-white">WILL-BURT, HIAB, SKYMARK</strong> tại Việt Nam với cam kết chất lượng và dịch vụ tốt nhất
                 </p>
               </ScrollAnimation>
             </div>
@@ -408,35 +407,14 @@ export default function HomePage() {
               </div>
             </ScrollAnimation>
 
-            {/* LOVOL Card */}
-            <ScrollAnimation direction="right" delay={200}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
-                  <img src="/images/box-image/lovol.jpg" alt="LOVOL" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ LOVOL</h3>
-                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
-                    Máy móc công trình: máy xúc, máy ủi, máy san với giá cạnh tranh, hiệu suất cao.
-                  </p>
-                  <Link href="/san-pham/thiet-bi-cong-trinh-lovol" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
-                    Khám phá ngay
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </ScrollAnimation>
-
             {/* SKYMARK Card */}
-            <ScrollAnimation direction="right" delay={300}>
+            <ScrollAnimation direction="right" delay={200}>
               <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
                 <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
                   <img src="/images/box-image/skymark.jpg" alt="SKYMARK" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ HÀNG KHÔNG SKYMARK</h3>
+                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">Thiết Bị Hàng Không SKYMARK</h3>
                   <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                     Thiết bị cơ giới xây dựng chất lượng cao, độ bền vượt trội cho mọi công trình.
                   </p>

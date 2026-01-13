@@ -37,7 +37,7 @@ const testimonials = [
     company: 'Công ty Công trình GHI',
     position: 'Giám đốc Dự án',
     rating: 5,
-    text: 'Máy móc LOVOL từ NEW ATLANTIC đáp ứng tốt yêu cầu của các dự án lớn. Đội ngũ tư vấn chuyên nghiệp, giao hàng đúng hẹn.',
+    text: 'Thiết bị từ NEW ATLANTIC đáp ứng tốt yêu cầu của các dự án lớn. Đội ngũ tư vấn chuyên nghiệp, giao hàng đúng hẹn.',
     image: '/images/place-holder/1.png',
   },
 ];
