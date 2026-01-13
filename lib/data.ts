@@ -1,137 +1,54 @@
-// Auto-generated from WordPress CSV export
-// Generated: 2025-11-03T03:27:56.070Z
-// Total products: 44
-
 import { Product, Category, Post, Service, Partner } from '@/types';
 
-// Categories
+// Danh mục sản phẩm
 export const categories: Category[] = [
   {
-    id: "1",
-    name: "Cột (Trụ) Tự Nâng WILL-BURT",
-    slug: "cot-tu-nang-will-burt",
-    description: "Cột tự nâng chất lượng cao từ thương hiệu WILL-BURT hơn 100 năm lịch sử"
+    "id": "1",
+    "name": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "slug": "cot-tu-nang-will-burt",
+    "description": "Cột tự nâng chất lượng cao từ thương hiệu WILL-BURT hơn 100 năm lịch sử"
   },
   {
-    id: "2",
-    name: "Thiết Bị Nâng Hạ HIAB",
-    slug: "thiet-bi-nang-ha-hiab",
-    description: "Thiết bị nâng hạ, cẩu tự hành và xe nâng Moffett từ HIAB"
+    "id": "2",
+    "name": "Thiết Bị Nâng Hạ HIAB",
+    "slug": "thiet-bi-nang-ha-hiab",
+    "description": "Thiết bị nâng hạ, cẩu tự hành và xe nâng Moffett từ HIAB"
   },
   {
-    id: "3",
-    name: "Thiết Bị Công Trình LOVOL",
-    slug: "thiet-bi-cong-trinh-lovol",
-    description: "Máy móc thiết bị công trình LOVOL chất lượng cao"
+    "id": "3",
+    "name": "Thiết Bị Công Trình LOVOL",
+    "slug": "thiet-bi-cong-trinh-lovol",
+    "description": "Máy móc thiết bị công trình LOVOL chất lượng cao"
   },
   {
-    id: "4",
-    name: "Thiết Bị Hàng Không SKYMARK",
-    slug: "thiet-bi-cong-trinh-SKYMARK",
-    description: "Máy móc Thiết Bị Hàng Không SKYMARK"
+    "id": "4",
+    "name": "Thiết Bị Hàng Không SKYMARK",
+    "slug": "thiet-bi-cong-trinh-SKYMARK",
+    "description": "Máy móc Thiết Bị Hàng Không SKYMARK"
   }
 ];
 
-// Products
+// Sản phẩm
 export const products: Product[] = [
   {
-    id: "1",
-    name: "XE BÁN TẢI GẮN CỘT ( TRỤ) NÂNG SPM SPINDLE DRIVE MASTS",
-    slug: "xe-ban-tai-gan-cot-tru-nang-spm-spindle-drive-masts",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS là một loại cột được sản xuất từ Công ty Willburt ( Mỹ). Với thiết kế nâng hạ linh hoạt: bằng tay hoặc bằng động cơ giúp tăng tính cơ động trong mọi điều kiện hoạt động. Tải trọng lớn, độ ổn định cao giúp cho việc gắn thiết bị lên đầu cột ( trụ) dễ dàng và an toàn. Phù hợp gắn: đèn chiếu sáng, loa phát thanh, các thiết bị giám sát,... Ngoài ra cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS có thiết kế nhỏ gọn, dể dàng lắp đặt trên nhiều loại xe cơ sở như: xe tải nhỏ, trailer, sơ mi rơ moóc .... TÍNH NĂNG NỔI BẬT •Được thiết kế cho tải trọng nặng với diện tích cánh gió lớn •Dung sai chính xác duy trì góc phương vị và giảm thiểu độ lệch •Độ chính xác của việc trỏ chính xác rất phù hợp cho hoạt động tình báo điện tử quang học, giám sát và nhận dạng mục tiêu •Được thiết kế để lắp đặt bên trong và bên ngoài xe •Vận hành điện tử và thủ công •Đạt chứng nhận MIL-STD 810–F",
-    fullDescription: `&nbsp;
-\n<p style="text-align: center;"><span style="font-size: 140%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n
-\n<table style="width: 96.0556%; height: 333px;">
-\n<tbody>
-\n<tr style="height: 107px;">
-\n<td style="height: 107px; width: 18.8437%;" width="143"><strong>SPM TIÊU CHUẨN </strong></td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">180-2 SPM 2</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">230-3 SPM 5</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">230-6 SPM 5</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">260-8 SPM 6</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">260-10 SPM 6</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">260-12 SPM 6</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">300-15 SPM 6</td>
-\n<td style="height: 107px; width: 7.17345%;" width="52">360-18 SPM 6</td>
-\n</tr>
-\n<tr style="height: 27px;">
-\n<td style="height: 27px; width: 18.8437%;" width="143">Chiều cao kéo ra (ft. / m)</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">2.1 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">3 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">6 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">8 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">10 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">12 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">15 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">18 m</td>
-\n</tr>
-\n<tr style="height: 27px;">
-\n<td style="height: 27px; width: 18.8437%;" width="143">Chiều cao thu vào (ft. / m)</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">1.2 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">1.1 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">1.7 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">1.8 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">2.2 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">2.5 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">3.4 m</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">3.9 m</td>
-\n</tr>
-\n<tr style="height: 27px;">
-\n<td style="height: 27px; width: 18.8437%;" width="143">Khả năng tải trọng (lb / kg)</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">100 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">300 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">250 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">250 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">250 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">250 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">250 kg</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">250 kg</td>
-\n</tr>
-\n<tr style="height: 54px;">
-\n<td style="height: 54px; width: 18.8437%;" width="143">Trọng lượng ước tính (lb / kg)</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">74 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">96 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">140 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">260 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">290 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">305 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">600 kg</td>
-\n<td style="height: 54px; width: 7.17345%;" width="52">675 kg</td>
-\n</tr>
-\n<tr style="height: 64px;">
-\n<td style="width: 18.8437%; height: 64px;">Đường kính ống cột</td>
-\n<td style="width: 7.17345%; height: 64px;">18 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">23 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">23 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">26 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">26 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">26 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">36 cm</td>
-\n<td style="width: 7.17345%; height: 64px;">36 cm</td>
-\n</tr>
-\n<tr style="height: 27px;">
-\n<td style="height: 27px; width: 18.8437%;" width="143">Số lượng khúc cột</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">2</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">5</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">5</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">6</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">6</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">6</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">6</td>
-\n<td style="height: 27px; width: 7.17345%;" width="52">6</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n&nbsp;`,
-    shortDescription: "Cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS là một loại cột được sản xuất từ Công ty Willburt ( Mỹ). Với thiết kế nâng hạ linh hoạt: bằng tay hoặc bằng động cơ giúp tăng tính cơ động trong mọi điều kiện hoạt động. Tải trọng lớn, độ ổn định cao giúp cho việc gắn thiết bị lên đầu cột ( trụ) dễ dàng và an toàn. Phù hợp gắn: đèn chiếu sáng, loa phát thanh, các thiết bị giám sát,... Ngoài ra cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS có thiết kế nhỏ gọn, dể dàng lắp đặt trên nhiều loại xe cơ sở như: xe tải nhỏ, trailer, sơ mi rơ moóc .... TÍNH NĂNG NỔI BẬT •Được thiết kế cho tải trọng nặng với diện tích cánh gió lớn •Dung sai chính xác duy trì góc phương vị và giảm thiểu độ lệch •Độ chính xác của việc trỏ chính xác rất phù hợp cho hoạt động tình báo điện tử quang học, giám sát và nhận dạng mục tiêu •Được thiết kế để lắp đặt bên trong và bên ngoài xe •Vận hành điện tử và thủ công •Đạt chứng nhận MIL-STD 810–F",
-    image: "/images/products/cot-tu-nang-will-burt/SpezWw_TatODokuFzg.jpg",
-    images: ["/images/products/cot-tu-nang-will-burt/SpezWw_TatODokuFzg.jpg", "/images/products/cot-tu-nang-will-burt/15SPM7-1-scaled-1-300x200-1.jpg", "/images/products/cot-tu-nang-will-burt/SPM-WIll-burt.png", "/images/products/cot-tu-nang-will-burt/Capture-3.png"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "1",
+    "name": "XE BÁN TẢI GẮN CỘT ( TRỤ) NÂNG SPM SPINDLE DRIVE MASTS",
+    "slug": "xe-ban-tai-gan-cot-tru-nang-spm-spindle-drive-masts",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS là một loại cột được sản xuất từ Công ty Willburt ( Mỹ). Với thiết kế nâng hạ linh hoạt: bằng tay hoặc bằng động cơ giúp tăng tính cơ động trong mọi điều kiện hoạt động. Tải trọng lớn, độ ổn định cao giúp cho việc gắn thiết bị lên đầu cột ( trụ) dễ dàng và an toàn. Phù hợp gắn: đèn chiếu sáng, loa phát thanh, các thiết bị giám sát,... Ngoài ra cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS có thiết kế nhỏ gọn, dể dàng lắp đặt trên nhiều loại xe cơ sở như: xe tải nhỏ, trailer, sơ mi rơ moóc .... TÍNH NĂNG NỔI BẬT •Được thiết kế cho tải trọng nặng với diện tích cánh gió lớn •Dung sai chính xác duy trì góc phương vị và giảm thiểu độ lệch •Độ chính xác của việc trỏ chính xác rất phù hợp cho hoạt động tình báo điện tử quang học, giám sát và nhận dạng mục tiêu •Được thiết kế để lắp đặt bên trong và bên ngoài xe •Vận hành điện tử và thủ công •Đạt chứng nhận MIL-STD 810–F",
+    "fullDescription": "&nbsp;\n\n<p style=\"text-align: center;\"><span style=\"font-size: 140%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n\n\n<table style=\"width: 96.0556%; height: 333px;\">\n\n<tbody>\n\n<tr style=\"height: 107px;\">\n\n<td style=\"height: 107px; width: 18.8437%;\" width=\"143\"><strong>SPM TIÊU CHUẨN </strong></td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">180-2 SPM 2</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">230-3 SPM 5</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">230-6 SPM 5</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">260-8 SPM 6</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">260-10 SPM 6</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">260-12 SPM 6</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">300-15 SPM 6</td>\n\n<td style=\"height: 107px; width: 7.17345%;\" width=\"52\">360-18 SPM 6</td>\n\n</tr>\n\n<tr style=\"height: 27px;\">\n\n<td style=\"height: 27px; width: 18.8437%;\" width=\"143\">Chiều cao kéo ra (ft. / m)</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">2.1 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">3 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">6 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">8 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">10 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">12 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">15 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">18 m</td>\n\n</tr>\n\n<tr style=\"height: 27px;\">\n\n<td style=\"height: 27px; width: 18.8437%;\" width=\"143\">Chiều cao thu vào (ft. / m)</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">1.2 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">1.1 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">1.7 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">1.8 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">2.2 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">2.5 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">3.4 m</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">3.9 m</td>\n\n</tr>\n\n<tr style=\"height: 27px;\">\n\n<td style=\"height: 27px; width: 18.8437%;\" width=\"143\">Khả năng tải trọng (lb / kg)</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">100 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">300 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">250 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">250 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">250 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">250 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">250 kg</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">250 kg</td>\n\n</tr>\n\n<tr style=\"height: 54px;\">\n\n<td style=\"height: 54px; width: 18.8437%;\" width=\"143\">Trọng lượng ước tính (lb / kg)</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">74 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">96 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">140 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">260 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">290 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">305 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">600 kg</td>\n\n<td style=\"height: 54px; width: 7.17345%;\" width=\"52\">675 kg</td>\n\n</tr>\n\n<tr style=\"height: 64px;\">\n\n<td style=\"width: 18.8437%; height: 64px;\">Đường kính ống cột</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">18 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">23 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">23 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">26 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">26 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">26 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">36 cm</td>\n\n<td style=\"width: 7.17345%; height: 64px;\">36 cm</td>\n\n</tr>\n\n<tr style=\"height: 27px;\">\n\n<td style=\"height: 27px; width: 18.8437%;\" width=\"143\">Số lượng khúc cột</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">2</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">5</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">5</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">6</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">6</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">6</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">6</td>\n\n<td style=\"height: 27px; width: 7.17345%;\" width=\"52\">6</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n&nbsp;",
+    "shortDescription": "Cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS là một loại cột được sản xuất từ Công ty Willburt ( Mỹ). Với thiết kế nâng hạ linh hoạt: bằng tay hoặc bằng động cơ giúp tăng tính cơ động trong mọi điều kiện hoạt động. Tải trọng lớn, độ ổn định cao giúp cho việc gắn thiết bị lên đầu cột ( trụ) dễ dàng và an toàn. Phù hợp gắn: đèn chiếu sáng, loa phát thanh, các thiết bị giám sát,... Ngoài ra cột ( trụ) nâng Will-Burt SPM SPINDLE DRIVE MASTS có thiết kế nhỏ gọn, dể dàng lắp đặt trên nhiều loại xe cơ sở như: xe tải nhỏ, trailer, sơ mi rơ moóc .... TÍNH NĂNG NỔI BẬT •Được thiết kế cho tải trọng nặng với diện tích cánh gió lớn •Dung sai chính xác duy trì góc phương vị và giảm thiểu độ lệch •Độ chính xác của việc trỏ chính xác rất phù hợp cho hoạt động tình báo điện tử quang học, giám sát và nhận dạng mục tiêu •Được thiết kế để lắp đặt bên trong và bên ngoài xe •Vận hành điện tử và thủ công •Đạt chứng nhận MIL-STD 810–F",
+    "image": "/images/products/cot-tu-nang-will-burt/SpezWw_TatODokuFzg.jpg",
+    "images": [
+      "/images/products/cot-tu-nang-will-burt/SpezWw_TatODokuFzg.jpg",
+      "/images/products/cot-tu-nang-will-burt/15SPM7-1-scaled-1-300x200-1.jpg",
+      "/images/products/cot-tu-nang-will-burt/SPM-WIll-burt.png",
+      "/images/products/cot-tu-nang-will-burt/Capture-3.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -139,166 +56,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "2",
-    name: "Cột ( trụ) tự nâng Stiletto® AL HEAVY DUTY (AL HD)",
-    slug: "cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột nâng Stiletto® AL HD được thiết kế để chịu được lực tác động của các hệ thống radar và video tiên tiến ngày nay trên nền tảng nâng di động, đồng thời mang lại độ ổn định và độ chính xác cần thiết để truyền tải dữ liệu tối ưu. Thiết kế đa trục và chốt khóa bên trong của Stiletto AL HD giúp giảm thiểu hiện tượng xoắn cột. Stiletto AL HD được thiết kế để đáp ứng các yêu cầu khắt khe nhất của chương trình. Các tính năng cơ bản: • Sức nâng mạnh mẽ • Lên tới 600 pound / 272 kg • Tự động khóa ở mọi độ cao • Đảm bảo và An toàn • Triển khai và rút lại sức mạnh tối đa • Tất cả các phần cột buồm mở rộng và rút lại đồng loạt • Độ xoắn cột tối thiểu - tối ưu hóa cho radar • ±0,7° • Chiều cao lồng thấp • Vòng cổ bên trong có tích hợp máy cạo bụi và băng • Định vị chính xác ở mọi độ cao • Động cơ DC không chổi than điều khiển kỹ thuật số • Bảo trì tối thiểu • Không có đai hoặc xích - Truyền động trực tiếp • Tuổi thọ cực cao - Hệ thống nhiều trục chính • Phớt ống đầy đủ ngăn chặn sự xâm nhập của nước • Cấu trúc hợp kim cường độ cao • Không cần dây nối • Điều khiển kỹ thuật số với màn hình LED • Đọc chiều cao chính xác ngay cả khi mất điện • Chứng nhận MIL-STD 810H",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%; height: 684px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 16.6667%; height: 21px;"><strong>Stiletto AL HD</strong></td>
-\n<td style="width: 16.6667%; height: 21px;"><strong>4 mét</strong></td>
-\n<td style="width: 16.6667%; height: 21px;"><strong>6 mét</strong></td>
-\n<td style="width: 16.6667%; height: 21px;"><strong>8.54 mét</strong></td>
-\n<td style="width: 16.6667%; height: 21px;"><strong>10 mét</strong></td>
-\n<td style="width: 16.6667%; height: 21px;"><strong>12 mét</strong></td>
-\n</tr>
-\n<tr style="height: 129px;">
-\n<td style="width: 16.6667%; height: 129px;">Chiều cao mở rộng (ft. / m)
-\n
-\n(-0 + .79 / -0 + 20 (in. / mm)</td>
-\n<td style="width: 16.6667%; height: 129px;">13.1 / 4</td>
-\n<td style="width: 16.6667%; height: 129px;">19.6 / 6</td>
-\n<td style="width: 16.6667%; height: 129px;">28 / 8.54</td>
-\n<td style="width: 16.6667%; height: 129px;">32.8 / 10</td>
-\n<td style="width: 16.6667%; height: 129px;">39.3 / 12</td>
-\n</tr>
-\n<tr style="height: 129px;">
-\n<td style="width: 16.6667%; height: 129px;">Chiều cao rút vào (ft. / m)
-\n
-\n-0 in. + .79 / -0 + 20 (in. / mm)</td>
-\n<td style="width: 16.6667%; height: 129px;">4.2 / 1.28</td>
-\n<td style="width: 16.6667%; height: 129px;">5.18 / 1.58</td>
-\n<td style="width: 16.6667%; height: 129px;">6.54 / 2</td>
-\n<td style="width: 16.6667%; height: 129px;">7.33 / 2.24</td>
-\n<td style="width: 16.6667%; height: 129px;">8.43 / 2.57</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 16.6667%; height: 43px;">Khả năng tải trọng (lb / kg)</td>
-\n<td style="width: 16.6667%; height: 43px;">600 / 272</td>
-\n<td style="width: 16.6667%; height: 43px;">600 / 272</td>
-\n<td style="width: 16.6667%; height: 43px;">600 / 272</td>
-\n<td style="width: 16.6667%; height: 43px;">600 / 272</td>
-\n<td style="width: 16.6667%; height: 43px;">600 / 272</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 16.6667%; height: 21px;">Trọng lượng cột (lb / kg)</td>
-\n<td style="width: 16.6667%; height: 21px;">-</td>
-\n<td style="width: 16.6667%; height: 21px;">-</td>
-\n<td style="width: 16.6667%; height: 21px;">-</td>
-\n<td style="width: 16.6667%; height: 21px;">490 / 222</td>
-\n<td style="width: 16.6667%; height: 21px;">-</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 16.6667%; height: 21px;">Số đoạn</td>
-\n<td style="width: 16.6667%; height: 21px;">6</td>
-\n<td style="width: 16.6667%; height: 21px;">6</td>
-\n<td style="width: 16.6667%; height: 21px;">6</td>
-\n<td style="width: 16.6667%; height: 21px;">6</td>
-\n<td style="width: 16.6667%; height: 21px;">6</td>
-\n</tr>
-\n<tr style="height: 64px;">
-\n<td style="width: 16.6667%; height: 64px;">Phạm vi đường kính ống: Ống cơ sở - Ống trên cùng (in. / mm)</td>
-\n<td style="width: 16.6667%; height: 64px;">9.85 - 5.9 / 250 - 150</td>
-\n<td style="width: 16.6667%; height: 64px;">9.85 - 5.9 / 250 - 150</td>
-\n<td style="width: 16.6667%; height: 64px;">9.85 - 5.9 / 250 - 150</td>
-\n<td style="width: 16.6667%; height: 64px;">9.85 - 5.9 / 250 - 150</td>
-\n<td style="width: 16.6667%; height: 64px;">9.85 - 5.9 / 250 - 150</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 16.6667%; height: 43px;">Tốc độ gió sinh tồn (mph / km/h)</td>
-\n<td style="width: 16.6667%; height: 43px;">130 / 209</td>
-\n<td style="width: 16.6667%; height: 43px;">115 / 185</td>
-\n<td style="width: 16.6667%; height: 43px;">95 / 153</td>
-\n<td style="width: 16.6667%; height: 43px;">80 / 129</td>
-\n<td style="width: 16.6667%; height: 43px;"> 62 / 100</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 16.6667%; height: 43px;">Tốc độ gió triển khai (mph / km/h)</td>
-\n<td style="width: 16.6667%; height: 43px;">40 / 64</td>
-\n<td style="width: 16.6667%; height: 43px;">40 / 64</td>
-\n<td style="width: 16.6667%; height: 43px;">40 / 64</td>
-\n<td style="width: 16.6667%; height: 43px;">40 / 64</td>
-\n<td style="width: 16.6667%; height: 43px;">40 / 64</td>
-\n</tr>
-\n<tr style="height: 64px;">
-\n<td style="width: 16.6667%; height: 64px;">Thời gian kéo dài ước tính với nguồn điện (giây)</td>
-\n<td style="width: 16.6667%; height: 64px;">&lt;45</td>
-\n<td style="width: 16.6667%; height: 64px;">&lt;65</td>
-\n<td style="width: 16.6667%; height: 64px;">&lt;90</td>
-\n<td style="width: 16.6667%; height: 64px;">&lt;105</td>
-\n<td style="width: 16.6667%; height: 64px;">&lt;130</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 16.6667%; height: 43px;">Độ chính xác xoay (xoắn)</td>
-\n<td style="width: 16.6667%; height: 43px;">+/–0.7°</td>
-\n<td style="width: 16.6667%; height: 43px;">+/–0.7°</td>
-\n<td style="width: 16.6667%; height: 43px;">+/–0.7°</td>
-\n<td style="width: 16.6667%; height: 43px;">+/–0.7°</td>
-\n<td style="width: 16.6667%; height: 43px;">+/–0.7°</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 16.6667%; height: 21px;">Điện áp đầu vào</td>
-\n<td style="width: 16.6667%; height: 21px;">28 VDC</td>
-\n<td style="width: 16.6667%; height: 21px;">28 VDC</td>
-\n<td style="width: 16.6667%; height: 21px;">28 VDC</td>
-\n<td style="width: 16.6667%; height: 21px;">28 VDC</td>
-\n<td style="width: 16.6667%; height: 21px;">28 VDC</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 16.6667%; height: 21px;">Running Current (Max)</td>
-\n<td style="width: 16.6667%; height: 21px;">40 Amps</td>
-\n<td style="width: 16.6667%; height: 21px;">40 Amps</td>
-\n<td style="width: 16.6667%; height: 21px;">40 Amps</td>
-\n<td style="width: 16.6667%; height: 21px;">40 Amps</td>
-\n<td style="width: 16.6667%; height: 21px;">40 Amps</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 16.6667%; height: 21px;">Dấu vệt cơ sở (in. / cm)</td>
-\n<td style="width: 16.6667%; height: 21px;">17.56 x 11.22 /
-\n
-\n44.6 x 28.5</td>
-\n<td style="width: 16.6667%; height: 21px;">17.56 x 11.22 /
-\n
-\n44.6 x 28.5</td>
-\n<td style="width: 16.6667%; height: 21px;">17.56 x 11.22 /
-\n
-\n44.6 x 28.5</td>
-\n<td style="width: 16.6667%; height: 21px;">17.56 x 11.22 /
-\n
-\n44.6 x 28.5</td>
-\n<td style="width: 16.6667%; height: 21px;">17.56 x 11.22 /
-\n
-\n44.6 x 28.5</td>
-\n</tr>
-\n<tr>
-\n<td style="width: 16.6667%;">Góc triển khai tối đa</td>
-\n<td style="width: 16.6667%;">10°</td>
-\n<td style="width: 16.6667%;">10°</td>
-\n<td style="width: 16.6667%;">10°</td>
-\n<td style="width: 16.6667%;">10°</td>
-\n<td style="width: 16.6667%;">5°</td>
-\n</tr>
-\n<tr>
-\n<td style="width: 16.6667%;">Khu vực cánh buồm có tải trọng điển hình (ft.2 / m2)</td>
-\n<td style="width: 16.6667%;">17 / 1.58</td>
-\n<td style="width: 16.6667%;">12 / 1.11</td>
-\n<td style="width: 16.6667%;">11 / 1.02</td>
-\n<td style="width: 16.6667%;">11 / 1.02</td>
-\n<td style="width: 16.6667%;">8 / .74</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Cột nâng Stiletto® AL HD được thiết kế để chịu được lực tác động của các hệ thống radar và video tiên tiến ngày nay trên nền tảng nâng di động, đồng thời mang lại độ ổn định và độ chính xác cần thiết để truyền tải dữ liệu tối ưu. Thiết kế đa trục và chốt khóa bên trong của Stiletto AL HD giúp giảm thiểu hiện tượng xoắn cột. Stiletto AL HD được thiết kế để đáp ứng các yêu cầu khắt khe nhất của chương trình. Các tính năng cơ bản: • Sức nâng mạnh mẽ • Lên tới 600 pound / 272 kg • Tự động khóa ở mọi độ cao • Đảm bảo và An toàn • Triển khai và rút lại sức mạnh tối đa • Tất cả các phần cột buồm mở rộng và rút lại đồng loạt • Độ xoắn cột tối thiểu - tối ưu hóa cho radar • ±0,7° • Chiều cao lồng thấp • Vòng cổ bên trong có tích hợp máy cạo bụi và băng • Định vị chính xác ở mọi độ cao • Động cơ DC không chổi than điều khiển kỹ thuật số • Bảo trì tối thiểu • Không có đai hoặc xích - Truyền động trực tiếp • Tuổi thọ cực cao - Hệ thống nhiều trục chính • Phớt ống đầy đủ ngăn chặn sự xâm nhập của nước • Cấu trúc hợp kim cường độ cao • Không cần dây nối • Điều khiển kỹ thuật số với màn hình LED • Đọc chiều cao chính xác ngay cả khi mất điện • Chứng nhận MIL-STD 810H",
-    image: "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/al-hd1.png",
-    images: ["/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/al-hd1.png", "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/stiletto-6m.png", "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/Stillto-2.jpg"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "2",
+    "name": "Cột ( trụ) tự nâng Stiletto® AL HEAVY DUTY (AL HD)",
+    "slug": "cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột nâng Stiletto® AL HD được thiết kế để chịu được lực tác động của các hệ thống radar và video tiên tiến ngày nay trên nền tảng nâng di động, đồng thời mang lại độ ổn định và độ chính xác cần thiết để truyền tải dữ liệu tối ưu. Thiết kế đa trục và chốt khóa bên trong của Stiletto AL HD giúp giảm thiểu hiện tượng xoắn cột. Stiletto AL HD được thiết kế để đáp ứng các yêu cầu khắt khe nhất của chương trình. Các tính năng cơ bản: • Sức nâng mạnh mẽ • Lên tới 600 pound / 272 kg • Tự động khóa ở mọi độ cao • Đảm bảo và An toàn • Triển khai và rút lại sức mạnh tối đa • Tất cả các phần cột buồm mở rộng và rút lại đồng loạt • Độ xoắn cột tối thiểu - tối ưu hóa cho radar • ±0,7° • Chiều cao lồng thấp • Vòng cổ bên trong có tích hợp máy cạo bụi và băng • Định vị chính xác ở mọi độ cao • Động cơ DC không chổi than điều khiển kỹ thuật số • Bảo trì tối thiểu • Không có đai hoặc xích - Truyền động trực tiếp • Tuổi thọ cực cao - Hệ thống nhiều trục chính • Phớt ống đầy đủ ngăn chặn sự xâm nhập của nước • Cấu trúc hợp kim cường độ cao • Không cần dây nối • Điều khiển kỹ thuật số với màn hình LED • Đọc chiều cao chính xác ngay cả khi mất điện • Chứng nhận MIL-STD 810H",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%; height: 684px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 16.6667%; height: 21px;\"><strong>Stiletto AL HD</strong></td>\n\n<td style=\"width: 16.6667%; height: 21px;\"><strong>4 mét</strong></td>\n\n<td style=\"width: 16.6667%; height: 21px;\"><strong>6 mét</strong></td>\n\n<td style=\"width: 16.6667%; height: 21px;\"><strong>8.54 mét</strong></td>\n\n<td style=\"width: 16.6667%; height: 21px;\"><strong>10 mét</strong></td>\n\n<td style=\"width: 16.6667%; height: 21px;\"><strong>12 mét</strong></td>\n\n</tr>\n\n<tr style=\"height: 129px;\">\n\n<td style=\"width: 16.6667%; height: 129px;\">Chiều cao mở rộng (ft. / m)\n\n\n\n(-0 + .79 / -0 + 20 (in. / mm)</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">13.1 / 4</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">19.6 / 6</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">28 / 8.54</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">32.8 / 10</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">39.3 / 12</td>\n\n</tr>\n\n<tr style=\"height: 129px;\">\n\n<td style=\"width: 16.6667%; height: 129px;\">Chiều cao rút vào (ft. / m)\n\n\n\n-0 in. + .79 / -0 + 20 (in. / mm)</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">4.2 / 1.28</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">5.18 / 1.58</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">6.54 / 2</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">7.33 / 2.24</td>\n\n<td style=\"width: 16.6667%; height: 129px;\">8.43 / 2.57</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 16.6667%; height: 43px;\">Khả năng tải trọng (lb / kg)</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">600 / 272</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">600 / 272</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">600 / 272</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">600 / 272</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">600 / 272</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 16.6667%; height: 21px;\">Trọng lượng cột (lb / kg)</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">-</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">-</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">-</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">490 / 222</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">-</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 16.6667%; height: 21px;\">Số đoạn</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">6</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">6</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">6</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">6</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">6</td>\n\n</tr>\n\n<tr style=\"height: 64px;\">\n\n<td style=\"width: 16.6667%; height: 64px;\">Phạm vi đường kính ống: Ống cơ sở - Ống trên cùng (in. / mm)</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">9.85 - 5.9 / 250 - 150</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">9.85 - 5.9 / 250 - 150</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">9.85 - 5.9 / 250 - 150</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">9.85 - 5.9 / 250 - 150</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">9.85 - 5.9 / 250 - 150</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 16.6667%; height: 43px;\">Tốc độ gió sinh tồn (mph / km/h)</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">130 / 209</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">115 / 185</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">95 / 153</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">80 / 129</td>\n\n<td style=\"width: 16.6667%; height: 43px;\"> 62 / 100</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 16.6667%; height: 43px;\">Tốc độ gió triển khai (mph / km/h)</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">40 / 64</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">40 / 64</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">40 / 64</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">40 / 64</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">40 / 64</td>\n\n</tr>\n\n<tr style=\"height: 64px;\">\n\n<td style=\"width: 16.6667%; height: 64px;\">Thời gian kéo dài ước tính với nguồn điện (giây)</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">&lt;45</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">&lt;65</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">&lt;90</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">&lt;105</td>\n\n<td style=\"width: 16.6667%; height: 64px;\">&lt;130</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 16.6667%; height: 43px;\">Độ chính xác xoay (xoắn)</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">+/–0.7°</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">+/–0.7°</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">+/–0.7°</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">+/–0.7°</td>\n\n<td style=\"width: 16.6667%; height: 43px;\">+/–0.7°</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 16.6667%; height: 21px;\">Điện áp đầu vào</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">28 VDC</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">28 VDC</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">28 VDC</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">28 VDC</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">28 VDC</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 16.6667%; height: 21px;\">Running Current (Max)</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">40 Amps</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">40 Amps</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">40 Amps</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">40 Amps</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">40 Amps</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 16.6667%; height: 21px;\">Dấu vệt cơ sở (in. / cm)</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">17.56 x 11.22 /\n\n\n\n44.6 x 28.5</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">17.56 x 11.22 /\n\n\n\n44.6 x 28.5</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">17.56 x 11.22 /\n\n\n\n44.6 x 28.5</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">17.56 x 11.22 /\n\n\n\n44.6 x 28.5</td>\n\n<td style=\"width: 16.6667%; height: 21px;\">17.56 x 11.22 /\n\n\n\n44.6 x 28.5</td>\n\n</tr>\n\n<tr>\n\n<td style=\"width: 16.6667%;\">Góc triển khai tối đa</td>\n\n<td style=\"width: 16.6667%;\">10°</td>\n\n<td style=\"width: 16.6667%;\">10°</td>\n\n<td style=\"width: 16.6667%;\">10°</td>\n\n<td style=\"width: 16.6667%;\">10°</td>\n\n<td style=\"width: 16.6667%;\">5°</td>\n\n</tr>\n\n<tr>\n\n<td style=\"width: 16.6667%;\">Khu vực cánh buồm có tải trọng điển hình (ft.2 / m2)</td>\n\n<td style=\"width: 16.6667%;\">17 / 1.58</td>\n\n<td style=\"width: 16.6667%;\">12 / 1.11</td>\n\n<td style=\"width: 16.6667%;\">11 / 1.02</td>\n\n<td style=\"width: 16.6667%;\">11 / 1.02</td>\n\n<td style=\"width: 16.6667%;\">8 / .74</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Cột nâng Stiletto® AL HD được thiết kế để chịu được lực tác động của các hệ thống radar và video tiên tiến ngày nay trên nền tảng nâng di động, đồng thời mang lại độ ổn định và độ chính xác cần thiết để truyền tải dữ liệu tối ưu. Thiết kế đa trục và chốt khóa bên trong của Stiletto AL HD giúp giảm thiểu hiện tượng xoắn cột. Stiletto AL HD được thiết kế để đáp ứng các yêu cầu khắt khe nhất của chương trình. Các tính năng cơ bản: • Sức nâng mạnh mẽ • Lên tới 600 pound / 272 kg • Tự động khóa ở mọi độ cao • Đảm bảo và An toàn • Triển khai và rút lại sức mạnh tối đa • Tất cả các phần cột buồm mở rộng và rút lại đồng loạt • Độ xoắn cột tối thiểu - tối ưu hóa cho radar • ±0,7° • Chiều cao lồng thấp • Vòng cổ bên trong có tích hợp máy cạo bụi và băng • Định vị chính xác ở mọi độ cao • Động cơ DC không chổi than điều khiển kỹ thuật số • Bảo trì tối thiểu • Không có đai hoặc xích - Truyền động trực tiếp • Tuổi thọ cực cao - Hệ thống nhiều trục chính • Phớt ống đầy đủ ngăn chặn sự xâm nhập của nước • Cấu trúc hợp kim cường độ cao • Không cần dây nối • Điều khiển kỹ thuật số với màn hình LED • Đọc chiều cao chính xác ngay cả khi mất điện • Chứng nhận MIL-STD 810H",
+    "image": "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/al-hd1.png",
+    "images": [
+      "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/al-hd1.png",
+      "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/stiletto-6m.png",
+      "/images/products/cot-tru-tu-nang-stiletto-al-heavy-duty-al-hd/Stillto-2.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -306,165 +80,25 @@ export const products: Product[] = [
     }
   },
   {
-    id: "3",
-    name: "HỆ THỐNG NÂNG COMPACT ELEVATION SYSTEM",
-    slug: "he-thong-nang-compact-elevation-system",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Hệ thống Nâng Di Động Gọn Nhẹ của Will-Burt là một nền tảng nâng di động chắc chắn và chính xác, cho phép triển khai nhanh chóng nhiều loại cảm biến khác nhau từ vị trí ẩn giấu trong thùng xe bán tải tiêu chuẩn 8 feet. Thiết kế nhỏ gọn cung cấp dung tích lên đến 0,7 m³ (24,7 ft³) cho tải trọng cảm biến với cửa thùng đóng lại. Hệ thống có sẵn với tùy chọn nâng cơ điện hoặc khí nén, đảm bảo độ ổn định của tải trọng bằng các khóa và rãnh khóa giúp giảm thiểu chuyển động xoay. Được thiết kế và sản xuất tại Mỹ bởi The Will-Burt Company, Hệ thống Nâng Di Động Gọn Nhẹ sẽ tối ưu hóa hiệu suất của cảm biến, dẫn đến thành công của nhiệm vụ. CÁC TÍNH NĂNG THIẾT YẾU: Ngụy trang: Hệ thống nâng và tải trọng được ẩn giấu bên trong thùng xe bán tải Vận chuyển linh hoạt: Có thể vận chuyển ở vị trí ngang hoặc dọc Thời gian nâng hạ: Dưới 30 giây Gọn nhẹ: Dung tích tối đa 0,7 m³ (24,7 ft³) cho tải trọng cảm biến Giảm thiểu xoắn cột: Khóa toàn bộ chiều dài các đoạn cột Chắc chắn và bền bỉ: Thiết kế cột nâng dạng ống lồng đã được kiểm chứng thực địa, không cần giằng dây Lắp đặt linh hoạt: Thiết kế bệ đỡ cho phép lắp đặt trên nhiều nền tảng khác nhau Hệ thống nâng: Có sẵn tùy chọn nâng cơ điện hoặc khí nén Hệ thống quản lý cáp: Giữ cho cáp gọn gàng, tránh rối Điều khiển tích hợp: Hệ thống điều khiển tích hợp hoàn toàn Tương thích điều khiển PC Giao thức CAN-bus J1939 Giao tiếp nối tiếp RS485",
-    fullDescription: `<h3 style="text-align: center;"><span style="font-family: verdana, geneva, sans-serif;"><strong>THÔNG SỐ KỸ THUẬT </strong></span></h3>
-\n<table id="tablepress-593" class="tablepress tablepress-id-593 tablepress-portal" style="width: 100%; height: 399px;">
-\n<thead>
-\n<tr class="row-1 odd" style="height: 21px;">
-\n<th class="column-1" style="height: 21px; width: 49.2147%;">CES-TRK-SAL</th>
-\n<th class="column-2" style="height: 21px; width: 25.2356%;">4m</th>
-\n<th class="column-3" style="height: 21px; width: 24.712%;">6m</th>
-\n</tr>
-\n</thead>
-\n<tbody>
-\n<tr class="row-2 even" style="height: 43px;">
-\n<td class="column-1" style="height: 43px; width: 49.2147%;">Kích thước thu gọn (D x R x C)</td>
-\n<td class="column-2" style="height: 43px; width: 25.2356%;">53.4” x 41.8” x 21.8” / 1356mm x 1062mm x 555mm</td>
-\n<td class="column-3" style="height: 43px; width: 24.712%;">61.2” x 41.8” x 21.8” / 1555mm 1062mm x 555mm</td>
-\n</tr>
-\n<tr class="row-3 odd" style="height: 43px;">
-\n<td class="column-1" style="height: 43px; width: 49.2147%;">Diện tích có sẵn để che giấu
-\nTải trọng cảm biến (giường 8 ft)</td>
-\n<td class="column-2" style="height: 43px; width: 25.2356%;">42157.090 in³ &amp; 1983.900 in² / 0.691m³ &amp; 1.280 m²</td>
-\n<td class="column-3" style="height: 43px; width: 24.712%;">40203.363 in³ &amp; 1875.316 in² / 0.659 m³ / 1.210 m²</td>
-\n</tr>
-\n<tr class="row-4 even" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Chiều cao mở rộng</td>
-\n<td class="column-2" style="height: 21px; width: 25.2356%;">13.1 ft. / 4 m</td>
-\n<td class="column-3" style="height: 21px; width: 24.712%;">19.6 ft. / 6 m</td>
-\n</tr>
-\n<tr class="row-5 odd" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Khả năng tải trọng</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">400 lbs. / 181 kg</td>
-\n</tr>
-\n<tr class="row-6 even" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Loại cột</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">Ổ trục vít cơ khí bằng nhôm có khóa tự động</td>
-\n</tr>
-\n<tr class="row-7 odd" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Tốc độ gió sinh tồn</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">81 mph / 130 km/h</td>
-\n</tr>
-\n<tr class="row-8 even" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Tốc độ gió triển khai</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">35 mph / 56 km/h</td>
-\n</tr>
-\n<tr class="row-9 odd" style="height: 43px;">
-\n<td class="column-1" style="height: 43px; width: 49.2147%;">Nghiêng lên / Triển khai cột / Rút cột / Nghiêng xuống / Tổng thời gian chu kỳ / Ước tính - Phụ thuộc tải trọng</td>
-\n<td class="column-2" style="height: 43px; width: 25.2356%;">30 / 35 / 35 / 30 /
-\n130 Giây</td>
-\n<td class="column-3" style="height: 43px; width: 24.712%;">30 / 60 / 60 / 30 /
-\n180 Giây</td>
-\n</tr>
-\n<tr class="row-10 even" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Độ chính xác xoay (xoắn)</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">+/–1°</td>
-\n</tr>
-\n<tr class="row-11 odd" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Điện áp (MIL-STD 1275)</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">28 VDC</td>
-\n</tr>
-\n<tr class="row-12 even" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Khu vực cánh buồm có tải trọng điển hình</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">12 ft² / 1.1 m² CD=1.5</td>
-\n</tr>
-\n<tr class="row-13 odd" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Trọng lượng hệ thống CES &amp; Tải trọng</td>
-\n<td class="column-2" style="height: 21px; width: 25.2356%;">1440 lbs. / 653 kg</td>
-\n<td class="column-3" style="height: 21px; width: 24.712%;">1495 lbs. / 678 kg</td>
-\n</tr>
-\n<tr class="row-14 even" style="height: 21px;">
-\n<td class="column-1" style="height: 21px; width: 49.2147%;">Kiểm soát hệ thống tích hợp</td>
-\n<td class="column-2" style="height: 21px; width: 49.9476%;" colspan="2">CAN-bus J1939, RS485 Serial, Có khả năng điều khiển PC</td>
-\n</tr>
-\n<tr class="row-15 odd" style="height: 39px;">
-\n<td class="column-1" style="height: 39px; width: 49.2147%;">Bản vẽ 2D</td>
-\n<td class="column-2" style="height: 39px; width: 25.2356%;"><img class="alignnone size-medium wp-image-909" src="https://newatlantic.vn/wp-content/uploads/2024/04/4m-ces-trk-sal-2d-drawing-300x286.jpg" alt="" width="300" height="286" /></td>
-\n<td class="column-3" style="height: 39px; width: 24.712%;"><img class="alignnone size-medium wp-image-910" src="https://newatlantic.vn/wp-content/uploads/2024/04/6m-ces-trk-sal-customer-drawing-300x294.jpg" alt="" width="300" height="294" /></td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n<table id="tablepress-594" class="tablepress tablepress-id-594 tablepress-portal" style="width: 100%; height: 347px;">
-\n<thead>
-\n<tr class="row-1 odd" style="height: 21px;">
-\n<th class="column-1" style="width: 43.2461%; height: 21px;">CES-TRK-SHDNL</th>
-\n<th class="column-2" style="width: 27.9581%; height: 21px;">4m</th>
-\n<th class="column-3" style="width: 27.9581%; height: 21px;">6m</th>
-\n</tr>
-\n</thead>
-\n<tbody>
-\n<tr class="row-2 even" style="height: 43px;">
-\n<td class="column-1" style="width: 43.2461%; height: 43px;">Kích thước thu gọn (D x R x C)</td>
-\n<td class="column-2" style="width: 27.9581%; height: 43px;">56.7” x 41.8” x 21.8” / 1440 mm x 1062mm x 555mm</td>
-\n<td class="column-3" style="width: 27.9581%; height: 43px;">66.6” x 41.8” x 21.8” / 1692 mm x 1062mm x 555mm</td>
-\n</tr>
-\n<tr class="row-3 odd" style="height: 43px;">
-\n<td class="column-1" style="width: 43.2461%; height: 43px;">Diện tích có sẵn để che giấu
-\nTải trọng cảm biến (giường 8 ft)</td>
-\n<td class="column-2" style="width: 27.9581%; height: 43px;">41316.195 in³ &amp; 1937.140 in² / 0.677 m³ &amp; 1.250 m²</td>
-\n<td class="column-3" style="width: 27.9581%; height: 43px;">38836.011 in³ &amp; 1799.352 in² / 0.637 m³ &amp; 1.161 m²</td>
-\n</tr>
-\n<tr class="row-4 even" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Chiều cao mở rộng</td>
-\n<td class="column-2" style="width: 27.9581%; height: 21px;">13.1 ft. / 4 m</td>
-\n<td class="column-3" style="width: 27.9581%; height: 21px;">19.6 ft. / 6 m</td>
-\n</tr>
-\n<tr class="row-5 odd" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Khả năng tải trọng</td>
-\n<td class="column-2" style="width: 55.9162%; height: 21px;" colspan="2">530 lbs. / 241 kg</td>
-\n</tr>
-\n<tr class="row-6 even" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Loại cột</td>
-\n<td class="column-2" style="width: 55.9162%; height: 21px;" colspan="2">Nhôm khí nén</td>
-\n</tr>
-\n<tr class="row-7 odd" style="height: 19px;">
-\n<td class="column-1" style="width: 43.2461%; height: 19px;">Tốc độ gió sinh tồn</td>
-\n<td class="column-2" style="width: 55.9162%; height: 19px;" colspan="2">81 mph / 130 km/h</td>
-\n</tr>
-\n<tr class="row-8 even" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Tốc độ gió triển khai</td>
-\n<td class="column-2" style="width: 55.9162%; height: 21px;" colspan="2">35 mph / 56 km/h</td>
-\n</tr>
-\n<tr class="row-9 odd" style="height: 64px;">
-\n<td class="column-1" style="width: 43.2461%; height: 64px;">Nghiêng lên / Triển khai cột / Rút cột / Nghiêng xuống / Tổng thời gian chu kỳ / Ước tính - Phụ thuộc tải trọng</td>
-\n<td class="column-2" style="width: 55.9162%; height: 64px;" colspan="2">30 /
-\nThời gian triển khai và rút lại có sự thay đổi lớn /
-\n30 giây</td>
-\n</tr>
-\n<tr class="row-10 even" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Khu vực cánh buồm có tải trọng điển hình</td>
-\n<td class="column-2" style="width: 55.9162%; height: 21px;" colspan="2">12 ft² / 1.1 m² CD=1.5=</td>
-\n</tr>
-\n<tr class="row-11 odd" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Trọng lượng hệ thống CES &amp; Tải trọng</td>
-\n<td class="column-2" style="width: 27.9581%; height: 21px;">1535 lbs. / 696 kg</td>
-\n<td class="column-3" style="width: 27.9581%; height: 21px;">1579 lbs. / 716 kg</td>
-\n</tr>
-\n<tr class="row-12 even" style="height: 21px;">
-\n<td class="column-1" style="width: 43.2461%; height: 21px;">Kiểm soát hệ thống tích hợp</td>
-\n<td class="column-2" style="width: 55.9162%; height: 21px;" colspan="2">CAN-bus J1939, RS485 Serial, PC Control Capable</td>
-\n</tr>
-\n<tr class="row-13 odd" style="height: 10px;">
-\n<td class="column-1" style="width: 43.2461%; height: 10px;">Bản vẽ 2D</td>
-\n<td class="column-2" style="width: 27.9581%; height: 10px;"><img class="alignnone size-medium wp-image-914" src="https://newatlantic.vn/wp-content/uploads/2024/04/4m-ces-trk-shdnl-customer-drawing-300x294.jpg" alt="" width="300" height="294" /></td>
-\n<td class="column-3" style="width: 27.9581%; height: 10px;"><img class="alignnone size-medium wp-image-915" src="https://newatlantic.vn/wp-content/uploads/2024/04/6m-ces-trk-shdnl-customer-drawing-1-300x278.jpg" alt="" width="300" height="278" /></td>
-\n</tr>
-\n</tbody>
-\n</table>
-\nPhương tiện có thể gắn: Xe tải, xe tải nặng, xe chuyên dụng, xe đa địa hình, xe bán tải dân dụng
-\n
-\n[ xe bán tải gắn cột ]`,
-    shortDescription: "Hệ thống Nâng Di Động Gọn Nhẹ của Will-Burt là một nền tảng nâng di động chắc chắn và chính xác, cho phép triển khai nhanh chóng nhiều loại cảm biến khác nhau từ vị trí ẩn giấu trong thùng xe bán tải tiêu chuẩn 8 feet. Thiết kế nhỏ gọn cung cấp dung tích lên đến 0,7 m³ (24,7 ft³) cho tải trọng cảm biến với cửa thùng đóng lại. Hệ thống có sẵn với tùy chọn nâng cơ điện hoặc khí nén, đảm bảo độ ổn định của tải trọng bằng các khóa và rãnh khóa giúp giảm thiểu chuyển động xoay. Được thiết kế và sản xuất tại Mỹ bởi The Will-Burt Company, Hệ thống Nâng Di Động Gọn Nhẹ sẽ tối ưu hóa hiệu suất của cảm biến, dẫn đến thành công của nhiệm vụ. CÁC TÍNH NĂNG THIẾT YẾU: Ngụy trang: Hệ thống nâng và tải trọng được ẩn giấu bên trong thùng xe bán tải Vận chuyển linh hoạt: Có thể vận chuyển ở vị trí ngang hoặc dọc Thời gian nâng hạ: Dưới 30 giây Gọn nhẹ: Dung tích tối đa 0,7 m³ (24,7 ft³) cho tải trọng cảm biến Giảm thiểu xoắn cột: Khóa toàn bộ chiều dài các đoạn cột Chắc chắn và bền bỉ: Thiết kế cột nâng dạng ống lồng đã được kiểm chứng thực địa, không cần giằng dây Lắp đặt linh hoạt: Thiết kế bệ đỡ cho phép lắp đặt trên nhiều nền tảng khác nhau Hệ thống nâng: Có sẵn tùy chọn nâng cơ điện hoặc khí nén Hệ thống quản lý cáp: Giữ cho cáp gọn gàng, tránh rối Điều khiển tích hợp: Hệ thống điều khiển tích hợp hoàn toàn Tương thích điều khiển PC Giao thức CAN-bus J1939 Giao tiếp nối tiếp RS485",
-    image: "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A3.jpg",
-    images: ["/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A3.jpg", "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A6.jpg", "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A5.jpg", "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A4.jpg", "/images/products/he-thong-nang-compact-elevation-system/ces-trk-truck-bed-225x300-2.jpg"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "3",
+    "name": "HỆ THỐNG NÂNG COMPACT ELEVATION SYSTEM",
+    "slug": "he-thong-nang-compact-elevation-system",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "HỆ THỐNG\nHệ thống Nâng Di Động Gọn Nhẹ của Will-Burt là một nền tảng nâng di động chắc chắn và chính xác, cho phép triển khai nhanh chóng nhiều loại cảm biến khác nhau từ vị trí ẩn giấu trong thùng xe bán tải tiêu chuẩn 8 feet. Thiết kế nhỏ gọn cung cấp dung tích lên đến 0,7 m³ (24,7 ft³) cho tải trọng cảm biến với cửa thùng đóng lại. Hệ thống có sẵn với tùy chọn nâng cơ điện hoặc khí nén, đảm bảo độ ổn định của tải trọng bằng các khóa và rãnh khóa giúp giảm thiểu chuyển động xoay. Được thiết kế và sản xuất tại Mỹ bởi The Will-Burt Company, Hệ thống Nâng Di Động Gọn Nhẹ sẽ tối ưu hóa hiệu suất của cảm biến, dẫn đến thành công của nhiệm vụ. CÁC TÍNH NĂNG THIẾT YẾU: Ngụy trang: Hệ thống nâng và tải trọng được ẩn giấu bên trong thùng xe bán tải Vận chuyển linh hoạt: Có thể vận chuyển ở vị trí ngang hoặc dọc Thời gian nâng hạ: Dưới 30 giây Gọn nhẹ: Dung tích tối đa 0,7 m³ (24,7 ft³) cho tải trọng cảm biến Giảm thiểu xoắn cột: Khóa toàn bộ chiều dài các đoạn cột Chắc chắn và bền bỉ: Thiết kế cột nâng dạng ống lồng đã được kiểm chứng thực địa, không cần giằng dây Lắp đặt linh hoạt: Thiết kế bệ đỡ cho phép lắp đặt trên nhiều nền tảng khác nhau Hệ thống nâng: Có sẵn tùy chọn nâng cơ điện hoặc khí nén Hệ thống quản lý cáp: Giữ cho cáp gọn gàng, tránh rối Điều khiển tích hợp: Hệ thống điều khiển tích hợp hoàn toàn Tương thích điều khiển PC Giao thức CAN-bus J1939 Giao tiếp nối tiếp RS485",
+    "fullDescription": "<h3 style=\"text-align: center;\"><span style=\"font-family: verdana, geneva, sans-serif;\"><strong>THÔNG SỐ KỸ THUẬT </strong></span></h3>\n\n<table id=\"tablepress-593\" class=\"tablepress tablepress-id-593 tablepress-portal\" style=\"width: 100%; height: 399px;\">\n\n<thead>\n\n<tr class=\"row-1 odd\" style=\"height: 21px;\">\n\n<th class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">CES-TRK-SAL</th>\n\n<th class=\"column-2\" style=\"height: 21px; width: 25.2356%;\">4m</th>\n\n<th class=\"column-3\" style=\"height: 21px; width: 24.712%;\">6m</th>\n\n</tr>\n\n</thead>\n\n<tbody>\n\n<tr class=\"row-2 even\" style=\"height: 43px;\">\n\n<td class=\"column-1\" style=\"height: 43px; width: 49.2147%;\">Kích thước thu gọn (D x R x C)</td>\n\n<td class=\"column-2\" style=\"height: 43px; width: 25.2356%;\">53.4” x 41.8” x 21.8” / 1356mm x 1062mm x 555mm</td>\n\n<td class=\"column-3\" style=\"height: 43px; width: 24.712%;\">61.2” x 41.8” x 21.8” / 1555mm 1062mm x 555mm</td>\n\n</tr>\n\n<tr class=\"row-3 odd\" style=\"height: 43px;\">\n\n<td class=\"column-1\" style=\"height: 43px; width: 49.2147%;\">Diện tích có sẵn để che giấu\n\nTải trọng cảm biến (giường 8 ft)</td>\n\n<td class=\"column-2\" style=\"height: 43px; width: 25.2356%;\">42157.090 in³ &amp; 1983.900 in² / 0.691m³ &amp; 1.280 m²</td>\n\n<td class=\"column-3\" style=\"height: 43px; width: 24.712%;\">40203.363 in³ &amp; 1875.316 in² / 0.659 m³ / 1.210 m²</td>\n\n</tr>\n\n<tr class=\"row-4 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Chiều cao mở rộng</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 25.2356%;\">13.1 ft. / 4 m</td>\n\n<td class=\"column-3\" style=\"height: 21px; width: 24.712%;\">19.6 ft. / 6 m</td>\n\n</tr>\n\n<tr class=\"row-5 odd\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Khả năng tải trọng</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">400 lbs. / 181 kg</td>\n\n</tr>\n\n<tr class=\"row-6 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Loại cột</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">Ổ trục vít cơ khí bằng nhôm có khóa tự động</td>\n\n</tr>\n\n<tr class=\"row-7 odd\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Tốc độ gió sinh tồn</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">81 mph / 130 km/h</td>\n\n</tr>\n\n<tr class=\"row-8 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Tốc độ gió triển khai</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">35 mph / 56 km/h</td>\n\n</tr>\n\n<tr class=\"row-9 odd\" style=\"height: 43px;\">\n\n<td class=\"column-1\" style=\"height: 43px; width: 49.2147%;\">Nghiêng lên / Triển khai cột / Rút cột / Nghiêng xuống / Tổng thời gian chu kỳ / Ước tính - Phụ thuộc tải trọng</td>\n\n<td class=\"column-2\" style=\"height: 43px; width: 25.2356%;\">30 / 35 / 35 / 30 /\n\n130 Giây</td>\n\n<td class=\"column-3\" style=\"height: 43px; width: 24.712%;\">30 / 60 / 60 / 30 /\n\n180 Giây</td>\n\n</tr>\n\n<tr class=\"row-10 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Độ chính xác xoay (xoắn)</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">+/–1°</td>\n\n</tr>\n\n<tr class=\"row-11 odd\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Điện áp (MIL-STD 1275)</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">28 VDC</td>\n\n</tr>\n\n<tr class=\"row-12 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Khu vực cánh buồm có tải trọng điển hình</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">12 ft² / 1.1 m² CD=1.5</td>\n\n</tr>\n\n<tr class=\"row-13 odd\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Trọng lượng hệ thống CES &amp; Tải trọng</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 25.2356%;\">1440 lbs. / 653 kg</td>\n\n<td class=\"column-3\" style=\"height: 21px; width: 24.712%;\">1495 lbs. / 678 kg</td>\n\n</tr>\n\n<tr class=\"row-14 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"height: 21px; width: 49.2147%;\">Kiểm soát hệ thống tích hợp</td>\n\n<td class=\"column-2\" style=\"height: 21px; width: 49.9476%;\" colspan=\"2\">CAN-bus J1939, RS485 Serial, Có khả năng điều khiển PC</td>\n\n</tr>\n\n<tr class=\"row-15 odd\" style=\"height: 39px;\">\n\n<td class=\"column-1\" style=\"height: 39px; width: 49.2147%;\">Bản vẽ 2D</td>\n\n<td class=\"column-2\" style=\"height: 39px; width: 25.2356%;\"><img class=\"alignnone size-medium wp-image-909\" src=\"https://newatlantic.vn/wp-content/uploads/2024/04/4m-ces-trk-sal-2d-drawing-300x286.jpg\" alt=\"\" width=\"300\" height=\"286\" /></td>\n\n<td class=\"column-3\" style=\"height: 39px; width: 24.712%;\"><img class=\"alignnone size-medium wp-image-910\" src=\"https://newatlantic.vn/wp-content/uploads/2024/04/6m-ces-trk-sal-customer-drawing-300x294.jpg\" alt=\"\" width=\"300\" height=\"294\" /></td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n<table id=\"tablepress-594\" class=\"tablepress tablepress-id-594 tablepress-portal\" style=\"width: 100%; height: 347px;\">\n\n<thead>\n\n<tr class=\"row-1 odd\" style=\"height: 21px;\">\n\n<th class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">CES-TRK-SHDNL</th>\n\n<th class=\"column-2\" style=\"width: 27.9581%; height: 21px;\">4m</th>\n\n<th class=\"column-3\" style=\"width: 27.9581%; height: 21px;\">6m</th>\n\n</tr>\n\n</thead>\n\n<tbody>\n\n<tr class=\"row-2 even\" style=\"height: 43px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 43px;\">Kích thước thu gọn (D x R x C)</td>\n\n<td class=\"column-2\" style=\"width: 27.9581%; height: 43px;\">56.7” x 41.8” x 21.8” / 1440 mm x 1062mm x 555mm</td>\n\n<td class=\"column-3\" style=\"width: 27.9581%; height: 43px;\">66.6” x 41.8” x 21.8” / 1692 mm x 1062mm x 555mm</td>\n\n</tr>\n\n<tr class=\"row-3 odd\" style=\"height: 43px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 43px;\">Diện tích có sẵn để che giấu\n\nTải trọng cảm biến (giường 8 ft)</td>\n\n<td class=\"column-2\" style=\"width: 27.9581%; height: 43px;\">41316.195 in³ &amp; 1937.140 in² / 0.677 m³ &amp; 1.250 m²</td>\n\n<td class=\"column-3\" style=\"width: 27.9581%; height: 43px;\">38836.011 in³ &amp; 1799.352 in² / 0.637 m³ &amp; 1.161 m²</td>\n\n</tr>\n\n<tr class=\"row-4 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Chiều cao mở rộng</td>\n\n<td class=\"column-2\" style=\"width: 27.9581%; height: 21px;\">13.1 ft. / 4 m</td>\n\n<td class=\"column-3\" style=\"width: 27.9581%; height: 21px;\">19.6 ft. / 6 m</td>\n\n</tr>\n\n<tr class=\"row-5 odd\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Khả năng tải trọng</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 21px;\" colspan=\"2\">530 lbs. / 241 kg</td>\n\n</tr>\n\n<tr class=\"row-6 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Loại cột</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 21px;\" colspan=\"2\">Nhôm khí nén</td>\n\n</tr>\n\n<tr class=\"row-7 odd\" style=\"height: 19px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 19px;\">Tốc độ gió sinh tồn</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 19px;\" colspan=\"2\">81 mph / 130 km/h</td>\n\n</tr>\n\n<tr class=\"row-8 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Tốc độ gió triển khai</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 21px;\" colspan=\"2\">35 mph / 56 km/h</td>\n\n</tr>\n\n<tr class=\"row-9 odd\" style=\"height: 64px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 64px;\">Nghiêng lên / Triển khai cột / Rút cột / Nghiêng xuống / Tổng thời gian chu kỳ / Ước tính - Phụ thuộc tải trọng</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 64px;\" colspan=\"2\">30 /\n\nThời gian triển khai và rút lại có sự thay đổi lớn /\n\n30 giây</td>\n\n</tr>\n\n<tr class=\"row-10 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Khu vực cánh buồm có tải trọng điển hình</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 21px;\" colspan=\"2\">12 ft² / 1.1 m² CD=1.5=</td>\n\n</tr>\n\n<tr class=\"row-11 odd\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Trọng lượng hệ thống CES &amp; Tải trọng</td>\n\n<td class=\"column-2\" style=\"width: 27.9581%; height: 21px;\">1535 lbs. / 696 kg</td>\n\n<td class=\"column-3\" style=\"width: 27.9581%; height: 21px;\">1579 lbs. / 716 kg</td>\n\n</tr>\n\n<tr class=\"row-12 even\" style=\"height: 21px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 21px;\">Kiểm soát hệ thống tích hợp</td>\n\n<td class=\"column-2\" style=\"width: 55.9162%; height: 21px;\" colspan=\"2\">CAN-bus J1939, RS485 Serial, PC Control Capable</td>\n\n</tr>\n\n<tr class=\"row-13 odd\" style=\"height: 10px;\">\n\n<td class=\"column-1\" style=\"width: 43.2461%; height: 10px;\">Bản vẽ 2D</td>\n\n<td class=\"column-2\" style=\"width: 27.9581%; height: 10px;\"><img class=\"alignnone size-medium wp-image-914\" src=\"https://newatlantic.vn/wp-content/uploads/2024/04/4m-ces-trk-shdnl-customer-drawing-300x294.jpg\" alt=\"\" width=\"300\" height=\"294\" /></td>\n\n<td class=\"column-3\" style=\"width: 27.9581%; height: 10px;\"><img class=\"alignnone size-medium wp-image-915\" src=\"https://newatlantic.vn/wp-content/uploads/2024/04/6m-ces-trk-shdnl-customer-drawing-1-300x278.jpg\" alt=\"\" width=\"300\" height=\"278\" /></td>\n\n</tr>\n\n</tbody>\n\n</table>\n\nPhương tiện có thể gắn: Xe tải, xe tải nặng, xe chuyên dụng, xe đa địa hình, xe bán tải dân dụng\n\n\n\n[ xe bán tải gắn cột ]",
+    "shortDescription": "Hệ thống Nâng Di Động Gọn Nhẹ của Will-Burt là một nền tảng nâng di động chắc chắn và chính xác, cho phép triển khai nhanh chóng nhiều loại cảm biến khác nhau từ vị trí ẩn giấu trong thùng xe bán tải tiêu chuẩn 8 feet. Thiết kế nhỏ gọn cung cấp dung tích lên đến 0,7 m³ (24,7 ft³) cho tải trọng cảm biến với cửa thùng đóng lại. Hệ thống có sẵn với tùy chọn nâng cơ điện hoặc khí nén, đảm bảo độ ổn định của tải trọng bằng các khóa và rãnh khóa giúp giảm thiểu chuyển động xoay. Được thiết kế và sản xuất tại Mỹ bởi The Will-Burt Company, Hệ thống Nâng Di Động Gọn Nhẹ sẽ tối ưu hóa hiệu suất của cảm biến, dẫn đến thành công của nhiệm vụ. CÁC TÍNH NĂNG THIẾT YẾU: Ngụy trang: Hệ thống nâng và tải trọng được ẩn giấu bên trong thùng xe bán tải Vận chuyển linh hoạt: Có thể vận chuyển ở vị trí ngang hoặc dọc Thời gian nâng hạ: Dưới 30 giây Gọn nhẹ: Dung tích tối đa 0,7 m³ (24,7 ft³) cho tải trọng cảm biến Giảm thiểu xoắn cột: Khóa toàn bộ chiều dài các đoạn cột Chắc chắn và bền bỉ: Thiết kế cột nâng dạng ống lồng đã được kiểm chứng thực địa, không cần giằng dây Lắp đặt linh hoạt: Thiết kế bệ đỡ cho phép lắp đặt trên nhiều nền tảng khác nhau Hệ thống nâng: Có sẵn tùy chọn nâng cơ điện hoặc khí nén Hệ thống quản lý cáp: Giữ cho cáp gọn gàng, tránh rối Điều khiển tích hợp: Hệ thống điều khiển tích hợp hoàn toàn Tương thích điều khiển PC Giao thức CAN-bus J1939 Giao tiếp nối tiếp RS485",
+    "image": "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A3.jpg",
+    "images": [
+      "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A3.jpg",
+      "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A6.jpg",
+      "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A5.jpg",
+      "/images/products/he-thong-nang-compact-elevation-system/Telecommunications-Elevation-Solutions_A4.jpg",
+      "/images/products/he-thong-nang-compact-elevation-system/ces-trk-truck-bed-225x300-2.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -472,69 +106,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "4",
-    name: "CẨU GẬP ROBOT 8 TẤN HIAB XCL-8",
-    slug: "cau-gap-robot-8-tan-hiab-xcl-8",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Là lựa chọn lý tưởng cho nhiều công việc khác nhau ,từ xây dựng công trình đến các công việc trong thành phố như : Nâng hạ hàng hóa Di chuyển máy móc Vật liệu xây dựng hoặc túi Jumbo Ngoài ra ,nếu lắp thêm càng nâng vào đầu cần cẩu HIAB có thể làm tất cả mọi việc mà không cần đến xe nâng hoặc băng tải . Cẩu HIAB vận hành dễ dàng , thực hiện công việc nhanh hơn linh hoạt hơn với độ an toàn tuyệt đối cao",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 140%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="alignleft" src="https://hiabvietnam.vn/wp-content/uploads/2023/08/X-CL-8-3-1.png" /> <img class="alignleft" src="https://hiabvietnam.vn/wp-content/uploads/2023/08/X-CL-8-3.png" />
-\n<table style="border-collapse: collapse; width: 100%; height: 231px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Sức nâng  ( Tm )</td>
-\n<td style="width: 50%; height: 21px;">7,2</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Tầm với tối đa ( m )</td>
-\n<td style="width: 50%; height: 21px;">8,9</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Phân bố tải theo đoạn ( m/kg )      Đoạn 1</td>
-\n<td style="width: 50%; height: 21px;">3,8 – 2060</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Đoạn 2</td>
-\n<td style="width: 50%; height: 21px;">3,9 – 1860</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Đoạn 3</td>
-\n<td style="width: 50%; height: 21px;">5,5 – 1260</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Đoạn 4</td>
-\n<td style="width: 50%; height: 21px;">7,2 – 940</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Đoạn 5</td>
-\n<td style="width: 50%; height: 21px;">8,9 – 760</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Phạm vi lắp đặt cần thiết  ( mm )</td>
-\n<td style="width: 50%; height: 21px;">830</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều rộng cẩu khi gấp lại ( mm )</td>
-\n<td style="width: 50%; height: 21px;">2500</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao cẩu khi gấp lại  ( mm )</td>
-\n<td style="width: 50%; height: 21px;">1890</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Trọng lượng cẩu khi không có chân chống ( kg)</td>
-\n<td style="width: 50%; height: 21px;">890</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n<div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div>`,
-    shortDescription: "Là lựa chọn lý tưởng cho nhiều công việc khác nhau ,từ xây dựng công trình đến các công việc trong thành phố như : Nâng hạ hàng hóa Di chuyển máy móc Vật liệu xây dựng hoặc túi Jumbo Ngoài ra ,nếu lắp thêm càng nâng vào đầu cần cẩu HIAB có thể làm tất cả mọi việc mà không cần đến xe nâng hoặc băng tải . Cẩu HIAB vận hành dễ dàng , thực hiện công việc nhanh hơn linh hoạt hơn với độ an toàn tuyệt đối cao",
-    image: "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/X-CL-8-2-1-300x300-1.png",
-    images: ["/images/products/cau-gap-robot-8-tan-hiab-xcl-8/X-CL-8-2-1-300x300-1.png", "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/8.-X-CLX-112.jpg", "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/X-CL-8-7-150x150-1.png"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "4",
+    "name": "CẨU GẬP ROBOT 8 TẤN HIAB XCL-8",
+    "slug": "cau-gap-robot-8-tan-hiab-xcl-8",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Là lựa chọn lý tưởng cho nhiều công việc khác nhau ,từ xây dựng công trình đến các công việc trong thành phố như : Nâng hạ hàng hóa Di chuyển máy móc Vật liệu xây dựng hoặc túi Jumbo Ngoài ra ,nếu lắp thêm càng nâng vào đầu cần cẩu HIAB có thể làm tất cả mọi việc mà không cần đến xe nâng hoặc băng tải . Cẩu HIAB vận hành dễ dàng , thực hiện công việc nhanh hơn linh hoạt hơn với độ an toàn tuyệt đối cao",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 140%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"alignleft\" src=\"https://hiabvietnam.vn/wp-content/uploads/2023/08/X-CL-8-3-1.png\" /> <img class=\"alignleft\" src=\"https://hiabvietnam.vn/wp-content/uploads/2023/08/X-CL-8-3.png\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 231px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Sức nâng  ( Tm )</td>\n\n<td style=\"width: 50%; height: 21px;\">7,2</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Tầm với tối đa ( m )</td>\n\n<td style=\"width: 50%; height: 21px;\">8,9</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Phân bố tải theo đoạn ( m/kg )      Đoạn 1</td>\n\n<td style=\"width: 50%; height: 21px;\">3,8 – 2060</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Đoạn 2</td>\n\n<td style=\"width: 50%; height: 21px;\">3,9 – 1860</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Đoạn 3</td>\n\n<td style=\"width: 50%; height: 21px;\">5,5 – 1260</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Đoạn 4</td>\n\n<td style=\"width: 50%; height: 21px;\">7,2 – 940</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Đoạn 5</td>\n\n<td style=\"width: 50%; height: 21px;\">8,9 – 760</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Phạm vi lắp đặt cần thiết  ( mm )</td>\n\n<td style=\"width: 50%; height: 21px;\">830</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều rộng cẩu khi gấp lại ( mm )</td>\n\n<td style=\"width: 50%; height: 21px;\">2500</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao cẩu khi gấp lại  ( mm )</td>\n\n<td style=\"width: 50%; height: 21px;\">1890</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Trọng lượng cẩu khi không có chân chống ( kg)</td>\n\n<td style=\"width: 50%; height: 21px;\">890</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n<div id=\"eJOY__extension_root\" class=\"eJOY__extension_root_class\" style=\"all: unset;\"></div>",
+    "shortDescription": "Là lựa chọn lý tưởng cho nhiều công việc khác nhau ,từ xây dựng công trình đến các công việc trong thành phố như : Nâng hạ hàng hóa Di chuyển máy móc Vật liệu xây dựng hoặc túi Jumbo Ngoài ra ,nếu lắp thêm càng nâng vào đầu cần cẩu HIAB có thể làm tất cả mọi việc mà không cần đến xe nâng hoặc băng tải . Cẩu HIAB vận hành dễ dàng , thực hiện công việc nhanh hơn linh hoạt hơn với độ an toàn tuyệt đối cao",
+    "image": "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/X-CL-8-2-1-300x300-1.png",
+    "images": [
+      "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/X-CL-8-2-1-300x300-1.png",
+      "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/8.-X-CLX-112.jpg",
+      "/images/products/cau-gap-robot-8-tan-hiab-xcl-8/X-CL-8-7-150x150-1.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -542,33 +130,24 @@ export const products: Product[] = [
     }
   },
   {
-    id: "5",
-    name: "Máy đào bánh xích 1 khối, Weichai Lovol, Model FR220D",
-    slug: "may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "MÔ TẢ SẢN PHẨM Lovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. Được phát triển trên nguồn lực sẳn có. Công nghệ tiếp thu từ các thương hiệu lớn trên thế giới như Komatsu, Kobelco, Volvo, CAT, Kawasaki, ... Weichai Lovol tự tin đem đến sản phẩm chất lượng tốt nhất với giá thành cạnh tranh nhất đến với khách hàng.",
-    fullDescription: `<p style="padding-left: 40px;">– Nhãn hiệu: Lovol</p>
-\n<p style="padding-left: 40px;">– Model: FR220D</p>
-\n<p style="padding-left: 40px;">– Xuất xứ: Nhà máy Weichai Lovol</p>
-\n<p style="padding-left: 40px;">– Trọng lượng vận hành (kg): 21800</p>
-\n<p style="padding-left: 40px;">– Dung tích gầu đào ( m<sup>3</sup>) : 0.96</p>
-\n<p style="padding-left: 40px;">– Bán kinh đào lớn nhất (mm): 9875</p>
-\n<p style="padding-left: 40px;">– Chiều cao đổ đào có tải lớn nhất (mm): 7260</p>
-\n<p style="padding-left: 40px;">– Động cơ:</p>
-\n<p style="padding-left: 40px;">+ Model: <strong>CUMMINS 6BTAA5_9-C150 (HOA KỲ)/ ISUZU AA-6BG1TRP  (NHẬT BẢN)</strong></p>
-\n<p style="padding-left: 40px;">+ Công suất động cơ (KW/vòng/phút): 112-113.2kW/1950 vòng/phút/(CUMMINS/ISUZU)</p>
-\n<p style="padding-left: 40px;">– Bộ phận chính:</p>
-\n<p style="padding-left: 40px;">+ Bơm chính: <strong>KAWASAKI/2X123 ( NHẬT BẢN)</strong></p>
-\n<p style="padding-left: 40px;">+ Van chính:  <strong>KAWASAKI ( NHẬT BẢN)</strong></p>
-\n<p style="padding-left: 40px;">+ Motor di chuyển: <strong>EDDIE</strong></p>
-\n<p style="padding-left: 40px;">+ Motor quay toa: <strong>KAWASAKI ( NHẬT BẢN)</strong></p>`,
-    shortDescription: "MÔ TẢ SẢN PHẨM Lovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. Được phát triển trên nguồn lực sẳn có. Công nghệ tiếp thu từ các thương hiệu lớn trên thế giới như Komatsu, Kobelco, Volvo, CAT, Kawasaki, ... Weichai Lovol tự tin đem đến sản phẩm chất lượng tốt nhất với giá thành cạnh tranh nhất đến với khách hàng.",
-    image: "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-f220d-logo-300x300-1.png",
-    images: ["/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-f220d-logo-300x300-1.png", "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-04-logo-300x300-1.jpg", "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-02-logo-300x300-1.jpg", "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-01-logo-300x300-1.jpg"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "5",
+    "name": "Máy đào bánh xích 1 khối, Weichai Lovol, Model FR220D",
+    "slug": "may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "MÔ TẢ SẢN PHẨM Lovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. Được phát triển trên nguồn lực sẳn có. Công nghệ tiếp thu từ các thương hiệu lớn trên thế giới như Komatsu, Kobelco, Volvo, CAT, Kawasaki, ... Weichai Lovol tự tin đem đến sản phẩm chất lượng tốt nhất với giá thành cạnh tranh nhất đến với khách hàng.",
+    "fullDescription": "<p style=\"padding-left: 40px;\">– Nhãn hiệu: Lovol</p>\n\n<p style=\"padding-left: 40px;\">– Model: FR220D</p>\n\n<p style=\"padding-left: 40px;\">– Xuất xứ: Nhà máy Weichai Lovol</p>\n\n<p style=\"padding-left: 40px;\">– Trọng lượng vận hành (kg): 21800</p>\n\n<p style=\"padding-left: 40px;\">– Dung tích gầu đào ( m<sup>3</sup>) : 0.96</p>\n\n<p style=\"padding-left: 40px;\">– Bán kinh đào lớn nhất (mm): 9875</p>\n\n<p style=\"padding-left: 40px;\">– Chiều cao đổ đào có tải lớn nhất (mm): 7260</p>\n\n<p style=\"padding-left: 40px;\">– Động cơ:</p>\n\n<p style=\"padding-left: 40px;\">+ Model: <strong>CUMMINS 6BTAA5_9-C150 (HOA KỲ)/ ISUZU AA-6BG1TRP  (NHẬT BẢN)</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Công suất động cơ (KW/vòng/phút): 112-113.2kW/1950 vòng/phút/(CUMMINS/ISUZU)</p>\n\n<p style=\"padding-left: 40px;\">– Bộ phận chính:</p>\n\n<p style=\"padding-left: 40px;\">+ Bơm chính: <strong>KAWASAKI/2X123 ( NHẬT BẢN)</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Van chính:  <strong>KAWASAKI ( NHẬT BẢN)</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Motor di chuyển: <strong>EDDIE</strong></p>\n\n<p style=\"padding-left: 40px;\">+ Motor quay toa: <strong>KAWASAKI ( NHẬT BẢN)</strong></p>",
+    "shortDescription": "MÔ TẢ SẢN PHẨM Lovol là thương hiệu máy xây dựng của tập đoàn Weichai ( TQ), một trong những tập đoàn sản xuất máy móc thiết bị hàng đầu thế giới. Được phát triển trên nguồn lực sẳn có. Công nghệ tiếp thu từ các thương hiệu lớn trên thế giới như Komatsu, Kobelco, Volvo, CAT, Kawasaki, ... Weichai Lovol tự tin đem đến sản phẩm chất lượng tốt nhất với giá thành cạnh tranh nhất đến với khách hàng.",
+    "image": "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-f220d-logo-300x300-1.png",
+    "images": [
+      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-f220d-logo-300x300-1.png",
+      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-04-logo-300x300-1.jpg",
+      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-02-logo-300x300-1.jpg",
+      "/images/products/may-dao-banh-xich-1-khoi-weichai-lovol-model-fr220d/Weichailovol-xe-dao-banh-xich-fr220d-hinh-01-logo-300x300-1.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -576,47 +155,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "6",
-    name: "Máy xúc đào SKYMARK CLG906E, dung tích gầu 1 khối",
-    slug: "may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "THÔNG SỐ KỸ THUẬT CHI TIẾT Tự trọng: 5900 kg Dung tích gầu tiêu chuẩn: 0.23 m³ Bề rộng dải xích: 400 mm Chiều cao đào lớn nhất: 6205 mm Chiều sâu đào lớn nhất: 3875 mm Tầm với đào lớn nhất: 6205 mm KT tổng thể (DxRxC): 5900x1900x2830 mm Động cơ: Yanmar Tiêu chuẩn khí thải: EU III Công suất/ Vòng quay: 36.2/2100 Kw/rpm Momen xoắn lớn nhất: 212.7/1260 N.m/rpm Hệ thống thủy lực: KAWASAKI Bơm chính: Bơm Piston kép Lưu lượng: 142.8 L/phút Áp lực bơm: 25 MPa Lực gầu đào lớn nhất: 41 kN Lực đào tay gầu lớn nhất: 31 kN Tốc độ di chuyển:4.6 Km/h Cabin: Cabin tiêu chuẩn (option chống lật), chống ồn, chống bụi, có điều hòa.",
-    fullDescription: `<i>Trọng lượng vận hành:</i>1,750-1,850 kg
-\n
-\n<i>Công suất động cơ: </i>11.8 kW
-\n
-\n<i>Dung tích gầu: </i>0.015-0.065 m³
-\n
-\nSKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.
-\n
-\n&nbsp;`,
-    shortDescription: "THÔNG SỐ KỸ THUẬT CHI TIẾT Tự trọng: 5900 kg Dung tích gầu tiêu chuẩn: 0.23 m³ Bề rộng dải xích: 400 mm Chiều cao đào lớn nhất: 6205 mm Chiều sâu đào lớn nhất: 3875 mm Tầm với đào lớn nhất: 6205 mm KT tổng thể (DxRxC): 5900x1900x2830 mm Động cơ: Yanmar Tiêu chuẩn khí thải: EU III Công suất/ Vòng quay: 36.2/2100 Kw/rpm Momen xoắn lớn nhất: 212.7/1260 N.m/rpm Hệ thống thủy lực: KAWASAKI Bơm chính: Bơm Piston kép Lưu lượng: 142.8 L/phút Áp lực bơm: 25 MPa Lực gầu đào lớn nhất: 41 kN Lực đào tay gầu lớn nhất: 31 kN Tốc độ di chuyển:4.6 Km/h Cabin: Cabin tiêu chuẩn (option chống lật), chống ồn, chống bụi, có điều hòa.",
-    image: "/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/banner-906e.png",
-    images: ["/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/banner-906e.png", "/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/xe-cuoc-SKYMARK-model-906e.jpg", "/images/products/may-xuc-dao-SKYMARK-clg906e-dung-tich-gau-1-khoi/xe-cuoc-SKYMARK-model-906e.png"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "7",
-    name: "Cột ( trụ) tự nâng GEROH 145-12 KVL",
-    slug: "cot-tru-tu-nang-geroh-145-12-kvl",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột tự nâng WillBurt Geroh 145-12KVL là loại cột tự nâng nhỏ gọn, dể dàng lắp đặt trên các nền phương tiện cỡ nhỏ và cỡ trung. Với trọng lượng chỉ khoảng 64kg bao gồm cả cơ cấu động cơ, truyền động. Thiết kế đáp ứng tiêu chuẩn MIL-STD-810F THÔNG SỐ KỸ THUẬT Chiều cao khi rút gọn 2.43 m Chiều cao khi mở rộng 12.0 m Tải trọng danh định 15 kg Cột cơ khí Cơ cấu vận hành bằng cáp Kiểu gắn Bên trong hoặc bên ngoài hoặc tại hiện trường Dẫn hướng Tùy chọn Số ống cột 6 Kích thước đế cột 145 mm x 145 mm Vật liệu ống Nhôm Kiểu khóa Phanh đĩa ma sát tự động Cấu hình điện 12VDC, 24VDC hoặc 230VAC Thời gian thi triển - 66 giây bằng tay quay - 93 giây bằng động cơ Trọng lượng cột Xấp xỉ 64 kg bao gồm cả động cơ. Chứng nhận Thiết kế theo tiêu chuẩn MIL-STD-810F [caption id=\"attachment_1233\" align=\"alignleft\" width=\"177\"] TÙY CHỌN NẮP NÚT móc 5 cm có thể tháo rời[/caption] [caption id=\"attachment_1232\" align=\"alignleft\" width=\"187\"] TÙY CHỌN GẮN NGOÀI Kệ và giá đỡ[/caption]",
-    fullDescription: ``,
-    shortDescription: "Cột tự nâng WillBurt Geroh 145-12KVL là loại cột tự nâng nhỏ gọn, dể dàng lắp đặt trên các nền phương tiện cỡ nhỏ và cỡ trung. Với trọng lượng chỉ khoảng 64kg bao gồm cả cơ cấu động cơ, truyền động. Thiết kế đáp ứng tiêu chuẩn MIL-STD-810F THÔNG SỐ KỸ THUẬT Chiều cao khi rút gọn 2.43 m Chiều cao khi mở rộng 12.0 m Tải trọng danh định 15 kg Cột cơ khí Cơ cấu vận hành bằng cáp Kiểu gắn Bên trong hoặc bên ngoài hoặc tại hiện trường Dẫn hướng Tùy chọn Số ống cột 6 Kích thước đế cột 145 mm x 145 mm Vật liệu ống Nhôm Kiểu khóa Phanh đĩa ma sát tự động Cấu hình điện 12VDC, 24VDC hoặc 230VAC Thời gian thi triển - 66 giây bằng tay quay - 93 giây bằng động cơ Trọng lượng cột Xấp xỉ 64 kg bao gồm cả động cơ. Chứng nhận Thiết kế theo tiêu chuẩn MIL-STD-810F [caption id=\"attachment_1233\" align=\"alignleft\" width=\"177\"] TÙY CHỌN NẮP NÚT móc 5 cm có thể tháo rời[/caption] [caption id=\"attachment_1232\" align=\"alignleft\" width=\"187\"] TÙY CHỌN GẮN NGOÀI Kệ và giá đỡ[/caption]",
-    image: "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/8KVL5.jpg",
-    images: ["/images/products/cot-tru-tu-nang-geroh-145-12-kvl/8KVL5.jpg", "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/geroh-mast-455x800-1.jpg", "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/Geroht_2.png"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "7",
+    "name": "Cột ( trụ) tự nâng GEROH 145-12 KVL",
+    "slug": "cot-tru-tu-nang-geroh-145-12-kvl",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột tự nâng WillBurt Geroh 145-12KVL là loại cột tự nâng nhỏ gọn, dể dàng lắp đặt trên các nền phương tiện cỡ nhỏ và cỡ trung. Với trọng lượng chỉ khoảng 64kg bao gồm cả cơ cấu động cơ, truyền động. Thiết kế đáp ứng tiêu chuẩn MIL-STD-810F THÔNG SỐ KỸ THUẬT Chiều cao khi rút gọn 2.43 m Chiều cao khi mở rộng 12.0 m Tải trọng danh định 15 kg Cột cơ khí Cơ cấu vận hành bằng cáp Kiểu gắn Bên trong hoặc bên ngoài hoặc tại hiện trường Dẫn hướng Tùy chọn Số ống cột 6 Kích thước đế cột 145 mm x 145 mm Vật liệu ống Nhôm Kiểu khóa Phanh đĩa ma sát tự động Cấu hình điện 12VDC, 24VDC hoặc 230VAC Thời gian thi triển - 66 giây bằng tay quay - 93 giây bằng động cơ Trọng lượng cột Xấp xỉ 64 kg bao gồm cả động cơ. Chứng nhận Thiết kế theo tiêu chuẩn MIL-STD-810F [caption id=\"attachment_1233\" align=\"alignleft\" width=\"177\"] TÙY CHỌN NẮP NÚT móc 5 cm có thể tháo rời[/caption] [caption id=\"attachment_1232\" align=\"alignleft\" width=\"187\"] TÙY CHỌN GẮN NGOÀI Kệ và giá đỡ[/caption]",
+    "fullDescription": "",
+    "shortDescription": "Cột tự nâng WillBurt Geroh 145-12KVL là loại cột tự nâng nhỏ gọn, dể dàng lắp đặt trên các nền phương tiện cỡ nhỏ và cỡ trung. Với trọng lượng chỉ khoảng 64kg bao gồm cả cơ cấu động cơ, truyền động. Thiết kế đáp ứng tiêu chuẩn MIL-STD-810F THÔNG SỐ KỸ THUẬT Chiều cao khi rút gọn 2.43 m Chiều cao khi mở rộng 12.0 m Tải trọng danh định 15 kg Cột cơ khí Cơ cấu vận hành bằng cáp Kiểu gắn Bên trong hoặc bên ngoài hoặc tại hiện trường Dẫn hướng Tùy chọn Số ống cột 6 Kích thước đế cột 145 mm x 145 mm Vật liệu ống Nhôm Kiểu khóa Phanh đĩa ma sát tự động Cấu hình điện 12VDC, 24VDC hoặc 230VAC Thời gian thi triển - 66 giây bằng tay quay - 93 giây bằng động cơ Trọng lượng cột Xấp xỉ 64 kg bao gồm cả động cơ. Chứng nhận Thiết kế theo tiêu chuẩn MIL-STD-810F [caption id=\"attachment_1233\" align=\"alignleft\" width=\"177\"] TÙY CHỌN NẮP NÚT móc 5 cm có thể tháo rời[/caption] [caption id=\"attachment_1232\" align=\"alignleft\" width=\"187\"] TÙY CHỌN GẮN NGOÀI Kệ và giá đỡ[/caption]",
+    "image": "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/8KVL5.jpg",
+    "images": [
+      "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/8KVL5.jpg",
+      "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/geroh-mast-455x800-1.jpg",
+      "/images/products/cot-tru-tu-nang-geroh-145-12-kvl/Geroht_2.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -624,20 +179,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "8",
-    name: "Cột (Trụ) nâng 10MTS- M7 - 2.2",
-    slug: "cot-tru-nang-10mts-m7-2-2",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột ( trụ) tự nâng WillBurt QEAM MTS Series từ Will-Burt là một Cột có thể thay đổi độ cao cao đặc biệt phù hợp cho các Ang-ten và thiết bị khá khác. Các loại thiết bị gắn trên cao có yêu cầu độ cao ổn định từ 10 mét. Cột ( trụ) tự nâng WillBurt QEAM MTS Series có độ chính xác cao được đảm bảo với các rãnh dọc được được tích hợp trong các Ống Các bon / Sợi thủy tinh. MTS được nâng lên và thu vào bởi các dây đai chắc chắn mà được điều khiển thủ công với hệ thống tay quay hoặc hệ thống cơ giới tùy chọn. The QEAM MTS đạt những yêu cầu môi trường theo tiêu chuẩn MIL-STD-810 và sẽ vượt qua những yêu cầu của sứ mệnh. TÍNH NĂNG CƠ BẢN: Hệ thống cột lồng gọn nhẹ Độ xoán tải trọng tối thiểu Tăng độ chính xác dẫn hướng Triển khai nhanh và an toàn Hệ thống nâng thủ công Hệ thống nâng điện tùy chọn Tời khoá cột tại chỗ Khả năng đi động trên xe Đáp ứng tiêu chuẩn môi trường MIL-STD-810 Điện áp 24 VDC",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT </strong></span></p>
-\n<img class="size-full wp-image-749 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/04/TV_QEAM-MTS-10MTS-M7-2.2-HH_TV-.png" alt="" width="4961" height="3520" />`,
-    shortDescription: "Cột ( trụ) tự nâng WillBurt QEAM MTS Series từ Will-Burt là một Cột có thể thay đổi độ cao cao đặc biệt phù hợp cho các Ang-ten và thiết bị khá khác. Các loại thiết bị gắn trên cao có yêu cầu độ cao ổn định từ 10 mét. Cột ( trụ) tự nâng WillBurt QEAM MTS Series có độ chính xác cao được đảm bảo với các rãnh dọc được được tích hợp trong các Ống Các bon / Sợi thủy tinh. MTS được nâng lên và thu vào bởi các dây đai chắc chắn mà được điều khiển thủ công với hệ thống tay quay hoặc hệ thống cơ giới tùy chọn. The QEAM MTS đạt những yêu cầu môi trường theo tiêu chuẩn MIL-STD-810 và sẽ vượt qua những yêu cầu của sứ mệnh. TÍNH NĂNG CƠ BẢN: Hệ thống cột lồng gọn nhẹ Độ xoán tải trọng tối thiểu Tăng độ chính xác dẫn hướng Triển khai nhanh và an toàn Hệ thống nâng thủ công Hệ thống nâng điện tùy chọn Tời khoá cột tại chỗ Khả năng đi động trên xe Đáp ứng tiêu chuẩn môi trường MIL-STD-810 Điện áp 24 VDC",
-    image: "/images/products/cot-tru-nang-10mts-m7-2-2/TV_QEAM-MTS-10MTS-M7-2.jpg",
-    images: ["/images/products/cot-tru-nang-10mts-m7-2-2/TV_QEAM-MTS-10MTS-M7-2.jpg", "/images/products/cot-tru-nang-10mts-m7-2-2/2.jpg", "/images/products/cot-tru-nang-10mts-m7-2-2/3.jpg"],
-    price: "Liên hệ",
-    featured: true,
-    specifications: {
+    "id": "8",
+    "name": "Cột (Trụ) nâng 10MTS- M7 - 2.2",
+    "slug": "cot-tru-nang-10mts-m7-2-2",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột ( trụ) tự nâng WillBurt QEAM MTS Series từ Will-Burt là một Cột có thể thay đổi độ cao cao đặc biệt phù hợp cho các Ang-ten và thiết bị khá khác. Các loại thiết bị gắn trên cao có yêu cầu độ cao ổn định từ 10 mét. Cột ( trụ) tự nâng WillBurt QEAM MTS Series có độ chính xác cao được đảm bảo với các rãnh dọc được được tích hợp trong các Ống Các bon / Sợi thủy tinh. MTS được nâng lên và thu vào bởi các dây đai chắc chắn mà được điều khiển thủ công với hệ thống tay quay hoặc hệ thống cơ giới tùy chọn. The QEAM MTS đạt những yêu cầu môi trường theo tiêu chuẩn MIL-STD-810 và sẽ vượt qua những yêu cầu của sứ mệnh. TÍNH NĂNG CƠ BẢN: Hệ thống cột lồng gọn nhẹ Độ xoán tải trọng tối thiểu Tăng độ chính xác dẫn hướng Triển khai nhanh và an toàn Hệ thống nâng thủ công Hệ thống nâng điện tùy chọn Tời khoá cột tại chỗ Khả năng đi động trên xe Đáp ứng tiêu chuẩn môi trường MIL-STD-810 Điện áp 24 VDC",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT </strong></span></p>\n\n<img class=\"size-full wp-image-749 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/04/TV_QEAM-MTS-10MTS-M7-2.2-HH_TV-.png\" alt=\"\" width=\"4961\" height=\"3520\" />",
+    "shortDescription": "Cột ( trụ) tự nâng WillBurt QEAM MTS Series từ Will-Burt là một Cột có thể thay đổi độ cao cao đặc biệt phù hợp cho các Ang-ten và thiết bị khá khác. Các loại thiết bị gắn trên cao có yêu cầu độ cao ổn định từ 10 mét. Cột ( trụ) tự nâng WillBurt QEAM MTS Series có độ chính xác cao được đảm bảo với các rãnh dọc được được tích hợp trong các Ống Các bon / Sợi thủy tinh. MTS được nâng lên và thu vào bởi các dây đai chắc chắn mà được điều khiển thủ công với hệ thống tay quay hoặc hệ thống cơ giới tùy chọn. The QEAM MTS đạt những yêu cầu môi trường theo tiêu chuẩn MIL-STD-810 và sẽ vượt qua những yêu cầu của sứ mệnh. TÍNH NĂNG CƠ BẢN: Hệ thống cột lồng gọn nhẹ Độ xoán tải trọng tối thiểu Tăng độ chính xác dẫn hướng Triển khai nhanh và an toàn Hệ thống nâng thủ công Hệ thống nâng điện tùy chọn Tời khoá cột tại chỗ Khả năng đi động trên xe Đáp ứng tiêu chuẩn môi trường MIL-STD-810 Điện áp 24 VDC",
+    "image": "/images/products/cot-tru-nang-10mts-m7-2-2/TV_QEAM-MTS-10MTS-M7-2.jpg",
+    "images": [
+      "/images/products/cot-tru-nang-10mts-m7-2-2/TV_QEAM-MTS-10MTS-M7-2.jpg",
+      "/images/products/cot-tru-nang-10mts-m7-2-2/2.jpg",
+      "/images/products/cot-tru-nang-10mts-m7-2-2/3.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -645,19 +203,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "9",
-    name: "Cột (trụ) tự nâng vác vai 12m WillBurt",
-    slug: "cot-tru-tu-nang-vac-vai-12m-willburt",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Sản phẩm chất lượng cao",
-    fullDescription: ``,
-    shortDescription: "",
-    image: "/images/products/cot-tru-tu-nang-vac-vai-12m-willburt/cot-vac-vai-12-m.png",
-    images: ["/images/products/cot-tru-tu-nang-vac-vai-12m-willburt/cot-vac-vai-12-m.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "9",
+    "name": "Cột (trụ) tự nâng vác vai 12m WillBurt",
+    "slug": "cot-tru-tu-nang-vac-vai-12m-willburt",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Sản phẩm chất lượng cao",
+    "fullDescription": "",
+    "shortDescription": "",
+    "image": "/images/products/cot-tru-tu-nang-vac-vai-12m-willburt/cot-vac-vai-12-m.png",
+    "images": [
+      "/images/products/cot-tru-tu-nang-vac-vai-12m-willburt/cot-vac-vai-12-m.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -665,77 +225,22 @@ export const products: Product[] = [
     }
   },
   {
-    id: "10",
-    name: "Cột (trụ) tự nâng Pneumatic Heavy-Duty Non-Locking 1.6 - 6M WILL-BURT (HDNL)",
-    slug: "cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột tự nâng hạng nặng không khóa Will-Burt (HDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Sản phẩm cột không khóa nén khí sở hữu độ chính xác định hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên một “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn trong điều kiện đang di chuyển*. Hơn nữa, Cột không khóa nén khí đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Hai phím bên ngoài có chiều dài đầy đủ trên phần cột – Duy trì độ chính xác của góc phương vị hướng Vòng bi tổng hợp có độ ma sát thấp - Bảo vệ phần cột và vòng cổ để vận hành êm ái và nâng cao tuổi thọ sử dụng Bề mặt cứng màu đen được anot hóa và phủ kín nhôm – Đáp ứng MIL-A-8625 Loại III, Loại II.",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%; height: 273px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại cột</td>
-\n<td style="width: 50%; height: 21px;">Cột tự nâng hạng không khóa</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Vật liệu cột</td>
-\n<td style="width: 50%; height: 21px;">Hợp kim nhôm 6051T6</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao mở rộng</td>
-\n<td style="width: 50%; height: 21px;">6 m</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao thu gọn</td>
-\n<td style="width: 50%; height: 21px;">1,6 m</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Trọng lượng</td>
-\n<td style="width: 50%; height: 21px;">60 Kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Khả năng chịu tải</td>
-\n<td style="width: 50%; height: 21px;">136 Kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Số đoạn</td>
-\n<td style="width: 50%; height: 21px;">5</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Độ chính xác khi quay</td>
-\n<td style="width: 50%; height: 21px;">Dưới 1 độ</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Đường kinh ống lồng</td>
-\n<td style="width: 50%; height: 21px;">95 mm - 171 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại vòng cột</td>
-\n<td style="width: 50%; height: 21px;">Không khóa</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Cản gạt nước</td>
-\n<td style="width: 50%; height: 21px;">Có</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Lớp vỏ hoàn thiện</td>
-\n<td style="width: 50%; height: 21px;">Lớp vỏ màu đen bảo vệ chống muối và ăn mòn sương mù</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chứng nhận</td>
-\n<td style="width: 50%; height: 21px;"><strong>MIL-STD-810G</strong></td>
-\n</tr>
-\n</tbody>
-\n</table>
-\nxe bán tải gắn cột`,
-    shortDescription: "Cột tự nâng hạng nặng không khóa Will-Burt (HDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Sản phẩm cột không khóa nén khí sở hữu độ chính xác định hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên một “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn trong điều kiện đang di chuyển*. Hơn nữa, Cột không khóa nén khí đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Hai phím bên ngoài có chiều dài đầy đủ trên phần cột – Duy trì độ chính xác của góc phương vị hướng Vòng bi tổng hợp có độ ma sát thấp - Bảo vệ phần cột và vòng cổ để vận hành êm ái và nâng cao tuổi thọ sử dụng Bề mặt cứng màu đen được anot hóa và phủ kín nhôm – Đáp ứng MIL-A-8625 Loại III, Loại II.",
-    image: "/images/products/cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl/A91fq2a6h_4lebug_eog.png",
-    images: ["/images/products/cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl/A91fq2a6h_4lebug_eog.png", "/images/products/cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl/A9189tlru_4lebuc_eog.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "10",
+    "name": "Cột (trụ) tự nâng Pneumatic Heavy-Duty Non-Locking 1.6 - 6M WILL-BURT (HDNL)",
+    "slug": "cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột tự nâng hạng nặng không khóa Will-Burt (HDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Sản phẩm cột không khóa nén khí sở hữu độ chính xác định hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên một “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn trong điều kiện đang di chuyển*. Hơn nữa, Cột không khóa nén khí đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Hai phím bên ngoài có chiều dài đầy đủ trên phần cột – Duy trì độ chính xác của góc phương vị hướng Vòng bi tổng hợp có độ ma sát thấp - Bảo vệ phần cột và vòng cổ để vận hành êm ái và nâng cao tuổi thọ sử dụng Bề mặt cứng màu đen được anot hóa và phủ kín nhôm – Đáp ứng MIL-A-8625 Loại III, Loại II.",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%; height: 273px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại cột</td>\n\n<td style=\"width: 50%; height: 21px;\">Cột tự nâng hạng không khóa</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Vật liệu cột</td>\n\n<td style=\"width: 50%; height: 21px;\">Hợp kim nhôm 6051T6</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao mở rộng</td>\n\n<td style=\"width: 50%; height: 21px;\">6 m</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao thu gọn</td>\n\n<td style=\"width: 50%; height: 21px;\">1,6 m</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Trọng lượng</td>\n\n<td style=\"width: 50%; height: 21px;\">60 Kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Khả năng chịu tải</td>\n\n<td style=\"width: 50%; height: 21px;\">136 Kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Số đoạn</td>\n\n<td style=\"width: 50%; height: 21px;\">5</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Độ chính xác khi quay</td>\n\n<td style=\"width: 50%; height: 21px;\">Dưới 1 độ</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Đường kinh ống lồng</td>\n\n<td style=\"width: 50%; height: 21px;\">95 mm - 171 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại vòng cột</td>\n\n<td style=\"width: 50%; height: 21px;\">Không khóa</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Cản gạt nước</td>\n\n<td style=\"width: 50%; height: 21px;\">Có</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Lớp vỏ hoàn thiện</td>\n\n<td style=\"width: 50%; height: 21px;\">Lớp vỏ màu đen bảo vệ chống muối và ăn mòn sương mù</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chứng nhận</td>\n\n<td style=\"width: 50%; height: 21px;\"><strong>MIL-STD-810G</strong></td>\n\n</tr>\n\n</tbody>\n\n</table>\n\nxe bán tải gắn cột",
+    "shortDescription": "Cột tự nâng hạng nặng không khóa Will-Burt (HDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Sản phẩm cột không khóa nén khí sở hữu độ chính xác định hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên một “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn trong điều kiện đang di chuyển*. Hơn nữa, Cột không khóa nén khí đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Hai phím bên ngoài có chiều dài đầy đủ trên phần cột – Duy trì độ chính xác của góc phương vị hướng Vòng bi tổng hợp có độ ma sát thấp - Bảo vệ phần cột và vòng cổ để vận hành êm ái và nâng cao tuổi thọ sử dụng Bề mặt cứng màu đen được anot hóa và phủ kín nhôm – Đáp ứng MIL-A-8625 Loại III, Loại II.",
+    "image": "/images/products/cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl/A91fq2a6h_4lebug_eog.png",
+    "images": [
+      "/images/products/cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl/A91fq2a6h_4lebug_eog.png",
+      "/images/products/cot-tru-tu-nang-pneumatic-heavy-duty-non-locking-1-6-6m-will-burt-hdnl/A9189tlru_4lebuc_eog.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -743,76 +248,22 @@ export const products: Product[] = [
     }
   },
   {
-    id: "11",
-    name: "Cột (trụ) nâng Heavy-Duty Pneumatic Locking Mast 1.6-6M",
-    slug: "cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột khóa khí nén hạng nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột buồm có vòng cổ khóa cho phép cột buồm được giữ nguyên kéo dài vô tận mà không có áp suất không khí. Toàn bộ thời lượng các phím bấm duy trì góc phương vị định hướng và cung cấp độ chính xác độ chính xác trỏ. Các mô hình có sẵn ở độ cao từ 30 ft/ 8,9 m đến 134 ft. / 40,8 m với khả năng tải trọng lên tới 450 lbs. / 205kg. Cố định chiều cao vô thời hạn - Cổ áo có khóa dễ dàng thao tác Duy trì góc phương vị - Độ lệch xoắn tối thiểu - Các rãnh then bên ngoài có chiều dài đầy đủ Tuổi thọ cao với chi phí bảo trì thấp - Chống ăn mòn nhôm và thép không gỉ với vòng bi tổng hợp",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%; height: 270px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại cột</td>
-\n<td style="width: 50%; height: 21px;">Khóa hạng nặng</td>
-\n</tr>
-\n<tr style="height: 20px;">
-\n<td style="width: 50%; height: 20px;">Vật liệu cột</td>
-\n<td style="width: 50%; height: 20px;">Hợp kim nhôm 6061T6</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao mở rộng</td>
-\n<td style="width: 50%; height: 21px;">6.0 m</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao thu gọn</td>
-\n<td style="width: 50%; height: 21px;">1.6 m</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Trọng lượng cột ước tính</td>
-\n<td style="width: 50%; height: 21px;">60 kg</td>
-\n</tr>
-\n<tr style="height: 19px;">
-\n<td style="width: 50%; height: 19px;">Khả năng tải trọng</td>
-\n<td style="width: 50%; height: 19px;">91 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Số đoạn</td>
-\n<td style="width: 50%; height: 21px;">6</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Độ chính xác xoay (xoắn)</td>
-\n<td style="width: 50%; height: 21px;">Ít hơn 1 độ</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Đường kính ống</td>
-\n<td style="width: 50%; height: 21px;">76 mm – 171 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Ổ khóa</td>
-\n<td style="width: 50%; height: 21px;">Khóa tay cầm chữ T. Có option hệ thống khóa từ xa</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Cản gạt nước</td>
-\n<td style="width: 50%; height: 21px;">Có</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Lớp vỏ hoàn thiện</td>
-\n<td style="width: 50%; height: 21px;">Black Hardcoat meet MIL-A-8625, Type III, Class 2.</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chứng chỉ</td>
-\n<td style="width: 50%; height: 21px;"><strong>MIL-STD-810G</strong></td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Cột khóa khí nén hạng nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột buồm có vòng cổ khóa cho phép cột buồm được giữ nguyên kéo dài vô tận mà không có áp suất không khí. Toàn bộ thời lượng các phím bấm duy trì góc phương vị định hướng và cung cấp độ chính xác độ chính xác trỏ. Các mô hình có sẵn ở độ cao từ 30 ft/ 8,9 m đến 134 ft. / 40,8 m với khả năng tải trọng lên tới 450 lbs. / 205kg. Cố định chiều cao vô thời hạn - Cổ áo có khóa dễ dàng thao tác Duy trì góc phương vị - Độ lệch xoắn tối thiểu - Các rãnh then bên ngoài có chiều dài đầy đủ Tuổi thọ cao với chi phí bảo trì thấp - Chống ăn mòn nhôm và thép không gỉ với vòng bi tổng hợp",
-    image: "/images/products/cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m/Heavy-Duty-Locking-1.jpg",
-    images: ["/images/products/cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m/Heavy-Duty-Locking-1.jpg", "/images/products/cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m/Heavy-Duty-Locking-2.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "11",
+    "name": "Cột (trụ) nâng Heavy-Duty Pneumatic Locking Mast 1.6-6M",
+    "slug": "cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột khóa khí nén hạng nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột buồm có vòng cổ khóa cho phép cột buồm được giữ nguyên kéo dài vô tận mà không có áp suất không khí. Toàn bộ thời lượng các phím bấm duy trì góc phương vị định hướng và cung cấp độ chính xác độ chính xác trỏ. Các mô hình có sẵn ở độ cao từ 30 ft/ 8,9 m đến 134 ft. / 40,8 m với khả năng tải trọng lên tới 450 lbs. / 205kg. Cố định chiều cao vô thời hạn - Cổ áo có khóa dễ dàng thao tác Duy trì góc phương vị - Độ lệch xoắn tối thiểu - Các rãnh then bên ngoài có chiều dài đầy đủ Tuổi thọ cao với chi phí bảo trì thấp - Chống ăn mòn nhôm và thép không gỉ với vòng bi tổng hợp",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%; height: 270px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại cột</td>\n\n<td style=\"width: 50%; height: 21px;\">Khóa hạng nặng</td>\n\n</tr>\n\n<tr style=\"height: 20px;\">\n\n<td style=\"width: 50%; height: 20px;\">Vật liệu cột</td>\n\n<td style=\"width: 50%; height: 20px;\">Hợp kim nhôm 6061T6</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao mở rộng</td>\n\n<td style=\"width: 50%; height: 21px;\">6.0 m</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao thu gọn</td>\n\n<td style=\"width: 50%; height: 21px;\">1.6 m</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Trọng lượng cột ước tính</td>\n\n<td style=\"width: 50%; height: 21px;\">60 kg</td>\n\n</tr>\n\n<tr style=\"height: 19px;\">\n\n<td style=\"width: 50%; height: 19px;\">Khả năng tải trọng</td>\n\n<td style=\"width: 50%; height: 19px;\">91 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Số đoạn</td>\n\n<td style=\"width: 50%; height: 21px;\">6</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Độ chính xác xoay (xoắn)</td>\n\n<td style=\"width: 50%; height: 21px;\">Ít hơn 1 độ</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Đường kính ống</td>\n\n<td style=\"width: 50%; height: 21px;\">76 mm – 171 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Ổ khóa</td>\n\n<td style=\"width: 50%; height: 21px;\">Khóa tay cầm chữ T. Có option hệ thống khóa từ xa</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Cản gạt nước</td>\n\n<td style=\"width: 50%; height: 21px;\">Có</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Lớp vỏ hoàn thiện</td>\n\n<td style=\"width: 50%; height: 21px;\">Black Hardcoat meet MIL-A-8625, Type III, Class 2.</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chứng chỉ</td>\n\n<td style=\"width: 50%; height: 21px;\"><strong>MIL-STD-810G</strong></td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Cột khóa khí nén hạng nặng của Will-Burt cung cấp giải pháp nâng trọng lượng nhẹ với tải trọng cao dung tích. Những chiếc kính thiên văn gắn trên xe hoặc xe kéo này cột buồm có vòng cổ khóa cho phép cột buồm được giữ nguyên kéo dài vô tận mà không có áp suất không khí. Toàn bộ thời lượng các phím bấm duy trì góc phương vị định hướng và cung cấp độ chính xác độ chính xác trỏ. Các mô hình có sẵn ở độ cao từ 30 ft/ 8,9 m đến 134 ft. / 40,8 m với khả năng tải trọng lên tới 450 lbs. / 205kg. Cố định chiều cao vô thời hạn - Cổ áo có khóa dễ dàng thao tác Duy trì góc phương vị - Độ lệch xoắn tối thiểu - Các rãnh then bên ngoài có chiều dài đầy đủ Tuổi thọ cao với chi phí bảo trì thấp - Chống ăn mòn nhôm và thép không gỉ với vòng bi tổng hợp",
+    "image": "/images/products/cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m/Heavy-Duty-Locking-1.jpg",
+    "images": [
+      "/images/products/cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m/Heavy-Duty-Locking-1.jpg",
+      "/images/products/cot-tru-nang-heavy-duty-pneumatic-locking-mast-1-6-6m/Heavy-Duty-Locking-2.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -820,60 +271,25 @@ export const products: Product[] = [
     }
   },
   {
-    id: "12",
-    name: "XE NÂNG GẮN TRÊN XE TẢI HIAB MOFFETT",
-    slug: "xe-nang-gan-tren-xe-tai-hiab-moffett",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. Với thiết kế vô cùng nhỏ gọn. Xe nâng MOFFETT có thể bỏ gọn trên thùng xe tải và còn đặc sắc hơn khi nó còn có thể treo phía sau một cách gọn gàng. MOFFETT là một loại xe nâng có độ linh hoạt cao với trọng lượng không tải thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy là rất quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Ưu điểm của dòng xe nâng MOFFETT • Nhỏ gọn, linh hoạt thuận lợi trong việc di chuyển • Không còn phải chờ đợi nữa thiết bị dỡ hàng • Hoạt động đơn giản trong khu vực hạn chế, bao gồm cả việc dỡ tải một bên • Dỡ hàng từ bất kỳ vị trí nào của xe",
-    fullDescription: `<iframe src="//www.youtube.com/embed/WWhsooNOwyc?t=1s&amp;ab_channel=Hiabglobal" width="800" height="449" allowfullscreen="allowfullscreen"></iframe>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT CƠ BẢN</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%; height: 147px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 33.3333%; height: 21px;"><strong>MOFFET M2 15.1</strong></td>
-\n<td style="width: 33.3333%; height: 21px;"><strong>MOFFETT M2 17.1</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Sức nâng</td>
-\n<td style="width: 33.3333%; height: 21px;">1.500kg</td>
-\n<td style="width: 33.3333%; height: 21px;">1.700kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Động cơ</td>
-\n<td style="width: 33.3333%; height: 21px;">Kubota D1305</td>
-\n<td style="width: 33.3333%; height: 21px;"> Kubota D1305</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 33.3333%; height: 21px;">2.200mm</td>
-\n<td style="width: 33.3333%; height: 21px;">2.200mm-3.000mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Bánh xe điều hướng</td>
-\n<td style="width: 33.3333%; height: 21px;">1</td>
-\n<td style="width: 33.3333%; height: 21px;">1</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Tự trọng</td>
-\n<td style="width: 33.3333%; height: 21px;">1.570kg</td>
-\n<td style="width: 33.3333%; height: 21px;">1.635kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Chiều dài càng nâng</td>
-\n<td style="width: 33.3333%; height: 21px;">1.200mm</td>
-\n<td style="width: 33.3333%; height: 21px;">1.200mm</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. Với thiết kế vô cùng nhỏ gọn. Xe nâng MOFFETT có thể bỏ gọn trên thùng xe tải và còn đặc sắc hơn khi nó còn có thể treo phía sau một cách gọn gàng. MOFFETT là một loại xe nâng có độ linh hoạt cao với trọng lượng không tải thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy là rất quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Ưu điểm của dòng xe nâng MOFFETT • Nhỏ gọn, linh hoạt thuận lợi trong việc di chuyển • Không còn phải chờ đợi nữa thiết bị dỡ hàng • Hoạt động đơn giản trong khu vực hạn chế, bao gồm cả việc dỡ tải một bên • Dỡ hàng từ bất kỳ vị trí nào của xe",
-    image: "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1449-1.jpg",
-    images: ["/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1449-1.jpg", "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1207456-scaled.jpg", "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1450.jpg", "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1449-1.jpg", "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1448-1.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "12",
+    "name": "XE NÂNG GẮN TRÊN XE TẢI HIAB MOFFETT",
+    "slug": "xe-nang-gan-tren-xe-tai-hiab-moffett",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. Với thiết kế vô cùng nhỏ gọn. Xe nâng MOFFETT có thể bỏ gọn trên thùng xe tải và còn đặc sắc hơn khi nó còn có thể treo phía sau một cách gọn gàng. MOFFETT là một loại xe nâng có độ linh hoạt cao với trọng lượng không tải thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy là rất quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Ưu điểm của dòng xe nâng MOFFETT • Nhỏ gọn, linh hoạt thuận lợi trong việc di chuyển • Không còn phải chờ đợi nữa thiết bị dỡ hàng • Hoạt động đơn giản trong khu vực hạn chế, bao gồm cả việc dỡ tải một bên • Dỡ hàng từ bất kỳ vị trí nào của xe",
+    "fullDescription": "<iframe src=\"//www.youtube.com/embed/WWhsooNOwyc?t=1s&amp;ab_channel=Hiabglobal\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT CƠ BẢN</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%; height: 147px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 33.3333%; height: 21px;\"><strong>MOFFET M2 15.1</strong></td>\n\n<td style=\"width: 33.3333%; height: 21px;\"><strong>MOFFETT M2 17.1</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1.500kg</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1.700kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Động cơ</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">Kubota D1305</td>\n\n<td style=\"width: 33.3333%; height: 21px;\"> Kubota D1305</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">2.200mm</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">2.200mm-3.000mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Bánh xe điều hướng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Tự trọng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1.570kg</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1.635kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Chiều dài càng nâng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1.200mm</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1.200mm</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. Với thiết kế vô cùng nhỏ gọn. Xe nâng MOFFETT có thể bỏ gọn trên thùng xe tải và còn đặc sắc hơn khi nó còn có thể treo phía sau một cách gọn gàng. MOFFETT là một loại xe nâng có độ linh hoạt cao với trọng lượng không tải thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy là rất quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Ưu điểm của dòng xe nâng MOFFETT • Nhỏ gọn, linh hoạt thuận lợi trong việc di chuyển • Không còn phải chờ đợi nữa thiết bị dỡ hàng • Hoạt động đơn giản trong khu vực hạn chế, bao gồm cả việc dỡ tải một bên • Dỡ hàng từ bất kỳ vị trí nào của xe",
+    "image": "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1449-1.jpg",
+    "images": [
+      "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1449-1.jpg",
+      "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1207456-scaled.jpg",
+      "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1450.jpg",
+      "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1449-1.jpg",
+      "/images/products/xe-nang-gan-tren-xe-tai-hiab-moffett/1448-1.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -881,57 +297,22 @@ export const products: Product[] = [
     }
   },
   {
-    id: "13",
-    name: "MÀY ĐÀO BÁNH XÍCH MINI 0.04 KHỐI – WEICHAI LOVOL FR18E2-u",
-    slug: "may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "MÁY ĐÀO BÁNH XÍCH MINI WEICHAI LOVOL FR18E2-u 0.04 KHỐI – Nhãn hiệu: Lovol – Model: FR18E2-u – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 1810 – Dung tích gầu đào ( m3) : 0.04 – Bán kinh đào lớn nhất (mm): 3905 – Chiều cao đổ đào có tải lớn nhất (mm): 2440 – Động cơ: + Model: YANMAR",
-    fullDescription: `MÁY ĐÀO BÁNH XÍCH MINI WEICHAI LOVOL FR18E2-u 0.04 KHỐI
-\n
-\n<img src="https://weichailovol.com.vn/wp-content/uploads/2023/07/Weichailovol-xe-dao-banh-xich-fr18e2-u-1-logo.jpg" />
-\n
-\n– Nhãn hiệu: Lovol
-\n
-\n– Model: FR18E2-u
-\n
-\n– Xuất xứ: Nhà máy Weichai Lovol
-\n
-\n– Trọng lượng vận hành (kg): 1810
-\n
-\n– Dung tích gầu đào ( m3) : 0.04
-\n
-\n– Bán kinh đào lớn nhất (mm): 3905
-\n
-\n– Chiều cao đổ đào có tải lớn nhất (mm): 2440
-\n
-\n– Động cơ:
-\n
-\n+ Model: YANMAR Tier Ⅲ (NHẬT BẢN)
-\n
-\n+ Công suất động cơ (KW/vòng/phút): 11.5/2400
-\n
-\n– Bộ phận chính:
-\n
-\n+ Bơm chính: NACHI
-\n
-\n+ Van chính: NABTESCO
-\n
-\n+ Motor di chuyển: EDDIE/NACHI
-\n
-\n+ Motor quay toa: EATON
-\n
-\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023
-\n
-\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ
-\n
-\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.`,
-    shortDescription: "",
-    image: "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg",
-    images: ["/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg", "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-1-logo.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "13",
+    "name": "MÀY ĐÀO BÁNH XÍCH MINI 0.04 KHỐI – WEICHAI LOVOL FR18E2-u",
+    "slug": "may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "MÁY ĐÀO BÁNH XÍCH MINI WEICHAI LOVOL FR18E2-u 0.04 KHỐI – Nhãn hiệu: Lovol – Model: FR18E2-u – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 1810 – Dung tích gầu đào ( m3) : 0.04 – Bán kinh đào lớn nhất (mm): 3905 – Chiều cao đổ đào có tải lớn nhất (mm): 2440 – Động cơ: + Model: YANMAR",
+    "fullDescription": "MÁY ĐÀO BÁNH XÍCH MINI WEICHAI LOVOL FR18E2-u 0.04 KHỐI\n\n\n\n<img src=\"https://weichailovol.com.vn/wp-content/uploads/2023/07/Weichailovol-xe-dao-banh-xich-fr18e2-u-1-logo.jpg\" />\n\n\n\n– Nhãn hiệu: Lovol\n\n\n\n– Model: FR18E2-u\n\n\n\n– Xuất xứ: Nhà máy Weichai Lovol\n\n\n\n– Trọng lượng vận hành (kg): 1810\n\n\n\n– Dung tích gầu đào ( m3) : 0.04\n\n\n\n– Bán kinh đào lớn nhất (mm): 3905\n\n\n\n– Chiều cao đổ đào có tải lớn nhất (mm): 2440\n\n\n\n– Động cơ:\n\n\n\n+ Model: YANMAR Tier Ⅲ (NHẬT BẢN)\n\n\n\n+ Công suất động cơ (KW/vòng/phút): 11.5/2400\n\n\n\n– Bộ phận chính:\n\n\n\n+ Bơm chính: NACHI\n\n\n\n+ Van chính: NABTESCO\n\n\n\n+ Motor di chuyển: EDDIE/NACHI\n\n\n\n+ Motor quay toa: EATON\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.",
+    "shortDescription": "",
+    "image": "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg",
+    "images": [
+      "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-7-logo-600x400-1.jpg",
+      "/images/products/may-dao-banh-xich-mini-0-04-khoi-weichai-lovol-fr18e2-u/Weichailovol-xe-dao-banh-xich-fr18e2-u-1-logo.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -939,44 +320,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "14",
-    name: "CỘT ( TRỤ) TỰ NÂNG STILLETO AL",
-    slug: "cot-tru-tu-nang-stilleto-al",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Stiletto AL cung cấp một hệ thống nâng cao cực kỳ ổn định và nhỏ gọn cho các cảm biến và ăng-ten yêu cầu độ chính xác cao. Cột ống lồng cơ-điện bằng hợp kim cường độ cao này có khóa tự động được cấp bằng sáng chế không cần phải căng dây và triển khai tải trọng một cách an toàn ở mọi độ cao. Stiletto AL là một bệ nâng có hiệu quả về mặt chi phí được thiết kế để đáp ứng các yêu cầu nghiêm ngặt của chương trình ngày nay. Cấu trúc hợp kim cường độ cao [caption id=\"attachment_1210\" align=\"alignleft\" width=\"168\"] Khóa không ồn có bằng sáng chế được thiết kếcho tải trọng nặng[/caption] Hệ thống truyền động trực tiếp yên tĩnh Cần gạt bụi tích hợp cơ chế phá băng",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong><span style="font-family: verdana, geneva, sans-serif;">TÍNH NĂNG CƠ BẢN:</span></strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%;">
-\n<tbody>
-\n<tr>
-\n<td style="width: 100%;">• Không cần giằng, cột nâng tự đỡ
-\n• Độ xoắn cột tối thiểu
-\n• Các thanh dẫn hướng then chốt được cấp năng lượng trong
-\nvòng cổ có sẵn phụ kiện
-\n• Độ lệch gió thấp
-\n• Các phần cột được giữ chặt bằng
-\nhạn chế mặc ban nhạc
-\n• Hoạt động yên tĩnh
-\n• Hệ thống truyền động trực tiếp được cung cấp bởi 600 watt DC kín môi trường động cơ có hướng dẫn sử dụng
-\n• Khóa yên tĩnh được cấp bằng sáng chế được thiết kế cho tải trọng nặng
-\n• Giảm bảo trì
-\n• Hệ thống lọc không khí sạch ngăn chặn bụi bẩn từ khi đi vào cột
-\n• Chiếc gạt bụi/gạt bụi tích hợp và thiết bị phá băng được tích hợp trong vòng cổ
-\n• Kết cấu hợp kim cường độ cao
-\n• Điều khiển PC tích hợp
-\n• Chứng nhận MIL-STD 810G</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n<p style="text-align: center;"><span style="font-size: 130%; font-family: verdana, geneva, sans-serif;"><strong>THÔNG SỐ KỸ THUẬT:</strong></span></p>
-\n<img class=" wp-image-1214" src="https://newatlantic.vn/wp-content/uploads/2024/05/z5400897885365_87cc921d59d1f8face0f0dd22e46ce5a-300x106.jpg" alt="Cột tự nâng Stiletto AL" width="1140" height="403" />`,
-    shortDescription: "Stiletto AL cung cấp một hệ thống nâng cao cực kỳ ổn định và nhỏ gọn cho các cảm biến và ăng-ten yêu cầu độ chính xác cao. Cột ống lồng cơ-điện bằng hợp kim cường độ cao này có khóa tự động được cấp bằng sáng chế không cần phải căng dây và triển khai tải trọng một cách an toàn ở mọi độ cao. Stiletto AL là một bệ nâng có hiệu quả về mặt chi phí được thiết kế để đáp ứng các yêu cầu nghiêm ngặt của chương trình ngày nay. Cấu trúc hợp kim cường độ cao [caption id=\"attachment_1210\" align=\"alignleft\" width=\"168\"] Khóa không ồn có bằng sáng chế được thiết kếcho tải trọng nặng[/caption] Hệ thống truyền động trực tiếp yên tĩnh Cần gạt bụi tích hợp cơ chế phá băng",
-    image: "/images/products/cot-tru-tu-nang-stilleto-al/Capture.png",
-    images: ["/images/products/cot-tru-tu-nang-stilleto-al/Capture.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "14",
+    "name": "CỘT ( TRỤ) TỰ NÂNG STILLETO AL",
+    "slug": "cot-tru-tu-nang-stilleto-al",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Stiletto AL cung cấp một hệ thống nâng cao cực kỳ ổn định và nhỏ gọn cho các cảm biến và ăng-ten yêu cầu độ chính xác cao. Cột ống lồng cơ-điện bằng hợp kim cường độ cao này có khóa tự động được cấp bằng sáng chế không cần phải căng dây và triển khai tải trọng một cách an toàn ở mọi độ cao. Stiletto AL là một bệ nâng có hiệu quả về mặt chi phí được thiết kế để đáp ứng các yêu cầu nghiêm ngặt của chương trình ngày nay. Cấu trúc hợp kim cường độ cao [caption id=\"attachment_1210\" align=\"alignleft\" width=\"168\"] Khóa không ồn có bằng sáng chế được thiết kếcho tải trọng nặng[/caption] Hệ thống truyền động trực tiếp yên tĩnh Cần gạt bụi tích hợp cơ chế phá băng",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong><span style=\"font-family: verdana, geneva, sans-serif;\">TÍNH NĂNG CƠ BẢN:</span></strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%;\">\n\n<tbody>\n\n<tr>\n\n<td style=\"width: 100%;\">• Không cần giằng, cột nâng tự đỡ\n\n• Độ xoắn cột tối thiểu\n\n• Các thanh dẫn hướng then chốt được cấp năng lượng trong\n\nvòng cổ có sẵn phụ kiện\n\n• Độ lệch gió thấp\n\n• Các phần cột được giữ chặt bằng\n\nhạn chế mặc ban nhạc\n\n• Hoạt động yên tĩnh\n\n• Hệ thống truyền động trực tiếp được cung cấp bởi 600 watt DC kín môi trường động cơ có hướng dẫn sử dụng\n\n• Khóa yên tĩnh được cấp bằng sáng chế được thiết kế cho tải trọng nặng\n\n• Giảm bảo trì\n\n• Hệ thống lọc không khí sạch ngăn chặn bụi bẩn từ khi đi vào cột\n\n• Chiếc gạt bụi/gạt bụi tích hợp và thiết bị phá băng được tích hợp trong vòng cổ\n\n• Kết cấu hợp kim cường độ cao\n\n• Điều khiển PC tích hợp\n\n• Chứng nhận MIL-STD 810G</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%; font-family: verdana, geneva, sans-serif;\"><strong>THÔNG SỐ KỸ THUẬT:</strong></span></p>\n\n<img class=\" wp-image-1214\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/z5400897885365_87cc921d59d1f8face0f0dd22e46ce5a-300x106.jpg\" alt=\"Cột tự nâng Stiletto AL\" width=\"1140\" height=\"403\" />",
+    "shortDescription": "Stiletto AL cung cấp một hệ thống nâng cao cực kỳ ổn định và nhỏ gọn cho các cảm biến và ăng-ten yêu cầu độ chính xác cao. Cột ống lồng cơ-điện bằng hợp kim cường độ cao này có khóa tự động được cấp bằng sáng chế không cần phải căng dây và triển khai tải trọng một cách an toàn ở mọi độ cao. Stiletto AL là một bệ nâng có hiệu quả về mặt chi phí được thiết kế để đáp ứng các yêu cầu nghiêm ngặt của chương trình ngày nay. Cấu trúc hợp kim cường độ cao [caption id=\"attachment_1210\" align=\"alignleft\" width=\"168\"] Khóa không ồn có bằng sáng chế được thiết kếcho tải trọng nặng[/caption] Hệ thống truyền động trực tiếp yên tĩnh Cần gạt bụi tích hợp cơ chế phá băng",
+    "image": "/images/products/cot-tru-tu-nang-stilleto-al/Capture.png",
+    "images": [
+      "/images/products/cot-tru-tu-nang-stilleto-al/Capture.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -984,76 +342,22 @@ export const products: Product[] = [
     }
   },
   {
-    id: "16",
-    name: "XE NÂNG ĐIỆN MOFFETT E5 NX",
-    slug: "xe-nang-dien-moffett-e5-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải trên toàn thế giới, giúp vận hành và vận chuyển hiệu quả hơn. MOFFETT E5 NX được phát triển từ xe nâng gắn trên xe tải chạy điện đầu tiên trên thế giới và là cuộc cách mạng trong lĩnh vực hậu cần xe nâng gắn trên xe tải. MOFFETT E5 NX thiết bị chuyên gia cho các nhiệm vụ từ cấp trung bình đến nặng. Sức nâng tới 2.500 kg, nó dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận trên công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên MOFFET E5 NX vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya. Xe nâng gắn trên xe tải MOFFETT E5 NX mang đến hiệu suất, sức mạnh và khả năng cơ động. Sản phẩm lý tưởng cho nhiều ứng dụng đa dạng và phong phú, trên nhiều môi trường và mở rộng cho tất cả các loại dịch vụ vận chuyển hàng. Ví dụ: · Nông nghiệp · Vật liệu xây dựng · Tái chế · Đồ uống · Phòng thủ · Đại lý phân phối · Khí gas công nghiệp/LPG",
-    fullDescription: `<p style="text-align: center;"><iframe src="//www.youtube.com/embed/XfdkpTRf8hM" width="800" height="449" allowfullscreen="allowfullscreen"></iframe></p>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="wp-image-1283 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/05/1222-300x126.png" alt="xe nâng moffet e5 nx" width="604" height="254" />
-\n
-\n&nbsp;
-\n<table style="border-collapse: collapse; width: 100%; height: 147px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E5 20.3 NX</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E5 20.4 NX</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E5 25.3 NX</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E5 25.4 NX</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Sức nâng</td>
-\n<td style="width: 20%; height: 21px;">2000 kg @ 600 mm</td>
-\n<td style="width: 20%; height: 21px;">2000 kg @ 600 mm</td>
-\n<td style="width: 20%; height: 21px;">2500 kg @ 600 mm</td>
-\n<td style="width: 20%; height: 21px;">2500 kg @ 600 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Loại pin</td>
-\n<td style="width: 20%; height: 21px;">Manganese Laminate Li-on (LMNC)</td>
-\n<td style="width: 20%; height: 21px;"> Manganese Laminate Li-on (LMNC)</td>
-\n<td style="width: 20%; height: 21px;"> Manganese Laminate Li-on (LMNC)</td>
-\n<td style="width: 20%; height: 21px;"> Manganese Laminate Li-on (LMNC)</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 20%; height: 21px;">3000 mm</td>
-\n<td style="width: 20%; height: 21px;">3000 mm</td>
-\n<td style="width: 20%; height: 21px;">3000 mm</td>
-\n<td style="width: 20%; height: 21px;">3000 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Lốp tiêu chuẩn *</td>
-\n<td style="width: 20%; height: 21px;">27 × 10-12</td>
-\n<td style="width: 20%; height: 21px;">27 × 10.5-15</td>
-\n<td style="width: 20%; height: 21px;">27 × 10-12</td>
-\n<td style="width: 20%; height: 21px;">27 × 10.5-15</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Chiều rộng càng nâng</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải trên toàn thế giới, giúp vận hành và vận chuyển hiệu quả hơn. MOFFETT E5 NX được phát triển từ xe nâng gắn trên xe tải chạy điện đầu tiên trên thế giới và là cuộc cách mạng trong lĩnh vực hậu cần xe nâng gắn trên xe tải. MOFFETT E5 NX thiết bị chuyên gia cho các nhiệm vụ từ cấp trung bình đến nặng. Sức nâng tới 2.500 kg, nó dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận trên công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên MOFFET E5 NX vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya. Xe nâng gắn trên xe tải MOFFETT E5 NX mang đến hiệu suất, sức mạnh và khả năng cơ động. Sản phẩm lý tưởng cho nhiều ứng dụng đa dạng và phong phú, trên nhiều môi trường và mở rộng cho tất cả các loại dịch vụ vận chuyển hàng. Ví dụ: · Nông nghiệp · Vật liệu xây dựng · Tái chế · Đồ uống · Phòng thủ · Đại lý phân phối · Khí gas công nghiệp/LPG",
-    image: "/images/products/xe-nang-dien-moffett-e5-nx/Capture-4.png",
-    images: ["/images/products/xe-nang-dien-moffett-e5-nx/Capture-4.png", "/images/products/xe-nang-dien-moffett-e5-nx/1-1.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "16",
+    "name": "XE NÂNG ĐIỆN MOFFETT E5 NX",
+    "slug": "xe-nang-dien-moffett-e5-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải trên toàn thế giới, giúp vận hành và vận chuyển hiệu quả hơn. MOFFETT E5 NX được phát triển từ xe nâng gắn trên xe tải chạy điện đầu tiên trên thế giới và là cuộc cách mạng trong lĩnh vực hậu cần xe nâng gắn trên xe tải. MOFFETT E5 NX thiết bị chuyên gia cho các nhiệm vụ từ cấp trung bình đến nặng. Sức nâng tới 2.500 kg, nó dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận trên công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên MOFFET E5 NX vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya. Xe nâng gắn trên xe tải MOFFETT E5 NX mang đến hiệu suất, sức mạnh và khả năng cơ động. Sản phẩm lý tưởng cho nhiều ứng dụng đa dạng và phong phú, trên nhiều môi trường và mở rộng cho tất cả các loại dịch vụ vận chuyển hàng. Ví dụ: · Nông nghiệp · Vật liệu xây dựng · Tái chế · Đồ uống · Phòng thủ · Đại lý phân phối · Khí gas công nghiệp/LPG",
+    "fullDescription": "<p style=\"text-align: center;\"><iframe src=\"//www.youtube.com/embed/XfdkpTRf8hM\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe></p>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"wp-image-1283 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/1222-300x126.png\" alt=\"xe nâng moffet e5 nx\" width=\"604\" height=\"254\" />\n\n\n\n&nbsp;\n\n<table style=\"border-collapse: collapse; width: 100%; height: 147px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E5 20.3 NX</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E5 20.4 NX</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E5 25.3 NX</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E5 25.4 NX</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">2000 kg @ 600 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">2000 kg @ 600 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 kg @ 600 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 kg @ 600 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Loại pin</td>\n\n<td style=\"width: 20%; height: 21px;\">Manganese Laminate Li-on (LMNC)</td>\n\n<td style=\"width: 20%; height: 21px;\"> Manganese Laminate Li-on (LMNC)</td>\n\n<td style=\"width: 20%; height: 21px;\"> Manganese Laminate Li-on (LMNC)</td>\n\n<td style=\"width: 20%; height: 21px;\"> Manganese Laminate Li-on (LMNC)</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">3000 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3000 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3000 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3000 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Lốp tiêu chuẩn *</td>\n\n<td style=\"width: 20%; height: 21px;\">27 × 10-12</td>\n\n<td style=\"width: 20%; height: 21px;\">27 × 10.5-15</td>\n\n<td style=\"width: 20%; height: 21px;\">27 × 10-12</td>\n\n<td style=\"width: 20%; height: 21px;\">27 × 10.5-15</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải trên toàn thế giới, giúp vận hành và vận chuyển hiệu quả hơn. MOFFETT E5 NX được phát triển từ xe nâng gắn trên xe tải chạy điện đầu tiên trên thế giới và là cuộc cách mạng trong lĩnh vực hậu cần xe nâng gắn trên xe tải. MOFFETT E5 NX thiết bị chuyên gia cho các nhiệm vụ từ cấp trung bình đến nặng. Sức nâng tới 2.500 kg, nó dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận trên công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên MOFFET E5 NX vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya. Xe nâng gắn trên xe tải MOFFETT E5 NX mang đến hiệu suất, sức mạnh và khả năng cơ động. Sản phẩm lý tưởng cho nhiều ứng dụng đa dạng và phong phú, trên nhiều môi trường và mở rộng cho tất cả các loại dịch vụ vận chuyển hàng. Ví dụ: · Nông nghiệp · Vật liệu xây dựng · Tái chế · Đồ uống · Phòng thủ · Đại lý phân phối · Khí gas công nghiệp/LPG",
+    "image": "/images/products/xe-nang-dien-moffett-e5-nx/Capture-4.png",
+    "images": [
+      "/images/products/xe-nang-dien-moffett-e5-nx/Capture-4.png",
+      "/images/products/xe-nang-dien-moffett-e5-nx/1-1.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1061,69 +365,24 @@ export const products: Product[] = [
     }
   },
   {
-    id: "17",
-    name: "XE NÂNG DIESEL MOFFETT M2",
-    slug: "xe-nang-diesel-moffett-m2",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Xe nâng gắn trên xe tải đang hỗ trợ các doanh nghiệp trong tất cả ngành yêu cầu thực hiện đơn chuyển giao hàng trong thời gian ngắn. MOFFETT M2 là một loại máy có độ linh hoạt cao với trọng lượng thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy đóng vai trò quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Với khung gầm đặc biệt mỏng, MOFFETT M2 đem đết sức mạnh, hiệu suất và sự thoải mái cho người lái của xe MOFFET. LỢI THẾ VƯỢT TRỘI: • Việc giao hàng nhanh hơn dẫn đến cải thiện hiệu quả hoạt động và cho phép bạn giao nhiều hàng hơn trong thời gian ngắn hơn • Không còn phải chờ đợi bốc dỡ thiết bị/nhân sự tại chỗ • Hoạt động đơn giản trong khu vực nhỏ hẹp, bao gồm cả việc dỡ tải một bên • Dỡ và chọn thứ tự tải của bạn vì bạn có thể truy cập và dỡ hàng từ bất kỳ vị trí nào của xe • Tiêu chuẩn khí thải Stage V",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="size-medium wp-image-1291 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/05/1111-300x263.png" alt="xe nâng diesel moffet m2" width="300" height="263" />
-\n<table style="border-collapse: collapse; width: 100%; height: 189px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 33.3333%; height: 21px;"><strong>MOFFETT M2 15.1</strong></td>
-\n<td style="width: 33.3333%; height: 21px;"><strong>MOFFETT M2 17.1</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Sức nâng</td>
-\n<td style="width: 33.3333%; height: 21px;">1,500 kg @ 600 mm load centre</td>
-\n<td style="width: 33.3333%; height: 21px;">1,700 kg @ 600 mm load centre</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Động cơ</td>
-\n<td style="width: 33.3333%; height: 21px;">Kubota D1305</td>
-\n<td style="width: 33.3333%; height: 21px;">Kubota D1305</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 33.3333%; height: 21px;">2,200 mm</td>
-\n<td style="width: 33.3333%; height: 21px;">2,200 mm - 3,000 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Lốp tiêu chuẩn</td>
-\n<td style="width: 33.3333%; height: 21px;">4.00×4 Supersoft/23×8.5-12</td>
-\n<td style="width: 33.3333%; height: 21px;">4.00×4 Supersoft/23×8.5-12</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 33.3333%; height: 21px;">1</td>
-\n<td style="width: 33.3333%; height: 21px;">1</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Trọng lượng không tải</td>
-\n<td style="width: 33.3333%; height: 21px;">1,570 kg</td>
-\n<td style="width: 33.3333%; height: 21px;">1,635 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Overhang</td>
-\n<td style="width: 33.3333%; height: 21px;">1200 mm</td>
-\n<td style="width: 33.3333%; height: 21px;">1,200 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 33.3333%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 33.3333%; height: 21px;">260 mm</td>
-\n<td style="width: 33.3333%; height: 21px;">260 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Xe nâng gắn trên xe tải đang hỗ trợ các doanh nghiệp trong tất cả ngành yêu cầu thực hiện đơn chuyển giao hàng trong thời gian ngắn. MOFFETT M2 là một loại máy có độ linh hoạt cao với trọng lượng thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy đóng vai trò quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Với khung gầm đặc biệt mỏng, MOFFETT M2 đem đết sức mạnh, hiệu suất và sự thoải mái cho người lái của xe MOFFET. LỢI THẾ VƯỢT TRỘI: • Việc giao hàng nhanh hơn dẫn đến cải thiện hiệu quả hoạt động và cho phép bạn giao nhiều hàng hơn trong thời gian ngắn hơn • Không còn phải chờ đợi bốc dỡ thiết bị/nhân sự tại chỗ • Hoạt động đơn giản trong khu vực nhỏ hẹp, bao gồm cả việc dỡ tải một bên • Dỡ và chọn thứ tự tải của bạn vì bạn có thể truy cập và dỡ hàng từ bất kỳ vị trí nào của xe • Tiêu chuẩn khí thải Stage V",
-    image: "/images/products/xe-nang-diesel-moffett-m2/Capture-5.png",
-    images: ["/images/products/xe-nang-diesel-moffett-m2/Capture-5.png", "/images/products/xe-nang-diesel-moffett-m2/222.png", "/images/products/xe-nang-diesel-moffett-m2/1449-1.jpg", "/images/products/xe-nang-diesel-moffett-m2/1450.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "17",
+    "name": "XE NÂNG DIESEL MOFFETT M2",
+    "slug": "xe-nang-diesel-moffett-m2",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Xe nâng gắn trên xe tải đang hỗ trợ các doanh nghiệp trong tất cả ngành yêu cầu thực hiện đơn chuyển giao hàng trong thời gian ngắn. MOFFETT M2 là một loại máy có độ linh hoạt cao với trọng lượng thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy đóng vai trò quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Với khung gầm đặc biệt mỏng, MOFFETT M2 đem đết sức mạnh, hiệu suất và sự thoải mái cho người lái của xe MOFFET. LỢI THẾ VƯỢT TRỘI: • Việc giao hàng nhanh hơn dẫn đến cải thiện hiệu quả hoạt động và cho phép bạn giao nhiều hàng hơn trong thời gian ngắn hơn • Không còn phải chờ đợi bốc dỡ thiết bị/nhân sự tại chỗ • Hoạt động đơn giản trong khu vực nhỏ hẹp, bao gồm cả việc dỡ tải một bên • Dỡ và chọn thứ tự tải của bạn vì bạn có thể truy cập và dỡ hàng từ bất kỳ vị trí nào của xe • Tiêu chuẩn khí thải Stage V",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"size-medium wp-image-1291 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/1111-300x263.png\" alt=\"xe nâng diesel moffet m2\" width=\"300\" height=\"263\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 189px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 33.3333%; height: 21px;\"><strong>MOFFETT M2 15.1</strong></td>\n\n<td style=\"width: 33.3333%; height: 21px;\"><strong>MOFFETT M2 17.1</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1,500 kg @ 600 mm load centre</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1,700 kg @ 600 mm load centre</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Động cơ</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">Kubota D1305</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">Kubota D1305</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">2,200 mm</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">2,200 mm - 3,000 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Lốp tiêu chuẩn</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">4.00×4 Supersoft/23×8.5-12</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">4.00×4 Supersoft/23×8.5-12</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1,570 kg</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1,635 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Overhang</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">1,200 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 33.3333%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">260 mm</td>\n\n<td style=\"width: 33.3333%; height: 21px;\">260 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Xe nâng gắn trên xe tải đang hỗ trợ các doanh nghiệp trong tất cả ngành yêu cầu thực hiện đơn chuyển giao hàng trong thời gian ngắn. MOFFETT M2 là một loại máy có độ linh hoạt cao với trọng lượng thấp, được chế tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và khả năng cơ động của máy đóng vai trò quan trọng. Được thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an toàn. Với khung gầm đặc biệt mỏng, MOFFETT M2 đem đết sức mạnh, hiệu suất và sự thoải mái cho người lái của xe MOFFET. LỢI THẾ VƯỢT TRỘI: • Việc giao hàng nhanh hơn dẫn đến cải thiện hiệu quả hoạt động và cho phép bạn giao nhiều hàng hơn trong thời gian ngắn hơn • Không còn phải chờ đợi bốc dỡ thiết bị/nhân sự tại chỗ • Hoạt động đơn giản trong khu vực nhỏ hẹp, bao gồm cả việc dỡ tải một bên • Dỡ và chọn thứ tự tải của bạn vì bạn có thể truy cập và dỡ hàng từ bất kỳ vị trí nào của xe • Tiêu chuẩn khí thải Stage V",
+    "image": "/images/products/xe-nang-diesel-moffett-m2/Capture-5.png",
+    "images": [
+      "/images/products/xe-nang-diesel-moffett-m2/Capture-5.png",
+      "/images/products/xe-nang-diesel-moffett-m2/222.png",
+      "/images/products/xe-nang-diesel-moffett-m2/1449-1.jpg",
+      "/images/products/xe-nang-diesel-moffett-m2/1450.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1131,88 +390,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "18",
-    name: "XE NÂNG GẮN XE TẢI MOFFETT M4 NX",
-    slug: "xe-nang-gan-xe-tai-moffett-m4-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Trải nghiệm hiệu suất vượt trội của chiếc xe nâng đáng tin cậy nhất Châu Âu - xe nâng gắn với xe tải MOFFETT M4 NX thế hệ mới. Thiết bị sở hữu nhiều cải tiến – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn thế. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái • Nhiều tùy chọn và phụ kiện Giống như một con dao đa dụng Quân đội Thụy Sĩ, MOFFETT M4 NX là định nghĩa về tính linh hoạt với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, M4 NX chuyển tải nhanh chóng và an toàn – ngay cả trên những địa hình khó. Nó giải quyết tất cả các loại yêu cầu nâng tải để mang lại cho bạn lợi thế toàn diện. M4 NX cực kỳ mạnh mẽ nhưng vẫn nhẹ và đủ nhỏ gọn để có thể gắn trên hầu hết mọi loại xe tải hoặc xe moóc. Nó có sẵn với nhiều tùy chọn và phụ kiện bao gồm hệ thống lái 4 hướng để điều chỉnh các khu vực tiếp cận chật hẹp với tải trọng dài. MOFFETT M4 NX được hỗ trợ bởi mạng lưới kỹ sư dịch vụ trên toàn thế giới của HIAB. Khi bạn đầu tư vào MOFFETT M4 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M4 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn. M4 NX là chuyên gia xử lý tải hiệu quả trong đô thị đông đúc với điều kiện giao thông và hoạt động hạn chế: • Giao hàng sản phẩm cửa sổ và cửa ra vào • Tái chế và quản lý chất thải • Hóa chất • Khí công nghiệp • Vật liệu xây dựng • Thức ăn chăn nuôi • Sản phẩm đồ uống • Sân cỏ ...và nhiều hơn nữa",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="wp-image-1300 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/05/414.png" alt="XE NÂNG GẮN XE TẢI MOFFET M4 NX" width="286" height="283" />
-\n<table style="border-collapse: collapse; width: 100%; height: 191px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M4 NX 20.1</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M4 NX 20.3</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M4 NX 20.4</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M4 NX 25.1</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M4 NX 25.3</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M4 NX 25.4</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Sức nâng</td>
-\n<td style="width: 14.2857%; height: 21px;">2,000 kg @ 600 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">2,000 kg @ 600 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">2,000 kg @ 600 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">2,500 kg @ 600 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">2,500 kg @ 600 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">2,500 kg @ 600 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Động cơ</td>
-\n<td style="width: 14.2857%; height: 21px;">Kubota D1305</td>
-\n<td style="width: 14.2857%; height: 21px;">5 Kubota D1305</td>
-\n<td style="width: 14.2857%; height: 21px;">Kubota D1305</td>
-\n<td style="width: 14.2857%; height: 21px;">Kubota D1305</td>
-\n<td style="width: 14.2857%; height: 21px;">Kubota D1305</td>
-\n<td style="width: 14.2857%; height: 21px;">Kubota D1305</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 14.2857%; height: 21px;">3,000 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,000 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,000 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,000 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,000 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,000 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Lốp tiêu chuẩn</td>
-\n<td style="width: 14.2857%; height: 21px;">23”/400x4</td>
-\n<td style="width: 14.2857%; height: 21px;">23”/23”</td>
-\n<td style="width: 14.2857%; height: 21px;">23”/23”</td>
-\n<td style="width: 14.2857%; height: 21px;">27”/18”</td>
-\n<td style="width: 14.2857%; height: 21px;">27”/27”</td>
-\n<td style="width: 14.2857%; height: 21px;">27”/27”</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 14.2857%; height: 43px;">Chiều rộng càng nâng</td>
-\n<td style="width: 14.2857%; height: 43px;">1,300 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,300 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,300 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,300 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,300 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,300 mm</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 14.2857%; height: 43px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 14.2857%; height: 43px;">200 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">200 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">200 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">200 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">265 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">265 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n<div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div>`,
-    shortDescription: "Trải nghiệm hiệu suất vượt trội của chiếc xe nâng đáng tin cậy nhất Châu Âu - xe nâng gắn với xe tải MOFFETT M4 NX thế hệ mới. Thiết bị sở hữu nhiều cải tiến – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn thế. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái • Nhiều tùy chọn và phụ kiện Giống như một con dao đa dụng Quân đội Thụy Sĩ, MOFFETT M4 NX là định nghĩa về tính linh hoạt với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, M4 NX chuyển tải nhanh chóng và an toàn – ngay cả trên những địa hình khó. Nó giải quyết tất cả các loại yêu cầu nâng tải để mang lại cho bạn lợi thế toàn diện. M4 NX cực kỳ mạnh mẽ nhưng vẫn nhẹ và đủ nhỏ gọn để có thể gắn trên hầu hết mọi loại xe tải hoặc xe moóc. Nó có sẵn với nhiều tùy chọn và phụ kiện bao gồm hệ thống lái 4 hướng để điều chỉnh các khu vực tiếp cận chật hẹp với tải trọng dài. MOFFETT M4 NX được hỗ trợ bởi mạng lưới kỹ sư dịch vụ trên toàn thế giới của HIAB. Khi bạn đầu tư vào MOFFETT M4 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M4 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn. M4 NX là chuyên gia xử lý tải hiệu quả trong đô thị đông đúc với điều kiện giao thông và hoạt động hạn chế: • Giao hàng sản phẩm cửa sổ và cửa ra vào • Tái chế và quản lý chất thải • Hóa chất • Khí công nghiệp • Vật liệu xây dựng • Thức ăn chăn nuôi • Sản phẩm đồ uống • Sân cỏ ...và nhiều hơn nữa",
-    image: "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/Capture-6.png",
-    images: ["/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/Capture-6.png", "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/23-1.png", "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/2-2.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "18",
+    "name": "XE NÂNG GẮN XE TẢI MOFFETT M4 NX",
+    "slug": "xe-nang-gan-xe-tai-moffett-m4-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Trải nghiệm hiệu suất vượt trội của chiếc xe nâng đáng tin cậy nhất Châu Âu - xe nâng gắn với xe tải MOFFETT M4 NX thế hệ mới. Thiết bị sở hữu nhiều cải tiến – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn thế. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái • Nhiều tùy chọn và phụ kiện Giống như một con dao đa dụng Quân đội Thụy Sĩ, MOFFETT M4 NX là định nghĩa về tính linh hoạt với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, M4 NX chuyển tải nhanh chóng và an toàn – ngay cả trên những địa hình khó. Nó giải quyết tất cả các loại yêu cầu nâng tải để mang lại cho bạn lợi thế toàn diện. M4 NX cực kỳ mạnh mẽ nhưng vẫn nhẹ và đủ nhỏ gọn để có thể gắn trên hầu hết mọi loại xe tải hoặc xe moóc. Nó có sẵn với nhiều tùy chọn và phụ kiện bao gồm hệ thống lái 4 hướng để điều chỉnh các khu vực tiếp cận chật hẹp với tải trọng dài. MOFFETT M4 NX được hỗ trợ bởi mạng lưới kỹ sư dịch vụ trên toàn thế giới của HIAB. Khi bạn đầu tư vào MOFFETT M4 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M4 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn. M4 NX là chuyên gia xử lý tải hiệu quả trong đô thị đông đúc với điều kiện giao thông và hoạt động hạn chế: • Giao hàng sản phẩm cửa sổ và cửa ra vào • Tái chế và quản lý chất thải • Hóa chất • Khí công nghiệp • Vật liệu xây dựng • Thức ăn chăn nuôi • Sản phẩm đồ uống • Sân cỏ ...và nhiều hơn nữa",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"wp-image-1300 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/414.png\" alt=\"XE NÂNG GẮN XE TẢI MOFFET M4 NX\" width=\"286\" height=\"283\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 191px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M4 NX 20.1</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M4 NX 20.3</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M4 NX 20.4</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M4 NX 25.1</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M4 NX 25.3</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M4 NX 25.4</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">2,000 kg @ 600 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">2,000 kg @ 600 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">2,000 kg @ 600 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">2,500 kg @ 600 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">2,500 kg @ 600 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">2,500 kg @ 600 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Động cơ</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">Kubota D1305</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">5 Kubota D1305</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">Kubota D1305</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">Kubota D1305</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">Kubota D1305</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">Kubota D1305</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,000 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,000 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,000 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,000 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,000 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,000 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Lốp tiêu chuẩn</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">23”/400x4</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">23”/23”</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">23”/23”</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27”/18”</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27”/27”</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27”/27”</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 14.2857%; height: 43px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,300 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,300 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,300 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,300 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,300 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,300 mm</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 14.2857%; height: 43px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">200 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">200 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">200 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">200 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">265 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">265 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n<div id=\"eJOY__extension_root\" class=\"eJOY__extension_root_class\" style=\"all: unset;\"></div>",
+    "shortDescription": "Trải nghiệm hiệu suất vượt trội của chiếc xe nâng đáng tin cậy nhất Châu Âu - xe nâng gắn với xe tải MOFFETT M4 NX thế hệ mới. Thiết bị sở hữu nhiều cải tiến – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn thế. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái • Nhiều tùy chọn và phụ kiện Giống như một con dao đa dụng Quân đội Thụy Sĩ, MOFFETT M4 NX là định nghĩa về tính linh hoạt với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, M4 NX chuyển tải nhanh chóng và an toàn – ngay cả trên những địa hình khó. Nó giải quyết tất cả các loại yêu cầu nâng tải để mang lại cho bạn lợi thế toàn diện. M4 NX cực kỳ mạnh mẽ nhưng vẫn nhẹ và đủ nhỏ gọn để có thể gắn trên hầu hết mọi loại xe tải hoặc xe moóc. Nó có sẵn với nhiều tùy chọn và phụ kiện bao gồm hệ thống lái 4 hướng để điều chỉnh các khu vực tiếp cận chật hẹp với tải trọng dài. MOFFETT M4 NX được hỗ trợ bởi mạng lưới kỹ sư dịch vụ trên toàn thế giới của HIAB. Khi bạn đầu tư vào MOFFETT M4 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M4 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn. M4 NX là chuyên gia xử lý tải hiệu quả trong đô thị đông đúc với điều kiện giao thông và hoạt động hạn chế: • Giao hàng sản phẩm cửa sổ và cửa ra vào • Tái chế và quản lý chất thải • Hóa chất • Khí công nghiệp • Vật liệu xây dựng • Thức ăn chăn nuôi • Sản phẩm đồ uống • Sân cỏ ...và nhiều hơn nữa",
+    "image": "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/Capture-6.png",
+    "images": [
+      "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/Capture-6.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/23-1.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m4-nx/2-2.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1220,112 +414,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "19",
-    name: "XE NÂNG GẮN XE TẢI MOFFETT M8 NX",
-    slug: "xe-nang-gan-xe-tai-moffett-m8-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "MOFFETT M8 NX thế hệ mới là xe nâng gắn trên xe tải tốt nhất thế giới. Sản phẩm đã được thiết kế lại hoàn toàn – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái MOFFETT M8 NX là thiết bị chuyên gia đối với yêu cầu sức nâng lớn. Thiết bị có thể giải quyết được các hoạt động đòi hỏi khắt khe nhất, bất kể điều kiện nào. Với sức nâng lên tới 3.500 kg, M8 NX có thể chuyển tải nặng một cách nhanh chóng và an toàn – ngay cả khi vượt qua những địa hình khó khăn. M8 NX cực kỳ mạnh mẽ nhưng vẫn đủ nhỏ gọn để có thể chở trên hầu hết mọi loại xe tải hoặc xe rơ moóc. Nó có sẵn nhiều tùy chọn và phụ kiện đi kèm, bao gồm cả hệ thống lái 4 chiều để bảo đảm khả năng tiếp cận chặt chẽ những khu vực chật hẹp. Khi bạn đầu tư vào MOFFETT M8 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M8 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn.",
-    fullDescription: `<p style="text-align: center;"><iframe src="//www.youtube.com/embed/GTFU5qYnito" width="800" height="449" allowfullscreen="allowfullscreen"></iframe></p>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="size-full wp-image-1333" src="https://newatlantic.vn/wp-content/uploads/2024/05/1111-1.png" alt="XE NÂNG GẮN TẢI MOFFET M8 NX" width="812" height="318" />
-\n<table style="border-collapse: collapse; width: 100%; height: 277px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M8 NX 25.3</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M8 NX 30.3</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M8 NX 35.3</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M8 NX 25.4</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M8 NX 30.4</strong></td>
-\n<td style="width: 14.2857%; height: 21px;"><strong>M8 NX 35.4</strong></td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 14.2857%; height: 43px;">Sức nâng</td>
-\n<td style="width: 14.2857%; height: 43px;">2,500 kg @ 600 mm load centre</td>
-\n<td style="width: 14.2857%; height: 43px;">3,000 kg @ 600 mm
-\nload centre</td>
-\n<td style="width: 14.2857%; height: 43px;">3,500 kg @ 600 mm
-\nload centre</td>
-\n<td style="width: 14.2857%; height: 43px;">2,500 kg @ 600 mm
-\nload centre</td>
-\n<td style="width: 14.2857%; height: 43px;">3,000 kg @ 600 mm
-\nload centre</td>
-\n<td style="width: 14.2857%; height: 43px;">3,500 kg @ 600 mm
-\nload centre</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Động cơ KUBOTA</td>
-\n<td style="width: 14.2857%; height: 21px;">37.3 kW (50 hp)</td>
-\n<td style="width: 14.2857%; height: 21px;">37.3 kW (50 hp)</td>
-\n<td style="width: 14.2857%; height: 21px;">37.3 kW (50 hp)</td>
-\n<td style="width: 14.2857%; height: 21px;">37.3 kW (50 hp)</td>
-\n<td style="width: 14.2857%; height: 21px;">37.3 kW (50 hp)</td>
-\n<td style="width: 14.2857%; height: 21px;">37.3 kW (50 hp)</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 14.2857%; height: 21px;">3,040 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,040 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,040 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,040 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,040 mm</td>
-\n<td style="width: 14.2857%; height: 21px;">3,040 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Lốp tiêu chuẩn</td>
-\n<td style="width: 14.2857%; height: 21px;">280× 60-15.5</td>
-\n<td style="width: 14.2857%; height: 21px;">27×10-12</td>
-\n<td style="width: 14.2857%; height: 21px;">27×10-12</td>
-\n<td style="width: 14.2857%; height: 21px;">280×60-15.5</td>
-\n<td style="width: 14.2857%; height: 21px;">27×10-12</td>
-\n<td style="width: 14.2857%; height: 21px;">27×10-12</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 14.2857%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 14.2857%; height: 21px;">3 bánh</td>
-\n<td style="width: 14.2857%; height: 21px;">3 bánh</td>
-\n<td style="width: 14.2857%; height: 21px;">3 bánh</td>
-\n<td style="width: 14.2857%; height: 21px;">3 bánh/4 hướng</td>
-\n<td style="width: 14.2857%; height: 21px;">3 bánh/4 hướng</td>
-\n<td style="width: 14.2857%; height: 21px;">3 bánh/4 hướng</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 14.2857%; height: 43px;">Trọng lượng không tải</td>
-\n<td style="width: 14.2857%; height: 43px;">2,530 kg</td>
-\n<td style="width: 14.2857%; height: 43px;">2,630 kg</td>
-\n<td style="width: 14.2857%; height: 43px;">3,130 kg</td>
-\n<td style="width: 14.2857%; height: 43px;">2,810 kg</td>
-\n<td style="width: 14.2857%; height: 43px;">2,910 kg</td>
-\n<td style="width: 14.2857%; height: 43px;">3,410 kg</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 14.2857%; height: 43px;">Chiều rộng càng nâng</td>
-\n<td style="width: 14.2857%; height: 43px;">1,225 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,225 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,225 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,225 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,225 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">1,225 mm</td>
-\n</tr>
-\n<tr style="height: 43px;">
-\n<td style="width: 14.2857%; height: 43px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 14.2857%; height: 43px;">245 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">220 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">220 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">165 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">165 mm</td>
-\n<td style="width: 14.2857%; height: 43px;">220 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n&nbsp;`,
-    shortDescription: "MOFFETT M8 NX thế hệ mới là xe nâng gắn trên xe tải tốt nhất thế giới. Sản phẩm đã được thiết kế lại hoàn toàn – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái MOFFETT M8 NX là thiết bị chuyên gia đối với yêu cầu sức nâng lớn. Thiết bị có thể giải quyết được các hoạt động đòi hỏi khắt khe nhất, bất kể điều kiện nào. Với sức nâng lên tới 3.500 kg, M8 NX có thể chuyển tải nặng một cách nhanh chóng và an toàn – ngay cả khi vượt qua những địa hình khó khăn. M8 NX cực kỳ mạnh mẽ nhưng vẫn đủ nhỏ gọn để có thể chở trên hầu hết mọi loại xe tải hoặc xe rơ moóc. Nó có sẵn nhiều tùy chọn và phụ kiện đi kèm, bao gồm cả hệ thống lái 4 chiều để bảo đảm khả năng tiếp cận chặt chẽ những khu vực chật hẹp. Khi bạn đầu tư vào MOFFETT M8 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M8 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn.",
-    image: "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/1-4.png",
-    images: ["/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/1-4.png", "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/2-3.png", "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/21.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "19",
+    "name": "XE NÂNG GẮN XE TẢI MOFFETT M8 NX",
+    "slug": "xe-nang-gan-xe-tai-moffett-m8-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "MOFFETT M8 NX thế hệ mới là xe nâng gắn trên xe tải tốt nhất thế giới. Sản phẩm đã được thiết kế lại hoàn toàn – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái MOFFETT M8 NX là thiết bị chuyên gia đối với yêu cầu sức nâng lớn. Thiết bị có thể giải quyết được các hoạt động đòi hỏi khắt khe nhất, bất kể điều kiện nào. Với sức nâng lên tới 3.500 kg, M8 NX có thể chuyển tải nặng một cách nhanh chóng và an toàn – ngay cả khi vượt qua những địa hình khó khăn. M8 NX cực kỳ mạnh mẽ nhưng vẫn đủ nhỏ gọn để có thể chở trên hầu hết mọi loại xe tải hoặc xe rơ moóc. Nó có sẵn nhiều tùy chọn và phụ kiện đi kèm, bao gồm cả hệ thống lái 4 chiều để bảo đảm khả năng tiếp cận chặt chẽ những khu vực chật hẹp. Khi bạn đầu tư vào MOFFETT M8 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M8 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn.",
+    "fullDescription": "<p style=\"text-align: center;\"><iframe src=\"//www.youtube.com/embed/GTFU5qYnito\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe></p>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"size-full wp-image-1333\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/1111-1.png\" alt=\"XE NÂNG GẮN TẢI MOFFET M8 NX\" width=\"812\" height=\"318\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 277px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M8 NX 25.3</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M8 NX 30.3</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M8 NX 35.3</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M8 NX 25.4</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M8 NX 30.4</strong></td>\n\n<td style=\"width: 14.2857%; height: 21px;\"><strong>M8 NX 35.4</strong></td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 14.2857%; height: 43px;\">Sức nâng</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">2,500 kg @ 600 mm load centre</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">3,000 kg @ 600 mm\n\nload centre</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">3,500 kg @ 600 mm\n\nload centre</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">2,500 kg @ 600 mm\n\nload centre</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">3,000 kg @ 600 mm\n\nload centre</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">3,500 kg @ 600 mm\n\nload centre</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Động cơ KUBOTA</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">37.3 kW (50 hp)</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">37.3 kW (50 hp)</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">37.3 kW (50 hp)</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">37.3 kW (50 hp)</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">37.3 kW (50 hp)</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">37.3 kW (50 hp)</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,040 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,040 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,040 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,040 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,040 mm</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3,040 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Lốp tiêu chuẩn</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">280× 60-15.5</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27×10-12</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27×10-12</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">280×60-15.5</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27×10-12</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">27×10-12</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 14.2857%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3 bánh</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3 bánh</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3 bánh</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3 bánh/4 hướng</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3 bánh/4 hướng</td>\n\n<td style=\"width: 14.2857%; height: 21px;\">3 bánh/4 hướng</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 14.2857%; height: 43px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">2,530 kg</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">2,630 kg</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">3,130 kg</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">2,810 kg</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">2,910 kg</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">3,410 kg</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 14.2857%; height: 43px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,225 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,225 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,225 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,225 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,225 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">1,225 mm</td>\n\n</tr>\n\n<tr style=\"height: 43px;\">\n\n<td style=\"width: 14.2857%; height: 43px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">245 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">220 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">220 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">165 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">165 mm</td>\n\n<td style=\"width: 14.2857%; height: 43px;\">220 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n&nbsp;",
+    "shortDescription": "MOFFETT M8 NX thế hệ mới là xe nâng gắn trên xe tải tốt nhất thế giới. Sản phẩm đã được thiết kế lại hoàn toàn – cả bên trong lẫn bên ngoài – để giúp bạn tận dụng được nhiều hơn. • Hiệu suất tốt hơn • Bảo trì dễ dàng hơn • Kiểu dáng nâng cao • Cải thiện sự an toàn và thoải mái MOFFETT M8 NX là thiết bị chuyên gia đối với yêu cầu sức nâng lớn. Thiết bị có thể giải quyết được các hoạt động đòi hỏi khắt khe nhất, bất kể điều kiện nào. Với sức nâng lên tới 3.500 kg, M8 NX có thể chuyển tải nặng một cách nhanh chóng và an toàn – ngay cả khi vượt qua những địa hình khó khăn. M8 NX cực kỳ mạnh mẽ nhưng vẫn đủ nhỏ gọn để có thể chở trên hầu hết mọi loại xe tải hoặc xe rơ moóc. Nó có sẵn nhiều tùy chọn và phụ kiện đi kèm, bao gồm cả hệ thống lái 4 chiều để bảo đảm khả năng tiếp cận chặt chẽ những khu vực chật hẹp. Khi bạn đầu tư vào MOFFETT M8 NX mới, bạn sẽ có được một chiếc xe nâng gắn trên xe tải thế hệ tiếp theo mang lại hiệu suất cao nhất, dễ bảo trì hơn và mang lại sự thoải mái và an toàn hơn. Điều đó có nghĩa là MOFFETT M8 NX của bạn dành nhiều thời gian hơn cho công việc – giao hàng nhiều hơn cho bạn.",
+    "image": "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/1-4.png",
+    "images": [
+      "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/1-4.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/2-3.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m8-nx/21.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1333,66 +438,24 @@ export const products: Product[] = [
     }
   },
   {
-    id: "20",
-    name: "XE NÂNG GẮN XE TẢI MOFFETT M9 NX",
-    slug: "xe-nang-gan-xe-tai-moffett-m9-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "M9 là thiết bị chuyên dụng cho tất cả các điều kiện ứng dụng cần chiều cao hoạt động thấp. Nhỏ gọn và mạnh mẽ MOFFET M9 vận hành trong các điều kiện hoạt động khó khăn nhất với thời gian làm việc vượt trội. Sở hữu sức nâng lên tới 2700 kg, M9 được thiết kế dành cho những công việc khó khăn nhất và cho phép bạn tiếp cận những khu vực hạn chế nhất khi vận chuyển hàng hóa một cách nhanh chóng và an toàn. Hiab Moffett M9 vừa mạnh mẽ vừa nhanh nhẹn, nhưng vẫn đủ nhỏ gọn để gắn trên hầu hết mọi xe tải hoặc xe rơ moóc và có sẵn với nhiều loại các tùy chọn và phụ kiện để phù hợp với yêu cầu ứng dụng cụ thể. TÍNH NĂNG VƯỢT TRỘI: Tối ưu hiệu quả làm việc: > Thiết kế cabin rộng rãi, thoáng đãng cho tầm nhìn tối đa và thoải mái > Điều khiển cần gạt dễ dàng > Bàn đạp và tay lái thoải mái chức vụ > Lối vào/ra thân thiện với người vận hành với bậc chống trơn trượt và dễ dàng tiếp cận nắm lấy tay cầm > Lái xe mượt mà An toàn lao động: > Tầm nhìn tối đa (360 độ) > Đã thử nghiệm ROPS/FOPS bảo vệ trên cao > Dây đai an toàn lồng vào nhau > Đèn hiệu nhấp nháy, đèn làm việc và máy thổi ngược > Đèn đường LED phục vụ giao thông tài xế xe tải Hiệu suất tăng cường: > Nhỏ gọn và có tính cơ động cao > Khả năng phân loại xuất sắc > Dỡ hàng nhanh hơn > Xử lý hàng hóa an toàn hơn Bảo dưỡng: Khoảng thời gian phục vụ dài > Linh kiện điện chống chịu P 65 > Dễ dàng tiếp cận tất cả các bộ phận có thể sử dụng được > Đèn LED có tuổi thọ cao và ít phải bảo trì hơn > Các tính năng chống thời tiết và ăn mòn bao gồm: - Bảo vệ điện - Bảng điều khiển được bao bọc đầy đủ - Sơn bột - Chân được xử lý Nitrotec - Xích và con lăn được phủ Dacromet",
-    fullDescription: `<iframe src="//www.youtube.com/embed/vArRRa-OT9o?ab_channel=ARKO" width="800" height="449" allowfullscreen="allowfullscreen"></iframe>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%; height: 189px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 50%; height: 21px;"><strong>M9 27.3</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Sức nâng</td>
-\n<td style="width: 50%; height: 21px;">2700 @ 600 mm Load Centre</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Động cơ</td>
-\n<td style="width: 50%; height: 21px;">Kubota Diesel 37.3 KW (50 HP)</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 50%; height: 21px;">3150 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Lốp tiêu chuẩn</td>
-\n<td style="width: 50%; height: 21px;">280 X 60 - 15.5</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 50%; height: 21px;">3 Bánh</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Trọng lượng không tải</td>
-\n<td style="width: 50%; height: 21px;">3100 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều rộng càng nâng</td>
-\n<td style="width: 50%; height: 21px;">1150 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 50%; height: 21px;">145 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n&nbsp;
-\n
-\n<img class="wp-image-1313 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/2-4.png" alt="XE NÂNG GẮN XE TẢI M9" width="146" height="143" />
-\n<div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"><img class="wp-image-1317 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/33.png" alt="XE NÂNG GẮN XE TẢI M9" width="149" height="142" /></div>
-\n<div><img class="wp-image-1316 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/12-1.png" alt="XE NÂNG GẮN XE TẢI M9" width="185" height="143" /><img class="wp-image-1312 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/1-5.png" alt="XE NÂNG GẮN XE TẢI M9" width="144" height="142" /></div>`,
-    shortDescription: "M9 là thiết bị chuyên dụng cho tất cả các điều kiện ứng dụng cần chiều cao hoạt động thấp. Nhỏ gọn và mạnh mẽ MOFFET M9 vận hành trong các điều kiện hoạt động khó khăn nhất với thời gian làm việc vượt trội. Sở hữu sức nâng lên tới 2700 kg, M9 được thiết kế dành cho những công việc khó khăn nhất và cho phép bạn tiếp cận những khu vực hạn chế nhất khi vận chuyển hàng hóa một cách nhanh chóng và an toàn. Hiab Moffett M9 vừa mạnh mẽ vừa nhanh nhẹn, nhưng vẫn đủ nhỏ gọn để gắn trên hầu hết mọi xe tải hoặc xe rơ moóc và có sẵn với nhiều loại các tùy chọn và phụ kiện để phù hợp với yêu cầu ứng dụng cụ thể. TÍNH NĂNG VƯỢT TRỘI: Tối ưu hiệu quả làm việc: > Thiết kế cabin rộng rãi, thoáng đãng cho tầm nhìn tối đa và thoải mái > Điều khiển cần gạt dễ dàng > Bàn đạp và tay lái thoải mái chức vụ > Lối vào/ra thân thiện với người vận hành với bậc chống trơn trượt và dễ dàng tiếp cận nắm lấy tay cầm > Lái xe mượt mà An toàn lao động: > Tầm nhìn tối đa (360 độ) > Đã thử nghiệm ROPS/FOPS bảo vệ trên cao > Dây đai an toàn lồng vào nhau > Đèn hiệu nhấp nháy, đèn làm việc và máy thổi ngược > Đèn đường LED phục vụ giao thông tài xế xe tải Hiệu suất tăng cường: > Nhỏ gọn và có tính cơ động cao > Khả năng phân loại xuất sắc > Dỡ hàng nhanh hơn > Xử lý hàng hóa an toàn hơn Bảo dưỡng: Khoảng thời gian phục vụ dài > Linh kiện điện chống chịu P 65 > Dễ dàng tiếp cận tất cả các bộ phận có thể sử dụng được > Đèn LED có tuổi thọ cao và ít phải bảo trì hơn > Các tính năng chống thời tiết và ăn mòn bao gồm: - Bảo vệ điện - Bảng điều khiển được bao bọc đầy đủ - Sơn bột - Chân được xử lý Nitrotec - Xích và con lăn được phủ Dacromet",
-    image: "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/Capture-7.png",
-    images: ["/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/Capture-7.png", "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/35.png", "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/4-1.png", "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/7.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "20",
+    "name": "XE NÂNG GẮN XE TẢI MOFFETT M9 NX",
+    "slug": "xe-nang-gan-xe-tai-moffett-m9-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "M9 là thiết bị chuyên dụng cho tất cả các điều kiện ứng dụng cần chiều cao hoạt động thấp. Nhỏ gọn và mạnh mẽ MOFFET M9 vận hành trong các điều kiện hoạt động khó khăn nhất với thời gian làm việc vượt trội. Sở hữu sức nâng lên tới 2700 kg, M9 được thiết kế dành cho những công việc khó khăn nhất và cho phép bạn tiếp cận những khu vực hạn chế nhất khi vận chuyển hàng hóa một cách nhanh chóng và an toàn. Hiab Moffett M9 vừa mạnh mẽ vừa nhanh nhẹn, nhưng vẫn đủ nhỏ gọn để gắn trên hầu hết mọi xe tải hoặc xe rơ moóc và có sẵn với nhiều loại các tùy chọn và phụ kiện để phù hợp với yêu cầu ứng dụng cụ thể. TÍNH NĂNG VƯỢT TRỘI: Tối ưu hiệu quả làm việc: > Thiết kế cabin rộng rãi, thoáng đãng cho tầm nhìn tối đa và thoải mái > Điều khiển cần gạt dễ dàng > Bàn đạp và tay lái thoải mái chức vụ > Lối vào/ra thân thiện với người vận hành với bậc chống trơn trượt và dễ dàng tiếp cận nắm lấy tay cầm > Lái xe mượt mà An toàn lao động: > Tầm nhìn tối đa (360 độ) > Đã thử nghiệm ROPS/FOPS bảo vệ trên cao > Dây đai an toàn lồng vào nhau > Đèn hiệu nhấp nháy, đèn làm việc và máy thổi ngược > Đèn đường LED phục vụ giao thông tài xế xe tải Hiệu suất tăng cường: > Nhỏ gọn và có tính cơ động cao > Khả năng phân loại xuất sắc > Dỡ hàng nhanh hơn > Xử lý hàng hóa an toàn hơn Bảo dưỡng: Khoảng thời gian phục vụ dài > Linh kiện điện chống chịu P 65 > Dễ dàng tiếp cận tất cả các bộ phận có thể sử dụng được > Đèn LED có tuổi thọ cao và ít phải bảo trì hơn > Các tính năng chống thời tiết và ăn mòn bao gồm: - Bảo vệ điện - Bảng điều khiển được bao bọc đầy đủ - Sơn bột - Chân được xử lý Nitrotec - Xích và con lăn được phủ Dacromet",
+    "fullDescription": "<iframe src=\"//www.youtube.com/embed/vArRRa-OT9o?ab_channel=ARKO\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%; height: 189px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 50%; height: 21px;\"><strong>M9 27.3</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">2700 @ 600 mm Load Centre</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Động cơ</td>\n\n<td style=\"width: 50%; height: 21px;\">Kubota Diesel 37.3 KW (50 HP)</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">3150 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Lốp tiêu chuẩn</td>\n\n<td style=\"width: 50%; height: 21px;\">280 X 60 - 15.5</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 50%; height: 21px;\">3 Bánh</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 50%; height: 21px;\">3100 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">1150 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 50%; height: 21px;\">145 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n&nbsp;\n\n\n\n<img class=\"wp-image-1313 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/2-4.png\" alt=\"XE NÂNG GẮN XE TẢI M9\" width=\"146\" height=\"143\" />\n\n<div id=\"eJOY__extension_root\" class=\"eJOY__extension_root_class\" style=\"all: unset;\"><img class=\"wp-image-1317 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/33.png\" alt=\"XE NÂNG GẮN XE TẢI M9\" width=\"149\" height=\"142\" /></div>\n\n<div><img class=\"wp-image-1316 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/12-1.png\" alt=\"XE NÂNG GẮN XE TẢI M9\" width=\"185\" height=\"143\" /><img class=\"wp-image-1312 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/1-5.png\" alt=\"XE NÂNG GẮN XE TẢI M9\" width=\"144\" height=\"142\" /></div>",
+    "shortDescription": "M9 là thiết bị chuyên dụng cho tất cả các điều kiện ứng dụng cần chiều cao hoạt động thấp. Nhỏ gọn và mạnh mẽ MOFFET M9 vận hành trong các điều kiện hoạt động khó khăn nhất với thời gian làm việc vượt trội. Sở hữu sức nâng lên tới 2700 kg, M9 được thiết kế dành cho những công việc khó khăn nhất và cho phép bạn tiếp cận những khu vực hạn chế nhất khi vận chuyển hàng hóa một cách nhanh chóng và an toàn. Hiab Moffett M9 vừa mạnh mẽ vừa nhanh nhẹn, nhưng vẫn đủ nhỏ gọn để gắn trên hầu hết mọi xe tải hoặc xe rơ moóc và có sẵn với nhiều loại các tùy chọn và phụ kiện để phù hợp với yêu cầu ứng dụng cụ thể. TÍNH NĂNG VƯỢT TRỘI: Tối ưu hiệu quả làm việc: > Thiết kế cabin rộng rãi, thoáng đãng cho tầm nhìn tối đa và thoải mái > Điều khiển cần gạt dễ dàng > Bàn đạp và tay lái thoải mái chức vụ > Lối vào/ra thân thiện với người vận hành với bậc chống trơn trượt và dễ dàng tiếp cận nắm lấy tay cầm > Lái xe mượt mà An toàn lao động: > Tầm nhìn tối đa (360 độ) > Đã thử nghiệm ROPS/FOPS bảo vệ trên cao > Dây đai an toàn lồng vào nhau > Đèn hiệu nhấp nháy, đèn làm việc và máy thổi ngược > Đèn đường LED phục vụ giao thông tài xế xe tải Hiệu suất tăng cường: > Nhỏ gọn và có tính cơ động cao > Khả năng phân loại xuất sắc > Dỡ hàng nhanh hơn > Xử lý hàng hóa an toàn hơn Bảo dưỡng: Khoảng thời gian phục vụ dài > Linh kiện điện chống chịu P 65 > Dễ dàng tiếp cận tất cả các bộ phận có thể sử dụng được > Đèn LED có tuổi thọ cao và ít phải bảo trì hơn > Các tính năng chống thời tiết và ăn mòn bao gồm: - Bảo vệ điện - Bảng điều khiển được bao bọc đầy đủ - Sơn bột - Chân được xử lý Nitrotec - Xích và con lăn được phủ Dacromet",
+    "image": "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/Capture-7.png",
+    "images": [
+      "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/Capture-7.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/35.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/4-1.png",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m9-nx/7.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1400,88 +463,26 @@ export const products: Product[] = [
     }
   },
   {
-    id: "21",
-    name: "XE NÂNG ĐIỆN MOFFETT E8 NX",
-    slug: "xe-nang-dien-moffett-e8-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "MOFFETT E8 NX là xe nâng tối ưu cho các nhiệm vụ đòi hỏi khắt khe và nâng tải lớn. Sức nâng lên tới 3500 kg, xe dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên nó hoàn hảo để sử dụng ở các Khu vực có lượng khí thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư và khi trời đã khuya. MOFFETT E8 NX mang lại một số lợi ích đáng kể. Nó đặt công nghệ thân thiện với môi trường ở phía sau xe tải. Và nó giúp giảm tổng chi phí sở hữu và lợi tức đầu tư tốt hơn nhiều so với xe nâng gắn trên xe tải thông thường.",
-    fullDescription: `<p style="text-align: center;"><iframe src="//www.youtube.com/embed/XfoGUNch2xg" width="800" height="449" allowfullscreen="allowfullscreen"></iframe></p>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class=" wp-image-1328" src="https://newatlantic.vn/wp-content/uploads/2024/05/Capture-8.png" alt="XE NÂNG ĐIỆN MOFFET E8 NX" width="846" height="337" />
-\n<table style="border-collapse: collapse; width: 100%; height: 189px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E8 25.3 NX</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E8 25.3W NX</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E8 25.4 NX</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>E8 25.3P NX</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Sức nâng</td>
-\n<td style="width: 20%; height: 21px;">2500 kg</td>
-\n<td style="width: 20%; height: 21px;">2500 kg</td>
-\n<td style="width: 20%; height: 21px;">2500 kg</td>
-\n<td style="width: 20%; height: 21px;">2500 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Loại động cơ</td>
-\n<td style="width: 20%; height: 21px;">Điện</td>
-\n<td style="width: 20%; height: 21px;">Điện</td>
-\n<td style="width: 20%; height: 21px;">Điện</td>
-\n<td style="width: 20%; height: 21px;">Điện</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 20%; height: 21px;">3040 mm</td>
-\n<td style="width: 20%; height: 21px;">3040 mm</td>
-\n<td style="width: 20%; height: 21px;">3040 mm</td>
-\n<td style="width: 20%; height: 21px;">3040 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Loại lốp</td>
-\n<td style="width: 20%; height: 21px;">29x12.5-15 TG</td>
-\n<td style="width: 20%; height: 21px;">27x10-12 SS</td>
-\n<td style="width: 20%; height: 21px;">27x10-12 SS</td>
-\n<td style="width: 20%; height: 21px;">1x15.5-15 8 PLY (T.G)</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Trọng lượng không tải</td>
-\n<td style="width: 20%; height: 21px;">2810 kg</td>
-\n<td style="width: 20%; height: 21px;">2850 kg</td>
-\n<td style="width: 20%; height: 21px;">3070 kg</td>
-\n<td style="width: 20%; height: 21px;">3210 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Chiều rộng càng nâng</td>
-\n<td style="width: 20%; height: 21px;">1225 mm</td>
-\n<td style="width: 20%; height: 21px;">1225 mm</td>
-\n<td style="width: 20%; height: 21px;">1225 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 20%; height: 21px;">245 mm</td>
-\n<td style="width: 20%; height: 21px;">220 mm</td>
-\n<td style="width: 20%; height: 21px;">165 mm</td>
-\n<td style="width: 20%; height: 21px;">305 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "MOFFETT E8 NX là xe nâng tối ưu cho các nhiệm vụ đòi hỏi khắt khe và nâng tải lớn. Sức nâng lên tới 3500 kg, xe dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên nó hoàn hảo để sử dụng ở các Khu vực có lượng khí thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư và khi trời đã khuya. MOFFETT E8 NX mang lại một số lợi ích đáng kể. Nó đặt công nghệ thân thiện với môi trường ở phía sau xe tải. Và nó giúp giảm tổng chi phí sở hữu và lợi tức đầu tư tốt hơn nhiều so với xe nâng gắn trên xe tải thông thường.",
-    image: "/images/products/xe-nang-dien-moffett-e8-nx/1406225.jpg",
-    images: ["/images/products/xe-nang-dien-moffett-e8-nx/1406225.jpg", "/images/products/xe-nang-dien-moffett-e8-nx/1406222.jpg", "/images/products/xe-nang-dien-moffett-e8-nx/1406223.jpg", "/images/products/xe-nang-dien-moffett-e8-nx/1406220.jpg", "/images/products/xe-nang-dien-moffett-e8-nx/1406221.jpg", "/images/products/xe-nang-dien-moffett-e8-nx/1406224.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "21",
+    "name": "XE NÂNG ĐIỆN MOFFETT E8 NX",
+    "slug": "xe-nang-dien-moffett-e8-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "MOFFETT E8 NX là xe nâng tối ưu cho các nhiệm vụ đòi hỏi khắt khe và nâng tải lớn. Sức nâng lên tới 3500 kg, xe dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên nó hoàn hảo để sử dụng ở các Khu vực có lượng khí thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư và khi trời đã khuya. MOFFETT E8 NX mang lại một số lợi ích đáng kể. Nó đặt công nghệ thân thiện với môi trường ở phía sau xe tải. Và nó giúp giảm tổng chi phí sở hữu và lợi tức đầu tư tốt hơn nhiều so với xe nâng gắn trên xe tải thông thường.",
+    "fullDescription": "<p style=\"text-align: center;\"><iframe src=\"//www.youtube.com/embed/XfoGUNch2xg\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe></p>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\" wp-image-1328\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/Capture-8.png\" alt=\"XE NÂNG ĐIỆN MOFFET E8 NX\" width=\"846\" height=\"337\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 189px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E8 25.3 NX</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E8 25.3W NX</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E8 25.4 NX</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>E8 25.3P NX</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Loại động cơ</td>\n\n<td style=\"width: 20%; height: 21px;\">Điện</td>\n\n<td style=\"width: 20%; height: 21px;\">Điện</td>\n\n<td style=\"width: 20%; height: 21px;\">Điện</td>\n\n<td style=\"width: 20%; height: 21px;\">Điện</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">3040 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3040 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3040 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3040 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Loại lốp</td>\n\n<td style=\"width: 20%; height: 21px;\">29x12.5-15 TG</td>\n\n<td style=\"width: 20%; height: 21px;\">27x10-12 SS</td>\n\n<td style=\"width: 20%; height: 21px;\">27x10-12 SS</td>\n\n<td style=\"width: 20%; height: 21px;\">1x15.5-15 8 PLY (T.G)</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 20%; height: 21px;\">2810 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2850 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">3070 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">3210 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">1225 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1225 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1225 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 20%; height: 21px;\">245 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">220 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">165 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">305 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "MOFFETT E8 NX là xe nâng tối ưu cho các nhiệm vụ đòi hỏi khắt khe và nâng tải lớn. Sức nâng lên tới 3500 kg, xe dễ dàng vượt qua cả địa hình gồ ghề và khó tiếp cận công trường – chuyển tải nhanh chóng và an toàn qua các sân bãi và công trường đông đúc. Vì là xe nâng chạy hoàn toàn bằng điện nên nó hoàn hảo để sử dụng ở các Khu vực có lượng khí thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư và khi trời đã khuya. MOFFETT E8 NX mang lại một số lợi ích đáng kể. Nó đặt công nghệ thân thiện với môi trường ở phía sau xe tải. Và nó giúp giảm tổng chi phí sở hữu và lợi tức đầu tư tốt hơn nhiều so với xe nâng gắn trên xe tải thông thường.",
+    "image": "/images/products/xe-nang-dien-moffett-e8-nx/1406225.jpg",
+    "images": [
+      "/images/products/xe-nang-dien-moffett-e8-nx/1406225.jpg",
+      "/images/products/xe-nang-dien-moffett-e8-nx/1406222.jpg",
+      "/images/products/xe-nang-dien-moffett-e8-nx/1406223.jpg",
+      "/images/products/xe-nang-dien-moffett-e8-nx/1406220.jpg",
+      "/images/products/xe-nang-dien-moffett-e8-nx/1406221.jpg",
+      "/images/products/xe-nang-dien-moffett-e8-nx/1406224.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1489,91 +490,24 @@ export const products: Product[] = [
     }
   },
   {
-    id: "22",
-    name: "XE NÂNG GẮN XE TẢI MOFFETT M5 NX",
-    slug: "xe-nang-gan-xe-tai-moffett-m5-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "MOFFETT M5 NX là thiết bị xe nâng chuyên dụng cho các nhiệm vụ từ trung bình đến nặng, với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Nâng được trọng lượng lên tới 2.500 kg, M5 NX dễ dàng làm chủ cả địa hình gồ ghề và những khu vực hạn chế nhất – chuyển tải nhanh chóng và an toàn qua các bãi bãi đông đúc, cơ sở nhà kho hoặc giao thông đông đúc. Được thiết kế cho nhiều ứng dụng công nghiệp và thương mại, đặc biệt là sử dụng trên địa hình khó khăn..",
-    fullDescription: `<iframe src="//www.youtube.com/embed/8tDhS-ZhEdI?ab_channel=Hiabglobal" width="800" height="449" allowfullscreen="allowfullscreen"></iframe>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n&nbsp;
-\n
-\n<img class="size-full wp-image-1334" src="https://newatlantic.vn/wp-content/uploads/2024/05/11.png" alt="XE NÂNG GẮN TẢI MOFFET M5 NX" width="789" height="329" />
-\n<table style="border-collapse: collapse; width: 100%; height: 189px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>M5 20.3</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>M5 20.4</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>M5 25.3</strong></td>
-\n<td style="width: 20%; height: 21px;"><strong>M5 25.4</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Sức nâng</td>
-\n<td style="width: 20%; height: 21px;">2000 (KG)</td>
-\n<td style="width: 20%; height: 21px;">2000 (KG)</td>
-\n<td style="width: 20%; height: 21px;">2500 (KG)</td>
-\n<td style="width: 20%; height: 21px;">2500 (KG)</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Động cơ DIESEL KUBOTA</td>
-\n<td style="width: 20%; height: 21px;">26.5 kW (36HP)</td>
-\n<td style="width: 20%; height: 21px;">26.5 kW (36HP)</td>
-\n<td style="width: 20%; height: 21px;">33.0 kW (44HP)</td>
-\n<td style="width: 20%; height: 21px;">33.0 kW (44HP)</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 20%; height: 21px;">3020 mm</td>
-\n<td style="width: 20%; height: 21px;">3020 mm</td>
-\n<td style="width: 20%; height: 21px;">3020 mm</td>
-\n<td style="width: 20%; height: 21px;">3020 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Lốp tiêu chuẩn</td>
-\n<td style="width: 20%; height: 21px;">27 x10 -12</td>
-\n<td style="width: 20%; height: 21px;">27 x10.5 -15</td>
-\n<td style="width: 20%; height: 21px;">27 x10 -12</td>
-\n<td style="width: 20%; height: 21px;">27 x10.5 -15</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n<td style="width: 20%; height: 21px;">3</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Trọng lượng không tải</td>
-\n<td style="width: 20%; height: 21px;">2250 kg</td>
-\n<td style="width: 20%; height: 21px;">2400 kg</td>
-\n<td style="width: 20%; height: 21px;">2365 kg</td>
-\n<td style="width: 20%; height: 21px;">2520 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Chiều rộng càng nâng</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n<td style="width: 20%; height: 21px;">1200 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 20%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n<td style="width: 20%; height: 21px;">180 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n<div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div>`,
-    shortDescription: "MOFFETT M5 NX là thiết bị xe nâng chuyên dụng cho các nhiệm vụ từ trung bình đến nặng, với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Nâng được trọng lượng lên tới 2.500 kg, M5 NX dễ dàng làm chủ cả địa hình gồ ghề và những khu vực hạn chế nhất – chuyển tải nhanh chóng và an toàn qua các bãi bãi đông đúc, cơ sở nhà kho hoặc giao thông đông đúc. Được thiết kế cho nhiều ứng dụng công nghiệp và thương mại, đặc biệt là sử dụng trên địa hình khó khăn..",
-    image: "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1009262.jpg",
-    images: ["/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1009262.jpg", "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/670627.jpg", "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1413.jpg", "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1399.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "22",
+    "name": "XE NÂNG GẮN XE TẢI MOFFETT M5 NX",
+    "slug": "xe-nang-gan-xe-tai-moffett-m5-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "MOFFETT M5 NX là thiết bị xe nâng chuyên dụng cho các nhiệm vụ từ trung bình đến nặng, với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Nâng được trọng lượng lên tới 2.500 kg, M5 NX dễ dàng làm chủ cả địa hình gồ ghề và những khu vực hạn chế nhất – chuyển tải nhanh chóng và an toàn qua các bãi bãi đông đúc, cơ sở nhà kho hoặc giao thông đông đúc. Được thiết kế cho nhiều ứng dụng công nghiệp và thương mại, đặc biệt là sử dụng trên địa hình khó khăn..",
+    "fullDescription": "<iframe src=\"//www.youtube.com/embed/8tDhS-ZhEdI?ab_channel=Hiabglobal\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n&nbsp;\n\n\n\n<img class=\"size-full wp-image-1334\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/11.png\" alt=\"XE NÂNG GẮN TẢI MOFFET M5 NX\" width=\"789\" height=\"329\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 189px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>M5 20.3</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>M5 20.4</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>M5 25.3</strong></td>\n\n<td style=\"width: 20%; height: 21px;\"><strong>M5 25.4</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">2000 (KG)</td>\n\n<td style=\"width: 20%; height: 21px;\">2000 (KG)</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 (KG)</td>\n\n<td style=\"width: 20%; height: 21px;\">2500 (KG)</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Động cơ DIESEL KUBOTA</td>\n\n<td style=\"width: 20%; height: 21px;\">26.5 kW (36HP)</td>\n\n<td style=\"width: 20%; height: 21px;\">26.5 kW (36HP)</td>\n\n<td style=\"width: 20%; height: 21px;\">33.0 kW (44HP)</td>\n\n<td style=\"width: 20%; height: 21px;\">33.0 kW (44HP)</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">3020 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3020 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3020 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">3020 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Lốp tiêu chuẩn</td>\n\n<td style=\"width: 20%; height: 21px;\">27 x10 -12</td>\n\n<td style=\"width: 20%; height: 21px;\">27 x10.5 -15</td>\n\n<td style=\"width: 20%; height: 21px;\">27 x10 -12</td>\n\n<td style=\"width: 20%; height: 21px;\">27 x10.5 -15</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n<td style=\"width: 20%; height: 21px;\">3</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 20%; height: 21px;\">2250 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2400 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2365 kg</td>\n\n<td style=\"width: 20%; height: 21px;\">2520 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">1200 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 20%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n<td style=\"width: 20%; height: 21px;\">180 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n<div id=\"eJOY__extension_root\" class=\"eJOY__extension_root_class\" style=\"all: unset;\"></div>",
+    "shortDescription": "MOFFETT M5 NX là thiết bị xe nâng chuyên dụng cho các nhiệm vụ từ trung bình đến nặng, với tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Nâng được trọng lượng lên tới 2.500 kg, M5 NX dễ dàng làm chủ cả địa hình gồ ghề và những khu vực hạn chế nhất – chuyển tải nhanh chóng và an toàn qua các bãi bãi đông đúc, cơ sở nhà kho hoặc giao thông đông đúc. Được thiết kế cho nhiều ứng dụng công nghiệp và thương mại, đặc biệt là sử dụng trên địa hình khó khăn..",
+    "image": "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1009262.jpg",
+    "images": [
+      "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1009262.jpg",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/670627.jpg",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1413.jpg",
+      "/images/products/xe-nang-gan-xe-tai-moffett-m5-nx/1399.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1581,61 +515,24 @@ export const products: Product[] = [
     }
   },
   {
-    id: "23",
-    name: "XE NÂNG ĐIỆN MOFFETT E2",
-    slug: "xe-nang-dien-moffett-e2",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải và xe kéo tại các địa điểm kho bãi và khu vực cung ứng hàng hóa trên toàn cầu. Phạm vi mẫu mã toàn diện đã liên tục được mở rộng qua nhiều năm, mở đường cho một bước ngoặt công nghệ mới - xe nâng điện gắn trên xe tải chạy bằng Lithium-ion đầu tiên trên thế giới. Những lợi ích của thiết bị xử lý tải độc đáo này hiện đã có sẵn cho nhiều lĩnh vực ứng dụng. Các mẫu MOFFETT E-Series đang thiết lập các tiêu chuẩn mới trong việc đặt thiết bị có trách nhiệm với môi trường ở phía sau xe tải hoặc xe moóc của bạn, đồng thời giảm đáng kể tổng chi phí sở hữu.",
-    fullDescription: `<p style="text-align: center;"><iframe src="//www.youtube.com/embed/3OlXWtSLuSY?ab_channel=hirudov" width="800" height="449" allowfullscreen="allowfullscreen"></iframe></p>
-\n<p style="text-align: center;"><span style="font-size: 150%; color: #000000;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="wp-image-1341 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/05/11-1.png" alt="XE NÂNG ĐIỆN MOFFET E2 " width="339" height="419" />
-\n<table style="border-collapse: collapse; width: 100%; height: 189px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;"><strong>MODEL</strong></td>
-\n<td style="width: 50%; height: 21px;"><strong>E2 15.1</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Sức nâng</td>
-\n<td style="width: 50%; height: 21px;">1500 Kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại động cơ</td>
-\n<td style="width: 50%; height: 21px;">Điện</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 50%; height: 21px;">2200 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại lốp</td>
-\n<td style="width: 50%; height: 21px;">400x4 (x1) / 21x8-9</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 50%; height: 21px;">1</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Trọng lượng không tải</td>
-\n<td style="width: 50%; height: 21px;">1657 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều rộng càng nâng</td>
-\n<td style="width: 50%; height: 21px;">1100 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 50%; height: 21px;">190 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải và xe kéo tại các địa điểm kho bãi và khu vực cung ứng hàng hóa trên toàn cầu. Phạm vi mẫu mã toàn diện đã liên tục được mở rộng qua nhiều năm, mở đường cho một bước ngoặt công nghệ mới - xe nâng điện gắn trên xe tải chạy bằng Lithium-ion đầu tiên trên thế giới. Những lợi ích của thiết bị xử lý tải độc đáo này hiện đã có sẵn cho nhiều lĩnh vực ứng dụng. Các mẫu MOFFETT E-Series đang thiết lập các tiêu chuẩn mới trong việc đặt thiết bị có trách nhiệm với môi trường ở phía sau xe tải hoặc xe moóc của bạn, đồng thời giảm đáng kể tổng chi phí sở hữu.",
-    image: "/images/products/xe-nang-dien-moffett-e2/1406255.jpg",
-    images: ["/images/products/xe-nang-dien-moffett-e2/1406255.jpg", "/images/products/xe-nang-dien-moffett-e2/1406314.png", "/images/products/xe-nang-dien-moffett-e2/1406257.jpg", "/images/products/xe-nang-dien-moffett-e2/1406256.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "23",
+    "name": "XE NÂNG ĐIỆN MOFFETT E2",
+    "slug": "xe-nang-dien-moffett-e2",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải và xe kéo tại các địa điểm kho bãi và khu vực cung ứng hàng hóa trên toàn cầu. Phạm vi mẫu mã toàn diện đã liên tục được mở rộng qua nhiều năm, mở đường cho một bước ngoặt công nghệ mới - xe nâng điện gắn trên xe tải chạy bằng Lithium-ion đầu tiên trên thế giới. Những lợi ích của thiết bị xử lý tải độc đáo này hiện đã có sẵn cho nhiều lĩnh vực ứng dụng. Các mẫu MOFFETT E-Series đang thiết lập các tiêu chuẩn mới trong việc đặt thiết bị có trách nhiệm với môi trường ở phía sau xe tải hoặc xe moóc của bạn, đồng thời giảm đáng kể tổng chi phí sở hữu.",
+    "fullDescription": "<p style=\"text-align: center;\"><iframe src=\"//www.youtube.com/embed/3OlXWtSLuSY?ab_channel=hirudov\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe></p>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 150%; color: #000000;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"wp-image-1341 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/11-1.png\" alt=\"XE NÂNG ĐIỆN MOFFET E2 \" width=\"339\" height=\"419\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 189px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\"><strong>MODEL</strong></td>\n\n<td style=\"width: 50%; height: 21px;\"><strong>E2 15.1</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">1500 Kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại động cơ</td>\n\n<td style=\"width: 50%; height: 21px;\">Điện</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">2200 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại lốp</td>\n\n<td style=\"width: 50%; height: 21px;\">400x4 (x1) / 21x8-9</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 50%; height: 21px;\">1</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 50%; height: 21px;\">1657 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">1100 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 50%; height: 21px;\">190 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Xe nâng gắn trên xe tải MOFFETT là hình ảnh quen thuộc ở phía sau xe tải và xe kéo tại các địa điểm kho bãi và khu vực cung ứng hàng hóa trên toàn cầu. Phạm vi mẫu mã toàn diện đã liên tục được mở rộng qua nhiều năm, mở đường cho một bước ngoặt công nghệ mới - xe nâng điện gắn trên xe tải chạy bằng Lithium-ion đầu tiên trên thế giới. Những lợi ích của thiết bị xử lý tải độc đáo này hiện đã có sẵn cho nhiều lĩnh vực ứng dụng. Các mẫu MOFFETT E-Series đang thiết lập các tiêu chuẩn mới trong việc đặt thiết bị có trách nhiệm với môi trường ở phía sau xe tải hoặc xe moóc của bạn, đồng thời giảm đáng kể tổng chi phí sở hữu.",
+    "image": "/images/products/xe-nang-dien-moffett-e2/1406255.jpg",
+    "images": [
+      "/images/products/xe-nang-dien-moffett-e2/1406255.jpg",
+      "/images/products/xe-nang-dien-moffett-e2/1406314.png",
+      "/images/products/xe-nang-dien-moffett-e2/1406257.jpg",
+      "/images/products/xe-nang-dien-moffett-e2/1406256.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1643,61 +540,25 @@ export const products: Product[] = [
     }
   },
   {
-    id: "24",
-    name: "XE NÂNG ĐIỆN MOFFETT E4 NX",
-    slug: "xe-nang-dien-moffett-e4-nx",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "MOFFETT E4 NX có tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, nó mang tải nhanh chóng và an toàn – ngay cả trên những địa hình khó khăn. Vì là xe nâng chạy hoàn toàn bằng điện nên nó vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya.",
-    fullDescription: `<p style="text-align: center;"><iframe src="//www.youtube.com/embed/72lR8Xg0eog?ab_channel=Hiabglobal" width="800" height="449" allowfullscreen="allowfullscreen"></iframe></p>
-\n<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n<img class="wp-image-1354 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/05/Capture-10.png" alt="XE NÂNG ĐIỆN MOFFET E4 NX" width="492" height="347" />
-\n<table style="border-collapse: collapse; width: 100%; height: 189px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Model</td>
-\n<td style="width: 50%; height: 21px;">E4 25.3 NX</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Sức nâng</td>
-\n<td style="width: 50%; height: 21px;">2500 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại động cơ</td>
-\n<td style="width: 50%; height: 21px;">Điện</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều cao nâng</td>
-\n<td style="width: 50%; height: 21px;">3075 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Loại lốp</td>
-\n<td style="width: 50%; height: 21px;">27x10-12</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Bánh truyền động</td>
-\n<td style="width: 50%; height: 21px;">3 Bánh</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Trọng lượng không tải</td>
-\n<td style="width: 50%; height: 21px;">2340 kg</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Chiều rộng càng nâng</td>
-\n<td style="width: 50%; height: 21px;">1300 mm</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 50%; height: 21px;">Khoảng sáng gầm xe</td>
-\n<td style="width: 50%; height: 21px;">260 mm</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "MOFFETT E4 NX có tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, nó mang tải nhanh chóng và an toàn – ngay cả trên những địa hình khó khăn. Vì là xe nâng chạy hoàn toàn bằng điện nên nó vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya.",
-    image: "/images/products/xe-nang-dien-moffett-e4-nx/1209551.jpg",
-    images: ["/images/products/xe-nang-dien-moffett-e4-nx/1209551.jpg", "/images/products/xe-nang-dien-moffett-e4-nx/1209545.jpg", "/images/products/xe-nang-dien-moffett-e4-nx/1209546-scaled.jpg", "/images/products/xe-nang-dien-moffett-e4-nx/1209547.jpg", "/images/products/xe-nang-dien-moffett-e4-nx/1209550.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "24",
+    "name": "XE NÂNG ĐIỆN MOFFETT E4 NX",
+    "slug": "xe-nang-dien-moffett-e4-nx",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "MOFFETT E4 NX có tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, nó mang tải nhanh chóng và an toàn – ngay cả trên những địa hình khó khăn. Vì là xe nâng chạy hoàn toàn bằng điện nên nó vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya.",
+    "fullDescription": "<p style=\"text-align: center;\"><iframe src=\"//www.youtube.com/embed/72lR8Xg0eog?ab_channel=Hiabglobal\" width=\"800\" height=\"449\" allowfullscreen=\"allowfullscreen\"></iframe></p>\n\n<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n<img class=\"wp-image-1354 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/Capture-10.png\" alt=\"XE NÂNG ĐIỆN MOFFET E4 NX\" width=\"492\" height=\"347\" />\n\n<table style=\"border-collapse: collapse; width: 100%; height: 189px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Model</td>\n\n<td style=\"width: 50%; height: 21px;\">E4 25.3 NX</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Sức nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">2500 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại động cơ</td>\n\n<td style=\"width: 50%; height: 21px;\">Điện</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều cao nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">3075 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Loại lốp</td>\n\n<td style=\"width: 50%; height: 21px;\">27x10-12</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Bánh truyền động</td>\n\n<td style=\"width: 50%; height: 21px;\">3 Bánh</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Trọng lượng không tải</td>\n\n<td style=\"width: 50%; height: 21px;\">2340 kg</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Chiều rộng càng nâng</td>\n\n<td style=\"width: 50%; height: 21px;\">1300 mm</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 50%; height: 21px;\">Khoảng sáng gầm xe</td>\n\n<td style=\"width: 50%; height: 21px;\">260 mm</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "MOFFETT E4 NX có tỷ lệ công suất trên trọng lượng cực kỳ hiệu quả. Với sức nâng lên tới 2.500 kg, nó mang tải nhanh chóng và an toàn – ngay cả trên những địa hình khó khăn. Vì là xe nâng chạy hoàn toàn bằng điện nên nó vận hành rất êm. Điều này làm cho nó trở nên hoàn hảo để sử dụng ở các Khu vực phát thải thấp và những nơi gây lo ngại về tiếng ồn – như khu dân cư, vào đêm khuya.",
+    "image": "/images/products/xe-nang-dien-moffett-e4-nx/1209551.jpg",
+    "images": [
+      "/images/products/xe-nang-dien-moffett-e4-nx/1209551.jpg",
+      "/images/products/xe-nang-dien-moffett-e4-nx/1209545.jpg",
+      "/images/products/xe-nang-dien-moffett-e4-nx/1209546-scaled.jpg",
+      "/images/products/xe-nang-dien-moffett-e4-nx/1209547.jpg",
+      "/images/products/xe-nang-dien-moffett-e4-nx/1209550.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1705,73 +566,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "25",
-    name: "Cột nâng Super Heavy-Duty Non-Locking (SHDNL)",
-    slug: "cot-nang-super-heavy-duty-non-locking-shdnl",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Cột nâng không khóa siêu nặng (SHDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Cột nâng không khóa bằng khí nén của Will-Burt sở hữu độ chính xác trỏ hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn cho các ứng dụng khi di chuyển*. Hơn nữa, Cột không khóa bằng khí nén đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Các mô hình khóa có sẵn để triển khai mở rộng. TÍNH NĂNG CƠ BẢN: • Duy trì góc phương vị - độ lệch xoắn tối thiểu • Các rãnh khóa bên ngoài có độ dài đầy đủ đáng tin cậy •Hoạt động trong môi trường khắc nghiệt • Cần gạt nước bên ngoài bảo vệ khỏi cát và bụi •Chi phí bảo trì thấp • Dễ dàng vận hành và bảo trì vòng bi tổng hợp có độ ma sát thấp •Tuổi thọ cao • Lớp phủ cứng màu đen bảo vệ chống ăn mòn do sương muối",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 100%; height: 147px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;"><strong>Super Heavy-Duty </strong></td>
-\n<td style="width: 25%; height: 21px;"><strong>10 M </strong></td>
-\n<td style="width: 25%; height: 21px;"><strong>12 M </strong></td>
-\n<td style="width: 25%; height: 21px;"><strong>72' Patriot</strong></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Chiều cao mở rộng (ft./m)</td>
-\n<td style="width: 25%; height: 21px;">32.8 / 10</td>
-\n<td style="width: 25%; height: 21px;">39.4 / 12</td>
-\n<td style="width: 25%; height: 21px;">72 / 22</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Chiều cao thu gọn (ft./m)</td>
-\n<td style="width: 25%; height: 21px;">8 / 2.5</td>
-\n<td style="width: 25%; height: 21px;">9.3 / 2.8</td>
-\n<td style="width: 25%; height: 21px;">18 / 5.5</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tải trọng (lb/kg)</td>
-\n<td style="width: 25%; height: 21px;">980 / 445</td>
-\n<td style="width: 25%; height: 21px;">680 / 308</td>
-\n<td style="width: 25%; height: 21px;">700 / 318</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Trọng lượng cột ước tính (lb/kg)</td>
-\n<td style="width: 25%; height: 21px;">375 / 170</td>
-\n<td style="width: 25%; height: 21px;">430 / 195</td>
-\n<td style="width: 25%; height: 21px;">1,500 / 680</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Đường kính ống (in./ mm)</td>
-\n<td style="width: 25%; height: 21px;">11.25-6.75 / 285-171</td>
-\n<td style="width: 25%; height: 21px;">11.25-6 / 285-152</td>
-\n<td style="width: 25%; height: 21px;">11.03-6.5 / 280-165</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Áp suất vận hành tối đa</td>
-\n<td style="width: 25%; height: 21px;">35 PSIG (2.4 bar)</td>
-\n<td style="width: 25%; height: 21px;">35 PSIG (2.4 bar)</td>
-\n<td style="width: 25%; height: 21px;">35 PSIG (2.4 bar)</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n<img class=" wp-image-1474 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/3-2.png" alt="Cột nâng Super Heavy-Duty Non-Locking (SHDNL)" width="162" height="167" />
-\n<div>
-\n
-\n<img class="wp-image-1475 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/2-6.png" alt="Cột nâng Super Heavy-Duty Non-Locking (SHDNL)" width="163" height="166" />
-\n
-\n</div>
-\n<img class="wp-image-1476 alignleft" src="https://newatlantic.vn/wp-content/uploads/2024/05/4-3.png" alt="Cột nâng Super Heavy-Duty Non-Locking (SHDNL)" width="236" height="165" />`,
-    shortDescription: "Cột nâng không khóa siêu nặng (SHDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Cột nâng không khóa bằng khí nén của Will-Burt sở hữu độ chính xác trỏ hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn cho các ứng dụng khi di chuyển*. Hơn nữa, Cột không khóa bằng khí nén đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Các mô hình khóa có sẵn để triển khai mở rộng. TÍNH NĂNG CƠ BẢN: • Duy trì góc phương vị - độ lệch xoắn tối thiểu • Các rãnh khóa bên ngoài có độ dài đầy đủ đáng tin cậy •Hoạt động trong môi trường khắc nghiệt • Cần gạt nước bên ngoài bảo vệ khỏi cát và bụi •Chi phí bảo trì thấp • Dễ dàng vận hành và bảo trì vòng bi tổng hợp có độ ma sát thấp •Tuổi thọ cao • Lớp phủ cứng màu đen bảo vệ chống ăn mòn do sương muối",
-    image: "/images/products/cot-nang-super-heavy-duty-non-locking-shdnl/1-7.png",
-    images: ["/images/products/cot-nang-super-heavy-duty-non-locking-shdnl/1-7.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "25",
+    "name": "Cột nâng Super Heavy-Duty Non-Locking (SHDNL)",
+    "slug": "cot-nang-super-heavy-duty-non-locking-shdnl",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Cột nâng không khóa siêu nặng (SHDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Cột nâng không khóa bằng khí nén của Will-Burt sở hữu độ chính xác trỏ hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn cho các ứng dụng khi di chuyển*. Hơn nữa, Cột không khóa bằng khí nén đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Các mô hình khóa có sẵn để triển khai mở rộng. TÍNH NĂNG CƠ BẢN: • Duy trì góc phương vị - độ lệch xoắn tối thiểu • Các rãnh khóa bên ngoài có độ dài đầy đủ đáng tin cậy •Hoạt động trong môi trường khắc nghiệt • Cần gạt nước bên ngoài bảo vệ khỏi cát và bụi •Chi phí bảo trì thấp • Dễ dàng vận hành và bảo trì vòng bi tổng hợp có độ ma sát thấp •Tuổi thọ cao • Lớp phủ cứng màu đen bảo vệ chống ăn mòn do sương muối",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 100%; height: 147px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\"><strong>Super Heavy-Duty </strong></td>\n\n<td style=\"width: 25%; height: 21px;\"><strong>10 M </strong></td>\n\n<td style=\"width: 25%; height: 21px;\"><strong>12 M </strong></td>\n\n<td style=\"width: 25%; height: 21px;\"><strong>72' Patriot</strong></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Chiều cao mở rộng (ft./m)</td>\n\n<td style=\"width: 25%; height: 21px;\">32.8 / 10</td>\n\n<td style=\"width: 25%; height: 21px;\">39.4 / 12</td>\n\n<td style=\"width: 25%; height: 21px;\">72 / 22</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Chiều cao thu gọn (ft./m)</td>\n\n<td style=\"width: 25%; height: 21px;\">8 / 2.5</td>\n\n<td style=\"width: 25%; height: 21px;\">9.3 / 2.8</td>\n\n<td style=\"width: 25%; height: 21px;\">18 / 5.5</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tải trọng (lb/kg)</td>\n\n<td style=\"width: 25%; height: 21px;\">980 / 445</td>\n\n<td style=\"width: 25%; height: 21px;\">680 / 308</td>\n\n<td style=\"width: 25%; height: 21px;\">700 / 318</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Trọng lượng cột ước tính (lb/kg)</td>\n\n<td style=\"width: 25%; height: 21px;\">375 / 170</td>\n\n<td style=\"width: 25%; height: 21px;\">430 / 195</td>\n\n<td style=\"width: 25%; height: 21px;\">1,500 / 680</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Đường kính ống (in./ mm)</td>\n\n<td style=\"width: 25%; height: 21px;\">11.25-6.75 / 285-171</td>\n\n<td style=\"width: 25%; height: 21px;\">11.25-6 / 285-152</td>\n\n<td style=\"width: 25%; height: 21px;\">11.03-6.5 / 280-165</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Áp suất vận hành tối đa</td>\n\n<td style=\"width: 25%; height: 21px;\">35 PSIG (2.4 bar)</td>\n\n<td style=\"width: 25%; height: 21px;\">35 PSIG (2.4 bar)</td>\n\n<td style=\"width: 25%; height: 21px;\">35 PSIG (2.4 bar)</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n<img class=\" wp-image-1474 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/3-2.png\" alt=\"Cột nâng Super Heavy-Duty Non-Locking (SHDNL)\" width=\"162\" height=\"167\" />\n\n<div>\n\n\n\n<img class=\"wp-image-1475 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/2-6.png\" alt=\"Cột nâng Super Heavy-Duty Non-Locking (SHDNL)\" width=\"163\" height=\"166\" />\n\n\n\n</div>\n\n<img class=\"wp-image-1476 alignleft\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/4-3.png\" alt=\"Cột nâng Super Heavy-Duty Non-Locking (SHDNL)\" width=\"236\" height=\"165\" />",
+    "shortDescription": "Cột nâng không khóa siêu nặng (SHDNL) cung cấp giải pháp trọng lượng nhẹ với khả năng nâng tải trọng cao. Cột nâng không khóa bằng khí nén của Will-Burt sở hữu độ chính xác trỏ hướng cao và tuổi thọ cột dài để mang lại hiệu suất và độ tin cậy vượt trội. Thiết kế hạng nặng bằng khí nén giúp nó vốn dĩ an toàn – tải trọng nằm trên “đệm không khí” cho phép nó hấp thụ chấn động tốt hơn cho các ứng dụng khi di chuyển*. Hơn nữa, Cột không khóa bằng khí nén đã kiểm soát việc xả khí để rút lại trơn tru và an toàn. Các mô hình khóa có sẵn để triển khai mở rộng. TÍNH NĂNG CƠ BẢN: • Duy trì góc phương vị - độ lệch xoắn tối thiểu • Các rãnh khóa bên ngoài có độ dài đầy đủ đáng tin cậy •Hoạt động trong môi trường khắc nghiệt • Cần gạt nước bên ngoài bảo vệ khỏi cát và bụi •Chi phí bảo trì thấp • Dễ dàng vận hành và bảo trì vòng bi tổng hợp có độ ma sát thấp •Tuổi thọ cao • Lớp phủ cứng màu đen bảo vệ chống ăn mòn do sương muối",
+    "image": "/images/products/cot-nang-super-heavy-duty-non-locking-shdnl/1-7.png",
+    "images": [
+      "/images/products/cot-nang-super-heavy-duty-non-locking-shdnl/1-7.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1779,134 +588,23 @@ export const products: Product[] = [
     }
   },
   {
-    id: "26",
-    name: "CỘT NÂNG TYPE PU",
-    slug: "cot-nang-type-pu",
-    category: "cot-tu-nang-will-burt",
-    categoryName: "Cột (Trụ) Tự Nâng WILL-BURT",
-    description: "Khi lắp đặt như một cột ăng ten gắn trên đồng, thời gian trung bình để lắp đặt bởi một đội gồm hai người là 10 phút bao gồm việc cắm cọc và gắn dây cáp và ăng ten. Các ăng ten được hỗ trợ phổ biến nhất là dipole băng thông rộng, có thể là đầu hoặc trung tâm, thường từ 30-108 MHz. Sử dụng phụ kiện dây thừng halyard, các cột PU cũng được sử dụng bởi một số lực lượng quốc phòng để hỗ trợ các ăng ten dây HF trong nhiều cấu hình khác nhau. Ứng dụng: lắp đặt được trên xe tải, xe bán tải xe bán tải lắp cột >> XEM CATALOG CHI TIẾT [caption id=\"attachment_1518\" align=\"alignleft\" width=\"337\"] DỤNG CỤ THIẾT BỊ LẮP ĐẶT TYPE PU[/caption] [caption id=\"attachment_1517\" align=\"alignleft\" width=\"79\"] CỘT NÂNG TYPE PU[/caption]",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 130%;"><strong>THÔNG SỐ KỸ THUẬT </strong></span></p>
-\n<img class=" wp-image-1522 aligncenter" src="https://newatlantic.vn/wp-content/uploads/2024/05/A.png" alt="CỘT NÂNG TYPE PU" width="354" height="354" />
-\n
-\n<strong>3” / 76.2mm PU-RCH</strong> | <strong>Nâng cao thủ công</strong>
-\n<table style="border-collapse: collapse; width: 100%; height: 126px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">Mã sản phẩm</td>
-\n<td style="width: 12.5%; height: 21px;">Mô tả</td>
-\n<td style="width: 12.5%; height: 21px;">Lớp phủ</td>
-\n<td style="width: 12.5%; height: 21px;">Chiều cao thu gọn</td>
-\n<td style="width: 12.5%; height: 21px;">Chiều cao tối đa</td>
-\n<td style="width: 12.5%; height: 21px;">Tải trọng</td>
-\n<td style="width: 12.5%; height: 21px;">Tốc độ gió chịu tối đa khi thiết lập</td>
-\n<td style="width: 12.5%; height: 21px;">Tốc độ gió chịu tối đa khi thiết lập xong</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-52384-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCH-6-6</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">1.40 m</td>
-\n<td style="width: 12.5%; height: 21px;">6.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">10.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">80 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-50560-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCH-8-8</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">1.49 m</td>
-\n<td style="width: 12.5%; height: 21px;">8.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">10.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">70 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-50562-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCH-10-8</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">1.77 m</td>
-\n<td style="width: 12.5%; height: 21px;">10.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">10.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">50 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-50564-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCH-12-8</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">2.09 m</td>
-\n<td style="width: 12.5%; height: 21px;">12.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">8.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">40 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n&nbsp;
-\n
-\n<strong>3” / 76.2mm PU-RCP | Nâng cao nén khí</strong>
-\n<table style="border-collapse: collapse; width: 100%; height: 126px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">Mã sản phẩm</td>
-\n<td style="width: 12.5%; height: 21px;">Mô tả</td>
-\n<td style="width: 12.5%; height: 21px;">Lớp phủ</td>
-\n<td style="width: 12.5%; height: 21px;">Chiều cao thu gọn</td>
-\n<td style="width: 12.5%; height: 21px;">Chiều cao tối đa</td>
-\n<td style="width: 12.5%; height: 21px;">Tải trọng</td>
-\n<td style="width: 12.5%; height: 21px;">Tốc độ gió chịu tối đa khi thiết lập</td>
-\n<td style="width: 12.5%; height: 21px;">Tốc độ gió chịu tối đa khi thiết lập xong</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-52386-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCP-6-6</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">1.48 m</td>
-\n<td style="width: 12.5%; height: 21px;">6.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">30.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">50 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-50566-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCP-8-8</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">1.56 m</td>
-\n<td style="width: 12.5%; height: 21px;">8.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">15.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">60 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-50568-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCP-10-8</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">1.88 m</td>
-\n<td style="width: 12.5%; height: 21px;">10.0 m</td>
-\n<td style="width: 12.5%; height: 21px;">10.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">50 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 12.5%; height: 21px;">CM-50570-MM</td>
-\n<td style="width: 12.5%; height: 21px;">PU-RCP-12-8</td>
-\n<td style="width: 12.5%; height: 21px;">nato green</td>
-\n<td style="width: 12.5%; height: 21px;">2.10 m</td>
-\n<td style="width: 12.5%; height: 21px;">11.8 m</td>
-\n<td style="width: 12.5%; height: 21px;">8.0 kg</td>
-\n<td style="width: 12.5%; height: 21px;">40 km/h</td>
-\n<td style="width: 12.5%; height: 21px;">130 km/h</td>
-\n</tr>
-\n</tbody>
-\n</table>
-\n&nbsp;`,
-    shortDescription: "Khi lắp đặt như một cột ăng ten gắn trên đồng, thời gian trung bình để lắp đặt bởi một đội gồm hai người là 10 phút bao gồm việc cắm cọc và gắn dây cáp và ăng ten. Các ăng ten được hỗ trợ phổ biến nhất là dipole băng thông rộng, có thể là đầu hoặc trung tâm, thường từ 30-108 MHz. Sử dụng phụ kiện dây thừng halyard, các cột PU cũng được sử dụng bởi một số lực lượng quốc phòng để hỗ trợ các ăng ten dây HF trong nhiều cấu hình khác nhau. Ứng dụng: lắp đặt được trên xe tải, xe bán tải xe bán tải lắp cột >> XEM CATALOG CHI TIẾT [caption id=\"attachment_1518\" align=\"alignleft\" width=\"337\"] DỤNG CỤ THIẾT BỊ LẮP ĐẶT TYPE PU[/caption] [caption id=\"attachment_1517\" align=\"alignleft\" width=\"79\"] CỘT NÂNG TYPE PU[/caption]",
-    image: "/images/products/cot-nang-type-pu/11-2.png",
-    images: ["/images/products/cot-nang-type-pu/11-2.png", "/images/products/cot-nang-type-pu/5-4.png", "/images/products/cot-nang-type-pu/4-5.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "26",
+    "name": "CỘT NÂNG TYPE PU",
+    "slug": "cot-nang-type-pu",
+    "category": "cot-tu-nang-will-burt",
+    "categoryName": "Cột (Trụ) Tự Nâng WILL-BURT",
+    "description": "Khi lắp đặt như một cột ăng ten gắn trên đồng, thời gian trung bình để lắp đặt bởi một đội gồm hai người là 10 phút bao gồm việc cắm cọc và gắn dây cáp và ăng ten. Các ăng ten được hỗ trợ phổ biến nhất là dipole băng thông rộng, có thể là đầu hoặc trung tâm, thường từ 30-108 MHz. Sử dụng phụ kiện dây thừng halyard, các cột PU cũng được sử dụng bởi một số lực lượng quốc phòng để hỗ trợ các ăng ten dây HF trong nhiều cấu hình khác nhau. Ứng dụng: lắp đặt được trên xe tải, xe bán tải xe bán tải lắp cột >> XEM CATALOG CHI TIẾT [caption id=\"attachment_1518\" align=\"alignleft\" width=\"337\"] DỤNG CỤ THIẾT BỊ LẮP ĐẶT TYPE PU[/caption] [caption id=\"attachment_1517\" align=\"alignleft\" width=\"79\"] CỘT NÂNG TYPE PU[/caption]",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 130%;\"><strong>THÔNG SỐ KỸ THUẬT </strong></span></p>\n\n<img class=\" wp-image-1522 aligncenter\" src=\"https://newatlantic.vn/wp-content/uploads/2024/05/A.png\" alt=\"CỘT NÂNG TYPE PU\" width=\"354\" height=\"354\" />\n\n\n\n<strong>3” / 76.2mm PU-RCH</strong> | <strong>Nâng cao thủ công</strong>\n\n<table style=\"border-collapse: collapse; width: 100%; height: 126px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">Mã sản phẩm</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Mô tả</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Lớp phủ</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Chiều cao thu gọn</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Chiều cao tối đa</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Tải trọng</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Tốc độ gió chịu tối đa khi thiết lập</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Tốc độ gió chịu tối đa khi thiết lập xong</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-52384-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCH-6-6</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">1.40 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">6.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">10.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">80 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-50560-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCH-8-8</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">1.49 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">8.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">10.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">70 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-50562-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCH-10-8</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">1.77 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">10.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">10.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">50 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-50564-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCH-12-8</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">2.09 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">12.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">8.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">40 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n&nbsp;\n\n\n\n<strong>3” / 76.2mm PU-RCP | Nâng cao nén khí</strong>\n\n<table style=\"border-collapse: collapse; width: 100%; height: 126px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">Mã sản phẩm</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Mô tả</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Lớp phủ</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Chiều cao thu gọn</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Chiều cao tối đa</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Tải trọng</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Tốc độ gió chịu tối đa khi thiết lập</td>\n\n<td style=\"width: 12.5%; height: 21px;\">Tốc độ gió chịu tối đa khi thiết lập xong</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-52386-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCP-6-6</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">1.48 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">6.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">30.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">50 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-50566-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCP-8-8</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">1.56 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">8.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">15.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">60 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-50568-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCP-10-8</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">1.88 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">10.0 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">10.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">50 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 12.5%; height: 21px;\">CM-50570-MM</td>\n\n<td style=\"width: 12.5%; height: 21px;\">PU-RCP-12-8</td>\n\n<td style=\"width: 12.5%; height: 21px;\">nato green</td>\n\n<td style=\"width: 12.5%; height: 21px;\">2.10 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">11.8 m</td>\n\n<td style=\"width: 12.5%; height: 21px;\">8.0 kg</td>\n\n<td style=\"width: 12.5%; height: 21px;\">40 km/h</td>\n\n<td style=\"width: 12.5%; height: 21px;\">130 km/h</td>\n\n</tr>\n\n</tbody>\n\n</table>\n\n&nbsp;",
+    "shortDescription": "Khi lắp đặt như một cột ăng ten gắn trên đồng, thời gian trung bình để lắp đặt bởi một đội gồm hai người là 10 phút bao gồm việc cắm cọc và gắn dây cáp và ăng ten. Các ăng ten được hỗ trợ phổ biến nhất là dipole băng thông rộng, có thể là đầu hoặc trung tâm, thường từ 30-108 MHz. Sử dụng phụ kiện dây thừng halyard, các cột PU cũng được sử dụng bởi một số lực lượng quốc phòng để hỗ trợ các ăng ten dây HF trong nhiều cấu hình khác nhau. Ứng dụng: lắp đặt được trên xe tải, xe bán tải xe bán tải lắp cột >> XEM CATALOG CHI TIẾT [caption id=\"attachment_1518\" align=\"alignleft\" width=\"337\"] DỤNG CỤ THIẾT BỊ LẮP ĐẶT TYPE PU[/caption] [caption id=\"attachment_1517\" align=\"alignleft\" width=\"79\"] CỘT NÂNG TYPE PU[/caption]",
+    "image": "/images/products/cot-nang-type-pu/11-2.png",
+    "images": [
+      "/images/products/cot-nang-type-pu/11-2.png",
+      "/images/products/cot-nang-type-pu/5-4.png",
+      "/images/products/cot-nang-type-pu/4-5.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "WILL-BURT",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -1914,245 +612,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "27",
-    name: "Máy xúc đào 9018F",
-    slug: "may-xuc-dao-9018f",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
-    fullDescription: `<strong>GIỚI THIỆU SẢN PHẨM:</strong>
-\n
-\n– Tấm pin năng lượng mặt trời GIVASOLAR Mono MSP có kiểu dáng hình chữ nhật đứng đẹp mắt, dễ lắp đặt, giữa các cell (tế bào) có khoảng trống màu trắng.
-\n
-\n– Khung được làm bằng nhôm định hình, thiết kế gân chịu lực tốt, tải trọng nặng, chống trầy xước cao.
-\n
-\n– GIVASOLAR Mono MSP có bề mặt kính cường lực tối ưu, chống phản xạ, chống đọng nước tốt, có khả năng tự làm sạch bề mặt mà không làm giảm hiệu suất hấp thụ năng lượng.
-\n
-\n– Nguồn năng lượng từ các chất bán dẫn silicon dạng ống, tinh khiết và được cắt mỏng, độ bền cao.
-\n
-\n– Chất lượng đạt tiêu chuẩn quốc tế IEC 61215, IEC 61730, TUV, được bảo hành 10 năm, tuổi thọ sản phẩm từ 30 đến 50 năm, có nhiệt độ hoạt động từ 40 đến 80 độ C.
-\n
-\n– Sản phẩm có chất lượng cao, đã phải trải qua quá trình kiểm tra nghiêm ngặt trước khi tung ra thị trường.
-\n
-\n<strong>HÌNH ẢNH SẢN PHẨM</strong>
-\n
-\n<img class="aligncenter wp-image-590 size-full lazy-load-active" src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png" sizes="(max-width: 880px) 100vw, 880px" srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-500x323.png 500w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-768x496.png 768w" alt="" width="880" height="568" data-src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png" data-srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-500x323.png 500w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/banner-9018-768x496.png 768w" />
-\n
-\nGiá sản phẩm trên đã bao gồm thuế theo luật hiện hành. Tuy nhiên tuỳ vào từng loại sản phẩm hoặc phương thức, địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, …`,
-    shortDescription: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
-    image: "/images/products/may-xuc-dao-9018f/9018F.png",
-    images: ["/images/products/may-xuc-dao-9018f/9018F.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "28",
-    name: "Máy xúc đào 9057FZTS",
-    slug: "may-xuc-dao-9057fzts",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
-    fullDescription: `<strong>GIỚI THIỆU SẢN PHẨM:</strong>
-\n
-\n– Tấm pin năng lượng mặt trời GIVASOLAR Mono MSP có kiểu dáng hình chữ nhật đứng đẹp mắt, dễ lắp đặt, giữa các cell (tế bào) có khoảng trống màu trắng.
-\n
-\n– Khung được làm bằng nhôm định hình, thiết kế gân chịu lực tốt, tải trọng nặng, chống trầy xước cao.
-\n
-\n– GIVASOLAR Mono MSP có bề mặt kính cường lực tối ưu, chống phản xạ, chống đọng nước tốt, có khả năng tự làm sạch bề mặt mà không làm giảm hiệu suất hấp thụ năng lượng.
-\n
-\n– Nguồn năng lượng từ các chất bán dẫn silicon dạng ống, tinh khiết và được cắt mỏng, độ bền cao.
-\n
-\n– Chất lượng đạt tiêu chuẩn quốc tế IEC 61215, IEC 61730, TUV, được bảo hành 10 năm, tuổi thọ sản phẩm từ 30 đến 50 năm, có nhiệt độ hoạt động từ 40 đến 80 độ C.
-\n
-\n– Sản phẩm có chất lượng cao, đã phải trải qua quá trình kiểm tra nghiêm ngặt trước khi tung ra thị trường.
-\n
-\n<strong>HÌNH ẢNH SẢN PHẨM</strong>
-\n
-\n<img class="aligncenter wp-image-599 size-full lazy-load-active" src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png" sizes="(max-width: 880px) 100vw, 880px" srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-768x496.png 768w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-500x323.png 500w" alt="" width="880" height="568" data-src="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png" data-srcset="https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880.png 880w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-300x194.png 300w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-768x496.png 768w, https://SKYMARK-vietnam.com.vn/wp-content/uploads/2020/05/9057-880-500x323.png 500w" />
-\n
-\nGiá sản phẩm trên đã bao gồm thuế theo luật hiện hành. Tuy nhiên tuỳ vào từng loại sản phẩm hoặc phương thức, địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, …`,
-    shortDescription: "SKYMARK đang mở rộng dòng sản phẩm máy xúc lật của mình bằng việc bổ sung các phân khúc nhỏ gọn. Mặc dù có kích thước nhỏ nhưng máy xúc lật của chúng tôi hoạt động rất mạnh mẽ và linh hoạt, ngoài ra còn có thể lắp thêm nhiều phụ kiện kèm theo, giúp cải thiện hiệu suất hoạt động của máy.",
-    image: "/images/products/may-xuc-dao-9057fzts/9057FZTS.png",
-    images: ["/images/products/may-xuc-dao-9057fzts/9057FZTS.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "29",
-    name: "Máy ủi B160CR",
-    slug: "may-ui-b160cr",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "Trọng lượng vận hành:19,100 kg Công suất động cơ:131 kW Dung tích gầu:10.4 m³",
-    fullDescription: ``,
-    shortDescription: "Trọng lượng vận hành:19,100 kg Công suất động cơ:131 kW Dung tích gầu:10.4 m³",
-    image: "/images/products/may-ui-b160cr/B160CR.png",
-    images: ["/images/products/may-ui-b160cr/B160CR.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "30",
-    name: "Máy san gạt 4140D",
-    slug: "may-san-gat-4140d",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "Trọng lượng vận hành:12,600 kg Công suất động cơ:118 kW Dung tích gầu:3.660 m³",
-    fullDescription: `<i>Trọng lượng vận hành:</i>12,600 kg
-\n
-\n<i>Công suất động cơ:</i>118 kW
-\n
-\n<i>Dung tích gầu:</i>3.660 m³`,
-    shortDescription: "",
-    image: "/images/products/may-san-gat-4140d/4140D.png",
-    images: ["/images/products/may-san-gat-4140d/4140D.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "31",
-    name: "Máy xúc đào liên hợp 775A",
-    slug: "may-xuc-dao-lien-hop-775a",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "Trọng lượng vận hành:8,600 kg Công suất động cơ:75 kW Dung tích gầu:1 / 0.2 m³",
-    fullDescription: `<i>Trọng lượng vận hành:</i>8,600 kg
-\n
-\n<i>Công suất động cơ:</i>75 kW
-\n
-\n<i>Dung tích gầu:</i>1 / 0.2 m³`,
-    shortDescription: "",
-    image: "/images/products/may-xuc-dao-lien-hop-775a/775A.png",
-    images: ["/images/products/may-xuc-dao-lien-hop-775a/775A.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "32",
-    name: "Máy rải thảm 509E",
-    slug: "may-rai-tham-509e",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "Trọng lượng vận hành:kg Công suất động cơ:169 kW Dung tích gầu:m³",
-    fullDescription: `<i>Trọng lượng vận hành:</i>kg
-\n
-\n<i>Công suất động cơ:</i>169 kW
-\n
-\n<i>Dung tích gầu:</i>m³`,
-    shortDescription: "",
-    image: "/images/products/may-rai-tham-509e/509E.png",
-    images: ["/images/products/may-rai-tham-509e/509E.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "33",
-    name: "Máy xúc lật đa năng 365 B",
-    slug: "may-xuc-lat-da-nang-365-b",
-    category: "thiet-bi-cong-trinh-SKYMARK",
-    categoryName: "Thiết Bị Hàng Không SKYMARK",
-    description: "Trọng lượng vận hành:795 kg Công suất động cơ:48 kW Dung tích gầu:m³",
-    fullDescription: `<i>Trọng lượng vận hành:</i>795 kg
-\n
-\n<i>Công suất động cơ:</i>48 kW
-\n
-\n<i>Dung tích gầu:</i>m³`,
-    shortDescription: "",
-    image: "/images/products/may-xuc-lat-da-nang-365-b/365-B.png",
-    images: ["/images/products/may-xuc-lat-da-nang-365-b/365-B.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
-      "Thương hiệu": "SKYMARK",
-      "Xuất xứ": "Nhập khẩu chính hãng",
-      "Bảo hành": "12 tháng",
-      "Tình trạng": "Còn hàng"
-    }
-  },
-  {
-    id: "34",
-    name: "MÁY ĐÀO BÁNH LỐP 0.3 KHỐI – WEICHAI LOVOL FP 80W",
-    slug: "may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "– Model: FP80W – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 7090 – Dung tích gầu đào ( m3) : 0.3 – Bán kinh đào lớn nhất (mm): 6385 – Chiều cao đổ đào có tải lớn nhất (mm): 5160 – Động cơ: + Model: Yanmar 4TNV98 (Nhật Bản) + Công suất động cơ (KW/vòng/phút): 46.3/2200 – Bộ phận chín",
-    fullDescription: `– Model: FP80W
-\n
-\n– Xuất xứ: Nhà máy Weichai Lovol
-\n
-\n– Trọng lượng vận hành (kg):  7090
-\n
-\n– Dung tích gầu đào ( m<sup>3</sup>) : 0.3
-\n
-\n– Bán kinh đào lớn nhất (mm): 6385
-\n
-\n– Chiều cao đổ đào có tải lớn nhất (mm): 5160
-\n
-\n– Động cơ:
-\n
-\n+ Model: <strong>Yanmar 4TNV98 (Nhật Bản)</strong>
-\n
-\n+ Công suất động cơ (KW/vòng/phút): 46.3/2200
-\n
-\n– Bộ phận chính:
-\n
-\n+ Bơm chính: <strong>SANY</strong>
-\n
-\n+ Van chính:  <strong>HUSSCO</strong>
-\n
-\n+ Motor di chuyển:
-\n
-\n+ Motor quay toa: <strong>EATON/LKC</strong>
-\n
-\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023
-\n
-\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ
-\n
-\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.
-\n
-\n<strong>THÔNG TIN LIÊN HỆ</strong>`,
-    shortDescription: "",
-    image: "/images/products/may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg",
-    images: ["/images/products/may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "34",
+    "name": "MÁY ĐÀO BÁNH LỐP 0.3 KHỐI – WEICHAI LOVOL FP 80W",
+    "slug": "may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "– Model: FP80W – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 7090 – Dung tích gầu đào ( m3) : 0.3 – Bán kinh đào lớn nhất (mm): 6385 – Chiều cao đổ đào có tải lớn nhất (mm): 5160 – Động cơ: + Model: Yanmar 4TNV98 (Nhật Bản) + Công suất động cơ (KW/vòng/phút): 46.3/2200 – Bộ phận chín",
+    "fullDescription": "– Model: FP80W\n\n\n\n– Xuất xứ: Nhà máy Weichai Lovol\n\n\n\n– Trọng lượng vận hành (kg):  7090\n\n\n\n– Dung tích gầu đào ( m<sup>3</sup>) : 0.3\n\n\n\n– Bán kinh đào lớn nhất (mm): 6385\n\n\n\n– Chiều cao đổ đào có tải lớn nhất (mm): 5160\n\n\n\n– Động cơ:\n\n\n\n+ Model: <strong>Yanmar 4TNV98 (Nhật Bản)</strong>\n\n\n\n+ Công suất động cơ (KW/vòng/phút): 46.3/2200\n\n\n\n– Bộ phận chính:\n\n\n\n+ Bơm chính: <strong>SANY</strong>\n\n\n\n+ Van chính:  <strong>HUSSCO</strong>\n\n\n\n+ Motor di chuyển:\n\n\n\n+ Motor quay toa: <strong>EATON/LKC</strong>\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
+    "shortDescription": "",
+    "image": "/images/products/may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg",
+    "images": [
+      "/images/products/may-dao-banh-lop-0-3-khoi-weichai-lovol-fp-80w/MAY-DAO-BANH-LOP-0.3-KHOI-–-WEICHAI-LOVOL-FP-80W.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2160,53 +634,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "35",
-    name: "MÁY ĐÀO BÁNH LỐP 1.0 KHỐI – WEICHAI LOVOL FP215W",
-    slug: "may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "– Model: FP215W – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 21450 – Dung tích gầu đào ( m3) : 1.0 – Bán kinh đào lớn nhất (mm): 9900 – Chiều cao đổ đào có tải lớn nhất (mm): 7700 – Động cơ: + Model: CUMMINS (SIX) (HOA KỲ) + Công suất động cơ (KW/vòng/phút): 132kW – Bộ phận chính: +",
-    fullDescription: `– Model: FP215W
-\n
-\n– Xuất xứ: Nhà máy Weichai Lovol
-\n
-\n– Trọng lượng vận hành (kg):  21450
-\n
-\n– Dung tích gầu đào ( m<sup>3</sup>) : 1.0
-\n
-\n– Bán kinh đào lớn nhất (mm): 9900
-\n
-\n– Chiều cao đổ đào có tải lớn nhất (mm): 7700
-\n
-\n– Động cơ:
-\n
-\n+ Model: <strong>CUMMINS (SIX)</strong>  <strong>(HOA KỲ)</strong>
-\n
-\n+ Công suất động cơ (KW/vòng/phút): 132kW
-\n
-\n– Bộ phận chính:
-\n
-\n+ Bơm chính: <strong>KAWASAKI ( NHẬT BẢN)</strong>
-\n
-\n+ Van chính:  <strong>PARKER (HOA KỲ)</strong>
-\n
-\n+ Motor di chuyển:
-\n
-\n+ Motor quay toa: <strong>EATON/LKC (HOA KỲ)</strong>
-\n
-\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023
-\n
-\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ
-\n
-\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.
-\n
-\n<strong>THÔNG TIN LIÊN HỆ</strong>`,
-    shortDescription: "",
-    image: "/images/products/may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg",
-    images: ["/images/products/may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "35",
+    "name": "MÁY ĐÀO BÁNH LỐP 1.0 KHỐI – WEICHAI LOVOL FP215W",
+    "slug": "may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "– Model: FP215W – Xuất xứ: Nhà máy Weichai Lovol – Trọng lượng vận hành (kg): 21450 – Dung tích gầu đào ( m3) : 1.0 – Bán kinh đào lớn nhất (mm): 9900 – Chiều cao đổ đào có tải lớn nhất (mm): 7700 – Động cơ: + Model: CUMMINS (SIX) (HOA KỲ) + Công suất động cơ (KW/vòng/phút): 132kW – Bộ phận chính: +",
+    "fullDescription": "– Model: FP215W\n\n\n\n– Xuất xứ: Nhà máy Weichai Lovol\n\n\n\n– Trọng lượng vận hành (kg):  21450\n\n\n\n– Dung tích gầu đào ( m<sup>3</sup>) : 1.0\n\n\n\n– Bán kinh đào lớn nhất (mm): 9900\n\n\n\n– Chiều cao đổ đào có tải lớn nhất (mm): 7700\n\n\n\n– Động cơ:\n\n\n\n+ Model: <strong>CUMMINS (SIX)</strong>  <strong>(HOA KỲ)</strong>\n\n\n\n+ Công suất động cơ (KW/vòng/phút): 132kW\n\n\n\n– Bộ phận chính:\n\n\n\n+ Bơm chính: <strong>KAWASAKI ( NHẬT BẢN)</strong>\n\n\n\n+ Van chính:  <strong>PARKER (HOA KỲ)</strong>\n\n\n\n+ Motor di chuyển:\n\n\n\n+ Motor quay toa: <strong>EATON/LKC (HOA KỲ)</strong>\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
+    "shortDescription": "",
+    "image": "/images/products/may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg",
+    "images": [
+      "/images/products/may-dao-banh-lop-1-0-khoi-weichai-lovol-fp215w/MAY-DAO-BANH-LOP-1.0-KHOI-–-WEICHAI-LOVOL-FP215W.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2214,19 +656,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "36",
-    name: "MÁY XÚC ĐÀO LIÊN HỢP FLB468-II",
-    slug: "may-xuc-dao-lien-hop-flb468-ii",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "Sản phẩm chất lượng cao",
-    fullDescription: ``,
-    shortDescription: "",
-    image: "/images/products/may-xuc-dao-lien-hop-flb468-ii/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg",
-    images: ["/images/products/may-xuc-dao-lien-hop-flb468-ii/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "36",
+    "name": "MÁY XÚC ĐÀO LIÊN HỢP FLB468-II",
+    "slug": "may-xuc-dao-lien-hop-flb468-ii",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "Sản phẩm chất lượng cao",
+    "fullDescription": "",
+    "shortDescription": "",
+    "image": "/images/products/may-xuc-dao-lien-hop-flb468-ii/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg",
+    "images": [
+      "/images/products/may-xuc-dao-lien-hop-flb468-ii/MAY-XUC-DAO-LIEN-HOP-FLB468-II.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2234,43 +678,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "37",
-    name: "XE ỦI BÁNH XÍCH 25 TẤN – WEICHAI LOVOL FD220",
-    slug: "xe-ui-banh-xich-25-tan-weichai-lovol-fd220",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "– Model: FD220 – Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai. – Trọng lượng vận hành (kg): 23.450 – Động cơ: CUMMINS NT855-C280S10 – Tổng công suất (Kw/ vòng/phút): 175/ 1800 – Lưỡi ủi: + Kiểu lưỡi: Lưỡi than U + Dung tích lưỡi ủi (m3): 8.0 + Chiều dài lưỡi ủi (mm): 4200 – Tình trạng: mới 100%",
-    fullDescription: `– Model: FD220
-\n
-\n– Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai.
-\n
-\n– Trọng lượng vận hành (kg): 23.450
-\n
-\n– Động cơ: <strong>CUMMINS NT855-C280S10</strong>
-\n
-\n– Tổng công suất (Kw/ vòng/phút): 175/ 1800
-\n
-\n– Lưỡi ủi:
-\n
-\n+ Kiểu lưỡi: Lưỡi than U
-\n
-\n+ Dung tích lưỡi ủi (m3): 8.0
-\n
-\n+ Chiều dài lưỡi ủi (mm): 4200
-\n
-\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023
-\n
-\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ
-\n
-\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.
-\n
-\n<strong>THÔNG TIN LIÊN HỆ</strong>`,
-    shortDescription: "",
-    image: "/images/products/xe-ui-banh-xich-25-tan-weichai-lovol-fd220/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg",
-    images: ["/images/products/xe-ui-banh-xich-25-tan-weichai-lovol-fd220/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "37",
+    "name": "XE ỦI BÁNH XÍCH 25 TẤN – WEICHAI LOVOL FD220",
+    "slug": "xe-ui-banh-xich-25-tan-weichai-lovol-fd220",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "– Model: FD220 – Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai. – Trọng lượng vận hành (kg): 23.450 – Động cơ: CUMMINS NT855-C280S10 – Tổng công suất (Kw/ vòng/phút): 175/ 1800 – Lưỡi ủi: + Kiểu lưỡi: Lưỡi than U + Dung tích lưỡi ủi (m3): 8.0 + Chiều dài lưỡi ủi (mm): 4200 – Tình trạng: mới 100%",
+    "fullDescription": "– Model: FD220\n\n\n\n– Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai.\n\n\n\n– Trọng lượng vận hành (kg): 23.450\n\n\n\n– Động cơ: <strong>CUMMINS NT855-C280S10</strong>\n\n\n\n– Tổng công suất (Kw/ vòng/phút): 175/ 1800\n\n\n\n– Lưỡi ủi:\n\n\n\n+ Kiểu lưỡi: Lưỡi than U\n\n\n\n+ Dung tích lưỡi ủi (m3): 8.0\n\n\n\n+ Chiều dài lưỡi ủi (mm): 4200\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
+    "shortDescription": "",
+    "image": "/images/products/xe-ui-banh-xich-25-tan-weichai-lovol-fd220/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg",
+    "images": [
+      "/images/products/xe-ui-banh-xich-25-tan-weichai-lovol-fd220/XE-UI-BANH-XICH-25-TAN-–-WEICHAI-LOVOL-FD220.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2278,45 +700,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "38",
-    name: "XE LU 12 TẤN – WEICHAI LOVOL FY12S",
-    slug: "xe-lu-12-tan-weichai-lovol-fy12s",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "– Model: FY12S – Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai. – Trọng lượng vận hành (kg): 12.000 – Động cơ: Weichai WP6G140E22 – Tổng công suất (Kw/ vòng/phút): 105/2200 – Hệ thống truyền động: Thủy tĩnh ,dẫn động 4 bánh – Bề rộng trống (mm): 2130 – Tần số rung cao nhất (Hz) : 35 – Biên độ ru",
-    fullDescription: `– Model: FY12S
-\n
-\n– Xuất xứ: Nhà Máy Weichai Lovol
-\n
-\n– Tập đoàn Weichai.
-\n
-\n– Trọng lượng vận hành (kg): 12.000
-\n
-\n– Động cơ: <strong>Weichai WP6G140E22</strong>
-\n
-\n– Tổng công suất (Kw/ vòng/phút): 105/2200
-\n
-\n– Hệ thống truyền động: Thủy tĩnh ,dẫn động 4 bánh
-\n
-\n– Bề rộng trống (mm): 2130
-\n
-\n– Tần số rung cao nhất (Hz) : 35
-\n
-\n– Biên độ rung cao nhất (mm): 2
-\n
-\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023
-\n
-\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ
-\n
-\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.
-\n
-\n<strong>THÔNG TIN LIÊN HỆ</strong>`,
-    shortDescription: "",
-    image: "/images/products/xe-lu-12-tan-weichai-lovol-fy12s/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg",
-    images: ["/images/products/xe-lu-12-tan-weichai-lovol-fy12s/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "38",
+    "name": "XE LU 12 TẤN – WEICHAI LOVOL FY12S",
+    "slug": "xe-lu-12-tan-weichai-lovol-fy12s",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "– Model: FY12S – Xuất xứ: Nhà Máy Weichai Lovol – Tập đoàn Weichai. – Trọng lượng vận hành (kg): 12.000 – Động cơ: Weichai WP6G140E22 – Tổng công suất (Kw/ vòng/phút): 105/2200 – Hệ thống truyền động: Thủy tĩnh ,dẫn động 4 bánh – Bề rộng trống (mm): 2130 – Tần số rung cao nhất (Hz) : 35 – Biên độ ru",
+    "fullDescription": "– Model: FY12S\n\n\n\n– Xuất xứ: Nhà Máy Weichai Lovol\n\n\n\n– Tập đoàn Weichai.\n\n\n\n– Trọng lượng vận hành (kg): 12.000\n\n\n\n– Động cơ: <strong>Weichai WP6G140E22</strong>\n\n\n\n– Tổng công suất (Kw/ vòng/phút): 105/2200\n\n\n\n– Hệ thống truyền động: Thủy tĩnh ,dẫn động 4 bánh\n\n\n\n– Bề rộng trống (mm): 2130\n\n\n\n– Tần số rung cao nhất (Hz) : 35\n\n\n\n– Biên độ rung cao nhất (mm): 2\n\n\n\n– Tình trạng: mới 100%, chưa qua sử dụng, sản xuất năm 2023\n\n\n\n– Chính sách bảo hành Hãng Weichai Lovol : 18 tháng hoặc 3000 giờ\n\n\n\n– Hỗ trợ tài chính lên tới 95%, từ 36-60 tháng, thủ tục nhanh chóng.\n\n\n\n<strong>THÔNG TIN LIÊN HỆ</strong>",
+    "shortDescription": "",
+    "image": "/images/products/xe-lu-12-tan-weichai-lovol-fy12s/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg",
+    "images": [
+      "/images/products/xe-lu-12-tan-weichai-lovol-fy12s/XE-LU-12-TAN-–-WEICHAI-LOVOL-FY12S.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2324,19 +722,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "39",
-    name: "XE NÂNG FF30D",
-    slug: "xe-nang-ff30d",
-    category: "thiet-bi-cong-trinh-lovol",
-    categoryName: "Thiết Bị Công Trình LOVOL",
-    description: "Sản phẩm chất lượng cao",
-    fullDescription: ``,
-    shortDescription: "",
-    image: "/images/products/xe-nang-ff30d/XE-NANG-FF30D.jpg",
-    images: ["/images/products/xe-nang-ff30d/XE-NANG-FF30D.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "39",
+    "name": "XE NÂNG FF30D",
+    "slug": "xe-nang-ff30d",
+    "category": "thiet-bi-cong-trinh-lovol",
+    "categoryName": "Thiết Bị Công Trình LOVOL",
+    "description": "Sản phẩm chất lượng cao",
+    "fullDescription": "",
+    "shortDescription": "",
+    "image": "/images/products/xe-nang-ff30d/XE-NANG-FF30D.jpg",
+    "images": [
+      "/images/products/xe-nang-ff30d/XE-NANG-FF30D.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "LOVOL",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2344,86 +744,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "40",
-    name: "EFFER 35",
-    slug: "effer-35",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Vượt qua mọi trở ngại EFFER 35 có phạm vi tiếp cận dài nhất trong danh mục của nó, giúp có thể bao phủ hoàn hảo khu vực làm việc mà không cần phải định vị lại xe tải. Góc nâng của cần chính 83° giúp có thể sử dụng toàn bộ chiều dài của cần trục chính sự bùng nổ. Thiết kế chính xác của biên dạng cần cẩu, cùng với việc sử dụng thép cường độ cao giúp cần cẩu đạt được tỷ lệ công suất/trọng lượng thuộc loại tốt nhất trong danh mục. Việc lắp đặt trên xe tải 3,5 tấn giúp duy trì hiệu suất đáng kể công suất dư ngay cả với thân xe ben.",
-    fullDescription: `<h3 class="sc-feac8c9b-8 kYSKbK" style="text-align: center;"><span style="font-family: 'times new roman', times, serif;"><strong><span style="font-size: 150%;">Thông số mẫu</span></strong></span></h3>
-\n<table style="border-collapse: collapse; width: 100%; height: 168px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;"></td>
-\n<th style="width: 25%; height: 21px;"><span style="color: #ed1c24;">EFFER 35 1S</span></th>
-\n<th style="width: 25%; height: 21px;"><span style="color: #ed1c24;">EFFER 35 2S</span></th>
-\n<th style="width: 25%; height: 21px;"><span style="color: #ed1c24;">EFFER 35 3S</span></th>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tiếp cận mở rộng thủy lực (Ft)</td>
-\n<td style="width: 25%; height: 21px;">15.1</td>
-\n<td style="width: 25%; height: 21px;">20.9</td>
-\n<td style="width: 25%; height: 21px;">25,7</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tiếp cận mở rộng thủy lực (M)</td>
-\n<td style="width: 25%; height: 21px;">4,8</td>
-\n<td style="width: 25%; height: 21px;">6.3</td>
-\n<td style="width: 25%; height: 21px;">7,8</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Cấp công suất nâng (kNm)</td>
-\n<td style="width: 25%; height: 21px;"></td>
-\n<td style="width: 25%; height: 21px;"></td>
-\n<td style="width: 25%; height: 21px;">28,4</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Khả năng nâng vật phẩm (Tm)</td>
-\n<td style="width: 25%; height: 21px;">3,5</td>
-\n<td style="width: 25%; height: 21px;"></td>
-\n<td style="width: 25%; height: 21px;"></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Độ dốc làm việc tối đa</td>
-\n<td style="width: 25%; height: 21px;"></td>
-\n<td style="width: 25%; height: 21px;">8,7</td>
-\n<td style="width: 25%; height: 21px;">8,7</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tối đa. giao dầu</td>
-\n<td style="width: 25%; height: 21px;">12</td>
-\n<td style="width: 25%; height: 21px;">12</td>
-\n<td style="width: 25%; height: 21px;">12</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">
-\n<div class="simplebar-mask">
-\n<div class="simplebar-offset">
-\n<div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="nội dung có thể cuộn">
-\n<div class="simplebar-content">
-\n<table class="sc-42cee985-1 hcUtDT">
-\n<thead>
-\n<tr>
-\n<td>Dung tích bình dầu</td>
-\n</tr>
-\n</thead>
-\n</table>
-\n</div>
-\n</div>
-\n</div>
-\n</div></td>
-\n<td style="width: 25%; height: 21px;">25</td>
-\n<td style="width: 25%; height: 21px;">25</td>
-\n<td style="width: 25%; height: 21px;">25</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Vượt qua mọi trở ngại EFFER 35 có phạm vi tiếp cận dài nhất trong danh mục của nó, giúp có thể bao phủ hoàn hảo khu vực làm việc mà không cần phải định vị lại xe tải. Góc nâng của cần chính 83° giúp có thể sử dụng toàn bộ chiều dài của cần trục chính sự bùng nổ. Thiết kế chính xác của biên dạng cần cẩu, cùng với việc sử dụng thép cường độ cao giúp cần cẩu đạt được tỷ lệ công suất/trọng lượng thuộc loại tốt nhất trong danh mục. Việc lắp đặt trên xe tải 3,5 tấn giúp duy trì hiệu suất đáng kể công suất dư ngay cả với thân xe ben.",
-    image: "/images/products/effer-35/effer-35-3.jpg",
-    images: ["/images/products/effer-35/effer-35-3.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "40",
+    "name": "EFFER 35",
+    "slug": "effer-35",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Vượt qua mọi trở ngại EFFER 35 có phạm vi tiếp cận dài nhất trong danh mục của nó, giúp có thể bao phủ hoàn hảo khu vực làm việc mà không cần phải định vị lại xe tải. Góc nâng của cần chính 83° giúp có thể sử dụng toàn bộ chiều dài của cần trục chính sự bùng nổ. Thiết kế chính xác của biên dạng cần cẩu, cùng với việc sử dụng thép cường độ cao giúp cần cẩu đạt được tỷ lệ công suất/trọng lượng thuộc loại tốt nhất trong danh mục. Việc lắp đặt trên xe tải 3,5 tấn giúp duy trì hiệu suất đáng kể công suất dư ngay cả với thân xe ben.",
+    "fullDescription": "<h3 class=\"sc-feac8c9b-8 kYSKbK\" style=\"text-align: center;\"><span style=\"font-family: 'times new roman', times, serif;\"><strong><span style=\"font-size: 150%;\">Thông số mẫu</span></strong></span></h3>\n\n<table style=\"border-collapse: collapse; width: 100%; height: 168px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n<th style=\"width: 25%; height: 21px;\"><span style=\"color: #ed1c24;\">EFFER 35 1S</span></th>\n\n<th style=\"width: 25%; height: 21px;\"><span style=\"color: #ed1c24;\">EFFER 35 2S</span></th>\n\n<th style=\"width: 25%; height: 21px;\"><span style=\"color: #ed1c24;\">EFFER 35 3S</span></th>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tiếp cận mở rộng thủy lực (Ft)</td>\n\n<td style=\"width: 25%; height: 21px;\">15.1</td>\n\n<td style=\"width: 25%; height: 21px;\">20.9</td>\n\n<td style=\"width: 25%; height: 21px;\">25,7</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tiếp cận mở rộng thủy lực (M)</td>\n\n<td style=\"width: 25%; height: 21px;\">4,8</td>\n\n<td style=\"width: 25%; height: 21px;\">6.3</td>\n\n<td style=\"width: 25%; height: 21px;\">7,8</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Cấp công suất nâng (kNm)</td>\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n<td style=\"width: 25%; height: 21px;\">28,4</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Khả năng nâng vật phẩm (Tm)</td>\n\n<td style=\"width: 25%; height: 21px;\">3,5</td>\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Độ dốc làm việc tối đa</td>\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n<td style=\"width: 25%; height: 21px;\">8,7</td>\n\n<td style=\"width: 25%; height: 21px;\">8,7</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tối đa. giao dầu</td>\n\n<td style=\"width: 25%; height: 21px;\">12</td>\n\n<td style=\"width: 25%; height: 21px;\">12</td>\n\n<td style=\"width: 25%; height: 21px;\">12</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">\n\n<div class=\"simplebar-mask\">\n\n<div class=\"simplebar-offset\">\n\n<div class=\"simplebar-content-wrapper\" tabindex=\"0\" role=\"region\" aria-label=\"nội dung có thể cuộn\">\n\n<div class=\"simplebar-content\">\n\n<table class=\"sc-42cee985-1 hcUtDT\">\n\n<thead>\n\n<tr>\n\n<td>Dung tích bình dầu</td>\n\n</tr>\n\n</thead>\n\n</table>\n\n</div>\n\n</div>\n\n</div>\n\n</div></td>\n\n<td style=\"width: 25%; height: 21px;\">25</td>\n\n<td style=\"width: 25%; height: 21px;\">25</td>\n\n<td style=\"width: 25%; height: 21px;\">25</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Vượt qua mọi trở ngại EFFER 35 có phạm vi tiếp cận dài nhất trong danh mục của nó, giúp có thể bao phủ hoàn hảo khu vực làm việc mà không cần phải định vị lại xe tải. Góc nâng của cần chính 83° giúp có thể sử dụng toàn bộ chiều dài của cần trục chính sự bùng nổ. Thiết kế chính xác của biên dạng cần cẩu, cùng với việc sử dụng thép cường độ cao giúp cần cẩu đạt được tỷ lệ công suất/trọng lượng thuộc loại tốt nhất trong danh mục. Việc lắp đặt trên xe tải 3,5 tấn giúp duy trì hiệu suất đáng kể công suất dư ngay cả với thân xe ben.",
+    "image": "/images/products/effer-35/effer-35-3.jpg",
+    "images": [
+      "/images/products/effer-35/effer-35-3.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2431,187 +766,24 @@ export const products: Product[] = [
     }
   },
   {
-    id: "41",
-    name: "EFFER IX.195 HP",
-    slug: "effer-ix-195-hp",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "EFFER iX.195HP với tùy chọn JIB là cần cẩu tầm trung đáng tin cậy và có hiệu suất cao, cũng phù hợp với các ứng dụng JIB. Trí thông minh SPACEevo cho phép tốc độ cao kết hợp với hoạt động chính xác và trơn tru, kết hợp với danh mục tính năng phong phú, chẳng hạn như Chế độ tự động Kiểm soát giúp đảm",
-    fullDescription: `EFFER iX.195HP với tùy chọn JIB là cần cẩu tầm trung đáng tin cậy và có hiệu suất cao, cũng phù hợp với các ứng dụng JIB. Trí thông minh SPACEevo cho phép tốc độ cao kết hợp với hoạt động chính xác và trơn tru, kết hợp với danh mục tính năng phong phú, chẳng hạn như Chế độ tự động Kiểm soát giúp đảm bảo tuổi thọ của cần trục dài hơn, hỗ trợ thời gian hoạt động và năng suất tối đa cho doanh nghiệp của bạn. Kết hợp với dụng cụ trên cần cẩu hoặc đầu JIB, nó linh hoạt như một con dao quân đội Thụy Sĩ.
-\n
-\nEFFER iX.195HP có phạm vi tiếp cận lâu nhất trên thị trường trong phân khúc này, khiến nó trở thành lựa chọn đương nhiên bất cứ khi nào bạn cần vươn xa hoặc lên cao. Tùy chọn JIB làm cho cần trục phù hợp với các ứng dụng nâng hạng nhẹ, nơi cần có tầm với ngang ở độ cao cao hơn.
-\n
-\nBộ điều khiển từ xa CombiDrive 4 tùy chọn là bộ điều khiển mới nhất và tinh vi nhất trên thị trường, hỗ trợ cả năng suất và an toàn.
-\n<h3 class="sc-feac8c9b-8 kYSKbK" style="text-align: center;"><span style="font-family: 'times new roman', times, serif;"><strong><span style="font-size: 150%;">Thông số mẫu</span></strong></span></h3>
-\n<table style="border-collapse: collapse; width: 100%; height: 168px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;"></td>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-2</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-3</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-3 Jib 45X-2</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-4</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-4 Jib 45X-2</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-4 Jib 45X-3</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-5</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-5 Jib 45X-2</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 E-6</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 ES-2</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 ES-3</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 ES-3 Jib 45X-3</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 ES-4</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 ES-5</th>
-\n<th style="width: 5.14403%;">EFFER iX.195 ES-6</th>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tiếp cận mở rộng thủy lực (Ft)</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n<td style="width: 5.14403%;">HiPro</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tiếp cận mở rộng thủy lực (M)</td>
-\n<td style="width: 5.14403%;">34,9</td>
-\n<td style="width: 5.14403%;">41.1</td>
-\n<td style="width: 5.14403%;">41.1</td>
-\n<td style="width: 5.14403%;">49,2</td>
-\n<td style="width: 5.14403%;">49,2</td>
-\n<td style="width: 5.14403%;">49,2</td>
-\n<td style="width: 5.14403%;">57,1</td>
-\n<td style="width: 5.14403%;">57,1</td>
-\n<td style="width: 5.14403%;">62,1</td>
-\n<td style="width: 5.14403%;">33,9</td>
-\n<td style="width: 5.14403%;">41</td>
-\n<td style="width: 5.14403%;">41.1</td>
-\n<td style="width: 5.14403%;">48,2</td>
-\n<td style="width: 5.14403%;">56,1</td>
-\n<td style="width: 5.14403%;">62</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Cấp công suất nâng (kNm)</td>
-\n<td style="width: 5.14403%;">10.6</td>
-\n<td style="width: 5.14403%;">12.8</td>
-\n<td style="width: 5.14403%;">12.8</td>
-\n<td style="width: 5.14403%;">15</td>
-\n<td style="width: 5.14403%;">15</td>
-\n<td style="width: 5.14403%;">15</td>
-\n<td style="width: 5.14403%;">17,4</td>
-\n<td style="width: 5.14403%;">17,4</td>
-\n<td style="width: 5.14403%;">19.2</td>
-\n<td style="width: 5.14403%;">10.3</td>
-\n<td style="width: 5.14403%;">12,5</td>
-\n<td style="width: 5.14403%;">12.8</td>
-\n<td style="width: 5.14403%;">14,7</td>
-\n<td style="width: 5.14403%;">17.1</td>
-\n<td style="width: 5.14403%;">18,9</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Khả năng nâng vật phẩm (Tm)</td>
-\n<td style="width: 5.14403%;">177,3</td>
-\n<td style="width: 5.14403%;">171,7</td>
-\n<td style="width: 5.14403%;">171,7</td>
-\n<td style="width: 5.14403%;">167</td>
-\n<td style="width: 5.14403%;">167</td>
-\n<td style="width: 5.14403%;">167</td>
-\n<td style="width: 5.14403%;">163,2</td>
-\n<td style="width: 5.14403%;">163,2</td>
-\n<td style="width: 5.14403%;">160</td>
-\n<td style="width: 5.14403%;">177,5</td>
-\n<td style="width: 5.14403%;">172,4</td>
-\n<td style="width: 5.14403%;">171,7</td>
-\n<td style="width: 5.14403%;">167,9</td>
-\n<td style="width: 5.14403%;">163,4</td>
-\n<td style="width: 5.14403%;">159,4</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Độ dốc làm việc tối đa</td>
-\n<td style="width: 5.14403%;">1935</td>
-\n<td style="width: 5.14403%;">2095</td>
-\n<td style="width: 5.14403%;">2615</td>
-\n<td style="width: 5.14403%;">2235</td>
-\n<td style="width: 5.14403%;">2755</td>
-\n<td style="width: 5.14403%;">2825</td>
-\n<td style="width: 5.14403%;">2375</td>
-\n<td style="width: 5.14403%;">2895</td>
-\n<td style="width: 5.14403%;">2495</td>
-\n<td style="width: 5.14403%;">1935</td>
-\n<td style="width: 5.14403%;">2095</td>
-\n<td style="width: 5.14403%;">2685</td>
-\n<td style="width: 5.14403%;">2235</td>
-\n<td style="width: 5.14403%;">2375</td>
-\n<td style="width: 5.14403%;">2495</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">Tối đa. giao dầu</td>
-\n<td style="width: 5.14403%;">4270</td>
-\n<td style="width: 5.14403%;">4620</td>
-\n<td style="width: 5.14403%;">5770</td>
-\n<td style="width: 5.14403%;">4930</td>
-\n<td style="width: 5.14403%;">6070</td>
-\n<td style="width: 5.14403%;">6230</td>
-\n<td style="width: 5.14403%;">5240</td>
-\n<td style="width: 5.14403%;">6380</td>
-\n<td style="width: 5.14403%;">5500</td>
-\n<td style="width: 5.14403%;">4270</td>
-\n<td style="width: 5.14403%;">4620</td>
-\n<td style="width: 5.14403%;">5920</td>
-\n<td style="width: 5.14403%;">4930</td>
-\n<td style="width: 5.14403%;">5240</td>
-\n<td style="width: 5.14403%;">5500</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 25%; height: 21px;">
-\n<div class="simplebar-mask">
-\n<div class="simplebar-offset">
-\n<div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="nội dung có thể cuộn">
-\n<div class="simplebar-content">
-\n<table class="sc-42cee985-1 hcUtDT">
-\n<thead>
-\n<tr>
-\n<td>Dung tích bình dầu</td>
-\n</tr>
-\n</thead>
-\n</table>
-\n</div>
-\n</div>
-\n</div>
-\n</div></td>
-\n<td style="width: 5.14403%;">8,6</td>
-\n<td style="width: 5.14403%;">10.8</td>
-\n<td style="width: 5.14403%;">10.8</td>
-\n<td style="width: 5.14403%;">12.9</td>
-\n<td style="width: 5.14403%;">12.9</td>
-\n<td style="width: 5.14403%;">12.9</td>
-\n<td style="width: 5.14403%;">15.2</td>
-\n<td style="width: 5.14403%;">15.2</td>
-\n<td style="width: 5.14403%;">17,5</td>
-\n<td style="width: 5.14403%;">8.3</td>
-\n<td style="width: 5.14403%;">10,4</td>
-\n<td style="width: 5.14403%;">10.8</td>
-\n<td style="width: 5.14403%;">12.6</td>
-\n<td style="width: 5.14403%;">14,8</td>
-\n<td style="width: 5.14403%;">17.2</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "",
-    image: "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-4.jpg",
-    images: ["/images/products/effer-ix-195-hp/EFFER-IX.195-HP-4.jpg", "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-4.jpg", "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-3-1.jpg", "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-2-1.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "41",
+    "name": "EFFER IX.195 HP",
+    "slug": "effer-ix-195-hp",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "EFFER iX.195HP với tùy chọn JIB là cần cẩu tầm trung đáng tin cậy và có hiệu suất cao, cũng phù hợp với các ứng dụng JIB. Trí thông minh SPACEevo cho phép tốc độ cao kết hợp với hoạt động chính xác và trơn tru, kết hợp với danh mục tính năng phong phú, chẳng hạn như Chế độ tự động Kiểm soát giúp đảm",
+    "fullDescription": "EFFER iX.195HP với tùy chọn JIB là cần cẩu tầm trung đáng tin cậy và có hiệu suất cao, cũng phù hợp với các ứng dụng JIB. Trí thông minh SPACEevo cho phép tốc độ cao kết hợp với hoạt động chính xác và trơn tru, kết hợp với danh mục tính năng phong phú, chẳng hạn như Chế độ tự động Kiểm soát giúp đảm bảo tuổi thọ của cần trục dài hơn, hỗ trợ thời gian hoạt động và năng suất tối đa cho doanh nghiệp của bạn. Kết hợp với dụng cụ trên cần cẩu hoặc đầu JIB, nó linh hoạt như một con dao quân đội Thụy Sĩ.\n\n\n\nEFFER iX.195HP có phạm vi tiếp cận lâu nhất trên thị trường trong phân khúc này, khiến nó trở thành lựa chọn đương nhiên bất cứ khi nào bạn cần vươn xa hoặc lên cao. Tùy chọn JIB làm cho cần trục phù hợp với các ứng dụng nâng hạng nhẹ, nơi cần có tầm với ngang ở độ cao cao hơn.\n\n\n\nBộ điều khiển từ xa CombiDrive 4 tùy chọn là bộ điều khiển mới nhất và tinh vi nhất trên thị trường, hỗ trợ cả năng suất và an toàn.\n\n<h3 class=\"sc-feac8c9b-8 kYSKbK\" style=\"text-align: center;\"><span style=\"font-family: 'times new roman', times, serif;\"><strong><span style=\"font-size: 150%;\">Thông số mẫu</span></strong></span></h3>\n\n<table style=\"border-collapse: collapse; width: 100%; height: 168px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\"></td>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-2</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-3</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-3 Jib 45X-2</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-4</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-4 Jib 45X-2</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-4 Jib 45X-3</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-5</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-5 Jib 45X-2</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 E-6</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 ES-2</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 ES-3</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 ES-3 Jib 45X-3</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 ES-4</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 ES-5</th>\n\n<th style=\"width: 5.14403%;\">EFFER iX.195 ES-6</th>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tiếp cận mở rộng thủy lực (Ft)</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n<td style=\"width: 5.14403%;\">HiPro</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tiếp cận mở rộng thủy lực (M)</td>\n\n<td style=\"width: 5.14403%;\">34,9</td>\n\n<td style=\"width: 5.14403%;\">41.1</td>\n\n<td style=\"width: 5.14403%;\">41.1</td>\n\n<td style=\"width: 5.14403%;\">49,2</td>\n\n<td style=\"width: 5.14403%;\">49,2</td>\n\n<td style=\"width: 5.14403%;\">49,2</td>\n\n<td style=\"width: 5.14403%;\">57,1</td>\n\n<td style=\"width: 5.14403%;\">57,1</td>\n\n<td style=\"width: 5.14403%;\">62,1</td>\n\n<td style=\"width: 5.14403%;\">33,9</td>\n\n<td style=\"width: 5.14403%;\">41</td>\n\n<td style=\"width: 5.14403%;\">41.1</td>\n\n<td style=\"width: 5.14403%;\">48,2</td>\n\n<td style=\"width: 5.14403%;\">56,1</td>\n\n<td style=\"width: 5.14403%;\">62</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Cấp công suất nâng (kNm)</td>\n\n<td style=\"width: 5.14403%;\">10.6</td>\n\n<td style=\"width: 5.14403%;\">12.8</td>\n\n<td style=\"width: 5.14403%;\">12.8</td>\n\n<td style=\"width: 5.14403%;\">15</td>\n\n<td style=\"width: 5.14403%;\">15</td>\n\n<td style=\"width: 5.14403%;\">15</td>\n\n<td style=\"width: 5.14403%;\">17,4</td>\n\n<td style=\"width: 5.14403%;\">17,4</td>\n\n<td style=\"width: 5.14403%;\">19.2</td>\n\n<td style=\"width: 5.14403%;\">10.3</td>\n\n<td style=\"width: 5.14403%;\">12,5</td>\n\n<td style=\"width: 5.14403%;\">12.8</td>\n\n<td style=\"width: 5.14403%;\">14,7</td>\n\n<td style=\"width: 5.14403%;\">17.1</td>\n\n<td style=\"width: 5.14403%;\">18,9</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Khả năng nâng vật phẩm (Tm)</td>\n\n<td style=\"width: 5.14403%;\">177,3</td>\n\n<td style=\"width: 5.14403%;\">171,7</td>\n\n<td style=\"width: 5.14403%;\">171,7</td>\n\n<td style=\"width: 5.14403%;\">167</td>\n\n<td style=\"width: 5.14403%;\">167</td>\n\n<td style=\"width: 5.14403%;\">167</td>\n\n<td style=\"width: 5.14403%;\">163,2</td>\n\n<td style=\"width: 5.14403%;\">163,2</td>\n\n<td style=\"width: 5.14403%;\">160</td>\n\n<td style=\"width: 5.14403%;\">177,5</td>\n\n<td style=\"width: 5.14403%;\">172,4</td>\n\n<td style=\"width: 5.14403%;\">171,7</td>\n\n<td style=\"width: 5.14403%;\">167,9</td>\n\n<td style=\"width: 5.14403%;\">163,4</td>\n\n<td style=\"width: 5.14403%;\">159,4</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Độ dốc làm việc tối đa</td>\n\n<td style=\"width: 5.14403%;\">1935</td>\n\n<td style=\"width: 5.14403%;\">2095</td>\n\n<td style=\"width: 5.14403%;\">2615</td>\n\n<td style=\"width: 5.14403%;\">2235</td>\n\n<td style=\"width: 5.14403%;\">2755</td>\n\n<td style=\"width: 5.14403%;\">2825</td>\n\n<td style=\"width: 5.14403%;\">2375</td>\n\n<td style=\"width: 5.14403%;\">2895</td>\n\n<td style=\"width: 5.14403%;\">2495</td>\n\n<td style=\"width: 5.14403%;\">1935</td>\n\n<td style=\"width: 5.14403%;\">2095</td>\n\n<td style=\"width: 5.14403%;\">2685</td>\n\n<td style=\"width: 5.14403%;\">2235</td>\n\n<td style=\"width: 5.14403%;\">2375</td>\n\n<td style=\"width: 5.14403%;\">2495</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">Tối đa. giao dầu</td>\n\n<td style=\"width: 5.14403%;\">4270</td>\n\n<td style=\"width: 5.14403%;\">4620</td>\n\n<td style=\"width: 5.14403%;\">5770</td>\n\n<td style=\"width: 5.14403%;\">4930</td>\n\n<td style=\"width: 5.14403%;\">6070</td>\n\n<td style=\"width: 5.14403%;\">6230</td>\n\n<td style=\"width: 5.14403%;\">5240</td>\n\n<td style=\"width: 5.14403%;\">6380</td>\n\n<td style=\"width: 5.14403%;\">5500</td>\n\n<td style=\"width: 5.14403%;\">4270</td>\n\n<td style=\"width: 5.14403%;\">4620</td>\n\n<td style=\"width: 5.14403%;\">5920</td>\n\n<td style=\"width: 5.14403%;\">4930</td>\n\n<td style=\"width: 5.14403%;\">5240</td>\n\n<td style=\"width: 5.14403%;\">5500</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 25%; height: 21px;\">\n\n<div class=\"simplebar-mask\">\n\n<div class=\"simplebar-offset\">\n\n<div class=\"simplebar-content-wrapper\" tabindex=\"0\" role=\"region\" aria-label=\"nội dung có thể cuộn\">\n\n<div class=\"simplebar-content\">\n\n<table class=\"sc-42cee985-1 hcUtDT\">\n\n<thead>\n\n<tr>\n\n<td>Dung tích bình dầu</td>\n\n</tr>\n\n</thead>\n\n</table>\n\n</div>\n\n</div>\n\n</div>\n\n</div></td>\n\n<td style=\"width: 5.14403%;\">8,6</td>\n\n<td style=\"width: 5.14403%;\">10.8</td>\n\n<td style=\"width: 5.14403%;\">10.8</td>\n\n<td style=\"width: 5.14403%;\">12.9</td>\n\n<td style=\"width: 5.14403%;\">12.9</td>\n\n<td style=\"width: 5.14403%;\">12.9</td>\n\n<td style=\"width: 5.14403%;\">15.2</td>\n\n<td style=\"width: 5.14403%;\">15.2</td>\n\n<td style=\"width: 5.14403%;\">17,5</td>\n\n<td style=\"width: 5.14403%;\">8.3</td>\n\n<td style=\"width: 5.14403%;\">10,4</td>\n\n<td style=\"width: 5.14403%;\">10.8</td>\n\n<td style=\"width: 5.14403%;\">12.6</td>\n\n<td style=\"width: 5.14403%;\">14,8</td>\n\n<td style=\"width: 5.14403%;\">17.2</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "",
+    "image": "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-4.jpg",
+    "images": [
+      "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-4.jpg",
+      "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-4.jpg",
+      "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-3-1.jpg",
+      "/images/products/effer-ix-195-hp/EFFER-IX.195-HP-2-1.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2619,88 +791,21 @@ export const products: Product[] = [
     }
   },
   {
-    id: "42",
-    name: "EFFER IX.355 HP",
-    slug: "effer-ix-355-hp",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Cẩu tầm xa 32,1tm, được quản lý bằng hệ thống điều khiển mới SPACEevo",
-    fullDescription: `<p style="text-align: center;"><span style="font-size: 150%;"><strong>THÔNG SỐ MẪU</strong></span></p>
-\n
-\n<table style="border-collapse: collapse; width: 101.542%; height: 168px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;"></td>
-\n<th style="width: 23.0997%;">EFFER iX.355 HP E-4</th>
-\n<th style="width: 22.6337%;">EFFER iX.355 HP E-5</th>
-\n<th style="width: 18.1258%;">EFFER iX.355 HP E-6</th>
-\n<th style="width: 11.7096%;">EFFER iX.355 HP E-7</th>
-\n<th style="width: 6.682%;">EFFER iX.355 HP E-8</th>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;">Tiếp cận mở rộng thủy lực (Ft)</td>
-\n<td style="width: 23.0997%;">32.1</td>
-\n<td style="width: 22.6337%;">31.3</td>
-\n<td style="width: 18.1258%;">30,7</td>
-\n<td style="width: 11.7096%;">30,2</td>
-\n<td style="width: 6.682%;">29,8</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;">Tiếp cận mở rộng thủy lực (M)</td>
-\n<td style="width: 23.0997%;">4036</td>
-\n<td style="width: 22.6337%;">4232</td>
-\n<td style="width: 18.1258%;">4402</td>
-\n<td style="width: 11.7096%;">4571</td>
-\n<td style="width: 6.682%;">4694</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;">Cấp công suất nâng (kNm)</td>
-\n<td style="width: 23.0997%;">8900</td>
-\n<td style="width: 22.6337%;">9330</td>
-\n<td style="width: 18.1258%;">9700</td>
-\n<td style="width: 11.7096%;">10080</td>
-\n<td style="width: 6.682%;">10350</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;">Khả năng nâng vật phẩm (Tm)</td>
-\n<td style="width: 23.0997%;">420</td>
-\n<td style="width: 22.6337%;">420</td>
-\n<td style="width: 18.1258%;">420</td>
-\n<td style="width: 11.7096%;">420</td>
-\n<td style="width: 6.682%;">420</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;">Độ dốc làm việc tối đa</td>
-\n<td style="width: 23.0997%;">3</td>
-\n<td style="width: 22.6337%;">3</td>
-\n<td style="width: 18.1258%;">3</td>
-\n<td style="width: 11.7096%;">3</td>
-\n<td style="width: 6.682%;">3</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;">Tối đa. giao dầu</td>
-\n<td style="width: 23.0997%;">140</td>
-\n<td style="width: 22.6337%;">140</td>
-\n<td style="width: 18.1258%;">140</td>
-\n<td style="width: 11.7096%;">140</td>
-\n<td style="width: 6.682%;">140</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 21.8592%; height: 21px;"></td>
-\n<td style="width: 23.0997%; height: 21px;"></td>
-\n<td style="width: 22.6337%; height: 21px;"></td>
-\n<td style="width: 18.1258%; height: 21px;"></td>
-\n<td style="width: 11.7096%;"></td>
-\n<td style="width: 6.682%;"></td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Cẩu tầm xa 32,1tm, được quản lý bằng hệ thống điều khiển mới SPACEevo",
-    image: "/images/products/effer-ix-355-hp/EFFER-IX.355-HP-2.jpg",
-    images: ["/images/products/effer-ix-355-hp/EFFER-IX.355-HP-2.jpg"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "42",
+    "name": "EFFER IX.355 HP",
+    "slug": "effer-ix-355-hp",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Cẩu tầm xa 32,1tm, được quản lý bằng hệ thống điều khiển mới SPACEevo",
+    "fullDescription": "<p style=\"text-align: center;\"><span style=\"font-size: 150%;\"><strong>THÔNG SỐ MẪU</strong></span></p>\n\n\n\n<table style=\"border-collapse: collapse; width: 101.542%; height: 168px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\"></td>\n\n<th style=\"width: 23.0997%;\">EFFER iX.355 HP E-4</th>\n\n<th style=\"width: 22.6337%;\">EFFER iX.355 HP E-5</th>\n\n<th style=\"width: 18.1258%;\">EFFER iX.355 HP E-6</th>\n\n<th style=\"width: 11.7096%;\">EFFER iX.355 HP E-7</th>\n\n<th style=\"width: 6.682%;\">EFFER iX.355 HP E-8</th>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\">Tiếp cận mở rộng thủy lực (Ft)</td>\n\n<td style=\"width: 23.0997%;\">32.1</td>\n\n<td style=\"width: 22.6337%;\">31.3</td>\n\n<td style=\"width: 18.1258%;\">30,7</td>\n\n<td style=\"width: 11.7096%;\">30,2</td>\n\n<td style=\"width: 6.682%;\">29,8</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\">Tiếp cận mở rộng thủy lực (M)</td>\n\n<td style=\"width: 23.0997%;\">4036</td>\n\n<td style=\"width: 22.6337%;\">4232</td>\n\n<td style=\"width: 18.1258%;\">4402</td>\n\n<td style=\"width: 11.7096%;\">4571</td>\n\n<td style=\"width: 6.682%;\">4694</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\">Cấp công suất nâng (kNm)</td>\n\n<td style=\"width: 23.0997%;\">8900</td>\n\n<td style=\"width: 22.6337%;\">9330</td>\n\n<td style=\"width: 18.1258%;\">9700</td>\n\n<td style=\"width: 11.7096%;\">10080</td>\n\n<td style=\"width: 6.682%;\">10350</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\">Khả năng nâng vật phẩm (Tm)</td>\n\n<td style=\"width: 23.0997%;\">420</td>\n\n<td style=\"width: 22.6337%;\">420</td>\n\n<td style=\"width: 18.1258%;\">420</td>\n\n<td style=\"width: 11.7096%;\">420</td>\n\n<td style=\"width: 6.682%;\">420</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\">Độ dốc làm việc tối đa</td>\n\n<td style=\"width: 23.0997%;\">3</td>\n\n<td style=\"width: 22.6337%;\">3</td>\n\n<td style=\"width: 18.1258%;\">3</td>\n\n<td style=\"width: 11.7096%;\">3</td>\n\n<td style=\"width: 6.682%;\">3</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\">Tối đa. giao dầu</td>\n\n<td style=\"width: 23.0997%;\">140</td>\n\n<td style=\"width: 22.6337%;\">140</td>\n\n<td style=\"width: 18.1258%;\">140</td>\n\n<td style=\"width: 11.7096%;\">140</td>\n\n<td style=\"width: 6.682%;\">140</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 21.8592%; height: 21px;\"></td>\n\n<td style=\"width: 23.0997%; height: 21px;\"></td>\n\n<td style=\"width: 22.6337%; height: 21px;\"></td>\n\n<td style=\"width: 18.1258%; height: 21px;\"></td>\n\n<td style=\"width: 11.7096%;\"></td>\n\n<td style=\"width: 6.682%;\"></td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Cẩu tầm xa 32,1tm, được quản lý bằng hệ thống điều khiển mới SPACEevo",
+    "image": "/images/products/effer-ix-355-hp/EFFER-IX.355-HP-2.jpg",
+    "images": [
+      "/images/products/effer-ix-355-hp/EFFER-IX.355-HP-2.jpg"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
@@ -2708,301 +813,233 @@ export const products: Product[] = [
     }
   },
   {
-    id: "43",
-    name: "EFFER IQ.1200 HP",
-    slug: "effer-iq-1200-hp",
-    category: "thiet-bi-nang-ha-hiab",
-    categoryName: "Thiết Bị Nâng Hạ HIAB",
-    description: "Model có phạm vi 110tm và cung cấp hệ thống điều khiển tiên tiến nhất của công ty: SPACEevo",
-    fullDescription: `<h3 class="sc-feac8c9b-8 kYSKbK" style="text-align: center;"><span style="font-family: 'times new roman', times, serif;"><strong><span style="font-size: 150%;">Thông số mẫu</span></strong></span></h3>
-\n<table style="border-collapse: collapse; width: 100.926%; height: 178px;">
-\n<tbody>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 31px;"></td>
-\n<th style="width: 22.8417%; height: 31px;">EFFER 1200 HP E-8 + Cần</th>
-\n<th style="width: 22.8417%; height: 31px;">EFFER 1200 HP E-9 + Cần</th>
-\n<th style="width: 22.8417%; height: 31px;">EFFER iQ.1200 HP E-10</th>
-\n<th style="width: 22.8417%; height: 31px;">EFFER iQ.1200 HP E-8</th>
-\n<th style="width: 22.8417%; height: 31px;">EFFER iQ.1200 HP E-9</th>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Tiếp cận mở rộng thủy lực (Ft)</td>
-\n<td style="width: 21.6056%;">64,8</td>
-\n<td style="width: 22.1194%;">71,6</td>
-\n<td style="width: 20.064%;"></td>
-\n<td style="width: 10.5915%;"></td>
-\n<td style="width: 6.48064%;"></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Cấp công suất nâng (kNm)</td>
-\n<td style="width: 21.6056%;"></td>
-\n<td style="width: 22.1194%;"></td>
-\n<td style="width: 20.064%;">821</td>
-\n<td style="width: 10.5915%;">835</td>
-\n<td style="width: 6.48064%;">826</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Trọng lượng (Kg)</td>
-\n<td style="width: 21.6056%;"></td>
-\n<td style="width: 22.1194%;"></td>
-\n<td style="width: 20.064%;">9407</td>
-\n<td style="width: 10.5915%;">9021</td>
-\n<td style="width: 6.48064%;">9232</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Lbs Trọng lượng)</td>
-\n<td style="width: 21.6056%;">23360</td>
-\n<td style="width: 22.1194%;">23230</td>
-\n<td style="width: 20.064%;">20740</td>
-\n<td style="width: 10.5915%;">19890</td>
-\n<td style="width: 6.48064%;">20350</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Tiếp cận với Jib (M)</td>
-\n<td style="width: 21.6056%;">105,4</td>
-\n<td style="width: 22.1194%;">112.1</td>
-\n<td style="width: 20.064%;"></td>
-\n<td style="width: 10.5915%;"></td>
-\n<td style="width: 6.48064%;"></td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Vòng cung xoay</td>
-\n<td style="width: 21.6056%;"></td>
-\n<td style="width: 22.1194%;"></td>
-\n<td style="width: 20.064%;">999</td>
-\n<td style="width: 10.5915%;">999</td>
-\n<td style="width: 6.48064%;">999</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Độ dốc làm việc tối đa</td>
-\n<td style="width: 21.6056%;"></td>
-\n<td style="width: 22.1194%;"></td>
-\n<td style="width: 20.064%;">7</td>
-\n<td style="width: 10.5915%;">7</td>
-\n<td style="width: 6.48064%;">7</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">Tối đa. giao dầu</td>
-\n<td style="width: 21.6056%;"></td>
-\n<td style="width: 22.1194%;"></td>
-\n<td style="width: 20.064%;">140</td>
-\n<td style="width: 10.5915%;">140</td>
-\n<td style="width: 6.48064%;">140</td>
-\n</tr>
-\n<tr style="height: 21px;">
-\n<td style="width: 22.8417%; height: 21px;">
-\n<div class="simplebar-mask">
-\n<div class="simplebar-offset">
-\n<div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="nội dung có thể cuộn">
-\n<div class="simplebar-content">
-\n<table class="sc-42cee985-1 hcUtDT">
-\n<thead>
-\n<tr>
-\n<td>Dung tích bình dầu</td>
-\n</tr>
-\n</thead>
-\n</table>
-\n</div>
-\n</div>
-\n</div>
-\n</div></td>
-\n<td style="width: 21.6056%;"></td>
-\n<td style="width: 22.1194%;"></td>
-\n<td style="width: 20.064%;">400</td>
-\n<td style="width: 10.5915%;">400</td>
-\n<td style="width: 6.48064%;">400</td>
-\n</tr>
-\n</tbody>
-\n</table>`,
-    shortDescription: "Model có phạm vi 110tm và cung cấp hệ thống điều khiển tiên tiến nhất của công ty: SPACEevo",
-    image: "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-5.png",
-    images: ["/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-5.png", "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP.png", "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-2.png", "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-3.png", "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-5.png"],
-    price: "Liên hệ",
-    featured: false,
-    specifications: {
+    "id": "43",
+    "name": "EFFER IQ.1200 HP",
+    "slug": "effer-iq-1200-hp",
+    "category": "thiet-bi-nang-ha-hiab",
+    "categoryName": "Thiết Bị Nâng Hạ HIAB",
+    "description": "Model có phạm vi 110tm và cung cấp hệ thống điều khiển tiên tiến nhất của công ty: SPACEevo",
+    "fullDescription": "<h3 class=\"sc-feac8c9b-8 kYSKbK\" style=\"text-align: center;\"><span style=\"font-family: 'times new roman', times, serif;\"><strong><span style=\"font-size: 150%;\">Thông số mẫu</span></strong></span></h3>\n\n<table style=\"border-collapse: collapse; width: 100.926%; height: 178px;\">\n\n<tbody>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 31px;\"></td>\n\n<th style=\"width: 22.8417%; height: 31px;\">EFFER 1200 HP E-8 + Cần</th>\n\n<th style=\"width: 22.8417%; height: 31px;\">EFFER 1200 HP E-9 + Cần</th>\n\n<th style=\"width: 22.8417%; height: 31px;\">EFFER iQ.1200 HP E-10</th>\n\n<th style=\"width: 22.8417%; height: 31px;\">EFFER iQ.1200 HP E-8</th>\n\n<th style=\"width: 22.8417%; height: 31px;\">EFFER iQ.1200 HP E-9</th>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Tiếp cận mở rộng thủy lực (Ft)</td>\n\n<td style=\"width: 21.6056%;\">64,8</td>\n\n<td style=\"width: 22.1194%;\">71,6</td>\n\n<td style=\"width: 20.064%;\"></td>\n\n<td style=\"width: 10.5915%;\"></td>\n\n<td style=\"width: 6.48064%;\"></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Cấp công suất nâng (kNm)</td>\n\n<td style=\"width: 21.6056%;\"></td>\n\n<td style=\"width: 22.1194%;\"></td>\n\n<td style=\"width: 20.064%;\">821</td>\n\n<td style=\"width: 10.5915%;\">835</td>\n\n<td style=\"width: 6.48064%;\">826</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Trọng lượng (Kg)</td>\n\n<td style=\"width: 21.6056%;\"></td>\n\n<td style=\"width: 22.1194%;\"></td>\n\n<td style=\"width: 20.064%;\">9407</td>\n\n<td style=\"width: 10.5915%;\">9021</td>\n\n<td style=\"width: 6.48064%;\">9232</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Lbs Trọng lượng)</td>\n\n<td style=\"width: 21.6056%;\">23360</td>\n\n<td style=\"width: 22.1194%;\">23230</td>\n\n<td style=\"width: 20.064%;\">20740</td>\n\n<td style=\"width: 10.5915%;\">19890</td>\n\n<td style=\"width: 6.48064%;\">20350</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Tiếp cận với Jib (M)</td>\n\n<td style=\"width: 21.6056%;\">105,4</td>\n\n<td style=\"width: 22.1194%;\">112.1</td>\n\n<td style=\"width: 20.064%;\"></td>\n\n<td style=\"width: 10.5915%;\"></td>\n\n<td style=\"width: 6.48064%;\"></td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Vòng cung xoay</td>\n\n<td style=\"width: 21.6056%;\"></td>\n\n<td style=\"width: 22.1194%;\"></td>\n\n<td style=\"width: 20.064%;\">999</td>\n\n<td style=\"width: 10.5915%;\">999</td>\n\n<td style=\"width: 6.48064%;\">999</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Độ dốc làm việc tối đa</td>\n\n<td style=\"width: 21.6056%;\"></td>\n\n<td style=\"width: 22.1194%;\"></td>\n\n<td style=\"width: 20.064%;\">7</td>\n\n<td style=\"width: 10.5915%;\">7</td>\n\n<td style=\"width: 6.48064%;\">7</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">Tối đa. giao dầu</td>\n\n<td style=\"width: 21.6056%;\"></td>\n\n<td style=\"width: 22.1194%;\"></td>\n\n<td style=\"width: 20.064%;\">140</td>\n\n<td style=\"width: 10.5915%;\">140</td>\n\n<td style=\"width: 6.48064%;\">140</td>\n\n</tr>\n\n<tr style=\"height: 21px;\">\n\n<td style=\"width: 22.8417%; height: 21px;\">\n\n<div class=\"simplebar-mask\">\n\n<div class=\"simplebar-offset\">\n\n<div class=\"simplebar-content-wrapper\" tabindex=\"0\" role=\"region\" aria-label=\"nội dung có thể cuộn\">\n\n<div class=\"simplebar-content\">\n\n<table class=\"sc-42cee985-1 hcUtDT\">\n\n<thead>\n\n<tr>\n\n<td>Dung tích bình dầu</td>\n\n</tr>\n\n</thead>\n\n</table>\n\n</div>\n\n</div>\n\n</div>\n\n</div></td>\n\n<td style=\"width: 21.6056%;\"></td>\n\n<td style=\"width: 22.1194%;\"></td>\n\n<td style=\"width: 20.064%;\">400</td>\n\n<td style=\"width: 10.5915%;\">400</td>\n\n<td style=\"width: 6.48064%;\">400</td>\n\n</tr>\n\n</tbody>\n\n</table>",
+    "shortDescription": "Model có phạm vi 110tm và cung cấp hệ thống điều khiển tiên tiến nhất của công ty: SPACEevo",
+    "image": "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-5.png",
+    "images": [
+      "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-5.png",
+      "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP.png",
+      "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-2.png",
+      "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-3.png",
+      "/images/products/effer-iq-1200-hp/EFFER-IQ.1200-HP-5.png"
+    ],
+    "price": "Liên hệ",
+    "featured": true,
+    "specifications": {
       "Thương hiệu": "HIAB",
       "Xuất xứ": "Nhập khẩu chính hãng",
       "Bảo hành": "12 tháng",
       "Tình trạng": "Còn hàng"
     }
+  },
+  {
+    "id": "1768275425774",
+    "name": "3000 Gallon Jet Refueler",
+    "slug": "3000-gallon-jet-refueler",
+    "category": "thiet-bi-cong-trinh-SKYMARK",
+    "categorySlug": "thiet-bi-cong-trinh-SKYMARK",
+    "categoryName": "Thiết Bị Hàng Không SKYMARK",
+    "description": "3000 USG capacity aluminum tank\n55 – 300 GPM pumping system\nSide cabinet design\nConventinoal cab and chassis\nRefuelers meet NFPA 407, NAVAIR 00-80T-109, ATA (A4A) 103, DDT 406, and JIG-1, Issue 12, where applicable",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX4AAABiCAYAAABXubioAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5QTExN0I1NDA1MjIxMUU4ODhFNEUxNkUwNEMyMUQ5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5QTExN0I1NTA1MjIxMUU4ODhFNEUxNkUwNEMyMUQ5NCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjlBMTE3QjUyMDUyMjExRTg4OEU0RTE2RTA0QzIxRDk0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjlBMTE3QjUzMDUyMjExRTg4OEU0RTE2RTA0QzIxRDk0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+CX1vYwAAs4NJREFUeNrsvQmcZGlV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",
+    "images": [
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX4AAABiCAYAAABXubioAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5QTExN0I1NDA1MjIxMUU4ODhFNEUxNkUwNEMyMUQ5NCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5QTExN0I1NTA1MjIxMUU4ODhFNEUxNkUwNEMyMUQ5NCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjlBMTE3QjUyMDUyMjExRTg4OEU0RTE2RTA0QzIxRDk0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjlBMTE3QjUzMDUyMjExRTg4OEU0RTE2RTA0QzIxRDk0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+CX1vYwAAs4NJREFUeNrsvQmcZGlV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"
+    ],
+    "price": "Liên hệ",
+    "specifications": {}
+  },
+  {
+    "id": "1768275504081",
+    "name": "5000 Gallon Jet Refueler",
+    "slug": "5000-gallon-jet-refueler",
+    "category": "thiet-bi-cong-trinh-SKYMARK",
+    "categorySlug": "thiet-bi-cong-trinh-SKYMARK",
+    "categoryName": "Thiết Bị Hàng Không SKYMARK",
+    "description": "5000 USG capacity stainless aluminum tank\n300 GPM pumping system\nSide cabinet design\nConventional cab and chassis\nRefuelers meet NFPA 407, NAVAIR 00-80T-109, ATA (A4A) 103, DDT 406, and JIG-1, Issue 12, where applicable",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX4AAABiCAYAAABXubioAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpERTEzQTU1NDA1MUIxMUU4ODVEOEI3OEJBMjk3MDhFMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpERTEzQTU1NTA1MUIxMUU4ODVEOEI3OEJBMjk3MDhFMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkRFMTNBNTUyMDUxQjExRTg4NUQ4Qjc4QkEyOTcwOEUwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkRFMTNBNTUzMDUxQjExRTg4NUQ4Qjc4QkEyOTcwOEUwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mPXfhwAA8RRJREFUeNrsvQeUJdlZ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",
+    "images": [
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAX4AAABiCAYAAABXubioAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpERTEzQTU1NDA1MUIxMUU4ODVEOEI3OEJBMjk3MDhFMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpERTEzQTU1NTA1MUIxMUU4ODVEOEI3OEJBMjk3MDhFMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkRFMTNBNTUyMDUxQjExRTg4NUQ4Qjc4QkEyOTcwOEUwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkRFMTNBNTUzMDUxQjExRTg4NUQ4Qjc4QkEyOTcwOEUwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mPXfhwAA8RRJREFUeNrsvQeUJdlZ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"
+    ],
+    "price": "Liên hệ",
+    "specifications": {}
   }
 ];
 
-// Helper functions
-export function getProductsByCategory(categorySlug: string): Product[] {
-  return products.filter(p => p.category === categorySlug);
-}
-
-export function getProductBySlug(slug: string): Product | undefined {
-  return products.find(p => p.slug === slug);
-}
-
-export function getFeaturedProducts(): Product[] {
-  return products.filter(p => p.featured);
-}
-
-export function getCategoryBySlug(slug: string): Category | undefined {
-  return categories.find(c => c.slug === slug);
-}
-
-// Posts
+// Bài viết tin tức
 export const posts: Post[] = [
   {
-    id: "news-1",
-    title: "Cột tự nâng Will-Burt, gắn đèn cứu hộ",
-    slug: "cot-tu-nang-will-burt-gan-den-cuu-ho",
-    excerpt: "Cột tự nâng Will-Burt: Ánh sáng dẫn lối trong mọi cuộc cứu hộ, cứu nạn Trong những tình huống khẩn cấp, khi màn đêm bao trùm hoặc điều kiện ánh sáng kém, khả năng chiếu sáng hiệu quả đóng vai trò then chốt trong mọi hoạt động cứu hộ, cứu nạn. Nắm bắt được nhu…",
-    content: "\n\n\t<p><strong>Cột tự nâng Will-Burt: Ánh sáng dẫn lối trong mọi cuộc cứu hộ, cứu nạn</strong></p>\n<p><strong>Trong những tình huống khẩn cấp, khi màn đêm bao trùm hoặc điều kiện ánh sáng kém, khả năng chiếu sáng hiệu quả đóng vai trò then chốt trong mọi hoạt động cứu hộ, cứu nạn. Nắm bắt được nhu cầu này, cột tự nâng Will-Burt đã trở thành giải pháp chiếu sáng lý tưởng, mang lại hiệu quả vượt trội cho các đội cứu hộ chuyên nghiệp trên toàn thế giới.</strong></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-2968\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-0.jpg\" alt=\"\" width=\"758\" height=\"569\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-0.jpg 1440w, https://newatlantic.vn/wp-content/uploads/2025/06/492907470_1316159246703593_2883377685115168198_n-300x225.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/06/492907470_1316159246703593_2883377685115168198_n-1024x768.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2025/06/492907470_1316159246703593_2883377685115168198_n-768x576.jpg 768w\" sizes=\"auto, (max-width: 758px) 100vw, 758px\" /></p>\n<p><strong>Tại sao cột tự nâng Will-Burt là lựa chọn hàng đầu cho chiếu sáng cứu hộ?</strong></p>\n<p>Với thiết kế thông minh và công nghệ tiên tiến, cột tự nâng Will-Burt cung cấp một nguồn sáng mạnh mẽ, ổn định và linh hoạt, đáp ứng mọi yêu cầu khắt khe của công tác cứu hộ, cứu nạn:</p>\n<ul>\n<li><strong>Triển khai nhanh chóng và dễ dàng:</strong> Trong các tình huống cấp bách, mỗi giây đều quý giá. Cột tự nâng Will-Burt được thiết kế để triển khai tự động chỉ trong vài phút, giúp đội cứu hộ nhanh chóng thiết lập vùng chiếu sáng cần thiết mà không tốn nhiều thời gian và công sức.</li>\n<li><strong>Chiếu sáng diện rộng, cường độ cao:</strong> Được tích hợp với các hệ thống đèn LED hoặc halogen ( điều kiện thời tiết xấu, nhiều sương mù) công suất lớn, cột tự nâng Will-Burt có khả năng chiếu sáng một khu vực rộng lớn với cường độ ánh sáng cực cao. Điều này đặc biệt quan trọng trong việc tìm kiếm nạn nhân, đánh giá hiện trường và thực hiện các thao tác cứu hộ phức tạp.</li>\n<li><strong>Độ bền vượt trội trong mọi điều kiện:</strong> Các sản phẩm của Will-Burt được chế tạo từ vật liệu cao cấp, có khả năng chống chịu tốt với điều kiện thời tiết khắc nghiệt như mưa, gió, bụi bẩn và nhiệt độ dao động. Điều này đảm bảo hiệu suất hoạt động ổn định và bền bỉ trong mọi môi trường cứu hộ, từ địa hình đồi núi hiểm trở đến các khu vực đô thị đông đúc.</li>\n<li><strong>Linh hoạt và đa dạng ứng dụng:</strong> Cột tự nâng Will-Burt có thể được gắn trên nhiều loại phương tiện cứu hộ khác nhau, bao gồm xe cứu hỏa, xe cứu thương, xe chuyên dụng của cảnh sát và các phương tiện cứu hộ khác. Sự linh hoạt này cho phép các đội cứu hộ mang theo và triển khai hệ thống chiếu sáng mọi lúc mọi nơi.</li>\n<li><strong>An toàn và tiết kiệm năng lượng:</strong> Với công nghệ chiếu sáng hiện đại, cột tự nâng Will-Burt không chỉ cung cấp ánh sáng hiệu quả mà còn tối ưu hóa việc sử dụng năng lượng, giảm thiểu chi phí vận hành. Đồng thời, hệ thống được thiết kế đảm bảo an toàn tối đa cho người sử dụng trong quá trình vận hành.</li>\n<li><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-2975 alignleft\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-1.jpg\" alt=\"\" width=\"185\" height=\"342\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-1.jpg 519w, https://newatlantic.vn/wp-content/uploads/2025/06/powerlite-profiler-web-2-162x300.jpg 162w, https://newatlantic.vn/wp-content/uploads/2025/06/powerlite-profiler-web-2-300x555.jpg 300w\" sizes=\"auto, (max-width: 185px) 100vw, 185px\" /><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-2969 alignnone\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-2.jpg\" alt=\"cột_tự_nâng_willburt\" width=\"446\" height=\"334\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-2.jpg 1440w, https://newatlantic.vn/wp-content/uploads/2025/06/493196632_1316159093370275_2803667566726191278_n-300x225.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/06/493196632_1316159093370275_2803667566726191278_n-1024x768.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2025/06/493196632_1316159093370275_2803667566726191278_n-768x576.jpg 768w\" sizes=\"auto, (max-width: 446px) 100vw, 446px\" /></li>\n</ul>\n<p><strong>Ứng dụng thực tế của cột tự nâng Will-Burt trong cứu hộ, cứu nạn</strong></p>\n<p>Hình ảnh chiếc xe cứu hộ của Heartland Towing &amp; Recovery hoạt động ban đêm với ánh sáng rực rỡ là minh chứng rõ ràng cho hiệu quả của hệ thống chiếu sáng mạnh mẽ. Cột tự nâng Will-Burt chính là một phần không thể thiếu trong các hoạt động như:</p>\n<ul>\n<li><strong>Tìm kiếm và cứu nạn:</strong> Chiếu sáng khu vực tìm kiếm giúp xác định vị trí nạn nhân nhanh chóng và chính xác, đặc biệt trong các tình huống tai nạn giao thông, sạt lở đất hoặc thảm họa tự nhiên.</li>\n<li><strong>Khắc phục sự cố và sửa chữa:</strong> Cung cấp đủ ánh sáng cho các kỹ thuật viên thực hiện sửa chữa khẩn cấp, khắc phục sự cố phương tiện hoặc hạ tầng trong điều kiện thiếu sáng.</li>\n<li><strong>Điều phối hiện trường:</strong> Tạo ra một không gian làm việc an toàn và hiệu quả cho các đội cứu hộ, giúp họ dễ dàng phối hợp và điều phối các hoạt động.</li>\n<li><strong>Hỗ trợ công tác giám sát:</strong> Ánh sáng từ cột tự nâng giúp các lực lượng chức năng dễ dàng giám sát và kiểm soát tình hình tại hiện trường, đảm bảo an ninh và trật tự.</li>\n<li><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-2970\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-3.jpg\" alt=\"cột_tự_nâng_willburt_2\" width=\"719\" height=\"539\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-3.jpg 960w, https://newatlantic.vn/wp-content/uploads/2025/06/500050860_1337377877915063_4621412834743445553_n-300x225.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/06/500050860_1337377877915063_4621412834743445553_n-768x576.jpg 768w\" sizes=\"auto, (max-width: 719px) 100vw, 719px\" /></li>\n</ul>\n<p>SẢN PHẨM LIÊN QUAN</p>\n\t\n  \n    <div class=\"row large-columns-4 medium-columns-3 small-columns-2 row-small slider row-slider slider-nav-reveal slider-nav-push\"  data-flickity-options='{\"imagesLoaded\": true, \"groupCells\": \"100%\", \"dragThreshold\" : 5, \"cellAlign\": \"left\",\"wrapAround\": true,\"prevNextButtons\": true,\"percentPosition\": true,\"pageDots\": false, \"rightToLeft\": false, \"autoPlay\" : false}' >\n\n  \n\t     <div class=\"product-small col has-hover product type-product post-1269 status-publish first instock product_cat-dong-cot-ang-ten-trien-khai-nhanh-qeam-mts product_cat-thiet-bi-willburt has-post-thumbnail shipping-taxable product-type-simple\">\n\t<div class=\"col-inner\">\n\t\n<div class=\"badge-container absolute left top z-1\">\n\n",
-    image: "/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-0.jpg",
-    date: "2025-06-09",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-1",
+    "title": "Cột tự nâng Will-Burt, gắn đèn cứu hộ",
+    "slug": "cot-tu-nang-will-burt-gan-den-cuu-ho",
+    "excerpt": "Cột tự nâng Will-Burt: Ánh sáng dẫn lối trong mọi cuộc cứu hộ, cứu nạn Trong những tình huống khẩn cấp, khi màn đêm bao trùm hoặc điều kiện ánh sáng kém, khả năng chiếu sáng hiệu quả đóng vai trò then chốt trong mọi hoạt động cứu hộ, cứu nạn. Nắm bắt được nhu…",
+    "content": "\n\n\t<p><strong>Cột tự nâng Will-Burt: Ánh sáng dẫn lối trong mọi cuộc cứu hộ, cứu nạn</strong></p>\n<p><strong>Trong những tình huống khẩn cấp, khi màn đêm bao trùm hoặc điều kiện ánh sáng kém, khả năng chiếu sáng hiệu quả đóng vai trò then chốt trong mọi hoạt động cứu hộ, cứu nạn. Nắm bắt được nhu cầu này, cột tự nâng Will-Burt đã trở thành giải pháp chiếu sáng lý tưởng, mang lại hiệu quả vượt trội cho các đội cứu hộ chuyên nghiệp trên toàn thế giới.</strong></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-2968\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-0.jpg\" alt=\"\" width=\"758\" height=\"569\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-0.jpg 1440w, https://newatlantic.vn/wp-content/uploads/2025/06/492907470_1316159246703593_2883377685115168198_n-300x225.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/06/492907470_1316159246703593_2883377685115168198_n-1024x768.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2025/06/492907470_1316159246703593_2883377685115168198_n-768x576.jpg 768w\" sizes=\"auto, (max-width: 758px) 100vw, 758px\" /></p>\n<p><strong>Tại sao cột tự nâng Will-Burt là lựa chọn hàng đầu cho chiếu sáng cứu hộ?</strong></p>\n<p>Với thiết kế thông minh và công nghệ tiên tiến, cột tự nâng Will-Burt cung cấp một nguồn sáng mạnh mẽ, ổn định và linh hoạt, đáp ứng mọi yêu cầu khắt khe của công tác cứu hộ, cứu nạn:</p>\n<ul>\n<li><strong>Triển khai nhanh chóng và dễ dàng:</strong> Trong các tình huống cấp bách, mỗi giây đều quý giá. Cột tự nâng Will-Burt được thiết kế để triển khai tự động chỉ trong vài phút, giúp đội cứu hộ nhanh chóng thiết lập vùng chiếu sáng cần thiết mà không tốn nhiều thời gian và công sức.</li>\n<li><strong>Chiếu sáng diện rộng, cường độ cao:</strong> Được tích hợp với các hệ thống đèn LED hoặc halogen ( điều kiện thời tiết xấu, nhiều sương mù) công suất lớn, cột tự nâng Will-Burt có khả năng chiếu sáng một khu vực rộng lớn với cường độ ánh sáng cực cao. Điều này đặc biệt quan trọng trong việc tìm kiếm nạn nhân, đánh giá hiện trường và thực hiện các thao tác cứu hộ phức tạp.</li>\n<li><strong>Độ bền vượt trội trong mọi điều kiện:</strong> Các sản phẩm của Will-Burt được chế tạo từ vật liệu cao cấp, có khả năng chống chịu tốt với điều kiện thời tiết khắc nghiệt như mưa, gió, bụi bẩn và nhiệt độ dao động. Điều này đảm bảo hiệu suất hoạt động ổn định và bền bỉ trong mọi môi trường cứu hộ, từ địa hình đồi núi hiểm trở đến các khu vực đô thị đông đúc.</li>\n<li><strong>Linh hoạt và đa dạng ứng dụng:</strong> Cột tự nâng Will-Burt có thể được gắn trên nhiều loại phương tiện cứu hộ khác nhau, bao gồm xe cứu hỏa, xe cứu thương, xe chuyên dụng của cảnh sát và các phương tiện cứu hộ khác. Sự linh hoạt này cho phép các đội cứu hộ mang theo và triển khai hệ thống chiếu sáng mọi lúc mọi nơi.</li>\n<li><strong>An toàn và tiết kiệm năng lượng:</strong> Với công nghệ chiếu sáng hiện đại, cột tự nâng Will-Burt không chỉ cung cấp ánh sáng hiệu quả mà còn tối ưu hóa việc sử dụng năng lượng, giảm thiểu chi phí vận hành. Đồng thời, hệ thống được thiết kế đảm bảo an toàn tối đa cho người sử dụng trong quá trình vận hành.</li>\n<li><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-2975 alignleft\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-1.jpg\" alt=\"\" width=\"185\" height=\"342\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-1.jpg 519w, https://newatlantic.vn/wp-content/uploads/2025/06/powerlite-profiler-web-2-162x300.jpg 162w, https://newatlantic.vn/wp-content/uploads/2025/06/powerlite-profiler-web-2-300x555.jpg 300w\" sizes=\"auto, (max-width: 185px) 100vw, 185px\" /><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-2969 alignnone\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-2.jpg\" alt=\"cột_tự_nâng_willburt\" width=\"446\" height=\"334\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-2.jpg 1440w, https://newatlantic.vn/wp-content/uploads/2025/06/493196632_1316159093370275_2803667566726191278_n-300x225.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/06/493196632_1316159093370275_2803667566726191278_n-1024x768.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2025/06/493196632_1316159093370275_2803667566726191278_n-768x576.jpg 768w\" sizes=\"auto, (max-width: 446px) 100vw, 446px\" /></li>\n</ul>\n<p><strong>Ứng dụng thực tế của cột tự nâng Will-Burt trong cứu hộ, cứu nạn</strong></p>\n<p>Hình ảnh chiếc xe cứu hộ của Heartland Towing &amp; Recovery hoạt động ban đêm với ánh sáng rực rỡ là minh chứng rõ ràng cho hiệu quả của hệ thống chiếu sáng mạnh mẽ. Cột tự nâng Will-Burt chính là một phần không thể thiếu trong các hoạt động như:</p>\n<ul>\n<li><strong>Tìm kiếm và cứu nạn:</strong> Chiếu sáng khu vực tìm kiếm giúp xác định vị trí nạn nhân nhanh chóng và chính xác, đặc biệt trong các tình huống tai nạn giao thông, sạt lở đất hoặc thảm họa tự nhiên.</li>\n<li><strong>Khắc phục sự cố và sửa chữa:</strong> Cung cấp đủ ánh sáng cho các kỹ thuật viên thực hiện sửa chữa khẩn cấp, khắc phục sự cố phương tiện hoặc hạ tầng trong điều kiện thiếu sáng.</li>\n<li><strong>Điều phối hiện trường:</strong> Tạo ra một không gian làm việc an toàn và hiệu quả cho các đội cứu hộ, giúp họ dễ dàng phối hợp và điều phối các hoạt động.</li>\n<li><strong>Hỗ trợ công tác giám sát:</strong> Ánh sáng từ cột tự nâng giúp các lực lượng chức năng dễ dàng giám sát và kiểm soát tình hình tại hiện trường, đảm bảo an ninh và trật tự.</li>\n<li><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-2970\" src=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-3.jpg\" alt=\"cột_tự_nâng_willburt_2\" width=\"719\" height=\"539\" srcset=\"/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-3.jpg 960w, https://newatlantic.vn/wp-content/uploads/2025/06/500050860_1337377877915063_4621412834743445553_n-300x225.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/06/500050860_1337377877915063_4621412834743445553_n-768x576.jpg 768w\" sizes=\"auto, (max-width: 719px) 100vw, 719px\" /></li>\n</ul>\n<p>SẢN PHẨM LIÊN QUAN</p>\n\t\n  \n    <div class=\"row large-columns-4 medium-columns-3 small-columns-2 row-small slider row-slider slider-nav-reveal slider-nav-push\"  data-flickity-options='{\"imagesLoaded\": true, \"groupCells\": \"100%\", \"dragThreshold\" : 5, \"cellAlign\": \"left\",\"wrapAround\": true,\"prevNextButtons\": true,\"percentPosition\": true,\"pageDots\": false, \"rightToLeft\": false, \"autoPlay\" : false}' >\n\n  \n\t     <div class=\"product-small col has-hover product type-product post-1269 status-publish first instock product_cat-dong-cot-ang-ten-trien-khai-nhanh-qeam-mts product_cat-thiet-bi-willburt has-post-thumbnail shipping-taxable product-type-simple\">\n\t<div class=\"col-inner\">\n\t\n<div class=\"badge-container absolute left top z-1\">\n\n",
+    "image": "/images/news/cot-tu-nang-will-burt-gan-den-cuu-ho-0-0.jpg",
+    "date": "2025-06-09",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-2",
-    title: "CỘT ( TRỤ ) TỰ NÂNG WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG & TRUYỀN THÔNG",
-    slug: "cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong",
-    excerpt: "CỘT ( TRỤ ) TỰ NÂNG  WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG & TRUYỀN THÔNG Trong ngành phát sóng và truyền thông hiện đại, việc sở hữu các thiết bị nâng hạ đáng tin cậy là yếu tố then chốt để đảm bảo chất lượng chương trình và hiệu quả…",
-    content: "\n\n\t<p><strong>CỘT ( TRỤ ) TỰ NÂNG  WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG &amp; TRUYỀN THÔNG</strong></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignleft wp-image-2960\" title=\"telescopic-mast-1\" src=\"/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-0.png\" alt=\"\" width=\"309\" height=\"271\" />Trong ngành <strong>phát sóng</strong> và <strong>truyền thông</strong> hiện đại, việc sở hữu các thiết bị nâng hạ đáng tin cậy là yếu tố then chốt để đảm bảo chất lượng chương trình và hiệu quả hoạt động. Với hơn 50 năm kinh nghiệm trong cả ứng dụng thương mại và quân sự, <strong>Cột ( trụ ) tự nâng  khí nén không khóa của Will-Burt</strong> đã khẳng định vị thế là giải pháp nâng hạ ưu việt, được tin dùng rộng rãi bởi các chuyên gia trong ngành.</p>\n<p><strong>Độ tin cậy và Hiệu suất vượt trội của Cột ( trụ ) tự nâng truyền hình Will-Burt</strong></p>\n<p>Các sản phẩm của Will-Burt được thiết kế và sản xuất để chịu đựng những môi trường và điều kiện thời tiết khắc nghiệt nhất. Điều này có nghĩa là bạn có thể hoàn toàn tin tưởng vào <strong>Cột ( trụ ) tự nâng truyền hình</strong> của Will-Burt sẽ hoạt động bền bỉ và không gặp sự cố trong nhiều năm liền. Các kỹ sư của chúng tôi đã đảm bảo rằng <strong>Cột ( trụ ) tự nâng Will-Burt</strong> sẽ luôn sẵn sàng làm việc tại hiện trường, giúp bạn tiết kiệm thời gian và chi phí bảo trì.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p><strong>Đảm bảo chất lượng phát sóng với độ chính xác tối ưu<img loading=\"lazy\" decoding=\"async\" class=\"alignright wp-image-2963 size-full\" title=\"telescopic-mast\" src=\"/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-1.jpg\" alt=\"\" width=\"265\" height=\"353\" srcset=\"/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-1.jpg 265w, https://newatlantic.vn/wp-content/uploads/2025/06/Anh3-225x300.png 225w\" sizes=\"auto, (max-width: 265px) 100vw, 265px\" /></strong></p>\n<p>Đối với các nhà đài và đơn vị sản xuất nội dung, <strong>độ chính xác</strong> là yếu tố không thể thiếu. Các Cột ( trụ ) tự nâng của Will-Burt được trang bị hai rãnh then dọc thân trụ, đảm bảo <strong>độ chính xác tuyệt đối</strong> khi nâng hạ <strong>thiết bị phát sóng</strong> và <strong>thiết bị truyền thông</strong>. Điều này giúp tối ưu hóa hiệu suất của mọi loại <strong>thiết bị phát sóng</strong>, từ camera tới anten, đảm bảo hiệu quả và không gián đoạn.</p>\n<p><strong>Vận hành đơn giản, hiệu quả tối đa</strong></p>\n<p>Một trong những ưu điểm nổi bật của <strong>Cột ( trụ ) tự nâng Will-Burt</strong> là sự <strong>dễ dàng vận hành</strong>. . Thiết kế thông minh giúp đội ngũ vận hành dễ dàng điều chỉnh mà không cần mất nhiều thời gian cài đặt phức tạp.</p>\n<p>Tại Sao Nên Chọn Cột Nâng Khí Nén Không Khóa Will-Burt?</p>\n<p>✔ Độ chính xác cao</p>\n<p>✔ Hoạt động bền bỉ</p>\n<p>✔ Dễ dàng vận hành</p>\n<p>✔ Hiệu suất vượt trội</p>\n\n\t\n\t<div class=\"blog-share text-center\"><div class=\"is-divider medium\">",
-    image: "/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-0.png",
-    date: "2025-06-05",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-2",
+    "title": "CỘT ( TRỤ ) TỰ NÂNG WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG & TRUYỀN THÔNG",
+    "slug": "cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong",
+    "excerpt": "CỘT ( TRỤ ) TỰ NÂNG  WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG & TRUYỀN THÔNG Trong ngành phát sóng và truyền thông hiện đại, việc sở hữu các thiết bị nâng hạ đáng tin cậy là yếu tố then chốt để đảm bảo chất lượng chương trình và hiệu quả…",
+    "content": "\n\n\t<p><strong>CỘT ( TRỤ ) TỰ NÂNG  WILL-BURT: GIẢI PHÁP NÂNG HẠ TIN CẬY CHO NGÀNH PHÁT SÓNG &amp; TRUYỀN THÔNG</strong></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignleft wp-image-2960\" title=\"telescopic-mast-1\" src=\"/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-0.png\" alt=\"\" width=\"309\" height=\"271\" />Trong ngành <strong>phát sóng</strong> và <strong>truyền thông</strong> hiện đại, việc sở hữu các thiết bị nâng hạ đáng tin cậy là yếu tố then chốt để đảm bảo chất lượng chương trình và hiệu quả hoạt động. Với hơn 50 năm kinh nghiệm trong cả ứng dụng thương mại và quân sự, <strong>Cột ( trụ ) tự nâng  khí nén không khóa của Will-Burt</strong> đã khẳng định vị thế là giải pháp nâng hạ ưu việt, được tin dùng rộng rãi bởi các chuyên gia trong ngành.</p>\n<p><strong>Độ tin cậy và Hiệu suất vượt trội của Cột ( trụ ) tự nâng truyền hình Will-Burt</strong></p>\n<p>Các sản phẩm của Will-Burt được thiết kế và sản xuất để chịu đựng những môi trường và điều kiện thời tiết khắc nghiệt nhất. Điều này có nghĩa là bạn có thể hoàn toàn tin tưởng vào <strong>Cột ( trụ ) tự nâng truyền hình</strong> của Will-Burt sẽ hoạt động bền bỉ và không gặp sự cố trong nhiều năm liền. Các kỹ sư của chúng tôi đã đảm bảo rằng <strong>Cột ( trụ ) tự nâng Will-Burt</strong> sẽ luôn sẵn sàng làm việc tại hiện trường, giúp bạn tiết kiệm thời gian và chi phí bảo trì.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p><strong>Đảm bảo chất lượng phát sóng với độ chính xác tối ưu<img loading=\"lazy\" decoding=\"async\" class=\"alignright wp-image-2963 size-full\" title=\"telescopic-mast\" src=\"/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-1.jpg\" alt=\"\" width=\"265\" height=\"353\" srcset=\"/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-1.jpg 265w, https://newatlantic.vn/wp-content/uploads/2025/06/Anh3-225x300.png 225w\" sizes=\"auto, (max-width: 265px) 100vw, 265px\" /></strong></p>\n<p>Đối với các nhà đài và đơn vị sản xuất nội dung, <strong>độ chính xác</strong> là yếu tố không thể thiếu. Các Cột ( trụ ) tự nâng của Will-Burt được trang bị hai rãnh then dọc thân trụ, đảm bảo <strong>độ chính xác tuyệt đối</strong> khi nâng hạ <strong>thiết bị phát sóng</strong> và <strong>thiết bị truyền thông</strong>. Điều này giúp tối ưu hóa hiệu suất của mọi loại <strong>thiết bị phát sóng</strong>, từ camera tới anten, đảm bảo hiệu quả và không gián đoạn.</p>\n<p><strong>Vận hành đơn giản, hiệu quả tối đa</strong></p>\n<p>Một trong những ưu điểm nổi bật của <strong>Cột ( trụ ) tự nâng Will-Burt</strong> là sự <strong>dễ dàng vận hành</strong>. . Thiết kế thông minh giúp đội ngũ vận hành dễ dàng điều chỉnh mà không cần mất nhiều thời gian cài đặt phức tạp.</p>\n<p>Tại Sao Nên Chọn Cột Nâng Khí Nén Không Khóa Will-Burt?</p>\n<p>✔ Độ chính xác cao</p>\n<p>✔ Hoạt động bền bỉ</p>\n<p>✔ Dễ dàng vận hành</p>\n<p>✔ Hiệu suất vượt trội</p>\n\n\t\n\t<div class=\"blog-share text-center\"><div class=\"is-divider medium\">",
+    "image": "/images/news/cot-tru-tu-nang-will-burt-giai-phap-nang-ha-tin-cay-cho-nganh-phat-song-truyen-thong-1-0.png",
+    "date": "2025-06-05",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-3",
-    title: "Lời tri ân và chúc mừng năm mới 2025 từ NEW ATLANTIC",
-    slug: "loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic",
-    excerpt: "Kính gửi Quý khách hàng và Đối tác, Năm cũ đã trôi qua, chúng ta hãy cùng tạm gác lại những nỗi buồn và kỷ niệm cũ, hướng tới một năm mới tràn đầy hy vọng. Nhân dịp Tết đoàn viên Ất Tỵ 2025, NEW AIT xin gửi lời tri ân sâu sắc đến Quý…",
-    content: "\n\n\t<div style=\"font-family: 'Arial', sans-serif; color: #333; max-width: 600px; margin: 0 auto; line-height: 1.6;\">\n<h1 style=\"color: #d32f2f; text-align: center; font-size: 24px; margin-bottom: 20px;\"><span style=\"font-size: 115%;\">Kính gửi Quý khách </span><span style=\"font-size: 115%;\">hàng và Đối tác,</span><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-2932\" style=\"font-size: 14.4px; color: #555555;\" src=\"/images/news/loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic-2-0.jpg\" alt=\"\" width=\"600\" height=\"250\" srcset=\"/images/news/loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic-2-0.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/01/z6223065832372_aeffdf60b603995cf3b35f65067664be.jpg 720w\" sizes=\"auto, (max-width: 600px) 100vw, 600px\" /></h1>\n<p style=\"font-size: 16px; text-align: justify;\"><span style=\"font-size: 115%;\">Năm cũ đã trôi qua, chúng ta hãy cùng tạm gác lại những nỗi buồn và kỷ niệm cũ, hướng tới một năm mới tràn đầy hy vọng. Nhân dịp Tết đoàn viên Ất Tỵ 2025, <strong style=\"color: #d32f2f;\">NEW AIT</strong> xin gửi lời tri ân sâu sắc đến Quý khách hàng và Đối tác đã luôn đồng hành và ủng hộ chúng tôi trong suốt thời gian qua.</span></p>\n<p style=\"font-size: 16px; text-align: justify;\"><span style=\"font-size: 115%;\">Chúng tôi hy vọng năm mới sẽ mang đến thật nhiều phúc lộc, thịnh vượng và sự viên mãn cho Quý vị. Chúc Quý khách hàng và Đối tác một năm mới <strong style=\"color: #d32f2f;\">an khang thịnh vượng</strong>, <em>vạn sự như ý</em> và <strong style=\"color: #d32f2f;\">thành công rực rỡ</strong>!</span></p>\n<p><span style=\"font-size: 130%;\">Chúng tôi xin gởi lịch nghỉ Tết Nguyên Đán 2025 Ất Tỵ đến quý khách hàng như sau:</span></p>\n<div style=\"width: 1020px;\" class=\"wp-video\"><!--[if lt IE 9]><![endif]-->\n<video class=\"wp-video-shortcode\" id=\"video-2922-1\" width=\"1020\" height=\"1020\" loop autoplay preload=\"metadata\" controls=\"controls\"><source type=\"video/mp4\" src=\"https://newatlantic.vn/wp-content/uploads/2025/01/TB-NGHI-TET-2025.mp4?_=1\" /><a href=\"https://newatlantic.vn/wp-content/uploads/2025/01/TB-NGHI-TET-2025.mp4\">https://newatlantic.vn/wp-content/uploads/2025/01/TB-NGHI-TET-2025.mp4</a></video>",
-    image: "/images/news/loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic-2-0.jpg",
-    date: "2025-01-03",
-    author: "namnam",
-    category: "Tin tức"
+    "id": "news-3",
+    "title": "Lời tri ân và chúc mừng năm mới 2025 từ NEW ATLANTIC",
+    "slug": "loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic",
+    "excerpt": "Kính gửi Quý khách hàng và Đối tác, Năm cũ đã trôi qua, chúng ta hãy cùng tạm gác lại những nỗi buồn và kỷ niệm cũ, hướng tới một năm mới tràn đầy hy vọng. Nhân dịp Tết đoàn viên Ất Tỵ 2025, NEW AIT xin gửi lời tri ân sâu sắc đến Quý…",
+    "content": "\n\n\t<div style=\"font-family: 'Arial', sans-serif; color: #333; max-width: 600px; margin: 0 auto; line-height: 1.6;\">\n<h1 style=\"color: #d32f2f; text-align: center; font-size: 24px; margin-bottom: 20px;\"><span style=\"font-size: 115%;\">Kính gửi Quý khách </span><span style=\"font-size: 115%;\">hàng và Đối tác,</span><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-2932\" style=\"font-size: 14.4px; color: #555555;\" src=\"/images/news/loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic-2-0.jpg\" alt=\"\" width=\"600\" height=\"250\" srcset=\"/images/news/loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic-2-0.jpg 300w, https://newatlantic.vn/wp-content/uploads/2025/01/z6223065832372_aeffdf60b603995cf3b35f65067664be.jpg 720w\" sizes=\"auto, (max-width: 600px) 100vw, 600px\" /></h1>\n<p style=\"font-size: 16px; text-align: justify;\"><span style=\"font-size: 115%;\">Năm cũ đã trôi qua, chúng ta hãy cùng tạm gác lại những nỗi buồn và kỷ niệm cũ, hướng tới một năm mới tràn đầy hy vọng. Nhân dịp Tết đoàn viên Ất Tỵ 2025, <strong style=\"color: #d32f2f;\">NEW AIT</strong> xin gửi lời tri ân sâu sắc đến Quý khách hàng và Đối tác đã luôn đồng hành và ủng hộ chúng tôi trong suốt thời gian qua.</span></p>\n<p style=\"font-size: 16px; text-align: justify;\"><span style=\"font-size: 115%;\">Chúng tôi hy vọng năm mới sẽ mang đến thật nhiều phúc lộc, thịnh vượng và sự viên mãn cho Quý vị. Chúc Quý khách hàng và Đối tác một năm mới <strong style=\"color: #d32f2f;\">an khang thịnh vượng</strong>, <em>vạn sự như ý</em> và <strong style=\"color: #d32f2f;\">thành công rực rỡ</strong>!</span></p>\n<p><span style=\"font-size: 130%;\">Chúng tôi xin gởi lịch nghỉ Tết Nguyên Đán 2025 Ất Tỵ đến quý khách hàng như sau:</span></p>\n<div style=\"width: 1020px;\" class=\"wp-video\"><!--[if lt IE 9]><![endif]-->\n<video class=\"wp-video-shortcode\" id=\"video-2922-1\" width=\"1020\" height=\"1020\" loop autoplay preload=\"metadata\" controls=\"controls\"><source type=\"video/mp4\" src=\"https://newatlantic.vn/wp-content/uploads/2025/01/TB-NGHI-TET-2025.mp4?_=1\" /><a href=\"https://newatlantic.vn/wp-content/uploads/2025/01/TB-NGHI-TET-2025.mp4\">https://newatlantic.vn/wp-content/uploads/2025/01/TB-NGHI-TET-2025.mp4</a></video>",
+    "image": "/images/news/loi-tri-an-va-chuc-mung-nam-moi-2025-tu-new-atlantic-2-0.jpg",
+    "date": "2025-01-03",
+    "author": "namnam",
+    "category": "Tin tức"
   },
   {
-    id: "news-4",
-    title: "12 loại xe nâng phổ biến hiện nay",
-    slug: "12-loai-xe-nang-pho-bien-hien-nay",
-    excerpt: "12 loại xe nâng phổ biến hiện nay",
-    content: "\n\n\t\t<div id=\"gap-70642311\" class=\"gap-element clearfix\" style=\"display:block; height:auto;\">\n\t\t\n\n\t",
-    image: "/images/news/12-loai-xe-nang-pho-bien-hien-nay-3-0.png",
-    date: "2024-06-05",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-4",
+    "title": "12 loại xe nâng phổ biến hiện nay",
+    "slug": "12-loai-xe-nang-pho-bien-hien-nay",
+    "excerpt": "12 loại xe nâng phổ biến hiện nay",
+    "content": "\n\n\t\t<div id=\"gap-70642311\" class=\"gap-element clearfix\" style=\"display:block; height:auto;\">\n\t\t\n\n\t",
+    "image": "/images/news/12-loai-xe-nang-pho-bien-hien-nay-3-0.png",
+    "date": "2024-06-05",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-5",
-    title: "Lịch sử hình thành và phát triển công ty WILL-BURT",
-    slug: "lich-su-hinh-thanh-va-phat-trien-cong-ty-will-burt",
-    excerpt: "Logo công ty Will-Burt năm 1980 Hiện tại ở Việt Nàm Công Ty Cổ Phần Thương Mại Tân Đại Tây Dương NEW AIT JSC là đơn vị được trân trọng ủy quyền từ Công ty WIll-BURT trở thành đại lý phân phối dòng sản phẩm cột nâng tự hào của thương hiệu WILL-BURT. Chúng tôi tự hào…",
-    content: "\n\n\t<p style=\"text-align: center;\"><strong><em>Logo công ty Will-Burt năm 1980</em></strong></p>\n\t<div id=\"gap-203333039\" class=\"gap-element clearfix\" style=\"display:block; height:auto;\">\n\t\t\n\n\t",
-    image: "/images/news/lich-su-hinh-thanh-va-phat-trien-cong-ty-will-burt-4-0.jpg",
-    date: "2024-06-03",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-5",
+    "title": "Lịch sử hình thành và phát triển công ty WILL-BURT",
+    "slug": "lich-su-hinh-thanh-va-phat-trien-cong-ty-will-burt",
+    "excerpt": "Logo công ty Will-Burt năm 1980 Hiện tại ở Việt Nàm Công Ty Cổ Phần Thương Mại Tân Đại Tây Dương NEW AIT JSC là đơn vị được trân trọng ủy quyền từ Công ty WIll-BURT trở thành đại lý phân phối dòng sản phẩm cột nâng tự hào của thương hiệu WILL-BURT. Chúng tôi tự hào…",
+    "content": "\n\n\t<p style=\"text-align: center;\"><strong><em>Logo công ty Will-Burt năm 1980</em></strong></p>\n\t<div id=\"gap-203333039\" class=\"gap-element clearfix\" style=\"display:block; height:auto;\">\n\t\t\n\n\t",
+    "image": "/images/news/lich-su-hinh-thanh-va-phat-trien-cong-ty-will-burt-4-0.jpg",
+    "date": "2024-06-03",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-6",
-    title: "Công ty NEW AIT tham gia Triển lãm Thương mại cột nâng ở Texas",
-    slug: "cong-ty-new-ait-tham-gia-trien-lam-thuong-mai-cot-nang-o-texas",
-    excerpt: "Ngày 24 tháng 5 năm 2024 – Công ty NEW AIT đã hoàn thành chuẩn bị tham gia Triển lãm Thương mại Border Expo ở Texas với sản phẩm cột nâng CES (Compact Elevation System) 4M  được gắn trên xe Ford F-250. Đây là một cột mốc quan trọng đánh dấu sự phát triển và cam kết…",
-    content: "\n\n\t<div class=\"flex flex-grow flex-col max-w-full\">\n<div class=\"min-h-[20px] text-message flex flex-col items-start whitespace-pre-wrap break-words [.text-message+&amp;]:mt-5 juice:w-full juice:items-end overflow-x-auto gap-2\" dir=\"auto\" data-message-author-role=\"assistant\" data-message-id=\"6d40d5b6-d5bd-49dc-bf1d-2e72ae905029\">\n<div class=\"flex w-full flex-col gap-1 juice:empty:hidden juice:first:pt-[3px]\">\n<div class=\"markdown prose w-full break-words dark:prose-invert light\">\n<p><span style=\"font-size: 110%;\">Ngày 24 tháng 5 năm 2024 – Công ty NEW AIT đã hoàn thành chuẩn bị tham gia Triển lãm Thương mại Border Expo ở Texas với sản phẩm <span style=\"text-decoration: underline; color: #00aae7;\"><a style=\"color: #00aae7; text-decoration: underline;\" href=\"https://newatlantic.vn/he-thong-nang-compact-elevation-system/\">cột nâng CES (Compact Elevation System) 4M</a></span>  được gắn trên xe Ford F-250. Đây là một cột mốc quan trọng đánh dấu sự phát triển và cam kết của công ty trong việc phân phối các giải pháp n��ng hạ hiện đại và hiệu quả cho khách hàng trên toàn thế giới.</span></p>\n<p><span style=\"font-size: 110%;\">Cột nâng được đem đi triển lãm lần này là một trong những sản phẩm tiên tiến nhất của WILL-BURT, được thiết kế để đáp ứng nhu cầu khắt khe của các ngành công nghiệp. Với khả năng nâng tải trọng lớn và vận hành êm ái, sản phẩm này sẽ giúp khách hàng tại Texas nâng cao hiệu suất làm việc và đảm bảo an toàn trong quá trình vận hành.</span></p>\n",
-    image: "/images/news/cong-ty-new-ait-tham-gia-trien-lam-thuong-mai-cot-nang-o-texas-5-0.jpg",
-    date: "2024-05-24",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-6",
+    "title": "Công ty NEW AIT tham gia Triển lãm Thương mại cột nâng ở Texas",
+    "slug": "cong-ty-new-ait-tham-gia-trien-lam-thuong-mai-cot-nang-o-texas",
+    "excerpt": "Ngày 24 tháng 5 năm 2024 – Công ty NEW AIT đã hoàn thành chuẩn bị tham gia Triển lãm Thương mại Border Expo ở Texas với sản phẩm cột nâng CES (Compact Elevation System) 4M  được gắn trên xe Ford F-250. Đây là một cột mốc quan trọng đánh dấu sự phát triển và cam kết…",
+    "content": "\n\n\t<div class=\"flex flex-grow flex-col max-w-full\">\n<div class=\"min-h-[20px] text-message flex flex-col items-start whitespace-pre-wrap break-words [.text-message+&amp;]:mt-5 juice:w-full juice:items-end overflow-x-auto gap-2\" dir=\"auto\" data-message-author-role=\"assistant\" data-message-id=\"6d40d5b6-d5bd-49dc-bf1d-2e72ae905029\">\n<div class=\"flex w-full flex-col gap-1 juice:empty:hidden juice:first:pt-[3px]\">\n<div class=\"markdown prose w-full break-words dark:prose-invert light\">\n<p><span style=\"font-size: 110%;\">Ngày 24 tháng 5 năm 2024 – Công ty NEW AIT đã hoàn thành chuẩn bị tham gia Triển lãm Thương mại Border Expo ở Texas với sản phẩm <span style=\"text-decoration: underline; color: #00aae7;\"><a style=\"color: #00aae7; text-decoration: underline;\" href=\"https://newatlantic.vn/he-thong-nang-compact-elevation-system/\">cột nâng CES (Compact Elevation System) 4M</a></span>  được gắn trên xe Ford F-250. Đây là một cột mốc quan trọng đánh dấu sự phát triển và cam kết của công ty trong việc phân phối các giải pháp n��ng hạ hiện đại và hiệu quả cho khách hàng trên toàn thế giới.</span></p>\n<p><span style=\"font-size: 110%;\">Cột nâng được đem đi triển lãm lần này là một trong những sản phẩm tiên tiến nhất của WILL-BURT, được thiết kế để đáp ứng nhu cầu khắt khe của các ngành công nghiệp. Với khả năng nâng tải trọng lớn và vận hành êm ái, sản phẩm này sẽ giúp khách hàng tại Texas nâng cao hiệu suất làm việc và đảm bảo an toàn trong quá trình vận hành.</span></p>\n",
+    "image": "/images/news/cong-ty-new-ait-tham-gia-trien-lam-thuong-mai-cot-nang-o-texas-5-0.jpg",
+    "date": "2024-05-24",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-7",
-    title: "Xe Nâng Là Gì ? Ứng Dụng và Cấu Tạo Xe Nâng",
-    slug: "xe-nang-la-gi-ung-dung-va-cau-tao-xe-nang",
-    excerpt: "Mô hình xe nâng cơ bản Mục lụcI. Các bộ phận chính của xe nâng bạn cần biết1.Khung Xe (Truck Frame)2.Đối trọng (Counterweight)3.Nguồn năng lượng (Power Source)4.Giá Đỡ (Carriage)5.Trụ nâng (Mast)II. Xe nâng hoạt động như thế nào1.Cơ chế nâng hạ: Xy lanh thủy lựcĐể nâng tảiĐể hạ tải2.Cơ chế nâng hạ: Ròng rọc xích…",
-    content: "\n\n\t<blockquote>\n<p style=\"text-align: center;\"><span style=\"font-size: 120%; color: #282828;\">Mô hình xe nâng cơ bản</span></p>\n</blockquote>\n\t<div id=\"text-3674175066\" class=\"text\">\n\t\t\n<h1 class=\"uppercase\" style=\"text-align: center;\"><span id=\"XE_NANG_LA_GI_UNG_DUNG_VA_CAU_tAO_XE_NANG\"><span style=\"text-decoration: underline;\"><span style=\"font-size: 110%;\">XE NÂNG LÀ GÌ ? ỨNG DỤNG VÀ CẤU tẠO XE NÂNG</span></span></span></h1>\n\t\t\n\n\t",
-    image: "/images/news/xe-nang-la-gi-ung-dung-va-cau-tao-xe-nang-6-0.png",
-    date: "2024-05-22",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-7",
+    "title": "Xe Nâng Là Gì ? Ứng Dụng và Cấu Tạo Xe Nâng",
+    "slug": "xe-nang-la-gi-ung-dung-va-cau-tao-xe-nang",
+    "excerpt": "Mô hình xe nâng cơ bản Mục lụcI. Các bộ phận chính của xe nâng bạn cần biết1.Khung Xe (Truck Frame)2.Đối trọng (Counterweight)3.Nguồn năng lượng (Power Source)4.Giá Đỡ (Carriage)5.Trụ nâng (Mast)II. Xe nâng hoạt động như thế nào1.Cơ chế nâng hạ: Xy lanh thủy lựcĐể nâng tảiĐể hạ tải2.Cơ chế nâng hạ: Ròng rọc xích…",
+    "content": "\n\n\t<blockquote>\n<p style=\"text-align: center;\"><span style=\"font-size: 120%; color: #282828;\">Mô hình xe nâng cơ bản</span></p>\n</blockquote>\n\t<div id=\"text-3674175066\" class=\"text\">\n\t\t\n<h1 class=\"uppercase\" style=\"text-align: center;\"><span id=\"XE_NANG_LA_GI_UNG_DUNG_VA_CAU_tAO_XE_NANG\"><span style=\"text-decoration: underline;\"><span style=\"font-size: 110%;\">XE NÂNG LÀ GÌ ? ỨNG DỤNG VÀ CẤU tẠO XE NÂNG</span></span></span></h1>\n\t\t\n\n\t",
+    "image": "/images/news/xe-nang-la-gi-ung-dung-va-cau-tao-xe-nang-6-0.png",
+    "date": "2024-05-22",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-8",
-    title: "Cách lái xe nâng an toàn và đúng kỹ thuật",
-    slug: "cach-lai-xe-nang-an-toan-va-dung-ky-thuat",
-    excerpt: "Mục lụcHƯỚNG DẪN LÁI XE NÂNGBước 1. Thực hiện các thao tác cơ bảnBước 2. Cho hàng lên càng nângBước 3. Dỡ hàng khỏi càng nângBước 4. Đậu xe nâng HƯỚNG DẪN LÁI XE NÂNG Bước 1. Thực hiện các thao tác cơ bản 1) Bước lên xe nâng và thắt dây an toàn. Lên…",
-    content: "\n\n\t<h1 style=\"text-align: center;\"><span id=\"HUONG_DAN_LAI_XE_NANG\"><span style=\"text-decoration: underline;\">HƯỚNG DẪN LÁI XE NÂNG</span></span></h1>\n\t<div id=\"gap-1441706686\" class=\"gap-element clearfix\" style=\"display:block; height:auto;\">\n\t\t\n\n\t",
-    image: "/images/news/cach-lai-xe-nang-an-toan-va-dung-ky-thuat-7-0.jpg",
-    date: "2024-05-21",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-8",
+    "title": "Cách lái xe nâng an toàn và đúng kỹ thuật",
+    "slug": "cach-lai-xe-nang-an-toan-va-dung-ky-thuat",
+    "excerpt": "Mục lụcHƯỚNG DẪN LÁI XE NÂNGBước 1. Thực hiện các thao tác cơ bảnBước 2. Cho hàng lên càng nângBước 3. Dỡ hàng khỏi càng nângBước 4. Đậu xe nâng HƯỚNG DẪN LÁI XE NÂNG Bước 1. Thực hiện các thao tác cơ bản 1) Bước lên xe nâng và thắt dây an toàn. Lên…",
+    "content": "\n\n\t<h1 style=\"text-align: center;\"><span id=\"HUONG_DAN_LAI_XE_NANG\"><span style=\"text-decoration: underline;\">HƯỚNG DẪN LÁI XE NÂNG</span></span></h1>\n\t<div id=\"gap-1441706686\" class=\"gap-element clearfix\" style=\"display:block; height:auto;\">\n\t\t\n\n\t",
+    "image": "/images/news/cach-lai-xe-nang-an-toan-va-dung-ky-thuat-7-0.jpg",
+    "date": "2024-05-21",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-9",
-    title: "THƯƠNG HIỆU CỘT NÂNG HƠN 100 NĂM LỊCH SỬ",
-    slug: "thuong-hieu-cot-nang-hon-100-nam-lich-su",
-    excerpt: "Giải pháp nâng cao cho những yêu cầu chuyên dụng khắt khe nhất Những người lính trên chiến trường trên toàn thế giới tin tưởng vào độ tin cậy của các cột telescopics masts dạng thu gọn và phụ kiện của Will-Burt. Đáng tin cậy và bền bỉ, Will-Burt cung cấp các cột nâng telescopics…",
-    content: "\n\n\t\t<div class=\"img has-hover x md-x lg-x y md-y lg-y\" id=\"image_905402243\">\n\t\t\t\t\t\t\t\t<div class=\"img-inner dark\" >\n\t\t\t<img loading=\"lazy\" decoding=\"async\" width=\"1020\" height=\"388\" src=\"/images/news/thuong-hieu-cot-nang-hon-100-nam-lich-su-8-0.jpg\" class=\"attachment-large size-large\" alt=\"DANH MỤC SẢN PHẨM CỘT NÂNG WILL-BURT\" srcset=\"/images/news/thuong-hieu-cot-nang-hon-100-nam-lich-su-8-0.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-300x114.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-768x292.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-1536x585.jpg 1536w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-2048x779.jpg 2048w\" sizes=\"auto, (max-width: 1020px) 100vw, 1020px\" />\t\t\t\t\t\t\n\t\t\t\t\t",
-    image: "/images/news/thuong-hieu-cot-nang-hon-100-nam-lich-su-8-0.jpg",
-    date: "2024-05-14",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-9",
+    "title": "THƯƠNG HIỆU CỘT NÂNG HƠN 100 NĂM LỊCH SỬ",
+    "slug": "thuong-hieu-cot-nang-hon-100-nam-lich-su",
+    "excerpt": "Giải pháp nâng cao cho những yêu cầu chuyên dụng khắt khe nhất Những người lính trên chiến trường trên toàn thế giới tin tưởng vào độ tin cậy của các cột telescopics masts dạng thu gọn và phụ kiện của Will-Burt. Đáng tin cậy và bền bỉ, Will-Burt cung cấp các cột nâng telescopics…",
+    "content": "\n\n\t\t<div class=\"img has-hover x md-x lg-x y md-y lg-y\" id=\"image_905402243\">\n\t\t\t\t\t\t\t\t<div class=\"img-inner dark\" >\n\t\t\t<img loading=\"lazy\" decoding=\"async\" width=\"1020\" height=\"388\" src=\"/images/news/thuong-hieu-cot-nang-hon-100-nam-lich-su-8-0.jpg\" class=\"attachment-large size-large\" alt=\"DANH MỤC SẢN PHẨM CỘT NÂNG WILL-BURT\" srcset=\"/images/news/thuong-hieu-cot-nang-hon-100-nam-lich-su-8-0.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-300x114.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-768x292.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-1536x585.jpg 1536w, https://newatlantic.vn/wp-content/uploads/2024/05/310992339_553376613259942_9157914743459297159_n-2048x779.jpg 2048w\" sizes=\"auto, (max-width: 1020px) 100vw, 1020px\" />\t\t\t\t\t\t\n\t\t\t\t\t",
+    "image": "/images/news/thuong-hieu-cot-nang-hon-100-nam-lich-su-8-0.jpg",
+    "date": "2024-05-14",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-10",
-    title: "MOFFETT- Xe nâng mini gắn trên xe tải hứa hẹn sự an toàn, tiết kiệm chi phí và hiệu suất đáng tin cậy!",
-    slug: "moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay",
-    excerpt: "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. Với thiết kế vô cùng nhỏ gọn. Xe nâng  MOFFETT có thể bỏ gọn trên thùng xe tải và còn đặc sắc hơn khi nó còn có thể treo phía sau một cách gọn gàn. MOFFETT là một loại…",
-    content: "\n\n\t<p style=\"text-align: center;\"><strong>MOFFETT &#8211; Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển.</strong></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-1148 aligncenter\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-0.jpg\" alt=\"\" width=\"300\" height=\"268\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-0.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1449-1024x915.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1449-768x686.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1449.jpg 1300w\" sizes=\"auto, (max-width: 300px) 100vw, 300px\" /></p>\n<p style=\"text-align: left; padding-left: 40px;\">Với thiết kế vô cùng nhỏ gọn. Xe nâng  MOFFETT có thể bỏ gọn trên thùng xe tải và còn</p>\n<p style=\"text-align: left; padding-left: 40px;\">đặc sắc hơn <span style=\"font-size: 14.4px;\">khi nó còn có thể treo phía sau một cách gọn gàn.</span></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\" wp-image-1149\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-1.jpg\" alt=\"\" width=\"418\" height=\"272\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-1.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1448-1024x666.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1448-768x499.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1448.jpg 1300w\" sizes=\"auto, (max-width: 418px) 100vw, 418px\" /></p>\n<p style=\"text-align: left; padding-left: 40px;\">MOFFETT là một loại xe nâng có độ linh hoạt cao với trọng lượng không tải thấp, được chế</p>\n<p style=\"text-align: left; padding-left: 40px;\">tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và<br />\nkhả năng cơ động của máy là rất quan trọng.<br />\nĐược thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an<br />\ntoàn.</p>\n<p style=\"padding-left: 120px;\"><span style=\"color: #ff0000;\"><strong>Ưu điểm của dòng xe nâng MOFFETT</strong></span><br />\n• Nhỏ gọn, linh hoạt thuận lợi trong việc di chuyển<br />\n• Không còn phải chờ đợi nữa thiết bị dỡ hàng<br />\n• Hoạt động đơn giản trong khu vực hạn chế, bao gồm cả việc dỡ tải một bên<br />\n•Dỡ hàng từ bất kỳ vị trí nào của xe</p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-1153\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-2.jpg\" alt=\"\" width=\"300\" height=\"300\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-2.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-1024x1024.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-150x150.jpg 150w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-768x768.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-100x100.jpg 100w, https://newatlantic.vn/wp-content/uploads/2024/04/1450.jpg 1300w\" sizes=\"auto, (max-width: 300px) 100vw, 300px\" /><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-1154\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-3.jpg\" alt=\"\" width=\"396\" height=\"297\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-3.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-1024x768.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-768x576.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-1536x1152.jpg 1536w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-2048x1536.jpg 2048w\" sizes=\"auto, (max-width: 396px) 100vw, 396px\" /></p>\n<p>&nbsp;</p>\n\n\t\n\t<div class=\"blog-share text-center\"><div class=\"is-divider medium\">",
-    image: "/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-0.jpg",
-    date: "2024-04-25",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-10",
+    "title": "MOFFETT- Xe nâng mini gắn trên xe tải hứa hẹn sự an toàn, tiết kiệm chi phí và hiệu suất đáng tin cậy!",
+    "slug": "moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay",
+    "excerpt": "MOFFETT – Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển. Với thiết kế vô cùng nhỏ gọn. Xe nâng  MOFFETT có thể bỏ gọn trên thùng xe tải và còn đặc sắc hơn khi nó còn có thể treo phía sau một cách gọn gàn. MOFFETT là một loại…",
+    "content": "\n\n\t<p style=\"text-align: center;\"><strong>MOFFETT &#8211; Một sản phẩm độc đáo được sản xuất bởi tập đoàn Hiab, Thụy Điển.</strong></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-1148 aligncenter\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-0.jpg\" alt=\"\" width=\"300\" height=\"268\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-0.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1449-1024x915.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1449-768x686.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1449.jpg 1300w\" sizes=\"auto, (max-width: 300px) 100vw, 300px\" /></p>\n<p style=\"text-align: left; padding-left: 40px;\">Với thiết kế vô cùng nhỏ gọn. Xe nâng  MOFFETT có thể bỏ gọn trên thùng xe tải và còn</p>\n<p style=\"text-align: left; padding-left: 40px;\">đặc sắc hơn <span style=\"font-size: 14.4px;\">khi nó còn có thể treo phía sau một cách gọn gàn.</span></p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\" wp-image-1149\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-1.jpg\" alt=\"\" width=\"418\" height=\"272\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-1.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1448-1024x666.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1448-768x499.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1448.jpg 1300w\" sizes=\"auto, (max-width: 418px) 100vw, 418px\" /></p>\n<p style=\"text-align: left; padding-left: 40px;\">MOFFETT là một loại xe nâng có độ linh hoạt cao với trọng lượng không tải thấp, được chế</p>\n<p style=\"text-align: left; padding-left: 40px;\">tạo cho các ứng dụng công nghiệp và thương mại, trong đó kích thước, trọng lượng và<br />\nkhả năng cơ động của máy là rất quan trọng.<br />\nĐược thiết kế cho các ứng dụng yêu cầu sức nâng lên tới 1.700 kg, M2 chuyển tải an<br />\ntoàn.</p>\n<p style=\"padding-left: 120px;\"><span style=\"color: #ff0000;\"><strong>Ưu điểm của dòng xe nâng MOFFETT</strong></span><br />\n• Nhỏ gọn, linh hoạt thuận lợi trong việc di chuyển<br />\n• Không còn phải chờ đợi nữa thiết bị dỡ hàng<br />\n• Hoạt động đơn giản trong khu vực hạn chế, bao gồm cả việc dỡ tải một bên<br />\n•Dỡ hàng từ bất kỳ vị trí nào của xe</p>\n<p><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-1153\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-2.jpg\" alt=\"\" width=\"300\" height=\"300\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-2.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-1024x1024.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-150x150.jpg 150w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-768x768.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1450-100x100.jpg 100w, https://newatlantic.vn/wp-content/uploads/2024/04/1450.jpg 1300w\" sizes=\"auto, (max-width: 300px) 100vw, 300px\" /><img loading=\"lazy\" decoding=\"async\" class=\"alignnone wp-image-1154\" src=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-3.jpg\" alt=\"\" width=\"396\" height=\"297\" srcset=\"/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-3.jpg 300w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-1024x768.jpg 1024w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-768x576.jpg 768w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-1536x1152.jpg 1536w, https://newatlantic.vn/wp-content/uploads/2024/04/1207456-2048x1536.jpg 2048w\" sizes=\"auto, (max-width: 396px) 100vw, 396px\" /></p>\n<p>&nbsp;</p>\n\n\t\n\t<div class=\"blog-share text-center\"><div class=\"is-divider medium\">",
+    "image": "/images/news/moffett-xe-nang-mini-gan-tren-xe-tai-hua-hen-su-an-toan-tiet-kiem-chi-phi-va-hieu-suat-dang-tin-cay-9-0.jpg",
+    "date": "2024-04-25",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-11",
-    title: "Thương hiệu cột tự nâng WIlL-BURT",
-    slug: "thuong-hieu-cot-tu-nang-will-burt",
-    excerpt: "Giới thiệu công ty Will-Burt là nhà cung cấp hàng đầu các thiết bị cột tự nâng co rút di động, tháp truyền thông, bộ định vị xoay và nghiêng, cùng các phụ kiện đa dạng phục vụ cho việc nâng hạ các loạ",
-    content: "\n\n\t<div class=\"container section-title-container\" ><h1 class=\"section-title section-title-center\"><b></b><span class=\"section-title-main\" >WILL-BURT: Chinh phục mọi độ cao</span><b></b></h1>",
-    image: "/images/news/thuong-hieu-cot-tu-nang-will-burt-10-0.jpg",
-    date: "2024-04-25",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-11",
+    "title": "Thương hiệu cột tự nâng WIlL-BURT",
+    "slug": "thuong-hieu-cot-tu-nang-will-burt",
+    "excerpt": "Giới thiệu công ty Will-Burt là nhà cung cấp hàng đầu các thiết bị cột tự nâng co rút di động, tháp truyền thông, bộ định vị xoay và nghiêng, cùng các phụ kiện đa dạng phục vụ cho việc nâng hạ các loạ",
+    "content": "\n\n\t<div class=\"container section-title-container\" ><h1 class=\"section-title section-title-center\"><b></b><span class=\"section-title-main\" >WILL-BURT: Chinh phục mọi độ cao</span><b></b></h1>",
+    "image": "/images/news/thuong-hieu-cot-tu-nang-will-burt-10-0.jpg",
+    "date": "2024-04-25",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-12",
-    title: "WILL-BURT: TỔNG QUAN CÔNG TY, GIẢI PHÁP CỘT TỰ NÂNG",
-    slug: "will-burt-tong-quan-cong-ty-giai-phap-cot-tu-nang",
-    excerpt: "WILL-BURT: TỔNG QUAN CÔNG TY, GIẢI PHÁP CỘT TỰ NÂNG",
-    content: "\n\n\t<div class=\"container section-title-container\" ><h1 class=\"section-title section-title-normal\"><b></b><span class=\"section-title-main\" >WILL-BURT: CÔNG TY HÀNG ĐẦU VỀ GIẢI PHÁP CỘT TỰ NÂNG, HỆ THỐNG CHIẾU SÁNG, HỆ THỐNG GIAO THÔNG THÔNG MINH</span><b></b></h1>",
-    image: "/images/news/will-burt-tong-quan-cong-ty-giai-phap-cot-tu-nang-11-0.jpg",
-    date: "2024-04-24",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-12",
+    "title": "WILL-BURT: TỔNG QUAN CÔNG TY, GIẢI PHÁP CỘT TỰ NÂNG",
+    "slug": "will-burt-tong-quan-cong-ty-giai-phap-cot-tu-nang",
+    "excerpt": "WILL-BURT: TỔNG QUAN CÔNG TY, GIẢI PHÁP CỘT TỰ NÂNG",
+    "content": "\n\n\t<div class=\"container section-title-container\" ><h1 class=\"section-title section-title-normal\"><b></b><span class=\"section-title-main\" >WILL-BURT: CÔNG TY HÀNG ĐẦU VỀ GIẢI PHÁP CỘT TỰ NÂNG, HỆ THỐNG CHIẾU SÁNG, HỆ THỐNG GIAO THÔNG THÔNG MINH</span><b></b></h1>",
+    "image": "/images/news/will-burt-tong-quan-cong-ty-giai-phap-cot-tu-nang-11-0.jpg",
+    "date": "2024-04-24",
+    "author": "User Super",
+    "category": "Tin tức"
   },
   {
-    id: "news-13",
-    title: "MÁY KÉO LÀ GÌ? LỊCH SỬ HÌNH THÀNH VÀ CUỘC CÁCH MẠNG CƠ GIỚI HÓA NÔNG NGHIỆP",
-    slug: "may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep",
-    excerpt: "Máy kéo là một loại máy móc sử dụng khung gầm bánh xích hoặc bánh lốp thường sử dụng động cơ Xăng hoặc Diesel làm  nguồn động lực để sử dụng sức kéo trong nông nghiệp, xây dựng, lâm nghiệp… Máy kéo cũ",
-    content: "\n\n\t<p><b>Máy kéo</b> là một loại máy móc sử dụng khung gầm bánh xích hoặc bánh lốp thường sử dụng động cơ Xăng hoặc Diesel làm  nguồn động lực để sử dụng sức kéo trong <a title=\"Nông nghiệp\" href=\"https://vi.wikipedia.org/wiki/N%C3%B4ng_nghi%E1%BB%87p\" target=\"_blank\" rel=\"noopener\">nông nghiệp</a>, <a title=\"Xây dựng\" href=\"https://vi.wikipedia.org/wiki/X%C3%A2y_d%E1%BB%B1ng\" target=\"_blank\" rel=\"noopener\">xây dựng, lâm nghiệp</a>&#8230; Máy kéo cũng có thể kéo theo hoặc gắn thêm nhiều phụ kiện phục vụ nhiều công việc khác nhau, như: nông cụ ( cày, bừa, phân luống, xẻ rảnh,&#8230;.), rơ-mooc,&#8230; Dùng để <a title=\"Cày\" href=\"https://vi.wikipedia.org/wiki/C%C3%A0y\" target=\"_blank\" rel=\"noopener\">cày cấy</a>, và kéo hàng hóa, thiết bị.</p>\n<p>Tại Việt Nam, máy kéo rất đa dạng về hình dáng, tải trọng và công năng. Và cũng được gọi với rất nhiều tên gọi khác nhau: Máy xới, máy cày, máy kéo, công nông,&#8230;( cụ thể được quy định tại : <span style=\"font-size: 90%;\"><em>Công văn 7986/TCHQ-TXNK)</em></span></p>\n<table style=\"border-collapse: collapse; width: 100%;\">\n<tbody>\n<tr>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_431\" aria-describedby=\"caption-attachment-431\" style=\"width: 292px\" class=\"wp-caption aligncenter\"><a href=\"https://newatlantic.vn/cars/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-431\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-0.jpg\" alt=\"\" width=\"292\" height=\"149\" srcset=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-0.jpg 300w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-CAY-768x391.jpg 768w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-CAY.jpg 1000w\" sizes=\"auto, (max-width: 292px) 100vw, 292px\" /></a><figcaption id=\"caption-attachment-431\" class=\"wp-caption-text\">Máy kéo ( Máy cày)</figcaption></figure></td>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_432\" aria-describedby=\"caption-attachment-432\" style=\"width: 480px\" class=\"wp-caption alignnone\"><a href=\"https://newatlantic.vn/san-pham-2/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-432\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-1.jpg\" alt=\"\" width=\"480\" height=\"160\" srcset=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-1.jpg 300w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-MOOC-768x256.jpg 768w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-MOOC.jpg 1000w\" sizes=\"auto, (max-width: 480px) 100vw, 480px\" /></a><figcaption id=\"caption-attachment-432\" class=\"wp-caption-text\">Máy kéo kéo theo rơ-mooc</figcaption></figure></td>\n<td style=\"width: 33.3333%;\"></td>\n</tr>\n<tr>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_435\" aria-describedby=\"caption-attachment-435\" style=\"width: 215px\" class=\"wp-caption aligncenter\"><a href=\"https://newatlantic.vn/may-keo-mini/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-435\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-2.jpg\" alt=\"\" width=\"215\" height=\"224\" /></a><figcaption id=\"caption-attachment-435\" class=\"wp-caption-text\">Máy xới cầm tay</figcaption></figure></td>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_436\" aria-describedby=\"caption-attachment-436\" style=\"width: 303px\" class=\"wp-caption aligncenter\"><a href=\"https://newatlantic.vn/belarus-3522/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-436\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-3.png\" alt=\"\" width=\"303\" height=\"172\" srcset=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-3.png 300w, https://newatlantic.vn/wp-content/uploads/2023/11/may-keo-banh-xich.jpg 500w\" sizes=\"auto, (max-width: 303px) 100vw, 303px\" /></a><figcaption id=\"caption-attachment-436\" class=\"wp-caption-text\">Máy kéo bánh xích</figcaption></figure></td>\n<td style=\"width: 33.3333%;\"></td>\n</tr>\n</tbody>\n</table>\n<div class=\"mceTemp\">",
-    image: "/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-0.jpg",
-    date: "2023-11-27",
-    author: "User Super",
-    category: "Tin tức"
+    "id": "news-13",
+    "title": "MÁY KÉO LÀ GÌ? LỊCH SỬ HÌNH THÀNH VÀ CUỘC CÁCH MẠNG CƠ GIỚI HÓA NÔNG NGHIỆP",
+    "slug": "may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep",
+    "excerpt": "Máy kéo là một loại máy móc sử dụng khung gầm bánh xích hoặc bánh lốp thường sử dụng động cơ Xăng hoặc Diesel làm  nguồn động lực để sử dụng sức kéo trong nông nghiệp, xây dựng, lâm nghiệp… Máy kéo cũ",
+    "content": "\n\n\t<p><b>Máy kéo</b> là một loại máy móc sử dụng khung gầm bánh xích hoặc bánh lốp thường sử dụng động cơ Xăng hoặc Diesel làm  nguồn động lực để sử dụng sức kéo trong <a title=\"Nông nghiệp\" href=\"https://vi.wikipedia.org/wiki/N%C3%B4ng_nghi%E1%BB%87p\" target=\"_blank\" rel=\"noopener\">nông nghiệp</a>, <a title=\"Xây dựng\" href=\"https://vi.wikipedia.org/wiki/X%C3%A2y_d%E1%BB%B1ng\" target=\"_blank\" rel=\"noopener\">xây dựng, lâm nghiệp</a>&#8230; Máy kéo cũng có thể kéo theo hoặc gắn thêm nhiều phụ kiện phục vụ nhiều công việc khác nhau, như: nông cụ ( cày, bừa, phân luống, xẻ rảnh,&#8230;.), rơ-mooc,&#8230; Dùng để <a title=\"Cày\" href=\"https://vi.wikipedia.org/wiki/C%C3%A0y\" target=\"_blank\" rel=\"noopener\">cày cấy</a>, và kéo hàng hóa, thiết bị.</p>\n<p>Tại Việt Nam, máy kéo rất đa dạng về hình dáng, tải trọng và công năng. Và cũng được gọi với rất nhiều tên gọi khác nhau: Máy xới, máy cày, máy kéo, công nông,&#8230;( cụ thể được quy định tại : <span style=\"font-size: 90%;\"><em>Công văn 7986/TCHQ-TXNK)</em></span></p>\n<table style=\"border-collapse: collapse; width: 100%;\">\n<tbody>\n<tr>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_431\" aria-describedby=\"caption-attachment-431\" style=\"width: 292px\" class=\"wp-caption aligncenter\"><a href=\"https://newatlantic.vn/cars/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-431\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-0.jpg\" alt=\"\" width=\"292\" height=\"149\" srcset=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-0.jpg 300w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-CAY-768x391.jpg 768w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-CAY.jpg 1000w\" sizes=\"auto, (max-width: 292px) 100vw, 292px\" /></a><figcaption id=\"caption-attachment-431\" class=\"wp-caption-text\">Máy kéo ( Máy cày)</figcaption></figure></td>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_432\" aria-describedby=\"caption-attachment-432\" style=\"width: 480px\" class=\"wp-caption alignnone\"><a href=\"https://newatlantic.vn/san-pham-2/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-432\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-1.jpg\" alt=\"\" width=\"480\" height=\"160\" srcset=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-1.jpg 300w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-MOOC-768x256.jpg 768w, https://newatlantic.vn/wp-content/uploads/2023/11/MAY-KEO-KEO-MOOC.jpg 1000w\" sizes=\"auto, (max-width: 480px) 100vw, 480px\" /></a><figcaption id=\"caption-attachment-432\" class=\"wp-caption-text\">Máy kéo kéo theo rơ-mooc</figcaption></figure></td>\n<td style=\"width: 33.3333%;\"></td>\n</tr>\n<tr>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_435\" aria-describedby=\"caption-attachment-435\" style=\"width: 215px\" class=\"wp-caption aligncenter\"><a href=\"https://newatlantic.vn/may-keo-mini/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-435\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-2.jpg\" alt=\"\" width=\"215\" height=\"224\" /></a><figcaption id=\"caption-attachment-435\" class=\"wp-caption-text\">Máy xới cầm tay</figcaption></figure></td>\n<td style=\"width: 33.3333%;\">\n<figure id=\"attachment_436\" aria-describedby=\"caption-attachment-436\" style=\"width: 303px\" class=\"wp-caption aligncenter\"><a href=\"https://newatlantic.vn/belarus-3522/\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-436\" src=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-3.png\" alt=\"\" width=\"303\" height=\"172\" srcset=\"/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-3.png 300w, https://newatlantic.vn/wp-content/uploads/2023/11/may-keo-banh-xich.jpg 500w\" sizes=\"auto, (max-width: 303px) 100vw, 303px\" /></a><figcaption id=\"caption-attachment-436\" class=\"wp-caption-text\">Máy kéo bánh xích</figcaption></figure></td>\n<td style=\"width: 33.3333%;\"></td>\n</tr>\n</tbody>\n</table>\n<div class=\"mceTemp\">",
+    "image": "/images/news/may-keo-la-gi-lich-su-hinh-thanh-va-cuoc-cach-mang-co-gioi-hoa-nong-nghiep-12-0.jpg",
+    "date": "2023-11-27",
+    "author": "User Super",
+    "category": "Tin tức"
   }
 ];
 
-// Services
+// Dịch vụ
 export const services: Service[] = [
   {
     id: '1',
     title: 'Thiết Bị Vật Tư PCCC',
     slug: 'thiet-bi-vat-tu-pccc',
     description: 'Cung cấp và thi công hệ thống PCCC chuyên nghiệp',
-  }
+  },
+  {
+    id: '2',
+    title: 'Thiết Bị Chuyên Ngành',
+    slug: 'thiet-bi-chuyen-nganh',
+    description: 'Thiết bị chuyên dụng cho các ngành công nghiệp',
+  },
+  {
+    id: '3',
+    title: 'Thiết Bị Ngành Điện',
+    slug: 'thiet-bi-nganh-dien',
+    description: 'Cung ứng và tư vấn hệ thống điện công nghiệp',
+  },
 ];
 
-// Partners
+// Đối tác
 export const partners: Partner[] = [
   { id: '1', name: 'WILL-BURT', logo: '/logos/willburt.png' },
   { id: '2', name: 'HIAB', logo: '/logos/hiab.png' },

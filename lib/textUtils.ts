@@ -65,8 +65,17 @@ export function cleanText(text: string): string {
   // Then strip HTML tags
   cleaned = stripHtmlTags(cleaned);
   
-  // Clean up extra whitespace
-  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+  // Clean up extra whitespace but preserve newlines
+  // First normalize newlines
+  cleaned = cleaned.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  // Replace multiple spaces/tabs (but not newlines) with single space
+  cleaned = cleaned.replace(/[^\S\n]+/g, ' ');
+  // Replace multiple consecutive newlines with double newline
+  cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+  // Trim each line
+  cleaned = cleaned.split('\n').map(line => line.trim()).join('\n');
+  // Remove leading/trailing newlines
+  cleaned = cleaned.trim();
   
   return cleaned;
 }

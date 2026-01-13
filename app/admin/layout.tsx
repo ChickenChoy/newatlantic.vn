@@ -133,7 +133,10 @@ export default function AdminLayout({
   return (
     <>
       {/* Admin Header Bar - nằm dưới Header chính */}
-      <div className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-40 mt-[72px]">
+      <div
+        className="bg-white border-b border-gray-200 fixed left-0 right-0"
+        style={{ top: '72px', zIndex: 100 }}
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center gap-2 text-sm">
@@ -151,9 +154,9 @@ export default function AdminLayout({
           </div>
         </div>
       </div>
-      
+
       {/* Content với padding top để không bị che */}
-      <div className="pt-[72px]">
+      <div className="pt-[86px]">
         {children}
       </div>
     </>

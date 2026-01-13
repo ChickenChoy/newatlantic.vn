@@ -353,7 +353,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
         </div>
 
         {/* Product Overview Section */}
-        {product.shortDescription && (
+        {(product.shortDescription || product.description) && (
           <div className="mb-6 sm:mb-8 lg:mb-12">
             <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md sm:shadow-lg lg:shadow-xl p-4 sm:p-6 lg:p-8">
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 text-center flex items-center justify-center">
@@ -365,8 +365,10 @@ export default function ProductPageContent({ product, relatedProducts }: Product
 
               <div className="prose prose-sm sm:prose-base max-w-none">
                 {(() => {
-                  // Clean shortDescription first
-                  const cleanedDescription = cleanText(product.shortDescription);
+                  // Use shortDescription if available, otherwise fall back to description
+                  const sourceDescription = product.shortDescription || product.description || '';
+                  // Clean description first
+                  const cleanedDescription = cleanText(sourceDescription);
                   const items = cleanedDescription.split('•');
                   const mainContent = items[0]?.trim();
                   const bulletItems = items.slice(1).filter((item: string) => item.trim());
@@ -378,13 +380,42 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   return (
                     <div className="space-y-6">
                       {/* Main description */}
-                      {parts[0] && parts[0].trim() && (
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-[#5f7ab8] p-4 sm:p-5 rounded-lg">
-                          <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed font-medium">
-                            {parts[0].trim()}
-                          </p>
-                        </div>
-                      )}
+                      {parts[0] && parts[0].trim() && (() => {
+                        const content = parts[0].trim();
+                        // Check if content has newlines
+                        const lines = content.split(/\r?\n/).filter((line: string) => line.trim());
+
+                        if (lines.length > 1) {
+                          // Content has multiple lines - display as bullet points
+                          return (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                              {lines.map((line: string, index: number) => {
+                                const trimmedLine = line.trim();
+                                if (!trimmedLine) return null;
+                                return (
+                                  <div key={index} className="flex items-start gap-3 p-4 bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200 rounded-lg hover:shadow-md hover:border-[#5f7ab8] transition-all duration-300">
+                                    <div className="flex-shrink-0 w-6 h-6 bg-[#5f7ab8] rounded-full flex items-center justify-center mt-0.5">
+                                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                      </svg>
+                                    </div>
+                                    <span className="flex-1 text-xs sm:text-sm text-gray-700 leading-relaxed">{trimmedLine}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          );
+                        } else {
+                          // Single line content - display as before
+                          return (
+                            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-[#5f7ab8] p-4 sm:p-5 rounded-lg">
+                              <p className="text-sm sm:text-base lg:text-lg text-gray-800 leading-relaxed font-medium">
+                                {content}
+                              </p>
+                            </div>
+                          );
+                        }
+                      })()}
 
                       {/* Headings and their content */}
                       {headings.map((heading: string, hIndex: number) => (
