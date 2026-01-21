@@ -310,30 +310,35 @@
 .banh-timeline-icon {
     width: 56px;
     height: 56px;
-    background: var(--banh-secondary);
-    border: 3px solid var(--banh-accent);
+    background: linear-gradient(135deg, var(--banh-accent) 0%, #8b0000 100%);
+    border: 3px solid var(--banh-secondary);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--banh-secondary);
     flex-shrink: 0;
     z-index: 1;
-    box-shadow: var(--banh-shadow);
+    box-shadow: var(--banh-shadow-lg), 0 0 0 4px var(--banh-accent-light);
 }
 
 .banh-timeline-content {
     background: var(--banh-secondary);
-    padding: 1.5rem;
+    padding: 1.5rem 1.75rem;
     border-radius: var(--banh-radius);
     box-shadow: var(--banh-shadow);
     flex: 1;
     transition: var(--banh-transition);
+    border-left: 3px solid transparent;
 }
 
 .banh-timeline-content:hover {
-    transform: translateX(5px);
+    transform: translateX(8px);
     box-shadow: var(--banh-shadow-lg);
+    border-left-color: var(--banh-accent);
+    background: linear-gradient(90deg, var(--banh-accent-light) 0%, var(--banh-secondary) 20%);
 }
 
 .banh-timeline-date {
@@ -362,17 +367,44 @@
 /* Ingredients */
 .banh-ingredients {
     text-align: center;
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     background: var(--banh-secondary);
     border-radius: var(--banh-radius-lg);
-    box-shadow: var(--banh-shadow);
+    box-shadow: var(--banh-shadow-lg);
+    border: 2px solid var(--banh-gray-100);
+    position: relative;
+}
+
+.banh-ingredients::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--banh-accent) 0%, var(--banh-gold) 100%);
+    border-radius: 2px;
 }
 
 .banh-ingredients h3 {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     color: var(--banh-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
+    display: inline-block;
+}
+
+.banh-ingredients h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--banh-accent);
 }
 
 .banh-ingredients-list {
@@ -383,8 +415,21 @@
 }
 
 .banh-ingredients-list span {
-    font-size: 1.1rem;
-    color: var(--banh-gray-600);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--banh-primary);
+    background: linear-gradient(135deg, var(--banh-gray-50) 0%, var(--banh-gray-100) 100%);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid var(--banh-gray-200);
+    transition: var(--banh-transition);
+}
+
+.banh-ingredients-list span:hover {
+    background: linear-gradient(135deg, var(--banh-accent-light) 0%, rgba(196, 30, 58, 0.15) 100%);
+    border-color: var(--banh-accent);
+    color: var(--banh-accent);
+    transform: translateY(-2px);
 }
 
 /* ===================================
@@ -398,24 +443,51 @@
 
 .banh-meaning-card {
     background: var(--banh-secondary);
-    padding: 2rem;
-    border-radius: var(--banh-radius);
+    padding: 2.5rem 2rem;
+    border-radius: var(--banh-radius-lg);
     text-align: center;
     box-shadow: var(--banh-shadow);
     transition: var(--banh-transition);
-    border: 1px solid var(--banh-gray-100);
+    border: 2px solid var(--banh-gray-100);
+    position: relative;
+    overflow: hidden;
+}
+
+.banh-meaning-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--banh-green) 0%, var(--banh-gold) 100%);
+    opacity: 0;
+    transition: var(--banh-transition);
 }
 
 .banh-meaning-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--banh-shadow-lg);
-    border-color: var(--banh-accent-light);
+    transform: translateY(-8px);
+    box-shadow: var(--banh-shadow-xl);
+    border-color: var(--banh-green);
 }
 
-.banh-meaning-icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: 1rem;
+.banh-meaning-card:hover::before {
+    opacity: 1;
+}
+
+.banh-meaning-number {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--banh-green) 0%, #1a3d17 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--banh-secondary);
+    margin: 0 auto 1rem;
+    box-shadow: var(--banh-shadow);
 }
 
 .banh-meaning-card h4 {
@@ -622,13 +694,13 @@
     }
 
     .banh-timeline-icon {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         font-size: 1.1rem;
     }
 
     .banh-timeline-content {
-        padding: 1rem;
+        padding: 1.25rem;
     }
 
     .banh-timeline-date {
@@ -642,11 +714,13 @@
     }
 
     .banh-meaning-card {
-        padding: 1.25rem;
+        padding: 1.5rem 1rem;
     }
 
-    .banh-meaning-icon {
-        font-size: 2rem;
+    .banh-meaning-number {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
     }
 
     .banh-gallery-main {
@@ -664,11 +738,12 @@
     }
 
     .banh-ingredients-list {
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .banh-ingredients-list span {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
+        padding: 0.6rem 1.25rem;
     }
 
     .banh-cta {
