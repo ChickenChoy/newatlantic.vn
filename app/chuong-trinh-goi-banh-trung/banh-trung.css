@@ -1340,6 +1340,24 @@
         font-size: 1.5rem;
     }
 
+    .banh-gallery-dots {
+        bottom: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .banh-gallery-dots button {
+        width: 6px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 6px;
+    }
+
+    .banh-gallery-dots button.active {
+        width: 20px;
+        border-radius: 6px;
+        background: var(--banh-secondary);
+    }
+
     .banh-gallery-thumbs {
         grid-template-columns: repeat(3, 1fr);
     }
