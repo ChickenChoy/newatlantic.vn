@@ -13,6 +13,7 @@
     "lighthouse": "lighthouse http://localhost:3000 --output html --output-path ./lighthouse-report.html"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@genkit-ai/compat-oai": "^1.22.0",
     "eslint-config-next": "^16.0.10",
     "framer-motion": "^12.23.24",
