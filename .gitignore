@@ -42,3 +42,24 @@ next-env.d.ts
 
 .gemini/
 gha-creds-*.json
+
+
+_bmad
+_bmad-output
+.agent
+.augment
+.claude
+.clinerules
+.crush
+.cursor
+.gemini
+.github
+.iflow
+.kiro
+.qwen
+.opencode
+.roo
+.rovodev
+.trae
+.windsurf
+.kilocodemodes
