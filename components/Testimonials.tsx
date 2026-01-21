@@ -6,38 +6,34 @@ import ScrollAnimation from './ScrollAnimation';
 const testimonials = [
   {
     id: 1,
-    name: 'Nguyễn Văn An',
-    company: 'Công ty Xây dựng ABC',
+    name: 'Ông Phạm Quốc Việt',
     position: 'Giám đốc Kỹ thuật',
     rating: 5,
-    text: 'Sản phẩm WILL-BURT của NEW ATLANTIC chất lượng vượt trội, đội ngũ kỹ thuật hỗ trợ nhiệt tình. Chúng tôi đã sử dụng nhiều năm và rất hài lòng với dịch vụ.',
+    text: 'Cột tự nâng WILL-BURT đáp ứng hoàn hảo yêu cầu triển khai trạm phát sóng. Độ bền cao, lắp đặt nhanh, hỗ trợ kỹ thuật 24/7 từ TÂN ĐẠI TÂY DƯƠNG.',
     image: '/images/place-holder/1.png',
   },
   {
     id: 2,
-    name: 'Trần Thị Bình',
-    company: 'Công ty Công nghiệp XYZ',
-    position: 'Trưởng phòng Mua hàng',
+    name: 'Ông Nguyễn Ngọc Hùng',
+    position: 'Giám đốc Vật tư Thiết bị',
     rating: 5,
-    text: 'HIAB cẩu tự hành mua từ NEW ATLANTIC hoạt động ổn định, hiệu suất cao. Dịch vụ hậu mãi tốt, luôn sẵn sàng hỗ trợ khi cần thiết.',
+    text: 'Cẩu tự hành HIAB từ TÂN ĐẠI TÂY DƯƠNG hoạt động ổn định trên các công trình lớn. Phụ tùng chính hãng, bảo trì định kỳ chuyên nghiệp.',
     image: '/images/place-holder/2.png',
   },
   {
     id: 3,
-    name: 'Lê Minh Cường',
-    company: 'Công ty Vận tải DEF',
-    position: 'Quản lý Đội xe',
+    name: 'Bà Lê Thị Mai Hương',
+    position: 'Phó Giám đốc',
     rating: 5,
-    text: 'Xe nâng Moffett của NEW ATLANTIC giúp chúng tôi tăng hiệu quả công việc đáng kể. Giá cả hợp lý, chất lượng đảm bảo.',
+    text: 'Xe nâng Moffett giúp tối ưu hóa logistics đáng kể. Đội ngũ TÂN ĐẠI TÂY DƯƠNG tư vấn giải pháp phù hợp, hỗ trợ tận nơi khi cần.',
     image: '/images/place-holder/3.png',
   },
   {
     id: 4,
-    name: 'Phạm Thị Dung',
-    company: 'Công ty Công trình GHI',
-    position: 'Giám đốc Dự án',
+    name: 'Ông Võ Minh Tuấn',
+    position: 'Trưởng phòng Kỹ thuật',
     rating: 5,
-    text: 'Thiết bị từ NEW ATLANTIC đáp ứng tốt yêu cầu của các dự án lớn. Đội ngũ tư vấn chuyên nghiệp, giao hàng đúng hẹn.',
+    text: 'Cột anten WILL-BURT hỗ trợ truyền hình trực tiếp các sự kiện lớn. Chất lượng tín hiệu ổn định, thiết bị bền bỉ qua nhiều năm sử dụng.',
     image: '/images/place-holder/1.png',
   },
 ];
@@ -82,7 +78,7 @@ export default function Testimonials() {
           </ScrollAnimation>
 
           {/* Testimonials Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-8">
             {testimonials.map((testimonial, index) => (
               <ScrollAnimation
                 key={testimonial.id}
@@ -123,19 +119,16 @@ export default function Testimonials() {
                   </div>
 
                   {/* Author */}
-                  <div className="flex items-center gap-4 pt-4 border-t border-gray-200">
+                  <div className="flex flex-col items-center gap-3 pt-4 border-t border-gray-200 text-center">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center text-white font-semibold text-lg flex-shrink-0">
                       {testimonial.name.split(' ').pop()?.charAt(0)}
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="space-y-1">
                       <div className="font-semibold text-white text-sm md:text-base">
                         {testimonial.name}
                       </div>
-                      <div className="text-xs md:text-sm text-white/90 truncate">
+                      <div className="text-xs md:text-sm text-white/90">
                         {testimonial.position}
-                      </div>
-                      <div className="text-xs text-white/70 truncate">
-                        {testimonial.company}
                       </div>
                     </div>
                   </div>

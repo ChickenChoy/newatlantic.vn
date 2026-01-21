@@ -19,9 +19,28 @@ const nextConfig: NextConfig = {
   // Compression
   compress: true,
   
-  // Headers for better caching
+  // Generate build ID using git commit hash for stable cache busting
+  generateBuildId: async () => {
+    // Railway provides git commit hash
+    const gitHash = process.env.RAILWAY_GIT_COMMIT_SHA;
+    if (gitHash) {
+      return gitHash.substring(0, 7);
+    }
+
+    // Fallback: try git command
+    try {
+      const { execSync } = require('child_process');
+      return execSync('git rev-parse --short HEAD').toString().trim();
+    } catch {
+      // Let Next.js use its default behavior
+      return null;
+    }
+  },
+
+  // Headers for optimal caching
   async headers() {
     return [
+      // Security headers for all routes
       {
         source: '/(.*)',
         headers: [
@@ -39,6 +58,47 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Homepage - short cache with stale-while-revalidate
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=60, stale-while-revalidate=300',
+          },
+        ],
+      },
+      // Product pages - moderate cache
+      {
+        source: '/san-pham/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=300, stale-while-revalidate=600',
+          },
+        ],
+      },
+      // News pages - moderate cache
+      {
+        source: '/tin-tuc/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=300, stale-while-revalidate=600',
+          },
+        ],
+      },
+      // Admin pages - no cache
+      {
+        source: '/admin/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+        ],
+      },
+      // Static images - long cache (1 year)
       {
         source: '/images/(.*)',
         headers: [
@@ -48,12 +108,43 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Fonts - long cache (1 year)
+      {
+        source: '/:path*.(woff|woff2|ttf|otf|eot)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Favicons and manifest
+      {
+        source: '/(favicon.ico|apple-touch-icon.png|site.webmanifest)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400',
+          },
+        ],
+      },
+      // Next.js static assets - long cache (1 year) - these have hashed filenames
       {
         source: '/_next/static/(.*)',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Next.js data files - short cache with revalidation
+      {
+        source: '/_next/data/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=60, stale-while-revalidate=300',
           },
         ],
       },
