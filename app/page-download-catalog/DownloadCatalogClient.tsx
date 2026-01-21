@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import emailjs from '@emailjs/browser';
+import { validateVietnamesePhone } from '@/lib/validation';
 
 interface CatalogItem {
   title: string;
@@ -38,11 +39,6 @@ function DownloadModal({ isOpen, onClose, catalogItem, onSuccess }: DownloadModa
     };
   }, [isOpen]);
 
-  const validatePhone = (phone: string) => {
-    const phoneRegex = /^(0|\+84)[0-9]{9,10}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -52,8 +48,9 @@ function DownloadModal({ isOpen, onClose, catalogItem, onSuccess }: DownloadModa
       return;
     }
 
-    if (!validatePhone(phone)) {
-      setError('Số điện thoại không hợp lệ');
+    const validation = validateVietnamesePhone(phone);
+    if (!validation.valid) {
+      setError(validation.error || 'Số điện thoại không hợp lệ');
       return;
     }
 

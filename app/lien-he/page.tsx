@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { generateBreadcrumbSchema, generateLocalBusinessSchema } from '@/lib/seo';
+import { validateVietnamesePhone } from '@/lib/validation';
 
 export default function ContactPage() {
   // Update page title
@@ -34,8 +35,8 @@ export default function ContactPage() {
         return '';
       case 'phone':
         if (!value.trim()) return 'Vui lòng nhập số điện thoại';
-        const phoneRegex = /^[0-9]{10,11}$/;
-        if (!phoneRegex.test(value.replace(/\s/g, ''))) return 'Số điện thoại không hợp lệ (10-11 số)';
+        const phoneValidation = validateVietnamesePhone(value);
+        if (!phoneValidation.valid) return phoneValidation.error || 'Số điện thoại không hợp lệ';
         return '';
       case 'message':
         if (!value.trim()) return 'Vui lòng nhập nội dung';

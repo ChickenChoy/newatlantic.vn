@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Allow cross-origin requests from local network devices (mobile testing)
+  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*'],
+
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
