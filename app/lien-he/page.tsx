@@ -134,7 +134,7 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="bg-[#FAFAFA] min-h-screen pt-20 md:pt-24 relative overflow-hidden">
+      <div className="bg-[#FAFAFA] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
         {/* Background decorative elements - Subtle cyan/teal accent */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>

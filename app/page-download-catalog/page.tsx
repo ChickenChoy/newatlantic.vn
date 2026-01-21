@@ -92,7 +92,7 @@ export default function DownloadCatalogPage() {
       />
 
       {/* Main Content */}
-      <main className="pt-20 md:pt-24 relative z-10">
+      <main className="pt-24 sm:pt-28 md:pt-32 relative z-10">
 
 
         {/* Header Section */}

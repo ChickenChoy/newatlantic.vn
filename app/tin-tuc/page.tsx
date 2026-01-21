@@ -10,6 +10,7 @@ import Pagination from '@/components/Pagination';
 import { PostCardSkeleton } from '@/components/SkeletonLoader';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import type { Post } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -23,7 +24,7 @@ const CATEGORIES = [
   { id: 'SKYMARK', label: 'SKYMARK' },
 ];
 
-function FeaturedPost({ post }: { post: any }) {
+function FeaturedPost({ post }: { post: Post }) {
   if (!post) return null;
 
   const formattedDate = new Date(post.date).toLocaleDateString('vi-VN', {
@@ -206,7 +207,7 @@ export default function NewsPage() {
   ]);
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen pt-20 md:pt-24 relative overflow-hidden">
+    <div className="bg-[#FAFAFA] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-100/40 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>

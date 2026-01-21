@@ -8,12 +8,13 @@ import Pagination from '@/components/Pagination';
 import ProductFilter from '@/components/ProductFilter';
 import Link from 'next/link';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
+import type { Category, Product } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
 
 export interface CategoryPageContentProps {
-  category: any;
-  categoryProducts: any[];
+  category: Category;
+  categoryProducts: Product[];
   categorySlug: string;
 }
 
@@ -169,7 +170,7 @@ export default function CategoryPageContent({
   categorySlug,
 }: CategoryPageContentProps) {
   return (
-    <div className="bg-[#FAFAFA] min-h-screen pt-20 md:pt-24 relative overflow-hidden">
+    <div className="bg-[#FAFAFA] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
       {/* Background decorative elements - Subtle blue accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>

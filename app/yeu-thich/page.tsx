@@ -57,7 +57,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="min-h-screen pt-20 md:pt-24 pb-16 bg-[#FAFAFA] relative overflow-hidden">
+    <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 bg-[#FAFAFA] relative overflow-hidden">
       {/* Background decorative elements - Subtle pink/rose accent */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-pink-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>

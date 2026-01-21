@@ -1,11 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
+import "./banh-trung.css";
 
 export default function BanhTrungPage() {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [lightboxIndex, setLightboxIndex] = useState(0);
+    const [scrollProgress, setScrollProgress] = useState(0);
+    const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [flowerStyles, setFlowerStyles] = useState<Array<{ left: string; delay: string; duration: string }>>([]);
+    const [mounted, setMounted] = useState(false);
+    const heroRef = useRef<HTMLElement>(null);
 
     const galleryImages = [
         { src: "/images/chuong-trinh-goi-banh-trung/1.jpg", alt: "Hoạt động gói bánh trưng 1" },
@@ -32,15 +42,60 @@ export default function BanhTrungPage() {
         { symbol: "Thịt mỡ", meaning: "Sự phú quý, giàu sang" },
     ];
 
+    const ingredientsData = [
+        { name: "Gạo nếp", desc: "Dẻo thơm" },
+        { name: "Đậu xanh", desc: "Bùi béo" },
+        { name: "Thịt ba chỉ", desc: "Đậm đà" },
+        { name: "Lá dong", desc: "Xanh tươi" },
+    ];
+
+    // Countdown to event (Feb 5, 2026)
+    useEffect(() => {
+        const targetDate = new Date("2026-02-05T00:00:00");
+
+        const updateCountdown = () => {
+            const now = new Date();
+            const diff = targetDate.getTime() - now.getTime();
+
+            if (diff > 0) {
+                setCountdown({
+                    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+                    seconds: Math.floor((diff % (1000 * 60)) / 1000),
+                });
+            }
+        };
+
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     // Auto-play slider
     useEffect(() => {
+        if (!isAutoPlaying) return;
+
         const interval = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % galleryImages.length);
         }, 4000);
         return () => clearInterval(interval);
-    }, [galleryImages.length]);
+    }, [galleryImages.length, isAutoPlaying]);
 
-    // Scroll animations
+    // Scroll progress
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            setScrollProgress(progress);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    // Scroll animations with stagger
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -50,7 +105,7 @@ export default function BanhTrungPage() {
                     }
                 });
             },
-            { threshold: 0.1 }
+            { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
         );
 
         document.querySelectorAll(".animate-on-scroll").forEach((el) => {
@@ -60,30 +115,84 @@ export default function BanhTrungPage() {
         return () => observer.disconnect();
     }, []);
 
-    const scrollToSection = (sectionId: string) => {
+    // Generate flower styles on client side only
+    useEffect(() => {
+        setMounted(true);
+        const styles = [...Array(20)].map(() => ({
+            left: `${Math.random() * 100}%`,
+            delay: `${Math.random() * 8}s`,
+            duration: `${8 + Math.random() * 6}s`
+        }));
+        setFlowerStyles(styles);
+    }, []);
+
+    // Keyboard navigation for lightbox
+    useEffect(() => {
+        if (!lightboxOpen) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setLightboxOpen(false);
+            if (e.key === "ArrowLeft") setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+            if (e.key === "ArrowRight") setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+        };
+
+        document.body.style.overflow = "hidden";
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.body.style.overflow = "";
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [lightboxOpen, galleryImages.length]);
+
+    const scrollToSection = useCallback((sectionId: string) => {
         const element = document.getElementById(sectionId);
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
         }
+    }, []);
+
+    const openLightbox = (index: number) => {
+        setLightboxIndex(index);
+        setLightboxOpen(true);
     };
 
     return (
-        <main className="banh-main">
-            {/* Hero Section - Full width poster background */}
-            <section id="hero" className="banh-hero">
+        <>
+            <main className="banh-main">
+                {/* Progress Bar */}
+                <div className="banh-progress-bar" style={{ width: `${scrollProgress}%` }} />
+
+            {/* Floating Nav Dots */}
+            <nav className="banh-nav-dots">
+                {["hero", "about", "schedule", "meaning", "gallery"].map((section, i) => (
+                    <button
+                        key={section}
+                        onClick={() => scrollToSection(section)}
+                        className="banh-nav-dot"
+                        aria-label={`Đến phần ${section}`}
+                        title={["Trang chính", "Giới thiệu", "Lịch trình", "Ý nghĩa", "Hình ảnh"][i]}
+                    />
+                ))}
+            </nav>
+
+            {/* Hero Section */}
+            <section id="hero" className="banh-hero" ref={heroRef}>
                 <div className="banh-hero-bg">
                     <Image
                         src="/images/chuong-trinh-goi-banh-trung/poster.jpg"
-                        alt="Poster Chương Trình Gói Bánh Trưng Tết 2025"
+                        alt="Poster Chương Trình Gói Bánh Trưng Tết 2026"
                         fill
                         priority
                         style={{ objectFit: "cover", objectPosition: "center" }}
                     />
-                    <div className="banh-hero-overlay"></div>
+                    <div className="banh-hero-overlay" />
                 </div>
 
                 <div className="banh-hero-content">
-                    <span className="banh-hero-badge">Tết Nguyên Đán 2026</span>
+                    <span className="banh-hero-badge">
+                        Tết Nguyên Đán 2026
+                    </span>
                     <h1 className="banh-hero-title">
                         Chương Trình<br />
                         <span>Gói Bánh Trưng</span>
@@ -91,6 +200,30 @@ export default function BanhTrungPage() {
                     <p className="banh-hero-subtitle">
                         Cùng nhau gói vị tết - Gìn giữ truyền thống Việt Nam
                     </p>
+
+                    {/* Countdown */}
+                    <div className="banh-countdown">
+                        <div className="banh-countdown-item">
+                            <span className="banh-countdown-value">{countdown.days}</span>
+                            <span className="banh-countdown-label">Ngày</span>
+                        </div>
+                        <div className="banh-countdown-separator">:</div>
+                        <div className="banh-countdown-item">
+                            <span className="banh-countdown-value">{countdown.hours}</span>
+                            <span className="banh-countdown-label">Giờ</span>
+                        </div>
+                        <div className="banh-countdown-separator">:</div>
+                        <div className="banh-countdown-item">
+                            <span className="banh-countdown-value">{countdown.minutes}</span>
+                            <span className="banh-countdown-label">Phút</span>
+                        </div>
+                        <div className="banh-countdown-separator">:</div>
+                        <div className="banh-countdown-item">
+                            <span className="banh-countdown-value">{countdown.seconds}</span>
+                            <span className="banh-countdown-label">Giây</span>
+                        </div>
+                    </div>
+
                     <div className="banh-hero-actions">
                         <button
                             className="banh-btn banh-btn-primary"
@@ -112,7 +245,7 @@ export default function BanhTrungPage() {
                     onClick={() => scrollToSection("about")}
                     aria-label="Cuộn xuống"
                 >
-                    <span></span>
+                    <span />
                 </button>
             </section>
 
@@ -120,7 +253,6 @@ export default function BanhTrungPage() {
             <section id="about" className="banh-section">
                 <div className="banh-container">
                     <div className="banh-section-header animate-on-scroll">
-                        <span className="banh-label">Về chương trình</span>
                         <h2 className="banh-title">Giới Thiệu</h2>
                     </div>
 
@@ -154,11 +286,10 @@ export default function BanhTrungPage() {
                 </div>
             </section>
 
-            {/* Schedule Section - Timeline Style */}
+            {/* Schedule Section */}
             <section id="schedule" className="banh-section banh-section-alt">
                 <div className="banh-container">
                     <div className="banh-section-header animate-on-scroll">
-                        <span className="banh-label">Lịch trình</span>
                         <h2 className="banh-title">Thời Gian Thực Hiện</h2>
                     </div>
 
@@ -167,9 +298,11 @@ export default function BanhTrungPage() {
                             <div
                                 key={index}
                                 className="banh-timeline-item animate-on-scroll"
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                                style={{ transitionDelay: `${index * 0.1}s` }}
                             >
-                                <div className="banh-timeline-icon">{item.step}</div>
+                                <div className="banh-timeline-icon">
+                                    <span className="banh-timeline-step">{item.step}</span>
+                                </div>
                                 <div className="banh-timeline-content">
                                     <div className="banh-timeline-date">
                                         <strong>{item.day}</strong>
@@ -183,11 +316,13 @@ export default function BanhTrungPage() {
 
                     <div className="banh-ingredients animate-on-scroll">
                         <h3>Nguyên liệu chính</h3>
-                        <div className="banh-ingredients-list">
-                            <span>Gạo nếp</span>
-                            <span>Đậu xanh</span>
-                            <span>Thịt ba chỉ</span>
-                            <span>Lá dong</span>
+                        <div className="banh-ingredients-grid">
+                            {ingredientsData.map((item, index) => (
+                                <div key={index} className="banh-ingredient-card">
+                                    <span className="banh-ingredient-name">{item.name}</span>
+                                    <span className="banh-ingredient-desc">{item.desc}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -197,7 +332,6 @@ export default function BanhTrungPage() {
             <section id="meaning" className="banh-section">
                 <div className="banh-container">
                     <div className="banh-section-header animate-on-scroll">
-                        <span className="banh-label">Văn hóa</span>
                         <h2 className="banh-title">Ý Nghĩa Bánh Trưng</h2>
                     </div>
 
@@ -206,7 +340,7 @@ export default function BanhTrungPage() {
                             <div
                                 key={index}
                                 className="banh-meaning-card animate-on-scroll"
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                                style={{ transitionDelay: `${index * 0.1}s` }}
                             >
                                 <div className="banh-meaning-number">{index + 1}</div>
                                 <h4>{item.symbol}</h4>
@@ -221,12 +355,16 @@ export default function BanhTrungPage() {
             <section id="gallery" className="banh-section banh-section-alt">
                 <div className="banh-container">
                     <div className="banh-section-header animate-on-scroll">
-                        <span className="banh-label">Khoảnh khắc</span>
                         <h2 className="banh-title">Hình Ảnh Tết 2025</h2>
                     </div>
 
                     <div className="banh-gallery animate-on-scroll">
-                        <div className="banh-gallery-main">
+                        <div
+                            className="banh-gallery-main"
+                            onClick={() => openLightbox(currentSlide)}
+                            onMouseEnter={() => setIsAutoPlaying(false)}
+                            onMouseLeave={() => setIsAutoPlaying(true)}
+                        >
                             <Image
                                 src={galleryImages[currentSlide].src}
                                 alt={galleryImages[currentSlide].alt}
@@ -234,30 +372,45 @@ export default function BanhTrungPage() {
                                 style={{ objectFit: "cover" }}
                                 sizes="(max-width: 768px) 100vw, 70vw"
                             />
+                            <div className="banh-gallery-overlay">
+                                <span className="banh-gallery-zoom">Xem lớn</span>
+                            </div>
                             <div className="banh-gallery-controls">
                                 <button
-                                    onClick={() => setCurrentSlide((prev) =>
-                                        (prev - 1 + galleryImages.length) % galleryImages.length
-                                    )}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setCurrentSlide((prev) =>
+                                            (prev - 1 + galleryImages.length) % galleryImages.length
+                                        );
+                                    }}
                                     aria-label="Ảnh trước"
                                 >
                                     ‹
                                 </button>
                                 <button
-                                    onClick={() => setCurrentSlide((prev) =>
-                                        (prev + 1) % galleryImages.length
-                                    )}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setCurrentSlide((prev) =>
+                                            (prev + 1) % galleryImages.length
+                                        );
+                                    }}
                                     aria-label="Ảnh tiếp theo"
                                 >
                                     ›
                                 </button>
+                            </div>
+                            <div className="banh-gallery-counter">
+                                {currentSlide + 1} / {galleryImages.length}
                             </div>
                             <div className="banh-gallery-dots">
                                 {galleryImages.map((_, index) => (
                                     <button
                                         key={index}
                                         className={currentSlide === index ? "active" : ""}
-                                        onClick={() => setCurrentSlide(index)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setCurrentSlide(index);
+                                        }}
                                         aria-label={`Xem ảnh ${index + 1}`}
                                     />
                                 ))}
@@ -291,10 +444,71 @@ export default function BanhTrungPage() {
                     <h2>Tân Đại Tây Dương</h2>
                     <p>Cùng nhau đón Tết - Gìn giữ truyền thống</p>
                     <Link href="/" className="banh-btn banh-btn-white">
-                        ← Về trang chủ
+                        Về trang chủ
                     </Link>
                 </div>
             </section>
+
         </main>
+
+            {/* Lightbox - Portal to document.body to fix position issues */}
+            {mounted && lightboxOpen && createPortal(
+                <div className="banh-lightbox" onClick={() => setLightboxOpen(false)}>
+                    <button className="banh-lightbox-close" aria-label="Đóng">×</button>
+                    <button
+                        className="banh-lightbox-nav banh-lightbox-prev"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+                        }}
+                        aria-label="Ảnh trước"
+                    >
+                        ‹
+                    </button>
+                    <div className="banh-lightbox-content" onClick={(e) => e.stopPropagation()}>
+                        <Image
+                            src={galleryImages[lightboxIndex].src}
+                            alt={galleryImages[lightboxIndex].alt}
+                            fill
+                            style={{ objectFit: "contain" }}
+                            sizes="100vw"
+                            priority
+                        />
+                    </div>
+                    <button
+                        className="banh-lightbox-nav banh-lightbox-next"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+                        }}
+                        aria-label="Ảnh tiếp theo"
+                    >
+                        ›
+                    </button>
+                    <div className="banh-lightbox-counter">
+                        {lightboxIndex + 1} / {galleryImages.length}
+                    </div>
+                </div>,
+                document.body
+            )}
+
+            {/* Falling Flowers Effect - Portal to document.body to bypass PageTransition transform */}
+            {mounted && flowerStyles.length > 0 && createPortal(
+                <div className="banh-flowers" aria-hidden="true">
+                    {flowerStyles.map((style, i) => (
+                        <span
+                            key={i}
+                            className={`banh-flower banh-flower-${i % 4}`}
+                            style={{
+                                left: style.left,
+                                animationDelay: style.delay,
+                                animationDuration: style.duration
+                            }}
+                        />
+                    ))}
+                </div>,
+                document.body
+            )}
+        </>
     );
 }

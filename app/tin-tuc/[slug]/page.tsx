@@ -82,7 +82,7 @@ export default async function PostPage({ params }: PostPageProps) {
   ]);
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-20 md:pt-24">
+    <div className="bg-gray-50 min-h-screen pt-24 sm:pt-28 md:pt-32">
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
