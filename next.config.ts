@@ -108,6 +108,16 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Videos - moderate cache (1 day) for easier updates
+      {
+        source: '/videos/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
       // Fonts - long cache (1 year)
       {
         source: '/:path*.(woff|woff2|ttf|otf|eot)',

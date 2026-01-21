@@ -604,7 +604,7 @@ export default function HomePage() {
       <section className="relative min-h-[700px] sm:min-h-[650px] md:min-h-[700px] lg:min-h-[750px] overflow-hidden">
         {/* Lazy Video Background */}
         <LazyVideoBackground
-          videoSrc="/videos/hero-video-2.mp4"
+          videoSrc="/videos/hero-video-2.mp4?v=2"
           posterImage="/images/place-holder/telescopic-mast-tower.jpg"
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover"
         />
