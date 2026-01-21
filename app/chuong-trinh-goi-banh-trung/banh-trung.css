@@ -349,12 +349,12 @@
 }
 
 .banh-timeline-date strong {
-    color: var(--banh-accent);
+    color: #c9a227;
     font-size: 1rem;
 }
 
 .banh-timeline-date span {
-    color: var(--banh-gray-400);
+    color: #d4b84a;
     font-size: 0.85rem;
 }
 

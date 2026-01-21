@@ -17,7 +17,7 @@ export default function BanhTrungPage() {
     ];
 
     const scheduleData = [
-        { day: "Thứ 5", date: "18.12 AL", solar: "5.2.2026", activity: "Hạn chót tập kích nguyên vật liệu", step: 1 },
+        { day: "Thứ 5", date: "18.12 AL", solar: "5.2.2026", activity: "Hạn chót tập kết nguyên vật liệu", step: 1 },
         { day: "Thứ 6", date: "19.12 AL", solar: "6.2.2026", activity: "Rửa lá, ngâm gạo, đỗ", step: 2 },
         { day: "Thứ 7", date: "20.12 AL", solar: "7.2.2026", activity: "Lau lá, cắt lá và gói bánh", step: 3 },
         { day: "Thứ 7", date: "20.12 AL", solar: "7.2.2026", activity: "Gói → xếp nồi → nấu → ép bánh", step: 4 },
@@ -83,7 +83,7 @@ export default function BanhTrungPage() {
                 </div>
 
                 <div className="banh-hero-content">
-                    <span className="banh-hero-badge">Tết Nguyên Đán 2025</span>
+                    <span className="banh-hero-badge">Tết Nguyên Đán 2026</span>
                     <h1 className="banh-hero-title">
                         Chương Trình<br />
                         <span>Gói Bánh Trưng</span>
