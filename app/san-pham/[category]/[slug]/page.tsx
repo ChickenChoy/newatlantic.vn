@@ -1,4 +1,4 @@
-import { products } from '@/lib/data';
+import { getProducts, getProductsByCategory } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import ProductPageContent from '@/components/ProductPageContent';
 import { generateMetadata as genMeta } from '@/lib/seo';
@@ -11,10 +11,14 @@ interface ProductPageProps {
   }>;
 }
 
+// Force dynamic rendering to always get fresh data
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const products = getProducts();
   const product = products.find(p => p.slug === slug);
-  
+
   if (!product) {
     return genMeta({
       title: 'Sản phẩm không tìm thấy',
@@ -47,7 +51,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
+  const { slug, category } = await params;
+  const products = getProducts();
   const product = products.find(p => p.slug === slug);
 
   if (!product) {
@@ -55,8 +60,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   // Get all products in the same category (excluding current product)
-  const relatedProducts = products
-    .filter(p => p.category === product.category && p.id !== product.id);
+  const relatedProducts = getProductsByCategory(category)
+    .filter(p => p.id !== product.id);
 
   return <ProductPageContent product={product} relatedProducts={relatedProducts} />;
 }

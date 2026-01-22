@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { products, posts } from '@/lib/data';
 import { cleanText } from '@/lib/textUtils';
+import type { Product, Post, Category } from '@/types';
 
 interface SearchResultsProps {
   isOpen: boolean;
@@ -37,6 +37,40 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
   const [showSuggestions, setShowSuggestions] = useState(true);
   const resultsRef = useRef<HTMLDivElement>(null);
 
+  // State for data from API
+  const [products, setProducts] = useState<Product[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [productsRes, postsRes, categoriesRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/posts'),
+          fetch('/api/categories')
+        ]);
+
+        if (productsRes.ok) {
+          const productsData = await productsRes.json();
+          setProducts(productsData);
+        }
+        if (postsRes.ok) {
+          const postsData = await postsRes.json();
+          setPosts(postsData);
+        }
+        if (categoriesRes.ok) {
+          const categoriesData = await categoriesRes.json();
+          setCategories(categoriesData);
+        }
+      } catch (error) {
+        console.error('Error fetching search data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   // Highlight matching text
   const highlightText = (text: string, query: string): string => {
     if (!query.trim()) return text;
@@ -52,12 +86,6 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
     const query = searchQuery.toLowerCase();
     const suggestions: SearchSuggestion[] = [];
     const brands = ['WILL-BURT', 'HIAB', 'SKYMARK'];
-    const categories = [
-      'Cột Tự Nâng',
-      'Thiết Bị Nâng Hạ',
-      'Thiết Bị Công Trình',
-      'Máy Móc'
-    ];
     const keywords = [
       'cột nâng',
       'cẩu tự hành',
@@ -74,10 +102,10 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
       }
     });
 
-    // Category suggestions
-    categories.forEach(category => {
-      if (category.toLowerCase().includes(query)) {
-        suggestions.push({ text: category, type: 'category' });
+    // Category suggestions - use dynamic categories
+    categories.forEach(cat => {
+      if (cat.name.toLowerCase().includes(query)) {
+        suggestions.push({ text: cat.name, type: 'category' });
       }
     });
 
@@ -147,19 +175,14 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
       }
     });
 
-    // Search categories
-    const categories = [
-      { name: 'Cột Tự Nâng WILL-BURT', slug: 'cot-tu-nang-will-burt' },
-      { name: 'Thiết Bị HIAB', slug: 'thiet-bi-nang-ha-hiab' },
-      { name: 'Thiết Bị Hàng Không SKYMARK', slug: 'thiet-bi-cong-trinh-SKYMARK' }
-    ];
-
+    // Search categories - use dynamic categories from state
     categories.forEach(category => {
       if (category.name.toLowerCase().includes(query)) {
         searchResults.push({
           id: category.slug,
           title: category.name,
-          description: `Danh mục sản phẩm ${category.name}`,
+          description: category.description || `Danh mục sản phẩm ${category.name}`,
+          image: category.image,
           url: `/san-pham/${category.slug}`,
           type: 'category',
           highlightedTitle: highlightText(category.name, query)

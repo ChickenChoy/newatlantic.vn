@@ -1,9 +1,12 @@
 import { MetadataRoute } from 'next';
-import { products, categories, posts } from '@/lib/data';
+import { getProducts, getCategories, getPosts } from '@/lib/db';
 import { siteConfig } from '@/lib/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();
+  const products = getProducts();
+  const categories = getCategories();
+  const posts = getPosts();
 
   // Homepage
   const homepage = {
@@ -54,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Category pages
-  const categoryPages = categories.map((category: any) => ({
+  const categoryPages = categories.map((category) => ({
     url: `${siteConfig.url}/san-pham/${category.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
@@ -62,15 +65,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Product pages
-  const productPages = products.map((product: any) => ({
-    url: `${siteConfig.url}/san-pham/${product.categorySlug}/${product.slug}`,
+  const productPages = products.map((product) => ({
+    url: `${siteConfig.url}/san-pham/${product.categorySlug || product.category}/${product.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));
 
   // Post pages
-  const postPages = posts.map((post: any) => ({
+  const postPages = posts.map((post) => ({
     url: `${siteConfig.url}/tin-tuc/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly' as const,

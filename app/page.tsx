@@ -9,9 +9,12 @@ import Testimonials from '@/components/Testimonials';
 import FAQs from '@/components/FAQs';
 import Certifications from '@/components/Certifications';
 import GoogleMap from '@/components/GoogleMap';
-import { products, posts } from '@/lib/data';
+import { getProducts, getPosts, getCategories } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
+
+// Force dynamic rendering to always get fresh data
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = genMeta({
   title: 'NEW ATLANTIC - Tân Đại Tây Dương | Thiết bị công nghiệp chính hãng',
@@ -38,7 +41,11 @@ export const metadata: Metadata = genMeta({
 });
 
 export default function HomePage() {
-  const featuredProducts = products.filter(p => p.featured).slice(0, 3);
+  const products = getProducts();
+  const posts = getPosts();
+  const categories = getCategories();
+
+  const featuredProducts = products.filter((p) => p.featured).slice(0, 3);
   const latestPosts = posts.slice(0, 3);
 
   // Generate JSON-LD structured data
@@ -195,7 +202,7 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                     <Link
                       href="/san-pham"
                       className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white/15 hover:shadow-2xl hover:scale-105 transition-all duration-300 text-sm sm:text-base"
@@ -364,69 +371,32 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto bg-gradient-to-br from-gray-800/60 via-gray-900/60 to-black/60 backdrop-blur-xl rounded-2xl p-6 lg:p-8 hover:from-gray-700/70 hover:via-gray-800/70 hover:to-gray-900/70 hover:shadow-2xl hover:shadow-[#5f7ab8]/10 transition-all duration-500 border border-gray-600/30 hover:border-[#5f7ab8]/50">
-            {/* WILL-BURT Card */}
-            <ScrollAnimation direction="left" delay={0}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
-                  <img src="/images/box-image/will-burt.jpg" alt="WILL-BURT" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
+          <div className={`grid gap-6 lg:gap-8 max-w-6xl mx-auto bg-gradient-to-br from-gray-800/60 via-gray-900/60 to-black/60 backdrop-blur-xl rounded-2xl p-6 lg:p-8 hover:from-gray-700/70 hover:via-gray-800/70 hover:to-gray-900/70 hover:shadow-2xl hover:shadow-[#5f7ab8]/10 transition-all duration-500 border border-gray-600/30 hover:border-[#5f7ab8]/50 ${categories.length <= 3 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : categories.length === 4 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'}`}>
+            {categories.map((category, index) => (
+              <ScrollAnimation key={category.id} direction={index % 2 === 0 ? "left" : "right"} delay={index * 100}>
+                <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
+                  <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
+                    <img
+                      src={category.image || '/images/box-image/MAY.jpg'}
+                      alt={category.name}
+                      className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-5 md:p-6 flex flex-col flex-grow">
+                    <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">{category.name}</h3>
+                    <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
+                      {category.description || `Khám phá các sản phẩm ${category.name} chất lượng cao từ NEW ATLANTIC.`}
+                    </p>
+                    <Link href={`/san-pham/${category.slug}`} className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
+                      Khám phá ngay
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">CỘT TỰ NÂNG WILL-BURT</h3>
-                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
-                    Cột tự nâng với hơn 100 năm lịch sử, chất lượng vượt trội cho quân sự, truyền thông và công nghiệp.
-                  </p>
-                  <Link href="/san-pham/cot-tu-nang-will-burt" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
-                    Khám phá ngay
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </ScrollAnimation>
-
-            {/* HIAB Card */}
-            <ScrollAnimation direction="left" delay={100}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
-                  <img src="/images/box-image/hiab.jpg" alt="HIAB" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">THIẾT BỊ NÂNG HIAB</h3>
-                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
-                    Cẩu tự hành, xe nâng Moffett đa dạng tải trọng, phù hợp mọi nhu cầu vận chuyển và xây dựng.
-                  </p>
-                  <Link href="/san-pham/thiet-bi-nang-ha-hiab" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
-                    Khám phá ngay
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </ScrollAnimation>
-
-            {/* SKYMARK Card */}
-            <ScrollAnimation direction="right" delay={200}>
-              <div className="group bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg hover:bg-white/15 hover:shadow-2xl hover:shadow-[#5f7ab8]/20 transition-all duration-500 hover:-translate-y-2 h-full flex flex-col border border-white/20 hover:border-[#5f7ab8]/60">
-                <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
-                  <img src="/images/box-image/skymark.jpg" alt="SKYMARK" className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500" />
-                </div>
-                <div className="p-5 md:p-6 flex flex-col flex-grow">
-                  <h3 className="font-bold text-base md:text-lg lg:text-xl text-white mb-2 md:mb-3">Thiết Bị Hàng Không SKYMARK</h3>
-                  <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
-                    Thiết bị cơ giới xây dựng chất lượng cao, độ bền vượt trội cho mọi công trình.
-                  </p>
-                  <Link href="/san-pham/thiet-bi-cong-trinh-SKYMARK" className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
-                    Khám phá ngay
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            </ScrollAnimation>
+              </ScrollAnimation>
+            ))}
           </div>
         </div>
       </section>

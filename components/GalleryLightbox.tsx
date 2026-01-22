@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
+import { useToast } from '@/components/ToastProvider';
 
 interface GalleryImage {
   src: string;
@@ -27,6 +28,7 @@ export default function GalleryLightbox({
   onClose,
   onNavigate,
 }: GalleryLightboxProps) {
+  const toast = useToast();
   const [imageIndex, setImageIndex] = useState(currentIndex);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -259,7 +261,7 @@ export default function GalleryLightbox({
     } else {
       // Fallback: copy link to clipboard
       navigator.clipboard.writeText(window.location.href);
-      alert('Đã sao chép link vào clipboard!');
+      toast.success('Đã sao chép link vào clipboard!');
     }
   };
 

@@ -19,6 +19,12 @@ export const categories: Category[] = [
     "name": "Thiết Bị Hàng Không SKYMARK",
     "slug": "thiet-bi-cong-trinh-SKYMARK",
     "description": "Máy móc Thiết Bị Hàng Không SKYMARK"
+  },
+  {
+    "id": "1769047510706",
+    "name": "TEST",
+    "slug": "test",
+    "description": "TEST"
   }
 ];
 
@@ -901,6 +907,5 @@ export const services: Service[] = [
 export const partners: Partner[] = [
   { id: '1', name: 'WILL-BURT', logo: '/logos/willburt.png' },
   { id: '2', name: 'HIAB', logo: '/logos/hiab.png' },
-  { id: '3', name: 'LOVOL', logo: '/logos/lovol.png' },
-  { id: '4', name: 'SKYMARK', logo: '/logos/SKYMARK.png' },
+  { id: '3', name: 'SKYMARK', logo: '/logos/SKYMARK.png' },
 ];

@@ -1,4 +1,4 @@
-import { products, categories } from '@/lib/data';
+import { getCategories, getProducts, getProductsByCategory } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import CategoryPageContent from './category-content';
 import { generateMetadata as genMeta } from '@/lib/seo';
@@ -10,16 +10,14 @@ interface CategoryPageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  return categories.map((category) => ({
-    category: category.slug,
-  }));
-}
+// Force dynamic rendering to always get fresh data
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { category: categorySlug } = await params;
+  const categories = getCategories();
   const category = categories.find(c => c.slug === categorySlug);
-  
+
   if (!category) {
     return genMeta({
       title: 'Không tìm thấy',
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     });
   }
 
-  const categoryProducts = products.filter(p => p.category === categorySlug);
+  const categoryProducts = getProductsByCategory(categorySlug);
 
   return genMeta({
     title: category.name,
@@ -47,20 +45,20 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: categorySlug } = await params;
+  const categories = getCategories();
   const category = categories.find(c => c.slug === categorySlug);
 
   if (!category) {
     notFound();
   }
 
-  const categoryProducts = products.filter(p => p.category === categorySlug);
+  const categoryProducts = getProductsByCategory(categorySlug);
 
   return (
-    <CategoryPageContent 
-      category={category} 
+    <CategoryPageContent
+      category={category}
       categoryProducts={categoryProducts}
       categorySlug={categorySlug}
     />
   );
 }
-

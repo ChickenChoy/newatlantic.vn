@@ -5,20 +5,54 @@ import { Suspense, useEffect, useMemo, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import ProductFilter from '@/components/ProductFilter';
-import { products } from '@/lib/data';
 import Link from 'next/link';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
+import { Product, Category } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
 
 function ProductsPageContent() {
   const searchParams = useSearchParams();
   const [refreshKey, setRefreshKey] = useState(0);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const searchQuery = searchParams.get('q') || '';
   const sortOption = searchParams.get('sort') || 'newest';
+
+  // Fetch products and categories from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Initialize data first
+        await fetch('/api/init', { method: 'POST' });
+
+        const [productsRes, categoriesRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/categories'),
+        ]);
+
+        if (productsRes.ok) {
+          const data = await productsRes.json();
+          setProducts(data);
+        }
+
+        if (categoriesRes.ok) {
+          const data = await categoriesRes.json();
+          setCategories(data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [refreshKey]);
 
   // Scroll to top when page changes
   useEffect(() => {
@@ -50,7 +84,7 @@ function ProductsPageContent() {
       default:
         return result.sort((a, b) => parseInt(b.id) - parseInt(a.id));
     }
-  }, [searchQuery, sortOption, refreshKey]);
+  }, [products, searchQuery, sortOption]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -62,6 +96,32 @@ function ProductsPageContent() {
   // Popular search keywords for suggestions
   const popularKeywords = ['WILL-BURT', 'HIAB', 'SKYMARK', 'Cột tự nâng', 'Cẩu tự hành', 'Xe nâng'];
 
+  if (loading) {
+    return (
+      <div className="flex flex-col lg:flex-row gap-8">
+        <aside className="lg:w-80 flex-shrink-0">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg animate-pulse">
+            <div className="h-6 bg-white/20 rounded w-1/2 mb-6"></div>
+            <div className="space-y-3">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="h-10 bg-white/10 rounded-lg"></div>
+              ))}
+            </div>
+          </div>
+        </aside>
+        <div className="flex-1 min-w-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="h-full">
+                <ProductCardSkeleton />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-8">
@@ -70,6 +130,7 @@ function ProductsPageContent() {
           <ProductFilter
             totalProducts={filteredProducts.length}
             onFilterChange={() => setRefreshKey(prev => prev + 1)}
+            categories={categories}
           />
         </aside>
 
@@ -233,4 +294,3 @@ export default function ProductsPage() {
     </>
   );
 }
-

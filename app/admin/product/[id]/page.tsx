@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { products as initialProducts, categories } from '../../../../lib/data';
-import { Product } from '@/types';
+import { Product, Category } from '@/types';
 import Link from 'next/link';
+import { useToast } from '@/components/ToastProvider';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -12,14 +12,18 @@ interface ProductPageProps {
 
 export default function ProductPage({ params }: ProductPageProps) {
   const router = useRouter();
+  const toast = useToast();
   const [id, setId] = useState<string>('');
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState<Product>({
     id: '',
     name: '',
     slug: '',
-    category: categories[0].slug,
-    categorySlug: categories[0].slug,
-    categoryName: categories[0].name,
+    category: '',
+    categorySlug: '',
+    categoryName: '',
     description: '',
     image: '/images/box-image/MAY.jpg',
     images: ['/images/box-image/MAY.jpg'],
@@ -28,38 +32,59 @@ export default function ProductPage({ params }: ProductPageProps) {
   });
   const [additionalImages, setAdditionalImages] = useState<string[]>([]);
 
+  const loadData = useCallback(async (productId: string) => {
+    try {
+      setLoading(true);
+
+      // Initialize data first
+      await fetch('/api/init', { method: 'POST' });
+
+      // Fetch categories
+      const categoriesRes = await fetch('/api/categories');
+      if (categoriesRes.ok) {
+        const categoriesData = await categoriesRes.json();
+        setCategories(categoriesData);
+
+        if (productId === 'new') {
+          // New product - set default category
+          const defaultCategory = categoriesData[0];
+          setFormData({
+            id: Date.now().toString(),
+            name: '',
+            slug: '',
+            category: defaultCategory?.slug || '',
+            categorySlug: defaultCategory?.slug || '',
+            categoryName: defaultCategory?.name || '',
+            description: '',
+            image: '/images/box-image/MAY.jpg',
+            images: ['/images/box-image/MAY.jpg'],
+            price: 'Liên hệ',
+            specifications: {}
+          });
+        } else {
+          // Fetch existing product
+          const productRes = await fetch(`/api/products?id=${productId}`);
+          if (productRes.ok) {
+            const product = await productRes.json();
+            setFormData(product);
+            setAdditionalImages(product.images || []);
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+      toast.error('Không thể tải dữ liệu. Vui lòng thử lại.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     params.then((p) => {
       setId(p.id);
-      
-      if (p.id !== 'new') {
-        // Load product data
-        const savedProducts = localStorage.getItem('admin_products');
-        const products = savedProducts ? JSON.parse(savedProducts) : initialProducts;
-        const product = products.find((pr: Product) => pr.id === p.id);
-        
-        if (product) {
-          setFormData(product);
-          setAdditionalImages(product.images || []);
-        }
-      } else {
-        // New product
-        setFormData({
-          id: Date.now().toString(),
-          name: '',
-          slug: '',
-          category: categories[0].slug,
-          categorySlug: categories[0].slug,
-          categoryName: categories[0].name,
-          description: '',
-          image: '/images/box-image/MAY.jpg',
-          images: ['/images/box-image/MAY.jpg'],
-          price: 'Liên hệ',
-          specifications: {}
-        });
-      }
+      loadData(p.id);
     });
-  }, [params]);
+  }, [params, loadData]);
 
   const generateSlug = (name: string) => {
     return name
@@ -72,30 +97,58 @@ export default function ProductPage({ params }: ProductPageProps) {
       .replace(/\s+/g, '-');
   };
 
-  const handleSave = () => {
-    const savedProducts = localStorage.getItem('admin_products');
-    let products = savedProducts ? JSON.parse(savedProducts) : initialProducts;
-    
-    const productToSave = {
-      ...formData,
-      images: additionalImages,
-    };
-    
-    const existingIndex = products.findIndex((p: Product) => p.id === productToSave.id);
-    
-    if (existingIndex >= 0) {
-      products[existingIndex] = productToSave;
-    } else {
-      products.push(productToSave);
+  const handleSave = async () => {
+    if (!formData.name.trim()) {
+      toast.warning('Vui lòng nhập tên sản phẩm');
+      return;
     }
-    
-    localStorage.setItem('admin_products', JSON.stringify(products));
-    router.push('/admin');
+
+    setSaving(true);
+    try {
+      const productToSave = {
+        ...formData,
+        images: additionalImages,
+        slug: formData.slug || generateSlug(formData.name),
+      };
+
+      const isNew = id === 'new';
+      const method = isNew ? 'POST' : 'PUT';
+
+      const response = await fetch('/api/products', {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productToSave),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save product');
+      }
+
+      toast.success(isNew ? 'Đã thêm sản phẩm mới thành công!' : 'Đã cập nhật sản phẩm thành công!');
+      setTimeout(() => router.push('/admin'), 500);
+    } catch (error) {
+      console.error('Error saving product:', error);
+      toast.error(error instanceof Error ? error.message : 'Có lỗi xảy ra khi lưu sản phẩm');
+    } finally {
+      setSaving(false);
+    }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5f7ab8] mx-auto mb-4"></div>
+          <p className="text-gray-600">Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 pt-14">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         <div className="mb-6">
           <Link href="/admin" className="text-[#5f7ab8] hover:underline">
             ← Quay lại Admin
@@ -136,9 +189,9 @@ export default function ProductPage({ params }: ProductPageProps) {
               <select
                 value={formData.categorySlug || formData.category}
                 onChange={(e) => {
-                  const cat = categories.find((c: any) => c.slug === e.target.value);
-                  setFormData({ 
-                    ...formData, 
+                  const cat = categories.find((c) => c.slug === e.target.value);
+                  setFormData({
+                    ...formData,
                     category: e.target.value,
                     categorySlug: e.target.value,
                     categoryName: cat?.name || ''
@@ -146,7 +199,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
               >
-                {categories.map((cat: any) => (
+                {categories.map((cat) => (
                   <option key={cat.id} value={cat.slug}>{cat.name}</option>
                 ))}
               </select>
@@ -182,6 +235,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     if (file) {
+                      if (file.size > 100 * 1024 * 1024) {
+                        toast.warning('Hình ảnh không được vượt quá 100MB');
+                        return;
+                      }
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setFormData({ ...formData, image: reader.result as string });
@@ -214,6 +271,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                   onChange={(e) => {
                     const files = Array.from(e.target.files || []);
                     files.forEach(file => {
+                      if (file.size > 2 * 1024 * 1024) {
+                        toast.warning(`Hình ảnh ${file.name} vượt quá 2MB, bỏ qua.`);
+                        return;
+                      }
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setAdditionalImages(prev => [...prev, reader.result as string]);
@@ -262,9 +323,10 @@ export default function ProductPage({ params }: ProductPageProps) {
               </Link>
               <button
                 onClick={handleSave}
-                className="px-8 py-3 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-semibold"
+                disabled={saving}
+                className="px-8 py-3 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-semibold disabled:opacity-50"
               >
-                💾 Lưu sản phẩm
+                {saving ? 'Đang lưu...' : 'Lưu sản phẩm'}
               </button>
             </div>
           </div>
@@ -273,4 +335,3 @@ export default function ProductPage({ params }: ProductPageProps) {
     </div>
   );
 }
-

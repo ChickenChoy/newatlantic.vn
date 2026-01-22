@@ -1,4 +1,4 @@
-import { posts } from '@/lib/data';
+import { getPosts } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,14 +13,12 @@ interface PostPageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// Force dynamic rendering to always get fresh data
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const posts = getPosts();
   const post = posts.find(p => p.slug === slug);
   
   if (!post) {
@@ -49,6 +47,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
+  const posts = getPosts();
   const post = posts.find(p => p.slug === slug);
   
   if (!post) {

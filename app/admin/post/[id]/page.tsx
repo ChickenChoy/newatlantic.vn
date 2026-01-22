@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { posts as initialPosts } from '@/lib/data';
 import { Post } from '@/types';
 import Link from 'next/link';
+import { useToast } from '@/components/ToastProvider';
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -12,7 +12,10 @@ interface PostPageProps {
 
 export default function PostPage({ params }: PostPageProps) {
   const router = useRouter();
+  const toast = useToast();
   const [id, setId] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState<Post>({
     id: '',
     title: '',
@@ -23,20 +26,14 @@ export default function PostPage({ params }: PostPageProps) {
     date: new Date().toISOString().split('T')[0]
   });
 
-  useEffect(() => {
-    params.then((p) => {
-      setId(p.id);
-      
-      if (p.id !== 'new') {
-        // Load post data
-        const savedPosts = localStorage.getItem('admin_posts');
-        const posts = savedPosts ? JSON.parse(savedPosts) : initialPosts;
-        const post = posts.find((pt: Post) => pt.id === p.id);
-        
-        if (post) {
-          setFormData(post);
-        }
-      } else {
+  const loadData = useCallback(async (postId: string) => {
+    try {
+      setLoading(true);
+
+      // Initialize data first
+      await fetch('/api/init', { method: 'POST' });
+
+      if (postId === 'new') {
         // New post
         setFormData({
           id: Date.now().toString(),
@@ -47,9 +44,28 @@ export default function PostPage({ params }: PostPageProps) {
           image: '/images/place-holder/placeholder.jpg',
           date: new Date().toISOString().split('T')[0]
         });
+      } else {
+        // Fetch existing post
+        const postRes = await fetch(`/api/posts?id=${postId}`);
+        if (postRes.ok) {
+          const post = await postRes.json();
+          setFormData(post);
+        }
       }
+    } catch (error) {
+      console.error('Error loading data:', error);
+      toast.error('Không thể tải dữ liệu. Vui lòng thử lại.');
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  useEffect(() => {
+    params.then((p) => {
+      setId(p.id);
+      loadData(p.id);
     });
-  }, [params]);
+  }, [params, loadData]);
 
   const generateSlug = (title: string) => {
     return title
@@ -62,25 +78,57 @@ export default function PostPage({ params }: PostPageProps) {
       .replace(/\s+/g, '-');
   };
 
-  const handleSave = () => {
-    const savedPosts = localStorage.getItem('admin_posts');
-    let posts = savedPosts ? JSON.parse(savedPosts) : initialPosts;
-    
-    const existingIndex = posts.findIndex((p: Post) => p.id === formData.id);
-    
-    if (existingIndex >= 0) {
-      posts[existingIndex] = formData;
-    } else {
-      posts.push(formData);
+  const handleSave = async () => {
+    if (!formData.title.trim()) {
+      toast.warning('Vui lòng nhập tiêu đề bài viết');
+      return;
     }
-    
-    localStorage.setItem('admin_posts', JSON.stringify(posts));
-    router.push('/admin');
+
+    setSaving(true);
+    try {
+      const postToSave = {
+        ...formData,
+        slug: formData.slug || generateSlug(formData.title),
+      };
+
+      const isNew = id === 'new';
+      const method = isNew ? 'POST' : 'PUT';
+
+      const response = await fetch('/api/posts', {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postToSave),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to save post');
+      }
+
+      toast.success(isNew ? 'Đã thêm bài viết mới thành công!' : 'Đã cập nhật bài viết thành công!');
+      setTimeout(() => router.push('/admin'), 500);
+    } catch (error) {
+      console.error('Error saving post:', error);
+      toast.error(error instanceof Error ? error.message : 'Có lỗi xảy ra khi lưu bài viết');
+    } finally {
+      setSaving(false);
+    }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5f7ab8] mx-auto mb-4"></div>
+          <p className="text-gray-600">Đang tải dữ liệu...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 pt-14">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         <div className="mb-6">
           <Link href="/admin" className="text-[#5f7ab8] hover:underline">
             ← Quay lại Admin
@@ -188,9 +236,10 @@ export default function PostPage({ params }: PostPageProps) {
               </Link>
               <button
                 onClick={handleSave}
-                className="px-8 py-3 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-semibold"
+                disabled={saving}
+                className="px-8 py-3 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-semibold disabled:opacity-50"
               >
-                💾 Lưu bài viết
+                {saving ? 'Đang lưu...' : 'Lưu bài viết'}
               </button>
             </div>
           </div>
@@ -199,4 +248,3 @@ export default function PostPage({ params }: PostPageProps) {
     </div>
   );
 }
-

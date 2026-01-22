@@ -100,7 +100,7 @@ export default function Toast({
   return (
     <div
       className={`
-        fixed z-50 px-4 py-3 rounded-lg shadow-2xl
+        fixed z-[100000] px-4 py-3 rounded-lg shadow-2xl
         flex items-center gap-3 min-w-[300px] max-w-md
         transition-all duration-300
         ${typeStyles[type]}

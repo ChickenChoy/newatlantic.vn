@@ -50,7 +50,7 @@ export default function TermsOfServicePage() {
               {/* Introduction */}
               <div className="prose prose-lg max-w-none">
                 <p className="text-gray-300 leading-relaxed">
-                  Chào mừng bạn đến với <strong className="text-white">Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương</strong> (NEW ATLANTIC).
+                  Chào mừng bạn đến với Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương (NEW ATLANTIC).
                   Khi sử dụng website và dịch vụ của chúng tôi, bạn đồng ý tuân thủ các điều khoản và điều kiện sau đây.
                   Vui lòng đọc kỹ trước khi sử dụng dịch vụ.
                 </p>

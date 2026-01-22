@@ -3,18 +3,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { categories } from '@/lib/data';
+import { Category } from '@/types';
 
 interface ProductFilterProps {
   totalProducts: number;
   currentCategory?: string;
   onFilterChange?: () => void;
+  categories?: Category[];
 }
 
 export default function ProductFilter({
   totalProducts,
   currentCategory,
-  onFilterChange
+  onFilterChange,
+  categories = []
 }: ProductFilterProps) {
   const router = useRouter();
   const pathname = usePathname();

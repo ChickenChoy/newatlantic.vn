@@ -25,10 +25,27 @@ function CategoryContentInner({
 }: CategoryPageContentProps) {
   const searchParams = useSearchParams();
   const [refreshKey, setRefreshKey] = useState(0);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const searchQuery = searchParams.get('q') || '';
   const sortOption = searchParams.get('sort') || 'newest';
+
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('/api/categories');
+        if (res.ok) {
+          const data = await res.json();
+          setCategories(data);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   // Scroll to top when page changes
   useEffect(() => {
@@ -85,6 +102,7 @@ function CategoryContentInner({
               totalProducts={0}
               currentCategory={categorySlug}
               onFilterChange={() => setRefreshKey(prev => prev + 1)}
+              categories={categories}
             />
           </aside>
           <div className="flex-1">
@@ -104,6 +122,7 @@ function CategoryContentInner({
               totalProducts={filteredProducts.length}
               currentCategory={categorySlug}
               onFilterChange={() => setRefreshKey(prev => prev + 1)}
+              categories={categories}
             />
           </aside>
 

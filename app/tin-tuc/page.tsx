@@ -1,8 +1,7 @@
 'use client';
 
-import { Suspense, useState, useMemo } from 'react';
+import { Suspense, useState, useMemo, useEffect } from 'react';
 import PostCard from '@/components/PostCard';
-import { posts } from '@/lib/data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { generateBreadcrumbSchema } from '@/lib/seo';
@@ -94,6 +93,26 @@ function NewsPageContent() {
   const router = useRouter();
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const [activeCategory, setActiveCategory] = useState('all');
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+
+  // Fetch posts from API
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch('/api/posts');
+        if (res.ok) {
+          const data = await res.json();
+          setPosts(data);
+        }
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setIsLoadingPosts(false);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   // Filter posts
   const filteredPosts = useMemo(() => {
@@ -105,8 +124,8 @@ function NewsPageContent() {
       );
     }
     // Sort by date (newest first)
-    return result.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [activeCategory]);
+    return result.sort((a: Post, b: Post) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, [activeCategory, posts]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE);

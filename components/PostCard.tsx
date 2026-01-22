@@ -69,7 +69,7 @@ export default function PostCard({ post }: PostCardProps) {
 
             {/* Read More Link */}
             <div className="flex items-center gap-2 text-sm font-semibold text-white group-hover:text-orange-400 transition-colors mt-auto pt-4 border-t border-white/10">
-              Doc chi tiet
+              Đọc chi tiết
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

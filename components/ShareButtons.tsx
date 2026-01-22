@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useToast } from '@/components/ToastProvider';
 
 interface ShareButtonsProps {
   title: string;
@@ -8,6 +9,7 @@ interface ShareButtonsProps {
 }
 
 export default function ShareButtons({ title, url }: ShareButtonsProps) {
+  const toast = useToast();
   const [shareUrl, setShareUrl] = useState(url || '');
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
   const handleCopyLink = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(shareUrl);
-      alert('Đã copy link bài viết!');
+      toast.success('Đã copy link bài viết!');
     }
   };
 

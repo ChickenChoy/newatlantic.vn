@@ -5,8 +5,10 @@ import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { WishlistManager } from '@/lib/wishlist';
 import { Product } from '@/types';
+import { useToast } from '@/components/ToastProvider';
 
 export default function WishlistPage() {
+  const toast = useToast();
   const [wishlist, setWishlist] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMounted, setHasMounted] = useState(false);
@@ -42,9 +44,16 @@ export default function WishlistPage() {
     WishlistManager.removeFromWishlist(productId);
   };
 
-  const clearAll = () => {
-    if (confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm yêu thích?')) {
+  const clearAll = async () => {
+    const confirmed = await toast.confirm({
+      title: 'Xác nhận xóa',
+      message: 'Bạn có chắc chắn muốn xóa tất cả sản phẩm yêu thích?',
+      confirmText: 'Xóa tất cả',
+      type: 'danger'
+    });
+    if (confirmed) {
       WishlistManager.clearWishlist();
+      toast.success('Đã xóa tất cả sản phẩm yêu thích!');
     }
   };
 
@@ -134,7 +143,7 @@ export default function WishlistPage() {
                     <div className="h-full transform transition-all duration-500 hover:-translate-y-2">
                       <ProductCard
                         product={product}
-                        className="h-full shadow-lg hover:shadow-2xl hover:shadow-pink-500/10 border border-gray-100 rounded-2xl overflow-hidden"
+                        className="h-full"
                         hideQuickView={true}
                       />
                     </div>

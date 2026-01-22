@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import SearchResults from './SearchResults';
 import MobileTouchMenu from './MobileTouchMenu';
 import { WishlistManager } from '@/lib/wishlist';
+import { Category } from '@/types';
 
 export default function HeaderBottom() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,22 +16,30 @@ export default function HeaderBottom() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [wishlistCount, setWishlistCount] = useState(0);
+  const [categories, setCategories] = useState<Category[]>([]);
   const pathname = usePathname();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setMounted(true);
     }, 0);
-    
+
     // Load initial wishlist count
     setWishlistCount(WishlistManager.getWishlistCount());
-    
+
     // Listen for wishlist updates
     const handleWishlistUpdate = () => {
       setWishlistCount(WishlistManager.getWishlistCount());
     };
-    
+
     window.addEventListener('wishlistUpdated', handleWishlistUpdate);
+
+    // Fetch categories from API
+    fetch('/api/categories')
+      .then(res => res.ok ? res.json() : [])
+      .then(data => setCategories(data))
+      .catch(() => setCategories([]));
+
     return () => {
       clearTimeout(timer);
       window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
@@ -170,66 +179,32 @@ export default function HeaderBottom() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                <div 
+                <div
                   className={`absolute left-0 top-full mt-2 w-[700px] bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${
                     mounted && openDropdown === 'products' ? 'opacity-100 visible' : 'opacity-0 invisible'
                   }`}
                 >
                   <div className="p-4 grid grid-cols-2 gap-4">
-                    <Link 
-                      href="/san-pham/cot-tu-nang-will-burt"
-                      onClick={() => setOpenDropdown(null)}
-                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    >
-                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-                        <Image
-                          src="/images/box-image/will-burt.jpg"
-                          alt="WILL-BURT"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-base mb-1.5">Cột Tự Nâng WILL-BURT</div>
-                        <div className="text-sm opacity-75">Cột nâng chuyên nghiệp</div>
-                      </div>
-                    </Link>
-                    <Link 
-                      href="/san-pham/thiet-bi-nang-ha-hiab"
-                      onClick={() => setOpenDropdown(null)}
-                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    >
-                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-                        <Image
-                          src="/images/box-image/hiab.jpg"
-                          alt="HIAB"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-base mb-1.5">Thiết Bị HIAB</div>
-                        <div className="text-sm opacity-75">Cẩu & xe nâng</div>
-                      </div>
-                    </Link>
-                    <Link
-                      href="/san-pham/thiet-bi-cong-trinh-SKYMARK"
-                      onClick={() => setOpenDropdown(null)}
-                      className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                    >
-                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-                        <Image
-                          src="/images/box-image/skymark.jpg"
-                          alt="SKYMARK"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-base mb-1.5">Thiết Bị Hàng Không SKYMARK</div>
-                        {/* <div className="text-sm opacity-75">Máy xúc, máy ủi</div> */}
-                      </div>
-                    </Link>
+                    {categories.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        href={`/san-pham/${cat.slug}`}
+                        onClick={() => setOpenDropdown(null)}
+                        className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
+                      >
+                        <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50 p-1 border border-gray-100">
+                          <img
+                            src={cat.image || '/images/box-image/MAY.jpg'}
+                            alt={cat.name}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-base mb-1.5">{cat.name}</div>
+                          <div className="text-sm opacity-75">{cat.description || ''}</div>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -413,27 +388,16 @@ export default function HeaderBottom() {
                 <div className="border-t border-gray-200 my-2"></div>
                 <div>
                   <div className="text-xs font-semibold text-gray-500 px-3 mb-2 uppercase tracking-wider">SẢN PHẨM</div>
-                  <Link 
-                    href="/san-pham/cot-tu-nang-will-burt" 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
-                  >
-                    Cột Tự Nâng WILL-BURT
-                  </Link>
-                  <Link 
-                    href="/san-pham/thiet-bi-nang-ha-hiab" 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
-                  >
-                    Thiết Bị HIAB
-                  </Link>
-                  <Link
-                    href="/san-pham/thiet-bi-cong-trinh-SKYMARK" 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
-                  >
-                    Thiết Bị Hàng Không SKYMARK
-                  </Link>
+                  {categories.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      href={`/san-pham/${cat.slug}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
                 </div>
                 <div className="border-t border-gray-200 my-2"></div>
                 <Link 
