@@ -261,7 +261,7 @@ export default function AdminLayout({
     <>
       {/* Admin Header Bar - nằm dưới Header chính */}
       <div
-        className="bg-white border-b border-gray-200 fixed left-0 right-0 top-[100px] md:top-[72px]"
+        className="bg-white border-b border-gray-200 fixed left-0 right-0 top-[100px] md:top-[76px]"
         style={{ zIndex: 100 }}
       >
         <div className="container mx-auto px-4">
