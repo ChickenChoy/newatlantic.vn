@@ -11,6 +11,7 @@ interface ShareButtonsProps {
 export default function ShareButtons({ title, url }: ShareButtonsProps) {
   const toast = useToast();
   const [shareUrl, setShareUrl] = useState(url || '');
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!url && typeof window !== 'undefined') {
@@ -18,17 +19,39 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
     }
   }, [url]);
 
-  const handleCopyLink = () => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(shareUrl);
-      toast.success('Đã copy link bài viết!');
+  const handleCopyLink = async () => {
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        toast.success('Đã copy link bài viết!');
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = shareUrl;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        textArea.remove();
+        setCopied(true);
+        toast.success('Đã copy link bài viết!');
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      toast.error('Không thể copy link. Vui lòng thử lại!');
     }
   };
 
   return (
-    <div className="border-t border-b py-6 my-8">
+    <div className="border-t border-b border-white/20 py-6 my-8">
       <div className="flex items-center justify-between flex-wrap gap-4">
-        <span className="text-gray-600 font-semibold">Chia sẻ bài viết:</span>
+        <span className="text-gray-300 font-semibold">Chia sẻ bài viết:</span>
         <div className="flex items-center gap-3">
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
@@ -54,12 +77,27 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
           </a>
           <button
             onClick={handleCopyLink}
-            className="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all"
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+              copied
+                ? 'bg-green-600 text-white'
+                : 'bg-gray-600 text-white hover:bg-gray-700'
+            }`}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-            </svg>
-            Copy link
+            {copied ? (
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Đã copy!
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Copy link
+              </>
+            )}
           </button>
         </div>
       </div>

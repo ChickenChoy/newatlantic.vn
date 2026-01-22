@@ -1267,3 +1267,91 @@ html {
     border-radius: 40px 150px 40px 40px !important;
   }
 }
+
+/* ============================================
+   DARK BACKGROUND CONTENT - Override inline styles
+   For pages with bg-[#050c3a] background
+   ============================================ */
+
+/* Force light text colors for content on dark backgrounds */
+.bg-\[\#050c3a\] .prose,
+.bg-\[\#050c3a\] .prose *,
+.bg-\[\#050c3a\] .prose p,
+.bg-\[\#050c3a\] .prose span,
+.bg-\[\#050c3a\] .prose div,
+.bg-\[\#050c3a\] .prose li,
+.bg-\[\#050c3a\] .prose td,
+.bg-\[\#050c3a\] .prose th,
+.bg-\[\#050c3a\] .prose a,
+.bg-\[\#050c3a\] .prose strong,
+.bg-\[\#050c3a\] .prose em,
+.bg-\[\#050c3a\] .prose blockquote {
+  color: #e5e7eb !important; /* gray-200 */
+}
+
+.bg-\[\#050c3a\] .prose h1,
+.bg-\[\#050c3a\] .prose h2,
+.bg-\[\#050c3a\] .prose h3,
+.bg-\[\#050c3a\] .prose h4,
+.bg-\[\#050c3a\] .prose h5,
+.bg-\[\#050c3a\] .prose h6,
+.bg-\[\#050c3a\] .prose strong {
+  color: #ffffff !important;
+}
+
+.bg-\[\#050c3a\] .prose a {
+  color: #60a5fa !important; /* blue-400 */
+}
+
+.bg-\[\#050c3a\] .prose a:hover {
+  color: #93c5fd !important; /* blue-300 */
+}
+
+/* Table styling for dark background */
+.bg-\[\#050c3a\] .prose table {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.bg-\[\#050c3a\] .prose thead {
+  background-color: #5f7ab8 !important;
+}
+
+.bg-\[\#050c3a\] .prose thead th {
+  color: #ffffff !important;
+  background-color: #5f7ab8 !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.bg-\[\#050c3a\] .prose tbody tr {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.bg-\[\#050c3a\] .prose tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.bg-\[\#050c3a\] .prose tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.bg-\[\#050c3a\] .prose tbody td {
+  color: #d1d5db !important; /* gray-300 */
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Override any inline color styles */
+.bg-\[\#050c3a\] [style*="color"] {
+  color: #e5e7eb !important;
+}
+
+.bg-\[\#050c3a\] .prose [style*="color"] {
+  color: #e5e7eb !important;
+}
+
+/* Images should remain visible */
+.bg-\[\#050c3a\] .prose img {
+  opacity: 1 !important;
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0.5rem !important;
+}
