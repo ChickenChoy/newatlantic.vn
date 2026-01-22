@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ShareButtons from '@/components/ShareButtons';
 import RelatedPostsSlider from '@/components/RelatedPostsSlider';
 import { generateMetadata as genMeta, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/seo';
+import { sanitizeHtmlContent } from '@/lib/textUtils';
 import type { Metadata } from 'next';
 
 interface PostPageProps {
@@ -171,7 +172,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
                 {/* Post Content */}
                 <div className="prose prose-base lg:prose-lg max-w-none mb-10 prose-invert prose-p:text-gray-300 prose-headings:text-white prose-strong:text-white prose-a:text-blue-400">
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              <div dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(post.content) }} />
 
                   {/* Rich Content for News */}
                   <div className="space-y-6 text-gray-300 leading-relaxed">

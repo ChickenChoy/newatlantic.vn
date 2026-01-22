@@ -5,6 +5,12 @@ import { useRouter } from 'next/navigation';
 import { Post } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
+import dynamic from 'next/dynamic';
+
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[400px] border border-gray-300 rounded-lg bg-gray-50 animate-pulse" />,
+});
 
 interface PostPageProps {
   params: Promise<{ id: string }>;
@@ -175,14 +181,12 @@ export default function PostPage({ params }: PostPageProps) {
               />
             </div>
 
-            <div>
+            <div style={{ minHeight: '450px', position: 'relative', zIndex: 10 }}>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Nội dung *</label>
-              <textarea
+              <RichTextEditor
                 value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                rows={10}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
-                required
+                onChange={(content) => setFormData({ ...formData, content })}
+                height={400}
               />
             </div>
 

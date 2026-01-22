@@ -5,6 +5,12 @@ import { useRouter } from 'next/navigation';
 import { Product, Category } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
+import dynamic from 'next/dynamic';
+
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[300px] border border-gray-300 rounded-lg bg-gray-50 animate-pulse" />,
+});
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -25,6 +31,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     categorySlug: '',
     categoryName: '',
     description: '',
+    fullDescription: '',
     image: '/images/box-image/MAY.jpg',
     images: ['/images/box-image/MAY.jpg'],
     price: 'Liên hệ',
@@ -56,6 +63,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             categorySlug: defaultCategory?.slug || '',
             categoryName: defaultCategory?.name || '',
             description: '',
+            fullDescription: '',
             image: '/images/box-image/MAY.jpg',
             images: ['/images/box-image/MAY.jpg'],
             price: 'Liên hệ',
@@ -77,7 +85,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [toast]);
 
   useEffect(() => {
     params.then((p) => {
@@ -205,14 +213,22 @@ export default function ProductPage({ params }: ProductPageProps) {
               </select>
             </div>
 
-            <div>
+            <div style={{ minHeight: '350px', position: 'relative', zIndex: 20 }}>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Mô tả *</label>
-              <textarea
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
-                required
+              <RichTextEditor
+                value={formData.description || ''}
+                onChange={(description) => setFormData({ ...formData, description })}
+                height={300}
+              />
+            </div>
+
+            <div style={{ minHeight: '450px', position: 'relative', zIndex: 10 }}>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Thông số kỹ thuật & Mô tả chi tiết</label>
+              <RichTextEditor
+                value={formData.fullDescription || ''}
+                onChange={(fullDescription) => setFormData({ ...formData, fullDescription })}
+                height={400}
+                placeholder="Nhập thông số kỹ thuật và mô tả chi tiết sản phẩm..."
               />
             </div>
 

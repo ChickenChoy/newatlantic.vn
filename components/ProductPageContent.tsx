@@ -6,7 +6,7 @@ import Image from 'next/image';
 import TouchGestureWrapper from './TouchGestureWrapper';
 import ImageModal from './ImageModal';
 import { WishlistManager } from '@/lib/wishlist';
-import { cleanText, stripWordPressShortcodes } from '@/lib/textUtils';
+import { cleanText, stripWordPressShortcodes, sanitizeHtmlContent } from '@/lib/textUtils';
 import type { Product } from '@/types';
 
 interface ProductPageContentProps {
@@ -354,7 +354,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
         </div>
 
         {/* Product Overview Section */}
-        {(product.shortDescription || product.description) && (
+        {(product.description || product.shortDescription) && (
           <div className="mb-6 sm:mb-8 lg:mb-12">
             <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-lg sm:rounded-xl lg:rounded-2xl shadow-md sm:shadow-lg lg:shadow-xl p-4 sm:p-6 lg:p-8">
               <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-6 text-center flex items-center justify-center">
@@ -364,101 +364,19 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 Tổng quan sản phẩm
               </h2>
 
-              <div className="prose prose-sm sm:prose-base max-w-none">
-                {(() => {
-                  // Use shortDescription if available, otherwise fall back to description
-                  const sourceDescription = product.shortDescription || product.description || '';
-                  // Clean description first
-                  const cleanedDescription = cleanText(sourceDescription);
-                  const items = cleanedDescription.split('•');
-                  const mainContent = items[0]?.trim();
-                  const bulletItems = items.slice(1).filter((item: string) => item.trim());
-
-                  // Split main content by headings
-                  const parts = mainContent?.split(/(?:Các tính năng cơ bản:|TÍNH NĂNG NỔI BẬT|CÁC TÍNH NĂNG THIẾT YẾU:|Ưu điểm của dòng|LỢI THẾ VƯỢT TRỘI:|Các tính năng:|TÍNH NĂNG CƠ BẢN:)/i) || [];
-                  const headings = mainContent?.match(/(?:Các tính năng cơ bản:|TÍNH NĂNG NỔI BẬT|CÁC TÍNH NĂNG THIẾT YẾU:|Ưu điểm của dòng|LỢI THẾ VƯỢT TRỘI:|Các tính năng:|TÍNH NĂNG CƠ BẢN:)/gi) || [];
-
-                  return (
-                    <div className="space-y-6">
-                      {/* Main description */}
-                      {parts[0] && parts[0].trim() && (() => {
-                        const content = parts[0].trim();
-                        // Check if content has newlines
-                        const lines = content.split(/\r?\n/).filter((line: string) => line.trim());
-
-                        if (lines.length > 1) {
-                          // Content has multiple lines - display as bullet points
-                          return (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                              {lines.map((line: string, index: number) => {
-                                const trimmedLine = line.trim();
-                                if (!trimmedLine) return null;
-                                return (
-                                  <div key={index} className="flex items-start gap-3 p-4 bg-white/10 border border-white/20 rounded-lg hover:shadow-md hover:border-blue-400/50 transition-all duration-300">
-                                    <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mt-0.5">
-                                      <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                      </svg>
-                                    </div>
-                                    <span className="flex-1 text-xs sm:text-sm text-gray-300 leading-relaxed">{trimmedLine}</span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          );
-                        } else {
-                          // Single line content - display as before
-                          return (
-                            <div className="bg-white/10 border-l-4 border-blue-400 p-4 sm:p-5 rounded-lg">
-                              <p className="text-sm sm:text-base lg:text-lg text-gray-200 leading-relaxed font-medium">
-                                {content}
-                              </p>
-                            </div>
-                          );
-                        }
-                      })()}
-
-                      {/* Headings and their content */}
-                      {headings.map((heading: string, hIndex: number) => (
-                        <div key={hIndex} className="mt-4">
-                          <h3 className="text-base sm:text-lg font-bold text-blue-400 mb-4 flex items-center justify-center text-center">
-                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                            </svg>
-                            {heading}
-                          </h3>
-                          {parts[hIndex + 1] && parts[hIndex + 1].trim() && (
-                            <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-4">
-                              {parts[hIndex + 1].trim()}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-
-                      {/* Bullet items in 2 columns layout */}
-                      {bulletItems.length > 0 && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                          {bulletItems.map((item: string, index: number) => {
-                            const trimmedItem = item.trim();
-                            if (!trimmedItem) return null;
-
-                            return (
-                              <div key={index} className="flex items-start gap-3 p-4 bg-white/10 border border-white/20 rounded-lg hover:shadow-md hover:border-blue-400/50 transition-all duration-300">
-                                <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mt-0.5">
-                                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                  </svg>
-                                </div>
-                                <span className="flex-1 text-xs sm:text-sm text-gray-300 leading-relaxed">{trimmedItem}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()}
-              </div>
+              <div
+                className="prose prose-sm sm:prose-base max-w-none
+                  prose-headings:text-white prose-headings:font-bold
+                  prose-p:text-gray-300 prose-p:leading-relaxed
+                  prose-strong:text-white prose-strong:font-semibold
+                  prose-ul:text-gray-300 prose-ul:space-y-2
+                  prose-ol:text-gray-300 prose-ol:space-y-2
+                  prose-li:text-gray-300
+                  prose-a:text-blue-400 prose-a:hover:text-blue-300"
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeHtmlContent(product.description || product.shortDescription || '')
+                }}
+              />
             </div>
           </div>
         )}

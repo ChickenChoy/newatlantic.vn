@@ -81,6 +81,23 @@ export function cleanText(text: string): string {
 }
 
 /**
+ * Sanitizes HTML content for display
+ * - Replaces &nbsp; with regular spaces (allows word wrapping)
+ * - Preserves HTML structure (p, br, strong, etc.)
+ */
+export function sanitizeHtmlContent(html: string): string {
+  if (!html) return '';
+
+  // Replace &nbsp; with regular space to allow word wrapping
+  let sanitized = html.replace(/&nbsp;/g, ' ');
+
+  // Replace multiple consecutive spaces with single space
+  sanitized = sanitized.replace(/  +/g, ' ');
+
+  return sanitized;
+}
+
+/**
  * Formats text for display: ensures bullet points are on separate lines
  */
 export function formatDescription(text: string): string {
