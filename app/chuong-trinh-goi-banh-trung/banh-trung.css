@@ -915,7 +915,7 @@
     padding: 12px 24px;
     border-radius: 50px;
     font-weight: 600;
-    color: var(--banh-primary);
+    color: #a01830;
     transform: translateY(20px);
     transition: var(--banh-transition);
 }
