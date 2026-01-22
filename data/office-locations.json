@@ -7,7 +7,7 @@
     "address": "A60 Đường Phú Thuận, P. Phú Thuận, Q.7",
     "phone": "+84 2838 733 686",
     "email": "info@newatlantic.vn",
-    "googleMapsUrl": "",
+    "googleMapsUrl": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15680.005950643817!2d106.7452297!3d10.7343681!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175253f08df6c91%3A0x3692111b5c643ce2!2sNewatlantic%20International%20JSC!5e0!3m2!1svi!2sus!4v1769066421567!5m2!1svi!2sus",
     "order": 1
   },
   {
@@ -16,9 +16,9 @@
     "type": "branch",
     "region": "Miền Bắc",
     "address": "85 Nguyễn Phong Sắc, Cầu Giấy",
-    "phone": "",
-    "email": "",
-    "googleMapsUrl": "",
+    "phone": "+84 2838 733 686",
+    "email": "info@newatlantic.vn",
+    "googleMapsUrl": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d18580.46177396455!2d105.790283!3d21.038672!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab394353b821%3A0x47c950bb0f081a1c!2zQuG6o28gdMOgbmcgRMOibiB04buZYyBo4buNYyBWaeG7h3QgTmFt!5e1!3m2!1svi!2sus!4v1769066511703!5m2!1svi!2sus",
     "order": 2
   }
 ]

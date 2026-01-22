@@ -1528,6 +1528,45 @@ export default function AdminPage() {
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
                         />
                       </div>
+                      <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input
+                          type="text"
+                          value={office.phone || ''}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, phone: e.target.value } : o
+                            ));
+                          }}
+                          placeholder="Số điện thoại"
+                          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        />
+                        <input
+                          type="email"
+                          value={office.email || ''}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, email: e.target.value } : o
+                            ));
+                          }}
+                          placeholder="Email"
+                          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        />
+                      </div>
+                      <div className="mt-3">
+                        <label className="block text-xs font-medium text-gray-500 mb-1">Google Maps Embed URL</label>
+                        <input
+                          type="text"
+                          value={office.googleMapsUrl || ''}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, googleMapsUrl: e.target.value } : o
+                            ));
+                          }}
+                          placeholder="https://www.google.com/maps/embed?pb=..."
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        />
+                        <p className="text-xs text-gray-400 mt-1">Mở Google Maps → Share → Embed a map → Copy URL trong src</p>
+                      </div>
                     </div>
                   ))}
                   {officeLocations.length === 0 && (
