@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -30,6 +31,7 @@ export default function RichTextEditor({
 }: RichTextEditorProps) {
   // Auto-detect if content has tables/unsupported HTML and default to Source mode
   const [isSourceMode, setIsSourceMode] = useState(() => hasUnsupportedHtml(value));
+  const [showWarningToast, setShowWarningToast] = useState(false);
   const lastValueRef = useRef(value);
   const hasAutoSwitched = useRef(false);
 
@@ -44,18 +46,25 @@ export default function RichTextEditor({
     }
   }, [value, isSourceMode]);
 
-  // Handle toggle with warning for unsupported HTML
+  // Handle toggle with warning toast for unsupported HTML
   const handleToggleMode = () => {
     if (isSourceMode && contentHasUnsupportedHtml) {
-      // Warn user before switching to WYSIWYG when content has tables
-      const confirmed = window.confirm(
-        '⚠️ Nội dung có chứa TABLE/IFRAME/VIDEO mà WYSIWYG editor không hỗ trợ.\n\n' +
-        'Nếu chuyển sang WYSIWYG, các thẻ này sẽ bị XÓA hoặc chuyển thành text.\n\n' +
-        'Bạn có chắc muốn tiếp tục?'
-      );
-      if (!confirmed) return;
+      // Show warning toast instead of confirm dialog
+      setShowWarningToast(true);
+      return;
     }
     setIsSourceMode(!isSourceMode);
+  };
+
+  // Confirm switch to WYSIWYG (from toast)
+  const confirmSwitchToWysiwyg = () => {
+    setShowWarningToast(false);
+    setIsSourceMode(false);
+  };
+
+  // Cancel switch (from toast)
+  const cancelSwitch = () => {
+    setShowWarningToast(false);
   };
 
   // Prevent infinite loop by only calling onChange when content actually changes
@@ -106,6 +115,108 @@ export default function RichTextEditor({
   const editorHeight = height - 42;
   const sourceHeight = height - 50;
 
+  // Toast component rendered via portal to body
+  const WarningToast = showWarningToast && typeof document !== 'undefined' ? createPortal(
+    <div
+      style={{
+        position: 'fixed',
+        top: '20px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 99999,
+        animation: 'toastFadeIn 0.3s ease-out',
+      }}
+    >
+      <div style={{
+        backgroundColor: '#fffbeb',
+        border: '2px solid #f59e0b',
+        borderRadius: '12px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
+        padding: '16px 20px',
+        maxWidth: '420px',
+        minWidth: '320px',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+          <span style={{ fontSize: '24px' }}>⚠️</span>
+          <div style={{ flex: 1 }}>
+            <p style={{
+              fontWeight: 600,
+              color: '#92400e',
+              marginBottom: '8px',
+              fontSize: '15px',
+            }}>
+              Nội dung có chứa TABLE/IFRAME/VIDEO
+            </p>
+            <p style={{
+              fontSize: '13px',
+              color: '#b45309',
+              marginBottom: '16px',
+              lineHeight: 1.5,
+            }}>
+              WYSIWYG editor không hỗ trợ các thẻ này. Nếu chuyển sang WYSIWYG, chúng sẽ bị XÓA hoặc chuyển thành text.
+            </p>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                type="button"
+                onClick={confirmSwitchToWysiwyg}
+                style={{
+                  padding: '8px 16px',
+                  fontSize: '13px',
+                  backgroundColor: '#d97706',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: 500,
+                }}
+              >
+                Vẫn chuyển
+              </button>
+              <button
+                type="button"
+                onClick={cancelSwitch}
+                style={{
+                  padding: '8px 16px',
+                  fontSize: '13px',
+                  backgroundColor: '#e5e7eb',
+                  color: '#374151',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: 500,
+                }}
+              >
+                Hủy
+              </button>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={cancelSwitch}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '18px',
+              color: '#d97706',
+              cursor: 'pointer',
+              padding: '0',
+              lineHeight: 1,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+      <style>{`
+        @keyframes toastFadeIn {
+          from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+          to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+      `}</style>
+    </div>,
+    document.body
+  ) : null;
+
   return (
     <div
       className="rich-text-editor"
@@ -115,6 +226,9 @@ export default function RichTextEditor({
         flexDirection: 'column',
       }}
     >
+      {/* Warning Toast via Portal */}
+      {WarningToast}
+
       {/* Toggle Button */}
       <div className="flex justify-end mb-1">
         <button
