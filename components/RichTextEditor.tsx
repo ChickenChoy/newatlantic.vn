@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
@@ -22,6 +22,17 @@ export default function RichTextEditor({
   placeholder = 'Nhập nội dung...',
   height = 300,
 }: RichTextEditorProps) {
+  const [isSourceMode, setIsSourceMode] = useState(false);
+  const lastValueRef = useRef(value);
+
+  // Prevent infinite loop by only calling onChange when content actually changes
+  const handleChange = useCallback((content: string) => {
+    if (content !== lastValueRef.current) {
+      lastValueRef.current = content;
+      onChange(content);
+    }
+  }, [onChange]);
+
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -60,6 +71,7 @@ export default function RichTextEditor({
   ];
 
   const editorHeight = height - 42;
+  const sourceHeight = height - 50;
 
   return (
     <div
@@ -70,19 +82,47 @@ export default function RichTextEditor({
         flexDirection: 'column',
       }}
     >
-      <ReactQuill
-        theme="snow"
-        value={value}
-        onChange={onChange}
-        modules={modules}
-        formats={formats}
-        placeholder={placeholder}
-        style={{
-          height: `${editorHeight}px`,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      />
+      {/* Toggle Button */}
+      <div className="flex justify-end mb-1">
+        <button
+          type="button"
+          onClick={() => setIsSourceMode(!isSourceMode)}
+          className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
+            isSourceMode
+              ? 'bg-blue-600 text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          {isSourceMode ? '📝 WYSIWYG' : '</> Source HTML'}
+        </button>
+      </div>
+
+      {isSourceMode ? (
+        /* Source HTML Mode */
+        <textarea
+          value={value}
+          onChange={(e) => handleChange(e.target.value)}
+          placeholder={placeholder}
+          className="w-full flex-1 px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          style={{ height: `${sourceHeight}px` }}
+        />
+      ) : (
+        /* WYSIWYG Mode */
+        <ReactQuill
+          theme="snow"
+          value={value}
+          onChange={handleChange}
+          modules={modules}
+          formats={formats}
+          placeholder={placeholder}
+          style={{
+            height: `${editorHeight}px`,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        />
+      )}
+
       <style jsx global>{`
         .rich-text-editor {
           position: relative;
@@ -92,6 +132,7 @@ export default function RichTextEditor({
           display: flex;
           flex-direction: column;
           height: 100%;
+          overflow: hidden;
         }
         .rich-text-editor .ql-toolbar {
           border-top-left-radius: 8px;
@@ -110,16 +151,39 @@ export default function RichTextEditor({
           border-bottom-left-radius: 8px;
           border-bottom-right-radius: 8px;
           flex: 1;
-          overflow: auto;
+          overflow: hidden;
           position: relative;
           z-index: 1;
+          max-height: calc(100% - 42px);
         }
         .rich-text-editor .ql-editor {
-          min-height: 100%;
+          height: 100%;
+          max-height: 100%;
+          overflow-y: auto;
+          min-height: 266px;
         }
         .rich-text-editor .ql-editor.ql-blank::before {
           color: #9ca3af;
           font-style: normal;
+        }
+        /* Table styles in editor */
+        .rich-text-editor .ql-editor table {
+          border-collapse: collapse;
+          width: 100%;
+          margin: 1em 0;
+        }
+        .rich-text-editor .ql-editor table td,
+        .rich-text-editor .ql-editor table th {
+          border: 1px solid #ccc;
+          padding: 8px 12px;
+          text-align: left;
+        }
+        .rich-text-editor .ql-editor table th {
+          background-color: #f5f5f5;
+          font-weight: bold;
+        }
+        .rich-text-editor .ql-editor table tr:nth-child(even) {
+          background-color: #fafafa;
         }
       `}</style>
     </div>
