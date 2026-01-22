@@ -208,11 +208,6 @@ export default function NewsPage() {
 
   return (
     <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-      </div>
 
       {/* JSON-LD Breadcrumb */}
       <script
@@ -223,7 +218,7 @@ export default function NewsPage() {
       />
 
       {/* Header Section */}
-      <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
+      <div className="relative z-10 border-b border-white/10">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">

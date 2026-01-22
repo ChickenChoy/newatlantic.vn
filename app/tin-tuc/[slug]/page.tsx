@@ -104,7 +104,7 @@ export default async function PostPage({ params }: PostPageProps) {
       />
 
       {/* Breadcrumb */}
-      <div className="relative z-10 bg-[#0a1654] border-b border-white/10 mt-12 md:mt-16">
+      <div className="relative z-10 border-b border-white/10 mt-12 md:mt-16">
         <div className="container mx-auto px-4 py-3">
           <nav className="flex items-center gap-2 text-sm text-gray-400">
             <Link href="/" className="hover:text-blue-400 transition">

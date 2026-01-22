@@ -8,6 +8,7 @@ import PageTransition from "@/components/PageTransition";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
 import ScrollToTop from "@/components/ScrollToTop";
+import GlobalBackground from "@/components/GlobalBackground";
 
 // Routes that should NOT show the main header/footer
 const STANDALONE_ROUTES = ["/masttech"];
@@ -32,6 +33,7 @@ export default function LayoutWrapper({
     // For normal pages, render with full layout
     return (
         <>
+            <GlobalBackground />
             <ScrollProgressBar />
             <Header />
             <HeaderBottom />

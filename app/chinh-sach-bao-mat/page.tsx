@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative bg-[#0a1654] border-b border-white/10 text-white pt-32 md:pt-28 pb-20 md:pb-28">
+      <section className="relative border-b border-white/10 text-white pt-32 md:pt-28 pb-20 md:pb-28">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',

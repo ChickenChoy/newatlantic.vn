@@ -24,7 +24,7 @@ export default function TermsOfServicePage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative z-10 bg-[#0a1654] border-b border-white/10">
+      <section className="relative z-10 border-b border-white/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">

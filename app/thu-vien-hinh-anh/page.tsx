@@ -190,7 +190,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Header Section */}
-        <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
+        <div className="relative z-10 border-b border-white/10">
           <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-16">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4 sm:mb-6">

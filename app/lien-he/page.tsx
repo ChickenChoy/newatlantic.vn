@@ -144,7 +144,7 @@ export default function ContactPage() {
 
 
         {/* Header Section */}
-        <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
+        <div className="relative z-10 border-b border-white/10">
           <div className="container mx-auto px-4 py-12 md:py-16">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
