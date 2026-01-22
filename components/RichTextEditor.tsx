@@ -1,8 +1,14 @@
 'use client';
 
-import { useMemo, useState, useRef, useCallback } from 'react';
+import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
+
+// Check if content contains HTML that Quill doesn't support (tables, iframes, etc.)
+const hasUnsupportedHtml = (html: string): boolean => {
+  if (!html) return false;
+  return /<table|<iframe|<video|<audio|<canvas|<svg/i.test(html);
+};
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
@@ -22,8 +28,35 @@ export default function RichTextEditor({
   placeholder = 'Nhập nội dung...',
   height = 300,
 }: RichTextEditorProps) {
-  const [isSourceMode, setIsSourceMode] = useState(false);
+  // Auto-detect if content has tables/unsupported HTML and default to Source mode
+  const [isSourceMode, setIsSourceMode] = useState(() => hasUnsupportedHtml(value));
   const lastValueRef = useRef(value);
+  const hasAutoSwitched = useRef(false);
+
+  // Check if current content has unsupported HTML
+  const contentHasUnsupportedHtml = hasUnsupportedHtml(value);
+
+  // Auto-switch to Source mode if content contains tables (on initial load or when value changes externally)
+  useEffect(() => {
+    if (!hasAutoSwitched.current && hasUnsupportedHtml(value) && !isSourceMode) {
+      setIsSourceMode(true);
+      hasAutoSwitched.current = true;
+    }
+  }, [value, isSourceMode]);
+
+  // Handle toggle with warning for unsupported HTML
+  const handleToggleMode = () => {
+    if (isSourceMode && contentHasUnsupportedHtml) {
+      // Warn user before switching to WYSIWYG when content has tables
+      const confirmed = window.confirm(
+        '⚠️ Nội dung có chứa TABLE/IFRAME/VIDEO mà WYSIWYG editor không hỗ trợ.\n\n' +
+        'Nếu chuyển sang WYSIWYG, các thẻ này sẽ bị XÓA hoặc chuyển thành text.\n\n' +
+        'Bạn có chắc muốn tiếp tục?'
+      );
+      if (!confirmed) return;
+    }
+    setIsSourceMode(!isSourceMode);
+  };
 
   // Prevent infinite loop by only calling onChange when content actually changes
   const handleChange = useCallback((content: string) => {
@@ -86,7 +119,7 @@ export default function RichTextEditor({
       <div className="flex justify-end mb-1">
         <button
           type="button"
-          onClick={() => setIsSourceMode(!isSourceMode)}
+          onClick={handleToggleMode}
           className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
             isSourceMode
               ? 'bg-blue-600 text-white'
@@ -95,6 +128,11 @@ export default function RichTextEditor({
         >
           {isSourceMode ? '📝 WYSIWYG' : '</> Source HTML'}
         </button>
+        {isSourceMode && contentHasUnsupportedHtml && (
+          <span className="ml-2 text-xs text-amber-600 flex items-center">
+            ⚠️ Chứa TABLE/HTML đặc biệt
+          </span>
+        )}
       </div>
 
       {isSourceMode ? (
