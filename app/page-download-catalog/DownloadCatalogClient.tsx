@@ -231,7 +231,7 @@ export default function DownloadCatalogClient() {
 
   // Brand configurations for styling
   const brandConfigs: Record<string, { logo: string; title: string; subtitle: string; gradient: string; iconColor: string; hoverBorder: string; btnHover: string }> = {
-    'Will-Burt': {
+    'WILL-BURT': {
       logo: '/images/partner/WillBurt.png',
       title: 'WILL-BURT',
       subtitle: 'Giải pháp cột tự nâng hàng đầu thế giới',
