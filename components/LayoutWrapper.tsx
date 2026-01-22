@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import HeaderBottom from "@/components/HeaderBottom";
-import Footer from "@/components/Footer";
+import Footer, { FooterProps } from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
@@ -13,11 +13,15 @@ import GlobalBackground from "@/components/GlobalBackground";
 // Routes that should NOT show the main header/footer
 const STANDALONE_ROUTES = ["/masttech"];
 
+interface LayoutWrapperProps {
+    children: React.ReactNode;
+    footerData: FooterProps;
+}
+
 export default function LayoutWrapper({
     children,
-}: {
-    children: React.ReactNode;
-}) {
+    footerData,
+}: LayoutWrapperProps) {
     const pathname = usePathname();
 
     // Check if current path is a standalone route (no header/footer)
@@ -40,7 +44,7 @@ export default function LayoutWrapper({
             <PageTransition>
                 <main className="min-h-screen">{children}</main>
             </PageTransition>
-            <Footer />
+            <Footer {...footerData} />
             <FloatingContactButtons />
             <ScrollToTop />
         </>

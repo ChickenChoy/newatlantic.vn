@@ -1,0 +1,26 @@
+[
+  {
+    "id": "partner-1",
+    "name": "Will-Burt",
+    "logo": "/images/partner/WillBurt.png",
+    "url": "https://www.willburt.com",
+    "order": 1,
+    "enabled": true
+  },
+  {
+    "id": "partner-2",
+    "name": "HIAB",
+    "logo": "/images/partner/HIAB.png",
+    "url": "https://www.hiab.com",
+    "order": 2,
+    "enabled": true
+  },
+  {
+    "id": "partner-3",
+    "name": "SKYMARK",
+    "logo": "/images/partner/SKYMARK.png",
+    "url": "",
+    "order": 3,
+    "enabled": true
+  }
+]

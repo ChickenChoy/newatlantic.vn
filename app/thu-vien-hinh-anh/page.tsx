@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
-import Link from 'next/link';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import GalleryLightbox from '@/components/GalleryLightbox';
 import { SkeletonLoader } from '@/components/SkeletonLoader';
+import { GalleryImage as GalleryImageType } from '@/types';
 
 interface GalleryImage {
   src: string;
@@ -23,104 +23,40 @@ export default function GalleryPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
 
-  // Gallery images with metadata
-  const galleryImages: GalleryImage[] = [
-    {
-      src: '/images/resources/1.png',
-      alt: 'Hình ảnh thiết bị 1',
-      title: 'Thiết bị công trình',
-      description: 'Hình ảnh về thiết bị công trình chất lượng cao',
-      category: 'Thiết bị',
-      tags: ['thiết bị', 'công trình', 'máy móc'],
-    },
-    {
-      src: '/images/resources/2.png',
-      alt: 'Hình ảnh thiết bị 2',
-      title: 'Máy móc xây dựng',
-      description: 'Máy móc xây dựng hiện đại',
-      category: 'Thiết bị',
-      tags: ['thiết bị', 'xây dựng', 'máy móc'],
-    },
-    {
-      src: '/images/resources/3.png',
-      alt: 'Hình ảnh thiết bị 3',
-      title: 'Cẩu tự hành',
-      description: 'Cẩu tự hành chất lượng cao',
-      category: 'Cẩu',
-      tags: ['cẩu', 'nâng hạ', 'thiết bị'],
-    },
-    {
-      src: '/images/resources/4.png',
-      alt: 'Hình ảnh thiết bị 4',
-      title: 'Thiết bị nâng hạ',
-      description: 'Thiết bị nâng hạ chuyên nghiệp',
-      category: 'Thiết bị',
-      tags: ['thiết bị', 'nâng hạ'],
-    },
-    {
-      src: '/images/resources/5.png',
-      alt: 'Hình ảnh thiết bị 5',
-      title: 'Cột tự nâng',
-      description: 'Cột tự nâng Will-Burt',
-      category: 'Cột nâng',
-      tags: ['cột', 'nâng', 'will-burt'],
-    },
-    {
-      src: '/images/resources/6.png',
-      alt: 'Hình ảnh thiết bị 6',
-      title: 'Thiết bị công trình',
-      description: 'Thiết bị công trình đa năng',
-      category: 'Thiết bị',
-      tags: ['thiết bị', 'công trình'],
-    },
-    {
-      src: '/images/resources/7.png',
-      alt: 'Hình ảnh thiết bị 7',
-      title: 'Máy xúc',
-      description: 'Máy xúc công suất lớn',
-      category: 'Máy móc',
-      tags: ['máy xúc', 'công trình'],
-    },
-    {
-      src: '/images/resources/8.png',
-      alt: 'Hình ảnh thiết bị 8',
-      title: 'Thiết bị nâng',
-      description: 'Thiết bị nâng hiện đại',
-      category: 'Thiết bị',
-      tags: ['thiết bị', 'nâng'],
-    },
-    {
-      src: '/images/resources/9.png',
-      alt: 'Hình ảnh thiết bị 9',
-      title: 'Cẩu tháp',
-      description: 'Cẩu tháp công nghiệp',
-      category: 'Cẩu',
-      tags: ['cẩu', 'tháp'],
-    },
-    {
-      src: '/images/resources/10.png',
-      alt: 'Hình ảnh thiết bị 10',
-      title: 'Thiết bị chuyên dụng',
-      description: 'Thiết bị chuyên dụng chất lượng',
-      category: 'Thiết bị',
-      tags: ['thiết bị', 'chuyên dụng'],
-    },
-    {
-      src: '/images/resources/AIT.jpg',
-      alt: 'Hình ảnh AIT',
-      title: 'Chứng nhận AIT',
-      description: 'Chứng nhận chất lượng AIT',
-      category: 'Chứng nhận',
-      tags: ['chứng nhận', 'ait', 'chất lượng'],
-    },
-  ];
+  // Load gallery images from API
+  const loadGalleryImages = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch('/api/gallery');
+      if (res.ok) {
+        const data: GalleryImageType[] = await res.json();
+        // Transform API data to match expected format
+        const images: GalleryImage[] = data
+          .sort((a, b) => a.order - b.order)
+          .map(img => ({
+            src: img.src,
+            alt: img.alt,
+            title: img.title,
+            description: img.description,
+            category: img.category,
+            tags: img.tags,
+          }));
+        setGalleryImages(images);
+      }
+    } catch (error) {
+      console.error('Error loading gallery images:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   // Get unique categories
   const categories = useMemo(() => {
     const cats = ['all', ...Array.from(new Set(galleryImages.map((img) => img.category).filter((c): c is string => !!c)))];
     return cats;
-  }, []);
+  }, [galleryImages]);
 
   // Filter images
   const filteredImages = useMemo(() => {
@@ -134,19 +70,13 @@ export default function GalleryPage() {
         image.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchesCategory && matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [galleryImages, searchQuery, selectedCategory]);
 
-  // Simulate loading
-  useEffect(() => {
-    setIsLoading(true);
-    const timer = setTimeout(() => setIsLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Update page title
+  // Load images on mount and update page title
   useEffect(() => {
     document.title = 'Thư viện hình ảnh | NEW ATLANTIC - Tân Đại Tây Dương';
-  }, []);
+    loadGalleryImages();
+  }, [loadGalleryImages]);
 
 
 

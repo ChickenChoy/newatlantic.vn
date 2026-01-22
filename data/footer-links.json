@@ -1,0 +1,42 @@
+[
+  {
+    "id": "service-catalog",
+    "label": "Catalog sản phẩm",
+    "href": "/page-download-catalog",
+    "section": "service",
+    "isExternal": false,
+    "order": 1
+  },
+  {
+    "id": "service-gallery",
+    "label": "Thư viện hình ảnh",
+    "href": "/thu-vien-hinh-anh",
+    "section": "service",
+    "isExternal": false,
+    "order": 2
+  },
+  {
+    "id": "service-contact",
+    "label": "Liên hệ",
+    "href": "/lien-he",
+    "section": "service",
+    "isExternal": false,
+    "order": 3
+  },
+  {
+    "id": "policy-privacy",
+    "label": "Chính sách bảo mật",
+    "href": "/chinh-sach-bao-mat",
+    "section": "policy",
+    "isExternal": false,
+    "order": 1
+  },
+  {
+    "id": "policy-terms",
+    "label": "Điều khoản dịch vụ",
+    "href": "/dieu-khoan-dich-vu",
+    "section": "policy",
+    "isExternal": false,
+    "order": 2
+  }
+]

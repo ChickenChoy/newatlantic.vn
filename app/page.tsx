@@ -9,7 +9,7 @@ import Testimonials from '@/components/Testimonials';
 import FAQs from '@/components/FAQs';
 import Certifications from '@/components/Certifications';
 import GoogleMap from '@/components/GoogleMap';
-import { getProducts, getPosts, getCategories } from '@/lib/db';
+import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
 
@@ -44,6 +44,9 @@ export default function HomePage() {
   const products = getProducts();
   const posts = getPosts();
   const categories = getCategories();
+  const heroSlides = getHeroSlides().filter(s => s.enabled).sort((a, b) => a.order - b.order);
+  const homepageStats = getHomepageStats().sort((a, b) => a.order - b.order);
+  const partnerLogos = getPartnerLogos().filter(p => p.enabled).sort((a, b) => a.order - b.order);
 
   const featuredProducts = products.filter((p) => p.featured).slice(0, 3);
   const latestPosts = posts.slice(0, 3);
@@ -76,7 +79,7 @@ export default function HomePage() {
       />
 
       {/* Hero Slider */}
-      <HeroSlider />
+      <HeroSlider slides={heroSlides} />
 
       {/* Company Slogan Section */}
       <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">

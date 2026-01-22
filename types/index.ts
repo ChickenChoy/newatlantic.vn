@@ -56,3 +56,108 @@ export interface Partner {
   url?: string;
 }
 
+// ==================== CMS Types ====================
+
+// Site Settings - Cài đặt website
+export interface SiteSettings {
+  id: string;
+  companyName: string;
+  companySlogan: string;
+  companyDescription: string;
+  logo: string;
+  phone: string;
+  email: string;
+  hotline?: string;
+  copyright: string;
+  socialLinks: SocialLink[];
+}
+
+export interface SocialLink {
+  id: string;
+  platform: 'facebook' | 'youtube' | 'linkedin' | 'zalo' | 'instagram';
+  url: string;
+  enabled: boolean;
+}
+
+// Office Locations - Địa chỉ văn phòng
+export interface OfficeLocation {
+  id: string;
+  name: string;
+  type: 'headquarters' | 'branch';
+  region: string;
+  address: string;
+  phone?: string;
+  email?: string;
+  googleMapsUrl?: string;
+  order: number;
+}
+
+// Footer Links - Links trong footer
+export interface FooterLink {
+  id: string;
+  label: string;
+  href: string;
+  section: 'quick' | 'service' | 'policy';
+  isExternal: boolean;
+  order: number;
+}
+
+// Gallery Images - Thư viện hình ảnh
+export interface GalleryImage {
+  id: string;
+  src: string;
+  alt: string;
+  title?: string;
+  description?: string;
+  category: string;
+  tags: string[];
+  featured: boolean;
+  order: number;
+}
+
+// Catalogs - Catalog sản phẩm
+export interface Catalog {
+  id: string;
+  title: string;
+  description?: string;
+  brand: string;
+  downloadUrl: string;
+  thumbnail?: string;
+  order: number;
+  enabled: boolean;
+}
+
+// Hero Slides - Slider trang chủ
+export interface HeroSlide {
+  id: string;
+  title: string;
+  subtitle?: string;
+  label?: string;
+  description: string;
+  image: string;
+  video?: string;
+  link: string;
+  linkText: string;
+  order: number;
+  enabled: boolean;
+}
+
+// Homepage Stats - Số liệu trang chủ
+export interface HomepageStat {
+  id: string;
+  label: string;
+  value: string;
+  suffix?: string;
+  order: number;
+}
+
+// Partner Logos - Logo đối tác
+export interface PartnerLogo {
+  id: string;
+  name: string;
+  logo: string;
+  url?: string;
+  order: number;
+  enabled: boolean;
+}
+

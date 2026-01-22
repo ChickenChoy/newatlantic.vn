@@ -2,21 +2,28 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
+import { HeroSlide } from "@/types"
 
-const slides = [
+interface HeroSliderProps {
+  slides?: HeroSlide[];
+}
+
+const defaultSlides: HeroSlide[] = [
   {
-    id: 1,
-    label: "GIỚI THIỆU",
+    id: "1",
     title: "NEW ATLANTIC",
     subtitle: "THIẾT BỊ CÔNG NGHỆ CAO",
     description: "Mỗi sản phẩm New Atlantic là sự kết tinh của đẳng cấp và công nghệ tiên tiến, mang đến cho bạn những giải pháp tối ưu cho công việc và dự án.",
     image: "/images/place-holder/telescopic-mast-tower.jpg",
-    video: "/videos/hero-video.mp4",
     link: "/san-pham",
+    linkText: "Xem thêm",
+    order: 1,
+    enabled: true,
   },
 ]
 
-export function HeroSlider() {
+export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
+  const slides = propSlides && propSlides.length > 0 ? propSlides : defaultSlides;
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [isMounted, setIsMounted] = useState(false)

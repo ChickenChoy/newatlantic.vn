@@ -1,0 +1,72 @@
+[
+  {
+    "id": "wb-1",
+    "title": "Military elevation solution and tactical trailers",
+    "description": "Giải pháp cột nâng quân sự và trailer chiến thuật",
+    "brand": "WILL-BURT",
+    "downloadUrl": "https://drive.google.com/file/d/1v_Radki2cjTFfQjbZ2-od73xzmEqDY6O/view",
+    "thumbnail": "",
+    "order": 1,
+    "enabled": true
+  },
+  {
+    "id": "wb-2",
+    "title": "Telecommunication elevation solutions",
+    "description": "Giải pháp cột nâng viễn thông",
+    "brand": "WILL-BURT",
+    "downloadUrl": "https://drive.google.com/file/d/1AQdNA8nPMgUg3_t5QLA1pdWoRDebq7Ho/view",
+    "thumbnail": "",
+    "order": 2,
+    "enabled": true
+  },
+  {
+    "id": "wb-3",
+    "title": "Military elevation solut. & tactical trailers 2",
+    "description": "Giải pháp cột nâng quân sự và trailer chiến thuật phiên bản 2",
+    "brand": "WILL-BURT",
+    "downloadUrl": "https://drive.google.com/file/d/1v_Radki2cjTFfQjbZ2-od73xzmEqDY6O/view",
+    "thumbnail": "",
+    "order": 3,
+    "enabled": true
+  },
+  {
+    "id": "hiab-1",
+    "title": "All-electric Moffet E-Series nx",
+    "description": "Xe nâng điện hoàn toàn Moffet E-Series nx",
+    "brand": "HIAB",
+    "downloadUrl": "https://drive.google.com/file/d/14Sa2lMixNqNVUUfrxO_3IDcQ9BqG9G4_/view",
+    "thumbnail": "",
+    "order": 1,
+    "enabled": true
+  },
+  {
+    "id": "hiab-2",
+    "title": "Deliver More HIAB MOFFET",
+    "description": "Giao hàng nhiều hơn với HIAB MOFFET",
+    "brand": "HIAB",
+    "downloadUrl": "https://drive.google.com/file/d/1meoPLNJcUQEtn4TKctweJLNR4Plzdt96/view",
+    "thumbnail": "",
+    "order": 2,
+    "enabled": true
+  },
+  {
+    "id": "hiab-3",
+    "title": "The New MOFFET 4 NX",
+    "description": "MOFFET 4 NX thế hệ mới",
+    "brand": "HIAB",
+    "downloadUrl": "https://drive.google.com/file/d/1IYD6hloU8_dalTgkSZXHuCNGjqJMrBXN/view",
+    "thumbnail": "",
+    "order": 3,
+    "enabled": true
+  },
+  {
+    "id": "hiab-4",
+    "title": "Xe nâng gắn xe tải MOFFET",
+    "description": "Catalog xe nâng gắn xe tải MOFFET",
+    "brand": "HIAB",
+    "downloadUrl": "https://publuu.com/flip-book/180051/1141767",
+    "thumbnail": "",
+    "order": 4,
+    "enabled": true
+  }
+]

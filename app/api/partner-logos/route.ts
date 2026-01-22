@@ -1,0 +1,107 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getPartnerLogos, savePartnerLogos, addPartnerLogo, deletePartnerLogo } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
+import { PartnerLogo } from '@/types';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+// GET - Lấy danh sách partner logos
+export async function GET() {
+  try {
+    const logos = getPartnerLogos();
+    return NextResponse.json(logos);
+  } catch (error) {
+    console.error('Error fetching partner logos:', error);
+    return NextResponse.json({ error: 'Failed to fetch partner logos' }, { status: 500 });
+  }
+}
+
+// POST - Thêm partner logo mới
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { name, logo, url, order, enabled } = body;
+
+    if (!name || !logo) {
+      return NextResponse.json({ error: 'Name and logo are required' }, { status: 400 });
+    }
+
+    const newLogo: PartnerLogo = {
+      id: String(Date.now()),
+      name,
+      logo,
+      url: url || '',
+      order: order || 0,
+      enabled: enabled !== false,
+    };
+
+    const success = addPartnerLogo(newLogo);
+
+    if (success) {
+      revalidatePath('/');
+      return NextResponse.json(newLogo, { status: 201 });
+    }
+
+    return NextResponse.json({ error: 'Failed to add partner logo' }, { status: 500 });
+  } catch (error) {
+    console.error('Error adding partner logo:', error);
+    return NextResponse.json({ error: 'Failed to add partner logo' }, { status: 500 });
+  }
+}
+
+// PUT - Cập nhật partner logo
+export async function PUT(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { id, ...updates } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: 'Logo ID is required' }, { status: 400 });
+    }
+
+    const logos = getPartnerLogos();
+    const index = logos.findIndex(l => l.id === id);
+
+    if (index === -1) {
+      return NextResponse.json({ error: 'Logo not found' }, { status: 404 });
+    }
+
+    logos[index] = { ...logos[index], ...updates };
+    const success = savePartnerLogos(logos);
+
+    if (success) {
+      revalidatePath('/');
+      return NextResponse.json(logos[index]);
+    }
+
+    return NextResponse.json({ error: 'Failed to update partner logo' }, { status: 500 });
+  } catch (error) {
+    console.error('Error updating partner logo:', error);
+    return NextResponse.json({ error: 'Failed to update partner logo' }, { status: 500 });
+  }
+}
+
+// DELETE - Xóa partner logo
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Logo ID is required' }, { status: 400 });
+    }
+
+    const success = deletePartnerLogo(id);
+
+    if (success) {
+      revalidatePath('/');
+      return NextResponse.json({ success: true });
+    }
+
+    return NextResponse.json({ error: 'Failed to delete partner logo' }, { status: 500 });
+  } catch (error) {
+    console.error('Error deleting partner logo:', error);
+    return NextResponse.json({ error: 'Failed to delete partner logo' }, { status: 500 });
+  }
+}

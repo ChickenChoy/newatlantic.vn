@@ -1,0 +1,24 @@
+[
+  {
+    "id": "hcm",
+    "name": "TP.HCM (Trụ sở chính)",
+    "type": "headquarters",
+    "region": "Miền Nam",
+    "address": "A60 Đường Phú Thuận, P. Phú Thuận, Q.7",
+    "phone": "+84 2838 733 686",
+    "email": "info@newatlantic.vn",
+    "googleMapsUrl": "",
+    "order": 1
+  },
+  {
+    "id": "hanoi",
+    "name": "Hà Nội",
+    "type": "branch",
+    "region": "Miền Bắc",
+    "address": "85 Nguyễn Phong Sắc, Cầu Giấy",
+    "phone": "",
+    "email": "",
+    "googleMapsUrl": "",
+    "order": 2
+  }
+]

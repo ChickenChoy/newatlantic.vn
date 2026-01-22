@@ -23,8 +23,8 @@
     --banh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --banh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --banh-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --banh-font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
-    --banh-font-body: var(--font-outfit), 'Outfit', -apple-system, sans-serif;
+    --banh-font-heading: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+    --banh-font-body: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
     --banh-radius: 12px;
     --banh-radius-lg: 24px;
 }
@@ -202,6 +202,25 @@
     position: absolute;
     inset: 0;
     z-index: 0;
+}
+
+/* Hero background responsive images */
+.banh-hero-bg-mobile {
+    display: block;
+}
+
+.banh-hero-bg-desktop {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .banh-hero-bg-mobile {
+        display: none;
+    }
+
+    .banh-hero-bg-desktop {
+        display: block;
+    }
 }
 
 .banh-hero-overlay {
@@ -578,6 +597,26 @@
     font-size: 0.85rem;
     color: var(--banh-gray-600);
     margin-top: 4px;
+}
+
+/* About Avatar */
+.banh-about-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.banh-about-avatar img {
+    border-radius: 50%;
+    box-shadow: 0 8px 30px rgba(196, 30, 58, 0.3);
+    animation: avatarFloat 3s ease-in-out infinite;
+    background: linear-gradient(135deg, rgba(212, 160, 23, 0.2), rgba(196, 30, 58, 0.2));
+    padding: 8px;
+}
+
+@keyframes avatarFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
 .banh-about-image {

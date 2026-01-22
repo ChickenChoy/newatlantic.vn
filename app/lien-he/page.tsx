@@ -1,14 +1,36 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { generateBreadcrumbSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import { validateVietnamesePhone } from '@/lib/validation';
+import { OfficeLocation } from '@/types';
 
 export default function ContactPage() {
-  // Update page title
+  const [officeLocations, setOfficeLocations] = useState<OfficeLocation[]>([]);
+  const [isLoadingOffices, setIsLoadingOffices] = useState(true);
+
+  // Load office locations from API
+  const loadOfficeLocations = useCallback(async () => {
+    try {
+      setIsLoadingOffices(true);
+      const res = await fetch('/api/office-locations');
+      if (res.ok) {
+        const data = await res.json();
+        setOfficeLocations(data.sort((a: OfficeLocation, b: OfficeLocation) => a.order - b.order));
+      }
+    } catch (error) {
+      console.error('Error loading office locations:', error);
+    } finally {
+      setIsLoadingOffices(false);
+    }
+  }, []);
+
+  // Update page title and load data
   useEffect(() => {
     document.title = 'Liên hệ | NEW ATLANTIC - Tân Đại Tây Dương';
-  }, []);
+    loadOfficeLocations();
+  }, [loadOfficeLocations]);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -462,115 +484,76 @@ export default function ContactPage() {
 
           {/* Office Locations */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-            {/* HCM Office */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 flex flex-col group hover:bg-white/15 transition-all duration-300">
-              <div className="p-8 flex-shrink-0">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
+            {isLoadingOffices ? (
+              <>
+                <div className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 animate-pulse h-[500px]"></div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 animate-pulse h-[500px]"></div>
+              </>
+            ) : officeLocations.length > 0 ? (
+              officeLocations.map((office) => (
+                <div key={office.id} className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 flex flex-col group hover:bg-white/15 transition-all duration-300">
+                  <div className="p-8 flex-shrink-0">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-300">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                      </div>
+                      <h3 className="text-xl font-bold text-white">{office.name}</h3>
+                    </div>
+                    <div className="space-y-4 text-sm">
+                      <div className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <p className="text-gray-300 leading-relaxed">{office.address}</p>
+                      </div>
+                      {office.phone && (
+                        <div className="flex items-center gap-3">
+                          <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                          </svg>
+                          <a href={`tel:${office.phone}`} className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
+                            {office.phone}
+                          </a>
+                        </div>
+                      )}
+                      {office.email && (
+                        <div className="flex items-center gap-3">
+                          <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                          <a href={`mailto:${office.email}`} className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
+                            {office.email}
+                          </a>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white">Trụ Sở Chính - TP.HCM</h3>
-                </div>
-                <div className="space-y-4 text-sm">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <p className="text-gray-300 leading-relaxed">
-                      A60 Đường Phú Thuận, Phường Phú Thuận, Quận 7, TP.HCM
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <a href="tel:+842838733686" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
-                      +84 2838 733 686
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <a href="mailto:info@newatlantic.vn" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
-                      info@newatlantic.vn
-                    </a>
-                  </div>
-                </div>
-              </div>
 
-              {/* Google Maps */}
-              <div className="flex-1 border-t border-white/10 min-h-[300px] relative">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4752.029135340127!2d106.73285127578363!3d10.731304260022924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175253f08df6c91%3A0x3692111b5c643ce2!2sNewatlantic%20International%20JSC!5e1!3m2!1svi!2s!4v1760503596543!5m2!1svi!2s"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={true}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="grayscale hover:grayscale-0 transition-all duration-500"
-                ></iframe>
-              </div>
-            </div>
-
-            {/* Hanoi Office */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 flex flex-col group hover:bg-white/15 transition-all duration-300">
-              <div className="p-8 flex-shrink-0">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-300">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold text-white">Văn Phòng Hà Nội</h3>
+                  {/* Google Maps */}
+                  {office.googleMapsUrl && (
+                    <div className="flex-1 border-t border-white/10 min-h-[300px] relative">
+                      <iframe
+                        src={office.googleMapsUrl}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen={true}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="grayscale hover:grayscale-0 transition-all duration-500"
+                      ></iframe>
+                    </div>
+                  )}
                 </div>
-                <div className="space-y-4 text-sm">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <p className="text-gray-300 leading-relaxed">
-                      Số 85 Đường Nguyễn Phong Sắc, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <a href="tel:+842838733686" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
-                      +84 2838 733 686
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <a href="mailto:info@newatlantic.vn" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
-                      info@newatlantic.vn
-                    </a>
-                  </div>
-                </div>
+              ))
+            ) : (
+              <div className="col-span-2 text-center py-12 text-gray-400">
+                Chưa có thông tin văn phòng
               </div>
-
-              {/* Google Maps */}
-              <div className="flex-1 border-t border-white/10 min-h-[300px] relative">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4514.198692704718!2d105.7877081759183!3d21.038676487436643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab365050f60f%3A0x973143159aecba74!2sU-G7kSA4NSDEkC4gTmd1eeG7hW4gUGhvbmcgU-G6r2MsIEThu4tjaCBW4buNbmcgSOG6rXUsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e1!3m2!1svi!2s!4v1760503649400!5m2!1svi!2s"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={true}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="grayscale hover:grayscale-0 transition-all duration-500"
-                ></iframe>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

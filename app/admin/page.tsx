@@ -2,19 +2,30 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { Product, Post, Category } from '@/types';
+import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import PasswordInput from '@/components/PasswordInput';
+import ImageUpload from '@/components/ImageUpload';
 
 export default function AdminPage() {
   const toast = useToast();
-  const [activeTab, setActiveTab] = useState<'products' | 'posts' | 'categories' | 'settings'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'posts' | 'categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners'>('products');
   const [products, setProducts] = useState<Product[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  // CMS Data states
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
+  const [officeLocations, setOfficeLocations] = useState<OfficeLocation[]>([]);
+  const [footerLinks, setFooterLinks] = useState<FooterLink[]>([]);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [catalogs, setCatalogs] = useState<Catalog[]>([]);
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
+  const [homepageStats, setHomepageStats] = useState<HomepageStat[]>([]);
+  const [partnerLogos, setPartnerLogos] = useState<PartnerLogo[]>([]);
 
   // Search & Filter states
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,6 +93,27 @@ export default function AdminPage() {
         const totpData = await totpRes.json();
         setTotpEnabled(totpData.totpEnabled);
       }
+
+      // Load CMS data
+      const [siteSettingsRes, officeLocationsRes, footerLinksRes, galleryRes, catalogsRes, heroSlidesRes, homepageStatsRes, partnerLogosRes] = await Promise.all([
+        fetch('/api/site-settings'),
+        fetch('/api/office-locations'),
+        fetch('/api/footer-links'),
+        fetch('/api/gallery'),
+        fetch('/api/catalogs'),
+        fetch('/api/hero-slides'),
+        fetch('/api/homepage-stats'),
+        fetch('/api/partner-logos'),
+      ]);
+
+      if (siteSettingsRes.ok) setSiteSettings(await siteSettingsRes.json());
+      if (officeLocationsRes.ok) setOfficeLocations(await officeLocationsRes.json());
+      if (footerLinksRes.ok) setFooterLinks(await footerLinksRes.json());
+      if (galleryRes.ok) setGalleryImages(await galleryRes.json());
+      if (catalogsRes.ok) setCatalogs(await catalogsRes.json());
+      if (heroSlidesRes.ok) setHeroSlides(await heroSlidesRes.json());
+      if (homepageStatsRes.ok) setHomepageStats(await homepageStatsRes.json());
+      if (partnerLogosRes.ok) setPartnerLogos(await partnerLogosRes.json());
     } catch (error) {
       console.error('Error loading data:', error);
       toast.error('Không thể tải dữ liệu. Vui lòng refresh trang.');
@@ -616,10 +648,10 @@ export default function AdminPage() {
 
           {/* Tabs */}
           <div className="mb-6 border-b border-gray-200">
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-2 md:gap-4">
               <button
                 onClick={() => { setActiveTab('products'); setSearchQuery(''); setSelectedProducts(new Set()); }}
-                className={`px-6 py-3 font-semibold transition-colors ${
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
                   activeTab === 'products'
                     ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
                     : 'text-gray-500 hover:text-gray-700'
@@ -629,7 +661,7 @@ export default function AdminPage() {
               </button>
               <button
                 onClick={() => { setActiveTab('posts'); setSearchQuery(''); setSelectedPosts(new Set()); }}
-                className={`px-6 py-3 font-semibold transition-colors ${
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
                   activeTab === 'posts'
                     ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
                     : 'text-gray-500 hover:text-gray-700'
@@ -639,7 +671,7 @@ export default function AdminPage() {
               </button>
               <button
                 onClick={() => { setActiveTab('categories'); setSearchQuery(''); }}
-                className={`px-6 py-3 font-semibold transition-colors ${
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
                   activeTab === 'categories'
                     ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
                     : 'text-gray-500 hover:text-gray-700'
@@ -648,14 +680,54 @@ export default function AdminPage() {
                 Danh mục ({categories.length})
               </button>
               <button
+                onClick={() => { setActiveTab('site-settings'); setSearchQuery(''); }}
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
+                  activeTab === 'site-settings'
+                    ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Website
+              </button>
+              <button
+                onClick={() => { setActiveTab('gallery'); setSearchQuery(''); }}
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
+                  activeTab === 'gallery'
+                    ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Thư viện ({galleryImages.length})
+              </button>
+              <button
+                onClick={() => { setActiveTab('catalogs'); setSearchQuery(''); }}
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
+                  activeTab === 'catalogs'
+                    ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Catalogs ({catalogs.length})
+              </button>
+              <button
+                onClick={() => { setActiveTab('partners'); setSearchQuery(''); }}
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
+                  activeTab === 'partners'
+                    ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Đối tác ({partnerLogos.length})
+              </button>
+              <button
                 onClick={() => { setActiveTab('settings'); setSearchQuery(''); }}
-                className={`px-6 py-3 font-semibold transition-colors ${
+                className={`px-4 md:px-6 py-2 md:py-3 font-semibold transition-colors text-sm md:text-base ${
                   activeTab === 'settings'
                     ? 'text-[#5f7ab8] border-b-2 border-[#5f7ab8]'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
-                Cài đặt
+                Bảo mật
               </button>
             </div>
           </div>
@@ -1198,6 +1270,1145 @@ export default function AdminPage() {
                   Chưa có danh mục nào
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Site Settings Tab */}
+          {activeTab === 'site-settings' && (
+            <div className="space-y-6">
+              {/* Site Settings Form */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="p-4 border-b border-gray-200">
+                  <h2 className="text-lg font-semibold text-gray-900">Cài đặt Website</h2>
+                </div>
+                <div className="p-6">
+                  {siteSettings && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Tên công ty</label>
+                        <input
+                          type="text"
+                          value={siteSettings.companyName}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, companyName: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Slogan</label>
+                        <input
+                          type="text"
+                          value={siteSettings.companySlogan}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, companySlogan: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Mô tả công ty</label>
+                        <textarea
+                          value={siteSettings.companyDescription}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, companyDescription: e.target.value })}
+                          rows={3}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Số điện thoại</label>
+                        <input
+                          type="text"
+                          value={siteSettings.phone}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, phone: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input
+                          type="email"
+                          value={siteSettings.email}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, email: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Hotline</label>
+                        <input
+                          type="text"
+                          value={siteSettings.hotline || ''}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, hotline: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Logo URL</label>
+                        <input
+                          type="text"
+                          value={siteSettings.logo}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, logo: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Copyright</label>
+                        <input
+                          type="text"
+                          value={siteSettings.copyright}
+                          onChange={(e) => setSiteSettings({ ...siteSettings, copyright: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <div className="mt-6">
+                    <button
+                      onClick={async () => {
+                        if (!siteSettings) return;
+                        setSaving(true);
+                        try {
+                          const res = await fetch('/api/site-settings', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(siteSettings),
+                          });
+                          if (res.ok) {
+                            toast.success('Đã lưu cài đặt website!');
+                          } else {
+                            toast.error('Có lỗi xảy ra');
+                          }
+                        } catch {
+                          toast.error('Có lỗi xảy ra');
+                        } finally {
+                          setSaving(false);
+                        }
+                      }}
+                      disabled={saving}
+                      className="px-6 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
+                    >
+                      {saving ? 'Đang lưu...' : 'Lưu cài đặt'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Office Locations */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+                  <h2 className="text-lg font-semibold text-gray-900">Địa chỉ văn phòng ({officeLocations.length})</h2>
+                  <button
+                    onClick={async () => {
+                      const newOffice: OfficeLocation = {
+                        id: String(Date.now()),
+                        name: 'Văn phòng mới',
+                        type: 'branch',
+                        region: 'Miền Nam',
+                        address: '',
+                        order: officeLocations.length + 1,
+                      };
+                      setSaving(true);
+                      try {
+                        const res = await fetch('/api/office-locations', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(newOffice),
+                        });
+                        if (res.ok) {
+                          await loadData();
+                          toast.success('Đã thêm văn phòng mới!');
+                        }
+                      } catch {
+                        toast.error('Có lỗi xảy ra');
+                      } finally {
+                        setSaving(false);
+                      }
+                    }}
+                    disabled={saving}
+                    className="px-4 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium text-sm disabled:opacity-50"
+                  >
+                    + Thêm văn phòng
+                  </button>
+                </div>
+                <div className="divide-y divide-gray-200">
+                  {officeLocations.map((office) => (
+                    <div key={office.id} className="p-4">
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <input
+                          type="text"
+                          value={office.name}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, name: e.target.value } : o
+                            ));
+                          }}
+                          placeholder="Tên văn phòng"
+                          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        />
+                        <select
+                          value={office.type}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, type: e.target.value as 'headquarters' | 'branch' } : o
+                            ));
+                          }}
+                          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        >
+                          <option value="headquarters">Trụ sở chính</option>
+                          <option value="branch">Chi nhánh</option>
+                        </select>
+                        <input
+                          type="text"
+                          value={office.region}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, region: e.target.value } : o
+                            ));
+                          }}
+                          placeholder="Khu vực"
+                          className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={async () => {
+                              setSaving(true);
+                              try {
+                                const res = await fetch('/api/office-locations', {
+                                  method: 'PUT',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify(office),
+                                });
+                                if (res.ok) toast.success('Đã lưu!');
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 disabled:opacity-50"
+                          >
+                            Lưu
+                          </button>
+                          <button
+                            onClick={async () => {
+                              const confirmed = await toast.confirm({
+                                title: 'Xác nhận xóa',
+                                message: `Bạn có chắc muốn xóa văn phòng "${office.name}"?`,
+                                confirmText: 'Xóa',
+                                type: 'danger'
+                              });
+                              if (!confirmed) return;
+                              setSaving(true);
+                              try {
+                                const res = await fetch(`/api/office-locations?id=${office.id}`, { method: 'DELETE' });
+                                if (res.ok) {
+                                  await loadData();
+                                  toast.success('Đã xóa!');
+                                }
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="px-3 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 disabled:opacity-50"
+                          >
+                            Xóa
+                          </button>
+                        </div>
+                      </div>
+                      <div className="mt-3">
+                        <input
+                          type="text"
+                          value={office.address}
+                          onChange={(e) => {
+                            setOfficeLocations(officeLocations.map(o =>
+                              o.id === office.id ? { ...o, address: e.target.value } : o
+                            ));
+                          }}
+                          placeholder="Địa chỉ đầy đủ"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  {officeLocations.length === 0 && (
+                    <div className="p-8 text-center text-gray-500">Chưa có văn phòng nào</div>
+                  )}
+                </div>
+              </div>
+
+              {/* Hero Slides */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+                  <h2 className="text-lg font-semibold text-gray-900">Hero Slides ({heroSlides.length})</h2>
+                  <button
+                    onClick={async () => {
+                      const newSlide: HeroSlide = {
+                        id: String(Date.now()),
+                        title: 'Slide mới',
+                        subtitle: '',
+                        label: '',
+                        description: '',
+                        image: '/images/hero/slide1.jpg',
+                        video: '',
+                        link: '/',
+                        linkText: 'Xem thêm',
+                        order: heroSlides.length + 1,
+                        enabled: true,
+                      };
+                      setSaving(true);
+                      try {
+                        const res = await fetch('/api/hero-slides', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(newSlide),
+                        });
+                        if (res.ok) {
+                          await loadData();
+                          toast.success('Đã thêm slide mới!');
+                        }
+                      } catch {
+                        toast.error('Có lỗi xảy ra');
+                      } finally {
+                        setSaving(false);
+                      }
+                    }}
+                    disabled={saving}
+                    className="px-4 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium text-sm disabled:opacity-50"
+                  >
+                    + Thêm slide
+                  </button>
+                </div>
+                <div className="divide-y divide-gray-200">
+                  {heroSlides.map((slide) => (
+                    <div key={slide.id} className="p-4">
+                      <div className="flex flex-col lg:flex-row gap-4">
+                        {/* Preview */}
+                        <div className="flex-shrink-0">
+                          {slide.video ? (
+                            <video src={slide.video} className="w-40 h-24 object-cover rounded" muted playsInline />
+                          ) : (
+                            <img src={slide.image} alt={slide.title} className="w-40 h-24 object-cover rounded" />
+                          )}
+                        </div>
+
+                        {/* Form Fields */}
+                        <div className="flex-1 space-y-3">
+                          {/* Row 1: Title & Subtitle */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Tiêu đề chính</label>
+                              <input
+                                type="text"
+                                value={slide.title}
+                                onChange={(e) => {
+                                  setHeroSlides(heroSlides.map(s =>
+                                    s.id === slide.id ? { ...s, title: e.target.value } : s
+                                  ));
+                                }}
+                                placeholder="Tiêu đề"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Tiêu đề phụ</label>
+                              <input
+                                type="text"
+                                value={slide.subtitle || ''}
+                                onChange={(e) => {
+                                  setHeroSlides(heroSlides.map(s =>
+                                    s.id === slide.id ? { ...s, subtitle: e.target.value } : s
+                                  ));
+                                }}
+                                placeholder="Tiêu đề phụ"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Row 2: Label & Link Text */}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Nhãn (Label)</label>
+                              <input
+                                type="text"
+                                value={slide.label || ''}
+                                onChange={(e) => {
+                                  setHeroSlides(heroSlides.map(s =>
+                                    s.id === slide.id ? { ...s, label: e.target.value } : s
+                                  ));
+                                }}
+                                placeholder="VD: GIỚI THIỆU"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Text nút bấm</label>
+                              <input
+                                type="text"
+                                value={slide.linkText}
+                                onChange={(e) => {
+                                  setHeroSlides(heroSlides.map(s =>
+                                    s.id === slide.id ? { ...s, linkText: e.target.value } : s
+                                  ));
+                                }}
+                                placeholder="Xem thêm"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Row 3: Description */}
+                          <div>
+                            <label className="block text-xs font-medium text-gray-500 mb-1">Mô tả</label>
+                            <textarea
+                              value={slide.description}
+                              onChange={(e) => {
+                                setHeroSlides(heroSlides.map(s =>
+                                  s.id === slide.id ? { ...s, description: e.target.value } : s
+                                ));
+                              }}
+                              placeholder="Mô tả ngắn về slide"
+                              rows={2}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                            />
+                          </div>
+
+                          {/* Row 4: Image Upload */}
+                          <div>
+                            <label className="block text-xs font-medium text-gray-500 mb-1">Hình ảnh nền</label>
+                            <ImageUpload
+                              value={slide.image}
+                              onChange={(value) => {
+                                setHeroSlides(heroSlides.map(s =>
+                                  s.id === slide.id ? { ...s, image: value } : s
+                                ));
+                              }}
+                              placeholder="URL hình ảnh hoặc upload"
+                              showPreview={false}
+                            />
+                          </div>
+
+                          {/* Row 5: Video Upload */}
+                          <div>
+                            <label className="block text-xs font-medium text-gray-500 mb-1">Video nền (tùy chọn)</label>
+                            <ImageUpload
+                              value={slide.video || ''}
+                              onChange={(value) => {
+                                setHeroSlides(heroSlides.map(s =>
+                                  s.id === slide.id ? { ...s, video: value } : s
+                                ));
+                              }}
+                              accept="video/*"
+                              placeholder="URL video hoặc upload (mp4, webm)"
+                              showPreview={false}
+                            />
+                          </div>
+
+                          {/* Row 6: Link & Actions */}
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+                            <div>
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Đường dẫn</label>
+                              <input
+                                type="text"
+                                value={slide.link}
+                                onChange={(e) => {
+                                  setHeroSlides(heroSlides.map(s =>
+                                    s.id === slide.id ? { ...s, link: e.target.value } : s
+                                  ));
+                                }}
+                                placeholder="/san-pham"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Thứ tự</label>
+                              <input
+                                type="number"
+                                value={slide.order}
+                                onChange={(e) => {
+                                  setHeroSlides(heroSlides.map(s =>
+                                    s.id === slide.id ? { ...s, order: parseInt(e.target.value) || 1 } : s
+                                  ));
+                                }}
+                                min={1}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              />
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <label className="flex items-center gap-2">
+                                <input
+                                  type="checkbox"
+                                  checked={slide.enabled}
+                                  onChange={(e) => {
+                                    setHeroSlides(heroSlides.map(s =>
+                                      s.id === slide.id ? { ...s, enabled: e.target.checked } : s
+                                    ));
+                                  }}
+                                  className="w-4 h-4 rounded"
+                                />
+                                <span className="text-sm">Hiển thị</span>
+                              </label>
+                              <button
+                                onClick={async () => {
+                                  setSaving(true);
+                                  try {
+                                    const res = await fetch('/api/hero-slides', {
+                                      method: 'PUT',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify(slide),
+                                    });
+                                    if (res.ok) toast.success('Đã lưu!');
+                                  } catch {
+                                    toast.error('Có lỗi xảy ra');
+                                  } finally {
+                                    setSaving(false);
+                                  }
+                                }}
+                                disabled={saving}
+                                className="px-3 py-1.5 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                              >
+                                Lưu
+                              </button>
+                              <button
+                                onClick={async () => {
+                                  const confirmed = await toast.confirm({
+                                    title: 'Xác nhận xóa',
+                                    message: 'Bạn có chắc muốn xóa slide này?',
+                                    confirmText: 'Xóa',
+                                    type: 'danger'
+                                  });
+                                  if (!confirmed) return;
+                                  setSaving(true);
+                                  try {
+                                    const res = await fetch(`/api/hero-slides?id=${slide.id}`, { method: 'DELETE' });
+                                    if (res.ok) {
+                                      await loadData();
+                                      toast.success('Đã xóa!');
+                                    }
+                                  } catch {
+                                    toast.error('Có lỗi xảy ra');
+                                  } finally {
+                                    setSaving(false);
+                                  }
+                                }}
+                                disabled={saving}
+                                className="px-3 py-1.5 bg-red-600 text-white rounded text-sm hover:bg-red-700 disabled:opacity-50"
+                              >
+                                Xóa
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {heroSlides.length === 0 && (
+                    <div className="p-8 text-center text-gray-500">Chưa có slide nào</div>
+                  )}
+                </div>
+              </div>
+
+              {/* Homepage Stats */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="p-4 border-b border-gray-200">
+                  <h2 className="text-lg font-semibold text-gray-900">Số liệu trang chủ ({homepageStats.length})</h2>
+                </div>
+                <div className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {homepageStats.map((stat, index) => (
+                      <div key={stat.id} className="border border-gray-200 rounded-lg p-4">
+                        <input
+                          type="text"
+                          value={stat.label}
+                          onChange={(e) => {
+                            setHomepageStats(homepageStats.map((s, i) =>
+                              i === index ? { ...s, label: e.target.value } : s
+                            ));
+                          }}
+                          placeholder="Label"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-2"
+                        />
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={stat.value}
+                            onChange={(e) => {
+                              setHomepageStats(homepageStats.map((s, i) =>
+                                i === index ? { ...s, value: e.target.value } : s
+                              ));
+                            }}
+                            placeholder="Giá trị"
+                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                          />
+                          <input
+                            type="text"
+                            value={stat.suffix || ''}
+                            onChange={(e) => {
+                              setHomepageStats(homepageStats.map((s, i) =>
+                                i === index ? { ...s, suffix: e.target.value } : s
+                              ));
+                            }}
+                            placeholder="Hậu tố"
+                            className="w-20 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      onClick={async () => {
+                        setSaving(true);
+                        try {
+                          const res = await fetch('/api/homepage-stats', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(homepageStats),
+                          });
+                          if (res.ok) toast.success('Đã lưu số liệu!');
+                        } catch {
+                          toast.error('Có lỗi xảy ra');
+                        } finally {
+                          setSaving(false);
+                        }
+                      }}
+                      disabled={saving}
+                      className="px-6 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
+                    >
+                      {saving ? 'Đang lưu...' : 'Lưu số liệu'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Gallery Tab */}
+          {activeTab === 'gallery' && (
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-gray-900">Quản lý thư viện hình ảnh</h2>
+                <button
+                  onClick={async () => {
+                    const newImage: GalleryImage = {
+                      id: String(Date.now()),
+                      src: '/images/gallery/image.jpg',
+                      alt: 'Hình ảnh mới',
+                      title: 'Hình ảnh mới',
+                      description: '',
+                      category: 'general',
+                      tags: [],
+                      featured: false,
+                      order: galleryImages.length + 1,
+                    };
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/gallery', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newImage),
+                      });
+                      if (res.ok) {
+                        await loadData();
+                        toast.success('Đã thêm hình ảnh mới!');
+                      }
+                    } catch {
+                      toast.error('Có lỗi xảy ra');
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                  disabled={saving}
+                  className="px-4 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
+                >
+                  + Thêm hình ảnh
+                </button>
+              </div>
+              <div className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {galleryImages.map((image) => (
+                    <div key={image.id} className="border border-gray-200 rounded-lg overflow-hidden">
+                      <img src={image.src} alt={image.alt} className="w-full h-40 object-cover" />
+                      <div className="p-3 space-y-2">
+                        {/* Image Upload */}
+                        <ImageUpload
+                          value={image.src}
+                          onChange={(value) => {
+                            setGalleryImages(galleryImages.map(img =>
+                              img.id === image.id ? { ...img, src: value } : img
+                            ));
+                          }}
+                          placeholder="URL hình ảnh hoặc upload"
+                          showPreview={false}
+                        />
+                        <input
+                          type="text"
+                          value={image.title || ''}
+                          onChange={(e) => {
+                            setGalleryImages(galleryImages.map(img =>
+                              img.id === image.id ? { ...img, title: e.target.value } : img
+                            ));
+                          }}
+                          placeholder="Tiêu đề"
+                          className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                        />
+                        <input
+                          type="text"
+                          value={image.alt}
+                          onChange={(e) => {
+                            setGalleryImages(galleryImages.map(img =>
+                              img.id === image.id ? { ...img, alt: e.target.value } : img
+                            ));
+                          }}
+                          placeholder="Alt text"
+                          className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                        />
+                        <input
+                          type="text"
+                          value={image.description || ''}
+                          onChange={(e) => {
+                            setGalleryImages(galleryImages.map(img =>
+                              img.id === image.id ? { ...img, description: e.target.value } : img
+                            ));
+                          }}
+                          placeholder="Mô tả"
+                          className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <input
+                            type="text"
+                            value={image.category || ''}
+                            onChange={(e) => {
+                              setGalleryImages(galleryImages.map(img =>
+                                img.id === image.id ? { ...img, category: e.target.value } : img
+                              ));
+                            }}
+                            placeholder="Danh mục"
+                            className="px-3 py-2 border border-gray-300 rounded text-sm"
+                          />
+                          <input
+                            type="number"
+                            value={image.order}
+                            onChange={(e) => {
+                              setGalleryImages(galleryImages.map(img =>
+                                img.id === image.id ? { ...img, order: parseInt(e.target.value) || 1 } : img
+                              ));
+                            }}
+                            placeholder="Thứ tự"
+                            min={1}
+                            className="px-3 py-2 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <label className="flex items-center gap-1 text-sm">
+                            <input
+                              type="checkbox"
+                              checked={image.featured}
+                              onChange={(e) => {
+                                setGalleryImages(galleryImages.map(img =>
+                                  img.id === image.id ? { ...img, featured: e.target.checked } : img
+                                ));
+                              }}
+                              className="w-4 h-4 rounded"
+                            />
+                            Nổi bật
+                          </label>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={async () => {
+                                setSaving(true);
+                                try {
+                                  const res = await fetch('/api/gallery', {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(image),
+                                  });
+                                  if (res.ok) toast.success('Đã lưu!');
+                                } catch {
+                                  toast.error('Có lỗi xảy ra');
+                                } finally {
+                                  setSaving(false);
+                                }
+                              }}
+                              disabled={saving}
+                              className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                            >
+                              Lưu
+                            </button>
+                            <button
+                              onClick={async () => {
+                                const confirmed = await toast.confirm({
+                                  title: 'Xác nhận xóa',
+                                  message: 'Bạn có chắc muốn xóa hình ảnh này?',
+                                  confirmText: 'Xóa',
+                                  type: 'danger'
+                                });
+                                if (!confirmed) return;
+                                setSaving(true);
+                                try {
+                                  const res = await fetch(`/api/gallery?id=${image.id}`, { method: 'DELETE' });
+                                  if (res.ok) {
+                                    await loadData();
+                                    toast.success('Đã xóa!');
+                                  }
+                                } catch {
+                                  toast.error('Có lỗi xảy ra');
+                                } finally {
+                                  setSaving(false);
+                                }
+                              }}
+                              disabled={saving}
+                              className="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700 disabled:opacity-50"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {galleryImages.length === 0 && (
+                  <div className="text-center py-12 text-gray-500">Chưa có hình ảnh nào</div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Catalogs Tab */}
+          {activeTab === 'catalogs' && (
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-gray-900">Quản lý Catalogs</h2>
+                <button
+                  onClick={async () => {
+                    const newCatalog: Catalog = {
+                      id: String(Date.now()),
+                      title: 'Catalog mới',
+                      description: '',
+                      brand: 'HIAB',
+                      downloadUrl: '/catalogs/catalog.pdf',
+                      thumbnail: '',
+                      order: catalogs.length + 1,
+                      enabled: true,
+                    };
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/catalogs', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newCatalog),
+                      });
+                      if (res.ok) {
+                        await loadData();
+                        toast.success('Đã thêm catalog mới!');
+                      }
+                    } catch {
+                      toast.error('Có lỗi xảy ra');
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                  disabled={saving}
+                  className="px-4 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
+                >
+                  + Thêm catalog
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Tiêu đề</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Thương hiệu</th>
+                      <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">URL Download</th>
+                      <th className="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Hiển thị</th>
+                      <th className="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {catalogs.map((catalog) => (
+                      <tr key={catalog.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">
+                          <input
+                            type="text"
+                            value={catalog.title}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, title: e.target.value } : c
+                              ));
+                            }}
+                            className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                          />
+                        </td>
+                        <td className="px-6 py-4">
+                          <select
+                            value={catalog.brand}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, brand: e.target.value } : c
+                              ));
+                            }}
+                            className="px-3 py-2 border border-gray-300 rounded text-sm"
+                          >
+                            <option value="HIAB">HIAB</option>
+                            <option value="WILL-BURT">WILL-BURT</option>
+                            <option value="Moffett">Moffett</option>
+                            <option value="EFFER">EFFER</option>
+                            <option value="Other">Khác</option>
+                          </select>
+                        </td>
+                        <td className="px-6 py-4">
+                          <input
+                            type="text"
+                            value={catalog.downloadUrl}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, downloadUrl: e.target.value } : c
+                              ));
+                            }}
+                            className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                          />
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <input
+                            type="checkbox"
+                            checked={catalog.enabled}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, enabled: e.target.checked } : c
+                              ));
+                            }}
+                            className="w-4 h-4 rounded"
+                          />
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <button
+                            onClick={async () => {
+                              setSaving(true);
+                              try {
+                                const res = await fetch('/api/catalogs', {
+                                  method: 'PUT',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify(catalog),
+                                });
+                                if (res.ok) toast.success('Đã lưu!');
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="text-green-600 hover:text-green-800 mr-3 disabled:opacity-50"
+                          >
+                            Lưu
+                          </button>
+                          <button
+                            onClick={async () => {
+                              const confirmed = await toast.confirm({
+                                title: 'Xác nhận xóa',
+                                message: `Bạn có chắc muốn xóa catalog "${catalog.title}"?`,
+                                confirmText: 'Xóa',
+                                type: 'danger'
+                              });
+                              if (!confirmed) return;
+                              setSaving(true);
+                              try {
+                                const res = await fetch(`/api/catalogs?id=${catalog.id}`, { method: 'DELETE' });
+                                if (res.ok) {
+                                  await loadData();
+                                  toast.success('Đã xóa!');
+                                }
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="text-red-600 hover:text-red-800 disabled:opacity-50"
+                          >
+                            Xóa
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {catalogs.length === 0 && (
+                <div className="text-center py-12 text-gray-500">Chưa có catalog nào</div>
+              )}
+            </div>
+          )}
+
+          {/* Partners Tab */}
+          {activeTab === 'partners' && (
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-gray-900">Quản lý đối tác</h2>
+                <button
+                  onClick={async () => {
+                    const newPartner: PartnerLogo = {
+                      id: String(Date.now()),
+                      name: 'Đối tác mới',
+                      logo: '/images/partners/logo.png',
+                      url: '',
+                      order: partnerLogos.length + 1,
+                      enabled: true,
+                    };
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/partner-logos', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newPartner),
+                      });
+                      if (res.ok) {
+                        await loadData();
+                        toast.success('Đã thêm đối tác mới!');
+                      }
+                    } catch {
+                      toast.error('Có lỗi xảy ra');
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                  disabled={saving}
+                  className="px-4 py-2 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
+                >
+                  + Thêm đối tác
+                </button>
+              </div>
+              <div className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {partnerLogos.map((partner) => (
+                    <div key={partner.id} className="border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-center gap-4 mb-3">
+                        <img src={partner.logo} alt={partner.name} className="w-16 h-16 object-contain bg-gray-100 rounded p-2" />
+                        <div className="flex-1">
+                          <input
+                            type="text"
+                            value={partner.name}
+                            onChange={(e) => {
+                              setPartnerLogos(partnerLogos.map(p =>
+                                p.id === partner.id ? { ...p, name: e.target.value } : p
+                              ));
+                            }}
+                            placeholder="Tên đối tác"
+                            className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        {/* Logo Upload */}
+                        <ImageUpload
+                          value={partner.logo}
+                          onChange={(value) => {
+                            setPartnerLogos(partnerLogos.map(p =>
+                              p.id === partner.id ? { ...p, logo: value } : p
+                            ));
+                          }}
+                          placeholder="URL logo hoặc upload"
+                          showPreview={false}
+                        />
+                        <input
+                          type="text"
+                          value={partner.url || ''}
+                          onChange={(e) => {
+                            setPartnerLogos(partnerLogos.map(p =>
+                              p.id === partner.id ? { ...p, url: e.target.value } : p
+                            ));
+                          }}
+                          placeholder="URL website"
+                          className="w-full px-3 py-2 border border-gray-300 rounded text-sm"
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <input
+                            type="number"
+                            value={partner.order}
+                            onChange={(e) => {
+                              setPartnerLogos(partnerLogos.map(p =>
+                                p.id === partner.id ? { ...p, order: parseInt(e.target.value) || 1 } : p
+                              ));
+                            }}
+                            placeholder="Thứ tự"
+                            min={1}
+                            className="px-3 py-2 border border-gray-300 rounded text-sm"
+                          />
+                          <label className="flex items-center gap-2 text-sm">
+                            <input
+                              type="checkbox"
+                              checked={partner.enabled}
+                              onChange={(e) => {
+                                setPartnerLogos(partnerLogos.map(p =>
+                                  p.id === partner.id ? { ...p, enabled: e.target.checked } : p
+                                ));
+                              }}
+                              className="w-4 h-4 rounded"
+                            />
+                            Hiển thị
+                          </label>
+                        </div>
+                        <div className="flex gap-2 pt-2">
+                          <button
+                            onClick={async () => {
+                              setSaving(true);
+                              try {
+                                const res = await fetch('/api/partner-logos', {
+                                  method: 'PUT',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify(partner),
+                                });
+                                if (res.ok) toast.success('Đã lưu!');
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="flex-1 px-3 py-1.5 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                          >
+                            Lưu
+                          </button>
+                          <button
+                            onClick={async () => {
+                              const confirmed = await toast.confirm({
+                                title: 'Xác nhận xóa',
+                                message: `Bạn có chắc muốn xóa đối tác "${partner.name}"?`,
+                                confirmText: 'Xóa',
+                                type: 'danger'
+                              });
+                              if (!confirmed) return;
+                              setSaving(true);
+                              try {
+                                const res = await fetch(`/api/partner-logos?id=${partner.id}`, { method: 'DELETE' });
+                                if (res.ok) {
+                                  await loadData();
+                                  toast.success('Đã xóa!');
+                                }
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="flex-1 px-3 py-1.5 bg-red-600 text-white rounded text-sm hover:bg-red-700 disabled:opacity-50"
+                          >
+                            Xóa
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {partnerLogos.length === 0 && (
+                  <div className="text-center py-12 text-gray-500">Chưa có đối tác nào</div>
+                )}
+              </div>
             </div>
           )}
 

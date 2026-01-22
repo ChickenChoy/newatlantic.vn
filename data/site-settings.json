@@ -1,0 +1,19 @@
+{
+  "id": "site-settings",
+  "companyName": "NEW ATLANTIC",
+  "companySlogan": "Tân Đại Tây Dương",
+  "companyDescription": "Nhà phân phối hàng đầu các thương hiệu thiết bị công nghiệp: WILL-BURT, HIAB, SKYMARK tại Việt Nam",
+  "logo": "/images/logo/logo.png",
+  "phone": "+84 2838 733 686",
+  "email": "info@newatlantic.vn",
+  "hotline": "",
+  "copyright": "© 2026 newatlantic.vn - Bản quyền thuộc về Công ty CP TM QT Tân Đại Tây Dương",
+  "socialLinks": [
+    {
+      "id": "fb",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/aittandaitayduong",
+      "enabled": true
+    }
+  ]
+}

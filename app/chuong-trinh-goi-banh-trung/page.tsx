@@ -179,11 +179,22 @@ export default function BanhTrungPage() {
             {/* Hero Section */}
             <section id="hero" className="banh-hero" ref={heroRef}>
                 <div className="banh-hero-bg">
+                    {/* Mobile: poster.jpg (vertical) */}
                     <Image
                         src="/images/chuong-trinh-goi-banh-trung/poster.jpg"
                         alt="Poster Chương Trình Gói Bánh Trưng Tết 2026"
                         fill
                         priority
+                        className="banh-hero-bg-mobile"
+                        style={{ objectFit: "cover", objectPosition: "center" }}
+                    />
+                    {/* Desktop: banner-ngang.jpg (horizontal) */}
+                    <Image
+                        src="/images/chuong-trinh-goi-banh-trung/banner-ngang.jpg"
+                        alt="Banner Chương Trình Gói Bánh Trưng Tết 2026"
+                        fill
+                        priority
+                        className="banh-hero-bg-desktop"
                         style={{ objectFit: "cover", objectPosition: "center" }}
                     />
                     <div className="banh-hero-overlay" />
@@ -258,6 +269,15 @@ export default function BanhTrungPage() {
 
                     <div className="banh-about-grid">
                         <div className="banh-about-content animate-on-scroll">
+                            <div className="banh-about-avatar">
+                                <Image
+                                    src="/images/chuong-trinh-goi-banh-trung/Avatar.png"
+                                    alt="Mascot Chương Trình Gói Bánh Trưng"
+                                    width={200}
+                                    height={200}
+                                    style={{ objectFit: "contain" }}
+                                />
+                            </div>
                             <p className="banh-lead">
                                 <strong>Chương trình Gói Bánh Trưng</strong> là hoạt động truyền thống
                                 được tổ chức hàng năm nhằm gìn giữ và phát huy nét đẹp văn hóa Tết Việt.
