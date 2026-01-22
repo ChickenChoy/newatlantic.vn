@@ -138,7 +138,7 @@ function NewsPageContent() {
                 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
                 ${activeCategory === cat.id
                   ? 'bg-orange-600 text-white shadow-lg shadow-orange-600/30 scale-105'
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-orange-200'
+                  : 'bg-white/10 text-gray-300 hover:bg-white/15 border border-white/10 hover:border-orange-400/50'
                 }
               `}
             >
@@ -160,14 +160,14 @@ function NewsPageContent() {
 
       {/* Empty State */}
       {displayPosts.length === 0 && (
-        <div className="text-center py-24 bg-white rounded-3xl border border-dashed border-gray-200">
-          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="text-center py-24 bg-white/10 backdrop-blur-sm rounded-3xl border border-dashed border-white/20">
+          <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
             </svg>
           </div>
-          <h3 className="text-lg font-bold text-gray-900 mb-1">Không tìm thấy bài viết</h3>
-          <p className="text-gray-500">Thử chọn danh mục khác hoặc quay lại sau</p>
+          <h3 className="text-lg font-bold text-white mb-1">Không tìm thấy bài viết</h3>
+          <p className="text-gray-400">Thử chọn danh mục khác hoặc quay lại sau</p>
         </div>
       )}
 
@@ -207,11 +207,11 @@ export default function NewsPage() {
   ]);
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
+    <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-100/40 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
       </div>
 
       {/* JSON-LD Breadcrumb */}
@@ -223,17 +223,17 @@ export default function NewsPage() {
       />
 
       {/* Header Section */}
-      <div className="relative z-10 bg-white border-b border-gray-100">
+      <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 text-orange-600 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
               Tin tức & Sự kiện
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-              Tin tức & <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">Sự kiện</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+              Tin tức & <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">Sự kiện</span>
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
               Cập nhật những thông tin mới nhất về công nghệ, sản phẩm và các hoạt động nổi bật của New Atlantic.
             </p>
           </div>

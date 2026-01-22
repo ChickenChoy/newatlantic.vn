@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SearchResults from './SearchResults';
 import MobileTouchMenu from './MobileTouchMenu';
 import { WishlistManager } from '@/lib/wishlist';
@@ -36,14 +36,6 @@ export default function HeaderBottom() {
       window.removeEventListener('wishlistUpdated', handleWishlistUpdate);
     };
   }, []);
-
-  // Force layout update when mobile menu opens/closes to prevent flash
-  useLayoutEffect(() => {
-    if (mobileMenuOpen) {
-      // Force reflow to ensure border-radius updates immediately
-      document.body.offsetHeight;
-    }
-  }, [mobileMenuOpen]);
 
   // Hide FloatingContactButtons when mobile menu is open
   useEffect(() => {
@@ -131,7 +123,7 @@ export default function HeaderBottom() {
     <>
       <div className="fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none header-bottom" data-header-bottom suppressHydrationWarning>
         <nav className="w-full max-w-7xl mx-auto pointer-events-auto">
-          <div className={`bg-white/98 backdrop-blur-xl shadow-xl border border-gray-200/40 px-4 py-2 md:px-6 md:py-2.5 ${
+          <div className={`bg-white/98 backdrop-blur-md md:backdrop-blur-xl shadow-xl border border-gray-200/40 px-4 py-2 md:px-6 md:py-2.5 ${
             mobileMenuOpen ? 'rounded-2xl' : 'rounded-full'
           }`}>
             <div className="flex items-center justify-between gap-4">
@@ -348,11 +340,18 @@ export default function HeaderBottom() {
             </div>
 
             {/* Mobile Navigation - Dropdown */}
-            <div className={`mobile-menu-container lg:hidden ${
-              mobileMenuOpen 
-                ? 'opacity-100 visible mt-3 pb-3 max-h-[800px] translate-y-0' 
-                : 'opacity-0 invisible mt-0 pb-0 max-h-0 -translate-y-2 pointer-events-none'
-            } transition-[opacity,transform,max-height,margin,padding] duration-200 ease-out overflow-hidden`}>
+            <div
+              className={`mobile-menu-container lg:hidden ${
+                mobileMenuOpen
+                  ? 'opacity-100 visible'
+                  : 'opacity-0 invisible pointer-events-none'
+              } transition-opacity duration-150 ease-out`}
+              style={{
+                display: mobileMenuOpen ? 'block' : 'none',
+                marginTop: mobileMenuOpen ? '0.75rem' : '0',
+                paddingBottom: mobileMenuOpen ? '0.75rem' : '0',
+              }}
+            >
               <div className="space-y-1 overflow-y-auto max-h-[calc(100vh-120px)]">
                 {/* Mobile Search */}
                 <div className="search-container mb-3">

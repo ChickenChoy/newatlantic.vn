@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 interface MobileTouchMenuProps {
   children: React.ReactNode;
@@ -8,53 +8,26 @@ interface MobileTouchMenuProps {
 }
 
 export default function MobileTouchMenu({ children, className = '' }: MobileTouchMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [touchStartY, setTouchStartY] = useState(0);
-  const [touchEndY, setTouchEndY] = useState(0);
-  const menuRef = useRef<HTMLDivElement>(null);
+  // Use refs instead of state to avoid re-renders on every touch move
+  const touchStartY = useRef(0);
+  const touchEndY = useRef(0);
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartY(e.targetTouches[0].clientY);
+    touchStartY.current = e.targetTouches[0].clientY;
+    touchEndY.current = 0;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEndY(e.targetTouches[0].clientY);
+    touchEndY.current = e.targetTouches[0].clientY;
   };
 
   const handleTouchEnd = () => {
-    if (!touchStartY || !touchEndY) return;
-    
-    const distance = touchStartY - touchEndY;
-    const isUpSwipe = distance > 50;
-    const isDownSwipe = distance < -50;
-
-    if (isUpSwipe && !isOpen) {
-      setIsOpen(true);
-    } else if (isDownSwipe && isOpen) {
-      setIsOpen(false);
-    }
+    // Touch handling is now just for gesture detection
+    // The actual menu state is managed by parent component
   };
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('click', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isOpen]);
 
   return (
     <div
-      ref={menuRef}
       className={`relative ${className}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}

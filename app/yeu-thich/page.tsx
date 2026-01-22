@@ -50,32 +50,32 @@ export default function WishlistPage() {
 
   if (!hasMounted) {
     return (
-      <div className="min-h-screen pt-24 pb-16 bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-600"></div>
+      <div className="min-h-screen pt-24 pb-16 bg-[#050c3a] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 bg-[#FAFAFA] relative overflow-hidden">
+    <div className="min-h-screen pt-24 sm:pt-28 md:pt-32 pb-16 bg-[#050c3a] relative overflow-hidden">
       {/* Background decorative elements - Subtle pink/rose accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-pink-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-rose-100/40 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-rose-500/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
       </div>
 
       {/* Header Section */}
-      <div className="relative z-10 bg-white border-b border-gray-100">
+      <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
         <div className="container mx-auto px-4 py-12 md:py-16">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-50 text-pink-600 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
               Danh sách quan tâm
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-              Sản Phẩm <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-rose-600">Yêu Thích</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+              Sản Phẩm <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">Yêu Thích</span>
             </h1>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
               {isLoading
                 ? 'Đang tải danh sách...'
                 : wishlist.length > 0
@@ -97,7 +97,7 @@ export default function WishlistPage() {
               <div className="flex justify-end mb-8">
                 <button
                   onClick={clearAll}
-                  className="group inline-flex items-center gap-2 px-4 py-2 bg-white border border-red-100 text-red-600 rounded-xl hover:bg-red-50 hover:border-red-200 font-medium text-sm transition-all duration-300 shadow-sm hover:shadow-md"
+                  className="group inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-red-400/30 text-red-400 rounded-xl hover:bg-red-500/20 hover:border-red-400/50 font-medium text-sm transition-all duration-300 shadow-sm hover:shadow-md"
                 >
                   <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -143,16 +143,16 @@ export default function WishlistPage() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 max-w-2xl mx-auto animate-fade-in-up">
-              <div className="w-24 h-24 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce-slow">
+            <div className="text-center py-20 bg-white/10 backdrop-blur-sm rounded-3xl shadow-xl shadow-black/20 border border-white/10 max-w-2xl mx-auto animate-fade-in-up">
+              <div className="w-24 h-24 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce-slow">
                 <svg className="w-12 h-12 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-bold text-white mb-4">
                 Chưa có sản phẩm yêu thích
               </h3>
-              <p className="text-gray-600 mb-10 max-w-md mx-auto leading-relaxed">
+              <p className="text-gray-300 mb-10 max-w-md mx-auto leading-relaxed">
                 Hãy dạo qua danh mục sản phẩm của chúng tôi và thả tim cho những sản phẩm bạn quan tâm nhé!
               </p>
               <Link

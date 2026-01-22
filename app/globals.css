@@ -1025,21 +1025,25 @@ mark {
 }
 
 /* Hidrokon hover effect - Brand color */
-.product-card-hidrokon:hover .urun-liste-hover {
+.product-card-hidrokon:hover .urun-liste-hover,
+.group:hover .urun-liste-hover {
   background-color: #5f7ab8 !important;
   transform: scale(1.02);
 }
 
 /* Change text colors on hover */
-.product-card-hidrokon:hover .product-model {
+.product-card-hidrokon:hover .product-model,
+.group:hover .product-model {
   color: #ffffff !important;
 }
 
-.product-card-hidrokon:hover .product-category {
+.product-card-hidrokon:hover .product-category,
+.group:hover .product-category {
   color: #ffd842 !important;
 }
 
-.product-card-hidrokon:hover .product-separator {
+.product-card-hidrokon:hover .product-separator,
+.group:hover .product-separator {
   background-color: #ffffff !important;
 }
 

@@ -4,17 +4,17 @@
 
 /* CSS Variables */
 :root {
-    --mast-primary: #1a1a1a;
-    --mast-secondary: #ffffff;
-    --mast-accent: #4a5d23;
-    --mast-accent-hover: #3d4d1e;
-    --mast-accent-light: #6b8e23;
-    --mast-army-dark: #2d3a14;
-    --mast-gray-100: #f9f9f9;
-    --mast-gray-200: #e5e5e5;
-    --mast-gray-300: #cccccc;
-    --mast-gray-600: #666666;
-    --mast-gray-800: #333333;
+    --mast-primary: #ffffff;
+    --mast-secondary: #050c3a;
+    --mast-accent: #6b8e23;
+    --mast-accent-hover: #7ba028;
+    --mast-accent-light: #8fbc3f;
+    --mast-army-dark: #4a5d23;
+    --mast-gray-100: #0a1654;
+    --mast-gray-200: rgba(255, 255, 255, 0.2);
+    --mast-gray-300: rgba(255, 255, 255, 0.3);
+    --mast-gray-600: #d1d5db;
+    --mast-gray-800: #f3f4f6;
     --mast-gradient: linear-gradient(135deg, #4a5d23 0%, #6b8e23 50%, #4a5d23 100%);
     --mast-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     --mast-shadow-sm: 0 10px 30px -12px rgba(0, 0, 0, 0.1);
@@ -79,10 +79,10 @@
 }
 
 .mast-navbar.scrolled {
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(5, 12, 58, 0.98);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
     padding: 1rem 0;
 }
 
@@ -178,7 +178,7 @@
         right: -100%;
         width: 100%;
         height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
+        background: rgba(5, 12, 58, 0.98);
         backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
@@ -590,7 +590,7 @@
     border-radius: 4px;
     overflow: hidden;
     aspect-ratio: 4/3;
-    background: linear-gradient(135deg, var(--mast-gray-200) 0%, var(--mast-gray-100) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -661,6 +661,7 @@
 .mast-product {
     padding: 8rem 2rem;
     background: var(--mast-gray-100);
+    position: relative;
 }
 
 .mast-product.alternate {
@@ -710,7 +711,7 @@
     position: relative;
     border-radius: 4px;
     overflow: hidden;
-    background: linear-gradient(135deg, var(--mast-gray-200) 0%, var(--mast-secondary) 100%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -806,7 +807,7 @@
 .mast-specs-grid {
     display: grid;
     gap: 1px;
-    background: var(--mast-gray-200);
+    background: rgba(255, 255, 255, 0.2);
     border: 1px solid var(--mast-accent);
     border-radius: 4px;
     overflow: hidden;
@@ -815,7 +816,7 @@
 .mast-spec-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: var(--mast-secondary);
+    background: var(--mast-gray-100);
     transition: var(--mast-transition);
     position: relative;
 }
@@ -833,7 +834,7 @@
 }
 
 .mast-spec-row:hover {
-    background: var(--mast-gray-100);
+    background: rgba(255, 255, 255, 0.1);
     transform: translateX(5px);
 }
 
@@ -846,7 +847,7 @@
     font-size: 0.9rem;
     color: var(--mast-gray-600);
     font-weight: 500;
-    border-right: 1px solid var(--mast-gray-200);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .mast-spec-value {
@@ -972,6 +973,7 @@
     background: var(--mast-gray-100);
     text-align: center;
     border-top: 2px solid var(--mast-accent);
+    position: relative;
 }
 
 .mast-footer-logo {
@@ -1194,7 +1196,7 @@
     right: 0;
     width: 100%;
     height: 100%;
-    background: var(--mast-secondary);
+    background: var(--mast-gray-100);
     animation: textReveal 1.5s ease forwards 0.5s;
 }
 
@@ -1386,7 +1388,7 @@
 .mast-intro-series-section {
     padding: 6rem 2rem;
     background-color: var(--mast-secondary);
-    border-top: 1px solid var(--mast-gray-200);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mast-intro-series-content {
@@ -1433,7 +1435,7 @@
 
     .mast-spec-label {
         border-right: none;
-        border-bottom: 1px solid var(--mast-gray-200);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         padding: 0.75rem 1rem;
     }
 

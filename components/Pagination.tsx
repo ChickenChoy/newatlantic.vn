@@ -80,10 +80,10 @@ export default function Pagination({
   return (
     <div className="flex flex-col items-center gap-6 py-12">
       {/* Page Info */}
-      <p className="text-sm text-gray-600">
-        Hiển thị <span className="font-semibold text-gray-900">{startItem}</span> đến{' '}
-        <span className="font-semibold text-gray-900">{endItem}</span> của{' '}
-        <span className="font-semibold text-gray-900">{totalItems}</span> sản phẩm
+      <p className="text-sm text-gray-400">
+        Hiển thị <span className="font-semibold text-white">{startItem}</span> đến{' '}
+        <span className="font-semibold text-white">{endItem}</span> của{' '}
+        <span className="font-semibold text-white">{totalItems}</span> sản phẩm
       </p>
 
       {/* Pagination Controls */}
@@ -94,7 +94,7 @@ export default function Pagination({
             href={buildPageUrl(currentPage - 1)}
             scroll={true}
             prefetch={true}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-[#5f7ab8] transition-all font-medium text-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-gray-300 rounded-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all font-medium text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -104,7 +104,7 @@ export default function Pagination({
         ) : (
           <button
             disabled
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 text-gray-400 rounded-lg cursor-not-allowed text-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 text-gray-500 rounded-lg cursor-not-allowed text-sm"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -117,7 +117,7 @@ export default function Pagination({
         {getPageNumbers().map((page, index) => {
           if (page === '...') {
             return (
-              <span key={`ellipsis-${index}`} className="px-2 py-2 text-gray-400">
+              <span key={`ellipsis-${index}`} className="px-2 py-2 text-gray-500">
                 ...
               </span>
             );
@@ -128,7 +128,7 @@ export default function Pagination({
             <button
               key={pageNum}
               disabled
-              className="inline-flex items-center justify-center w-10 h-10 bg-[#5f7ab8] text-white rounded-lg font-semibold text-sm shadow-sm"
+              className="inline-flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-lg font-semibold text-sm shadow-lg shadow-blue-500/30"
             >
               {pageNum}
             </button>
@@ -138,7 +138,7 @@ export default function Pagination({
               href={buildPageUrl(pageNum)}
               scroll={true}
               prefetch={true}
-              className="inline-flex items-center justify-center w-10 h-10 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-[#5f7ab8] hover:text-[#5f7ab8] transition-all font-medium text-sm"
+              className="inline-flex items-center justify-center w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 text-gray-300 rounded-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all font-medium text-sm"
             >
               {pageNum}
             </Link>
@@ -151,7 +151,7 @@ export default function Pagination({
             href={buildPageUrl(currentPage + 1)}
             scroll={true}
             prefetch={true}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-[#5f7ab8] transition-all font-medium text-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-gray-300 rounded-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all font-medium text-sm"
           >
             Tiếp
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,7 +161,7 @@ export default function Pagination({
         ) : (
           <button
             disabled
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 border border-gray-200 text-gray-400 rounded-lg cursor-not-allowed text-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 text-gray-500 rounded-lg cursor-not-allowed text-sm"
           >
             Tiếp
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

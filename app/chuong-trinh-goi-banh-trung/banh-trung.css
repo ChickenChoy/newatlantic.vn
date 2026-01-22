@@ -2,31 +2,41 @@
    BÁNH TRƯNG Landing Page - Modern Design
    =================================== */
 
-/* CSS Variables */
-:root {
-    --banh-primary: #1a1a1a;
-    --banh-secondary: #ffffff;
+/* CSS Variables - Scoped to banh-main to avoid conflicts with other pages */
+.banh-main {
+    --banh-primary: #ffffff;
+    --banh-secondary: #050c3a;
     --banh-accent: #c41e3a;
     --banh-accent-hover: #a01830;
-    --banh-accent-light: rgba(196, 30, 58, 0.1);
+    --banh-accent-light: rgba(196, 30, 58, 0.2);
     --banh-gold: #d4a017;
     --banh-gold-light: #f0c040;
     --banh-green: #2d5a27;
-    --banh-green-light: rgba(45, 90, 39, 0.1);
-    --banh-gray-50: #fafafa;
-    --banh-gray-100: #f5f5f5;
-    --banh-gray-200: #e5e5e5;
+    --banh-green-light: rgba(45, 90, 39, 0.2);
+    --banh-gray-50: #0a1654;
+    --banh-gray-100: #0d1a5c;
+    --banh-gray-200: rgba(255, 255, 255, 0.2);
     --banh-gray-400: #a3a3a3;
-    --banh-gray-600: #525252;
-    --banh-gray-800: #262626;
+    --banh-gray-600: #d1d5db;
+    --banh-gray-800: #f3f4f6;
     --banh-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --banh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --banh-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     --banh-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
-    --font-body: var(--font-outfit), 'Outfit', -apple-system, sans-serif;
+    --banh-font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
+    --banh-font-body: var(--font-outfit), 'Outfit', -apple-system, sans-serif;
     --banh-radius: 12px;
     --banh-radius-lg: 24px;
+}
+
+/* Also scope variables for portal elements (lightbox, flowers) */
+.banh-lightbox,
+.banh-flowers {
+    --banh-primary: #ffffff;
+    --banh-secondary: #050c3a;
+    --banh-accent: #c41e3a;
+    --banh-gold: #d4a017;
+    --banh-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Reset & Base */
@@ -37,7 +47,7 @@
 }
 
 .banh-main {
-    font-family: var(--font-body);
+    font-family: var(--banh-font-body);
     background: var(--banh-secondary);
     color: var(--banh-primary);
     line-height: 1.6;
@@ -256,7 +266,7 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
-    color: var(--banh-secondary);
+    color: #ffffff;
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.1em;
@@ -280,10 +290,10 @@
 }
 
 .banh-hero-title {
-    font-family: var(--font-heading);
+    font-family: var(--banh-font-heading);
     font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 600;
-    color: var(--banh-secondary);
+    color: #ffffff;
     line-height: 1.15;
     margin-bottom: 1.25rem;
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
@@ -393,7 +403,7 @@
 
 .banh-btn-primary {
     background: linear-gradient(135deg, var(--banh-accent), #8b0000);
-    color: var(--banh-secondary);
+    color: #ffffff;
     border-color: transparent;
 }
 
@@ -404,25 +414,25 @@
 
 .banh-btn-outline {
     background: transparent;
-    color: var(--banh-secondary);
+    color: #ffffff;
     border-color: rgba(255, 255, 255, 0.5);
 }
 
 .banh-btn-outline:hover {
     background: rgba(255, 255, 255, 0.15);
-    border-color: var(--banh-secondary);
+    border-color: #ffffff;
     transform: translateY(-3px);
 }
 
 .banh-btn-white {
-    background: var(--banh-secondary);
+    background: #ffffff;
     color: var(--banh-accent);
-    border-color: var(--banh-secondary);
+    border-color: #ffffff;
 }
 
 .banh-btn-white:hover {
     background: transparent;
-    color: var(--banh-secondary);
+    color: #ffffff;
     transform: translateY(-3px);
 }
 
@@ -448,7 +458,7 @@
     width: 6px;
     height: 6px;
     margin-left: -3px;
-    background: var(--banh-secondary);
+    background: #ffffff;
     border-radius: 50%;
     animation: scrollBounce 2s infinite;
 }
@@ -494,7 +504,7 @@
 }
 
 .banh-title {
-    font-family: var(--font-heading);
+    font-family: var(--banh-font-heading);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 600;
     color: var(--banh-primary);
@@ -640,7 +650,7 @@
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--banh-accent) 0%, #8b0000 100%);
-    border: 4px solid var(--banh-secondary);
+    border: 4px solid var(--banh-gray-50);
     border-radius: 50%;
     display: flex;
     flex-direction: column;
@@ -665,12 +675,12 @@
 .banh-timeline-step {
     font-size: 0.7rem;
     font-weight: 700;
-    color: var(--banh-secondary);
+    color: #ffffff;
     opacity: 0.8;
 }
 
 .banh-timeline-content {
-    background: var(--banh-secondary);
+    background: var(--banh-gray-50);
     padding: 2rem 2.25rem;
     border-radius: var(--banh-radius);
     box-shadow: var(--banh-shadow);
@@ -689,14 +699,14 @@
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 10px solid var(--banh-secondary);
+    border-right: 10px solid var(--banh-gray-50);
 }
 
 .banh-timeline-content:hover {
     transform: translateX(8px);
     box-shadow: var(--banh-shadow-lg);
     border-left-color: var(--banh-accent);
-    background: linear-gradient(90deg, var(--banh-accent-light) 0%, var(--banh-secondary) 30%);
+    background: linear-gradient(90deg, var(--banh-accent-light) 0%, var(--banh-gray-50) 30%);
 }
 
 .banh-timeline-date {
@@ -728,10 +738,10 @@
 .banh-ingredients {
     text-align: center;
     padding: 2.5rem 2rem;
-    background: var(--banh-secondary);
+    background: var(--banh-gray-50);
     border-radius: var(--banh-radius-lg);
     box-shadow: var(--banh-shadow-lg);
-    border: 2px solid var(--banh-gray-100);
+    border: 2px solid var(--banh-gray-200);
     position: relative;
 }
 
@@ -748,7 +758,7 @@
 }
 
 .banh-ingredients h3 {
-    font-family: var(--font-heading);
+    font-family: var(--banh-font-heading);
     font-size: 1.75rem;
     color: var(--banh-primary);
     margin-bottom: 2.5rem;
@@ -799,13 +809,13 @@
 }
 
 .banh-meaning-card {
-    background: var(--banh-secondary);
+    background: var(--banh-gray-50);
     padding: 2rem 1.5rem;
     border-radius: var(--banh-radius-lg);
     text-align: center;
     box-shadow: var(--banh-shadow);
     transition: var(--banh-transition);
-    border: 2px solid var(--banh-gray-100);
+    border: 2px solid var(--banh-gray-200);
     position: relative;
     overflow: hidden;
 }
@@ -848,13 +858,13 @@
     justify-content: center;
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--banh-secondary);
+    color: #ffffff;
     margin: 0 auto 0.75rem;
     box-shadow: var(--banh-shadow);
 }
 
 .banh-meaning-card h4 {
-    font-family: var(--font-heading);
+    font-family: var(--banh-font-heading);
     font-size: 1rem;
     color: var(--banh-primary);
     margin-bottom: 0.5rem;
@@ -944,7 +954,7 @@
 
 .banh-gallery-controls button:hover {
     background: var(--banh-accent);
-    color: var(--banh-secondary);
+    color: #ffffff;
     transform: scale(1.1);
 }
 
@@ -983,7 +993,7 @@
 }
 
 .banh-gallery-dots button.active {
-    background: var(--banh-secondary);
+    background: #ffffff;
     width: 30px;
     border-radius: 10px;
 }
@@ -1051,9 +1061,9 @@
 }
 
 .banh-cta h2 {
-    font-family: var(--font-heading);
+    font-family: var(--banh-font-heading);
     font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--banh-secondary);
+    color: #ffffff;
     margin-bottom: 1rem;
 }
 
@@ -1355,7 +1365,7 @@
     .banh-gallery-dots button.active {
         width: 20px;
         border-radius: 6px;
-        background: var(--banh-secondary);
+        background: #ffffff;
     }
 
     .banh-gallery-thumbs {

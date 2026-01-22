@@ -77,11 +77,11 @@ export default function DownloadCatalogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] relative overflow-hidden">
+    <div className="min-h-screen bg-[#050c3a] relative overflow-hidden">
       {/* Background decorative elements - Subtle green accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-green-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-100/40 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-green-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
       </div>
 
       {/* Structured Data */}
@@ -95,17 +95,17 @@ export default function DownloadCatalogPage() {
 
 
         {/* Header Section */}
-        <div className="relative z-10 bg-white border-b border-gray-100">
+        <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
           <div className="container mx-auto px-4 py-12 md:py-16">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                 Tài liệu kỹ thuật
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-                Catalog <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Sản Phẩm</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+                Catalog <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Sản Phẩm</span>
               </h1>
-              <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
                 Tải về tài liệu kỹ thuật chi tiết, thông số và hướng dẫn sử dụng cho các dòng sản phẩm chính hãng.
               </p>
             </div>

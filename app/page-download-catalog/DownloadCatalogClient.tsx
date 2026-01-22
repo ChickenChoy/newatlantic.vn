@@ -237,7 +237,7 @@ export default function DownloadCatalogClient() {
     <>
       {/* Will-Burt Catalog Section */}
       <section className="mb-20">
-        <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100">
+        <div className="bg-white/10 backdrop-blur-sm rounded-3xl shadow-xl shadow-black/20 overflow-hidden border border-white/10">
           {/* Header */}
           <div className="bg-gradient-to-r from-green-700 to-emerald-600 px-8 py-10 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/images/pattern.png')] opacity-10 mix-blend-overlay"></div>
@@ -264,27 +264,27 @@ export default function DownloadCatalogClient() {
           </div>
 
           {/* Content */}
-          <div className="p-8 md:p-10 bg-gradient-to-b from-white to-gray-50">
+          <div className="p-8 md:p-10">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {willBurtCatalogs.map((item, idx) => (
-                <div key={idx} className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-green-50 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-150 duration-500"></div>
+                <div key={idx} className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/10 hover:shadow-xl hover:border-green-400/30 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/10 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-150 duration-500"></div>
 
                   <div className="relative z-10 flex-1 flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <div className="w-16 h-16 bg-green-500/20 text-green-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300 shadow-sm">
                       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
                       </svg>
                     </div>
 
-                    <h3 className="text-lg font-bold text-gray-900 mb-4 group-hover:text-green-700 transition-colors line-clamp-2">
+                    <h3 className="text-lg font-bold text-white mb-4 group-hover:text-green-400 transition-colors line-clamp-2">
                       {item.title}
                     </h3>
 
                     <div className="mt-auto pt-4 w-full">
                       <button
                         onClick={() => handleDownloadClick(item)}
-                        className="flex items-center justify-center w-full px-6 py-3 bg-white border-2 border-green-600 text-green-700 rounded-xl hover:bg-green-600 hover:text-white transition-all duration-300 font-bold group-hover:shadow-lg cursor-pointer"
+                        className="flex items-center justify-center w-full px-6 py-3 bg-white/10 backdrop-blur-sm border-2 border-green-500/50 text-green-400 rounded-xl hover:bg-green-600 hover:text-white hover:border-green-600 transition-all duration-300 font-bold group-hover:shadow-lg cursor-pointer"
                       >
                         <span className="mr-2">TẢI VỀ</span>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -302,7 +302,7 @@ export default function DownloadCatalogClient() {
 
       {/* Hiab Catalog Section */}
       <section className="mb-16">
-        <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100">
+        <div className="bg-white/10 backdrop-blur-sm rounded-3xl shadow-xl shadow-black/20 overflow-hidden border border-white/10">
           {/* Header */}
           <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-8 py-10 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/images/pattern.png')] opacity-10 mix-blend-overlay"></div>
@@ -328,27 +328,27 @@ export default function DownloadCatalogClient() {
           </div>
 
           {/* Content */}
-          <div className="p-8 md:p-10 bg-gradient-to-b from-white to-gray-50">
+          <div className="p-8 md:p-10">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {hiabCatalogs.map((item, idx) => (
-                <div key={idx} className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:border-gray-300 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-150 duration-500"></div>
+                <div key={idx} className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/10 hover:shadow-xl hover:border-gray-400/30 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gray-500/10 rounded-bl-full -mr-12 -mt-12 transition-transform group-hover:scale-150 duration-500"></div>
 
                   <div className="relative z-10 flex-1 flex flex-col items-center text-center">
-                    <div className="w-16 h-16 bg-gray-100 text-gray-700 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-800 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <div className="w-16 h-16 bg-gray-500/20 text-gray-300 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-700 group-hover:text-white transition-colors duration-300 shadow-sm">
                       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
 
-                    <h3 className="text-lg font-bold text-gray-900 mb-4 group-hover:text-gray-700 transition-colors line-clamp-2">
+                    <h3 className="text-lg font-bold text-white mb-4 group-hover:text-gray-300 transition-colors line-clamp-2">
                       {item.title}
                     </h3>
 
                     <div className="mt-auto pt-4 w-full">
                       <button
                         onClick={() => handleDownloadClick(item)}
-                        className="flex items-center justify-center w-full px-6 py-3 bg-white border-2 border-gray-800 text-gray-800 rounded-xl hover:bg-gray-800 hover:text-white transition-all duration-300 font-bold group-hover:shadow-lg cursor-pointer"
+                        className="flex items-center justify-center w-full px-6 py-3 bg-white/10 backdrop-blur-sm border-2 border-gray-500/50 text-gray-300 rounded-xl hover:bg-gray-700 hover:text-white hover:border-gray-700 transition-all duration-300 font-bold group-hover:shadow-lg cursor-pointer"
                       >
                         <span className="mr-2">TẢI VỀ</span>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

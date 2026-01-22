@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { generateBreadcrumbSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import { validateVietnamesePhone } from '@/lib/validation';
 
@@ -135,27 +134,27 @@ export default function ContactPage() {
         }}
       />
 
-      <div className="bg-[#FAFAFA] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
+      <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
         {/* Background decorative elements - Subtle cyan/teal accent */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-100/40 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-100/40 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-cyan-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-500/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
         </div>
 
 
 
         {/* Header Section */}
-        <div className="relative z-10 bg-white border-b border-gray-100">
+        <div className="relative z-10 bg-[#0a1654] border-b border-white/10">
           <div className="container mx-auto px-4 py-12 md:py-16">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                 Kết nối với chúng tôi
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-                Liên Hệ <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600">Tư Vấn</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+                Liên Hệ <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">Tư Vấn</span>
               </h1>
-              <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
                 Chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn. Hãy để lại thông tin, đội ngũ chuyên gia sẽ liên hệ ngay.
               </p>
             </div>
@@ -170,33 +169,33 @@ export default function ContactPage() {
             {/* Phone Card */}
             <a
               href="tel:+842838733686"
-              className="group bg-white rounded-3xl p-8 shadow-lg shadow-gray-200/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 relative overflow-hidden"
+              className="group bg-white/10 backdrop-blur-sm rounded-3xl p-8 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1 border border-white/10 relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/20 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
               <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform duration-300 relative z-10">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 relative z-10">Hotline</h3>
-              <p className="text-cyan-600 font-bold text-lg relative z-10">+84 2838 733 686</p>
-              <p className="text-gray-500 text-sm mt-2 relative z-10">Hỗ trợ 24/7</p>
+              <h3 className="text-xl font-bold text-white mb-2 relative z-10">Hotline</h3>
+              <p className="text-cyan-400 font-bold text-lg relative z-10">+84 2838 733 686</p>
+              <p className="text-gray-400 text-sm mt-2 relative z-10">Hỗ trợ 24/7</p>
             </a>
 
             {/* Email Card */}
             <a
               href="mailto:info@newatlantic.vn"
-              className="group bg-white rounded-3xl p-8 shadow-lg shadow-gray-200/50 hover:shadow-2xl hover:shadow-teal-500/10 transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 relative overflow-hidden"
+              className="group bg-white/10 backdrop-blur-sm rounded-3xl p-8 hover:bg-white/15 transition-all duration-300 transform hover:-translate-y-1 border border-white/10 relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/20 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
               <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform duration-300 relative z-10">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2 relative z-10">Email</h3>
-              <p className="text-teal-600 font-bold text-lg relative z-10">info@newatlantic.vn</p>
-              <p className="text-gray-500 text-sm mt-2 relative z-10">Phản hồi trong 24h</p>
+              <h3 className="text-xl font-bold text-white mb-2 relative z-10">Email</h3>
+              <p className="text-teal-400 font-bold text-lg relative z-10">info@newatlantic.vn</p>
+              <p className="text-gray-400 text-sm mt-2 relative z-10">Phản hồi trong 24h</p>
             </a>
 
             {/* Working Hours Card */}
@@ -219,38 +218,38 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Contact Form - 2 columns on large screens */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 md:p-10 border border-gray-100">
-                <h2 className="text-2xl font-bold mb-8 text-gray-900 flex items-center gap-3">
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-white/10">
+                <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-3">
                   <span className="w-1.5 h-8 bg-gradient-to-b from-cyan-500 to-teal-600 rounded-full"></span>
                   Gửi Yêu Cầu Tư Vấn
                 </h2>
 
                 {/* Success Message */}
                 {isSuccess && (
-                  <div className="mb-8 p-6 bg-green-50 border border-green-100 rounded-2xl flex items-start gap-4 animate-fade-in">
-                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="mb-8 p-6 bg-green-500/20 border border-green-500/30 rounded-2xl flex items-start gap-4 animate-fade-in">
+                    <div className="w-10 h-10 bg-green-500/30 rounded-full flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-green-800 font-bold text-lg mb-1">Gửi thành công!</h4>
-                      <p className="text-green-700">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
+                      <h4 className="text-green-400 font-bold text-lg mb-1">Gửi thành công!</h4>
+                      <p className="text-green-300">Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.</p>
                     </div>
                   </div>
                 )}
 
                 {/* Error Message */}
                 {errors.submit && (
-                  <div className="mb-8 p-6 bg-red-50 border border-red-100 rounded-2xl flex items-start gap-4 animate-fade-in">
-                    <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="mb-8 p-6 bg-red-500/20 border border-red-500/30 rounded-2xl flex items-start gap-4 animate-fade-in">
+                    <div className="w-10 h-10 bg-red-500/30 rounded-full flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="text-red-800 font-bold text-lg mb-1">Có lỗi xảy ra</h4>
-                      <p className="text-red-700">{errors.submit}</p>
+                      <h4 className="text-red-400 font-bold text-lg mb-1">Có lỗi xảy ra</h4>
+                      <p className="text-red-300">{errors.submit}</p>
                     </div>
                   </div>
                 )}
@@ -258,8 +257,8 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="block text-gray-700 font-semibold text-sm">
-                        Họ và tên <span className="text-red-500">*</span>
+                      <label htmlFor="name" className="block text-gray-300 font-semibold text-sm">
+                        Họ và tên <span className="text-red-400">*</span>
                       </label>
                       <input
                         type="text"
@@ -268,14 +267,14 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`w-full px-5 py-3.5 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white transition-all duration-300 ${errors.name && touched.name
-                          ? 'border-red-300 focus:ring-red-200'
-                          : 'border-gray-200 focus:ring-cyan-100 focus:border-cyan-400'
+                        className={`w-full px-5 py-3.5 bg-white/10 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white/15 transition-all duration-300 text-white placeholder-gray-400 ${errors.name && touched.name
+                          ? 'border-red-400/50 focus:ring-red-400/30'
+                          : 'border-white/20 focus:ring-cyan-400/30 focus:border-cyan-400'
                           }`}
                         placeholder="Nhập họ và tên"
                       />
                       {errors.name && touched.name && (
-                        <p className="text-sm text-red-500 flex items-center gap-1 animate-fade-in">
+                        <p className="text-sm text-red-400 flex items-center gap-1 animate-fade-in">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -285,8 +284,8 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="phone" className="block text-gray-700 font-semibold text-sm">
-                        Số điện thoại <span className="text-red-500">*</span>
+                      <label htmlFor="phone" className="block text-gray-300 font-semibold text-sm">
+                        Số điện thoại <span className="text-red-400">*</span>
                       </label>
                       <input
                         type="tel"
@@ -295,14 +294,14 @@ export default function ContactPage() {
                         value={formData.phone}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`w-full px-5 py-3.5 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white transition-all duration-300 ${errors.phone && touched.phone
-                          ? 'border-red-300 focus:ring-red-200'
-                          : 'border-gray-200 focus:ring-cyan-100 focus:border-cyan-400'
+                        className={`w-full px-5 py-3.5 bg-white/10 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white/15 transition-all duration-300 text-white placeholder-gray-400 ${errors.phone && touched.phone
+                          ? 'border-red-400/50 focus:ring-red-400/30'
+                          : 'border-white/20 focus:ring-cyan-400/30 focus:border-cyan-400'
                           }`}
                         placeholder="0912 345 678"
                       />
                       {errors.phone && touched.phone && (
-                        <p className="text-sm text-red-500 flex items-center gap-1 animate-fade-in">
+                        <p className="text-sm text-red-400 flex items-center gap-1 animate-fade-in">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -314,8 +313,8 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="email" className="block text-gray-700 font-semibold text-sm">
-                        Email <span className="text-red-500">*</span>
+                      <label htmlFor="email" className="block text-gray-300 font-semibold text-sm">
+                        Email <span className="text-red-400">*</span>
                       </label>
                       <input
                         type="email"
@@ -324,14 +323,14 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`w-full px-5 py-3.5 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white transition-all duration-300 ${errors.email && touched.email
-                          ? 'border-red-300 focus:ring-red-200'
-                          : 'border-gray-200 focus:ring-cyan-100 focus:border-cyan-400'
+                        className={`w-full px-5 py-3.5 bg-white/10 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white/15 transition-all duration-300 text-white placeholder-gray-400 ${errors.email && touched.email
+                          ? 'border-red-400/50 focus:ring-red-400/30'
+                          : 'border-white/20 focus:ring-cyan-400/30 focus:border-cyan-400'
                           }`}
                         placeholder="example@email.com"
                       />
                       {errors.email && touched.email && (
-                        <p className="text-sm text-red-500 flex items-center gap-1 animate-fade-in">
+                        <p className="text-sm text-red-400 flex items-center gap-1 animate-fade-in">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
@@ -341,7 +340,7 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="company" className="block text-gray-700 font-semibold text-sm">
+                      <label htmlFor="company" className="block text-gray-300 font-semibold text-sm">
                         Công ty
                       </label>
                       <input
@@ -350,15 +349,15 @@ export default function ContactPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:border-cyan-400 focus:bg-white transition-all duration-300"
+                        className="w-full px-5 py-3.5 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400 focus:bg-white/15 transition-all duration-300 text-white placeholder-gray-400"
                         placeholder="Tên công ty"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="message" className="block text-gray-700 font-semibold text-sm">
-                      Nội dung <span className="text-red-500">*</span>
+                    <label htmlFor="message" className="block text-gray-300 font-semibold text-sm">
+                      Nội dung <span className="text-red-400">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -367,14 +366,14 @@ export default function ContactPage() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       rows={5}
-                      className={`w-full px-5 py-3.5 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white transition-all duration-300 resize-none ${errors.message && touched.message
-                        ? 'border-red-300 focus:ring-red-200'
-                        : 'border-gray-200 focus:ring-cyan-100 focus:border-cyan-400'
+                      className={`w-full px-5 py-3.5 bg-white/10 border rounded-xl focus:outline-none focus:ring-2 focus:bg-white/15 transition-all duration-300 resize-none text-white placeholder-gray-400 ${errors.message && touched.message
+                        ? 'border-red-400/50 focus:ring-red-400/30'
+                        : 'border-white/20 focus:ring-cyan-400/30 focus:border-cyan-400'
                         }`}
                       placeholder="Nhập nội dung cần tư vấn..."
                     />
                     {errors.message && touched.message && (
-                      <p className="text-sm text-red-500 flex items-center gap-1 animate-fade-in">
+                      <p className="text-sm text-red-400 flex items-center gap-1 animate-fade-in">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -415,8 +414,8 @@ export default function ContactPage() {
             {/* Right Sidebar - 1 column */}
             <div className="space-y-8">
               {/* Why Choose Us */}
-              <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 p-8 border border-gray-100">
-                <h3 className="text-xl font-bold mb-6 text-gray-900">Tại sao chọn chúng tôi?</h3>
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
+                <h3 className="text-xl font-bold mb-6 text-white">Tại sao chọn chúng tôi?</h3>
                 <div className="space-y-6">
                   {[
                     { title: 'Đại lý chính thức', desc: 'WILL-BURT, HIAB, SKYMARK', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
@@ -425,14 +424,14 @@ export default function ContactPage() {
                     { title: 'Tư vấn miễn phí', desc: 'Giải pháp tối ưu cho dự án', icon: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z' }
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-cyan-50 rounded-2xl flex items-center justify-center flex-shrink-0 text-cyan-600">
+                      <div className="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center flex-shrink-0 text-cyan-400">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
                         </svg>
                       </div>
                       <div>
-                        <p className="font-bold text-gray-900">{item.title}</p>
-                        <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+                        <p className="font-bold text-white">{item.title}</p>
+                        <p className="text-sm text-gray-400 mt-1">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -464,39 +463,39 @@ export default function ContactPage() {
           {/* Office Locations */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
             {/* HCM Office */}
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col group hover:shadow-2xl transition-all duration-300">
-              <div className="p-8 flex-shrink-0 bg-gradient-to-r from-white to-gray-50">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 flex flex-col group hover:bg-white/15 transition-all duration-300">
+              <div className="p-8 flex-shrink-0">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-cyan-100 rounded-2xl flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-300">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Trụ Sở Chính - TP.HCM</h3>
+                  <h3 className="text-xl font-bold text-white">Trụ Sở Chính - TP.HCM</h3>
                 </div>
                 <div className="space-y-4 text-sm">
                   <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-cyan-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-300 leading-relaxed">
                       A60 Đường Phú Thuận, Phường Phú Thuận, Quận 7, TP.HCM
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
-                    <a href="tel:+842838733686" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors">
+                    <a href="tel:+842838733686" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
                       +84 2838 733 686
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <a href="mailto:info@newatlantic.vn" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors">
+                    <a href="mailto:info@newatlantic.vn" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
                       info@newatlantic.vn
                     </a>
                   </div>
@@ -504,7 +503,7 @@ export default function ContactPage() {
               </div>
 
               {/* Google Maps */}
-              <div className="flex-1 border-t border-gray-200 min-h-[300px] relative">
+              <div className="flex-1 border-t border-white/10 min-h-[300px] relative">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4752.029135340127!2d106.73285127578363!3d10.731304260022924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175253f08df6c91%3A0x3692111b5c643ce2!2sNewatlantic%20International%20JSC!5e1!3m2!1svi!2s!4v1760503596543!5m2!1svi!2s"
                   width="100%"
@@ -519,39 +518,39 @@ export default function ContactPage() {
             </div>
 
             {/* Hanoi Office */}
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col group hover:shadow-2xl transition-all duration-300">
-              <div className="p-8 flex-shrink-0 bg-gradient-to-r from-white to-gray-50">
+            <div className="bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 flex flex-col group hover:bg-white/15 transition-all duration-300">
+              <div className="p-8 flex-shrink-0">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-cyan-100 rounded-2xl flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-cyan-500/20 rounded-2xl flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-300">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Văn Phòng Hà Nội</h3>
+                  <h3 className="text-xl font-bold text-white">Văn Phòng Hà Nội</h3>
                 </div>
                 <div className="space-y-4 text-sm">
                   <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-cyan-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-cyan-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-300 leading-relaxed">
                       Số 85 Đường Nguyễn Phong Sắc, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
-                    <a href="tel:+842838733686" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors">
+                    <a href="tel:+842838733686" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
                       +84 2838 733 686
                     </a>
                   </div>
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    <a href="mailto:info@newatlantic.vn" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors">
+                    <a href="mailto:info@newatlantic.vn" className="text-gray-300 hover:text-cyan-400 font-medium transition-colors">
                       info@newatlantic.vn
                     </a>
                   </div>
@@ -559,7 +558,7 @@ export default function ContactPage() {
               </div>
 
               {/* Google Maps */}
-              <div className="flex-1 border-t border-gray-200 min-h-[300px] relative">
+              <div className="flex-1 border-t border-white/10 min-h-[300px] relative">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4514.198692704718!2d105.7877081759183!3d21.038676487436643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab365050f60f%3A0x973143159aecba74!2sU-G7kSA4NSDEkC4gTmd1eeG7hW4gUGhvbmcgU-G6r2MsIEThu4tjaCBW4buNbmcgSOG6rXUsIEPhuqd1IEdp4bqleSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e1!3m2!1svi!2s!4v1760503649400!5m2!1svi!2s"
                   width="100%"

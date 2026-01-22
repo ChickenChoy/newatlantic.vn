@@ -107,10 +107,10 @@ export default function ProductFilter({
       <div className="lg:hidden mb-4">
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 transition-all active:scale-[0.99]"
+          className="w-full flex items-center justify-between px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl shadow-sm hover:bg-white/20 transition-all active:scale-[0.99]"
         >
-          <span className="flex items-center gap-2 font-semibold text-gray-800">
-            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span className="flex items-center gap-2 font-semibold text-white">
+            <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
             </svg>
             Bộ lọc & Sắp xếp
@@ -132,17 +132,17 @@ export default function ProductFilter({
       <div
         ref={filterRef}
         className={`
-          ${isFilterOpen ? 'block' : 'hidden'} 
+          ${isFilterOpen ? 'block' : 'hidden'}
           lg:block
-          bg-white rounded-2xl p-6
+          bg-white/10 backdrop-blur-sm rounded-2xl p-6
           lg:sticky lg:top-24
-          border border-gray-100 shadow-sm
+          border border-white/20 shadow-lg
         `}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
             </svg>
             Bộ lọc
@@ -150,7 +150,7 @@ export default function ProductFilter({
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
-              className="text-xs font-medium text-red-500 hover:text-red-600 transition-colors flex items-center gap-1 px-2 py-1 bg-red-50 rounded-full hover:bg-red-100"
+              className="text-xs font-medium text-red-400 hover:text-red-300 transition-colors flex items-center gap-1 px-2 py-1 bg-red-500/20 rounded-full hover:bg-red-500/30"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -168,15 +168,15 @@ export default function ProductFilter({
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Tìm kiếm sản phẩm..."
-              className="w-full pl-10 pr-8 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none placeholder:text-gray-400"
+              className="w-full pl-10 pr-8 py-3 bg-white/10 border border-white/20 rounded-xl text-sm text-white focus:bg-white/20 focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all outline-none placeholder:text-gray-400"
             />
-            <svg className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2 group-focus-within:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             {searchQuery && (
               <button
                 onClick={() => handleSearch('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -197,17 +197,17 @@ export default function ProductFilter({
               className={`
                 group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all duration-200
                 ${pathname === '/san-pham'
-                  ? 'bg-blue-50 text-blue-700 font-semibold'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-blue-600/30 text-blue-300 font-semibold'
+                  : 'text-gray-300 hover:bg-white/10 hover:text-white'
                 }
               `}
             >
               <div className="flex items-center gap-3">
-                <span className={`w-1.5 h-1.5 rounded-full transition-colors ${pathname === '/san-pham' ? 'bg-blue-600' : 'bg-gray-300 group-hover:bg-blue-400'}`}></span>
+                <span className={`w-1.5 h-1.5 rounded-full transition-colors ${pathname === '/san-pham' ? 'bg-blue-400' : 'bg-gray-500 group-hover:bg-blue-400'}`}></span>
                 <span>Tất cả</span>
               </div>
               {pathname === '/san-pham' && (
-                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               )}
@@ -221,17 +221,17 @@ export default function ProductFilter({
                   className={`
                     group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all duration-200
                     ${isActive
-                      ? 'bg-blue-50 text-blue-700 font-semibold'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'bg-blue-600/30 text-blue-300 font-semibold'
+                      : 'text-gray-300 hover:bg-white/10 hover:text-white'
                     }
                   `}
                 >
                   <div className="flex items-center gap-3">
-                    <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isActive ? 'bg-blue-600' : 'bg-gray-300 group-hover:bg-blue-400'}`}></span>
+                    <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isActive ? 'bg-blue-400' : 'bg-gray-500 group-hover:bg-blue-400'}`}></span>
                     <span>{category.name}</span>
                   </div>
                   {isActive && (
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   )}
@@ -254,16 +254,16 @@ export default function ProductFilter({
                 className={`
                   w-full flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-all duration-200 text-left
                   ${sortOption === option.value
-                    ? 'bg-blue-50/50 text-blue-700 font-medium ring-1 ring-blue-100'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-blue-600/30 text-blue-300 font-medium ring-1 ring-blue-500/30'
+                    : 'text-gray-300 hover:bg-white/10 hover:text-white'
                   }
                 `}
               >
                 <div className={`
                   w-4 h-4 rounded-full border flex items-center justify-center transition-colors
                   ${sortOption === option.value
-                    ? 'border-blue-600 bg-blue-600'
-                    : 'border-gray-300 group-hover:border-blue-400'
+                    ? 'border-blue-400 bg-blue-600'
+                    : 'border-gray-500 group-hover:border-blue-400'
                   }
                 `}>
                   {sortOption === option.value && (
