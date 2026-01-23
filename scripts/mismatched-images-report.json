@@ -1,0 +1,28 @@
+{
+  "productsWithMismatchedImages": [],
+  "productsWithExternalImages": [
+    {
+      "id": "4",
+      "name": "CẨU GẬP ROBOT 8 TẤN HIAB XCL-8",
+      "slug": "cau-gap-robot-8-tan-hiab-xcl-8",
+      "pageUrl": "/san-pham/undefined/cau-gap-robot-8-tan-hiab-xcl-8",
+      "externalImages": [
+        {
+          "url": "https://hiabvietnam.vn/wp-content/uploads/2023/08/X-CL-8-3-1.png",
+          "reason": "external_url"
+        },
+        {
+          "url": "https://hiabvietnam.vn/wp-content/uploads/2023/08/X-CL-8-3.png",
+          "reason": "external_url"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalProducts": 30,
+    "productsWithMismatches": 0,
+    "productsWithExternalUrls": 1,
+    "totalMismatchedImages": 0,
+    "totalExternalImages": 2
+  }
+}

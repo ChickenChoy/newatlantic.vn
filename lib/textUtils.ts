@@ -84,6 +84,7 @@ export function cleanText(text: string): string {
  * Sanitizes HTML content for display
  * - Removes WordPress shortcodes (e.g., [caption], [gallery], etc.)
  * - Replaces &nbsp; with regular spaces (allows word wrapping)
+ * - Converts inline bullet points (•, –) to line breaks for better desktop display
  * - Preserves HTML structure (p, br, strong, etc.)
  */
 export function sanitizeHtmlContent(html: string): string {
@@ -94,6 +95,11 @@ export function sanitizeHtmlContent(html: string): string {
 
   // Replace &nbsp; with regular space to allow word wrapping
   sanitized = sanitized.replace(/&nbsp;/g, ' ');
+
+  // Convert inline bullet points to line breaks for better display
+  // Only match bullet (•) and en-dash (–), NOT regular hyphen (-) to avoid breaking words like "e-commerce"
+  // This converts inline lists like "• Item 1 • Item 2 • Item 3" to proper line breaks
+  sanitized = sanitized.replace(/([a-zA-Z0-9\u00C0-\u024F\u1E00-\u1EFF.,;:!?\)\]\}])\s*([•–])\s+/g, '$1<br/>$2 ');
 
   // Replace multiple consecutive spaces with single space
   sanitized = sanitized.replace(/  +/g, ' ');

@@ -392,7 +392,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
             </h2>
 
             {/* Full Description with HTML Table - Responsive wrapper */}
-            <div className="overflow-x-auto lg:overflow-visible -mx-3 sm:-mx-4 md:-mx-6 lg:mx-0 px-3 sm:px-4 md:px-6 lg:px-0 [&_table]:min-w-[600px] lg:[&_table]:min-w-0 lg:[&_table]:!h-auto lg:[&_tr]:!h-auto lg:[&_td]:!h-auto">
+            <div className="overflow-x-auto lg:overflow-x-visible -mx-3 sm:-mx-4 md:-mx-6 lg:mx-0 px-3 sm:px-4 md:px-6 lg:px-0 [&_table]:min-w-[600px] lg:[&_table]:min-w-0 lg:[&_table]:w-full lg:[&_table]:!h-auto lg:[&_tr]:!h-auto lg:[&_td]:!h-auto">
               <div
                 className="prose prose-sm sm:prose-base lg:prose-lg max-w-none
                   prose-headings:text-white prose-headings:font-bold prose-headings:text-center prose-headings:mb-6 prose-headings:mt-8
@@ -409,7 +409,10 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   prose-tr:even:bg-white/5 prose-tr:hover:bg-white/10 prose-tr:transition-colors
                   [&>*]:mb-6 [&>p]:block [&>p]:whitespace-normal
                   [&_br]:block [&_br]:my-2
-                  [&>div]:mb-6 [&>section]:mb-6"
+                  [&>div]:mb-6 [&>section]:mb-6
+                  lg:[&_*]:whitespace-normal lg:[&_*]:break-words lg:[&_*]:!overflow-wrap-anywhere
+                  [&_.wp-block-table]:overflow-x-auto lg:[&_.wp-block-table]:overflow-visible
+                  [&_p]:!whitespace-normal [&_p]:break-words"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(product.fullDescription) }}
               />
             </div>
