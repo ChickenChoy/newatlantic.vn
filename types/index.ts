@@ -1,4 +1,4 @@
-// Types cho sản phẩm
+ // Types cho sản phẩm
 export interface Product {
   id: string;
   name: string;
@@ -14,6 +14,7 @@ export interface Product {
   price?: string;
   specifications?: Record<string, string>;
   featured?: boolean;
+  createdAt?: string;
 }
 
 // Types cho danh mục sản phẩm
