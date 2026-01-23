@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Icon } from '@iconify/react';
+import { Button } from '@/components/admin/Button';
 import { useAdminContext } from '@/app/admin/layout';
 
 interface MenuItem {
@@ -132,19 +133,21 @@ export default function AdminSidebar() {
 
           {/* Logout Button */}
           <div className="mt-6 pt-6 border-t border-border dark:border-darkborder">
-            <button
+            <Button
+              variant="ghost"
+              color="error"
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 w-full text-error hover:bg-lighterror dark:hover:bg-lighterror/20 rounded-lg transition-colors"
+              className="w-full justify-start !px-4 !py-3"
             >
               <Icon icon="solar:logout-2-line-duotone" height={20} className="flex-shrink-0" />
               {!isCollapsed && <span className="font-medium text-sm">Đăng xuất</span>}
-            </button>
+            </Button>
 
             {totpEnabled && !isCollapsed && (
               <div className="mt-3 px-4 py-2 bg-lightsuccess dark:bg-lightsuccess/20 rounded-lg">
                 <div className="flex items-center gap-2 text-success dark:text-success text-xs">
                   <Icon icon="solar:shield-check-line-duotone" height={16} />
-                  <span className="font-medium">2FA Enabled</span>
+                  <span className="font-medium">2FA Đang kích hoạt</span>
                 </div>
               </div>
             )}
@@ -211,22 +214,24 @@ export default function AdminSidebar() {
 
           {/* Logout Button */}
           <div className="mt-6 pt-6 border-t border-border dark:border-darkborder">
-            <button
+            <Button
+              variant="ghost"
+              color="error"
               onClick={() => {
                 handleLogout();
                 setIsMobileOpen(false);
               }}
-              className="flex items-center gap-3 px-4 py-3 w-full text-error hover:bg-lighterror dark:hover:bg-lighterror/20 rounded-lg transition-colors"
+              className="w-full justify-start !px-4 !py-3"
             >
               <Icon icon="solar:logout-2-line-duotone" height={20} className="flex-shrink-0" />
               <span className="font-medium text-sm">Đăng xuất</span>
-            </button>
+            </Button>
 
             {totpEnabled && (
               <div className="mt-3 px-4 py-2 bg-lightsuccess dark:bg-lightsuccess/20 rounded-lg">
                 <div className="flex items-center gap-2 text-success dark:text-success text-xs">
                   <Icon icon="solar:shield-check-line-duotone" height={16} />
-                  <span className="font-medium">2FA Enabled</span>
+                  <span className="font-medium">2FA Đang kích hoạt</span>
                 </div>
               </div>
             )}

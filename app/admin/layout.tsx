@@ -291,7 +291,7 @@ export default function AdminLayout({
   // Đã đăng nhập - hiển thị nội dung admin với sidebar layout kiểu MatDash
   return (
     <AdminContext.Provider value={{ handleLogout, totpEnabled }}>
-      <div className="flex min-h-screen bg-lightgray dark:bg-dark">
+      <div className="flex min-h-screen bg-lightgray dark:bg-dark font-sans">
         {/* Sidebar - imported component */}
         <AdminSidebar />
 

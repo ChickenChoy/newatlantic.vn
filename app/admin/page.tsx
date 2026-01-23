@@ -9,6 +9,7 @@ import { useToast } from '@/components/ToastProvider';
 import PasswordInput from '@/components/PasswordInput';
 import ImageUpload from '@/components/ImageUpload';
 import { Icon } from '@iconify/react';
+import { Button } from '@/components/admin/Button';
 
 
 type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners';
@@ -787,14 +788,15 @@ export default function AdminPage() {
                 Đang lưu...
               </span>
             )}
-            <button
+            <Button
+              color="light"
               onClick={loadData}
               disabled={saving}
-              className="p-2 text-muted hover:text-bodytext bg-white dark:bg-darkgray hover:bg-gray-100 border border-border dark:border-gray-700 rounded-lg transition shadow-sm"
+              className="!p-2 text-muted hover:text-bodytext bg-white dark:bg-darkgray hover:bg-gray-100 border-border dark:border-gray-700"
               title="Refresh"
             >
               <Icon icon="solar:refresh-circle-line-duotone" width="24" />
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -1039,12 +1041,12 @@ export default function AdminPage() {
               )}
 
               {/* Clear filters */}
-              <button
+              <Button
+                color="light"
                 onClick={clearFilters}
-                className="px-4 py-2 text-muted dark:text-gray-400 hover:text-gray-800 border border-border rounded-lg hover:bg-lightgray dark:bg-gray-900"
               >
                 Xóa bộ lọc
-              </button>
+              </Button>
             </div>
 
             {/* Results count */}
@@ -1073,20 +1075,20 @@ export default function AdminPage() {
                 <span className="text-muted dark:text-gray-400 font-medium">
                   Đã chọn {selectedProducts.size} sản phẩm
                 </span>
-                <button
+                <Button
+                  color="warning"
                   onClick={openBulkEditModal}
                   disabled={saving}
-                  className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors font-medium disabled:opacity-50"
                 >
                   Chỉnh sửa hàng loạt
-                </button>
-                <button
+                </Button>
+                <Button
+                  color="error"
                   onClick={bulkDeleteProducts}
                   disabled={saving}
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium disabled:opacity-50"
                 >
                   Xóa đã chọn
-                </button>
+                </Button>
               </>
             )}
 
@@ -1095,13 +1097,13 @@ export default function AdminPage() {
                 <span className="text-muted dark:text-gray-400 font-medium">
                   Đã chọn {selectedPosts.size} bài viết
                 </span>
-                <button
+                <Button
+                  color="error"
                   onClick={bulkDeletePosts}
                   disabled={saving}
-                  className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium disabled:opacity-50"
                 >
                   Xóa đã chọn
-                </button>
+                </Button>
               </>
             )}
           </div>
@@ -1165,13 +1167,14 @@ export default function AdminPage() {
                         >
                           Sửa
                         </Link>
-                        <button
+                        <Button
+                          variant="link"
+                          color="error"
                           onClick={() => deleteProduct(product.id)}
                           disabled={saving}
-                          className="text-error hover:text-lighterror disabled:opacity-50"
                         >
                           Xóa
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -1221,13 +1224,14 @@ export default function AdminPage() {
                       >
                         Sửa
                       </Link>
-                      <button
+                      <Button
+                        variant="link"
+                        color="error"
                         onClick={() => deleteProduct(product.id)}
                         disabled={saving}
-                        className="text-sm text-red-600 hover:text-red-800 font-medium disabled:opacity-50"
                       >
                         Xóa
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -1290,13 +1294,14 @@ export default function AdminPage() {
                         >
                           Sửa
                         </Link>
-                        <button
+                        <Button
+                          variant="link"
+                          color="error"
                           onClick={() => deletePost(post.id)}
                           disabled={saving}
-                          className="text-error hover:text-lighterror disabled:opacity-50"
                         >
                           Xóa
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -1340,13 +1345,15 @@ export default function AdminPage() {
                       >
                         Sửa
                       </Link>
-                      <button
+                      <Button
+                        variant="link"
+                        color="error"
                         onClick={() => deletePost(post.id)}
                         disabled={saving}
-                        className="text-sm text-red-600 hover:text-red-800 font-medium disabled:opacity-50"
+                        className="text-sm"
                       >
                         Xóa
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 ))}
@@ -1366,13 +1373,12 @@ export default function AdminPage() {
           <div className="admin-card p-0 overflow-hidden">
             <div className="p-4 border-b border-border flex justify-between items-center">
               <h2 className="text-lg font-semibold card-title mb-0">Quản lý danh mục sản phẩm</h2>
-              <button
+              <Button
                 onClick={openAddCategoryModal}
                 disabled={saving}
-                className="admin-btn-primary px-4 py-2 disabled:opacity-50"
               >
                 + Thêm danh mục
-              </button>
+              </Button>
             </div>
 
             {/* Desktop Table */}
@@ -1434,20 +1440,23 @@ export default function AdminPage() {
                           >
                             Xem
                           </a>
-                          <button
+                          <Button
+                            variant="link"
+                            color="primary"
                             onClick={() => openEditCategoryModal(category)}
                             disabled={saving}
-                            className="text-primary hover:text-primary-emphasis mr-3 disabled:opacity-50"
+                            className="mr-3"
                           >
                             Sửa
-                          </button>
-                          <button
+                          </Button>
+                          <Button
+                            variant="link"
+                            color="error"
                             onClick={() => deleteCategory(category.id)}
                             disabled={saving}
-                            className="text-error hover:text-lighterror disabled:opacity-50"
                           >
                             Xóa
-                          </button>
+                          </Button>
                         </td>
                       </tr>
                     );
@@ -1502,20 +1511,24 @@ export default function AdminPage() {
                       >
                         Xem
                       </a>
-                      <button
+                      <Button
+                        variant="link"
+                        color="primary"
                         onClick={() => openEditCategoryModal(category)}
                         disabled={saving}
-                        className="text-sm text-blue-600 hover:text-blue-800 font-medium disabled:opacity-50"
+                        className="text-sm"
                       >
                         Sửa
-                      </button>
-                      <button
+                      </Button>
+                      <Button
+                        variant="link"
+                        color="error"
                         onClick={() => deleteCategory(category.id)}
                         disabled={saving}
-                        className="text-sm text-red-600 hover:text-red-800 font-medium disabled:opacity-50"
+                        className="text-sm"
                       >
                         Xóa
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 );
@@ -1535,13 +1548,12 @@ export default function AdminPage() {
           <div className="admin-card p-0 overflow-hidden">
             <div className="p-4 border-b border-border flex justify-between items-center">
               <h2 className="text-lg font-semibold card-title mb-0">Quản lý danh mục Tin tức & Sự kiện</h2>
-              <button
+              <Button
                 onClick={openAddPostCategoryModal}
                 disabled={saving}
-                className="admin-btn-primary px-4 py-2 disabled:opacity-50"
               >
                 + Thêm danh mục
-              </button>
+              </Button>
             </div>
 
             {/* Desktop Table */}
@@ -1584,21 +1596,24 @@ export default function AdminPage() {
                           </span>
                         </td>
                         <td className="text-center">
-                          <button
+                          <Button
+                            variant="link"
+                            color="primary"
                             onClick={() => openEditPostCategoryModal(category)}
                             disabled={saving}
-                            className="text-primary hover:text-primary-emphasis mr-3 disabled:opacity-50"
+                            className="mr-3"
                           >
                             Sửa
-                          </button>
+                          </Button>
                           {category.slug !== 'all' && (
-                            <button
+                            <Button
+                              variant="link"
+                              color="error"
                               onClick={() => deletePostCategory(category.id)}
                               disabled={saving}
-                              className="text-error hover:text-lighterror disabled:opacity-50"
                             >
                               Xóa
-                            </button>
+                            </Button>
                           )}
                         </td>
                       </tr>
@@ -1639,21 +1654,25 @@ export default function AdminPage() {
                       </div>
                     </div>
                     <div className="flex justify-end gap-4 mt-3 pt-3 border-t border-gray-100">
-                      <button
+                      <Button
+                        variant="link"
+                        color="primary"
                         onClick={() => openEditPostCategoryModal(category)}
                         disabled={saving}
-                        className="text-sm text-blue-600 hover:text-blue-800 font-medium disabled:opacity-50"
+                        className="text-sm"
                       >
                         Sửa
-                      </button>
+                      </Button>
                       {category.slug !== 'all' && (
-                        <button
+                        <Button
+                          variant="link"
+                          color="error"
                           onClick={() => deletePostCategory(category.id)}
                           disabled={saving}
-                          className="text-sm text-red-600 hover:text-red-800 font-medium disabled:opacity-50"
+                          className="text-sm"
                         >
                           Xóa
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -1755,7 +1774,7 @@ export default function AdminPage() {
                   </div>
                 )}
                 <div className="mt-6">
-                  <button
+                  <Button
                     onClick={async () => {
                       if (!siteSettings) return;
                       setSaving(true);
@@ -1777,10 +1796,9 @@ export default function AdminPage() {
                       }
                     }}
                     disabled={saving}
-                    className="admin-btn-primary px-6 py-2 disabled:opacity-50"
                   >
                     {saving ? 'Đang lưu...' : 'Lưu cài đặt'}
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -1789,7 +1807,7 @@ export default function AdminPage() {
             <div className="admin-card">
               <div className="pb-4 mb-6 border-b border-border flex justify-between items-center">
                 <h2 className="text-lg font-semibold card-title mb-0">Địa chỉ văn phòng ({officeLocations.length})</h2>
-                <button
+                <Button
                   onClick={async () => {
                     const newOffice: OfficeLocation = {
                       id: String(Date.now()),
@@ -1817,10 +1835,10 @@ export default function AdminPage() {
                     }
                   }}
                   disabled={saving}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium text-sm disabled:opacity-50"
+                  className="text-sm"
                 >
                   + Thêm văn phòng
-                </button>
+                </Button>
               </div>
               <div className="divide-y divide-border">
                 {officeLocations.map((office) => (
@@ -1861,7 +1879,8 @@ export default function AdminPage() {
                         className="px-3 py-2 border border-border rounded-lg text-sm"
                       />
                       <div className="flex gap-2">
-                        <button
+                        <Button
+                          color="success"
                           onClick={async () => {
                             setSaving(true);
                             try {
@@ -1878,11 +1897,12 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={saving}
-                          className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 disabled:opacity-50"
+                          className="!px-3 !py-2 text-sm"
                         >
                           Lưu
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                          color="error"
                           onClick={async () => {
                             const confirmed = await toast.confirm({
                               title: 'Xác nhận xóa',
@@ -1905,10 +1925,10 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={saving}
-                          className="px-3 py-2 bg-red-600 text-white rounded-lg text-sm hover:bg-red-700 disabled:opacity-50"
+                          className="!px-3 !py-2 text-sm"
                         >
                           Xóa
-                        </button>
+                        </Button>
                       </div>
                     </div>
                     <div className="mt-3">
@@ -1975,7 +1995,7 @@ export default function AdminPage() {
             <div className="admin-card p-0 overflow-hidden">
               <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
                 <h2 className="text-lg font-semibold text-bodytext dark:text-white">Hero Slides ({heroSlides.length})</h2>
-                <button
+                <Button
                   onClick={async () => {
                     const newSlide: HeroSlide = {
                       id: String(Date.now()),
@@ -2008,10 +2028,10 @@ export default function AdminPage() {
                     }
                   }}
                   disabled={saving}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-[#4a6199] transition-colors font-medium text-sm disabled:opacity-50"
+                  className="text-sm"
                 >
                   + Thêm slide
-                </button>
+                </Button>
               </div>
               <div className="divide-y divide-border">
                 {heroSlides.map((slide) => (
@@ -2183,7 +2203,8 @@ export default function AdminPage() {
                               />
                               <span className="text-sm">Hiển thị</span>
                             </label>
-                            <button
+                            <Button
+                              color="success"
                               onClick={async () => {
                                 setSaving(true);
                                 try {
@@ -2200,11 +2221,12 @@ export default function AdminPage() {
                                 }
                               }}
                               disabled={saving}
-                              className="px-3 py-1.5 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                              className="!px-3 !py-1.5 text-sm"
                             >
                               Lưu
-                            </button>
-                            <button
+                            </Button>
+                            <Button
+                              color="error"
                               onClick={async () => {
                                 const confirmed = await toast.confirm({
                                   title: 'Xác nhận xóa',
@@ -2227,10 +2249,10 @@ export default function AdminPage() {
                                 }
                               }}
                               disabled={saving}
-                              className="px-3 py-1.5 bg-red-600 text-white rounded text-sm hover:bg-red-700 disabled:opacity-50"
+                              className="!px-3 !py-1.5 text-sm"
                             >
                               Xóa
-                            </button>
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -2291,7 +2313,7 @@ export default function AdminPage() {
                   ))}
                 </div>
                 <div className="mt-4">
-                  <button
+                  <Button
                     onClick={async () => {
                       setSaving(true);
                       try {
@@ -2308,10 +2330,9 @@ export default function AdminPage() {
                       }
                     }}
                     disabled={saving}
-                    className="admin-btn-primary px-6 py-2 disabled:opacity-50"
                   >
                     {saving ? 'Đang lưu...' : 'Lưu số liệu'}
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -2323,7 +2344,7 @@ export default function AdminPage() {
           <div className="admin-card p-0 overflow-hidden">
             <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
               <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý thư viện hình ảnh</h2>
-              <button
+              <Button
                 onClick={async () => {
                   const newImage: GalleryImage = {
                     id: String(Date.now()),
@@ -2354,10 +2375,9 @@ export default function AdminPage() {
                   }
                 }}
                 disabled={saving}
-                className="px-4 py-2 admin-btn-primary disabled:opacity-50"
               >
                 + Thêm hình ảnh
-              </button>
+              </Button>
             </div>
             <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -2449,7 +2469,8 @@ export default function AdminPage() {
                           Nổi bật
                         </label>
                         <div className="flex gap-2">
-                          <button
+                          <Button
+                            color="success"
                             onClick={async () => {
                               setSaving(true);
                               try {
@@ -2466,11 +2487,12 @@ export default function AdminPage() {
                               }
                             }}
                             disabled={saving}
-                            className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                            className="!px-3 !py-1 text-sm"
                           >
                             Lưu
-                          </button>
-                          <button
+                          </Button>
+                          <Button
+                            color="error"
                             onClick={async () => {
                               const confirmed = await toast.confirm({
                                 title: 'Xác nhận xóa',
@@ -2493,10 +2515,10 @@ export default function AdminPage() {
                               }
                             }}
                             disabled={saving}
-                            className="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700 disabled:opacity-50"
+                            className="!px-3 !py-1 text-sm"
                           >
                             Xóa
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -2515,7 +2537,7 @@ export default function AdminPage() {
           <div className="admin-card p-0 overflow-hidden">
             <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
               <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý Catalogs</h2>
-              <button
+              <Button
                 onClick={async () => {
                   const newCatalog: Catalog = {
                     id: String(Date.now()),
@@ -2545,10 +2567,9 @@ export default function AdminPage() {
                   }
                 }}
                 disabled={saving}
-                className="px-4 py-2 admin-btn-primary disabled:opacity-50"
               >
                 + Thêm catalog
-              </button>
+              </Button>
             </div>
             <div className="overflow-x-auto">
               <table className="admin-table">
@@ -2618,7 +2639,9 @@ export default function AdminPage() {
                         />
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <button
+                        <Button
+                          variant="link"
+                          color="success"
                           onClick={async () => {
                             setSaving(true);
                             try {
@@ -2635,11 +2658,13 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={saving}
-                          className="text-green-600 hover:text-green-800 mr-3 disabled:opacity-50"
+                          className="mr-3"
                         >
                           Lưu
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                          variant="link"
+                          color="error"
                           onClick={async () => {
                             const confirmed = await toast.confirm({
                               title: 'Xác nhận xóa',
@@ -2662,10 +2687,9 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={saving}
-                          className="text-red-600 hover:text-red-800 disabled:opacity-50"
                         >
                           Xóa
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   ))}
@@ -2683,7 +2707,7 @@ export default function AdminPage() {
           <div className="admin-card p-0 overflow-hidden">
             <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
               <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý đối tác</h2>
-              <button
+              <Button
                 onClick={async () => {
                   const newPartner: PartnerLogo = {
                     id: String(Date.now()),
@@ -2711,10 +2735,9 @@ export default function AdminPage() {
                   }
                 }}
                 disabled={saving}
-                className="px-4 py-2 admin-btn-primary disabled:opacity-50"
               >
                 + Thêm đối tác
-              </button>
+              </Button>
             </div>
             <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -2787,7 +2810,8 @@ export default function AdminPage() {
                         </label>
                       </div>
                       <div className="flex gap-2 pt-2">
-                        <button
+                        <Button
+                          color="success"
                           onClick={async () => {
                             setSaving(true);
                             try {
@@ -2804,11 +2828,12 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={saving}
-                          className="flex-1 px-3 py-1.5 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50"
+                          className="flex-1 !px-3 !py-1.5 text-sm"
                         >
                           Lưu
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                          color="error"
                           onClick={async () => {
                             const confirmed = await toast.confirm({
                               title: 'Xác nhận xóa',
@@ -2831,10 +2856,10 @@ export default function AdminPage() {
                             }
                           }}
                           disabled={saving}
-                          className="flex-1 px-3 py-1.5 bg-red-600 text-white rounded text-sm hover:bg-red-700 disabled:opacity-50"
+                          className="flex-1 !px-3 !py-1.5 text-sm"
                         >
                           Xóa
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -2877,12 +2902,13 @@ export default function AdminPage() {
                     <p className="text-green-800 text-sm mb-3">
                       Xác thực hai yếu tố đang được bật. Mỗi lần đăng nhập, bạn sẽ cần nhập mã từ ứng dụng Google Authenticator.
                     </p>
-                    <button
+                    <Button
+                      color="error"
                       onClick={() => { setShowDisableModal(true); setTotpError(''); setTotpPassword(''); setTotpDisableCode(''); }}
-                      className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors text-sm font-medium"
+                      className="text-sm"
                     >
                       Tắt Google Authenticator
-                    </button>
+                    </Button>
                   </div>
                 ) : totpSetupData ? (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
@@ -2917,25 +2943,26 @@ export default function AdminPage() {
                             maxLength={6}
                             inputMode="numeric"
                           />
-                          <button
+                          <Button
                             onClick={handleTotpVerifySetup}
                             disabled={totpLoading || totpVerifyCode.length !== 6}
-                            className="px-6 py-2 bg-primary text-white rounded hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
                           >
                             {totpLoading ? 'Đang xử lý...' : 'Xác nhận'}
-                          </button>
+                          </Button>
                         </div>
 
                         {totpError && (
                           <p className="mt-2 text-red-600 text-sm">{totpError}</p>
                         )}
 
-                        <button
+                        <Button
+                          variant="ghost"
+                          color="dark"
                           onClick={() => { setTotpSetupData(null); setTotpVerifyCode(''); setTotpError(''); }}
-                          className="mt-4 text-muted dark:text-gray-400 hover:text-gray-800 text-sm"
+                          className="mt-4 text-xs"
                         >
                           Hủy thiết lập
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -2954,13 +2981,12 @@ export default function AdminPage() {
                         showLabel={false}
                         className="flex-1"
                       />
-                      <button
+                      <Button
                         onClick={handleTotpSetup}
                         disabled={totpLoading || !totpPassword}
-                        className="px-6 py-2 bg-primary text-white rounded hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50"
                       >
                         {totpLoading ? 'Đang xử lý...' : 'Tiếp tục'}
-                      </button>
+                      </Button>
                     </div>
                     {totpError && (
                       <p className="mt-2 text-red-600 text-sm">{totpError}</p>
@@ -3084,19 +3110,18 @@ export default function AdminPage() {
               </div>
 
               <div className="mt-6 flex gap-3 justify-end">
-                <button
+                <Button
+                  color="light"
                   onClick={() => setShowBulkEditModal(false)}
-                  className="px-4 py-2 text-muted dark:text-gray-400 border border-border rounded-lg hover:bg-lightgray dark:bg-gray-900 font-medium"
                 >
                   Hủy
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={applyBulkEdit}
                   disabled={saving}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-[#4a6199] font-medium disabled:opacity-50"
                 >
                   {saving ? 'Đang lưu...' : 'Áp dụng'}
-                </button>
+                </Button>
               </div>
             </div>
           </div>,
@@ -3244,19 +3269,18 @@ export default function AdminPage() {
               </div>
 
               <div className="mt-6 flex gap-3 justify-end">
-                <button
+                <Button
+                  color="light"
                   onClick={() => setShowCategoryModal(false)}
-                  className="px-4 py-2 text-muted dark:text-gray-400 border border-border rounded-lg hover:bg-lightgray dark:bg-gray-900 font-medium"
                 >
                   Hủy
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={saveCategory}
                   disabled={saving}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-[#4a6199] font-medium disabled:opacity-50"
                 >
                   {saving ? 'Đang lưu...' : (editingCategory ? 'Cập nhật' : 'Thêm mới')}
-                </button>
+                </Button>
               </div>
             </div>
           </div>,
@@ -3380,19 +3404,18 @@ export default function AdminPage() {
               </div>
 
               <div className="mt-6 flex gap-3 justify-end">
-                <button
+                <Button
+                  color="light"
                   onClick={() => setShowPostCategoryModal(false)}
-                  className="px-4 py-2 text-muted dark:text-gray-400 border border-border rounded-lg hover:bg-lightgray dark:bg-gray-900 font-medium"
                 >
                   Hủy
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={savePostCategory}
                   disabled={saving}
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-[#4a6199] font-medium disabled:opacity-50"
                 >
                   {saving ? 'Đang lưu...' : (editingPostCategory ? 'Cập nhật' : 'Thêm mới')}
-                </button>
+                </Button>
               </div>
             </div>
           </div>,
@@ -3484,19 +3507,19 @@ export default function AdminPage() {
               </div>
 
               <div className="mt-6 flex gap-3 justify-end">
-                <button
+                <Button
+                  color="light"
                   onClick={() => { setShowDisableModal(false); setTotpPassword(''); setTotpDisableCode(''); setTotpError(''); }}
-                  className="px-4 py-2 text-muted dark:text-gray-400 border border-border rounded-lg hover:bg-lightgray dark:bg-gray-900 font-medium"
                 >
                   Hủy
-                </button>
-                <button
+                </Button>
+                <Button
+                  color="error"
                   onClick={handleTotpDisable}
                   disabled={totpLoading || !totpPassword || totpDisableCode.length !== 6}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium disabled:opacity-50"
                 >
                   {totpLoading ? 'Đang xử lý...' : 'Tắt 2FA'}
-                </button>
+                </Button>
               </div>
             </div>
           </div>,

@@ -75,6 +75,7 @@
   --color-surface: var(--color-surface);
   --color-darkgray: var(--color-darkgray);
 
+  --font-sans: var(--font-inter);
   --spacing-30: 30px;
 }
 
