@@ -1,10 +1,29 @@
 // Google Analytics 4 & Google Tag Manager Integration
 
+interface GtagItem {
+  item_id?: string;
+  item_name?: string;
+  item_category?: string;
+  item_brand?: string;
+}
+
+type GtagValue = string | number | boolean | undefined | null | Date | GtagItem[];
+
+type DataLayerEntry = Record<string, GtagValue> | IArguments;
+
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
-    dataLayer: any[];
+    gtag: Gtag.Gtag;
+    dataLayer: DataLayerEntry[];
   }
+}
+
+declare namespace Gtag {
+  type Gtag = (
+    command: 'config' | 'event' | 'js' | 'set',
+    targetOrDate: string | Date,
+    params?: Record<string, GtagValue>
+  ) => void;
 }
 
 // Google Analytics 4 Measurement ID
@@ -315,7 +334,7 @@ export const trackWebVitals = (metric: {
 /**
  * Track JavaScript errors
  */
-export const trackError = (error: Error, errorInfo?: any) => {
+export const trackError = (error: Error, errorInfo?: { componentStack?: string }) => {
   event({
     action: 'exception',
     category: 'error',

@@ -1355,3 +1355,85 @@ html {
   height: auto !important;
   border-radius: 0.5rem !important;
 }
+
+/* ============================================
+   RESPONSIVE TABLE STYLES FOR MOBILE
+   ============================================ */
+
+/* Make tables scrollable on mobile */
+.prose table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .prose table {
+    font-size: 0.75rem !important;
+    min-width: 500px;
+  }
+
+  .prose th,
+  .prose td {
+    padding: 0.5rem 0.75rem !important;
+    white-space: nowrap;
+  }
+
+  .prose thead th {
+    font-size: 0.7rem !important;
+    padding: 0.5rem !important;
+  }
+
+  .prose tbody td {
+    font-size: 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .prose table {
+    font-size: 0.65rem !important;
+  }
+
+  .prose th,
+  .prose td {
+    padding: 0.375rem 0.5rem !important;
+  }
+
+  .prose thead th {
+    font-size: 0.6rem !important;
+  }
+
+  .prose tbody td {
+    font-size: 0.65rem !important;
+  }
+}
+
+/* Table container for horizontal scroll */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+.table-responsive table {
+  min-width: 600px;
+}
+
+/* Scroll indicator for tables on mobile */
+@media (max-width: 768px) {
+  .table-scroll-hint {
+    position: relative;
+  }
+
+  .table-scroll-hint::after {
+    content: '← Vuốt để xem thêm →';
+    display: block;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    padding: 0.5rem;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+  }
+}

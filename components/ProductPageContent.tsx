@@ -391,26 +391,28 @@ export default function ProductPageContent({ product, relatedProducts }: Product
               Thông số kỹ thuật & Mô tả chi tiết
             </h2>
 
-            {/* Full Description with HTML Table */}
-            <div
-              className="prose prose-sm sm:prose-base lg:prose-lg max-w-none
-                prose-headings:text-white prose-headings:font-bold prose-headings:text-center prose-headings:mb-6 prose-headings:mt-8
-                prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
-                prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:mt-0
-                prose-strong:text-white prose-strong:font-semibold
-                prose-ul:text-gray-300 prose-ul:mb-6 prose-ul:mt-4 prose-ul:space-y-3 prose-ul:pl-6
-                prose-ol:text-gray-300 prose-ol:mb-6 prose-ol:mt-4 prose-ol:space-y-3 prose-ol:pl-6
-                prose-li:text-gray-300 prose-li:leading-relaxed prose-li:mb-2
-                prose-table:w-full prose-table:border-collapse prose-table:shadow-md prose-table:my-8 prose-table:rounded-lg prose-table:overflow-hidden
-                prose-thead:bg-[#5f7ab8]
-                prose-th:bg-[#5f7ab8] prose-th:text-white prose-th:p-4 prose-th:text-left prose-th:font-semibold prose-th:text-sm sm:prose-th:text-base
-                prose-td:border prose-td:border-white/20 prose-td:p-4 prose-td:text-gray-300 prose-td:text-sm sm:prose-td:text-base prose-td:leading-relaxed
-                prose-tr:even:bg-white/5 prose-tr:hover:bg-white/10 prose-tr:transition-colors
-                [&>*]:mb-6 [&>p]:block [&>p]:whitespace-normal
-                [&_br]:block [&_br]:my-2
-                [&>div]:mb-6 [&>section]:mb-6"
-              dangerouslySetInnerHTML={{ __html: stripWordPressShortcodes(product.fullDescription) }}
-            />
+            {/* Full Description with HTML Table - Responsive wrapper */}
+            <div className="overflow-x-auto -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 xl:-mx-12 px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
+              <div
+                className="prose prose-sm sm:prose-base lg:prose-lg max-w-none
+                  prose-headings:text-white prose-headings:font-bold prose-headings:text-center prose-headings:mb-6 prose-headings:mt-8
+                  prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg
+                  prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6 prose-p:mt-0
+                  prose-strong:text-white prose-strong:font-semibold
+                  prose-ul:text-gray-300 prose-ul:mb-6 prose-ul:mt-4 prose-ul:space-y-3 prose-ul:pl-6
+                  prose-ol:text-gray-300 prose-ol:mb-6 prose-ol:mt-4 prose-ol:space-y-3 prose-ol:pl-6
+                  prose-li:text-gray-300 prose-li:leading-relaxed prose-li:mb-2
+                  prose-table:min-w-[600px] prose-table:w-full prose-table:border-collapse prose-table:shadow-md prose-table:my-8 prose-table:rounded-lg prose-table:overflow-hidden
+                  prose-thead:bg-[#5f7ab8]
+                  prose-th:bg-[#5f7ab8] prose-th:text-white prose-th:p-2 prose-th:sm:p-3 prose-th:md:p-4 prose-th:text-left prose-th:font-semibold prose-th:text-xs prose-th:sm:text-sm prose-th:md:text-base prose-th:whitespace-nowrap
+                  prose-td:border prose-td:border-white/20 prose-td:p-2 prose-td:sm:p-3 prose-td:md:p-4 prose-td:text-gray-300 prose-td:text-xs prose-td:sm:text-sm prose-td:md:text-base prose-td:leading-relaxed
+                  prose-tr:even:bg-white/5 prose-tr:hover:bg-white/10 prose-tr:transition-colors
+                  [&>*]:mb-6 [&>p]:block [&>p]:whitespace-normal
+                  [&_br]:block [&_br]:my-2
+                  [&>div]:mb-6 [&>section]:mb-6"
+                dangerouslySetInnerHTML={{ __html: stripWordPressShortcodes(product.fullDescription) }}
+              />
+            </div>
           </div>
         )}
 
