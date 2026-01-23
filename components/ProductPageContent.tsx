@@ -4,7 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import TouchGestureWrapper from './TouchGestureWrapper';
-import ImageModal from './ImageModal';
+import GalleryLightbox from './GalleryLightbox';
+import LiveVisitorCount from './LiveVisitorCount';
+import StickyCTABar from './StickyCTABar';
 import { WishlistManager } from '@/lib/wishlist';
 import { cleanText, sanitizeHtmlContent } from '@/lib/textUtils';
 import type { Product } from '@/types';
@@ -241,9 +243,15 @@ export default function ProductPageContent({ product, relatedProducts }: Product
             )}
           </div>
 
-          {/* Image Modal */}
-          <ImageModal
-            images={images}
+          {/* Image Lightbox */}
+          <GalleryLightbox
+            images={images.map((img, idx) => ({
+              src: img,
+              alt: `${product.name} - Ảnh ${idx + 1}`,
+              title: product.name,
+              description: product.shortDescription,
+              category: product.category
+            }))}
             currentIndex={currentImageIndex}
             isOpen={isModalOpen}
             onClose={closeModal}
@@ -253,12 +261,17 @@ export default function ProductPageContent({ product, relatedProducts }: Product
           <div className="flex flex-col justify-between order-2 lg:order-2 space-y-3 sm:space-y-4">
             {/* Header Section */}
             <div className="mb-2 sm:mb-3">
-              {/* Category Badge */}
-              <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-blue-500/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full mb-2 sm:mb-3">
-                <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#5f7ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                </svg>
-                <span className="text-xs font-semibold text-blue-400 uppercase tracking-wide">{product.category}</span>
+              {/* Category Badge & Live Visitor Count */}
+              <div className="flex flex-wrap items-center gap-2 mb-2 sm:mb-3">
+                <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-blue-500/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
+                  <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#5f7ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                  </svg>
+                  <span className="text-xs font-semibold text-blue-400 uppercase tracking-wide">{product.category}</span>
+                </div>
+
+                {/* Live Visitor Count */}
+                <LiveVisitorCount productId={product.id} />
               </div>
 
               {/* Product Title */}
@@ -524,6 +537,9 @@ export default function ProductPageContent({ product, relatedProducts }: Product
           </div>
         )}
       </div>
+
+      {/* Sticky CTA Bar for Mobile */}
+      <StickyCTABar productName={product.name} />
     </div>
   );
 }

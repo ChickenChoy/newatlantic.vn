@@ -1437,3 +1437,40 @@ html {
     background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
   }
 }
+
+/* ============================================
+   LIVE VISITOR & STICKY CTA ANIMATIONS
+   ============================================ */
+
+/* Slide up animation for sticky CTA bar */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+/* Safe area padding for iOS devices */
+.safe-area-pb {
+  padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
+}
+
+/* Extra small breakpoint for product name display */
+@media (min-width: 375px) {
+  .xs\:block {
+    display: block;
+  }
+}
+
+/* Tabular numbers for consistent digit width */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
