@@ -82,14 +82,18 @@ export function cleanText(text: string): string {
 
 /**
  * Sanitizes HTML content for display
+ * - Removes WordPress shortcodes (e.g., [caption], [gallery], etc.)
  * - Replaces &nbsp; with regular spaces (allows word wrapping)
  * - Preserves HTML structure (p, br, strong, etc.)
  */
 export function sanitizeHtmlContent(html: string): string {
   if (!html) return '';
 
+  // First, remove WordPress shortcodes
+  let sanitized = stripWordPressShortcodes(html);
+
   // Replace &nbsp; with regular space to allow word wrapping
-  let sanitized = html.replace(/&nbsp;/g, ' ');
+  sanitized = sanitized.replace(/&nbsp;/g, ' ');
 
   // Replace multiple consecutive spaces with single space
   sanitized = sanitized.replace(/  +/g, ' ');
