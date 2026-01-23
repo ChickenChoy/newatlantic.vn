@@ -29,9 +29,10 @@
     --banh-radius-lg: 24px;
 }
 
-/* Also scope variables for portal elements (lightbox, flowers) */
+/* Also scope variables for portal elements (lightbox, flowers, confetti) */
 .banh-lightbox,
-.banh-flowers {
+.banh-flowers,
+.banh-confetti {
     --banh-primary: #ffffff;
     --banh-secondary: #050c3a;
     --banh-accent: #c41e3a;
@@ -1477,4 +1478,72 @@
 .banh-lightbox-nav:focus {
     outline: 3px solid var(--banh-gold);
     outline-offset: 2px;
+}
+
+/* ===================================
+   Confetti Celebration Effect
+   =================================== */
+.banh-confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10001;
+    overflow: hidden;
+}
+
+.banh-confetti-piece {
+    position: absolute;
+    top: -20px;
+    width: 10px;
+    height: 20px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-20px) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    25% {
+        transform: translateY(25vh) rotate(180deg) translateX(-30px) scale(0.9);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(50vh) rotate(360deg) translateX(30px) scale(0.8);
+        opacity: 0.9;
+    }
+    75% {
+        transform: translateY(75vh) rotate(540deg) translateX(-20px) scale(0.7);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg) translateX(20px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* Different confetti shapes */
+.banh-confetti-piece:nth-child(even) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.banh-confetti-piece:nth-child(3n) {
+    width: 15px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.banh-confetti-piece:nth-child(5n) {
+    width: 6px;
+    height: 15px;
+}
+
+/* Reduced motion for confetti */
+@media (prefers-reduced-motion: reduce) {
+    .banh-confetti {
+        display: none;
+    }
 }

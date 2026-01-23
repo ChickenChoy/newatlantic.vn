@@ -15,7 +15,13 @@ export default function BanhTrungPage() {
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const [flowerStyles, setFlowerStyles] = useState<Array<{ left: string; delay: string; duration: string }>>([]);
     const [mounted, setMounted] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
+    const [confettiPieces, setConfettiPieces] = useState<Array<{ left: string; delay: string; duration: string; color: string; rotation: string }>>([]);
     const heroRef = useRef<HTMLElement>(null);
+    const touchStartX = useRef<number>(0);
+    const touchEndX = useRef<number>(0);
+    const hasConfettiTriggered = useRef(false);
+    const minSwipeDistance = 50;
 
     const galleryImages = [
         { src: "/images/chuong-trinh-goi-banh-trung/1.jpg", alt: "Hoạt động gói bánh trưng 1" },
@@ -64,6 +70,28 @@ export default function BanhTrungPage() {
                     minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
                     seconds: Math.floor((diff % (1000 * 60)) / 1000),
                 });
+            } else {
+                // Countdown reached 0
+                setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+                // Trigger confetti only once
+                if (!hasConfettiTriggered.current) {
+                    hasConfettiTriggered.current = true;
+
+                    const colors = ['#c41e3a', '#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6ab04c'];
+                    const pieces = [...Array(100)].map(() => ({
+                        left: `${Math.random() * 100}%`,
+                        delay: `${Math.random() * 0.5}s`,
+                        duration: `${2 + Math.random() * 2}s`,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        rotation: `${Math.random() * 360}deg`
+                    }));
+                    setConfettiPieces(pieces);
+                    setShowConfetti(true);
+
+                    // Hide confetti after animation
+                    setTimeout(() => setShowConfetti(false), 5000);
+                }
             }
         };
 
@@ -155,6 +183,48 @@ export default function BanhTrungPage() {
     const openLightbox = (index: number) => {
         setLightboxIndex(index);
         setLightboxOpen(true);
+    };
+
+    // Swipe handlers for gallery
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        const distance = touchStartX.current - touchEndX.current;
+        if (Math.abs(distance) > minSwipeDistance) {
+            if (distance > 0) {
+                // Swiped left - next slide
+                setCurrentSlide((prev) => (prev + 1) % galleryImages.length);
+            } else {
+                // Swiped right - prev slide
+                setCurrentSlide((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+            }
+        }
+    };
+
+    // Swipe handlers for lightbox
+    const handleLightboxTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleLightboxTouchMove = (e: React.TouchEvent) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
+    const handleLightboxTouchEnd = () => {
+        const distance = touchStartX.current - touchEndX.current;
+        if (Math.abs(distance) > minSwipeDistance) {
+            if (distance > 0) {
+                setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+            } else {
+                setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+            }
+        }
     };
 
     return (
@@ -384,6 +454,9 @@ export default function BanhTrungPage() {
                             onClick={() => openLightbox(currentSlide)}
                             onMouseEnter={() => setIsAutoPlaying(false)}
                             onMouseLeave={() => setIsAutoPlaying(true)}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
                         >
                             <Image
                                 src={galleryImages[currentSlide].src}
@@ -485,7 +558,13 @@ export default function BanhTrungPage() {
                     >
                         ‹
                     </button>
-                    <div className="banh-lightbox-content" onClick={(e) => e.stopPropagation()}>
+                    <div
+                        className="banh-lightbox-content"
+                        onClick={(e) => e.stopPropagation()}
+                        onTouchStart={handleLightboxTouchStart}
+                        onTouchMove={handleLightboxTouchMove}
+                        onTouchEnd={handleLightboxTouchEnd}
+                    >
                         <Image
                             src={galleryImages[lightboxIndex].src}
                             alt={galleryImages[lightboxIndex].alt}
@@ -523,6 +602,26 @@ export default function BanhTrungPage() {
                                 left: style.left,
                                 animationDelay: style.delay,
                                 animationDuration: style.duration
+                            }}
+                        />
+                    ))}
+                </div>,
+                document.body
+            )}
+
+            {/* Confetti Celebration Effect */}
+            {mounted && showConfetti && createPortal(
+                <div className="banh-confetti" aria-hidden="true">
+                    {confettiPieces.map((piece, i) => (
+                        <span
+                            key={i}
+                            className="banh-confetti-piece"
+                            style={{
+                                left: piece.left,
+                                animationDelay: piece.delay,
+                                animationDuration: piece.duration,
+                                backgroundColor: piece.color,
+                                transform: `rotate(${piece.rotation})`
                             }}
                         />
                     ))}
