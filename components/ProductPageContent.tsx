@@ -6,7 +6,7 @@ import Image from 'next/image';
 import TouchGestureWrapper from './TouchGestureWrapper';
 import ImageModal from './ImageModal';
 import { WishlistManager } from '@/lib/wishlist';
-import { cleanText, stripWordPressShortcodes, sanitizeHtmlContent } from '@/lib/textUtils';
+import { cleanText, sanitizeHtmlContent } from '@/lib/textUtils';
 import type { Product } from '@/types';
 
 interface ProductPageContentProps {
@@ -410,7 +410,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   [&>*]:mb-6 [&>p]:block [&>p]:whitespace-normal
                   [&_br]:block [&_br]:my-2
                   [&>div]:mb-6 [&>section]:mb-6"
-                dangerouslySetInnerHTML={{ __html: stripWordPressShortcodes(product.fullDescription) }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(product.fullDescription) }}
               />
             </div>
           </div>
