@@ -6,6 +6,37 @@ import Link from "next/link";
 import Image from "next/image";
 import "./banh-trung.css";
 
+// Flip Unit Component - Simple slide animation
+interface FlipUnitProps {
+    current: number;
+    label: string;
+}
+
+function FlipUnit({ current, label }: FlipUnitProps) {
+    const [isAnimating, setIsAnimating] = useState(false);
+    const prevValueRef = useRef(current);
+
+    useEffect(() => {
+        if (current !== prevValueRef.current) {
+            setIsAnimating(true);
+            prevValueRef.current = current;
+            const timer = setTimeout(() => setIsAnimating(false), 300);
+            return () => clearTimeout(timer);
+        }
+    }, [current]);
+
+    const displayValue = String(current).padStart(2, '0');
+
+    return (
+        <div className="banh-flip-unit">
+            <div className={`banh-flip-card ${isAnimating ? 'animating' : ''}`}>
+                <span className="banh-flip-value">{displayValue}</span>
+            </div>
+            <span className="banh-flip-label">{label}</span>
+        </div>
+    );
+}
+
 export default function BanhTrungPage() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -282,27 +313,15 @@ export default function BanhTrungPage() {
                         Cùng nhau gói vị tết - Gìn giữ truyền thống Việt Nam
                     </p>
 
-                    {/* Countdown */}
-                    <div className="banh-countdown">
-                        <div className="banh-countdown-item">
-                            <span className="banh-countdown-value">{countdown.days}</span>
-                            <span className="banh-countdown-label">Ngày</span>
-                        </div>
-                        <div className="banh-countdown-separator">:</div>
-                        <div className="banh-countdown-item">
-                            <span className="banh-countdown-value">{countdown.hours}</span>
-                            <span className="banh-countdown-label">Giờ</span>
-                        </div>
-                        <div className="banh-countdown-separator">:</div>
-                        <div className="banh-countdown-item">
-                            <span className="banh-countdown-value">{countdown.minutes}</span>
-                            <span className="banh-countdown-label">Phút</span>
-                        </div>
-                        <div className="banh-countdown-separator">:</div>
-                        <div className="banh-countdown-item">
-                            <span className="banh-countdown-value">{countdown.seconds}</span>
-                            <span className="banh-countdown-label">Giây</span>
-                        </div>
+                    {/* Flip Countdown */}
+                    <div className="banh-flip-countdown">
+                        <FlipUnit current={countdown.days} label="Ngày" />
+                        <div className="banh-flip-separator">:</div>
+                        <FlipUnit current={countdown.hours} label="Giờ" />
+                        <div className="banh-flip-separator">:</div>
+                        <FlipUnit current={countdown.minutes} label="Phút" />
+                        <div className="banh-flip-separator">:</div>
+                        <FlipUnit current={countdown.seconds} label="Giây" />
                     </div>
 
                     <div className="banh-hero-actions">

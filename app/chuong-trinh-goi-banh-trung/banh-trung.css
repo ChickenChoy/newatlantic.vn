@@ -382,6 +382,116 @@
     50% { opacity: 0.3; }
 }
 
+/* ===================================
+   Flip Countdown - Clean Animation
+   =================================== */
+.banh-flip-countdown {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.banh-flip-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.banh-flip-card {
+    position: relative;
+    width: 70px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.banh-flip-card.animating {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(212, 160, 23, 0.4);
+}
+
+.banh-flip-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--banh-gold);
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.banh-flip-separator {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--banh-gold);
+    line-height: 80px;
+    animation: blink 1s step-end infinite;
+    text-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+}
+
+.banh-flip-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+}
+
+/* Responsive adjustments for flip countdown */
+@media (max-width: 640px) {
+    .banh-flip-countdown {
+        gap: 0.25rem;
+    }
+
+    .banh-flip-card {
+        width: 55px;
+        height: 65px;
+    }
+
+    .banh-flip-value {
+        font-size: 1.8rem;
+    }
+
+    .banh-flip-separator {
+        font-size: 1.8rem;
+        line-height: 65px;
+    }
+
+    .banh-flip-label {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .banh-flip-card {
+        width: 48px;
+        height: 55px;
+    }
+
+    .banh-flip-value {
+        font-size: 1.5rem;
+    }
+
+    .banh-flip-separator {
+        font-size: 1.5rem;
+        line-height: 55px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .banh-flip-card.animating {
+        transform: none;
+    }
+}
+
 .banh-hero-actions {
     display: flex;
     gap: 1rem;
