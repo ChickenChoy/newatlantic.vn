@@ -145,55 +145,55 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-lightgray flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5f7ab8] mx-auto mb-4"></div>
-          <p className="text-gray-600">Đang tải dữ liệu...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted">Đang tải dữ liệu...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-lightgray">
       <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         <div className="mb-6">
-          <Link href="/admin" className="text-[#5f7ab8] hover:underline">
+          <Link href="/admin" className="text-primary hover:underline">
             ← Quay lại Admin
           </Link>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">
+        <div className="admin-card">
+          <h1 className="card-title text-3xl mb-8">
             {id === 'new' ? 'Thêm sản phẩm mới' : 'Sửa sản phẩm'}
           </h1>
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Tên sản phẩm *</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Tên sản phẩm *</label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => {
                   setFormData({ ...formData, name: e.target.value, slug: generateSlug(e.target.value) });
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Slug (tự động)</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Slug (tự động)</label>
               <input
                 type="text"
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                className="w-full px-4 py-3 border border-border rounded-lg bg-lightgray text-bodytext"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Danh mục *</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Danh mục *</label>
               <select
                 value={formData.categorySlug || formData.category}
                 onChange={(e) => {
@@ -205,7 +205,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                     categoryName: cat?.name || ''
                   });
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               >
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.slug}>{cat.name}</option>
@@ -214,7 +214,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             </div>
 
             <div style={{ minHeight: '350px', position: 'relative', zIndex: 20 }}>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Mô tả *</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Mô tả *</label>
               <RichTextEditor
                 value={formData.description || ''}
                 onChange={(description) => setFormData({ ...formData, description })}
@@ -223,7 +223,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             </div>
 
             <div style={{ minHeight: '450px', position: 'relative', zIndex: 10 }}>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Thông số kỹ thuật & Mô tả chi tiết</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Thông số kỹ thuật & Mô tả chi tiết</label>
               <RichTextEditor
                 value={formData.fullDescription || ''}
                 onChange={(fullDescription) => setFormData({ ...formData, fullDescription })}
@@ -233,17 +233,17 @@ export default function ProductPage({ params }: ProductPageProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Giá</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Giá</label>
               <input
                 type="text"
                 value={formData.price}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Hình ảnh chính</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Hình ảnh chính</label>
               <div className="space-y-3">
                 <input
                   type="file"
@@ -262,23 +262,23 @@ export default function ProductPage({ params }: ProductPageProps) {
                       reader.readAsDataURL(file);
                     }
                   }}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
                 />
                 <input
                   type="text"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   placeholder="Hoặc nhập URL hình ảnh"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent text-sm"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
                 />
               </div>
               {formData.image && (
-                <img src={formData.image} alt="Preview" className="mt-3 w-32 h-32 object-cover rounded-lg border" />
+                <img src={formData.image} alt="Preview" className="mt-3 w-32 h-32 object-cover rounded-lg border border-border" />
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Hình ảnh slider (nhiều ảnh)</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Hình ảnh slider (nhiều ảnh)</label>
               <div className="space-y-3">
                 <input
                   type="file"
@@ -298,15 +298,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                       reader.readAsDataURL(file);
                     });
                   }}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 />
-                <div className="text-sm text-gray-500">Chọn nhiều ảnh để thêm vào slider chi tiết sản phẩm</div>
+                <div className="text-sm text-bodytext">Chọn nhiều ảnh để thêm vào slider chi tiết sản phẩm</div>
               </div>
               {additionalImages.length > 0 && (
                 <div className="mt-3 grid grid-cols-4 gap-2">
                   {additionalImages.map((img, idx) => (
                     <div key={idx} className="relative">
-                      <img src={img} alt={`Preview ${idx}`} className="w-full h-24 object-cover rounded-lg border" />
+                      <img src={img} alt={`Preview ${idx}`} className="w-full h-24 object-cover rounded-lg border border-border" />
                       <button
                         type="button"
                         onClick={() => setAdditionalImages(prev => prev.filter((_, i) => i !== idx))}
@@ -327,20 +327,20 @@ export default function ProductPage({ params }: ProductPageProps) {
                 onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                 className="w-5 h-5"
               />
-              <label className="text-sm font-semibold text-gray-700">Sản phẩm nổi bật</label>
+              <label className="text-sm font-semibold text-bodytext">Sản phẩm nổi bật</label>
             </div>
 
-            <div className="flex gap-4 pt-6 border-t">
+            <div className="flex gap-4 pt-6 border-t border-border">
               <Link
                 href="/admin"
-                className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
+                className="px-8 py-3 border border-border text-bodytext rounded-lg hover:bg-lighthover transition-colors font-semibold"
               >
                 Hủy
               </Link>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-8 py-3 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-semibold disabled:opacity-50"
+                className="admin-btn-primary px-8 py-3 disabled:opacity-50"
               >
                 {saving ? 'Đang lưu...' : 'Lưu sản phẩm'}
               </button>

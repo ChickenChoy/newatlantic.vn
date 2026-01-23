@@ -161,3 +161,13 @@ export interface PartnerLogo {
   enabled: boolean;
 }
 
+// Post Categories - Danh mục tin tức & sự kiện
+export interface PostCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  order: number;
+  enabled: boolean;
+}
+

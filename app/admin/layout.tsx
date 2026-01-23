@@ -1,10 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import PasswordInput from '@/components/PasswordInput';
+import AdminSidebar from '@/components/admin/AdminSidebar';
+import './admin.css';
 
 type AuthStep = 'password' | 'totp' | 'authenticated';
+
+// Context cho logout function và totpEnabled
+interface AdminContextType {
+  handleLogout: () => void;
+  totpEnabled: boolean;
+}
+
+export const AdminContext = createContext<AdminContextType>({
+  handleLogout: () => { },
+  totpEnabled: false,
+});
+
+export const useAdminContext = () => useContext(AdminContext);
 
 export default function AdminLayout({
   children,
@@ -126,9 +141,9 @@ export default function AdminLayout({
   // Đang kiểm tra auth
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20">
+      <div className="min-h-screen flex items-center justify-center bg-lightgray">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5f7ab8] mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-gray-600">Đang kiểm tra xác thực...</p>
         </div>
       </div>
@@ -138,12 +153,17 @@ export default function AdminLayout({
   // Form nhập mật khẩu
   if (authStep === 'password') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-16">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="max-w-md w-full">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-[#5f7ab8] mb-2">Admin Panel</h1>
-              <p className="text-gray-600">Đăng nhập để quản lý nội dung</p>
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primaryemphasis rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/25">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h1 className="text-2xl font-bold text-bodytext mb-2">Admin Panel</h1>
+              <p className="text-muted">Đăng nhập để quản lý nội dung</p>
             </div>
 
             <form onSubmit={handlePasswordLogin} className="space-y-5">
@@ -158,25 +178,31 @@ export default function AdminLayout({
               />
 
               {error && (
-                <div className="bg-red-50 border border-red-300 text-red-700 px-4 py-2.5 rounded text-sm">
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   {error}
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full px-6 py-2.5 bg-[#5f7ab8] text-white rounded hover:bg-[#4a6199] transition-colors font-medium"
+                className="w-full px-6 py-3 bg-gradient-to-r from-primary to-primaryemphasis text-white rounded-xl hover:opacity-90 transition-all font-medium shadow-lg shadow-primary/25"
               >
                 Đăng nhập
               </button>
             </form>
 
-            <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="mt-6 pt-6 border-t border-border">
               <button
                 onClick={() => router.push('/')}
-                className="w-full text-gray-600 hover:text-[#5f7ab8] transition-colors text-sm"
+                className="w-full text-bodytext hover:text-primary transition-colors text-sm flex items-center justify-center gap-2"
               >
-                ← Quay lại trang chủ
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Quay lại trang chủ
               </button>
             </div>
           </div>
@@ -188,24 +214,24 @@ export default function AdminLayout({
   // Form nhập mã TOTP
   if (authStep === 'totp') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-16">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="max-w-md w-full">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-[#5f7ab8]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-[#5f7ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/25">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Xác thực hai yếu tố</h1>
-              <p className="text-gray-600 text-sm">
+              <h1 className="text-2xl font-bold text-bodytext mb-2">Xác thực hai yếu tố</h1>
+              <p className="text-muted text-sm">
                 Nhập mã 6 số từ ứng dụng Google Authenticator
               </p>
             </div>
 
             <form onSubmit={handleTotpVerify} className="space-y-5">
               <div>
-                <label htmlFor="totp" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="totp" className="block text-sm font-medium text-bodytext mb-2">
                   Mã xác thực
                 </label>
                 <input
@@ -213,7 +239,7 @@ export default function AdminLayout({
                   id="totp"
                   value={totpCode}
                   onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-[#5f7ab8] text-gray-900 text-center text-2xl tracking-widest font-mono"
+                  className="w-full px-4 py-3.5 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-dark text-center text-2xl tracking-widest font-mono bg-lightgray"
                   placeholder="000000"
                   required
                   autoFocus
@@ -224,7 +250,10 @@ export default function AdminLayout({
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-300 text-red-700 px-4 py-2.5 rounded text-sm">
+                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   {error}
                 </div>
               )}
@@ -232,22 +261,25 @@ export default function AdminLayout({
               <button
                 type="submit"
                 disabled={totpCode.length !== 6}
-                className="w-full px-6 py-2.5 bg-[#5f7ab8] text-white rounded hover:bg-[#4a6199] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-6 py-3 bg-gradient-to-r from-primary to-primaryemphasis text-white rounded-xl hover:opacity-90 transition-all font-medium shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Xác thực
               </button>
             </form>
 
-            <div className="mt-6 pt-6 border-t border-gray-200">
+            <div className="mt-6 pt-6 border-t border-border">
               <button
                 onClick={() => {
                   localStorage.removeItem('admin_auth_token');
                   localStorage.removeItem('admin_auth_expiry');
                   setAuthStep('password');
                 }}
-                className="w-full text-gray-600 hover:text-[#5f7ab8] transition-colors text-sm"
+                className="w-full text-bodytext hover:text-primary transition-colors text-sm flex items-center justify-center gap-2"
               >
-                ← Quay lại đăng nhập
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Quay lại đăng nhập
               </button>
             </div>
           </div>
@@ -256,41 +288,24 @@ export default function AdminLayout({
     );
   }
 
-  // Đã đăng nhập - hiển thị nội dung admin với header logout
+  // Đã đăng nhập - hiển thị nội dung admin với sidebar layout kiểu MatDash
   return (
-    <>
-      {/* Admin Header Bar - nằm dưới Header chính */}
-      <div
-        className="bg-white border-b border-gray-200 fixed left-0 right-0 top-[100px] md:top-[76px]"
-        style={{ zIndex: 100 }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-12 md:h-14">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="inline-flex items-center gap-1.5 text-gray-600">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                Admin đã xác thực
-                {totpEnabled && (
-                  <span className="ml-2 px-1.5 py-0.5 bg-green-100 text-green-700 text-xs rounded">
-                    2FA
-                  </span>
-                )}
-              </span>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-1.5 bg-red-600 text-white rounded text-sm hover:bg-red-700 transition-colors font-medium"
-            >
-              Đăng xuất
-            </button>
-          </div>
-        </div>
-      </div>
+    <AdminContext.Provider value={{ handleLogout, totpEnabled }}>
+      <div className="flex min-h-screen bg-lightgray dark:bg-dark">
+        {/* Sidebar - imported component */}
+        <AdminSidebar />
 
-      {/* Content với padding top để không bị che */}
-      <div className="pt-[148px] md:pt-[128px]">
-        {children}
+        {/* Main Content */}
+        <main className="flex-1 min-h-screen xl:ml-64 transition-all duration-300">
+          {/* Top Header */}
+          <div className="h-[70px]" />
+
+          {/* Page Content */}
+          <div className="p-6 lg:p-8">
+            {children}
+          </div>
+        </main>
       </div>
-    </>
+    </AdminContext.Provider>
   );
 }

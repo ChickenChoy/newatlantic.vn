@@ -3,7 +3,7 @@ import path from 'path';
 import {
   Product, Category, Post,
   SiteSettings, SocialLink, OfficeLocation, FooterLink,
-  GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo
+  GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory
 } from '@/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -507,4 +507,42 @@ export function deletePartnerLogo(id: string): boolean {
   if (filtered.length === logos.length) return false;
 
   return savePartnerLogos(filtered);
+}
+
+// ==================== Post Categories ====================
+
+export function getPostCategories(): PostCategory[] {
+  return readJsonFile<PostCategory>('post-categories.json', []);
+}
+
+export function savePostCategories(categories: PostCategory[]): boolean {
+  return writeJsonFile('post-categories.json', categories);
+}
+
+export function getPostCategoryBySlug(slug: string): PostCategory | undefined {
+  const categories = getPostCategories();
+  return categories.find(c => c.slug === slug);
+}
+
+export function addPostCategory(category: PostCategory): boolean {
+  const categories = getPostCategories();
+  categories.push(category);
+  return savePostCategories(categories);
+}
+
+export function updatePostCategory(id: string, updates: Partial<PostCategory>): boolean {
+  const categories = getPostCategories();
+  const index = categories.findIndex(c => c.id === id);
+  if (index === -1) return false;
+
+  categories[index] = { ...categories[index], ...updates };
+  return savePostCategories(categories);
+}
+
+export function deletePostCategory(id: string): boolean {
+  const categories = getPostCategories();
+  const filtered = categories.filter(c => c.id !== id);
+  if (filtered.length === categories.length) return false;
+
+  return savePostCategories(filtered);
 }

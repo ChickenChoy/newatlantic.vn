@@ -1,0 +1,238 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { Icon } from '@iconify/react';
+import { useAdminContext } from '@/app/admin/layout';
+
+interface MenuItem {
+  id: string;
+  name: string;
+  icon: string;
+  url: string;
+  children?: MenuItem[];
+}
+
+const menuItems: MenuItem[] = [
+  {
+    id: 'dashboard',
+    name: 'Dashboard',
+    icon: 'solar:widget-2-line-duotone',
+    url: '/admin',
+  },
+  {
+    id: 'products',
+    name: 'Sản phẩm',
+    icon: 'solar:cart-3-line-duotone',
+    url: '/admin?tab=products',
+  },
+  {
+    id: 'posts',
+    name: 'Tin tức',
+    icon: 'solar:widget-add-line-duotone',
+    url: '/admin?tab=posts',
+  },
+  {
+    id: 'categories',
+    name: 'Danh mục sản phẩm',
+    icon: 'solar:layers-line-duotone',
+    url: '/admin?tab=categories',
+  },
+  {
+    id: 'post-categories',
+    name: 'Danh mục tin tức',
+    icon: 'solar:folder-line-duotone',
+    url: '/admin?tab=post-categories',
+  },
+  {
+    id: 'gallery',
+    name: 'Thư viện',
+    icon: 'solar:gallery-line-duotone',
+    url: '/admin?tab=gallery',
+  },
+  {
+    id: 'catalogs',
+    name: 'Catalogs',
+    icon: 'solar:book-2-line-duotone',
+    url: '/admin?tab=catalogs',
+  },
+  {
+    id: 'partners',
+    name: 'Đối tác',
+    icon: 'solar:users-group-rounded-line-duotone',
+    url: '/admin?tab=partners',
+  },
+  {
+    id: 'settings',
+    name: 'Cài đặt',
+    icon: 'solar:settings-line-duotone',
+    url: '/admin?tab=settings',
+  },
+];
+
+export default function AdminSidebar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get('tab') || 'dashboard';
+  const { handleLogout, totpEnabled } = useAdminContext();
+
+  const isActiveLink = (id: string) => {
+    return currentTab === id;
+  };
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside
+        className={`hidden xl:block fixed left-0 top-0 h-screen bg-white dark:bg-darkgray border-r border-border dark:border-darkborder transition-all duration-300 z-10 ${isCollapsed ? 'w-20' : 'w-64'
+          }`}
+      >
+        {/* Logo */}
+        <div className="h-[85px] flex items-center justify-between px-6 border-b border-border dark:border-darkborder">
+          {!isCollapsed && (
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <Icon icon="solar:atom-line-duotone" className="text-white" height={24} />
+              </div>
+              <span className="font-bold text-lg text-dark dark:text-white">Admin Dashboard</span>
+            </div>
+          )}
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="p-2 hover:bg-lighthover dark:hover:bg-darkmuted rounded-lg transition-colors"
+          >
+            <Icon
+              icon="solar:hamburger-menu-line-duotone"
+              className="text-bodytext dark:text-bodytext"
+              height={20}
+            />
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="h-[calc(100vh-85px)] overflow-y-auto px-4 py-6">
+          <ul className="space-y-2">
+            {menuItems.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.url}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActiveLink(item.id)
+                    ? 'bg-primary text-white shadow-md'
+                    : 'text-dark dark:text-bodytext hover:bg-lighthover dark:hover:bg-darkmuted'
+                    }`}
+                >
+                  <Icon icon={item.icon} height={20} className="flex-shrink-0" />
+                  {!isCollapsed && <span className="font-medium text-sm">{item.name}</span>}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Logout Button */}
+          <div className="mt-6 pt-6 border-t border-border dark:border-darkborder">
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 px-4 py-3 w-full text-error hover:bg-lighterror dark:hover:bg-lighterror/20 rounded-lg transition-colors"
+            >
+              <Icon icon="solar:logout-2-line-duotone" height={20} className="flex-shrink-0" />
+              {!isCollapsed && <span className="font-medium text-sm">Đăng xuất</span>}
+            </button>
+
+            {totpEnabled && !isCollapsed && (
+              <div className="mt-3 px-4 py-2 bg-lightsuccess dark:bg-lightsuccess/20 rounded-lg">
+                <div className="flex items-center gap-2 text-success dark:text-success text-xs">
+                  <Icon icon="solar:shield-check-line-duotone" height={16} />
+                  <span className="font-medium">2FA Enabled</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </nav>
+      </aside>
+
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setIsMobileOpen(true)}
+        className="xl:hidden fixed top-4 left-4 z-50 p-2 bg-white dark:bg-darkgray rounded-lg shadow-md border border-border dark:border-darkborder"
+      >
+        <Icon icon="solar:hamburger-menu-line-duotone" className="text-bodytext dark:text-bodytext" height={24} />
+      </button>
+
+      {/* Mobile Sidebar Overlay */}
+      {isMobileOpen && (
+        <div
+          className="xl:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+
+      {/* Mobile Sidebar */}
+      <aside
+        className={`xl:hidden fixed left-0 top-0 h-screen w-64 bg-white dark:bg-darkgray border-r border-border dark:border-darkborder z-50 transition-transform duration-300 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+      >
+        {/* Logo */}
+        <div className="h-[85px] flex items-center justify-between px-6 border-b border-border dark:border-darkborder">
+          <div className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <Icon icon="solar:atom-line-duotone" className="text-white" height={24} />
+            </div>
+            <span className="font-bold text-lg text-dark dark:text-white">Admin</span>
+          </div>
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="p-2 hover:bg-lighthover dark:hover:bg-darkmuted rounded-lg transition-colors"
+          >
+            <Icon icon="solar:close-circle-line-duotone" className="text-bodytext dark:text-bodytext" height={20} />
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="h-[calc(100vh-85px)] overflow-y-auto px-4 py-6">
+          <ul className="space-y-2">
+            {menuItems.map((item) => (
+              <li key={item.id}>
+                <Link
+                  href={item.url}
+                  onClick={() => setIsMobileOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActiveLink(item.id)
+                    ? 'bg-primary text-white shadow-md'
+                    : 'text-dark dark:text-bodytext hover:bg-lighthover dark:hover:bg-darkmuted'
+                    }`}
+                >
+                  <Icon icon={item.icon} height={20} className="flex-shrink-0" />
+                  <span className="font-medium text-sm">{item.name}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Logout Button */}
+          <div className="mt-6 pt-6 border-t border-border dark:border-darkborder">
+            <button
+              onClick={() => {
+                handleLogout();
+                setIsMobileOpen(false);
+              }}
+              className="flex items-center gap-3 px-4 py-3 w-full text-error hover:bg-lighterror dark:hover:bg-lighterror/20 rounded-lg transition-colors"
+            >
+              <Icon icon="solar:logout-2-line-duotone" height={20} className="flex-shrink-0" />
+              <span className="font-medium text-sm">Đăng xuất</span>
+            </button>
+
+            {totpEnabled && (
+              <div className="mt-3 px-4 py-2 bg-lightsuccess dark:bg-lightsuccess/20 rounded-lg">
+                <div className="flex items-center gap-2 text-success dark:text-success text-xs">
+                  <Icon icon="solar:shield-check-line-duotone" height={16} />
+                  <span className="font-medium">2FA Enabled</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </nav>
+      </aside>
+    </>
+  );
+}

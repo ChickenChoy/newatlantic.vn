@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { Post } from '@/types';
+import { Post, PostCategory } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import dynamic from 'next/dynamic';
@@ -29,8 +29,10 @@ export default function PostPage({ params }: PostPageProps) {
     excerpt: '',
     content: '',
     image: '/images/place-holder/placeholder.jpg',
-    date: new Date().toISOString().split('T')[0]
+    date: new Date().toISOString().split('T')[0],
+    category: 'Tin tức'
   });
+  const [postCategories, setPostCategories] = useState<PostCategory[]>([]);
 
   const loadData = useCallback(async (postId: string) => {
     try {
@@ -38,6 +40,17 @@ export default function PostPage({ params }: PostPageProps) {
 
       // Initialize data first
       await fetch('/api/init', { method: 'POST' });
+
+      // Fetch post categories
+      const categoriesRes = await fetch('/api/post-categories');
+      if (categoriesRes.ok) {
+        const categoriesData = await categoriesRes.json();
+        // Filter only enabled categories and exclude "all"
+        const enabledCategories = categoriesData
+          .filter((cat: PostCategory) => cat.enabled && cat.slug !== 'all')
+          .sort((a: PostCategory, b: PostCategory) => a.order - b.order);
+        setPostCategories(enabledCategories);
+      }
 
       if (postId === 'new') {
         // New post
@@ -48,7 +61,8 @@ export default function PostPage({ params }: PostPageProps) {
           excerpt: '',
           content: '',
           image: '/images/place-holder/placeholder.jpg',
-          date: new Date().toISOString().split('T')[0]
+          date: new Date().toISOString().split('T')[0],
+          category: 'Tin tức'
         });
       } else {
         // Fetch existing post
@@ -123,66 +137,89 @@ export default function PostPage({ params }: PostPageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-lightgray flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#5f7ab8] mx-auto mb-4"></div>
-          <p className="text-gray-600">Đang tải dữ liệu...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-bodytext">Đang tải dữ liệu...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-lightgray">
       <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         <div className="mb-6">
-          <Link href="/admin" className="text-[#5f7ab8] hover:underline">
+          <Link href="/admin" className="text-primary hover:underline">
             ← Quay lại Admin
           </Link>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">
+        <div className="admin-card">
+          <h1 className="card-title text-3xl mb-8">
             {id === 'new' ? 'Thêm bài viết mới' : 'Sửa bài viết'}
           </h1>
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Tiêu đề *</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Tiêu đề *</label>
               <input
                 type="text"
                 value={formData.title}
                 onChange={(e) => {
                   setFormData({ ...formData, title: e.target.value, slug: generateSlug(e.target.value) });
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Slug (tự động)</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Slug (tự động)</label>
               <input
                 type="text"
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                className="w-full px-4 py-3 border border-border rounded-lg bg-lightgray text-bodytext"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Tóm tắt *</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Tóm tắt *</label>
               <textarea
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
                 required
               />
             </div>
 
+            <div>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Danh mục *</label>
+              <select
+                value={formData.category || 'Tin tức'}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-surface text-bodytext"
+              >
+                {postCategories.length > 0 ? (
+                  postCategories.map((cat) => (
+                    <option key={cat.id} value={cat.name}>
+                      {cat.name}
+                    </option>
+                  ))
+                ) : (
+                  <>
+                    <option value="Tin tức">Tin tức</option>
+                    <option value="Sự kiện">Sự kiện</option>
+                  </>
+                )}
+              </select>
+              <p className="mt-1 text-xs text-gray-500">Chọn danh mục cho bài viết (có thể quản lý danh mục trong Admin → DM Tin tức)</p>
+            </div>
+
             <div style={{ minHeight: '450px', position: 'relative', zIndex: 10 }}>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Nội dung *</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Nội dung *</label>
               <RichTextEditor
                 value={formData.content}
                 onChange={(content) => setFormData({ ...formData, content })}
@@ -191,7 +228,7 @@ export default function PostPage({ params }: PostPageProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Hình ảnh</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Hình ảnh</label>
               <div className="space-y-3">
                 <input
                   type="file"
@@ -206,42 +243,42 @@ export default function PostPage({ params }: PostPageProps) {
                       reader.readAsDataURL(file);
                     }
                   }}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
                 />
                 <input
                   type="text"
                   value={formData.image}
                   onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                   placeholder="Hoặc nhập URL hình ảnh"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent text-sm"
+                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-bodytext"
                 />
               </div>
               {formData.image && (
-                <img src={formData.image} alt="Preview" className="mt-3 w-48 h-32 object-cover rounded-lg border" />
+                <img src={formData.image} alt="Preview" className="mt-3 w-48 h-32 object-cover rounded-lg border border-border" />
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Ngày đăng</label>
+              <label className="block text-sm font-semibold text-bodytext mb-2">Ngày đăng</label>
               <input
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5f7ab8] focus:border-transparent"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
               />
             </div>
 
-            <div className="flex gap-4 pt-6 border-t">
+            <div className="flex gap-4 pt-6 border-t border-border">
               <Link
                 href="/admin"
-                className="px-8 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-semibold"
+                className="px-8 py-3 border border-border text-bodytext rounded-lg hover:bg-lighthover transition-colors font-semibold"
               >
                 Hủy
               </Link>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-8 py-3 bg-[#5f7ab8] text-white rounded-lg hover:bg-[#4a6199] transition-colors font-semibold disabled:opacity-50"
+                className="admin-btn-primary px-8 py-3 disabled:opacity-50"
               >
                 {saving ? 'Đang lưu...' : 'Lưu bài viết'}
               </button>

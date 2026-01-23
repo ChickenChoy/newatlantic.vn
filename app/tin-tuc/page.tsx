@@ -9,18 +9,15 @@ import Pagination from '@/components/Pagination';
 import { PostCardSkeleton } from '@/components/SkeletonLoader';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import type { Post } from '@/types';
+import type { Post, PostCategory } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
 
-// Categories for the filter
-const CATEGORIES = [
+// Fallback categories in case API fails
+const FALLBACK_CATEGORIES = [
   { id: 'all', label: 'Tất cả' },
   { id: 'tin-tuc', label: 'Tin tức' },
   { id: 'su-kien', label: 'Sự kiện' },
-  { id: 'will-burt', label: 'WILL-BURT' },
-  { id: 'hiab', label: 'HIAB' },
-  { id: 'SKYMARK', label: 'SKYMARK' },
 ];
 
 function FeaturedPost({ post }: { post: Post }) {
@@ -94,24 +91,41 @@ function NewsPageContent() {
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const [activeCategory, setActiveCategory] = useState('all');
   const [posts, setPosts] = useState<Post[]>([]);
+  const [categories, setCategories] = useState<{ id: string; label: string }[]>(FALLBACK_CATEGORIES);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
 
-  // Fetch posts from API
+  // Fetch posts and categories from API
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch('/api/posts');
-        if (res.ok) {
-          const data = await res.json();
-          setPosts(data);
+        const [postsRes, categoriesRes] = await Promise.all([
+          fetch('/api/posts'),
+          fetch('/api/post-categories')
+        ]);
+
+        if (postsRes.ok) {
+          const postsData = await postsRes.json();
+          setPosts(postsData);
+        }
+
+        if (categoriesRes.ok) {
+          const categoriesData: PostCategory[] = await categoriesRes.json();
+          // Transform to the format used by the filter and filter out disabled categories
+          const enabledCategories = categoriesData
+            .filter(cat => cat.enabled)
+            .sort((a, b) => a.order - b.order)
+            .map(cat => ({ id: cat.slug, label: cat.name }));
+          if (enabledCategories.length > 0) {
+            setCategories(enabledCategories);
+          }
         }
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setIsLoadingPosts(false);
       }
     };
-    fetchPosts();
+    fetchData();
   }, []);
 
   // Filter posts
@@ -149,7 +163,7 @@ function NewsPageContent() {
       {/* Category Filter Tabs */}
       <div className="mb-10 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
         <div className="flex items-center gap-2 md:gap-3 min-w-max">
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleCategoryChange(cat.id)}
