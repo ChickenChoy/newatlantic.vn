@@ -50,7 +50,6 @@ export default function BanhTrungPage() {
     const [mounted, setMounted] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
     const [confettiPieces, setConfettiPieces] = useState<Array<{ left: string; delay: string; duration: string; color: string; rotation: string }>>([]);
-    const heroRef = useRef<HTMLElement>(null);
     const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
@@ -382,7 +381,7 @@ export default function BanhTrungPage() {
             </nav>
 
             {/* Hero Section */}
-            <section id="hero" className="banh-hero" ref={heroRef}>
+            <section id="hero" className="banh-hero">
                 <div
                     ref={parallaxBgRef}
                     className="banh-hero-bg banh-parallax"
