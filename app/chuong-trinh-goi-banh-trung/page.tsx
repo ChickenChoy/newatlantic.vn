@@ -42,7 +42,6 @@ export default function BanhTrungPage() {
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [scrollProgress, setScrollProgress] = useState(0);
-    const [parallaxOffset, setParallaxOffset] = useState(0);
     const [activeSection, setActiveSection] = useState("hero");
     const [showSwipeHint, setShowSwipeHint] = useState(false);
     const [isPulling, setIsPulling] = useState(false);
@@ -54,6 +53,7 @@ export default function BanhTrungPage() {
     const [showConfetti, setShowConfetti] = useState(false);
     const [confettiPieces, setConfettiPieces] = useState<Array<{ left: string; delay: string; duration: string; color: string; rotation: string }>>([]);
     const heroRef = useRef<HTMLElement>(null);
+    const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
     const touchStartY = useRef<number>(0);
@@ -157,33 +157,56 @@ export default function BanhTrungPage() {
         return () => clearInterval(interval);
     }, [galleryImages.length, isAutoPlaying]);
 
-    // Scroll progress + Parallax + Active Section Detection
+    // Scroll progress + Parallax + Active Section Detection (optimized with RAF)
     useEffect(() => {
+        // Cache section elements for performance
+        const sectionElements = new Map<string, HTMLElement>();
+        const sections = ["hero", "about", "schedule", "meaning", "gallery", "cta"];
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) sectionElements.set(id, el);
+        });
+
+        let rafId: number | null = null;
+        let lastScrollY = 0;
+
         const handleScroll = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
-            setScrollProgress(progress);
+            // Cancel previous animation frame if it exists
+            if (rafId) cancelAnimationFrame(rafId);
 
-            // Parallax effect for hero - move slower than scroll
-            setParallaxOffset(scrollTop * 0.5);
+            rafId = requestAnimationFrame(() => {
+                const scrollTop = window.scrollY;
 
-            // Detect active section
-            const sections = ["hero", "about", "schedule", "meaning", "gallery", "cta"];
-            for (const sectionId of sections) {
-                const element = document.getElementById(sectionId);
-                if (element) {
+                // Only update if scroll changed significantly (optimization)
+                if (Math.abs(scrollTop - lastScrollY) < 5) return;
+                lastScrollY = scrollTop;
+
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrollTop / docHeight) * 100;
+                setScrollProgress(progress);
+
+                // Parallax effect for hero - direct DOM manipulation for smooth performance
+                if (parallaxBgRef.current) {
+                    parallaxBgRef.current.style.transform = `translate3d(0, ${scrollTop * 0.4}px, 0)`;
+                }
+
+                // Detect active section using cached elements
+                for (const [sectionId, element] of sectionElements) {
                     const rect = element.getBoundingClientRect();
                     if (rect.top <= 150 && rect.bottom >= 150) {
                         setActiveSection(sectionId);
                         break;
                     }
                 }
-            }
+            });
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
     }, []);
 
     // Scroll animations with stagger
@@ -218,22 +241,35 @@ export default function BanhTrungPage() {
         setFlowerStyles(styles);
 
         // Show swipe hint for first-time visitors (on mobile)
-        const isMobile = window.innerWidth <= 768;
-        const hasSeenHint = localStorage.getItem("banh-swipe-hint-seen");
-        if (isMobile && !hasSeenHint && !hasShownSwipeHint.current) {
-            hasShownSwipeHint.current = true;
-            setTimeout(() => {
-                setShowSwipeHint(true);
-                // Auto hide after 4 seconds
+        // Wrap ALL localStorage access in a try-catch for SSR safety
+        try {
+            const isMobile = window.innerWidth <= 768;
+            const hasSeenHint = localStorage.getItem("banh-swipe-hint-seen");
+            if (isMobile && !hasSeenHint && !hasShownSwipeHint.current) {
+                hasShownSwipeHint.current = true;
                 setTimeout(() => {
-                    setShowSwipeHint(false);
-                    localStorage.setItem("banh-swipe-hint-seen", "true");
-                }, 4000);
-            }, 2000);
+                    setShowSwipeHint(true);
+                    // Auto hide after 4 seconds
+                    setTimeout(() => {
+                        setShowSwipeHint(false);
+                        try {
+                            localStorage.setItem("banh-swipe-hint-seen", "true");
+                        } catch {
+                            // Silently fail if localStorage is blocked
+                        }
+                    }, 4000);
+                }, 2000);
+            }
+        } catch {
+            // Handle localStorage being unavailable (private browsing, etc.)
         }
     }, []);
 
     // Pull to refresh effect (mobile only)
+    // Using refs to avoid stale closure issues
+    const isPullingRef = useRef(false);
+    const pullProgressRef = useRef(0);
+
     useEffect(() => {
         let startY = 0;
         const threshold = 100;
@@ -250,17 +286,21 @@ export default function BanhTrungPage() {
                 const currentY = e.touches[0].clientY;
                 const diff = currentY - startY;
                 if (diff > 0 && diff < threshold * 1.5) {
+                    isPullingRef.current = true;
+                    pullProgressRef.current = Math.min(diff / threshold, 1);
                     setIsPulling(true);
-                    setPullProgress(Math.min(diff / threshold, 1));
+                    setPullProgress(pullProgressRef.current);
                 }
             }
         };
 
         const handleTouchEndPull = () => {
-            if (isPulling && pullProgress >= 1) {
-                // Trigger refresh animation
-                window.location.reload();
+            if (isPullingRef.current && pullProgressRef.current >= 1) {
+                // Scroll to top instead of reload (better UX)
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+            isPullingRef.current = false;
+            pullProgressRef.current = 0;
             setIsPulling(false);
             setPullProgress(0);
             startY = 0;
@@ -275,7 +315,7 @@ export default function BanhTrungPage() {
             window.removeEventListener("touchmove", handleTouchMovePull);
             window.removeEventListener("touchend", handleTouchEndPull);
         };
-    }, [isPulling, pullProgress]);
+    }, []);
 
     // Keyboard navigation for lightbox
     useEffect(() => {
@@ -410,8 +450,8 @@ export default function BanhTrungPage() {
             {/* Hero Section */}
             <section id="hero" className="banh-hero" ref={heroRef}>
                 <div
+                    ref={parallaxBgRef}
                     className="banh-hero-bg banh-parallax"
-                    style={{ transform: `translateY(${parallaxOffset}px)` }}
                 >
                     {/* Mobile: poster.jpg (vertical) */}
                     <Image

@@ -1694,10 +1694,13 @@
    NEW UX ENHANCEMENTS
    =================================== */
 
-/* 1. Parallax Hero Background */
+/* 1. Parallax Hero Background - GPU accelerated, no transition for smoothness */
 .banh-parallax {
     will-change: transform;
-    transition: transform 0.1s linear;
+    /* NO transition - direct transform for smooth 60fps parallax */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
 }
 
 .banh-hero {
@@ -1706,12 +1709,15 @@
 
 .banh-hero-bg.banh-parallax {
     position: absolute;
-    inset: -20% 0 0 0;
-    height: 120%;
+    inset: -30% 0 0 0;
+    height: 130%;
 }
 
 /* 2. Animated Gradient Text */
 .banh-gradient-text {
+    /* Fallback for browsers without support */
+    color: #ffffff;
+
     background: linear-gradient(
         90deg,
         #ffffff 0%,
@@ -1727,7 +1733,16 @@
     animation: gradientShift 4s ease-in-out infinite;
 }
 
+/* Allow text selection */
+.banh-gradient-text::selection {
+    -webkit-text-fill-color: #ffffff;
+    background: rgba(255, 215, 0, 0.3);
+}
+
 .banh-gradient-text span {
+    /* Fallback */
+    color: #ffd700;
+
     background: linear-gradient(
         90deg,
         #ffd700 0%,
@@ -1741,6 +1756,20 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientShift 3s ease-in-out infinite reverse;
+}
+
+.banh-gradient-text span::selection {
+    -webkit-text-fill-color: #ffd700;
+    background: rgba(255, 107, 107, 0.3);
+}
+
+/* Fallback for screen readers and browsers without background-clip support */
+@supports not (background-clip: text) {
+    .banh-gradient-text,
+    .banh-gradient-text span {
+        -webkit-text-fill-color: initial;
+        color: #ffd700;
+    }
 }
 
 @keyframes gradientShift {
