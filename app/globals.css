@@ -1,5 +1,114 @@
 @import "tailwindcss";
 
+/* ===================================
+   Falling Flowers Effect - Hoa Mai & Hoa Đào (Global for Portal)
+   Fixed: Animation now works correctly with proper keyframes
+   =================================== */
+.banh-flowers {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none !important;
+    z-index: 99999 !important;
+    overflow: hidden !important;
+}
+
+.banh-flower {
+    position: absolute !important;
+    top: -60px !important;
+    display: block !important;
+    width: 28px;
+    height: 28px;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    animation-name: flowerFallGlobal !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+    opacity: 1;
+}
+
+/* Hoa Dao - Peach Blossom (mau hong) */
+.banh-flower-0 {
+    width: 28px !important;
+    height: 28px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='20' rx='18' ry='22' fill='%23ff85a2'/%3E%3Cellipse cx='22' cy='50' rx='18' ry='22' fill='%23ff85a2' transform='rotate(-72 22 50)'/%3E%3Cellipse cx='78' cy='50' rx='18' ry='22' fill='%23ff85a2' transform='rotate(72 78 50)'/%3E%3Cellipse cx='32' cy='82' rx='18' ry='22' fill='%23ff85a2' transform='rotate(-36 32 82)'/%3E%3Cellipse cx='68' cy='82' rx='18' ry='22' fill='%23ff85a2' transform='rotate(36 68 82)'/%3E%3Ccircle cx='50' cy='50' r='12' fill='%23fff0f3'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%23ffd700'/%3E%3C/svg%3E") !important;
+}
+
+/* Hoa Mai - Apricot Blossom (mau vang) */
+.banh-flower-1 {
+    width: 26px !important;
+    height: 26px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='18' rx='16' ry='20' fill='%23ffd700'/%3E%3Cellipse cx='20' cy='48' rx='16' ry='20' fill='%23ffd700' transform='rotate(-72 20 48)'/%3E%3Cellipse cx='80' cy='48' rx='16' ry='20' fill='%23ffd700' transform='rotate(72 80 48)'/%3E%3Cellipse cx='30' cy='80' rx='16' ry='20' fill='%23ffd700' transform='rotate(-36 30 80)'/%3E%3Cellipse cx='70' cy='80' rx='16' ry='20' fill='%23ffd700' transform='rotate(36 70 80)'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23fffacd'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%23ff8c00'/%3E%3C/svg%3E") !important;
+}
+
+/* Hoa Dao nho - Small Peach */
+.banh-flower-2 {
+    width: 22px !important;
+    height: 22px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='22' rx='15' ry='18' fill='%23ffb6c1'/%3E%3Cellipse cx='25' cy='50' rx='15' ry='18' fill='%23ffb6c1' transform='rotate(-72 25 50)'/%3E%3Cellipse cx='75' cy='50' rx='15' ry='18' fill='%23ffb6c1' transform='rotate(72 75 50)'/%3E%3Cellipse cx='35' cy='78' rx='15' ry='18' fill='%23ffb6c1' transform='rotate(-36 35 78)'/%3E%3Cellipse cx='65' cy='78' rx='15' ry='18' fill='%23ffb6c1' transform='rotate(36 65 78)'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%23fff5f5'/%3E%3Ccircle cx='50' cy='50' r='4' fill='%23ffa500'/%3E%3C/svg%3E") !important;
+}
+
+/* Hoa Mai nho - Small Apricot */
+.banh-flower-3 {
+    width: 20px !important;
+    height: 20px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='20' rx='14' ry='17' fill='%23ffe135'/%3E%3Cellipse cx='23' cy='48' rx='14' ry='17' fill='%23ffe135' transform='rotate(-72 23 48)'/%3E%3Cellipse cx='77' cy='48' rx='14' ry='17' fill='%23ffe135' transform='rotate(72 77 48)'/%3E%3Cellipse cx='33' cy='78' rx='14' ry='17' fill='%23ffe135' transform='rotate(-36 33 78)'/%3E%3Cellipse cx='67' cy='78' rx='14' ry='17' fill='%23ffe135' transform='rotate(36 67 78)'/%3E%3Ccircle cx='50' cy='50' r='8' fill='%23fffacd'/%3E%3Ccircle cx='50' cy='50' r='4' fill='%23ff6b00'/%3E%3C/svg%3E") !important;
+}
+
+/* Canh hoa dao roi - Petal */
+.banh-flower-4 {
+    width: 18px !important;
+    height: 12px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 30'%3E%3Cellipse cx='25' cy='15' rx='22' ry='12' fill='%23ffb6c1'/%3E%3C/svg%3E") !important;
+}
+
+/* Main falling animation - using unique name to avoid conflicts */
+@keyframes flowerFallGlobal {
+    0% {
+        transform: translateY(-10px) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    20% {
+        transform: translateY(20vh) rotate(72deg) translateX(30px);
+        opacity: 1;
+    }
+    40% {
+        transform: translateY(40vh) rotate(144deg) translateX(-20px);
+        opacity: 1;
+    }
+    60% {
+        transform: translateY(60vh) rotate(216deg) translateX(25px);
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(80vh) rotate(288deg) translateX(-15px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg) translateX(10px);
+        opacity: 0;
+    }
+}
+
+/* Reduce flowers on mobile for performance */
+@media (max-width: 768px) {
+    .banh-flower:nth-child(n+16) {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .banh-flowers {
+        display: none !important;
+    }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #1a1a1a;

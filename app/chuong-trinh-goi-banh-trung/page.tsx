@@ -174,13 +174,14 @@ export default function BanhTrungPage() {
         return () => observer.disconnect();
     }, []);
 
-    // Generate flower styles on client side only
+    // Generate flower styles on client side only - Hoa Mai & Hoa Đào
     useEffect(() => {
         setMounted(true);
-        const styles = [...Array(20)].map(() => ({
+        // Tạo 30 bông hoa với các biến thể khác nhau
+        const styles = [...Array(30)].map(() => ({
             left: `${Math.random() * 100}%`,
-            delay: `${Math.random() * 8}s`,
-            duration: `${8 + Math.random() * 6}s`
+            delay: `${Math.random() * 10}s`,
+            duration: `${6 + Math.random() * 8}s`
         }));
         setFlowerStyles(styles);
     }, []);
@@ -260,6 +261,24 @@ export default function BanhTrungPage() {
 
     return (
         <>
+            {/* Falling Flowers Effect - Hoa Mai & Hoa Đào rơi - Portal to body for z-index */}
+            {mounted && flowerStyles.length > 0 && createPortal(
+                <div className="banh-flowers" aria-hidden="true">
+                    {flowerStyles.map((style, i) => (
+                        <span
+                            key={i}
+                            className={`banh-flower banh-flower-${i % 5}`}
+                            style={{
+                                left: style.left,
+                                animationDelay: style.delay,
+                                animationDuration: style.duration
+                            }}
+                        />
+                    ))}
+                </div>,
+                document.body
+            )}
+
             <main className="banh-main">
                 {/* Progress Bar */}
                 <div className="banh-progress-bar" style={{ width: `${scrollProgress}%` }} />
@@ -606,24 +625,6 @@ export default function BanhTrungPage() {
                     <div className="banh-lightbox-counter">
                         {lightboxIndex + 1} / {galleryImages.length}
                     </div>
-                </div>,
-                document.body
-            )}
-
-            {/* Falling Flowers Effect - Portal to document.body to bypass PageTransition transform */}
-            {mounted && flowerStyles.length > 0 && createPortal(
-                <div className="banh-flowers" aria-hidden="true">
-                    {flowerStyles.map((style, i) => (
-                        <span
-                            key={i}
-                            className={`banh-flower banh-flower-${i % 4}`}
-                            style={{
-                                left: style.left,
-                                animationDelay: style.delay,
-                                animationDuration: style.duration
-                            }}
-                        />
-                    ))}
                 </div>,
                 document.body
             )}
