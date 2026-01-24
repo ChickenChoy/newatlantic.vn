@@ -44,8 +44,6 @@ export default function BanhTrungPage() {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [activeSection, setActiveSection] = useState("hero");
     const [showSwipeHint, setShowSwipeHint] = useState(false);
-    const [isPulling, setIsPulling] = useState(false);
-    const [pullProgress, setPullProgress] = useState(0);
     const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const [flowerStyles, setFlowerStyles] = useState<Array<{ left: string; delay: string; duration: string }>>([]);
@@ -56,7 +54,6 @@ export default function BanhTrungPage() {
     const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
-    const touchStartY = useRef<number>(0);
     const hasConfettiTriggered = useRef(false);
     const hasShownSwipeHint = useRef(false);
     const minSwipeDistance = 50;
@@ -232,8 +229,8 @@ export default function BanhTrungPage() {
     // Generate flower styles on client side only - Hoa Mai & Hoa Đào
     useEffect(() => {
         setMounted(true);
-        // Tạo 30 bông hoa với các biến thể khác nhau
-        const styles = [...Array(30)].map(() => ({
+        // Tạo 15 bông hoa với các biến thể khác nhau (giảm từ 30 để tối ưu performance)
+        const styles = [...Array(15)].map(() => ({
             left: `${Math.random() * 100}%`,
             delay: `${Math.random() * 10}s`,
             duration: `${6 + Math.random() * 8}s`
@@ -265,57 +262,6 @@ export default function BanhTrungPage() {
         }
     }, []);
 
-    // Pull to refresh effect (mobile only)
-    // Using refs to avoid stale closure issues
-    const isPullingRef = useRef(false);
-    const pullProgressRef = useRef(0);
-
-    useEffect(() => {
-        let startY = 0;
-        const threshold = 100;
-
-        const handleTouchStartPull = (e: TouchEvent) => {
-            if (window.scrollY === 0) {
-                startY = e.touches[0].clientY;
-                touchStartY.current = startY;
-            }
-        };
-
-        const handleTouchMovePull = (e: TouchEvent) => {
-            if (window.scrollY === 0 && startY > 0) {
-                const currentY = e.touches[0].clientY;
-                const diff = currentY - startY;
-                if (diff > 0 && diff < threshold * 1.5) {
-                    isPullingRef.current = true;
-                    pullProgressRef.current = Math.min(diff / threshold, 1);
-                    setIsPulling(true);
-                    setPullProgress(pullProgressRef.current);
-                }
-            }
-        };
-
-        const handleTouchEndPull = () => {
-            if (isPullingRef.current && pullProgressRef.current >= 1) {
-                // Scroll to top instead of reload (better UX)
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            isPullingRef.current = false;
-            pullProgressRef.current = 0;
-            setIsPulling(false);
-            setPullProgress(0);
-            startY = 0;
-        };
-
-        window.addEventListener("touchstart", handleTouchStartPull, { passive: true });
-        window.addEventListener("touchmove", handleTouchMovePull, { passive: true });
-        window.addEventListener("touchend", handleTouchEndPull, { passive: true });
-
-        return () => {
-            window.removeEventListener("touchstart", handleTouchStartPull);
-            window.removeEventListener("touchmove", handleTouchMovePull);
-            window.removeEventListener("touchend", handleTouchEndPull);
-        };
-    }, []);
 
     // Keyboard navigation for lightbox
     useEffect(() => {
@@ -411,18 +357,6 @@ export default function BanhTrungPage() {
             )}
 
             <main className="banh-main">
-                {/* Pull to Refresh Indicator */}
-                {isPulling && (
-                    <div className="banh-pull-refresh" style={{ transform: `translateY(${pullProgress * 80}px)` }}>
-                        <div className="banh-pull-icon" style={{ transform: `rotate(${pullProgress * 360}deg)` }}>
-                            <span className="banh-lantern">🏮</span>
-                        </div>
-                        <span className="banh-pull-text">
-                            {pullProgress >= 1 ? "Thả để làm mới!" : "Kéo xuống để làm mới"}
-                        </span>
-                    </div>
-                )}
-
                 {/* Sticky Section Indicator */}
                 {activeSection !== "hero" && (
                     <div className="banh-section-indicator">
