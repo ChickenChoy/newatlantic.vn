@@ -1689,3 +1689,243 @@
         display: none;
     }
 }
+
+/* ===================================
+   NEW UX ENHANCEMENTS
+   =================================== */
+
+/* 1. Parallax Hero Background */
+.banh-parallax {
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+.banh-hero {
+    overflow: hidden;
+}
+
+.banh-hero-bg.banh-parallax {
+    position: absolute;
+    inset: -20% 0 0 0;
+    height: 120%;
+}
+
+/* 2. Animated Gradient Text */
+.banh-gradient-text {
+    background: linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #ffd700 25%,
+        #c41e3a 50%,
+        #ffd700 75%,
+        #ffffff 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease-in-out infinite;
+}
+
+.banh-gradient-text span {
+    background: linear-gradient(
+        90deg,
+        #ffd700 0%,
+        #ff6b6b 25%,
+        #ffd700 50%,
+        #ff6b6b 75%,
+        #ffd700 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite reverse;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+    100% {
+        background-position: 0% center;
+    }
+}
+
+/* 3. Sticky Section Indicator */
+.banh-section-indicator {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: rgba(5, 12, 58, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    z-index: 1000;
+    animation: slideDown 0.3s ease-out;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.banh-section-indicator-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--banh-gold);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.banh-section-indicator-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--banh-primary);
+    letter-spacing: 0.05em;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* 4. Pull to Refresh - Tết Animation */
+.banh-pull-refresh {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--banh-accent), #8b0000);
+    border-radius: 0 0 20px 20px;
+    z-index: 10000;
+    box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4);
+}
+
+.banh-pull-icon {
+    font-size: 2rem;
+    transition: transform 0.1s linear;
+}
+
+.banh-lantern {
+    display: block;
+    animation: swing 1s ease-in-out infinite;
+}
+
+.banh-pull-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+/* 5. Swipe Gesture Hint */
+.banh-swipe-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 32px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    z-index: 10;
+    animation: fadeInScale 0.5s ease-out, fadeOutScale 0.5s ease-in 3.5s forwards;
+}
+
+.banh-swipe-hand {
+    font-size: 2.5rem;
+    animation: swipeGesture 1.5s ease-in-out infinite;
+}
+
+@keyframes swipeGesture {
+    0%, 100% {
+        transform: translateX(-20px);
+    }
+    50% {
+        transform: translateX(20px);
+    }
+}
+
+.banh-swipe-hint span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+/* Hide section indicator on mobile for cleaner look */
+@media (max-width: 640px) {
+    .banh-section-indicator {
+        top: 10px;
+        padding: 6px 16px;
+    }
+
+    .banh-section-indicator-text {
+        font-size: 0.75rem;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .banh-gradient-text,
+    .banh-gradient-text span {
+        animation: none;
+        background: var(--banh-gold);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    .banh-parallax {
+        transform: none !important;
+    }
+
+    .banh-swipe-hint,
+    .banh-swipe-hand {
+        animation: none;
+    }
+
+    .banh-section-indicator {
+        animation: none;
+    }
+}

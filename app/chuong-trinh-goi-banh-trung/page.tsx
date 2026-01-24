@@ -42,6 +42,11 @@ export default function BanhTrungPage() {
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxIndex, setLightboxIndex] = useState(0);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [parallaxOffset, setParallaxOffset] = useState(0);
+    const [activeSection, setActiveSection] = useState("hero");
+    const [showSwipeHint, setShowSwipeHint] = useState(false);
+    const [isPulling, setIsPulling] = useState(false);
+    const [pullProgress, setPullProgress] = useState(0);
     const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const [flowerStyles, setFlowerStyles] = useState<Array<{ left: string; delay: string; duration: string }>>([]);
@@ -51,8 +56,19 @@ export default function BanhTrungPage() {
     const heroRef = useRef<HTMLElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
+    const touchStartY = useRef<number>(0);
     const hasConfettiTriggered = useRef(false);
+    const hasShownSwipeHint = useRef(false);
     const minSwipeDistance = 50;
+
+    const sectionNames: Record<string, string> = {
+        hero: "Trang chính",
+        about: "Giới thiệu",
+        schedule: "Lịch trình",
+        meaning: "Ý nghĩa",
+        gallery: "Hình ảnh",
+        cta: "Liên hệ"
+    };
 
     const galleryImages = [
         { src: "/images/chuong-trinh-goi-banh-trung/1.jpg", alt: "Hoạt động gói bánh trưng 1" },
@@ -141,13 +157,29 @@ export default function BanhTrungPage() {
         return () => clearInterval(interval);
     }, [galleryImages.length, isAutoPlaying]);
 
-    // Scroll progress
+    // Scroll progress + Parallax + Active Section Detection
     useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const progress = (scrollTop / docHeight) * 100;
             setScrollProgress(progress);
+
+            // Parallax effect for hero - move slower than scroll
+            setParallaxOffset(scrollTop * 0.5);
+
+            // Detect active section
+            const sections = ["hero", "about", "schedule", "meaning", "gallery", "cta"];
+            for (const sectionId of sections) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        setActiveSection(sectionId);
+                        break;
+                    }
+                }
+            }
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
@@ -184,7 +216,66 @@ export default function BanhTrungPage() {
             duration: `${6 + Math.random() * 8}s`
         }));
         setFlowerStyles(styles);
+
+        // Show swipe hint for first-time visitors (on mobile)
+        const isMobile = window.innerWidth <= 768;
+        const hasSeenHint = localStorage.getItem("banh-swipe-hint-seen");
+        if (isMobile && !hasSeenHint && !hasShownSwipeHint.current) {
+            hasShownSwipeHint.current = true;
+            setTimeout(() => {
+                setShowSwipeHint(true);
+                // Auto hide after 4 seconds
+                setTimeout(() => {
+                    setShowSwipeHint(false);
+                    localStorage.setItem("banh-swipe-hint-seen", "true");
+                }, 4000);
+            }, 2000);
+        }
     }, []);
+
+    // Pull to refresh effect (mobile only)
+    useEffect(() => {
+        let startY = 0;
+        const threshold = 100;
+
+        const handleTouchStartPull = (e: TouchEvent) => {
+            if (window.scrollY === 0) {
+                startY = e.touches[0].clientY;
+                touchStartY.current = startY;
+            }
+        };
+
+        const handleTouchMovePull = (e: TouchEvent) => {
+            if (window.scrollY === 0 && startY > 0) {
+                const currentY = e.touches[0].clientY;
+                const diff = currentY - startY;
+                if (diff > 0 && diff < threshold * 1.5) {
+                    setIsPulling(true);
+                    setPullProgress(Math.min(diff / threshold, 1));
+                }
+            }
+        };
+
+        const handleTouchEndPull = () => {
+            if (isPulling && pullProgress >= 1) {
+                // Trigger refresh animation
+                window.location.reload();
+            }
+            setIsPulling(false);
+            setPullProgress(0);
+            startY = 0;
+        };
+
+        window.addEventListener("touchstart", handleTouchStartPull, { passive: true });
+        window.addEventListener("touchmove", handleTouchMovePull, { passive: true });
+        window.addEventListener("touchend", handleTouchEndPull, { passive: true });
+
+        return () => {
+            window.removeEventListener("touchstart", handleTouchStartPull);
+            window.removeEventListener("touchmove", handleTouchMovePull);
+            window.removeEventListener("touchend", handleTouchEndPull);
+        };
+    }, [isPulling, pullProgress]);
 
     // Keyboard navigation for lightbox
     useEffect(() => {
@@ -280,6 +371,26 @@ export default function BanhTrungPage() {
             )}
 
             <main className="banh-main">
+                {/* Pull to Refresh Indicator */}
+                {isPulling && (
+                    <div className="banh-pull-refresh" style={{ transform: `translateY(${pullProgress * 80}px)` }}>
+                        <div className="banh-pull-icon" style={{ transform: `rotate(${pullProgress * 360}deg)` }}>
+                            <span className="banh-lantern">🏮</span>
+                        </div>
+                        <span className="banh-pull-text">
+                            {pullProgress >= 1 ? "Thả để làm mới!" : "Kéo xuống để làm mới"}
+                        </span>
+                    </div>
+                )}
+
+                {/* Sticky Section Indicator */}
+                {activeSection !== "hero" && (
+                    <div className="banh-section-indicator">
+                        <span className="banh-section-indicator-dot" />
+                        <span className="banh-section-indicator-text">{sectionNames[activeSection]}</span>
+                    </div>
+                )}
+
                 {/* Progress Bar */}
                 <div className="banh-progress-bar" style={{ width: `${scrollProgress}%` }} />
 
@@ -298,7 +409,10 @@ export default function BanhTrungPage() {
 
             {/* Hero Section */}
             <section id="hero" className="banh-hero" ref={heroRef}>
-                <div className="banh-hero-bg">
+                <div
+                    className="banh-hero-bg banh-parallax"
+                    style={{ transform: `translateY(${parallaxOffset}px)` }}
+                >
                     {/* Mobile: poster.jpg (vertical) */}
                     <Image
                         src="/images/chuong-trinh-goi-banh-trung/poster.jpg"
@@ -324,7 +438,7 @@ export default function BanhTrungPage() {
                     <span className="banh-hero-badge">
                         Tết Nguyên Đán 2026
                     </span>
-                    <h1 className="banh-hero-title">
+                    <h1 className="banh-hero-title banh-gradient-text">
                         Chương Trình<br />
                         <span>Gói Bánh Trưng</span>
                     </h1>
@@ -487,6 +601,13 @@ export default function BanhTrungPage() {
                     </div>
 
                     <div className="banh-gallery animate-on-scroll">
+                        {/* Swipe Hint for first-time mobile users */}
+                        {showSwipeHint && (
+                            <div className="banh-swipe-hint">
+                                <div className="banh-swipe-hand">👆</div>
+                                <span>Vuốt để xem ảnh</span>
+                            </div>
+                        )}
                         <div
                             className="banh-gallery-main"
                             onClick={() => openLightbox(currentSlide)}
