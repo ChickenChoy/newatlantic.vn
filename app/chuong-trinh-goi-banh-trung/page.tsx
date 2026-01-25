@@ -733,31 +733,6 @@ export default function BanhTrungPage() {
                     <Link href="/" className="banh-btn banh-btn-white">
                         Về trang chủ
                     </Link>
-
-                    {/* Share Buttons */}
-                    <div className="banh-share-section">
-                        <span className="banh-share-label">Chia sẻ:</span>
-                        <div className="banh-share-buttons">
-                            <a
-                                href="https://www.facebook.com/sharer/sharer.php?u=https://newatlantic.vn/chuong-trinh-goi-banh-trung"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="banh-share-btn facebook"
-                                aria-label="Chia sẻ Facebook"
-                            >
-                                <span className="banh-share-icon">f</span>
-                            </a>
-                            <a
-                                href="https://zalo.me/share?url=https://newatlantic.vn/chuong-trinh-goi-banh-trung"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="banh-share-btn zalo"
-                                aria-label="Chia sẻ Zalo"
-                            >
-                                <span className="banh-share-icon" style={{ fontWeight: 700, fontSize: '0.9rem' }}>Zalo</span>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </section>
 

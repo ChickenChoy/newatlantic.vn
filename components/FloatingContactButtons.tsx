@@ -7,15 +7,13 @@ import { useState, useEffect } from 'react';
 export default function FloatingContactButtons() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  
+
   // Check if current page is NOT home page
   const isNotHomePage = pathname !== '/';
 
   // Hide on banh trung page (has its own floating elements)
   const hiddenPages = ['/chuong-trinh-goi-banh-trung'];
-  if (hiddenPages.includes(pathname)) {
-    return null;
-  }
+  const shouldHide = hiddenPages.includes(pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +22,10 @@ export default function FloatingContactButtons() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (shouldHide) {
+    return null;
+  }
 
   return (
     <div 
