@@ -62,7 +62,6 @@ export default function BanhTrungPage() {
     const [showFlowers, setShowFlowers] = useState(true);
     const [showQuickSchedule, setShowQuickSchedule] = useState(false);
     const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
-    const [currentScheduleStep, setCurrentScheduleStep] = useState(0);
     const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
