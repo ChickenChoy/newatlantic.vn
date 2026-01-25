@@ -6,6 +6,15 @@ import Link from "next/link";
 import Image from "next/image";
 import "./banh-trung.css";
 
+// Skeleton Loading Component for Gallery
+function ImageSkeleton() {
+    return (
+        <div className="banh-skeleton">
+            <div className="banh-skeleton-shimmer" />
+        </div>
+    );
+}
+
 // Flip Unit Component - Simple slide animation
 interface FlipUnitProps {
     current: number;
@@ -52,12 +61,44 @@ export default function BanhTrungPage() {
     const [confettiPieces, setConfettiPieces] = useState<Array<{ left: string; delay: string; duration: string; color: string; rotation: string }>>([]);
     const [showFlowers, setShowFlowers] = useState(true);
     const [showQuickSchedule, setShowQuickSchedule] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
+    const [currentScheduleStep, setCurrentScheduleStep] = useState(0);
     const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
     const hasConfettiTriggered = useRef(false);
     const hasShownSwipeHint = useRef(false);
     const minSwipeDistance = 50;
+
+    // Lunar calendar info for Tết 2026
+    const lunarInfo = {
+        year: "Bính Ngọ",
+        zodiac: "🐴",
+        zodiacName: "Ngựa",
+        lunarNewYear: "18.12 Âm lịch → 5.2.2026 Dương lịch"
+    };
+
+    // Calculate current schedule step based on today's date
+    const getScheduleProgress = () => {
+        const today = new Date();
+        const scheduleDates = [
+            new Date("2026-02-05"), // Step 1
+            new Date("2026-02-06"), // Step 2
+            new Date("2026-02-07"), // Step 3 & 4
+            new Date("2026-02-07"), // Step 4
+            new Date("2026-02-08"), // Step 5
+        ];
+
+        let completedSteps = 0;
+        for (let i = 0; i < scheduleDates.length; i++) {
+            if (today >= scheduleDates[i]) {
+                completedSteps = i + 1;
+            }
+        }
+        return { completedSteps, totalSteps: 5 };
+    };
+
+    const scheduleProgress = getScheduleProgress();
 
     const sectionNames: Record<string, string> = {
         hero: "Trang chính",
@@ -467,6 +508,7 @@ export default function BanhTrungPage() {
                 </div>
 
                 <div className="banh-hero-content">
+
                     <span className="banh-hero-badge">
                         Tết Nguyên Đán 2026
                     </span>
@@ -567,6 +609,36 @@ export default function BanhTrungPage() {
                         <h2 className="banh-title">Thời Gian Thực Hiện</h2>
                     </div>
 
+                    {/* Schedule Progress Indicator */}
+                    <div className="banh-schedule-progress animate-on-scroll">
+                        <div className="banh-progress-header">
+                            <span className="banh-progress-label">Tiến độ chương trình</span>
+                            <span className="banh-progress-count">{scheduleProgress.completedSteps}/{scheduleProgress.totalSteps} bước</span>
+                        </div>
+                        <div className="banh-progress-track">
+                            <div
+                                className="banh-progress-fill"
+                                style={{ width: `${(scheduleProgress.completedSteps / scheduleProgress.totalSteps) * 100}%` }}
+                            />
+                            {[...Array(scheduleProgress.totalSteps)].map((_, i) => (
+                                <div
+                                    key={i}
+                                    className={`banh-progress-dot ${i < scheduleProgress.completedSteps ? 'completed' : ''} ${i === scheduleProgress.completedSteps ? 'current' : ''}`}
+                                    style={{ left: `${(i / (scheduleProgress.totalSteps - 1)) * 100}%` }}
+                                />
+                            ))}
+                        </div>
+                        <div className="banh-progress-status">
+                            {scheduleProgress.completedSteps === 0 ? (
+                                <span>⏳ Chưa bắt đầu - Còn {countdown.days} ngày</span>
+                            ) : scheduleProgress.completedSteps === scheduleProgress.totalSteps ? (
+                                <span>🎉 Hoàn thành!</span>
+                            ) : (
+                                <span>🔥 Đang thực hiện bước {scheduleProgress.completedSteps + 1}</span>
+                            )}
+                        </div>
+                    </div>
+
                     <div className="banh-timeline">
                         {scheduleData.map((item, index) => (
                             <div
@@ -652,12 +724,15 @@ export default function BanhTrungPage() {
                             onTouchMove={handleTouchMove}
                             onTouchEnd={handleTouchEnd}
                         >
+                            {/* Skeleton Loading */}
+                            {!imageLoaded[currentSlide] && <ImageSkeleton />}
                             <Image
                                 src={galleryImages[currentSlide].src}
                                 alt={galleryImages[currentSlide].alt}
                                 fill
-                                style={{ objectFit: "cover" }}
+                                style={{ objectFit: "cover", opacity: imageLoaded[currentSlide] ? 1 : 0 }}
                                 sizes="(max-width: 768px) 100vw, 70vw"
+                                onLoad={() => setImageLoaded(prev => ({ ...prev, [currentSlide]: true }))}
                             />
                             <div className="banh-gallery-overlay">
                                 <span className="banh-gallery-zoom">Xem lớn</span>
