@@ -630,7 +630,7 @@ export default function BanhTrungPage() {
                         </div>
                         <div className="banh-progress-status">
                             {scheduleProgress.completedSteps === 0 ? (
-                                <span>⏳ Chưa bắt đầu - Còn {countdown.days} ngày</span>
+                                <span>Chưa bắt đầu - Còn {countdown.days} ngày</span>
                             ) : scheduleProgress.completedSteps === scheduleProgress.totalSteps ? (
                                 <span>🎉 Hoàn thành!</span>
                             ) : (
