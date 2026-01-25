@@ -11,6 +11,12 @@ export default function FloatingContactButtons() {
   // Check if current page is NOT home page
   const isNotHomePage = pathname !== '/';
 
+  // Hide on banh trung page (has its own floating elements)
+  const hiddenPages = ['/chuong-trinh-goi-banh-trung'];
+  if (hiddenPages.includes(pathname)) {
+    return null;
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
