@@ -50,6 +50,8 @@ export default function BanhTrungPage() {
     const [mounted, setMounted] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
     const [confettiPieces, setConfettiPieces] = useState<Array<{ left: string; delay: string; duration: string; color: string; rotation: string }>>([]);
+    const [showFlowers, setShowFlowers] = useState(true);
+    const [showQuickSchedule, setShowQuickSchedule] = useState(false);
     const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
@@ -76,11 +78,11 @@ export default function BanhTrungPage() {
     ];
 
     const scheduleData = [
-        { day: "Thứ 5", date: "18.12 AL", solar: "5.2.2026", activity: "Hạn chót tập kết nguyên vật liệu", step: 1 },
-        { day: "Thứ 6", date: "19.12 AL", solar: "6.2.2026", activity: "Rửa lá, ngâm gạo, đỗ", step: 2 },
-        { day: "Thứ 7", date: "20.12 AL", solar: "7.2.2026", activity: "Lau lá, cắt lá và gói bánh", step: 3 },
-        { day: "Thứ 7", date: "20.12 AL", solar: "7.2.2026", activity: "Gói → xếp nồi → nấu → ép bánh", step: 4 },
-        { day: "Chủ nhật", date: "21.12 AL", solar: "8.2.2026", activity: "Nhận bánh và tổng kết", step: 5 },
+        { day: "Thứ 5", date: "18.12 AL", solar: "5.2.2026", activity: "Hạn chót tập kết nguyên vật liệu", step: 1, highlight: true },
+        { day: "Thứ 6", date: "19.12 AL", solar: "6.2.2026", activity: "Rửa lá, ngâm gạo, đỗ", step: 2, highlight: false },
+        { day: "Thứ 7", date: "20.12 AL", solar: "7.2.2026", activity: "Lau lá, cắt lá và gói bánh", step: 3, highlight: false },
+        { day: "Thứ 7", date: "20.12 AL", solar: "7.2.2026", activity: "Gói → xếp nồi → nấu → ép bánh", step: 4, highlight: true },
+        { day: "Chủ nhật", date: "21.12 AL", solar: "8.2.2026", activity: "Nhận bánh và tổng kết", step: 5, highlight: false },
     ];
 
     const meaningData = [
@@ -182,9 +184,13 @@ export default function BanhTrungPage() {
                 setScrollProgress(progress);
 
                 // Parallax effect for hero - direct DOM manipulation for smooth performance
+                // Reduced parallax speed for senior-friendly UX
                 if (parallaxBgRef.current) {
-                    parallaxBgRef.current.style.transform = `translate3d(0, ${scrollTop * 0.4}px, 0)`;
+                    parallaxBgRef.current.style.transform = `translate3d(0, ${scrollTop * 0.25}px, 0)`;
                 }
+
+                // Show quick schedule bar when scrolling past hero
+                setShowQuickSchedule(scrollTop > window.innerHeight * 0.5);
 
                 // Detect active section using cached elements
                 for (const [sectionId, element] of sectionElements) {
@@ -228,13 +234,18 @@ export default function BanhTrungPage() {
     // Generate flower styles on client side only - Hoa Mai & Hoa Đào
     useEffect(() => {
         setMounted(true);
-        // Tạo 15 bông hoa với các biến thể khác nhau (giảm từ 30 để tối ưu performance)
-        const styles = [...Array(15)].map(() => ({
+        // Tạo 10 bông hoa (giảm từ 15 để ít gây rối mắt cho người lớn tuổi)
+        const styles = [...Array(10)].map(() => ({
             left: `${Math.random() * 100}%`,
             delay: `${Math.random() * 10}s`,
-            duration: `${6 + Math.random() * 8}s`
+            duration: `${8 + Math.random() * 6}s` // Slower animation
         }));
         setFlowerStyles(styles);
+
+        // Auto-hide flowers after 15 seconds for less distraction
+        const flowerTimer = setTimeout(() => {
+            setShowFlowers(false);
+        }, 15000);
 
         // Show swipe hint for first-time visitors (on mobile)
         // Wrap ALL localStorage access in a try-catch for SSR safety
@@ -259,6 +270,10 @@ export default function BanhTrungPage() {
         } catch {
             // Handle localStorage being unavailable (private browsing, etc.)
         }
+
+        return () => {
+            clearTimeout(flowerTimer);
+        };
     }, []);
 
 
@@ -338,7 +353,7 @@ export default function BanhTrungPage() {
     return (
         <>
             {/* Falling Flowers Effect - Hoa Mai & Hoa Đào rơi - Portal to body for z-index */}
-            {mounted && flowerStyles.length > 0 && createPortal(
+            {mounted && showFlowers && flowerStyles.length > 0 && createPortal(
                 <div className="banh-flowers" aria-hidden="true">
                     {flowerStyles.map((style, i) => (
                         <span
@@ -351,6 +366,42 @@ export default function BanhTrungPage() {
                             }}
                         />
                     ))}
+                </div>,
+                document.body
+            )}
+
+            {/* Toggle Flowers Button */}
+            {mounted && createPortal(
+                <button
+                    className="banh-flowers-toggle"
+                    onClick={() => setShowFlowers(!showFlowers)}
+                    aria-label={showFlowers ? "Tắt hoa rơi" : "Bật hoa rơi"}
+                >
+                    <span className="banh-flowers-toggle-icon">{showFlowers ? "🌸" : "✨"}</span>
+                    <span>{showFlowers ? "Tắt hoa" : "Bật hoa"}</span>
+                </button>,
+                document.body
+            )}
+
+            {/* Quick Schedule Bar */}
+            {mounted && createPortal(
+                <div className={`banh-quick-schedule ${showQuickSchedule && activeSection !== 'schedule' ? 'visible' : ''}`}>
+                    <div className="banh-quick-schedule-content">
+                        <div className="banh-quick-schedule-info">
+                            <span className="banh-quick-schedule-icon">📅</span>
+                            <div className="banh-quick-schedule-text">
+                                <span className="banh-quick-schedule-title">Ngày bắt đầu</span>
+                                <span className="banh-quick-schedule-date">5/2/2026 - Tập kết nguyên liệu</span>
+                            </div>
+                        </div>
+                        <button
+                            className="banh-quick-schedule-close"
+                            onClick={() => setShowQuickSchedule(false)}
+                            aria-label="Đóng"
+                        >
+                            ×
+                        </button>
+                    </div>
                 </div>,
                 document.body
             )}
@@ -393,7 +444,7 @@ export default function BanhTrungPage() {
                         fill
                         priority
                         className="banh-hero-bg-mobile"
-                        style={{ objectFit: "cover", objectPosition: "center" }}
+                        style={{ objectFit: "cover", objectPosition: "center top" }}
                     />
                     {/* Desktop: banner-ngang.jpg (horizontal) */}
                     <Image
@@ -512,13 +563,16 @@ export default function BanhTrungPage() {
                         {scheduleData.map((item, index) => (
                             <div
                                 key={index}
-                                className="banh-timeline-item animate-on-scroll"
+                                className={`banh-timeline-item animate-on-scroll ${item.highlight ? 'highlight' : ''}`}
                                 style={{ transitionDelay: `${index * 0.1}s` }}
                             >
                                 <div className="banh-timeline-icon">
                                     <span className="banh-timeline-step">{item.step}</span>
                                 </div>
                                 <div className="banh-timeline-content">
+                                    {item.highlight && (
+                                        <span className="banh-highlight-badge">⭐ Quan trọng</span>
+                                    )}
                                     <div className="banh-timeline-date">
                                         <strong>{item.day}</strong>
                                         <span>{item.date} ({item.solar})</span>
@@ -671,6 +725,31 @@ export default function BanhTrungPage() {
                     <Link href="/" className="banh-btn banh-btn-white">
                         Về trang chủ
                     </Link>
+
+                    {/* Share Buttons */}
+                    <div className="banh-share-section">
+                        <span className="banh-share-label">Chia sẻ:</span>
+                        <div className="banh-share-buttons">
+                            <a
+                                href="https://www.facebook.com/sharer/sharer.php?u=https://newatlantic.vn/chuong-trinh-goi-banh-trung"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="banh-share-btn facebook"
+                                aria-label="Chia sẻ Facebook"
+                            >
+                                <span className="banh-share-icon">f</span>
+                            </a>
+                            <a
+                                href="https://zalo.me/share?url=https://newatlantic.vn/chuong-trinh-goi-banh-trung"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="banh-share-btn zalo"
+                                aria-label="Chia sẻ Zalo"
+                            >
+                                <span className="banh-share-icon" style={{ fontWeight: 700, fontSize: '0.9rem' }}>Zalo</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </section>
 
