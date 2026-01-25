@@ -388,19 +388,27 @@ export default function BanhTrungPage() {
                 <div className={`banh-quick-schedule ${showQuickSchedule && activeSection !== 'schedule' ? 'visible' : ''}`}>
                     <div className="banh-quick-schedule-content">
                         <div className="banh-quick-schedule-info">
-                            <span className="banh-quick-schedule-icon">📅</span>
+                            {/* <span className="banh-quick-schedule-icon">🎋</span> */}
                             <div className="banh-quick-schedule-text">
-                                <span className="banh-quick-schedule-title">Ngày bắt đầu</span>
-                                <span className="banh-quick-schedule-date">5/2/2026 - Tập kết nguyên liệu</span>
+                                <span className="banh-quick-schedule-title">Sắp diễn ra</span>
+                                <span className="banh-quick-schedule-date">5/2/2026 • Gói Bánh Trưng Tết</span>
                             </div>
                         </div>
-                        <button
-                            className="banh-quick-schedule-close"
-                            onClick={() => setShowQuickSchedule(false)}
-                            aria-label="Đóng"
-                        >
-                            ×
-                        </button>
+                        <div className="banh-quick-schedule-cta">
+                            <button
+                                className="banh-quick-schedule-btn"
+                                onClick={() => scrollToSection('schedule')}
+                            >
+                                Xem lịch
+                            </button>
+                            <button
+                                className="banh-quick-schedule-close"
+                                onClick={() => setShowQuickSchedule(false)}
+                                aria-label="Đóng"
+                            >
+                                ×
+                            </button>
+                        </div>
                     </div>
                 </div>,
                 document.body
