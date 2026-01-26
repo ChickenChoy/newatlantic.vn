@@ -1,88 +1,124 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateSecret, generateURI, verifySync } from 'otplib';
+import { createClient } from '@supabase/supabase-js';
+import { authenticator } from '@otplib/preset-default';
 import QRCode from 'qrcode';
-import { getAdminSettings, saveAdminSettings } from '@/lib/db';
 
-const ADMIN_PASSWORD = '@Tandaitayduong';
-const ISSUER = 'NewAtlantic Admin';
-const ACCOUNT_NAME = 'admin@newatlantic.vn';
+// Use service role key for database operations
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+// Helper functions using otplib
+function generateSecret(): string {
+  return authenticator.generateSecret();
+}
+
+function verifyTOTP(secret: string, token: string): boolean {
+  return authenticator.verify({ token, secret });
+}
+
+function generateKeyUri(email: string, issuer: string, secret: string): string {
+  return authenticator.keyuri(email, issuer, secret);
+}
 
 // GET - Check TOTP status
 export async function GET() {
   try {
-    const settings = getAdminSettings();
+    const { data, error } = await supabase
+      .from('admin_settings')
+      .select('totp_enabled')
+      .eq('id', 'admin')
+      .single();
+
+    if (error) {
+      console.error('Error getting TOTP status:', error);
+      return NextResponse.json({ totpEnabled: false });
+    }
+
     return NextResponse.json({
-      totpEnabled: settings.totpEnabled,
-      totpVerified: settings.totpVerified,
+      totpEnabled: data?.totp_enabled || false,
     });
   } catch (error) {
     console.error('Error getting TOTP status:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ totpEnabled: false });
   }
-}
-
-// Helper function to verify TOTP token
-function verifyToken(token: string, secret: string): boolean {
-  const result = verifySync({ token, secret });
-  return result.valid;
 }
 
 // POST - Setup, verify, or disable TOTP
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { action, password, token } = body;
-
-    // Verify admin password for setup and disable actions
-    if ((action === 'setup' || action === 'disable') && password !== ADMIN_PASSWORD) {
-      return NextResponse.json({ error: 'Mật khẩu không đúng' }, { status: 401 });
-    }
-
-    const settings = getAdminSettings();
+    const { action, token } = body;
 
     switch (action) {
       case 'setup': {
-        // Generate new secret
-        const secret = generateSecret();
-        const otpauth = generateURI({
-          issuer: ISSUER,
-          label: ACCOUNT_NAME,
-          secret,
-          algorithm: 'sha1',
-          digits: 6,
-          period: 30,
-        });
+        try {
+          // Generate new secret
+          const secret = generateSecret();
+          console.log('Generated secret:', secret);
 
-        // Generate QR code as data URL
-        const qrCodeDataUrl = await QRCode.toDataURL(otpauth);
+          const otpauth = generateKeyUri('admin@newatlantic.vn', 'NewAtlantic Admin', secret);
+          console.log('Generated otpauth:', otpauth);
 
-        // Save secret but don't enable yet (need verification first)
-        settings.totpSecret = secret;
-        settings.totpVerified = false;
-        saveAdminSettings(settings);
+          // Generate QR code
+          const qrCodeDataUrl = await QRCode.toDataURL(otpauth);
+          console.log('Generated QR code');
 
-        return NextResponse.json({
-          success: true,
-          secret,
-          qrCode: qrCodeDataUrl,
-          message: 'Quét mã QR bằng ứng dụng Google Authenticator, sau đó nhập mã xác thực để hoàn tất thiết lập.',
-        });
+          // Save secret but don't enable yet
+          const { error } = await supabase
+            .from('admin_settings')
+            .upsert({
+              id: 'admin',
+              totp_secret: secret,
+              totp_enabled: false,
+              updated_at: new Date().toISOString(),
+            });
+
+          if (error) {
+            console.error('Error saving TOTP secret:', error);
+            return NextResponse.json({ error: 'Không thể lưu cài đặt: ' + error.message }, { status: 500 });
+          }
+
+          return NextResponse.json({
+            success: true,
+            secret,
+            qrCode: qrCodeDataUrl,
+            message: 'Quét mã QR bằng Google Authenticator, sau đó nhập mã xác thực để hoàn tất.',
+          });
+        } catch (setupError) {
+          console.error('Setup error:', setupError);
+          return NextResponse.json({ error: 'Lỗi setup: ' + String(setupError) }, { status: 500 });
+        }
       }
 
       case 'verify-setup': {
-        // Verify token and enable TOTP
-        if (!settings.totpSecret) {
+        // Get secret from database
+        const { data, error: fetchError } = await supabase
+          .from('admin_settings')
+          .select('totp_secret')
+          .eq('id', 'admin')
+          .single();
+
+        if (fetchError || !data?.totp_secret) {
           return NextResponse.json({ error: 'Chưa thiết lập TOTP' }, { status: 400 });
         }
 
-        const isValid = verifyToken(token, settings.totpSecret);
+        // Verify token
+        const isValid = verifyTOTP(data.totp_secret, token);
         if (!isValid) {
           return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
         }
 
-        settings.totpEnabled = true;
-        settings.totpVerified = true;
-        saveAdminSettings(settings);
+        // Enable TOTP
+        const { error: updateError } = await supabase
+          .from('admin_settings')
+          .update({ totp_enabled: true, updated_at: new Date().toISOString() })
+          .eq('id', 'admin');
+
+        if (updateError) {
+          return NextResponse.json({ error: 'Không thể kích hoạt TOTP' }, { status: 500 });
+        }
 
         return NextResponse.json({
           success: true,
@@ -91,12 +127,19 @@ export async function POST(request: NextRequest) {
       }
 
       case 'verify': {
-        // Verify token for login
-        if (!settings.totpEnabled || !settings.totpSecret) {
+        // Get settings
+        const { data, error: fetchError } = await supabase
+          .from('admin_settings')
+          .select('totp_secret, totp_enabled')
+          .eq('id', 'admin')
+          .single();
+
+        if (fetchError || !data?.totp_enabled || !data?.totp_secret) {
           return NextResponse.json({ error: 'TOTP chưa được kích hoạt' }, { status: 400 });
         }
 
-        const isValid = verifyToken(token, settings.totpSecret);
+        // Verify token
+        const isValid = verifyTOTP(data.totp_secret, token);
         if (!isValid) {
           return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
         }
@@ -108,18 +151,38 @@ export async function POST(request: NextRequest) {
       }
 
       case 'disable': {
+        // Get settings
+        const { data, error: fetchError } = await supabase
+          .from('admin_settings')
+          .select('totp_secret, totp_enabled')
+          .eq('id', 'admin')
+          .single();
+
+        if (fetchError) {
+          return NextResponse.json({ error: 'Không thể đọc cài đặt' }, { status: 500 });
+        }
+
         // Verify token before disabling
-        if (settings.totpEnabled && settings.totpSecret) {
-          const isValid = verifyToken(token, settings.totpSecret);
+        if (data?.totp_enabled && data?.totp_secret) {
+          const isValid = verifyTOTP(data.totp_secret, token);
           if (!isValid) {
             return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
           }
         }
 
-        settings.totpEnabled = false;
-        settings.totpSecret = null;
-        settings.totpVerified = false;
-        saveAdminSettings(settings);
+        // Disable TOTP
+        const { error: updateError } = await supabase
+          .from('admin_settings')
+          .update({
+            totp_enabled: false,
+            totp_secret: null,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', 'admin');
+
+        if (updateError) {
+          return NextResponse.json({ error: 'Không thể tắt TOTP' }, { status: 500 });
+        }
 
         return NextResponse.json({
           success: true,

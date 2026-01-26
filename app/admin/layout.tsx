@@ -2,21 +2,24 @@
 
 import { useState, useEffect, createContext, useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import PasswordInput from '@/components/PasswordInput';
+import { getSupabaseClient } from '@/lib/supabase';
+import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import './admin.css';
 
-type AuthStep = 'password' | 'totp' | 'authenticated';
+type AuthStep = 'login' | 'totp' | 'authenticated';
 
-// Context cho logout function và totpEnabled
+// Context cho logout function
 interface AdminContextType {
   handleLogout: () => void;
-  totpEnabled: boolean;
+  userEmail: string | null;
+  mfaEnabled: boolean;
 }
 
 export const AdminContext = createContext<AdminContextType>({
   handleLogout: () => { },
-  totpEnabled: false,
+  userEmail: null,
+  mfaEnabled: false,
 });
 
 export const useAdminContext = () => useContext(AdminContext);
@@ -26,85 +29,112 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [authStep, setAuthStep] = useState<AuthStep>('password');
+  const [authStep, setAuthStep] = useState<AuthStep>('login');
   const [isLoading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [totpCode, setTotpCode] = useState('');
   const [error, setError] = useState('');
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [totpEnabled, setTotpEnabled] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-
-  // Mật khẩu admin - ĐỔI MẬT KHẨU NÀY ĐỂ BẢO MẬT
-  const ADMIN_PASSWORD = '@Tandaitayduong';
+  const supabase = getSupabaseClient();
 
   useEffect(() => {
     checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (_event: AuthChangeEvent, session: Session | null) => {
+        if (!session) {
+          setAuthStep('login');
+          setUserEmail(null);
+          setIsLoading(false);
+        }
+      }
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   const checkAuth = async () => {
-    // Kiểm tra xem đã đăng nhập chưa
-    const authToken = localStorage.getItem('admin_auth_token');
-    const authExpiry = localStorage.getItem('admin_auth_expiry');
-    const totpVerified = localStorage.getItem('admin_totp_verified');
-
-    // Check TOTP status from server
     try {
-      const response = await fetch('/api/totp');
-      if (response.ok) {
-        const data = await response.json();
-        setTotpEnabled(data.totpEnabled);
-      }
-    } catch (error) {
-      console.error('Error checking TOTP status:', error);
-    }
+      // Check Supabase session
+      const { data: { session } } = await supabase.auth.getSession();
 
-    if (authToken && authExpiry) {
-      const now = new Date().getTime();
-      if (authToken === 'authenticated' && parseInt(authExpiry) > now) {
-        // Check if TOTP was verified for this session
-        if (totpEnabled && totpVerified !== 'true') {
+      // Check TOTP status from API
+      const totpRes = await fetch('/api/totp');
+      const totpData = await totpRes.json();
+      setTotpEnabled(totpData.totpEnabled || false);
+
+      // Check if TOTP was verified this session
+      const totpVerified = sessionStorage.getItem('totp_verified');
+
+      if (session) {
+        setUserEmail(session.user.email || null);
+
+        if (totpData.totpEnabled && totpVerified !== 'true') {
+          // Need TOTP verification
           setAuthStep('totp');
         } else {
           setAuthStep('authenticated');
         }
-      } else {
-        // Token hết hạn, xóa đi
-        localStorage.removeItem('admin_auth_token');
-        localStorage.removeItem('admin_auth_expiry');
-        localStorage.removeItem('admin_totp_verified');
       }
+    } catch (error) {
+      console.error('Error checking auth:', error);
     }
-
     setIsLoading(false);
   };
 
-  const handlePasswordLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
-    // Kiểm tra mật khẩu
-    if (password === ADMIN_PASSWORD) {
-      // Lưu token và thời gian hết hạn (24 giờ)
-      const expiry = new Date().getTime() + (24 * 60 * 60 * 1000);
-      localStorage.setItem('admin_auth_token', 'authenticated');
-      localStorage.setItem('admin_auth_expiry', expiry.toString());
-      setPassword('');
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-      // Check if TOTP is enabled
-      if (totpEnabled) {
-        setAuthStep('totp');
-      } else {
-        setAuthStep('authenticated');
+      if (authError) {
+        setError(authError.message === 'Invalid login credentials'
+          ? 'Email hoặc mật khẩu không đúng!'
+          : authError.message);
+        setIsLoading(false);
+        return;
       }
-    } else {
-      setError('Mật khẩu không đúng!');
-      setPassword('');
+
+      if (data.session) {
+        setUserEmail(data.session.user.email || null);
+        setEmail('');
+        setPassword('');
+
+        // Check TOTP
+        const totpRes = await fetch('/api/totp');
+        const totpData = await totpRes.json();
+
+        if (totpData.totpEnabled) {
+          setTotpEnabled(true);
+          setAuthStep('totp');
+        } else {
+          sessionStorage.setItem('totp_verified', 'true');
+          setAuthStep('authenticated');
+        }
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Có lỗi xảy ra. Vui lòng thử lại.');
     }
+    setIsLoading(false);
   };
 
   const handleTotpVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsLoading(true);
 
     try {
       const response = await fetch('/api/totp', {
@@ -116,7 +146,7 @@ export default function AdminLayout({
       const data = await response.json();
 
       if (response.ok && data.success) {
-        localStorage.setItem('admin_totp_verified', 'true');
+        sessionStorage.setItem('totp_verified', 'true');
         setAuthStep('authenticated');
         setTotpCode('');
       } else {
@@ -124,183 +154,213 @@ export default function AdminLayout({
         setTotpCode('');
       }
     } catch (error) {
-      console.error('Error verifying TOTP:', error);
+      console.error('TOTP verify error:', error);
       setError('Có lỗi xảy ra. Vui lòng thử lại.');
-      setTotpCode('');
     }
+    setIsLoading(false);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_auth_token');
-    localStorage.removeItem('admin_auth_expiry');
-    localStorage.removeItem('admin_totp_verified');
-    setAuthStep('password');
+  const handleLogout = async () => {
+    sessionStorage.removeItem('totp_verified');
+    await supabase.auth.signOut();
+    setAuthStep('login');
+    setUserEmail(null);
     router.push('/');
   };
 
-  // Đang kiểm tra auth
+  // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-lightgray">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Đang kiểm tra xác thực...</p>
         </div>
       </div>
     );
   }
 
-  // Form nhập mật khẩu
-  if (authStep === 'password') {
+  // Login form
+  if (authStep === 'login') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primaryemphasis rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/25">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+          <div className="mb-10">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
+              ADMIN PANEL
+            </p>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+              Đăng nhập<span className="text-blue-600">.</span>
+            </h1>
+            <p className="text-gray-500 mt-2">
+              Quản lý nội dung website của bạn
+            </p>
+          </div>
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="border border-gray-200 rounded-full bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+              <div className="flex items-center">
+                <label htmlFor="email" className="pl-5 pr-3 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 py-4 pr-5 bg-transparent focus:outline-none text-gray-900 placeholder-gray-300"
+                  placeholder="admin@newatlantic.vn"
+                  required
+                  autoFocus
+                />
               </div>
-              <h1 className="text-2xl font-bold text-bodytext mb-2">Admin Panel</h1>
-              <p className="text-muted">Đăng nhập để quản lý nội dung</p>
             </div>
 
-            <form onSubmit={handlePasswordLogin} className="space-y-5">
-              <PasswordInput
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Nhập mật khẩu admin"
-                label="Mật khẩu"
-                required
-                autoFocus
-              />
+            <div className="border border-gray-200 rounded-full bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+              <div className="flex items-center">
+                <label htmlFor="password" className="pl-5 pr-3 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                  Mật khẩu
+                </label>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="flex-1 py-4 bg-transparent focus:outline-none text-gray-900 placeholder-gray-300"
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="pr-5 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  {showPassword ? (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
 
-              {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
-                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {error}
-                </div>
-              )}
+            {error && (
+              <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl text-sm">
+                {error}
+              </div>
+            )}
 
+            <div className="flex items-center justify-between pt-4">
+              <button
+                type="button"
+                onClick={() => router.push('/')}
+                className="text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"
+              >
+                ← Trang chủ
+              </button>
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-gradient-to-r from-primary to-primaryemphasis text-white rounded-xl hover:opacity-90 transition-all font-medium shadow-lg shadow-primary/25"
+                disabled={isLoading}
+                className="px-8 py-3.5 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all font-medium disabled:opacity-50"
               >
-                Đăng nhập
-              </button>
-            </form>
-
-            <div className="mt-6 pt-6 border-t border-border">
-              <button
-                onClick={() => router.push('/')}
-                className="w-full text-bodytext hover:text-primary transition-colors text-sm flex items-center justify-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Quay lại trang chủ
+                {isLoading ? 'Đang xử lý...' : 'Đăng nhập'}
               </button>
             </div>
-          </div>
+          </form>
+
+          <p className="text-center text-gray-400 text-xs mt-12">
+            Bảo mật bởi Supabase
+          </p>
         </div>
       </div>
     );
   }
 
-  // Form nhập mã TOTP
+  // TOTP verification form
   if (authStep === 'totp') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/25">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold text-bodytext mb-2">Xác thực hai yếu tố</h1>
-              <p className="text-muted text-sm">
-                Nhập mã 6 số từ ứng dụng Google Authenticator
-              </p>
-            </div>
+          <div className="mb-10">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
+              XÁC THỰC 2 BƯỚC
+            </p>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+              Nhập mã OTP<span className="text-blue-600">.</span>
+            </h1>
+            <p className="text-gray-500 mt-2">
+              Mở Google Authenticator để lấy mã 6 số
+            </p>
+          </div>
 
-            <form onSubmit={handleTotpVerify} className="space-y-5">
-              <div>
-                <label htmlFor="totp" className="block text-sm font-medium text-bodytext mb-2">
-                  Mã xác thực
+          <form onSubmit={handleTotpVerify} className="space-y-6">
+            <div className="border border-gray-200 rounded-full bg-white overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+              <div className="flex items-center">
+                <label htmlFor="totp" className="pl-5 pr-3 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                  Mã OTP
                 </label>
                 <input
                   type="text"
                   id="totp"
                   value={totpCode}
                   onChange={(e) => setTotpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  className="w-full px-4 py-3.5 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-dark text-center text-2xl tracking-widest font-mono bg-lightgray"
+                  className="flex-1 py-4 pr-5 bg-transparent focus:outline-none text-gray-900 text-center text-xl tracking-widest font-mono"
                   placeholder="000000"
                   required
                   autoFocus
                   maxLength={6}
                   inputMode="numeric"
-                  pattern="[0-9]{6}"
                 />
               </div>
+            </div>
 
-              {error && (
-                <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
-                  <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {error}
-                </div>
-              )}
+            {error && (
+              <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-xl text-sm">
+                {error}
+              </div>
+            )}
 
+            <div className="flex items-center justify-between pt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  supabase.auth.signOut();
+                  setAuthStep('login');
+                }}
+                className="text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"
+              >
+                ← Đăng nhập lại
+              </button>
               <button
                 type="submit"
-                disabled={totpCode.length !== 6}
-                className="w-full px-6 py-3 bg-gradient-to-r from-primary to-primaryemphasis text-white rounded-xl hover:opacity-90 transition-all font-medium shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isLoading || totpCode.length !== 6}
+                className="px-8 py-3.5 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all font-medium disabled:opacity-50"
               >
-                Xác thực
-              </button>
-            </form>
-
-            <div className="mt-6 pt-6 border-t border-border">
-              <button
-                onClick={() => {
-                  localStorage.removeItem('admin_auth_token');
-                  localStorage.removeItem('admin_auth_expiry');
-                  setAuthStep('password');
-                }}
-                className="w-full text-bodytext hover:text-primary transition-colors text-sm flex items-center justify-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Quay lại đăng nhập
+                {isLoading ? 'Đang xác thực...' : 'Xác thực'}
               </button>
             </div>
-          </div>
+          </form>
+
+          <p className="text-center text-gray-400 text-xs mt-12">
+            Bảo mật bởi Google Authenticator
+          </p>
         </div>
       </div>
     );
   }
 
-  // Đã đăng nhập - hiển thị nội dung admin với sidebar layout kiểu MatDash
+  // Authenticated - show admin content
   return (
-    <AdminContext.Provider value={{ handleLogout, totpEnabled }}>
+    <AdminContext.Provider value={{ handleLogout, userEmail, mfaEnabled: totpEnabled }}>
       <div className="flex min-h-screen bg-lightgray dark:bg-dark font-sans">
-        {/* Sidebar - imported component */}
         <AdminSidebar />
-
-        {/* Main Content */}
         <main className="flex-1 min-h-screen xl:ml-64 transition-all duration-300">
-          {/* Top Header */}
           <div className="h-[70px]" />
-
-          {/* Page Content */}
           <div className="p-6 lg:p-8">
             {children}
           </div>

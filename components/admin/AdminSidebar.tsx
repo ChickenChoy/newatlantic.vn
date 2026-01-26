@@ -77,7 +77,7 @@ export default function AdminSidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const searchParams = useSearchParams();
   const currentTab = searchParams.get('tab') || 'dashboard';
-  const { handleLogout, totpEnabled } = useAdminContext();
+  const { handleLogout, userEmail, mfaEnabled } = useAdminContext();
 
   const isActiveLink = (id: string) => {
     return currentTab === id;
@@ -143,11 +143,15 @@ export default function AdminSidebar() {
               {!isCollapsed && <span className="font-medium text-sm">Đăng xuất</span>}
             </Button>
 
-            {totpEnabled && !isCollapsed && (
-              <div className="mt-3 px-4 py-2 bg-lightsuccess dark:bg-lightsuccess/20 rounded-lg">
-                <div className="flex items-center gap-2 text-success dark:text-success text-xs">
-                  <Icon icon="solar:shield-check-line-duotone" height={16} />
-                  <span className="font-medium">2FA Đang kích hoạt</span>
+            {userEmail && !isCollapsed && (
+              <div className="mt-3 px-4 py-2 bg-lighthover dark:bg-darkmuted rounded-lg">
+                <div className="flex items-center gap-2 text-bodytext dark:text-bodytext text-xs">
+                  <Icon icon="solar:user-circle-line-duotone" height={16} />
+                  <span className="font-medium truncate">{userEmail}</span>
+                </div>
+                <div className={`flex items-center gap-2 mt-2 text-xs ${mfaEnabled ? 'text-green-600' : 'text-amber-600'}`}>
+                  <Icon icon={mfaEnabled ? 'solar:shield-check-line-duotone' : 'solar:shield-warning-line-duotone'} height={16} />
+                  <span className="font-medium">2FA: {mfaEnabled ? 'Đã bật' : 'Chưa bật'}</span>
                 </div>
               </div>
             )}
@@ -227,11 +231,15 @@ export default function AdminSidebar() {
               <span className="font-medium text-sm">Đăng xuất</span>
             </Button>
 
-            {totpEnabled && (
-              <div className="mt-3 px-4 py-2 bg-lightsuccess dark:bg-lightsuccess/20 rounded-lg">
-                <div className="flex items-center gap-2 text-success dark:text-success text-xs">
-                  <Icon icon="solar:shield-check-line-duotone" height={16} />
-                  <span className="font-medium">2FA Đang kích hoạt</span>
+            {userEmail && (
+              <div className="mt-3 px-4 py-2 bg-lighthover dark:bg-darkmuted rounded-lg">
+                <div className="flex items-center gap-2 text-bodytext dark:text-bodytext text-xs">
+                  <Icon icon="solar:user-circle-line-duotone" height={16} />
+                  <span className="font-medium truncate">{userEmail}</span>
+                </div>
+                <div className={`flex items-center gap-2 mt-2 text-xs ${mfaEnabled ? 'text-green-600' : 'text-amber-600'}`}>
+                  <Icon icon={mfaEnabled ? 'solar:shield-check-line-duotone' : 'solar:shield-warning-line-duotone'} height={16} />
+                  <span className="font-medium">2FA: {mfaEnabled ? 'Đã bật' : 'Chưa bật'}</span>
                 </div>
               </div>
             )}

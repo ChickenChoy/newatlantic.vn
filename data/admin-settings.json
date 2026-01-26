@@ -1,5 +1,5 @@
 {
-  "totpEnabled": false,
-  "totpSecret": "O77YMBAGJZNNO62NT3KRWTREXBC6FECU",
-  "totpVerified": false
+  "totpEnabled": true,
+  "totpSecret": "2L7ZATXRJAM34ORC3JERBAWWGYPJSMPT",
+  "totpVerified": true
 }
