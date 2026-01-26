@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
-  
+
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -18,10 +18,10 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  
+
   // Compression
   compress: true,
-  
+
   // Generate build ID using git commit hash for stable cache busting
   generateBuildId: async () => {
     // Railway provides git commit hash
@@ -47,17 +47,59 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
+          // Prevent MIME type sniffing
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
+          // Prevent clickjacking attacks
           {
             key: 'X-Frame-Options',
             value: 'DENY',
           },
+          // XSS Protection (legacy browsers)
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
+          },
+          // HTTPS enforcement (HSTS) - 1 year
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          // Control referrer information
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          // Permissions Policy - restrict browser features
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(self), interest-cohort=()',
+          },
+          // Content Security Policy - Report Only mode (doesn't block, just reports)
+          // Change to 'Content-Security-Policy' when ready to enforce
+          {
+            key: 'Content-Security-Policy-Report-Only',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://maps.googleapis.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "img-src 'self' data: blob: https: http:",
+              "media-src 'self' blob: https:",
+              "connect-src 'self' https://www.google-analytics.com https://api.emailjs.com https://*.replicate.com wss:",
+              "frame-src 'self' https://www.google.com https://maps.google.com https://www.youtube.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+            ].join('; '),
+          },
+          // Prevent DNS prefetch attacks
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
           },
         ],
       },

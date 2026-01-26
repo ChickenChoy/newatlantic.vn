@@ -9,6 +9,8 @@ import Testimonials from '@/components/Testimonials';
 import FAQs from '@/components/FAQs';
 import Certifications from '@/components/Certifications';
 import GoogleMap from '@/components/GoogleMap';
+import AnimatedCounter from '@/components/AnimatedCounter';
+import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -185,26 +187,6 @@ export default function HomePage() {
                     </p>
                   </div>
 
-                  {/* Stats */}
-                  <div className="grid grid-cols-2 gap-4 sm:gap-6 py-6 sm:py-8 border-t border-gray-700">
-                    <div className="text-center">
-                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">22+</div>
-                      <div className="text-sm sm:text-base text-gray-300">Năm kinh nghiệm</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">4</div>
-                      <div className="text-sm sm:text-base text-gray-300">Thương hiệu</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">1000+</div>
-                      <div className="text-sm sm:text-base text-gray-300">Khách hàng</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">24/7</div>
-                      <div className="text-sm sm:text-base text-gray-300">Hỗ trợ</div>
-                    </div>
-                  </div>
-
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                     <Link
                       href="/san-pham"
@@ -227,21 +209,27 @@ export default function HomePage() {
 
               <ScrollAnimation direction="right">
                 <div className="relative">
-                  {/* Stats Grid */}
+                  {/* Stats Grid - Animated Counters */}
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
                     {/* Stat 1 */}
                     <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">15+</div>
+                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                        <AnimatedCounter end={22} suffix="+" duration={2000} />
+                      </div>
                       <div className="text-sm md:text-base text-white/80">Năm kinh nghiệm</div>
                     </div>
                     {/* Stat 2 */}
                     <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">500+</div>
+                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                        <AnimatedCounter end={500} suffix="+" duration={2000} />
+                      </div>
                       <div className="text-sm md:text-base text-white/80">Khách hàng tin tưởng</div>
                     </div>
                     {/* Stat 3 */}
                     <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">1000+</div>
+                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                        <AnimatedCounter end={1000} suffix="+" duration={2500} />
+                      </div>
                       <div className="text-sm md:text-base text-white/80">Sản phẩm đã cung cấp</div>
                     </div>
                     {/* Stat 4 */}
@@ -717,6 +705,11 @@ export default function HomePage() {
                     <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 </div>
+              </div>
+
+              {/* Interactive Partner Map */}
+              <div className="mt-12">
+                <InteractivePartnerMap />
               </div>
             </ScrollAnimation>
           </div>

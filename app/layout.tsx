@@ -94,10 +94,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-site-verification-code",
-    yandex: "your-yandex-verification-code",
-  },
+  // TODO: Add verification codes from Google Search Console and Yandex Webmaster
+  // verification: {
+  //   google: "your-actual-google-verification-code",
+  //   yandex: "your-actual-yandex-verification-code",
+  // },
   alternates: {
     canonical: siteConfig.url,
   },
