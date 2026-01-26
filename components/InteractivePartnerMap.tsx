@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Region {
     id: string;
@@ -63,33 +63,31 @@ const regions: Region[] = [
 
 export default function InteractivePartnerMap() {
     const [activeRegion, setActiveRegion] = useState<Region | null>(null);
-    const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+    const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
 
-    const handleMouseMove = (e: React.MouseEvent) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setTooltipPos({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top - 10,
-        });
+    // Handle click for mobile
+    const handleRegionClick = (region: Region) => {
+        if (selectedRegion?.id === region.id) {
+            setSelectedRegion(null);
+        } else {
+            setSelectedRegion(region);
+        }
     };
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
+        <div className="relative w-full max-w-4xl mx-auto px-2 sm:px-0">
             {/* Map Container */}
-            <div
-                className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-4 md:p-8 backdrop-blur-sm border border-gray-700/50"
-                onMouseMove={handleMouseMove}
-            >
+            <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-8 backdrop-blur-sm border border-gray-700/50">
                 {/* Title */}
-                <h3 className="text-xl md:text-2xl font-bold text-white text-center mb-6">
-                    🌍 Mạng lưới đối tác toàn cầu
+                <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white text-center mb-4 sm:mb-6">
+                    Mạng lưới đối tác toàn cầu
                 </h3>
 
                 {/* SVG Map */}
                 <svg
                     viewBox="0 0 700 350"
-                    className="w-full h-auto"
-                    style={{ minHeight: '250px' }}
+                    className="w-full h-auto touch-manipulation"
+                    style={{ minHeight: '180px' }}
                 >
                     {/* Background grid */}
                     <defs>
@@ -109,37 +107,42 @@ export default function InteractivePartnerMap() {
                     <rect width="100%" height="100%" fill="url(#grid)" />
 
                     {/* Regions */}
-                    {regions.map((region) => (
-                        <g key={region.id}>
-                            <motion.path
-                                d={region.path}
-                                fill={activeRegion?.id === region.id ? '#5f7ab8' : 'rgba(95, 122, 184, 0.3)'}
-                                stroke={activeRegion?.id === region.id ? '#7a92c9' : 'rgba(95, 122, 184, 0.5)'}
-                                strokeWidth={activeRegion?.id === region.id ? 2 : 1}
-                                className="cursor-pointer transition-colors duration-300"
-                                onMouseEnter={() => setActiveRegion(region)}
-                                onMouseLeave={() => setActiveRegion(null)}
-                                whileHover={{ scale: 1.02 }}
-                                filter={activeRegion?.id === region.id ? 'url(#glow)' : undefined}
-                            />
-                            {/* Region label */}
-                            <text
-                                x={region.labelX}
-                                y={region.labelY}
-                                textAnchor="middle"
-                                className="text-[10px] md:text-xs fill-white/80 font-medium pointer-events-none select-none"
-                            >
-                                {region.nameVi}
-                            </text>
-                            {/* Pulse dot for Vietnam */}
-                            {region.id === 'southeast-asia' && (
-                                <>
-                                    <circle cx={570} cy={265} r="4" fill="#ef4444" className="animate-ping" />
-                                    <circle cx={570} cy={265} r="3" fill="#ef4444" />
-                                </>
-                            )}
-                        </g>
-                    ))}
+                    {regions.map((region) => {
+                        const isActive = activeRegion?.id === region.id || selectedRegion?.id === region.id;
+                        return (
+                            <g key={region.id}>
+                                <motion.path
+                                    d={region.path}
+                                    fill={isActive ? '#5f7ab8' : 'rgba(95, 122, 184, 0.3)'}
+                                    stroke={isActive ? '#7a92c9' : 'rgba(95, 122, 184, 0.5)'}
+                                    strokeWidth={isActive ? 2 : 1}
+                                    className="cursor-pointer transition-colors duration-300"
+                                    onMouseEnter={() => setActiveRegion(region)}
+                                    onMouseLeave={() => setActiveRegion(null)}
+                                    onClick={() => handleRegionClick(region)}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    filter={isActive ? 'url(#glow)' : undefined}
+                                />
+                                {/* Region label - smaller on mobile */}
+                                <text
+                                    x={region.labelX}
+                                    y={region.labelY}
+                                    textAnchor="middle"
+                                    className="text-[8px] sm:text-[10px] md:text-xs fill-white/80 font-medium pointer-events-none select-none"
+                                >
+                                    {region.nameVi}
+                                </text>
+                                {/* Pulse dot for Vietnam */}
+                                {region.id === 'southeast-asia' && (
+                                    <>
+                                        <circle cx={570} cy={265} r="4" fill="#ef4444" className="animate-ping" />
+                                        <circle cx={570} cy={265} r="3" fill="#ef4444" />
+                                    </>
+                                )}
+                            </g>
+                        );
+                    })}
 
                     {/* Connection lines to Vietnam */}
                     <g className="opacity-30">
@@ -150,16 +153,53 @@ export default function InteractivePartnerMap() {
                     </g>
                 </svg>
 
-                {/* Tooltip */}
-                {activeRegion && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="absolute z-50 bg-gray-900/95 backdrop-blur-md border border-gray-600/50 rounded-xl p-4 shadow-2xl pointer-events-none"
+                {/* Mobile: Selected Region Info Card */}
+                <AnimatePresence>
+                    {selectedRegion && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 20 }}
+                            className="mt-4 bg-gray-900/95 backdrop-blur-md border border-gray-600/50 rounded-xl p-4 shadow-2xl"
+                        >
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 bg-[#5f7ab8] rounded-full animate-pulse" />
+                                    <h4 className="font-bold text-white text-base sm:text-lg">{selectedRegion.nameVi}</h4>
+                                </div>
+                                <button
+                                    onClick={() => setSelectedRegion(null)}
+                                    className="text-gray-400 hover:text-white p-1"
+                                    aria-label="Close"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <p className="text-gray-400 text-xs sm:text-sm mb-2">{selectedRegion.name}</p>
+                            <div className="border-t border-gray-700 pt-2">
+                                <p className="text-xs text-gray-500 mb-1">Đối tác:</p>
+                                <ul className="space-y-1">
+                                    {selectedRegion.partners.map((partner, idx) => (
+                                        <li key={idx} className="text-xs sm:text-sm text-white flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-[#5f7ab8] rounded-full flex-shrink-0" />
+                                            {partner}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Desktop Tooltip - hidden on mobile */}
+                {activeRegion && !selectedRegion && (
+                    <div className="hidden md:block absolute z-50 bg-gray-900/95 backdrop-blur-md border border-gray-600/50 rounded-xl p-4 shadow-2xl pointer-events-none"
                         style={{
-                            left: Math.min(tooltipPos.x, 400),
-                            top: tooltipPos.y - 100,
+                            left: '50%',
+                            top: '10px',
+                            transform: 'translateX(-50%)',
                             minWidth: '200px',
                         }}
                     >
@@ -179,24 +219,29 @@ export default function InteractivePartnerMap() {
                                 ))}
                             </ul>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
 
-                {/* Legend */}
-                <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm">
-                    <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-[#5f7ab8] rounded-full" />
+                {/* Legend - responsive */}
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-4 sm:mt-6 text-xs sm:text-sm">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#5f7ab8] rounded-full" />
                         <span className="text-gray-300">Khu vực đối tác</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                        <span className="text-gray-300">NEW ATLANTIC Việt Nam</span>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse" />
+                        <span className="text-gray-300">NEW ATLANTIC VN</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 border-t-2 border-dashed border-[#5f7ab8]/50" />
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                        <div className="w-4 sm:w-6 border-t-2 border-dashed border-[#5f7ab8]/50" />
                         <span className="text-gray-300">Kết nối</span>
                     </div>
                 </div>
+
+                {/* Mobile hint */}
+                <p className="text-center text-gray-500 text-xs mt-3 md:hidden">
+                    Chạm vào khu vực để xem đối tác
+                </p>
             </div>
         </div>
     );
