@@ -81,9 +81,17 @@ export default function AdminLayout({
         } else {
           setAuthStep('authenticated');
         }
+      } else {
+        // No session - reset to login state
+        setAuthStep('login');
+        setUserEmail(null);
+        sessionStorage.removeItem('totp_verified');
       }
     } catch (error) {
       console.error('Error checking auth:', error);
+      // On error, reset to login state for safety
+      setAuthStep('login');
+      setUserEmail(null);
     }
     setIsLoading(false);
   };
@@ -161,11 +169,47 @@ export default function AdminLayout({
   };
 
   const handleLogout = async () => {
-    sessionStorage.removeItem('totp_verified');
-    await supabase.auth.signOut();
-    setAuthStep('login');
-    setUserEmail(null);
-    router.push('/');
+    try {
+      // Clear all session-related storage
+      sessionStorage.removeItem('totp_verified');
+      sessionStorage.clear();
+
+      // Clear Supabase-related localStorage items
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.startsWith('sb-') || key.includes('supabase'))) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+
+      // Clear all Supabase cookies (used by @supabase/ssr)
+      document.cookie.split(';').forEach(cookie => {
+        const name = cookie.split('=')[0].trim();
+        if (name.startsWith('sb-') || name.includes('supabase')) {
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${window.location.hostname}`;
+        }
+      });
+
+      // Sign out with global scope to clear all sessions
+      await supabase.auth.signOut({ scope: 'global' });
+
+      // Reset state
+      setAuthStep('login');
+      setUserEmail(null);
+
+      // Small delay to ensure everything is cleared
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Force reload to ensure clean state
+      window.location.href = '/admin';
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Force reload anyway
+      window.location.href = '/admin';
+    }
   };
 
   // Loading state
