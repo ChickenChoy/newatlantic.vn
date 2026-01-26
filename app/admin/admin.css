@@ -26,28 +26,94 @@
   --color-lightinfo: rgba(70, 202, 235, 0.1);
   --color-lightwarning: rgba(248, 194, 10, 0.1);
 
-  /* Neutrals */
+  /* Neutrals - UPDATED: Darker colors for better readability */
   --color-white: #ffffff;
-  --color-dark: #1f2a3d;
+  --color-dark: #1a1a1a;
   --color-border: #e0e6eb;
   --color-bordergray: #f3f3f4;
   --color-darkborder: #333f55;
-  --color-link: #2a3547;
-  --color-muted: #eff4fa;
+  --color-link: #1a1a1a;
+  --color-muted: #6b7280;
   --color-darkmuted: #2a3851;
-  --color-darklink: #29343d;
+  --color-darklink: #1a1a1a;
   --color-lightgray: #f4f7fb;
   --color-lighthover: #f6f7f9;
   --color-darkgray: #1a2537;
-  --color-bodytext: #98a4ae;
+  --color-bodytext: #2a3547;
+  /* Changed from #98a4ae - now darker and readable */
   --color-surface: #ffffff;
   --radius: 0.5rem;
 }
 
 .dark {
   --color-surface: #1a2537;
-  --color-bodytext: #98a4ae;
+  --color-bodytext: #e5e7eb;
+  /* Light gray for dark mode - easy to read */
   --color-border: #333f55;
+  --color-dark: #f9fafb;
+  /* Invert for dark mode */
+  --color-link: #e5e7eb;
+}
+
+/* ============================================
+   FONT INTER - Matching Homepage Typography
+   Apply to ALL admin pages including:
+   - Dashboard, Products, Posts
+   - Edit/Add forms
+   - Sidebar, Header, Modals
+   ============================================ */
+
+/* Base font for entire admin panel */
+body {
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* Force Inter font on all text elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+label,
+a,
+li,
+td,
+th,
+div,
+.card-title,
+.card-subtitle,
+.admin-card,
+.admin-table {
+  font-family: inherit !important;
+}
+
+/* Form elements with Inter font */
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder {
+  font-family: inherit !important;
+}
+
+/* Admin container wrapper - ensures all children inherit font */
+.admin-container,
+.admin-sidebar,
+.admin-header,
+.admin-content,
+[class*="admin-"] {
+  font-family: inherit !important;
 }
 
 
@@ -128,12 +194,76 @@
   .badge-error {
     @apply bg-lighterror text-error;
   }
-  
+
   .text-muted {
-    color:#1a2537 !important;
+    color: #1a2537 !important;
   }
 
   .badge-info {
     @apply bg-lightinfo text-info;
   }
+}
+
+/* ============================================
+   OVERRIDE: Fix mờ/nhạt text trong Admin
+   Force dark readable colors for all text
+   ============================================ */
+
+/* Force ALL text-bodytext to be dark and readable */
+.text-bodytext,
+[class*="text-bodytext"] {
+  color: #1a1a1a !important;
+}
+
+/* Labels in forms - must be clearly visible */
+label,
+.admin-card label,
+.admin-form label,
+form label {
+  color: #1a1a1a !important;
+  font-weight: 600 !important;
+}
+
+/* Input text - dark and readable */
+input,
+textarea,
+select {
+  color: #1a1a1a !important;
+}
+
+/* Placeholder - slightly muted but still readable */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Card subtitle - readable gray */
+.card-subtitle {
+  color: #4b5563 !important;
+}
+
+/* Muted text helper - readable gray, not too light */
+.text-muted,
+.text-gray-500,
+.text-gray-400 {
+  color: #6b7280 !important;
+}
+
+/* Small helper text below inputs */
+p.text-xs,
+p.text-sm,
+.text-xs.text-gray-500 {
+  color: #6b7280 !important;
+}
+
+/* Table headers */
+.admin-table th,
+th {
+  color: #1a1a1a !important;
+}
+
+/* Ensure select dropdown text is visible */
+select option {
+  color: #1a1a1a !important;
+  background: #ffffff !important;
 }

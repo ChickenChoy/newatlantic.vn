@@ -170,7 +170,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-bodytext mb-2">Tên sản phẩm *</label>
+              <label className="block text-sm font-semibold text-gray-800 mb-2">Tên sản phẩm *</label>
               <input
                 type="text"
                 value={formData.name}
