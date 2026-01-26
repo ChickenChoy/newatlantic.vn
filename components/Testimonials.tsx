@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
 
 const testimonials = [
@@ -8,6 +9,7 @@ const testimonials = [
     id: 1,
     name: 'Ông Phạm Quốc Việt',
     position: 'Giám đốc Kỹ thuật',
+    company: 'Viễn thông ABC',
     rating: 5,
     text: 'Cột tự nâng WILL-BURT đáp ứng hoàn hảo yêu cầu triển khai trạm phát sóng. Độ bền cao, lắp đặt nhanh, hỗ trợ kỹ thuật 24/7 từ TÂN ĐẠI TÂY DƯƠNG.',
     image: '/images/place-holder/1.png',
@@ -16,6 +18,7 @@ const testimonials = [
     id: 2,
     name: 'Ông Nguyễn Ngọc Hùng',
     position: 'Giám đốc Vật tư Thiết bị',
+    company: 'Xây dựng XYZ',
     rating: 5,
     text: 'Cẩu tự hành HIAB từ TÂN ĐẠI TÂY DƯƠNG hoạt động ổn định trên các công trình lớn. Phụ tùng chính hãng, bảo trì định kỳ chuyên nghiệp.',
     image: '/images/place-holder/2.png',
@@ -24,6 +27,7 @@ const testimonials = [
     id: 3,
     name: 'Bà Lê Thị Mai Hương',
     position: 'Phó Giám đốc',
+    company: 'Logistics Việt',
     rating: 5,
     text: 'Xe nâng Moffett giúp tối ưu hóa logistics đáng kể. Đội ngũ TÂN ĐẠI TÂY DƯƠNG tư vấn giải pháp phù hợp, hỗ trợ tận nơi khi cần.',
     image: '/images/place-holder/3.png',
@@ -32,22 +36,53 @@ const testimonials = [
     id: 4,
     name: 'Ông Võ Minh Tuấn',
     position: 'Trưởng phòng Kỹ thuật',
+    company: 'Đài Truyền hình HTV',
     rating: 5,
     text: 'Cột anten WILL-BURT hỗ trợ truyền hình trực tiếp các sự kiện lớn. Chất lượng tín hiệu ổn định, thiết bị bền bỉ qua nhiều năm sử dụng.',
     image: '/images/place-holder/1.png',
   },
 ];
 
+const AUTOPLAY_INTERVAL = 5000; // 5 seconds
+
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  const nextTestimonial = () => {
+  const nextTestimonial = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setProgress(0);
+  }, []);
+
+  const prevTestimonial = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setProgress(0);
+  }, []);
+
+  const goToTestimonial = (index: number) => {
+    setCurrentIndex(index);
+    setProgress(0);
   };
 
-  const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  // Auto-slide effect
+  useEffect(() => {
+    if (isPaused) return;
+
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          nextTestimonial();
+          return 0;
+        }
+        return prev + (100 / (AUTOPLAY_INTERVAL / 50));
+      });
+    }, 50);
+
+    return () => clearInterval(progressInterval);
+  }, [isPaused, nextTestimonial]);
+
+  const currentTestimonial = testimonials[currentIndex];
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
@@ -77,85 +112,146 @@ export default function Testimonials() {
             </div>
           </ScrollAnimation>
 
-          {/* Testimonials Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-8">
-            {testimonials.map((testimonial, index) => (
-              <ScrollAnimation
-                key={testimonial.id}
-                direction={index % 2 === 0 ? 'left' : 'right'}
-                delay={index * 100}
-              >
-                <div
-                  className={`bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 h-full flex flex-col ${
-                    index === currentIndex ? 'ring-2 ring-[#5f7ab8]' : ''
-                  }`}
+          {/* Main Carousel */}
+          <div
+            className="relative max-w-4xl mx-auto"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Carousel Container */}
+            <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 md:p-10 border border-white/20 overflow-hidden">
+              {/* Progress Bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gray-700/50">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-[#5f7ab8] to-[#7a92c9]"
+                  style={{ width: `${progress}%` }}
+                  transition={{ duration: 0.05 }}
+                />
+              </div>
+
+              {/* Testimonial Content */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.5, ease: 'easeInOut' }}
+                  className="text-center"
                 >
+                  {/* Quote Icon */}
+                  <svg
+                    className="w-12 h-12 text-[#5f7ab8]/30 mx-auto mb-6"
+                    fill="currentColor"
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
+                  </svg>
+
                   {/* Rating */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <svg
+                  <div className="flex justify-center gap-1 mb-6">
+                    {[...Array(currentTestimonial.rating)].map((_, i) => (
+                      <motion.svg
                         key={i}
-                        className="w-5 h-5 text-yellow-400"
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: i * 0.1, duration: 0.3 }}
+                        className="w-6 h-6 text-yellow-400"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
+                      </motion.svg>
                     ))}
                   </div>
 
-                  {/* Quote */}
-                  <div className="mb-6 flex-grow">
-                    <svg
-                      className="w-8 h-8 text-[#5f7ab8]/40 mb-4"
-                      fill="currentColor"
-                      viewBox="0 0 32 32"
-                    >
-                      <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z" />
-                    </svg>
-                    <p className="text-white leading-relaxed text-sm md:text-base">
-                      "{testimonial.text}"
-                    </p>
-                  </div>
+                  {/* Quote Text */}
+                  <p className="text-white text-lg md:text-xl lg:text-2xl leading-relaxed mb-8 italic">
+                    "{currentTestimonial.text}"
+                  </p>
 
                   {/* Author */}
-                  <div className="flex flex-col items-center gap-3 pt-4 border-t border-gray-200 text-center">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center text-white font-semibold text-lg flex-shrink-0">
-                      {testimonial.name.split(' ').pop()?.charAt(0)}
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+                      {currentTestimonial.name.split(' ').pop()?.charAt(0)}
                     </div>
                     <div className="space-y-1">
-                      <div className="font-semibold text-white text-sm md:text-base">
-                        {testimonial.name}
+                      <div className="font-bold text-white text-lg">
+                        {currentTestimonial.name}
                       </div>
-                      <div className="text-xs md:text-sm text-white/90">
-                        {testimonial.position}
+                      <div className="text-sm text-[#5f7ab8]">
+                        {currentTestimonial.position}
                       </div>
+                      {currentTestimonial.company && (
+                        <div className="text-sm text-gray-400">
+                          {currentTestimonial.company}
+                        </div>
+                      )}
                     </div>
                   </div>
-                </div>
-              </ScrollAnimation>
-            ))}
-          </div>
+                </motion.div>
+              </AnimatePresence>
 
-          {/* Navigation Dots */}
-          <div className="flex justify-center gap-2">
-            {testimonials.map((_, index) => (
+              {/* Navigation Arrows */}
               <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-[#5f7ab8] w-8'
-                    : 'bg-gray-600 hover:bg-gray-500'
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
+                onClick={prevTestimonial}
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300 hover:scale-110 border border-white/20"
+                aria-label="Previous testimonial"
+              >
+                <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={nextTestimonial}
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300 hover:scale-110 border border-white/20"
+                aria-label="Next testimonial"
+              >
+                <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {/* Pause Indicator */}
+              {isPaused && (
+                <div className="absolute top-4 right-4 flex items-center gap-2 text-white/60 text-xs">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  Paused
+                </div>
+              )}
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center gap-3 mt-8">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToTestimonial(index)}
+                  className={`relative w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                      ? 'bg-[#5f7ab8] scale-125'
+                      : 'bg-gray-600 hover:bg-gray-500'
+                    }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                >
+                  {index === currentIndex && (
+                    <motion.span
+                      layoutId="activeDot"
+                      className="absolute inset-0 rounded-full ring-2 ring-[#5f7ab8] ring-offset-2 ring-offset-gray-900"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Slide Counter */}
+            <div className="text-center mt-4 text-gray-500 text-sm">
+              {currentIndex + 1} / {testimonials.length}
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-

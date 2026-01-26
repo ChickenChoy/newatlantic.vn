@@ -11,6 +11,7 @@ import Certifications from '@/components/Certifications';
 import GoogleMap from '@/components/GoogleMap';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import InteractivePartnerMap from '@/components/InteractivePartnerMap';
+import TypingText from '@/components/TypingText';
 import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -83,8 +84,8 @@ export default function HomePage() {
       {/* Hero Slider */}
       <HeroSlider slides={heroSlides} />
 
-      {/* Company Slogan Section */}
-      <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
+      {/* Company Slogan Section - Animated Gradient Background */}
+      <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden animate-gradient-slow" style={{ backgroundImage: 'linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e)', backgroundSize: '400% 400%' }}>
         {/* Modern Abstract Background */}
         <div className="absolute inset-0">
           {/* Gradient Orbs */}
@@ -114,11 +115,16 @@ export default function HomePage() {
                 <div className="relative">
 
 
-                  {/* Slogan Text */}
+                  {/* Slogan Text - Typing Effect */}
                   <div className="text-center space-y-3 sm:space-y-4">
                     <h2 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold leading-tight px-2">
-                      <span className="bg-gradient-to-r from-white via-[#5f7ab8] to-white bg-clip-text text-transparent">
-                        PHÁT TRIỂN PHỒN VINH XÂY THỊNH VƯỢNG
+                      <span className="bg-gradient-to-r from-white via-[#5f7ab8] to-white bg-clip-text text-transparent animate-gradient" style={{ backgroundImage: 'linear-gradient(90deg, #fff, #5f7ab8, #fff, #5f7ab8, #fff)', backgroundSize: '200% 100%' }}>
+                        <TypingText
+                          texts={['PHÁT TRIỂN PHỒN VINH XÂY THỊNH VƯỢNG']}
+                          typingSpeed={60}
+                          pauseTime={5000}
+                          loop={false}
+                        />
                       </span>
                     </h2>
 

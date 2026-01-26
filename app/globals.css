@@ -504,6 +504,47 @@ img {
   animation: pulse 2s infinite;
 }
 
+/* Animated Gradient Background */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.animate-gradient-slow {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.animate-gradient-fast {
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* Subtle gradient backgrounds */
+.bg-gradient-animated {
+  background: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.bg-gradient-animated-primary {
+  background: linear-gradient(-45deg, #4a6199, #5f7ab8, #7a92c9, #4a6199);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
+}
+
 /* Glass morphism effect */
 .glass {
   background: rgba(255, 255, 255, 0.95);
