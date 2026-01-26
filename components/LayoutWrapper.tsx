@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import HeaderBottom from "@/components/HeaderBottom";
 import Footer, { FooterProps } from "@/components/Footer";
-import PageTransition from "@/components/PageTransition";
+
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -41,9 +41,7 @@ export default function LayoutWrapper({
             <ScrollProgressBar />
             <Header />
             <HeaderBottom />
-            <PageTransition>
-                <main className="min-h-screen">{children}</main>
-            </PageTransition>
+            <main className="min-h-screen">{children}</main>
             <Footer {...footerData} />
             <FloatingContactButtons />
             <ScrollToTop />
