@@ -9,7 +9,6 @@ const testimonials = [
     id: 1,
     name: 'Ông Phạm Quốc Việt',
     position: 'Giám đốc Kỹ thuật',
-    company: 'Viễn thông ABC',
     rating: 5,
     text: 'Cột tự nâng WILL-BURT đáp ứng hoàn hảo yêu cầu triển khai trạm phát sóng. Độ bền cao, lắp đặt nhanh, hỗ trợ kỹ thuật 24/7 từ TÂN ĐẠI TÂY DƯƠNG.',
     image: '/images/place-holder/1.png',
@@ -18,7 +17,6 @@ const testimonials = [
     id: 2,
     name: 'Ông Nguyễn Ngọc Hùng',
     position: 'Giám đốc Vật tư Thiết bị',
-    company: 'Xây dựng XYZ',
     rating: 5,
     text: 'Cẩu tự hành HIAB từ TÂN ĐẠI TÂY DƯƠNG hoạt động ổn định trên các công trình lớn. Phụ tùng chính hãng, bảo trì định kỳ chuyên nghiệp.',
     image: '/images/place-holder/2.png',
@@ -27,7 +25,6 @@ const testimonials = [
     id: 3,
     name: 'Bà Lê Thị Mai Hương',
     position: 'Phó Giám đốc',
-    company: 'Logistics Việt',
     rating: 5,
     text: 'Xe nâng Moffett giúp tối ưu hóa logistics đáng kể. Đội ngũ TÂN ĐẠI TÂY DƯƠNG tư vấn giải pháp phù hợp, hỗ trợ tận nơi khi cần.',
     image: '/images/place-holder/3.png',
@@ -36,7 +33,6 @@ const testimonials = [
     id: 4,
     name: 'Ông Võ Minh Tuấn',
     position: 'Trưởng phòng Kỹ thuật',
-    company: 'Đài Truyền hình HTV',
     rating: 5,
     text: 'Cột anten WILL-BURT hỗ trợ truyền hình trực tiếp các sự kiện lớn. Chất lượng tín hiệu ổn định, thiết bị bền bỉ qua nhiều năm sử dụng.',
     image: '/images/place-holder/1.png',
@@ -48,39 +44,29 @@ const AUTOPLAY_INTERVAL = 5000; // 5 seconds
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const nextTestimonial = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    setProgress(0);
   }, []);
 
   const prevTestimonial = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setProgress(0);
   }, []);
 
   const goToTestimonial = (index: number) => {
     setCurrentIndex(index);
-    setProgress(0);
   };
 
-  // Auto-slide effect
+  // Auto-slide effect - using simple interval
   useEffect(() => {
     if (isPaused) return;
 
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          nextTestimonial();
-          return 0;
-        }
-        return prev + (100 / (AUTOPLAY_INTERVAL / 50));
-      });
-    }, 50);
+    const slideInterval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, AUTOPLAY_INTERVAL);
 
-    return () => clearInterval(progressInterval);
-  }, [isPaused, nextTestimonial]);
+    return () => clearInterval(slideInterval);
+  }, [isPaused, currentIndex]);
 
   const currentTestimonial = testimonials[currentIndex];
 
@@ -120,12 +106,17 @@ export default function Testimonials() {
           >
             {/* Carousel Container */}
             <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 md:p-10 border border-white/20 overflow-hidden">
-              {/* Progress Bar */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gray-700/50">
-                <motion.div
+              {/* Progress Bar - CSS Animation for smooth performance */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gray-700/50 overflow-hidden">
+                <div
+                  key={currentIndex}
                   className="h-full bg-gradient-to-r from-[#5f7ab8] to-[#7a92c9]"
-                  style={{ width: `${progress}%` }}
-                  transition={{ duration: 0.05 }}
+                  style={{
+                    animationName: isPaused ? 'none' : 'progressBar',
+                    animationDuration: `${AUTOPLAY_INTERVAL}ms`,
+                    animationTimingFunction: 'linear',
+                    animationFillMode: 'forwards',
+                  }}
                 />
               </div>
 
@@ -182,11 +173,6 @@ export default function Testimonials() {
                       <div className="text-sm text-[#5f7ab8]">
                         {currentTestimonial.position}
                       </div>
-                      {currentTestimonial.company && (
-                        <div className="text-sm text-gray-400">
-                          {currentTestimonial.company}
-                        </div>
-                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -230,8 +216,8 @@ export default function Testimonials() {
                   key={index}
                   onClick={() => goToTestimonial(index)}
                   className={`relative w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
-                      ? 'bg-[#5f7ab8] scale-125'
-                      : 'bg-gray-600 hover:bg-gray-500'
+                    ? 'bg-[#5f7ab8] scale-125'
+                    : 'bg-gray-600 hover:bg-gray-500'
                     }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 >
