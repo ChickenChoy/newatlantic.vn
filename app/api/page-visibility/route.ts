@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'page-visibility.json');
+// Supabase client for server-side
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
 const APP_DIR = path.join(process.cwd(), 'app');
 
 // Routes to exclude from auto-detection
@@ -26,42 +31,13 @@ const ROUTE_NAME_MAP: Record<string, { name: string; description: string }> = {
     '/dieu-khoan-dich-vu': { name: 'Điều khoản dịch vụ', description: 'Trang điều khoản dịch vụ' },
 };
 
-// Helper to read saved visibility data
-function readSavedData(): Record<string, { visible: boolean; order?: number }> {
-    try {
-        if (fs.existsSync(DATA_FILE)) {
-            const data = fs.readFileSync(DATA_FILE, 'utf-8');
-            const pages = JSON.parse(data);
-            const map: Record<string, { visible: boolean; order?: number }> = {};
-            for (const page of pages) {
-                map[page.path] = { visible: page.visible, order: page.order };
-            }
-            return map;
-        }
-        return {};
-    } catch (error) {
-        console.error('Error reading page visibility data:', error);
-        return {};
-    }
-}
-
-// Helper to write data
-function writeData(data: unknown) {
-    try {
-        fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
-        return true;
-    } catch (error) {
-        console.error('Error writing page visibility data:', error);
-        return false;
-    }
-}
-
-// Scan app directory for routes
+// Scan app directory for routes (runs on server only)
 function scanRoutes(): string[] {
     const routes: string[] = [];
 
     function scanDir(dir: string, basePath: string = '') {
         try {
+            if (!fs.existsSync(dir)) return;
             const items = fs.readdirSync(dir);
 
             for (const item of items) {
@@ -101,33 +77,17 @@ function scanRoutes(): string[] {
     }
 
     // Check if root has page.tsx (home page)
-    if (fs.existsSync(path.join(APP_DIR, 'page.tsx')) ||
-        fs.existsSync(path.join(APP_DIR, 'page.js'))) {
-        routes.push('/');
+    try {
+        if (fs.existsSync(path.join(APP_DIR, 'page.tsx')) ||
+            fs.existsSync(path.join(APP_DIR, 'page.js'))) {
+            routes.push('/');
+        }
+        scanDir(APP_DIR);
+    } catch (error) {
+        console.error('Error scanning app directory:', error);
     }
 
-    scanDir(APP_DIR);
-
     return routes;
-}
-
-// Generate page info from path
-function generatePageInfo(routePath: string, savedData: Record<string, { visible: boolean; order?: number }>, index: number) {
-    const mapping = ROUTE_NAME_MAP[routePath];
-    const saved = savedData[routePath];
-
-    // Generate ID from path
-    const id = routePath === '/' ? 'home' : routePath.replace(/\//g, '-').replace(/^-/, '');
-
-    return {
-        id,
-        path: routePath,
-        name: mapping?.name || formatRouteName(routePath),
-        description: mapping?.description || '',
-        visible: saved?.visible ?? true, // Default to visible if not saved
-        order: saved?.order ?? index + 1,
-        isAutoDetected: !mapping // Flag to show if it was auto-detected without mapping
-    };
 }
 
 // Format route path to readable name
@@ -143,29 +103,102 @@ function formatRouteName(routePath: string): string {
     return name;
 }
 
-// GET - Get all page visibility settings with auto-detection
+// Generate page info from path
+function generatePageInfo(routePath: string, index: number) {
+    const mapping = ROUTE_NAME_MAP[routePath];
+    const id = routePath === '/' ? 'home' : routePath.replace(/\//g, '-').replace(/^-/, '');
+
+    return {
+        id,
+        path: routePath,
+        name: mapping?.name || formatRouteName(routePath),
+        description: mapping?.description || '',
+        visible: true, // Default to visible
+        order: index + 1,
+        isAutoDetected: !mapping
+    };
+}
+
+// Sync detected routes to Supabase (add new pages, don't remove existing)
+async function syncRoutesToDatabase(detectedRoutes: string[]) {
+    try {
+        // Get existing pages from database
+        const { data: existingPages, error: fetchError } = await supabase
+            .from('page_visibility')
+            .select('path');
+
+        if (fetchError) {
+            console.error('Error fetching existing pages:', fetchError);
+            return;
+        }
+
+        const existingPaths = new Set(existingPages?.map(p => p.path) || []);
+
+        // Find new routes that don't exist in database
+        const newRoutes = detectedRoutes.filter(route => !existingPaths.has(route));
+
+        if (newRoutes.length > 0) {
+            // Get max order
+            const { data: maxOrderData } = await supabase
+                .from('page_visibility')
+                .select('order')
+                .order('order', { ascending: false })
+                .limit(1);
+
+            const maxOrder = maxOrderData?.[0]?.order || 0;
+
+            // Insert new pages
+            const newPages = newRoutes.map((route, index) => {
+                const info = generatePageInfo(route, maxOrder + index);
+                return {
+                    id: info.id,
+                    path: info.path,
+                    name: info.name,
+                    description: info.description,
+                    visible: true,
+                    order: maxOrder + index + 1
+                };
+            });
+
+            const { error: insertError } = await supabase
+                .from('page_visibility')
+                .upsert(newPages, { onConflict: 'id' });
+
+            if (insertError) {
+                console.error('Error inserting new pages:', insertError);
+            } else {
+                console.log(`Synced ${newPages.length} new pages to database`);
+            }
+        }
+    } catch (error) {
+        console.error('Error syncing routes to database:', error);
+    }
+}
+
+// GET - Get all page visibility settings
 export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
         const pagePath = searchParams.get('path');
 
-        // Get saved visibility data
-        const savedData = readSavedData();
-
-        // Scan routes from app directory
+        // Scan routes and sync new ones to database
         const detectedRoutes = scanRoutes();
+        await syncRoutesToDatabase(detectedRoutes);
 
-        // Generate page list
-        const pages = detectedRoutes.map((route, index) =>
-            generatePageInfo(route, savedData, index)
-        );
+        // Fetch all pages from database
+        const { data: pages, error } = await supabase
+            .from('page_visibility')
+            .select('*')
+            .order('order', { ascending: true });
 
-        // Sort by order
-        pages.sort((a, b) => a.order - b.order);
+        if (error) {
+            console.error('Error fetching pages from database:', error);
+            return NextResponse.json({ error: 'Failed to fetch pages' }, { status: 500 });
+        }
 
         // If path is provided, check if that specific page is visible
         if (pagePath) {
-            const page = pages.find(p =>
+            const page = pages?.find(p =>
                 pagePath === p.path || pagePath.startsWith(p.path + '/')
             );
 
@@ -180,7 +213,13 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ visible: true, page: null });
         }
 
-        return NextResponse.json(pages);
+        // Mark pages as auto-detected if not in ROUTE_NAME_MAP
+        const pagesWithDetection = pages?.map(page => ({
+            ...page,
+            isAutoDetected: !ROUTE_NAME_MAP[page.path]
+        })) || [];
+
+        return NextResponse.json(pagesWithDetection);
     } catch (error) {
         console.error('Error in GET /api/page-visibility:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -197,44 +236,23 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'ID or path is required' }, { status: 400 });
         }
 
-        // Read existing data
-        let pages: Array<{ id: string; path: string; visible: boolean; order: number; name: string; description: string }> = [];
-        try {
-            if (fs.existsSync(DATA_FILE)) {
-                pages = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-            }
-        } catch {
-            pages = [];
+        // Update in database
+        const { data, error } = await supabase
+            .from('page_visibility')
+            .update({
+                visible: visible,
+                updated_at: new Date().toISOString()
+            })
+            .eq(id ? 'id' : 'path', id || pagePath)
+            .select()
+            .single();
+
+        if (error) {
+            console.error('Error updating page visibility:', error);
+            return NextResponse.json({ error: 'Failed to update page' }, { status: 500 });
         }
 
-        // Find the page to update
-        const targetPath = pagePath || '/' + id.replace(/-/g, '/').replace(/^\//, '');
-        let pageIndex = pages.findIndex(p => p.id === id || p.path === targetPath);
-
-        if (pageIndex === -1) {
-            // Add new entry if not found
-            const mapping = ROUTE_NAME_MAP[targetPath];
-            pages.push({
-                id: id || targetPath.replace(/\//g, '-').replace(/^-/, ''),
-                path: targetPath,
-                name: mapping?.name || formatRouteName(targetPath),
-                description: mapping?.description || '',
-                visible: visible ?? true,
-                order: pages.length + 1
-            });
-            pageIndex = pages.length - 1;
-        } else {
-            // Update existing
-            if (typeof visible === 'boolean') {
-                pages[pageIndex].visible = visible;
-            }
-        }
-
-        if (!writeData(pages)) {
-            return NextResponse.json({ error: 'Failed to save data' }, { status: 500 });
-        }
-
-        return NextResponse.json(pages[pageIndex]);
+        return NextResponse.json(data);
     } catch (error) {
         console.error('Error in PUT /api/page-visibility:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
