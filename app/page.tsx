@@ -12,6 +12,7 @@ import GoogleMap from '@/components/GoogleMap';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import TypingText from '@/components/TypingText';
+import TetBanner from '@/components/TetBanner';
 import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -83,6 +84,15 @@ export default function HomePage() {
 
       {/* Hero Slider */}
       <HeroSlider slides={heroSlides} />
+
+      {/* Tết Banner - Hero Style */}
+      <section className="py-6 sm:py-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <TetBanner variant="hero" />
+          </div>
+        </div>
+      </section>
 
       {/* Company Slogan Section - Animated Gradient Background */}
       <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden animate-gradient-slow" style={{ backgroundImage: 'linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e)', backgroundSize: '400% 400%' }}>

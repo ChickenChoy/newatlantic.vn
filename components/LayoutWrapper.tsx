@@ -9,6 +9,7 @@ import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
 import ScrollToTop from "@/components/ScrollToTop";
 import GlobalBackground from "@/components/GlobalBackground";
+import TetDecorations from "@/components/TetDecorations";
 
 // Routes that should NOT show the main header/footer
 const STANDALONE_ROUTES = ["/masttech"];
@@ -39,6 +40,7 @@ export default function LayoutWrapper({
         <>
             <GlobalBackground />
             <ScrollProgressBar />
+            <TetDecorations />
             <Header />
             <HeaderBottom />
             <main className="min-h-screen">{children}</main>
@@ -48,3 +50,5 @@ export default function LayoutWrapper({
         </>
     );
 }
+
+

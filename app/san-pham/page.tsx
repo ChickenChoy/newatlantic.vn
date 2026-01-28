@@ -8,6 +8,7 @@ import ProductFilter from '@/components/ProductFilter';
 import Link from 'next/link';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
+import TetBanner from '@/components/TetBanner';
 import { Product, Category } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
@@ -277,9 +278,10 @@ export default function ProductsPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
                 Tất cả <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Sản Phẩm</span>
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mb-6">
                 Khám phá bộ sưu tập thiết bị công nghiệp chính hãng, chất lượng cao từ các thương hiệu hàng đầu thế giới.
               </p>
+              <TetBanner variant="inline" />
             </div>
           </div>
         </div>

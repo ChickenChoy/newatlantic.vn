@@ -9,6 +9,7 @@ import Pagination from '@/components/Pagination';
 import { PostCardSkeleton } from '@/components/SkeletonLoader';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import TetBanner from '@/components/TetBanner';
 import type { Post, PostCategory } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
@@ -160,25 +161,36 @@ function NewsPageContent() {
 
   return (
     <>
-      {/* Category Filter Tabs */}
-      <div className="mb-10 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
-        <div className="flex items-center gap-2 md:gap-3 min-w-max">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-              className={`
-                px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
-                ${activeCategory === cat.id
-                  ? 'bg-orange-600 text-white shadow-lg shadow-orange-600/30 scale-105'
-                  : 'bg-white/10 text-gray-300 hover:bg-white/15 border border-white/10 hover:border-orange-400/50'
-                }
-              `}
-            >
-              {cat.label}
-            </button>
-          ))}
+      {/* Category Filter + Tet Banner Row */}
+      <div className="mb-6 md:mb-10 flex flex-wrap items-center justify-between gap-4">
+        {/* Category Filter Tabs */}
+        <div className="overflow-x-auto py-2 scrollbar-hide">
+          <div className="flex items-center gap-2 md:gap-3 min-w-max px-1">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryChange(cat.id)}
+                className={`
+                  px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 focus:outline-none
+                  ${activeCategory === cat.id
+                    ? 'bg-orange-600 text-white shadow-lg shadow-orange-600/30 scale-105'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/15 border border-white/10 hover:border-orange-400/50'
+                  }
+                `}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
         </div>
+
+        {/* Tet Banner - Desktop */}
+        <TetBanner variant="minimal" className="hidden md:flex" />
+      </div>
+
+      {/* Tet Banner - Mobile */}
+      <div className="mb-8 md:hidden">
+        <TetBanner variant="minimal" />
       </div>
 
       {/* Featured Post (Only on first page of 'All') */}
