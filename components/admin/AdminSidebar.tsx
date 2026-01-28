@@ -65,6 +65,24 @@ const menuItems: MenuItem[] = [
     url: '/admin?tab=partners',
   },
   {
+    id: 'testimonials',
+    name: 'Đánh giá KH',
+    icon: 'solar:chat-round-like-line-duotone',
+    url: '/admin?tab=testimonials',
+  },
+  {
+    id: 'faqs',
+    name: 'Câu hỏi thường gặp',
+    icon: 'solar:question-circle-line-duotone',
+    url: '/admin?tab=faqs',
+  },
+  {
+    id: 'certifications',
+    name: 'Chứng nhận',
+    icon: 'solar:diploma-verified-line-duotone',
+    url: '/admin?tab=certifications',
+  },
+  {
     id: 'holiday-effects',
     name: 'Hiệu ứng ngày lễ',
     icon: 'solar:stars-line-duotone',

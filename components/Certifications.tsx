@@ -1,51 +1,72 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import ScrollAnimation from './ScrollAnimation';
+import { Certification } from '@/types';
 
-const certifications = [
-  {
-    id: 1,
-    title: 'ISO 9001:2015',
-    description: 'Hệ thống quản lý chất lượng',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-  {
-    id: 2,
-    title: 'Nhà phân phối chính thức',
-    description: 'WILL-BURT, HIAB, SKYMARK',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-  },
-  {
-    id: 3,
-    title: 'Chứng nhận xuất xứ',
-    description: 'Sản phẩm chính hãng 100%',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-    ),
-  },
-  {
-    id: 4,
-    title: 'Giải thưởng uy tín',
-    description: 'Top 5 doanh nghiệp lớn nhất Quận 7',
-    icon: (
-      <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-      </svg>
-    ),
-  },
-];
+// Icon mapping
+const iconComponents: Record<string, React.ReactNode> = {
+  'check-circle': (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  ),
+  'shield': (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>
+  ),
+  'document': (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+  ),
+  'star': (
+    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+    </svg>
+  ),
+};
 
 export default function Certifications() {
+  const [certifications, setCertifications] = useState<Certification[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load certifications from API
+  useEffect(() => {
+    const loadCertifications = async () => {
+      try {
+        const res = await fetch('/api/certifications');
+        if (res.ok) {
+          const data = await res.json();
+          // Filter only enabled certifications
+          const enabled = data.filter((c: Certification) => c.enabled);
+          setCertifications(enabled);
+        }
+      } catch (error) {
+        console.error('Error loading certifications:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadCertifications();
+  }, []);
+
+  // Don't render if no certifications
+  if (loading) {
+    return (
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        <div className="container mx-auto px-4 text-center">
+          <div className="animate-pulse text-white/50">Đang tải chứng nhận...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (certifications.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
       {/* Background Elements */}
@@ -74,7 +95,10 @@ export default function Certifications() {
           </ScrollAnimation>
 
           {/* Certifications Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-stretch">
+          <div className={`grid gap-6 lg:gap-8 items-stretch ${certifications.length <= 2 ? 'grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto' :
+            certifications.length === 3 ? 'grid-cols-1 sm:grid-cols-3 max-w-4xl mx-auto' :
+              'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
+            }`}>
             {certifications.map((cert, index) => (
               <ScrollAnimation
                 key={cert.id}
@@ -84,7 +108,7 @@ export default function Certifications() {
               >
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-[#5f7ab8]/50 text-center group h-full flex flex-col">
                   <div className="w-16 h-16 mx-auto mb-4 text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                    {cert.icon}
+                    {iconComponents[cert.icon] || iconComponents['check-circle']}
                   </div>
                   <h3 className="font-bold text-white mb-2 text-lg flex-shrink-0">{cert.title}</h3>
                   <p className="text-white text-sm leading-relaxed flex-grow">{cert.description}</p>
@@ -97,5 +121,3 @@ export default function Certifications() {
     </section>
   );
 }
-
-

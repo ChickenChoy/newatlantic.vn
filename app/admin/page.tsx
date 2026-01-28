@@ -12,9 +12,12 @@ import { Icon } from '@iconify/react';
 import { Button } from '@/components/admin/Button';
 import HolidayEffectsTab from '@/components/admin/HolidayEffectsTab';
 import PageVisibilityTab from '@/components/admin/PageVisibilityTab';
+import TestimonialsTab from '@/components/admin/TestimonialsTab';
+import FAQsTab from '@/components/admin/FAQsTab';
+import CertificationsTab from '@/components/admin/CertificationsTab';
 
 
-type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility';
+type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -2888,6 +2891,27 @@ export default function AdminPage() {
         {activeTab === 'page-visibility' && (
           <div className="admin-card p-6">
             <PageVisibilityTab onDataChange={loadData} />
+          </div>
+        )}
+
+        {/* Testimonials Tab */}
+        {activeTab === 'testimonials' && (
+          <div className="admin-card p-6">
+            <TestimonialsTab />
+          </div>
+        )}
+
+        {/* FAQs Tab */}
+        {activeTab === 'faqs' && (
+          <div className="admin-card p-6">
+            <FAQsTab />
+          </div>
+        )}
+
+        {/* Certifications Tab */}
+        {activeTab === 'certifications' && (
+          <div className="admin-card p-6">
+            <CertificationsTab />
           </div>
         )}
 

@@ -195,3 +195,34 @@ export interface PageVisibility {
   visible: boolean;       // true = hiển thị, false = ẩn
   order: number;          // Thứ tự sắp xếp
 }
+
+// Testimonials - Đánh giá khách hàng
+export interface Testimonial {
+  id: string;
+  name: string;           // Tên khách hàng
+  position: string;       // Chức vụ
+  rating: number;         // Đánh giá (1-5 sao)
+  text: string;           // Nội dung đánh giá
+  image?: string;         // Ảnh đại diện
+  enabled: boolean;       // Bật/tắt hiển thị
+  order: number;          // Thứ tự
+}
+
+// FAQs - Câu hỏi thường gặp
+export interface FAQ {
+  id: string;
+  question: string;       // Câu hỏi
+  answer: string;         // Câu trả lời
+  enabled: boolean;       // Bật/tắt hiển thị
+  order: number;          // Thứ tự
+}
+
+// Certifications - Chứng nhận và giải thưởng
+export interface Certification {
+  id: string;
+  title: string;          // Tiêu đề
+  description: string;    // Mô tả
+  icon: string;           // Icon type: 'check-circle', 'shield', 'document', 'star'
+  enabled: boolean;       // Bật/tắt hiển thị
+  order: number;          // Thứ tự
+}

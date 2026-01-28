@@ -3,7 +3,8 @@ import path from 'path';
 import {
   Product, Category, Post,
   SiteSettings, SocialLink, OfficeLocation, FooterLink,
-  GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory
+  GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory,
+  Testimonial, FAQ, Certification
 } from '@/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -545,4 +546,103 @@ export function deletePostCategory(id: string): boolean {
   if (filtered.length === categories.length) return false;
 
   return savePostCategories(filtered);
+}
+
+// ==================== Testimonials ====================
+
+export function getTestimonials(): Testimonial[] {
+  return readJsonFile<Testimonial>('testimonials.json', []);
+}
+
+export function saveTestimonials(testimonials: Testimonial[]): boolean {
+  return writeJsonFile('testimonials.json', testimonials);
+}
+
+export function addTestimonial(testimonial: Testimonial): boolean {
+  const testimonials = getTestimonials();
+  testimonials.push(testimonial);
+  return saveTestimonials(testimonials);
+}
+
+export function updateTestimonial(id: string, updates: Partial<Testimonial>): boolean {
+  const testimonials = getTestimonials();
+  const index = testimonials.findIndex(t => t.id === id);
+  if (index === -1) return false;
+
+  testimonials[index] = { ...testimonials[index], ...updates };
+  return saveTestimonials(testimonials);
+}
+
+export function deleteTestimonial(id: string): boolean {
+  const testimonials = getTestimonials();
+  const filtered = testimonials.filter(t => t.id !== id);
+  if (filtered.length === testimonials.length) return false;
+
+  return saveTestimonials(filtered);
+}
+
+// ==================== FAQs ====================
+
+export function getFAQs(): FAQ[] {
+  return readJsonFile<FAQ>('faqs.json', []);
+}
+
+export function saveFAQs(faqs: FAQ[]): boolean {
+  return writeJsonFile('faqs.json', faqs);
+}
+
+export function addFAQ(faq: FAQ): boolean {
+  const faqs = getFAQs();
+  faqs.push(faq);
+  return saveFAQs(faqs);
+}
+
+export function updateFAQ(id: string, updates: Partial<FAQ>): boolean {
+  const faqs = getFAQs();
+  const index = faqs.findIndex(f => f.id === id);
+  if (index === -1) return false;
+
+  faqs[index] = { ...faqs[index], ...updates };
+  return saveFAQs(faqs);
+}
+
+export function deleteFAQ(id: string): boolean {
+  const faqs = getFAQs();
+  const filtered = faqs.filter(f => f.id !== id);
+  if (filtered.length === faqs.length) return false;
+
+  return saveFAQs(filtered);
+}
+
+// ==================== Certifications ====================
+
+export function getCertifications(): Certification[] {
+  return readJsonFile<Certification>('certifications.json', []);
+}
+
+export function saveCertifications(certifications: Certification[]): boolean {
+  return writeJsonFile('certifications.json', certifications);
+}
+
+export function addCertification(certification: Certification): boolean {
+  const certifications = getCertifications();
+  certifications.push(certification);
+  return saveCertifications(certifications);
+}
+
+export function updateCertification(id: string, updates: Partial<Certification>): boolean {
+  const certifications = getCertifications();
+  const index = certifications.findIndex(c => c.id === id);
+  if (index === -1) return false;
+
+  certifications[index] = { ...certifications[index], ...updates };
+  return saveCertifications(certifications);
+}
+
+export function deleteCertification(id: string): boolean {
+  const certifications = getCertifications();
+  const filtered = certifications.filter(c => c.id !== id);
+  if (filtered.length === certifications.length) return false;
+
+  return saveCertifications(filtered);
 }

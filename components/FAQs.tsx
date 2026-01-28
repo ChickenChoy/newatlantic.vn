@@ -2,60 +2,51 @@
 
 import { useState, useEffect } from 'react';
 import ScrollAnimation from './ScrollAnimation';
-
-const faqs = [
-  {
-    id: 1,
-    question: 'NEW ATLANTIC cung cấp những sản phẩm gì?',
-    answer:
-      'NEW ATLANTIC là nhà phân phối chính hãng các thương hiệu WILL-BURT, HIAB, SKYMARK tại Việt Nam. Chúng tôi cung cấp cột tự nâng, cẩu tự hành, xe nâng Moffett và thiết bị công nghiệp chất lượng cao.',
-  },
-  {
-    id: 2,
-    question: 'Thời gian bảo hành sản phẩm là bao lâu?',
-    answer:
-      'Thời gian bảo hành phụ thuộc vào từng loại sản phẩm. Thông thường, các sản phẩm được bảo hành từ 12-24 tháng. Chúng tôi cũng cung cấp dịch vụ bảo trì và sửa chữa 24/7.',
-  },
-  {
-    id: 3,
-    question: 'NEW ATLANTIC có hỗ trợ vận chuyển toàn quốc không?',
-    answer:
-      'Có, chúng tôi hỗ trợ vận chuyển toàn quốc trong vòng 24-48h. Đội ngũ kỹ thuật của chúng tôi cũng sẵn sàng hỗ trợ lắp đặt và hướng dẫn sử dụng tại địa điểm của khách hàng.',
-  },
-  {
-    id: 4,
-    question: 'Làm thế nào để nhận báo giá sản phẩm?',
-    answer:
-      'Bạn có thể liên hệ trực tiếp qua hotline +84 2838 733 686, email info@newatlantic.vn hoặc điền form liên hệ trên website. Chúng tôi sẽ phản hồi trong vòng 24 giờ.',
-  },
-  {
-    id: 5,
-    question: 'Có hỗ trợ tư vấn kỹ thuật không?',
-    answer:
-      'Có, đội ngũ kỹ thuật viên chuyên nghiệp của chúng tôi sẵn sàng tư vấn miễn phí về sản phẩm, giải pháp và ứng dụng. Chúng tôi hỗ trợ 24/7 qua điện thoại, email hoặc tại công trường.',
-  },
-  {
-    id: 6,
-    question: 'Có cung cấp phụ tùng thay thế không?',
-    answer:
-      'Có, chúng tôi cung cấp đầy đủ phụ tùng thay thế chính hãng cho tất cả sản phẩm. Kho phụ tùng luôn có sẵn tại các chi nhánh Hồ Chí Minh, Hà Nội và Quảng Trị.',
-  },
-];
+import { FAQ } from '@/types';
 
 export default function FAQs() {
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Fix hydration issue by ensuring client-side only state initialization
+  // Load FAQs from API
   useEffect(() => {
-    setIsMounted(true);
-    // Optionally open first FAQ after mount
-    // setOpenIndex(0);
+    const loadFAQs = async () => {
+      try {
+        const res = await fetch('/api/faqs');
+        if (res.ok) {
+          const data = await res.json();
+          // Filter only enabled FAQs
+          const enabled = data.filter((f: FAQ) => f.enabled);
+          setFaqs(enabled);
+        }
+      } catch (error) {
+        console.error('Error loading FAQs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadFAQs();
   }, []);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  // Don't render if no FAQs
+  if (loading) {
+    return (
+      <section className="py-16 md:py-24 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="container mx-auto px-4 text-center">
+          <div className="animate-pulse text-white/50">Đang tải câu hỏi...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (faqs.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
@@ -206,5 +197,3 @@ export default function FAQs() {
     </section>
   );
 }
-
-

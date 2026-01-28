@@ -3,70 +3,75 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollAnimation from './ScrollAnimation';
-
-const testimonials = [
-  {
-    id: 1,
-    name: 'Ông Phạm Quốc Việt',
-    position: 'Giám đốc Kỹ thuật',
-    rating: 5,
-    text: 'Cột tự nâng WILL-BURT đáp ứng hoàn hảo yêu cầu triển khai trạm phát sóng. Độ bền cao, lắp đặt nhanh, hỗ trợ kỹ thuật 24/7 từ TÂN ĐẠI TÂY DƯƠNG.',
-    image: '/images/place-holder/1.png',
-  },
-  {
-    id: 2,
-    name: 'Ông Nguyễn Ngọc Hùng',
-    position: 'Giám đốc Vật tư Thiết bị',
-    rating: 5,
-    text: 'Cẩu tự hành HIAB từ TÂN ĐẠI TÂY DƯƠNG hoạt động ổn định trên các công trình lớn. Phụ tùng chính hãng, bảo trì định kỳ chuyên nghiệp.',
-    image: '/images/place-holder/2.png',
-  },
-  {
-    id: 3,
-    name: 'Bà Lê Thị Mai Hương',
-    position: 'Phó Giám đốc',
-    rating: 5,
-    text: 'Xe nâng Moffett giúp tối ưu hóa logistics đáng kể. Đội ngũ TÂN ĐẠI TÂY DƯƠNG tư vấn giải pháp phù hợp, hỗ trợ tận nơi khi cần.',
-    image: '/images/place-holder/3.png',
-  },
-  {
-    id: 4,
-    name: 'Ông Võ Minh Tuấn',
-    position: 'Trưởng phòng Kỹ thuật',
-    rating: 5,
-    text: 'Cột anten WILL-BURT hỗ trợ truyền hình trực tiếp các sự kiện lớn. Chất lượng tín hiệu ổn định, thiết bị bền bỉ qua nhiều năm sử dụng.',
-    image: '/images/place-holder/1.png',
-  },
-];
+import { Testimonial } from '@/types';
 
 const AUTOPLAY_INTERVAL = 5000; // 5 seconds
 
 export default function Testimonials() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Load testimonials from API
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const res = await fetch('/api/testimonials');
+        if (res.ok) {
+          const data = await res.json();
+          // Filter only enabled testimonials
+          const enabled = data.filter((t: Testimonial) => t.enabled);
+          setTestimonials(enabled);
+        }
+      } catch (error) {
+        console.error('Error loading testimonials:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTestimonials();
+  }, []);
 
   const nextTestimonial = useCallback(() => {
+    if (testimonials.length === 0) return;
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   const prevTestimonial = useCallback(() => {
+    if (testimonials.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  }, []);
+  }, [testimonials.length]);
 
   const goToTestimonial = (index: number) => {
     setCurrentIndex(index);
   };
 
-  // Auto-slide effect - using simple interval
+  // Auto-slide effect
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || testimonials.length === 0) return;
 
     const slideInterval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, AUTOPLAY_INTERVAL);
 
     return () => clearInterval(slideInterval);
-  }, [isPaused, currentIndex]);
+  }, [isPaused, currentIndex, testimonials.length]);
+
+  // Don't render if no testimonials
+  if (loading) {
+    return (
+      <section className="py-16 md:py-24 bg-gradient-to-b from-black via-gray-900 to-black">
+        <div className="container mx-auto px-4 text-center">
+          <div className="animate-pulse text-white/50">Đang tải đánh giá...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   const currentTestimonial = testimonials[currentIndex];
 
@@ -106,7 +111,7 @@ export default function Testimonials() {
           >
             {/* Carousel Container */}
             <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-6 md:p-10 border border-white/20 overflow-hidden">
-              {/* Progress Bar - CSS Animation for smooth performance */}
+              {/* Progress Bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gray-700/50 overflow-hidden">
                 <div
                   key={currentIndex}
