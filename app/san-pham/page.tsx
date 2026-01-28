@@ -270,18 +270,25 @@ export default function ProductsPage() {
         {/* Header Section */}
         <div className="relative z-10 border-b border-white/10">
           <div className="container mx-auto px-4 py-12 md:py-16">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-                Thiết bị công nghiệp
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+              {/* Left side - Title & Description */}
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                  Thiết bị công nghiệp
+                </div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
+                  Tất cả <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Sản Phẩm</span>
+                </h1>
+                <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+                  Khám phá bộ sưu tập thiết bị công nghiệp chính hãng, chất lượng cao từ các thương hiệu hàng đầu thế giới.
+                </p>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-                Tất cả <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Sản Phẩm</span>
-              </h1>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mb-6">
-                Khám phá bộ sưu tập thiết bị công nghiệp chính hãng, chất lượng cao từ các thương hiệu hàng đầu thế giới.
-              </p>
-              <HolidayBanner variant="inline" />
+
+              {/* Right side - Holiday Banner */}
+              <div className="lg:flex-shrink-0">
+                <HolidayBanner variant="inline" />
+              </div>
             </div>
           </div>
         </div>

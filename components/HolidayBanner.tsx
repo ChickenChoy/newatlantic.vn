@@ -268,7 +268,7 @@ export default function HolidayBanner({
                         <span className="holiday-inline-divider">|</span>
                         <span className="holiday-inline-company">Tân Đại Tây Dương</span>
                         <span className="holiday-inline-wish">
-                            kính chúc {content.wishes.join(' & ')}!
+                            kính chúc Quý Khách {content.wishes.join(' & ')}!
                         </span>
                     </div>
                     <span className="holiday-inline-icon">{content.decorRight}</span>

@@ -189,7 +189,7 @@ export default function TetBanner({
                         <span className="tet-inline-greeting">Chúc Mừng Năm Mới 2026</span>
                         <span className="tet-inline-divider">|</span>
                         <span className="tet-inline-company">Tân Đại Tây Dương</span>
-                        <span className="tet-inline-wish">kính chúc An Khang Thịnh Vượng!</span>
+                        <span className="tet-inline-wish">kính chúc Quý khách An Khang Thịnh Vượng!</span>
                     </div>
                     <span className="tet-inline-icon">🧧</span>
                 </div>
