@@ -77,8 +77,14 @@ const menuItems: MenuItem[] = [
     url: '/admin?tab=page-visibility',
   },
   {
+    id: 'site-settings',
+    name: 'Cài đặt Website',
+    icon: 'solar:home-add-line-duotone',
+    url: '/admin?tab=site-settings',
+  },
+  {
     id: 'settings',
-    name: 'Cài đặt',
+    name: 'Bảo mật',
     icon: 'solar:settings-line-duotone',
     url: '/admin?tab=settings',
   },

@@ -225,34 +225,50 @@ export default function HomePage() {
 
               <ScrollAnimation direction="right">
                 <div className="relative">
-                  {/* Stats Grid - Animated Counters */}
+                  {/* Stats Grid - Dynamic from Admin */}
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
-                    {/* Stat 1 */}
-                    <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
-                        <AnimatedCounter end={22} suffix="+" duration={2000} />
+                    {homepageStats.length > 0 ? homepageStats.map((stat, index) => (
+                      <div key={stat.id} className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                        <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                          {stat.suffix ? (
+                            <AnimatedCounter
+                              end={parseInt(stat.value.replace(/[^0-9]/g, '')) || 0}
+                              suffix={stat.suffix}
+                              duration={2000 + (index * 200)}
+                            />
+                          ) : (
+                            stat.value
+                          )}
+                        </div>
+                        <div className="text-sm md:text-base text-white/80">{stat.label}</div>
                       </div>
-                      <div className="text-sm md:text-base text-white/80">Năm kinh nghiệm</div>
-                    </div>
-                    {/* Stat 2 */}
-                    <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
-                        <AnimatedCounter end={500} suffix="+" duration={2000} />
-                      </div>
-                      <div className="text-sm md:text-base text-white/80">Khách hàng tin tưởng</div>
-                    </div>
-                    {/* Stat 3 */}
-                    <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
-                        <AnimatedCounter end={1000} suffix="+" duration={2500} />
-                      </div>
-                      <div className="text-sm md:text-base text-white/80">Sản phẩm đã cung cấp</div>
-                    </div>
-                    {/* Stat 4 */}
-                    <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-                      <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">24/7</div>
-                      <div className="text-sm md:text-base text-white/80">Hỗ trợ kỹ thuật</div>
-                    </div>
+                    )) : (
+                      <>
+                        {/* Fallback stats if no data */}
+                        <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                          <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                            <AnimatedCounter end={22} suffix="+" duration={2000} />
+                          </div>
+                          <div className="text-sm md:text-base text-white/80">Năm kinh nghiệm</div>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                          <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                            <AnimatedCounter end={500} suffix="+" duration={2000} />
+                          </div>
+                          <div className="text-sm md:text-base text-white/80">Khách hàng tin tưởng</div>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                          <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">
+                            <AnimatedCounter end={1000} suffix="+" duration={2500} />
+                          </div>
+                          <div className="text-sm md:text-base text-white/80">Sản phẩm đã cung cấp</div>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+                          <div className="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2">24/7</div>
+                          <div className="text-sm md:text-base text-white/80">Hỗ trợ kỹ thuật</div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
               </ScrollAnimation>
