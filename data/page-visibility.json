@@ -1,0 +1,98 @@
+[
+  {
+    "id": "home",
+    "path": "/",
+    "name": "Trang chủ",
+    "description": "Trang chủ website",
+    "visible": true,
+    "order": 1
+  },
+  {
+    "id": "products",
+    "path": "/san-pham",
+    "name": "Sản phẩm",
+    "description": "Trang danh sách sản phẩm",
+    "visible": true,
+    "order": 2
+  },
+  {
+    "id": "news",
+    "path": "/tin-tuc",
+    "name": "Tin tức",
+    "description": "Trang tin tức & sự kiện",
+    "visible": true,
+    "order": 3
+  },
+  {
+    "id": "gallery",
+    "path": "/thu-vien-hinh-anh",
+    "name": "Thư viện hình ảnh",
+    "description": "Trang thư viện hình ảnh",
+    "visible": true,
+    "order": 4
+  },
+  {
+    "id": "contact",
+    "path": "/lien-he",
+    "name": "Liên hệ",
+    "description": "Trang liên hệ",
+    "visible": true,
+    "order": 5
+  },
+  {
+    "id": "wishlist",
+    "path": "/yeu-thich",
+    "name": "Yêu thích",
+    "description": "Trang sản phẩm yêu thích",
+    "visible": true,
+    "order": 6
+  },
+  {
+    "id": "catalogs",
+    "path": "/page-download-catalog",
+    "name": "Tải Catalog",
+    "description": "Trang tải catalog sản phẩm",
+    "visible": true,
+    "order": 7
+  },
+  {
+    "id": "banh-trung",
+    "path": "/chuong-trinh-goi-banh-trung",
+    "name": "Chương trình gói bánh trưng",
+    "description": "Trang chương trình Tết",
+    "visible": true,
+    "order": 8
+  },
+  {
+    "id": "masttech",
+    "path": "/masttech",
+    "name": "MastTech",
+    "description": "Trang MastTech",
+    "visible": true,
+    "order": 9
+  },
+  {
+    "id": "privacy",
+    "path": "/chinh-sach-bao-mat",
+    "name": "Chính sách bảo mật",
+    "description": "Trang chính sách bảo mật",
+    "visible": true,
+    "order": 10
+  },
+  {
+    "id": "terms",
+    "path": "/dieu-khoan-dich-vu",
+    "name": "Điều khoản dịch vụ",
+    "description": "Trang điều khoản dịch vụ",
+    "visible": true,
+    "order": 11
+  },
+  {
+    "id": "san-pham",
+    "path": "/san/pham",
+    "name": "San/Pham",
+    "description": "",
+    "visible": false,
+    "order": 12
+  }
+]

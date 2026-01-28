@@ -71,6 +71,12 @@ const menuItems: MenuItem[] = [
     url: '/admin?tab=holiday-effects',
   },
   {
+    id: 'page-visibility',
+    name: 'Quản lý trang',
+    icon: 'solar:eye-scan-line-duotone',
+    url: '/admin?tab=page-visibility',
+  },
+  {
     id: 'settings',
     name: 'Cài đặt',
     icon: 'solar:settings-line-duotone',

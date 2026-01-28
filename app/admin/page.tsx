@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory, HolidayEffect } from '@/types';
+import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory, HolidayEffect, PageVisibility } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import PasswordInput from '@/components/PasswordInput';
@@ -11,9 +11,10 @@ import ImageUpload from '@/components/ImageUpload';
 import { Icon } from '@iconify/react';
 import { Button } from '@/components/admin/Button';
 import HolidayEffectsTab from '@/components/admin/HolidayEffectsTab';
+import PageVisibilityTab from '@/components/admin/PageVisibilityTab';
 
 
-type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects';
+type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -784,7 +785,8 @@ export default function AdminPage() {
                             activeTab === 'catalogs' ? 'Quản lý Catalogs' :
                               activeTab === 'partners' ? 'Quản lý đối tác' :
                                 activeTab === 'holiday-effects' ? 'Hiệu ứng ngày lễ' :
-                                  activeTab}
+                                  activeTab === 'page-visibility' ? 'Quản lý hiển thị trang' :
+                                    activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2880,6 +2882,13 @@ export default function AdminPage() {
         {/* Holiday Effects Tab */}
         {activeTab === 'holiday-effects' && (
           <HolidayEffectsTab holidayEffects={holidayEffects} onRefresh={loadData} />
+        )}
+
+        {/* Page Visibility Tab */}
+        {activeTab === 'page-visibility' && (
+          <div className="admin-card p-6">
+            <PageVisibilityTab onDataChange={loadData} />
+          </div>
         )}
 
         {/* Settings Tab */}

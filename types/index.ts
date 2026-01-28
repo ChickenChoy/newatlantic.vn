@@ -185,3 +185,13 @@ export interface HolidayEffect {
   primaryColor?: string;  // Màu chủ đạo
   secondaryColor?: string;// Màu phụ
 }
+
+// Page Visibility - Quản lý ẩn/hiện trang
+export interface PageVisibility {
+  id: string;
+  path: string;           // Đường dẫn trang (VD: "/san-pham")
+  name: string;           // Tên hiển thị (VD: "Sản phẩm")
+  description?: string;   // Mô tả trang
+  visible: boolean;       // true = hiển thị, false = ẩn
+  order: number;          // Thứ tự sắp xếp
+}
