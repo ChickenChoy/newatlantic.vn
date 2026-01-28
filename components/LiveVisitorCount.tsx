@@ -224,8 +224,8 @@ export default function LiveVisitorCount({
                 ${hotLevel === 'hot' ? 'text-red-400' : hotLevel === 'warm' ? 'text-orange-400' : 'text-emerald-400'}
                 ${isAnimating
                   ? isIncreasing
-                    ? 'animate-slide-up'
-                    : 'animate-slide-down'
+                    ? 'animate-slide-up-visitor'
+                    : 'animate-slide-down-visitor'
                   : ''
                 }
               `}
@@ -238,7 +238,7 @@ export default function LiveVisitorCount({
               <span
                 className={`
                   absolute -right-3 top-0 text-[10px] font-bold
-                  ${isIncreasing ? 'text-green-400 animate-bounce-up' : 'text-red-400 animate-bounce-down'}
+                  ${isIncreasing ? 'text-green-400 animate-bounce-up-visitor' : 'text-red-400 animate-bounce-down-visitor'}
                 `}
               >
                 {isIncreasing ? '↑' : '↓'}
@@ -273,9 +273,9 @@ export default function LiveVisitorCount({
             bg-gray-900/95 backdrop-blur-sm rounded-lg
             px-3 py-2 text-xs text-white
             shadow-xl border border-white/10
-            animate-fade-in-up
             whitespace-nowrap z-50
           "
+          style={{ animation: 'fade-in-up 0.2s ease-out' }}
         >
           <div className="flex items-center gap-2 mb-1">
             <svg className="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -298,45 +298,6 @@ export default function LiveVisitorCount({
           </div>
         </div>
       )}
-
-      {/* CSS for custom animations */}
-      <style jsx>{`
-        @keyframes slide-up {
-          0% { transform: translateY(100%); opacity: 0; }
-          100% { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes slide-down {
-          0% { transform: translateY(-100%); opacity: 0; }
-          100% { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes bounce-up {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(-4px); }
-        }
-        @keyframes bounce-down {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(4px); }
-        }
-        @keyframes fade-in-up {
-          0% { opacity: 0; transform: translate(-50%, 4px); }
-          100% { opacity: 1; transform: translate(-50%, 0); }
-        }
-        .animate-slide-up {
-          animation: slide-up 0.3s ease-out;
-        }
-        .animate-slide-down {
-          animation: slide-down 0.3s ease-out;
-        }
-        .animate-bounce-up {
-          animation: bounce-up 0.5s ease-out;
-        }
-        .animate-bounce-down {
-          animation: bounce-down 0.5s ease-out;
-        }
-        .animate-fade-in-up {
-          animation: fade-in-up 0.2s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
