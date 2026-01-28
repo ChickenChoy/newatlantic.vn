@@ -1,4 +1,4 @@
- // Types cho sản phẩm
+// Types cho sản phẩm
 export interface Product {
   id: string;
   name: string;
@@ -172,3 +172,16 @@ export interface PostCategory {
   enabled: boolean;
 }
 
+// Holiday Effects - Hiệu ứng ngày lễ
+export interface HolidayEffect {
+  id: string;
+  name: string;           // Tên ngày lễ (VD: "Tết Nguyên Đán")
+  slug: string;           // Slug (VD: "tet-nguyen-dan")
+  enabled: boolean;       // Bật/tắt hiệu ứng
+  startDate: string;      // Ngày bắt đầu (MM-DD hoặc YYYY-MM-DD)
+  endDate: string;        // Ngày kết thúc
+  effectTypes: string[];  // Loại hiệu ứng: 'banner', 'flowers', 'snow', 'fireworks', etc.
+  description?: string;   // Mô tả
+  primaryColor?: string;  // Màu chủ đạo
+  secondaryColor?: string;// Màu phụ
+}

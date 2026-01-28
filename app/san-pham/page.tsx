@@ -8,7 +8,7 @@ import ProductFilter from '@/components/ProductFilter';
 import Link from 'next/link';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
-import TetBanner from '@/components/TetBanner';
+import HolidayBanner from '@/components/HolidayBanner';
 import { Product, Category } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
@@ -281,7 +281,7 @@ export default function ProductsPage() {
               <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mb-6">
                 Khám phá bộ sưu tập thiết bị công nghiệp chính hãng, chất lượng cao từ các thương hiệu hàng đầu thế giới.
               </p>
-              <TetBanner variant="inline" />
+              <HolidayBanner variant="inline" />
             </div>
           </div>
         </div>

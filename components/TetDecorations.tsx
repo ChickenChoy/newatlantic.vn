@@ -73,13 +73,40 @@ function generateFlowers(count: number) {
 export default function TetDecorations() {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
-    const [isTet, setIsTet] = useState(false);
+    const [isFlowersEnabled, setIsFlowersEnabled] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const flowers = useMemo(() => generateFlowers(20), []);
 
     useEffect(() => {
         setMounted(true);
-        setIsTet(isTetSeason());
+
+        // Fetch holiday effects from API
+        const checkHolidayEffects = async () => {
+            try {
+                const response = await fetch('/api/holiday-effects');
+                if (response.ok) {
+                    const effects = await response.json();
+                    // Check if ANY enabled holiday has 'flowers' effect type
+                    const hasFlowers = effects.some(
+                        (e: { enabled: boolean; effectTypes?: string[] }) =>
+                            e.enabled === true && e.effectTypes?.includes('flowers')
+                    );
+                    setIsFlowersEnabled(hasFlowers);
+                } else {
+                    // API error - fallback to date-based check
+                    setIsFlowersEnabled(isTetSeason());
+                }
+            } catch (error) {
+                console.error('Error fetching holiday effects:', error);
+                // Network error - fallback to date-based check
+                setIsFlowersEnabled(isTetSeason());
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        checkHolidayEffects();
     }, []);
 
     const isExcludedPath = useMemo(() => {
@@ -95,7 +122,7 @@ export default function TetDecorations() {
         );
     }, [pathname]);
 
-    if (!mounted || !isTet || isExcludedPath) {
+    if (!mounted || loading || !isFlowersEnabled || isExcludedPath) {
         return null;
     }
 

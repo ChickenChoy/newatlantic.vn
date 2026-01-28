@@ -12,7 +12,7 @@ import GoogleMap from '@/components/GoogleMap';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import TypingText from '@/components/TypingText';
-import TetBanner from '@/components/TetBanner';
+import HolidayBanner from '@/components/HolidayBanner';
 import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -85,11 +85,11 @@ export default function HomePage() {
       {/* Hero Slider */}
       <HeroSlider slides={heroSlides} />
 
-      {/* Tết Banner - Hero Style */}
+      {/* Holiday Banner - Dynamic */}
       <section className="py-6 sm:py-8 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <TetBanner variant="hero" />
+            <HolidayBanner variant="hero" />
           </div>
         </div>
       </section>

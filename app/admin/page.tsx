@@ -3,16 +3,17 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory } from '@/types';
+import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory, HolidayEffect } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import PasswordInput from '@/components/PasswordInput';
 import ImageUpload from '@/components/ImageUpload';
 import { Icon } from '@iconify/react';
 import { Button } from '@/components/admin/Button';
+import HolidayEffectsTab from '@/components/admin/HolidayEffectsTab';
 
 
-type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners';
+type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -43,6 +44,7 @@ export default function AdminPage() {
   const [homepageStats, setHomepageStats] = useState<HomepageStat[]>([]);
   const [partnerLogos, setPartnerLogos] = useState<PartnerLogo[]>([]);
   const [postCategories, setPostCategories] = useState<PostCategory[]>([]);
+  const [holidayEffects, setHolidayEffects] = useState<HolidayEffect[]>([]);
 
   // Search & Filter states
   const [searchQuery, setSearchQuery] = useState('');
@@ -117,7 +119,7 @@ export default function AdminPage() {
       }
 
       // Load CMS data
-      const [siteSettingsRes, officeLocationsRes, footerLinksRes, galleryRes, catalogsRes, heroSlidesRes, homepageStatsRes, partnerLogosRes, postCategoriesRes] = await Promise.all([
+      const [siteSettingsRes, officeLocationsRes, footerLinksRes, galleryRes, catalogsRes, heroSlidesRes, homepageStatsRes, partnerLogosRes, postCategoriesRes, holidayEffectsRes] = await Promise.all([
         fetch('/api/site-settings'),
         fetch('/api/office-locations'),
         fetch('/api/footer-links'),
@@ -127,6 +129,7 @@ export default function AdminPage() {
         fetch('/api/homepage-stats'),
         fetch('/api/partner-logos'),
         fetch('/api/post-categories'),
+        fetch('/api/holiday-effects'),
       ]);
 
       if (siteSettingsRes.ok) setSiteSettings(await siteSettingsRes.json());
@@ -138,6 +141,7 @@ export default function AdminPage() {
       if (homepageStatsRes.ok) setHomepageStats(await homepageStatsRes.json());
       if (partnerLogosRes.ok) setPartnerLogos(await partnerLogosRes.json());
       if (postCategoriesRes.ok) setPostCategories(await postCategoriesRes.json());
+      if (holidayEffectsRes.ok) setHolidayEffects(await holidayEffectsRes.json());
     } catch (error) {
       console.error('Error loading data:', error);
       toast.error('Không thể tải dữ liệu. Vui lòng refresh trang.');
@@ -779,7 +783,8 @@ export default function AdminPage() {
                           activeTab === 'settings' ? 'Cài đặt bảo mật' :
                             activeTab === 'catalogs' ? 'Quản lý Catalogs' :
                               activeTab === 'partners' ? 'Quản lý đối tác' :
-                                activeTab}
+                                activeTab === 'holiday-effects' ? 'Hiệu ứng ngày lễ' :
+                                  activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2870,6 +2875,11 @@ export default function AdminPage() {
               )}
             </div>
           </div>
+        )}
+
+        {/* Holiday Effects Tab */}
+        {activeTab === 'holiday-effects' && (
+          <HolidayEffectsTab holidayEffects={holidayEffects} onRefresh={loadData} />
         )}
 
         {/* Settings Tab */}

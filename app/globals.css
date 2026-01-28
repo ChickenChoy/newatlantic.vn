@@ -1739,3 +1739,14 @@ html {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
+
+/* ===================================
+   Toast Component - Force White Text
+   Highest specificity to override any other styles
+   =================================== */
+[style*="z-index: 100000"] p,
+[style*="z-index: 100000"] div,
+.fixed.z-\[100000\] p,
+.fixed.z-\[100000\] div {
+  color: #ffffff !important;
+}

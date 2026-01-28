@@ -65,6 +65,12 @@ const menuItems: MenuItem[] = [
     url: '/admin?tab=partners',
   },
   {
+    id: 'holiday-effects',
+    name: 'Hiệu ứng ngày lễ',
+    icon: 'solar:stars-line-duotone',
+    url: '/admin?tab=holiday-effects',
+  },
+  {
     id: 'settings',
     name: 'Cài đặt',
     icon: 'solar:settings-line-duotone',

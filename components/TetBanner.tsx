@@ -11,7 +11,7 @@ const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-trung"];
 const ADMIN_PATHS = ["/admin"];
 
 /**
- * Check if current date is within Tết season
+ * Check if current date is within Tết season (fallback for SSR)
  */
 export function isTetSeason(): boolean {
     const now = new Date();
@@ -56,11 +56,36 @@ export default function TetBanner({
 }: TetBannerProps) {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
-    const [isTet, setIsTet] = useState(false);
+    const [isTetEnabled, setIsTetEnabled] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setMounted(true);
-        setIsTet(isTetSeason());
+
+        // Fetch holiday effects from API
+        const checkHolidayEffects = async () => {
+            try {
+                const response = await fetch('/api/holiday-effects');
+                if (response.ok) {
+                    const effects = await response.json();
+                    // Find Tet effect and check if enabled
+                    const tetEffect = effects.find((e: { slug: string }) => e.slug === 'tet-nguyen-dan');
+                    // Only enable if explicitly enabled in admin
+                    setIsTetEnabled(tetEffect?.enabled === true);
+                } else {
+                    // API error - fallback to date-based check
+                    setIsTetEnabled(isTetSeason());
+                }
+            } catch (error) {
+                console.error('Error fetching holiday effects:', error);
+                // Network error - fallback to date-based check
+                setIsTetEnabled(isTetSeason());
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        checkHolidayEffects();
     }, []);
 
     // Check if current path should be excluded
@@ -72,8 +97,8 @@ export default function TetBanner({
             (path) => pathname === path || pathname.startsWith(`${path}/`)
         );
 
-    // Don't render if not mounted, not Tết season, or excluded path
-    if (!mounted || !isTet || isExcludedPath) {
+    // Don't render if not mounted, loading, not Tết enabled, or excluded path
+    if (!mounted || loading || !isTetEnabled || isExcludedPath) {
         return null;
     }
 

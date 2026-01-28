@@ -1,0 +1,524 @@
+/* ========================================
+   HOLIDAY BANNERS - Dynamic Multi-Holiday Styles
+   Premium & Modern Design
+   ======================================== */
+
+/* CSS Variables - Fallback colors */
+:root {
+    --holiday-primary: #dc2626;
+    --holiday-secondary: #ffd700;
+}
+
+/* ========================================
+   HERO VARIANT - Large Premium Banner
+   ======================================== */
+.holiday-banner-hero {
+    position: relative;
+    width: 100%;
+    padding: 3rem 2rem;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+            var(--holiday-primary) 0%,
+            color-mix(in srgb, var(--holiday-primary) 70%, #1a1a2e) 50%,
+            color-mix(in srgb, var(--holiday-primary) 50%, black) 100%);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px color-mix(in srgb, var(--holiday-primary) 30%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    font-family: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.holiday-banner-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+.holiday-banner-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.holiday-banner-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 20% 30%, var(--holiday-secondary) 2px, transparent 2px),
+        radial-gradient(circle at 80% 70%, var(--holiday-secondary) 2px, transparent 2px),
+        radial-gradient(circle at 50% 50%, var(--holiday-secondary) 1px, transparent 1px);
+    background-size: 80px 80px, 60px 60px, 40px 40px;
+    opacity: 0.2;
+    animation: patternFloat 20s linear infinite;
+}
+
+@keyframes patternFloat {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 80px 80px;
+    }
+}
+
+.holiday-banner-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+}
+
+.holiday-glow-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--holiday-secondary);
+    top: -100px;
+    left: -100px;
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+.holiday-glow-2 {
+    width: 250px;
+    height: 250px;
+    background: var(--holiday-secondary);
+    bottom: -80px;
+    right: -80px;
+    animation: glowPulse 4s ease-in-out infinite 2s;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+.holiday-banner-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+/* Decorations */
+.holiday-decor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.holiday-decor-icon {
+    font-size: 4rem;
+    animation: holidayFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes holidayFloat {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(3deg);
+    }
+}
+
+/* Text Content */
+.holiday-banner-text {
+    text-align: center;
+    color: white;
+}
+
+.holiday-banner-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+    color: var(--holiday-secondary);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.holiday-icon {
+    font-size: 1.5rem;
+    animation: holidayPulse 2s ease-in-out infinite;
+}
+
+@keyframes holidayPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.holiday-banner-title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin: 0.75rem 0;
+    letter-spacing: -0.02em;
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.4),
+        0 0 30px color-mix(in srgb, var(--holiday-secondary) 50%, transparent);
+    background: linear-gradient(180deg, #fff 0%, #fff 40%, var(--holiday-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.holiday-banner-company {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.25rem;
+}
+
+.holiday-company-name {
+    font-weight: 800;
+    color: var(--holiday-secondary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.holiday-divider {
+    opacity: 0.6;
+    color: var(--holiday-secondary);
+}
+
+.holiday-banner-wishes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.holiday-wish-item {
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--holiday-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.holiday-wish-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.holiday-wish-dot {
+    color: var(--holiday-secondary);
+    opacity: 0.6;
+    font-size: 1.25rem;
+}
+
+/* ========================================
+   INLINE VARIANT - Medium Banner
+   ======================================== */
+.holiday-banner-inline {
+    position: relative;
+    width: 100%;
+    padding: 1.25rem 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: linear-gradient(90deg,
+            var(--holiday-primary) 0%,
+            color-mix(in srgb, var(--holiday-primary) 75%, #1a1a2e) 50%,
+            color-mix(in srgb, var(--holiday-primary) 60%, black) 100%);
+    font-family: inherit;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.holiday-inline-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 5% 50%, var(--holiday-secondary) 0%, transparent 30%),
+        radial-gradient(circle at 95% 50%, var(--holiday-secondary) 0%, transparent 30%);
+    opacity: 0.15;
+}
+
+.holiday-inline-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    color: white;
+}
+
+.holiday-inline-icon {
+    font-size: 2rem;
+    animation: holidayFloat 2s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.holiday-inline-text {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.holiday-inline-greeting {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--holiday-secondary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.holiday-inline-divider {
+    opacity: 0.5;
+    color: var(--holiday-secondary);
+}
+
+.holiday-inline-company {
+    font-weight: 700;
+}
+
+.holiday-inline-wish {
+    opacity: 0.95;
+}
+
+/* ========================================
+   MINIMAL VARIANT - Compact Banner
+   ======================================== */
+.holiday-banner-minimal {
+    display: inline-flex;
+    width: auto;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(90deg,
+            var(--holiday-primary) 0%,
+            color-mix(in srgb, var(--holiday-primary) 80%, black) 100%);
+    border-radius: 9999px;
+    border: 1px solid var(--holiday-secondary);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        0 0 20px color-mix(in srgb, var(--holiday-primary) 20%, transparent);
+    font-family: inherit;
+}
+
+.holiday-mini-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    color: white;
+}
+
+.holiday-mini-decor span {
+    font-size: 1.5rem;
+    animation: holidayPulse 2s ease-in-out infinite;
+}
+
+.holiday-mini-center {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.holiday-mini-title {
+    font-weight: 800;
+    color: var(--holiday-secondary);
+    font-size: 1rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.holiday-mini-divider {
+    opacity: 0.6;
+    color: var(--holiday-secondary);
+}
+
+.holiday-mini-message {
+    font-size: 0.925rem;
+    opacity: 0.95;
+}
+
+.holiday-mini-company {
+    font-weight: 700;
+    color: var(--holiday-secondary);
+}
+
+/* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+@media (max-width: 768px) {
+    .holiday-banner-hero {
+        padding: 2rem 1.25rem;
+    }
+
+    .holiday-banner-content {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .holiday-decor {
+        display: none;
+    }
+
+    .holiday-banner-title {
+        font-size: 2rem;
+    }
+
+    .holiday-banner-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .holiday-banner-company {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .holiday-inline-content {
+        flex-wrap: wrap;
+    }
+
+    .holiday-inline-text {
+        font-size: 0.9rem;
+    }
+
+    .holiday-mini-wrapper {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .holiday-mini-decor {
+        display: none;
+    }
+
+    .holiday-mini-center {
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .holiday-decor-icon,
+    .holiday-icon,
+    .holiday-inline-icon,
+    .holiday-mini-decor span,
+    .holiday-banner-hero::before {
+        animation: none;
+    }
+}
+
+/* ========================================
+   HOLIDAY-SPECIFIC THEME OVERRIDES
+   ======================================== */
+
+/* Christmas theme */
+.holiday-banner-hero[data-holiday="giang-sinh"] .holiday-banner-pattern {
+    background-image:
+        radial-gradient(circle at 20% 20%, white 2px, transparent 2px),
+        radial-gradient(circle at 60% 40%, white 1px, transparent 1px),
+        radial-gradient(circle at 80% 80%, white 2px, transparent 2px);
+    background-size: 100px 100px;
+    opacity: 0.25;
+    animation: snowDrift 15s linear infinite;
+}
+
+@keyframes snowDrift {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+/* National holidays with flag wave */
+.holiday-banner-hero[data-holiday="quoc-khanh"] .holiday-decor-icon,
+.holiday-banner-hero[data-holiday="giai-phong-mien-nam"] .holiday-decor-icon {
+    animation: flagWave 2s ease-in-out infinite;
+}
+
+@keyframes flagWave {
+
+    0%,
+    100% {
+        transform: rotate(-8deg);
+    }
+
+    50% {
+        transform: rotate(8deg);
+    }
+}
+
+/* Valentine hearts */
+.holiday-banner-hero[data-holiday="valentine"] .holiday-decor-icon {
+    animation: heartBeat 1s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.15);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.1);
+    }
+}

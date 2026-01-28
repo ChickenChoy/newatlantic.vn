@@ -9,7 +9,7 @@ import Pagination from '@/components/Pagination';
 import { PostCardSkeleton } from '@/components/SkeletonLoader';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import TetBanner from '@/components/TetBanner';
+import HolidayBanner from '@/components/HolidayBanner';
 import type { Post, PostCategory } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
@@ -184,13 +184,15 @@ function NewsPageContent() {
           </div>
         </div>
 
-        {/* Tet Banner - Desktop */}
-        <TetBanner variant="minimal" className="hidden md:flex" />
+        {/* Holiday Banner - Desktop */}
+        <div className="hidden md:flex justify-center mb-6">
+          <HolidayBanner variant="minimal" />
+        </div>
       </div>
 
-      {/* Tet Banner - Mobile */}
-      <div className="mb-8 md:hidden">
-        <TetBanner variant="minimal" />
+      {/* Holiday Banner - Mobile */}
+      <div className="flex justify-center mb-8 md:hidden">
+        <HolidayBanner variant="minimal" />
       </div>
 
       {/* Featured Post (Only on first page of 'All') */}

@@ -243,9 +243,10 @@ textarea::placeholder {
 }
 
 /* Muted text helper - readable gray, not too light */
-.text-muted,
-.text-gray-500,
-.text-gray-400 {
+/* Exclude elements with text-white to prevent Toast issues */
+.text-muted:not(.text-white),
+.text-gray-500:not(.text-white),
+.text-gray-400:not(.text-white) {
   color: #6b7280 !important;
 }
 

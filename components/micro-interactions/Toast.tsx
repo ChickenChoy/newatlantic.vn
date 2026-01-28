@@ -109,10 +109,10 @@ export default function Toast({
       `}
     >
       {/* Icon */}
-      <div className="flex-shrink-0">{typeIcons[type]}</div>
+      <div className="flex-shrink-0" style={{ color: '#ffffff' }}>{typeIcons[type]}</div>
 
       {/* Message */}
-      <p className="flex-1 text-sm font-medium">{message}</p>
+      <p className="flex-1 text-sm font-medium" style={{ color: '#ffffff' }}>{message}</p>
 
       {/* Close button */}
       <button
