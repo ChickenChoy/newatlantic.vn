@@ -18,8 +18,8 @@ function getCurrentYear(): number {
 const ZODIAC_ANIMALS = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
 const ZODIAC_EMOJIS = ['🐀', '🐂', '🐅', '🐇', '🐉', '🐍', '🐴', '🐐', '🐵', '🐓', '🐕', '🐷'];
 
-// Celestial stems (Thiên Can)
-const CELESTIAL_STEMS = ['Canh', 'Tân', 'Nhâm', 'Quý', 'Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ'];
+// Celestial stems (Thiên Can) - Correct order: Giáp=0, Ất=1, Bính=2...
+const CELESTIAL_STEMS = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
 
 function getLunarYearInfo(year: number) {
     // Calculate zodiac (lunar new year usually starts late Jan/early Feb, but we use solar year for simplicity)

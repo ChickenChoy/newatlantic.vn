@@ -3,7 +3,7 @@
     "id": "1",
     "name": "Tết Dương Lịch",
     "slug": "tet-duong-lich",
-    "enabled": true,
+    "enabled": false,
     "startDate": "12-30",
     "endDate": "01-02",
     "effectTypes": [
@@ -18,7 +18,7 @@
     "id": "2",
     "name": "Tết Nguyên Đán",
     "slug": "tet-nguyen-dan",
-    "enabled": false,
+    "enabled": true,
     "startDate": "01-15",
     "endDate": "02-15",
     "effectTypes": [
