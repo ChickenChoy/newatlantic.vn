@@ -18,7 +18,7 @@
     "id": "2",
     "name": "Tết Nguyên Đán",
     "slug": "tet-nguyen-dan",
-    "enabled": true,
+    "enabled": false,
     "startDate": "01-15",
     "endDate": "02-15",
     "effectTypes": [
@@ -127,7 +127,7 @@
     "id": "9",
     "name": "Giáng Sinh",
     "slug": "giang-sinh",
-    "enabled": false,
+    "enabled": true,
     "startDate": "12-20",
     "endDate": "12-26",
     "effectTypes": [

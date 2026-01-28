@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import GalleryLightbox from '@/components/GalleryLightbox';
+import HolidayBanner from '@/components/HolidayBanner';
 import { SkeletonLoader } from '@/components/SkeletonLoader';
 import { GalleryImage as GalleryImageType } from '@/types';
 
@@ -122,7 +123,7 @@ export default function GalleryPage() {
         {/* Header Section */}
         <div className="relative z-10 border-b border-white/10">
           <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-16">
-            <div className="max-w-3xl">
+            <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4 sm:mb-6">
                 <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
                 Thư viện hình ảnh
@@ -130,9 +131,14 @@ export default function GalleryPage() {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight">
                 Thư viện <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-violet-400">Hình ảnh</span>
               </h1>
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-6">
                 Khám phá bộ sưu tập hình ảnh về các dự án, sản phẩm và hoạt động của New Atlantic.
               </p>
+
+              {/* Holiday Banner - Centered Minimal */}
+              <div className="flex justify-center">
+                <HolidayBanner variant="minimal" />
+              </div>
             </div>
           </div>
         </div>

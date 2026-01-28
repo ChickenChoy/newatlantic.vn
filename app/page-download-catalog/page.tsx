@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import DownloadCatalogClient from './DownloadCatalogClient';
+import HolidayBanner from '@/components/HolidayBanner';
 
 export const metadata: Metadata = {
   title: 'Catalog Sản Phẩm | NewAtlantic - Thiết Bị Công Nghiệp Chính Hãng',
@@ -97,7 +98,7 @@ export default function DownloadCatalogPage() {
         {/* Header Section */}
         <div className="relative z-10 border-b border-white/10">
           <div className="container mx-auto px-4 py-12 md:py-16">
-            <div className="max-w-3xl">
+            <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                 Tài liệu kỹ thuật
@@ -105,9 +106,14 @@ export default function DownloadCatalogPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
                 Catalog <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Sản Phẩm</span>
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
                 Tải về tài liệu kỹ thuật chi tiết, thông số và hướng dẫn sử dụng cho các dòng sản phẩm chính hãng.
               </p>
+
+              {/* Holiday Banner - Centered Minimal */}
+              <div className="flex justify-center">
+                <HolidayBanner variant="minimal" />
+              </div>
             </div>
           </div>
         </div>

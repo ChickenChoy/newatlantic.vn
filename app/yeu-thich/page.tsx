@@ -6,6 +6,7 @@ import ProductCard from '@/components/ProductCard';
 import { WishlistManager } from '@/lib/wishlist';
 import { Product } from '@/types';
 import { useToast } from '@/components/ToastProvider';
+import HolidayBanner from '@/components/HolidayBanner';
 
 export default function WishlistPage() {
   const toast = useToast();
@@ -76,7 +77,7 @@ export default function WishlistPage() {
       {/* Header Section */}
       <div className="relative z-10 border-b border-white/10">
         <div className="container mx-auto px-4 py-12 md:py-16">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
               <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse"></span>
               Danh sách quan tâm
@@ -84,13 +85,18 @@ export default function WishlistPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
               Sản Phẩm <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">Yêu Thích</span>
             </h1>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
               {isLoading
                 ? 'Đang tải danh sách...'
                 : wishlist.length > 0
                   ? `Bạn đang quan tâm đến ${wishlist.length} sản phẩm. Hãy liên hệ ngay để được tư vấn chi tiết.`
                   : 'Lưu lại những sản phẩm bạn quan tâm để xem lại sau.'}
             </p>
+
+            {/* Holiday Banner - Centered Minimal */}
+            <div className="flex justify-center">
+              <HolidayBanner variant="minimal" />
+            </div>
           </div>
         </div>
       </div>

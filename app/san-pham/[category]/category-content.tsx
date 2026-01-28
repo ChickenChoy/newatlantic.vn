@@ -6,6 +6,7 @@ import { Suspense as SuspenseBoundary } from 'react';
 import ProductCard from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import ProductFilter from '@/components/ProductFilter';
+import HolidayBanner from '@/components/HolidayBanner';
 import Link from 'next/link';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
 import type { Category, Product } from '@/types';
@@ -199,7 +200,7 @@ export default function CategoryPageContent({
       {/* Header Section */}
       <div className="relative z-10 border-b border-white/10">
         <div className="container mx-auto px-4 py-12 md:py-16">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
               {category.name}
@@ -207,9 +208,14 @@ export default function CategoryPageContent({
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
               Sản Phẩm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{category.name}</span>
             </h1>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
               {category.description || `Khám phá bộ sưu tập ${category.name.toLowerCase()} chính hãng, chất lượng cao từ các thương hiệu hàng đầu thế giới.`}
             </p>
+
+            {/* Holiday Banner - Centered Minimal */}
+            <div className="flex justify-center">
+              <HolidayBanner variant="minimal" />
+            </div>
           </div>
         </div>
       </div>

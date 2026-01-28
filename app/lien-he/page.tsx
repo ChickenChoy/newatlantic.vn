@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { generateBreadcrumbSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import { validateVietnamesePhone } from '@/lib/validation';
+import HolidayBanner from '@/components/HolidayBanner';
 import { OfficeLocation } from '@/types';
 
 export default function ContactPage() {
@@ -168,7 +169,7 @@ export default function ContactPage() {
         {/* Header Section */}
         <div className="relative z-10 border-b border-white/10">
           <div className="container mx-auto px-4 py-12 md:py-16">
-            <div className="max-w-3xl">
+            <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                 Kết nối với chúng tôi
@@ -176,9 +177,14 @@ export default function ContactPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
                 Liên Hệ <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">Tư Vấn</span>
               </h1>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
+              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
                 Chúng tôi luôn sẵn sàng lắng nghe và giải đáp mọi thắc mắc của bạn. Hãy để lại thông tin, đội ngũ chuyên gia sẽ liên hệ ngay.
               </p>
+
+              {/* Holiday Banner - Centered Minimal */}
+              <div className="flex justify-center">
+                <HolidayBanner variant="minimal" />
+              </div>
             </div>
           </div>
         </div>

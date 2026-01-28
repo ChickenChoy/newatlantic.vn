@@ -44,6 +44,7 @@ function getHolidayContent(slug: string) {
         title: string;
         subtitle: string;
         wishes: string[];
+        wishPrefix: string;
         decorLeft?: string;
         decorRight?: string;
         textColor?: string;
@@ -53,6 +54,7 @@ function getHolidayContent(slug: string) {
             title: 'Chúc Mừng Năm Mới',
             subtitle: `Xuân ${lunarInfo.fullName} ${year}`,
             wishes: ['An Khang', 'Thịnh Vượng', 'Như Ý'],
+            wishPrefix: 'kính chúc Quý Khách',
             decorLeft: '🧧',
             decorRight: '🧧',
             textColor: '#ffd700',
@@ -62,6 +64,7 @@ function getHolidayContent(slug: string) {
             title: `Happy New Year ${year}`,
             subtitle: 'Chào Năm Mới',
             wishes: ['Hạnh Phúc', 'Thành Công', 'May Mắn'],
+            wishPrefix: 'chúc Quý Khách năm mới',
             decorLeft: '🎊',
             decorRight: '🎊',
             textColor: '#ffffff',
@@ -70,7 +73,8 @@ function getHolidayContent(slug: string) {
             icon: '🏛️',
             title: 'Giỗ Tổ Hùng Vương',
             subtitle: '10/3 Âm Lịch',
-            wishes: ['Uống nước nhớ nguồn', 'Tự hào dân tộc'],
+            wishes: ['Uống nước nhớ nguồn', 'Tự hào dân tộc Việt'],
+            wishPrefix: 'cùng tưởng nhớ công ơn Tổ tiên —',
             decorLeft: '🐉',
             decorRight: '🐉',
             textColor: '#fcd34d',
@@ -80,6 +84,7 @@ function getHolidayContent(slug: string) {
             title: 'Ngày Giải Phóng',
             subtitle: `30/4/1975 - 30/4/${year}`,
             wishes: ['Thống Nhất', 'Hòa Bình', 'Độc Lập'],
+            wishPrefix: 'kỷ niệm ngày non sông',
             decorLeft: '⭐',
             decorRight: '⭐',
             textColor: '#fbbf24',
@@ -88,7 +93,8 @@ function getHolidayContent(slug: string) {
             icon: '💪',
             title: 'Quốc Tế Lao Động',
             subtitle: `1/5/${year}`,
-            wishes: ['Lao động vinh quang', 'Thành công'],
+            wishes: ['Lao động vinh quang', 'Thành công rực rỡ'],
+            wishPrefix: 'chúc mừng ngày',
             decorLeft: '🌟',
             decorRight: '🌟',
             textColor: '#fbbf24',
@@ -98,6 +104,7 @@ function getHolidayContent(slug: string) {
             title: 'Quốc Khánh Việt Nam',
             subtitle: `2/9/1945 - 2/9/${year}`,
             wishes: ['Độc Lập', 'Tự Do', 'Hạnh Phúc'],
+            wishPrefix: 'mừng Tổ quốc',
             decorLeft: '🎆',
             decorRight: '🎆',
             textColor: '#fbbf24',
@@ -106,7 +113,8 @@ function getHolidayContent(slug: string) {
             icon: '💕',
             title: 'Happy Valentine',
             subtitle: `14/2/${year}`,
-            wishes: ['Yêu thương', 'Hạnh phúc'],
+            wishes: ['Yêu Thương', 'Hạnh Phúc'],
+            wishPrefix: 'chúc bạn ngập tràn',
             decorLeft: '💝',
             decorRight: '💝',
             textColor: '#ffffff',
@@ -115,7 +123,8 @@ function getHolidayContent(slug: string) {
             icon: '🥮',
             title: 'Tết Trung Thu',
             subtitle: `Rằm Tháng 8 - ${year}`,
-            wishes: ['Đoàn viên', 'Hạnh phúc'],
+            wishes: ['Đoàn Viên', 'Hạnh Phúc'],
+            wishPrefix: 'chúc gia đình',
             decorLeft: '🏮',
             decorRight: '🏮',
             textColor: '#ffffff',
@@ -125,6 +134,7 @@ function getHolidayContent(slug: string) {
             title: 'Merry Christmas',
             subtitle: `Giáng Sinh ${year}`,
             wishes: ['An Lành', 'Hạnh Phúc', 'Bình An'],
+            wishPrefix: 'chúc Quý Khách Giáng Sinh',
             decorLeft: '🎅',
             decorRight: '🎁',
             textColor: '#ffffff',
@@ -135,7 +145,8 @@ function getHolidayContent(slug: string) {
         icon: '🎉',
         title: 'Chúc Mừng',
         subtitle: '',
-        wishes: [],
+        wishes: ['Hạnh Phúc', 'Thành Công'],
+        wishPrefix: 'chúc Quý Khách',
         decorLeft: '✨',
         decorRight: '✨',
         textColor: '#ffd700',
@@ -144,7 +155,7 @@ function getHolidayContent(slug: string) {
 
 
 interface HolidayBannerProps {
-    variant?: "hero" | "inline" | "minimal";
+    variant?: "hero" | "inline" | "minimal" | "sidebar";
     className?: string;
 }
 
@@ -268,10 +279,63 @@ export default function HolidayBanner({
                         <span className="holiday-inline-divider">|</span>
                         <span className="holiday-inline-company">Tân Đại Tây Dương</span>
                         <span className="holiday-inline-wish">
-                            kính chúc Quý Khách {content.wishes.join(' & ')}!
+                            {content.wishPrefix}{' '}
+                            {content.wishes.map((wish, i) => (
+                                <span key={i}>
+                                    <span className="holiday-wish-highlight">{wish}</span>
+                                    {i < content.wishes.length - 1 && <span className="holiday-wish-separator"> & </span>}
+                                </span>
+                            ))}!
                         </span>
                     </div>
                     <span className="holiday-inline-icon">{content.decorRight}</span>
+                </div>
+            </div>
+        );
+    }
+
+    // Sidebar variant (vertical)
+    if (variant === "sidebar") {
+        return (
+            <div
+                className={`holiday-banner-sidebar ${className}`}
+                style={{
+                    '--holiday-primary': primaryColor,
+                    '--holiday-secondary': textColor,
+                } as React.CSSProperties}
+            >
+                <div className="holiday-sidebar-content">
+                    <div className="holiday-sidebar-decor">
+                        <span>{content.decorLeft}</span>
+                        <span>{content.icon}</span>
+                        <span>{content.decorRight}</span>
+                    </div>
+
+                    <div className="holiday-sidebar-title">
+                        {content.title}
+                    </div>
+
+                    <div className="holiday-sidebar-subtitle">
+                        {content.subtitle}
+                    </div>
+
+                    <div className="holiday-sidebar-divider"></div>
+
+                    <div className="holiday-sidebar-company">
+                        Tân Đại Tây Dương
+                    </div>
+
+                    <div className="holiday-sidebar-wishes">
+                        <span style={{ color: 'white', opacity: 0.9 }}>{content.wishPrefix}</span>
+                        {content.wishes.map((wish, i) => (
+                            <span key={i}>
+                                <span className="holiday-sidebar-wish-item">{wish}</span>
+                                {i < content.wishes.length - 1 && (
+                                    <span className="holiday-sidebar-wish-separator"> & </span>
+                                )}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </div>
         );
@@ -298,7 +362,13 @@ export default function HolidayBanner({
                     <span className="holiday-mini-divider">—</span>
                     <span className="holiday-mini-message">
                         <span className="holiday-mini-company">Tân Đại Tây Dương</span>
-                        {' '}kính chúc Quý Khách {content.wishes.join(' & ')}!
+                        {' '}{content.wishPrefix}{' '}
+                        {content.wishes.map((wish, i) => (
+                            <span key={i}>
+                                <span className="holiday-wish-highlight">{wish}</span>
+                                {i < content.wishes.length - 1 && <span className="holiday-wish-separator"> & </span>}
+                            </span>
+                        ))}!
                     </span>
                 </div>
 
