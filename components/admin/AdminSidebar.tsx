@@ -149,18 +149,18 @@ export default function AdminSidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="h-[calc(100vh-85px)] overflow-y-auto px-4 py-6">
-          <ul className="space-y-2">
+        <nav className="h-[calc(100vh-85px)] overflow-y-auto px-3 py-4">
+          <ul className="space-y-1">
             {menuItems.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.url}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActiveLink(item.id)
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActiveLink(item.id)
                     ? 'bg-primary text-white shadow-md'
                     : 'text-dark dark:text-bodytext hover:bg-lighthover dark:hover:bg-darkmuted'
                     }`}
                 >
-                  <Icon icon={item.icon} height={20} className="flex-shrink-0" />
+                  <Icon icon={item.icon} height={18} className="flex-shrink-0" />
                   {!isCollapsed && <span className="font-medium text-sm">{item.name}</span>}
                 </Link>
               </li>
@@ -168,14 +168,14 @@ export default function AdminSidebar() {
           </ul>
 
           {/* Logout Button */}
-          <div className="mt-6 pt-6 border-t border-border dark:border-darkborder">
+          <div className="mt-4 pt-4 border-t border-border dark:border-darkborder">
             <Button
               variant="ghost"
               color="error"
               onClick={handleLogout}
-              className="w-full justify-start !px-4 !py-3"
+              className="w-full justify-start !px-3 !py-2.5"
             >
-              <Icon icon="solar:logout-2-line-duotone" height={20} className="flex-shrink-0" />
+              <Icon icon="solar:logout-2-line-duotone" height={18} className="flex-shrink-0" />
               {!isCollapsed && <span className="font-medium text-sm">Đăng xuất</span>}
             </Button>
 
@@ -233,19 +233,19 @@ export default function AdminSidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="h-[calc(100vh-85px)] overflow-y-auto px-4 py-6">
-          <ul className="space-y-2">
+        <nav className="h-[calc(100vh-85px)] overflow-y-auto px-3 py-4">
+          <ul className="space-y-1">
             {menuItems.map((item) => (
               <li key={item.id}>
                 <Link
                   href={item.url}
                   onClick={() => setIsMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActiveLink(item.id)
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${isActiveLink(item.id)
                     ? 'bg-primary text-white shadow-md'
                     : 'text-dark dark:text-bodytext hover:bg-lighthover dark:hover:bg-darkmuted'
                     }`}
                 >
-                  <Icon icon={item.icon} height={20} className="flex-shrink-0" />
+                  <Icon icon={item.icon} height={18} className="flex-shrink-0" />
                   <span className="font-medium text-sm">{item.name}</span>
                 </Link>
               </li>
@@ -253,7 +253,7 @@ export default function AdminSidebar() {
           </ul>
 
           {/* Logout Button */}
-          <div className="mt-6 pt-6 border-t border-border dark:border-darkborder">
+          <div className="mt-4 pt-4 border-t border-border dark:border-darkborder">
             <Button
               variant="ghost"
               color="error"
@@ -261,9 +261,9 @@ export default function AdminSidebar() {
                 handleLogout();
                 setIsMobileOpen(false);
               }}
-              className="w-full justify-start !px-4 !py-3"
+              className="w-full justify-start !px-3 !py-2.5"
             >
-              <Icon icon="solar:logout-2-line-duotone" height={20} className="flex-shrink-0" />
+              <Icon icon="solar:logout-2-line-duotone" height={18} className="flex-shrink-0" />
               <span className="font-medium text-sm">Đăng xuất</span>
             </Button>
 
