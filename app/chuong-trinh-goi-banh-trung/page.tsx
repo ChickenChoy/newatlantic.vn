@@ -63,6 +63,7 @@ export default function BanhTrungPage() {
     const [showQuickSchedule, setShowQuickSchedule] = useState(false);
     const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    const [isVideoStarted, setIsVideoStarted] = useState(false);
     const parallaxBgRef = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
@@ -317,38 +318,6 @@ export default function BanhTrungPage() {
             clearTimeout(flowerTimer);
         };
     }, []);
-
-    // YouTube video auto-play when visible
-    useEffect(() => {
-        const videoContainer = document.getElementById('youtube-container');
-        if (!videoContainer || !mounted) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const iframe = videoContainer.querySelector('iframe') as HTMLIFrameElement;
-                    if (entry.isIntersecting) {
-                        // User scrolled to video - start playing
-                        if (iframe && iframe.contentWindow) {
-                            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                            setIsVideoPlaying(true);
-                        }
-                    } else {
-                        // User scrolled away - pause video
-                        if (iframe && iframe.contentWindow) {
-                            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                            setIsVideoPlaying(false);
-                        }
-                    }
-                });
-            },
-            { threshold: 0.5 } // Play when 50% visible
-        );
-
-        observer.observe(videoContainer);
-
-        return () => observer.disconnect();
-    }, [mounted]);
 
 
     // Keyboard navigation for lightbox
@@ -731,19 +700,42 @@ export default function BanhTrungPage() {
 
                         <div className="banh-video-wrapper animate-on-scroll">
                             <div id="youtube-container" className="banh-video-container">
-                                <iframe
-                                    className="banh-video"
-                                    src="https://www.youtube.com/embed/GSxf1XNQ-qE?enablejsapi=1&rel=0&modestbranding=1"
-                                    title="Video Gói Bánh Chưng Tết 2026"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                />
+                                {!isVideoStarted ? (
+                                    <>
+                                        {/* YouTube Thumbnail */}
+                                        <Image
+                                            src="https://img.youtube.com/vi/GSxf1XNQ-qE/maxresdefault.jpg"
+                                            alt="Video Gói Bánh Chưng Tết 2026"
+                                            fill
+                                            className="banh-video-thumbnail"
+                                            style={{ objectFit: 'cover' }}
+                                        />
 
-                                {/* Auto-play indicator */}
-                                {!isVideoPlaying && (
-                                    <div className="banh-video-autoplay-hint">
-                                        <span>🎬 Video sẽ tự phát khi cuộn tới</span>
-                                    </div>
+                                        {/* Big Play Button */}
+                                        <button
+                                            className="banh-video-play-btn"
+                                            onClick={() => {
+                                                setIsVideoStarted(true);
+                                                setIsVideoPlaying(true);
+                                            }}
+                                            aria-label="Phát video"
+                                        >
+                                            <svg viewBox="0 0 68 48" width="68" height="48">
+                                                <path className="banh-play-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#FF0000" />
+                                                <path d="M 45,24 27,14 27,34" fill="#fff" />
+                                            </svg>
+                                            <span className="banh-play-text">Nhấn để xem video</span>
+                                        </button>
+                                    </>
+                                ) : (
+                                    /* YouTube Iframe - loads only after click */
+                                    <iframe
+                                        className="banh-video"
+                                        src="https://www.youtube.com/embed/GSxf1XNQ-qE?autoplay=1&rel=0&modestbranding=1"
+                                        title="Video Gói Bánh Chưng Tết 2026"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
                                 )}
                             </div>
                         </div>
