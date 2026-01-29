@@ -2891,3 +2891,42 @@ body:has(.banh-quick-schedule.visible) button[aria-label="Lên đầu trang"] {
         font-size: 0.85rem;
     }
 }
+
+/* YouTube iframe specific styles */
+.banh-video-container iframe.banh-video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+    border-radius: 16px;
+}
+
+.banh-video-playing-indicator {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 128, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: pulseGreen 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulseGreen {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 128, 0, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 10px rgba(0, 128, 0, 0);
+    }
+}
