@@ -127,7 +127,7 @@
     "id": "9",
     "name": "Giáng Sinh",
     "slug": "giang-sinh",
-    "enabled": true,
+    "enabled": false,
     "startDate": "12-20",
     "endDate": "12-26",
     "effectTypes": [
