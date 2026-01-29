@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "autoIndex": true,
+  "watchFiles": true,
+  "autoContext": true,
+  "indexOnInstall": true,
+  "debounceMs": 2000,
+  "excludePatterns": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.namnam/**"
+  ],
+  "lastIndexed": "2026-01-29T07:28:46.310Z",
+  "lastIndexCount": 0
+}
