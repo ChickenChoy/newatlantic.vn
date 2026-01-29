@@ -62,7 +62,10 @@ export default function BanhTrungPage() {
     const [showFlowers, setShowFlowers] = useState(true);
     const [showQuickSchedule, setShowQuickSchedule] = useState(false);
     const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    const [isVideoMuted, setIsVideoMuted] = useState(true);
     const parallaxBgRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
     const hasConfettiTriggered = useRef(false);
@@ -104,6 +107,7 @@ export default function BanhTrungPage() {
         about: "Giới thiệu",
         schedule: "Lịch trình",
         meaning: "Ý nghĩa",
+        video: "Video",
         gallery: "Hình ảnh",
         cta: "Liên hệ"
     };
@@ -199,7 +203,7 @@ export default function BanhTrungPage() {
     useEffect(() => {
         // Cache section elements for performance
         const sectionElements = new Map<string, HTMLElement>();
-        const sections = ["hero", "about", "schedule", "meaning", "gallery", "cta"];
+        const sections = ["hero", "about", "schedule", "meaning", "video", "gallery", "cta"];
         sections.forEach(id => {
             const el = document.getElementById(id);
             if (el) sectionElements.set(id, el);
@@ -315,6 +319,43 @@ export default function BanhTrungPage() {
             clearTimeout(flowerTimer);
         };
     }, []);
+
+    // Video auto-play when visible
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // User scrolled to video - start playing with sound
+                        video.play().then(() => {
+                            setIsVideoPlaying(true);
+                            // Unmute after a short delay to avoid browser blocking
+                            setTimeout(() => {
+                                video.muted = false;
+                                setIsVideoMuted(false);
+                            }, 100);
+                        }).catch(() => {
+                            // Autoplay blocked - keep muted and try again
+                            video.muted = true;
+                            video.play().catch(() => { });
+                        });
+                    } else {
+                        // User scrolled away - pause video
+                        video.pause();
+                        setIsVideoPlaying(false);
+                    }
+                });
+            },
+            { threshold: 0.5 } // Play when 50% visible
+        );
+
+        observer.observe(video);
+
+        return () => observer.disconnect();
+    }, [mounted]);
 
 
     // Keyboard navigation for lightbox
@@ -456,13 +497,13 @@ export default function BanhTrungPage() {
 
                 {/* Floating Nav Dots */}
                 <nav className="banh-nav-dots">
-                    {["hero", "about", "schedule", "meaning", "gallery"].map((section, i) => (
+                    {["hero", "about", "schedule", "meaning", "video", "gallery"].map((section, i) => (
                         <button
                             key={section}
                             onClick={() => scrollToSection(section)}
                             className="banh-nav-dot"
                             aria-label={`Đến phần ${section}`}
-                            title={["Trang chính", "Giới thiệu", "Lịch trình", "Ý nghĩa", "Hình ảnh"][i]}
+                            title={["Trang chính", "Giới thiệu", "Lịch trình", "Ý nghĩa", "Video", "Hình ảnh"][i]}
                         />
                     ))}
                 </nav>
@@ -683,6 +724,93 @@ export default function BanhTrungPage() {
                                     <p>{item.meaning}</p>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Video Section */}
+                <section id="video" className="banh-section">
+                    <div className="banh-container">
+                        <div className="banh-section-header animate-on-scroll">
+                            <h2 className="banh-title">Video Gói Bánh Chưng</h2>
+                            <p className="banh-subtitle">Xem lại khoảnh khắc ấm áp của chương trình</p>
+                        </div>
+
+                        <div className="banh-video-wrapper animate-on-scroll">
+                            <div className="banh-video-container">
+                                <video
+                                    ref={videoRef}
+                                    className="banh-video"
+                                    loop
+                                    playsInline
+                                    muted={isVideoMuted}
+                                    poster="/images/chuong-trinh-goi-banh-trung/1.jpg"
+                                >
+                                    <source src="/videos/goi-banh-chung.mp4" type="video/mp4" />
+                                    Trình duyệt của bạn không hỗ trợ video.
+                                </video>
+
+                                {/* Video Controls Overlay */}
+                                <div className="banh-video-controls">
+                                    {/* Play/Pause Button */}
+                                    <button
+                                        className="banh-video-btn banh-video-play"
+                                        onClick={() => {
+                                            const video = videoRef.current;
+                                            if (video) {
+                                                if (isVideoPlaying) {
+                                                    video.pause();
+                                                    setIsVideoPlaying(false);
+                                                } else {
+                                                    video.play();
+                                                    setIsVideoPlaying(true);
+                                                }
+                                            }
+                                        }}
+                                        aria-label={isVideoPlaying ? "Tạm dừng" : "Phát"}
+                                    >
+                                        {isVideoPlaying ? (
+                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                                                <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+                                            </svg>
+                                        ) : (
+                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        )}
+                                    </button>
+
+                                    {/* Mute/Unmute Button */}
+                                    <button
+                                        className="banh-video-btn banh-video-mute"
+                                        onClick={() => {
+                                            const video = videoRef.current;
+                                            if (video) {
+                                                video.muted = !video.muted;
+                                                setIsVideoMuted(video.muted);
+                                            }
+                                        }}
+                                        aria-label={isVideoMuted ? "Bật tiếng" : "Tắt tiếng"}
+                                    >
+                                        {isVideoMuted ? (
+                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                                            </svg>
+                                        ) : (
+                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                                            </svg>
+                                        )}
+                                    </button>
+                                </div>
+
+                                {/* Auto-play indicator */}
+                                {!isVideoPlaying && (
+                                    <div className="banh-video-autoplay-hint">
+                                        <span>🎬 Video sẽ tự phát khi cuộn tới</span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </section>
