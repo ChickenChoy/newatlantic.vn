@@ -1,12 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 
-// Supabase client for server-side
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+// Lazy-loaded Supabase client for server-side
+let supabase: SupabaseClient | null = null;
+
+function getSupabaseClient(): SupabaseClient | null {
+    if (supabase) return supabase;
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!supabaseUrl || !supabaseServiceKey) {
+        console.warn('Supabase credentials not configured. Page visibility features will be disabled.');
+        return null;
+    }
+
+    supabase = createClient(supabaseUrl, supabaseServiceKey);
+    return supabase;
+}
 
 const APP_DIR = path.join(process.cwd(), 'app');
 
@@ -121,9 +134,12 @@ function generatePageInfo(routePath: string, index: number) {
 
 // Sync detected routes to Supabase (add new pages, don't remove existing)
 async function syncRoutesToDatabase(detectedRoutes: string[]) {
+    const client = getSupabaseClient();
+    if (!client) return; // Supabase not configured, skip sync
+
     try {
         // Get existing pages from database
-        const { data: existingPages, error: fetchError } = await supabase
+        const { data: existingPages, error: fetchError } = await client
             .from('page_visibility')
             .select('path');
 
@@ -139,7 +155,7 @@ async function syncRoutesToDatabase(detectedRoutes: string[]) {
 
         if (newRoutes.length > 0) {
             // Get max order
-            const { data: maxOrderData } = await supabase
+            const { data: maxOrderData } = await client
                 .from('page_visibility')
                 .select('order')
                 .order('order', { ascending: false })
@@ -160,7 +176,7 @@ async function syncRoutesToDatabase(detectedRoutes: string[]) {
                 };
             });
 
-            const { error: insertError } = await supabase
+            const { error: insertError } = await client
                 .from('page_visibility')
                 .upsert(newPages, { onConflict: 'id' });
 
@@ -180,13 +196,28 @@ export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
         const pagePath = searchParams.get('path');
+        const client = getSupabaseClient();
 
-        // Scan routes and sync new ones to database
+        // Scan routes
         const detectedRoutes = scanRoutes();
+
+        // If Supabase is not configured, return file-based routes
+        if (!client) {
+            const fallbackPages = detectedRoutes.map((route, index) => generatePageInfo(route, index));
+
+            if (pagePath) {
+                const page = fallbackPages.find(p => pagePath === p.path || pagePath.startsWith(p.path + '/'));
+                return NextResponse.json({ visible: true, page: page || null });
+            }
+
+            return NextResponse.json(fallbackPages);
+        }
+
+        // Sync new routes to database
         await syncRoutesToDatabase(detectedRoutes);
 
         // Fetch all pages from database
-        const { data: pages, error } = await supabase
+        const { data: pages, error } = await client
             .from('page_visibility')
             .select('*')
             .order('order', { ascending: true });
@@ -229,6 +260,11 @@ export async function GET(request: NextRequest) {
 // PUT - Update page visibility
 export async function PUT(request: NextRequest) {
     try {
+        const client = getSupabaseClient();
+        if (!client) {
+            return NextResponse.json({ error: 'Supabase not configured' }, { status: 503 });
+        }
+
         const body = await request.json();
         const { id, visible, path: pagePath } = body;
 
@@ -237,7 +273,7 @@ export async function PUT(request: NextRequest) {
         }
 
         // Update in database
-        const { data, error } = await supabase
+        const { data, error } = await client
             .from('page_visibility')
             .update({
                 visible: visible,

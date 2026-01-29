@@ -1,13 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { authenticator } from '@otplib/preset-default';
 import QRCode from 'qrcode';
 
-// Use service role key for database operations
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+// Lazy-loaded Supabase client for server-side
+let supabaseClient: SupabaseClient | null = null;
 
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+function getSupabaseClient(): SupabaseClient | null {
+  if (supabaseClient) return supabaseClient;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServiceKey) {
+    console.warn('Supabase credentials not configured. TOTP features will be disabled.');
+    return null;
+  }
+
+  supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
+  return supabaseClient;
+}
+
+// Helper to get supabase URL for auth client
+function getSupabaseUrl(): string | null {
+  return process.env.NEXT_PUBLIC_SUPABASE_URL || null;
+}
 
 // Helper functions using otplib
 function generateSecret(): string {
@@ -25,7 +42,12 @@ function generateKeyUri(email: string, issuer: string, secret: string): string {
 // GET - Check TOTP status
 export async function GET() {
   try {
-    const { data, error } = await supabase
+    const client = getSupabaseClient();
+    if (!client) {
+      return NextResponse.json({ totpEnabled: false, message: 'Supabase not configured' });
+    }
+
+    const { data, error } = await client
       .from('admin_settings')
       .select('totp_enabled')
       .eq('id', 'admin')
@@ -48,6 +70,13 @@ export async function GET() {
 // POST - Setup, verify, or disable TOTP
 export async function POST(request: NextRequest) {
   try {
+    const client = getSupabaseClient();
+    const supabaseUrl = getSupabaseUrl();
+
+    if (!client || !supabaseUrl) {
+      return NextResponse.json({ error: 'Supabase not configured' }, { status: 503 });
+    }
+
     const body = await request.json();
     const { action, token } = body;
 
@@ -66,7 +95,11 @@ export async function POST(request: NextRequest) {
 
           // Create a separate Supabase client for password verification
           // We use the anon key for auth operations
-          const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+          const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+          if (!supabaseAnonKey) {
+            return NextResponse.json({ error: 'Supabase anon key not configured' }, { status: 503 });
+          }
+
           const { createClient: createAnonClient } = await import('@supabase/supabase-js');
           const supabaseAuth = createAnonClient(supabaseUrl, supabaseAnonKey);
 
@@ -93,7 +126,7 @@ export async function POST(request: NextRequest) {
           console.log('Generated QR code');
 
           // Save secret but don't enable yet
-          const { error } = await supabase
+          const { error } = await client
             .from('admin_settings')
             .upsert({
               id: 'admin',
@@ -121,7 +154,7 @@ export async function POST(request: NextRequest) {
 
       case 'verify-setup': {
         // Get secret from database
-        const { data, error: fetchError } = await supabase
+        const { data, error: fetchError } = await client
           .from('admin_settings')
           .select('totp_secret')
           .eq('id', 'admin')
@@ -138,7 +171,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Enable TOTP
-        const { error: updateError } = await supabase
+        const { error: updateError } = await client
           .from('admin_settings')
           .update({ totp_enabled: true, updated_at: new Date().toISOString() })
           .eq('id', 'admin');
@@ -155,7 +188,7 @@ export async function POST(request: NextRequest) {
 
       case 'verify': {
         // Get settings
-        const { data, error: fetchError } = await supabase
+        const { data, error: fetchError } = await client
           .from('admin_settings')
           .select('totp_secret, totp_enabled')
           .eq('id', 'admin')
@@ -189,7 +222,11 @@ export async function POST(request: NextRequest) {
         const adminEmail = process.env.ADMIN_EMAIL || 'admin@newatlantic.vn';
 
         // Create a separate Supabase client for password verification
-        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+        if (!supabaseAnonKey) {
+          return NextResponse.json({ error: 'Supabase anon key not configured' }, { status: 503 });
+        }
+
         const { createClient: createAnonClient } = await import('@supabase/supabase-js');
         const supabaseAuth = createAnonClient(supabaseUrl, supabaseAnonKey);
 
@@ -205,7 +242,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Get settings
-        const { data, error: fetchError } = await supabase
+        const { data, error: fetchError } = await client
           .from('admin_settings')
           .select('totp_secret, totp_enabled')
           .eq('id', 'admin')
@@ -224,7 +261,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Disable TOTP
-        const { error: updateError } = await supabase
+        const { error: updateError } = await client
           .from('admin_settings')
           .update({
             totp_enabled: false,
