@@ -63,69 +63,69 @@ export default function ProductCard({ product, className = '', hideQuickView = f
 
   return (
     <>
-      <Link 
-        href={`/san-pham/${product.categorySlug || product.category}/${product.slug}`} 
+      <Link
+        href={`/san-pham/${product.categorySlug || product.category}/${product.slug}`}
         className={`block relative group h-full ${className}`}
       >
-        {/* Background - giống Hidrokon với góc bo tròn lớn */}
+        {/* Background - Premium card with enhanced shadows */}
         <div
-          className="urun-liste-hover absolute transition-all duration-500 rounded-2xl product-card-bg"
+          className="urun-liste-hover absolute transition-all duration-500 rounded-2xl product-card-bg overflow-hidden"
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            background: 'linear-gradient(145deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
             zIndex: 10,
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.08)'
           }}
         />
 
         {/* Image Container - giống Hidrokon */}
-        <div 
+        <div
           className="relative w-full group-hover:z-30 transition-all duration-300 pt-12 pb-6 px-6 md:pt-[60px] md:pb-[30px] md:px-[35px]"
-          style={{ 
+          style={{
             zIndex: 20
           }}
         >
-              {product.image ? (
-                <div className="relative w-full aspect-[4/3] min-h-[160px] max-h-[160px] md:min-h-[240px] md:max-h-[240px]">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-contain group-hover:scale-105 transition-transform duration-500"
-                    style={{
-                      mixBlendMode: 'multiply',
-                      filter: 'contrast(1.1) brightness(1.05)'
-                    }}
-                    quality={95}
-                    priority={false}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                  />
-                </div>
-              ) : (
-                <div className="w-full aspect-[4/3] flex items-center justify-center text-gray-500 bg-white/5 min-h-[160px] max-h-[160px] md:min-h-[240px] md:max-h-[240px]">
-                  <svg className="w-20 h-20 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-              )}
-          
-          {/* Quick View Button - Enhanced hover effect */}
+          {product.image ? (
+            <div className="relative w-full aspect-[4/3] min-h-[160px] max-h-[160px] md:min-h-[240px] md:max-h-[240px]">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-contain group-hover:scale-105 transition-transform duration-500"
+                style={{
+                  mixBlendMode: 'multiply',
+                  filter: 'contrast(1.1) brightness(1.05)'
+                }}
+                quality={95}
+                priority={false}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+              />
+            </div>
+          ) : (
+            <div className="w-full aspect-[4/3] flex items-center justify-center text-gray-500 bg-white/5 min-h-[160px] max-h-[160px] md:min-h-[240px] md:max-h-[240px]">
+              <svg className="w-20 h-20 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+          )}
+
+          {/* Quick View Button */}
           {!hideQuickView && (
             <button
               onClick={handleQuickView}
-              className="absolute top-3 left-4 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 md:opacity-0 md:group-hover:opacity-100 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl hover:bg-white"
+              className="absolute top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 md:opacity-0 md:group-hover:opacity-100 rounded-full bg-white/95 shadow-md hover:shadow-lg hover:bg-white"
               title="Xem nhanh"
             >
-              <svg 
-                className="w-6 h-6 text-blue-600 group-hover:text-blue-700 transition-colors duration-300" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth={2.5}
+              <svg
+                className="w-5 h-5 text-slate-700 group-hover:text-primary transition-colors"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
                 viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -133,44 +133,47 @@ export default function ProductCard({ product, className = '', hideQuickView = f
               </svg>
             </button>
           )}
-          
+
         </div>
 
         {/* Title Box - giống Hidrokon */}
-        <div 
+        <div
           className="relative px-6 pb-8 md:px-[35px] md:pb-[45px]"
-          style={{ 
+          style={{
             zIndex: 15
           }}
         >
-          {/* Separator line */}
+          {/* Separator line - Premium gradient */}
           <div
-            className="product-separator transition-all duration-500 w-8 h-1 md:w-[50px] md:h-[6px] mb-4 md:mb-5"
+            className="product-separator transition-all duration-500 w-10 h-1 md:w-[60px] md:h-[5px] mb-4 md:mb-5 group-hover:w-16 md:group-hover:w-[80px]"
             style={{
-              backgroundColor: 'rgb(100, 130, 200)',
-              borderRadius: '3px'
+              background: 'linear-gradient(90deg, #3b5998 0%, #5a7fc2 50%, #14b8a6 100%)',
+              borderRadius: '4px',
+              boxShadow: '0 0 10px rgba(59, 89, 152, 0.3)'
             }}
           />
 
-          {/* Product Model/Name */}
+          {/* Product Model/Name - Enhanced typography */}
           <div
-            className="product-model transition-all duration-500 text-base md:text-xl font-semibold leading-tight mb-1.5 md:mb-1.5 break-words"
+            className="product-model transition-all duration-500 text-base md:text-xl font-bold leading-tight mb-2 md:mb-2.5 break-words line-clamp-2"
             style={{
-              color: 'rgb(255, 255, 255)',
+              color: '#ffffff',
               fontFamily: 'system-ui, -apple-system, sans-serif',
-              minHeight: '1.8em'
+              minHeight: '2.4em',
+              textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
             }}
           >
             {product.name}
           </div>
-          {/* Product Category/Type */}
+          {/* Product Category/Type - Better contrast */}
           <div
-            className="product-category transition-all duration-500 text-xs md:text-sm font-normal leading-snug"
+            className="product-category transition-all duration-500 text-xs md:text-sm font-medium leading-snug flex items-center gap-2"
             style={{
-              color: 'rgb(150, 180, 220)',
+              color: 'rgba(148, 163, 184, 1)',
               fontFamily: 'system-ui, -apple-system, sans-serif'
             }}
           >
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-teal-400/70"></span>
             {getProductCategory()}
           </div>
         </div>

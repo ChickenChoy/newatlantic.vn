@@ -8,14 +8,16 @@ export interface ToastProps {
   duration?: number;
   onClose?: () => void;
   position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+  icon?: React.ReactNode;
 }
 
 export default function Toast({
   message,
   type = 'info',
-  duration = 3000,
+  duration = 3500,
   onClose,
   position = 'top-right',
+  icon,
 }: ToastProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
@@ -42,48 +44,49 @@ export default function Toast({
     }, 300);
   };
 
+  // Premium gradient styles for each type
   const typeStyles = {
-    success: 'bg-green-500 text-white',
-    error: 'bg-red-500 text-white',
-    warning: 'bg-yellow-500 text-gray-900',
-    info: 'bg-blue-500 text-white',
+    success: {
+      bg: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      shadow: 'rgba(16, 185, 129, 0.3)',
+      iconBg: 'rgba(255, 255, 255, 0.2)',
+    },
+    error: {
+      bg: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+      shadow: 'rgba(239, 68, 68, 0.3)',
+      iconBg: 'rgba(255, 255, 255, 0.2)',
+    },
+    warning: {
+      bg: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+      shadow: 'rgba(245, 158, 11, 0.3)',
+      iconBg: 'rgba(255, 255, 255, 0.2)',
+    },
+    info: {
+      bg: 'linear-gradient(135deg, #3b5998 0%, #5a7fc2 100%)',
+      shadow: 'rgba(59, 89, 152, 0.3)',
+      iconBg: 'rgba(255, 255, 255, 0.2)',
+    },
   };
 
   const typeIcons = {
     success: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-        <path
-          fillRule="evenodd"
-          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-          clipRule="evenodd"
-        />
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
       </svg>
     ),
     error: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-        <path
-          fillRule="evenodd"
-          d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-          clipRule="evenodd"
-        />
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     ),
     warning: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-        <path
-          fillRule="evenodd"
-          d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-          clipRule="evenodd"
-        />
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>
     ),
     info: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-        <path
-          fillRule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-          clipRule="evenodd"
-        />
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
   };
@@ -97,49 +100,82 @@ export default function Toast({
     'bottom-center': 'bottom-4 left-1/2 -translate-x-1/2',
   };
 
+  const enterAnimation = {
+    'top-right': 'translate-x-0',
+    'top-left': 'translate-x-0',
+    'bottom-right': 'translate-x-0',
+    'bottom-left': 'translate-x-0',
+    'top-center': 'translate-y-0 -translate-x-1/2',
+    'bottom-center': 'translate-y-0 -translate-x-1/2',
+  };
+
+  const exitAnimation = {
+    'top-right': 'translate-x-full',
+    'top-left': '-translate-x-full',
+    'bottom-right': 'translate-x-full',
+    'bottom-left': '-translate-x-full',
+    'top-center': '-translate-y-full -translate-x-1/2',
+    'bottom-center': 'translate-y-full -translate-x-1/2',
+  };
+
+  const styles = typeStyles[type];
+
   return (
     <div
       className={`
-        fixed z-[100000] px-4 py-3 rounded-lg shadow-2xl
-        flex items-center gap-3 min-w-[300px] max-w-md
-        transition-all duration-300
-        ${typeStyles[type]}
+        fixed z-[100000] rounded-2xl
+        flex items-center gap-3 min-w-[320px] max-w-md
+        transition-all duration-300 ease-out
         ${positionStyles[position]}
-        ${isVisible && !isLeaving ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}
+        ${isVisible && !isLeaving ? `opacity-100 ${enterAnimation[position]}` : `opacity-0 ${exitAnimation[position]}`}
       `}
+      style={{
+        background: styles.bg,
+        boxShadow: `0 10px 40px -10px ${styles.shadow}, 0 0 0 1px rgba(255, 255, 255, 0.1) inset`,
+        padding: '14px 18px',
+      }}
     >
-      {/* Icon */}
-      <div className="flex-shrink-0" style={{ color: '#ffffff' }}>{typeIcons[type]}</div>
+      {/* Icon with background */}
+      <div
+        className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center"
+        style={{ background: styles.iconBg }}
+      >
+        <span className="text-white">
+          {icon || typeIcons[type]}
+        </span>
+      </div>
 
       {/* Message */}
-      <p className="flex-1 text-sm font-medium" style={{ color: '#ffffff' }}>{message}</p>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-semibold text-white leading-tight">
+          {message}
+        </p>
+      </div>
 
       {/* Close button */}
       <button
         onClick={handleClose}
-        className="flex-shrink-0 hover:bg-white/20 rounded p-1 transition-colors"
+        className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200"
       >
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path
-            fillRule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-            clipRule="evenodd"
-          />
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
 
       {/* Progress bar */}
       {duration > 0 && (
-        <div
-          className="absolute bottom-0 left-0 h-1 bg-white/30 rounded-bl-lg animate-progress"
-          style={{
-            animationDuration: `${duration}ms`,
-          }}
-        />
+        <div className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full overflow-hidden bg-white/10">
+          <div
+            className="h-full bg-white/40 rounded-full animate-toast-progress"
+            style={{
+              animationDuration: `${duration}ms`,
+            }}
+          />
+        </div>
       )}
 
       <style jsx>{`
-        @keyframes progress {
+        @keyframes toast-progress {
           from {
             width: 100%;
           }
@@ -147,8 +183,8 @@ export default function Toast({
             width: 0%;
           }
         }
-        .animate-progress {
-          animation: progress linear;
+        .animate-toast-progress {
+          animation: toast-progress linear forwards;
         }
       `}</style>
     </div>
@@ -183,3 +219,24 @@ export function useToast() {
   };
 }
 
+// Global Toast function for easy usage
+let globalToastHandler: ((toast: ToastProps) => void) | null = null;
+
+export function setGlobalToastHandler(handler: (toast: ToastProps) => void) {
+  globalToastHandler = handler;
+}
+
+export const toast = {
+  success: (message: string, options?: Partial<ToastProps>) => {
+    globalToastHandler?.({ message, type: 'success', ...options });
+  },
+  error: (message: string, options?: Partial<ToastProps>) => {
+    globalToastHandler?.({ message, type: 'error', ...options });
+  },
+  warning: (message: string, options?: Partial<ToastProps>) => {
+    globalToastHandler?.({ message, type: 'warning', ...options });
+  },
+  info: (message: string, options?: Partial<ToastProps>) => {
+    globalToastHandler?.({ message, type: 'info', ...options });
+  },
+};

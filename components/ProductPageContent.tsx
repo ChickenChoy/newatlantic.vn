@@ -168,8 +168,8 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                 <button
                   onClick={toggleWishlist}
                   className={`absolute top-3 sm:top-4 md:top-6 left-3 sm:left-4 md:left-6 w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10 ${isInWishlist
-                      ? 'bg-red-500 text-white'
-                      : 'bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-red-500 hover:text-white'
+                    ? 'bg-red-500 text-white'
+                    : 'bg-white/95 backdrop-blur-sm text-gray-700 hover:bg-red-500 hover:text-white'
                     }`}
                   title={isInWishlist ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
                 >
@@ -225,8 +225,8 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                       key={index}
                       onClick={() => goToImage(index)}
                       className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-white rounded-lg overflow-hidden border-2 shadow-lg transition-all duration-300 ${index === currentImageIndex
-                          ? 'border-[#5f7ab8]'
-                          : 'border-transparent hover:border-[#5f7ab8]'
+                        ? 'border-[#5f7ab8]'
+                        : 'border-transparent hover:border-[#5f7ab8]'
                         }`}
                     >
                       <Image
@@ -295,7 +295,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                     </svg>
                   </div>
                   <div className="text-lg sm:text-xl md:text-2xl font-black text-white mb-1">{product.price}</div>
-                  <p className="text-white/80 text-xs">Liên hệ ngay để nhận báo giá tốt nhất</p>
+                  <p className="text-white/90 text-xs">Liên hệ ngay để nhận báo giá tốt nhất</p>
                 </div>
               </div>
             </div>
@@ -334,7 +334,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   </div>
                   <div className="flex-1">
                     <p className="text-white font-semibold text-xs sm:text-sm">Chất lượng cao, độ bền vượt trội</p>
-                    <p className="text-xs text-gray-400 mt-0.5">Đạt tiêu chuẩn quốc tế ISO 9001</p>
+                    <p className="text-xs text-slate-300 mt-0.5">Đạt tiêu chuẩn quốc tế ISO 9001</p>
                   </div>
                 </div>
 
@@ -346,7 +346,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   </div>
                   <div className="flex-1">
                     <p className="text-white font-semibold text-xs sm:text-sm">Bảo hành chính hãng</p>
-                    <p className="text-xs text-gray-400 mt-0.5">Chế độ bảo hành toàn diện từ nhà sản xuất</p>
+                    <p className="text-xs text-slate-300 mt-0.5">Chế độ bảo hành toàn diện từ nhà sản xuất</p>
                   </div>
                 </div>
 
@@ -358,7 +358,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                   </div>
                   <div className="flex-1">
                     <p className="text-white font-semibold text-xs sm:text-sm">Hỗ trợ kỹ thuật 24/7</p>
-                    <p className="text-xs text-gray-400 mt-0.5">Đội ngũ kỹ sư chuyên nghiệp sẵn sàng hỗ trợ</p>
+                    <p className="text-xs text-slate-300 mt-0.5">Đội ngũ kỹ sư chuyên nghiệp sẵn sàng hỗ trợ</p>
                   </div>
                 </div>
               </div>
@@ -514,7 +514,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
                         <h3 className="text-xs sm:text-sm font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-2">
                           {relatedProduct.name}
                         </h3>
-                        <p className="text-gray-400 text-xs line-clamp-2">
+                        <p className="text-slate-300 text-xs line-clamp-2">
                           {relatedProduct.description ? cleanText(relatedProduct.description) : ''}
                         </p>
                       </div>
@@ -525,7 +525,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
 
               {/* Scroll Indicator */}
               <div className="flex justify-center mt-3 sm:mt-4 gap-2">
-                <div className="text-xs text-gray-400 flex items-center">
+                <div className="text-xs text-slate-300 flex items-center">
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
