@@ -192,7 +192,7 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
                       {office.phone && (
                         <a
                           href={`tel:${office.phone}`}
-                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-cyan-400 hover:text-cyan-300 transition-colors group-hover:translate-x-1 duration-300"
+                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-cyan-400 hover:text-cyan-300 transition-colors group-hover:translate-x-1 duration-300 mb-1.5"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-cyan-500/10 flex items-center justify-center">
@@ -201,6 +201,20 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
                             </svg>
                           </span>
                           <span className="font-medium">{office.phone}</span>
+                        </a>
+                      )}
+                      {office.email && (
+                        <a
+                          href={`mailto:${office.email}`}
+                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-teal-400 hover:text-teal-300 transition-colors group-hover:translate-x-1 duration-300"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-teal-500/10 flex items-center justify-center">
+                            <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </span>
+                          <span className="font-medium">{office.email}</span>
                         </a>
                       )}
                     </div>
