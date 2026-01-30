@@ -141,28 +141,30 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
                       alt={slide.title}
                       className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
                     />
-                    {/* Video overlay */}
-                    <video
-                      ref={index === currentSlide ? videoRef : null}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                      onLoadedData={() => setVideoLoaded(true)}
-                      onError={(e) => {
-                        console.error('HeroSlider video error:', slide.video, e)
-                        setVideoLoaded(false)
-                      }}
-                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${
-                        videoLoaded ? 'opacity-100' : 'opacity-0'
-                      }`}
-                      style={{
-                        animation: index === currentSlide && isMounted && videoLoaded ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
-                      }}
-                    >
-                      <source src={slide.video} type="video/mp4" />
-                    </video>
+                    {/* Video overlay - only render on client to prevent hydration errors */}
+                    {isMounted && (
+                      <video
+                        ref={index === currentSlide ? videoRef : null}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        onLoadedData={() => setVideoLoaded(true)}
+                        onError={(e) => {
+                          console.warn('HeroSlider video load failed:', slide.video)
+                          setVideoLoaded(false)
+                        }}
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${
+                          videoLoaded ? 'opacity-100' : 'opacity-0'
+                        }`}
+                        style={{
+                          animation: index === currentSlide && videoLoaded ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
+                        }}
+                      >
+                        <source src={slide.video} type="video/mp4" />
+                      </video>
+                    )}
                   </>
                 ) : (
                   /* Enhanced Image with Animation (fallback) */
