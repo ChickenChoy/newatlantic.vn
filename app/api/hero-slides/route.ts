@@ -21,18 +21,16 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { title, subtitle, description, image, link, linkText, order, enabled } = body;
-
-    if (!title || !image) {
-      return NextResponse.json({ error: 'Title and image are required' }, { status: 400 });
-    }
+    const { title, subtitle, label, description, image, video, link, linkText, order, enabled } = body;
 
     const newSlide: HeroSlide = {
       id: String(Date.now()),
-      title,
+      title: title || 'Slide mới',
       subtitle: subtitle || '',
+      label: label || '',
       description: description || '',
-      image,
+      image: image || '/images/hero/slide1.jpg',
+      video: video || '',
       link: link || '/',
       linkText: linkText || 'Xem thêm',
       order: order || 0,
