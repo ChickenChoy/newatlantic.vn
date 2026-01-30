@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import SearchResults from './SearchResults';
 import MobileTouchMenu from './MobileTouchMenu';
 import { WishlistManager } from '@/lib/wishlist';
@@ -58,24 +58,33 @@ export default function HeaderBottom() {
     };
   }, []);
 
-  // Hide FloatingContactButtons when mobile menu is open
+  // Hide FloatingContactButtons and lock body scroll when mobile menu is open
   useEffect(() => {
     const floatingContact = document.querySelector('[data-floating-contact="true"]');
-    if (floatingContact) {
-      if (mobileMenuOpen) {
-        // Hide when menu opens
+    if (mobileMenuOpen) {
+      // Hide floating contact
+      if (floatingContact) {
         (floatingContact as HTMLElement).style.opacity = '0';
         (floatingContact as HTMLElement).style.pointerEvents = 'none';
-        (floatingContact as HTMLElement).style.transform = 'translateX(100%)';
-        (floatingContact as HTMLElement).style.transition = 'opacity 0.2s ease, transform 0.2s ease';
-      } else {
-        // Show when menu closes - reset to let component manage its own state
+      }
+      // Lock body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      // Show floating contact
+      if (floatingContact) {
         (floatingContact as HTMLElement).style.opacity = '';
         (floatingContact as HTMLElement).style.pointerEvents = '';
-        (floatingContact as HTMLElement).style.transform = '';
-        (floatingContact as HTMLElement).style.transition = '';
       }
+      // Unlock body scroll
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
     }
+    return () => {
+      // Cleanup
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
   }, [mobileMenuOpen]);
 
   // Close dropdown when clicking outside
@@ -122,29 +131,36 @@ export default function HeaderBottom() {
     };
   }, []);
 
-  const toggleDropdown = (dropdownName: string) => {
-    setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
-  };
+  const toggleDropdown = useCallback((dropdownName: string) => {
+    setOpenDropdown(prev => prev === dropdownName ? null : dropdownName);
+  }, []);
 
-  const handleSearchToggle = () => {
-    setSearchOpen(!searchOpen);
-    if (searchOpen) {
-      setSearchQuery('');
-    }
-  };
+  const handleSearchToggle = useCallback(() => {
+    setSearchOpen(prev => {
+      if (prev) setSearchQuery('');
+      return !prev;
+    });
+  }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    if (e.target.value.trim()) {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (value.trim()) {
       setSearchOpen(true);
     }
-  };
+  }, []);
+
+  // Memoize mobile menu categories to prevent re-render
+  const mobileCategoryItems = useMemo(() => categories, [categories]);
+
+  // Close mobile menu callback
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
   return (
     <>
-      <div className={`fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none header-bottom transition-all duration-300 ${isScrolled ? 'top-2 md:top-3' : ''}`} data-header-bottom suppressHydrationWarning>
+      <div className={`fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none header-bottom ${isScrolled ? 'top-2 md:top-3' : ''}`} data-header-bottom suppressHydrationWarning>
         <nav className="w-full max-w-7xl mx-auto pointer-events-auto">
-          <div className={`transition-all duration-300 px-4 py-2 md:px-6 md:py-2.5 ${mobileMenuOpen ? 'rounded-2xl' : 'rounded-full'
+          <div className={`px-4 py-2 md:px-6 md:py-2.5 ${mobileMenuOpen ? 'rounded-2xl' : 'rounded-full'
             } ${isScrolled
               ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 border border-gray-200/60'
               : 'bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/40'
@@ -328,18 +344,9 @@ export default function HeaderBottom() {
             </div>
 
             {/* Mobile Navigation - Dropdown */}
-            <div
-              className={`mobile-menu-container lg:hidden ${mobileMenuOpen
-                ? 'opacity-100 visible'
-                : 'opacity-0 invisible pointer-events-none'
-                } transition-opacity duration-150 ease-out`}
-              style={{
-                display: mobileMenuOpen ? 'block' : 'none',
-                marginTop: mobileMenuOpen ? '0.75rem' : '0',
-                paddingBottom: mobileMenuOpen ? '0.75rem' : '0',
-              }}
-            >
-              <div className="space-y-1 overflow-y-auto max-h-[calc(100vh-120px)]">
+            {mobileMenuOpen && (
+              <div className="mobile-menu-container lg:hidden mt-3 pb-3">
+                <div className="space-y-1 overflow-y-auto max-h-[calc(100vh-140px)] overscroll-contain">
                 {/* Mobile Search */}
                 <div className="search-container mb-3">
                   <div className="relative">
@@ -378,15 +385,15 @@ export default function HeaderBottom() {
 
                 <Link
                   href="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                  onClick={closeMobileMenu}
+                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                 >
                   Trang chủ
                 </Link>
                 <Link
                   href="/yeu-thich"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                  onClick={closeMobileMenu}
+                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                 >
                   <div className="flex items-center justify-between">
                     <span>Sản phẩm yêu thích</span>
@@ -400,12 +407,12 @@ export default function HeaderBottom() {
                 <div className="border-t border-gray-200 my-2"></div>
                 <div>
                   <div className="text-xs font-semibold text-gray-500 px-3 mb-2 uppercase tracking-wider">SẢN PHẨM</div>
-                  {categories.map((cat) => (
+                  {mobileCategoryItems.map((cat) => (
                     <Link
                       key={cat.id}
                       href={`/san-pham/${cat.slug}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                      onClick={closeMobileMenu}
+                      className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                     >
                       {cat.name}
                     </Link>
@@ -414,34 +421,35 @@ export default function HeaderBottom() {
                 <div className="border-t border-gray-200 my-2"></div>
                 <Link
                   href="/tin-tuc"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                  onClick={closeMobileMenu}
+                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                 >
                   Tin tức
                 </Link>
                 <Link
                   href="/page-download-catalog"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                  onClick={closeMobileMenu}
+                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                 >
                   Catalog sản phẩm
                 </Link>
                 <Link
                   href="/thu-vien-hinh-anh"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-all duration-200"
+                  onClick={closeMobileMenu}
+                  className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                 >
                   Thư viện hình ảnh
                 </Link>
                 <Link
                   href="/lien-he"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-3 px-3 text-sm bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold text-center rounded-lg mt-2 hover:from-[#4a6199] hover:to-[#3d4f7d] transition-all duration-200 shadow-md"
+                  onClick={closeMobileMenu}
+                  className="block py-3 px-3 text-sm bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold text-center rounded-lg mt-2 hover:from-[#4a6199] hover:to-[#3d4f7d] shadow-md"
                 >
                   Liên hệ
                 </Link>
               </div>
-            </div>
+              </div>
+            )}
           </div>
         </nav>
       </div>

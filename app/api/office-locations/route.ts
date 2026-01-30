@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, type, region, address, phone, email, googleMapsUrl, order } = body;
+    const { name, type, region, address, phone, email, googleMapsUrl, directionsUrl, order } = body;
 
     if (!name || !address) {
       return NextResponse.json({ error: 'Name and address are required' }, { status: 400 });
@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
       phone: phone || '',
       email: email || '',
       googleMapsUrl: googleMapsUrl || '',
+      directionsUrl: directionsUrl || '',
       order: order || 0,
     };
 

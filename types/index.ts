@@ -90,6 +90,7 @@ export interface OfficeLocation {
   phone?: string;
   email?: string;
   googleMapsUrl?: string;
+  directionsUrl?: string; // Link chỉ đường tùy chỉnh
   order: number;
 }
 

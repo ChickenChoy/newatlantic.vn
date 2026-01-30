@@ -19,6 +19,7 @@ const fallbackOffices: OfficeLocation[] = [
     type: 'headquarters',
     order: 1,
     region: 'south',
+    directionsUrl: '',
   },
   {
     id: '2',
@@ -29,6 +30,7 @@ const fallbackOffices: OfficeLocation[] = [
     type: 'branch',
     order: 2,
     region: 'north',
+    directionsUrl: '',
   },
 ];
 
@@ -48,6 +50,10 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
   }, [displayOffices, selectedOffice]);
 
   const getDirectionsUrl = (office: OfficeLocation) => {
+    // Use custom directions URL if provided, otherwise generate from address
+    if (office.directionsUrl) {
+      return office.directionsUrl;
+    }
     const query = encodeURIComponent(`${office.name}, ${office.address}`);
     return `https://www.google.com/maps/dir/?api=1&destination=${query}`;
   };

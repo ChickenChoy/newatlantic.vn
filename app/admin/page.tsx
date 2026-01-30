@@ -1826,6 +1826,7 @@ export default function AdminPage() {
                       region: 'Miền Nam',
                       address: '',
                       order: officeLocations.length + 1,
+                      directionsUrl: '',
                     };
                     setSaving(true);
                     try {
@@ -1992,6 +1993,21 @@ export default function AdminPage() {
                         className="w-full px-3 py-2 border border-border rounded-lg text-sm"
                       />
                       <p className="text-xs text-gray-400 mt-1">Mở Google Maps → Share → Embed a map → Copy URL trong src</p>
+                    </div>
+                    <div className="mt-3">
+                      <label className="block text-xs font-medium text-muted mb-1">Link chỉ đường (tùy chọn)</label>
+                      <input
+                        type="text"
+                        value={office.directionsUrl || ''}
+                        onChange={(e) => {
+                          setOfficeLocations(officeLocations.map(o =>
+                            o.id === office.id ? { ...o, directionsUrl: e.target.value } : o
+                          ));
+                        }}
+                        placeholder="https://maps.google.com/?q=... hoặc https://goo.gl/maps/..."
+                        className="w-full px-3 py-2 border border-border rounded-lg text-sm"
+                      />
+                      <p className="text-xs text-gray-400 mt-1">Nếu để trống, hệ thống sẽ tự tạo link chỉ đường từ địa chỉ</p>
                     </div>
                   </div>
                 ))}
