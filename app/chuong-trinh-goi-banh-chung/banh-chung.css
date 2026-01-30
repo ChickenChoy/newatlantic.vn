@@ -1717,6 +1717,38 @@ body:has(.banh-quick-schedule.visible) .banh-flowers-toggle {
     .banh-lightbox-next {
         right: 10px;
     }
+
+    /* Flip Card Responsive for Mobile */
+    .flip-card-wrapper {
+        min-height: 240px;
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        padding: 1rem 0.875rem;
+        border-radius: 12px;
+    }
+
+    .flip-card-front .banh-ingredient-name,
+    .flip-card-back span[style*="fontWeight: 700"] {
+        font-size: 1rem !important;
+    }
+
+    .flip-card-front .banh-ingredient-desc {
+        font-size: 0.9rem;
+    }
+
+    .flip-card-back p {
+        font-size: 0.78rem !important;
+        line-height: 1.35;
+        margin-top: 0.3rem !important;
+    }
+
+    /* Hint text on mobile */
+    .flip-card-front span[style*="marginTop"] {
+        font-size: 0.7rem !important;
+        margin-top: 0.5rem !important;
+    }
 }
 
 /* Touch device optimizations */
@@ -3082,7 +3114,7 @@ body:has(.banh-quick-schedule.visible) button[aria-label="Lên đầu trang"] {
 .flip-card-wrapper {
     width: 100%;
     height: 100%;
-    min-height: 200px;
+    min-height: 220px;
 }
 
 .flip-card-front,
@@ -3095,6 +3127,7 @@ body:has(.banh-quick-schedule.visible) button[aria-label="Lên đầu trang"] {
     padding: 1.5rem;
     background: linear-gradient(135deg, rgba(139, 0, 0, 0.8), rgba(196, 30, 58, 0.8));
     border: 2px solid rgba(255, 215, 0, 0.3);
+    text-align: center;
 }
 
 .flip-card-back {
@@ -3156,6 +3189,7 @@ body:has(.banh-quick-schedule.visible) button[aria-label="Lên đầu trang"] {
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
+
     .magnetic-btn,
     .flip-card-inner,
     .scramble-text {
@@ -3278,6 +3312,7 @@ body:has(.banh-quick-schedule.visible) button[aria-label="Lên đầu trang"] {
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(100%);
     }
@@ -3369,4 +3404,53 @@ body:has(.banh-quick-schedule.visible) button[aria-label="Lên đầu trang"] {
 /* Flip Card Glow */
 .flip-card-wrapper:hover .flip-card-inner {
     filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+}
+
+/* ===================================
+   EXTRA SMALL SCREEN RESPONSIVE (< 380px)
+   =================================== */
+@media (max-width: 380px) {
+    .banh-ingredients-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .flip-card-wrapper {
+        min-height: 180px;
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        padding: 0.875rem;
+    }
+
+    .flip-card-front .banh-ingredient-name {
+        font-size: 1rem !important;
+    }
+
+    .flip-card-back p {
+        font-size: 0.8rem !important;
+        line-height: 1.4;
+    }
+
+    .banh-hero-title {
+        font-size: 2rem !important;
+    }
+
+    .banh-flip-countdown {
+        transform: scale(0.85);
+    }
+}
+
+/* ===================================
+   TABLET RESPONSIVE (768px - 1024px)
+   =================================== */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .flip-card-wrapper {
+        min-height: 220px;
+    }
+
+    .flip-card-back p {
+        font-size: 0.85rem;
+    }
 }

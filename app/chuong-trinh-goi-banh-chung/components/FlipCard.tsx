@@ -32,7 +32,7 @@ export function FlipCard({
                     position: "relative",
                     width: "100%",
                     height: "100%",
-                    transition: "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                    transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
                     transformStyle: "preserve-3d",
                     transform: isFlipped
                         ? flipDirection === "horizontal"
