@@ -58,45 +58,36 @@ export default function LazyVideoBackground({
 
   return (
     <div ref={containerRef} className="absolute inset-0">
-      {shouldLoad ? (
-        <>
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={posterImage}
-            onLoadedData={() => {
-              console.log('Video loaded:', videoSrc)
-              setIsLoaded(true)
-            }}
-            onError={(e) => {
-              console.error('Video error:', videoSrc, e)
-              setIsLoaded(false)
-            }}
-            className={className}
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
-          
-          {/* Show poster/placeholder while video is loading */}
-          {!isLoaded && posterImage && (
-            <div 
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${posterImage})` }}
-            />
-          )}
-        </>
-      ) : (
-        // Show static placeholder before video starts loading
-        posterImage && (
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${posterImage})` }}
-          />
-        )
+      {/* Always show poster as background base */}
+      {posterImage && (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${posterImage})` }}
+        />
+      )}
+      
+      {/* Video overlay on top */}
+      {shouldLoad && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          onLoadedData={() => {
+            console.log('Video loaded:', videoSrc)
+            setIsLoaded(true)
+          }}
+          onError={(e) => {
+            console.error('Video error:', videoSrc, e)
+            setIsLoaded(false)
+          }}
+          className={`${className} ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          style={{ transition: 'opacity 0.5s ease' }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
       )}
       
       {/* Dark Overlay */}
