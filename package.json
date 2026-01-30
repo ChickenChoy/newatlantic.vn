@@ -17,6 +17,7 @@
     "@genkit-ai/compat-oai": "^1.22.0",
     "@iconify/react": "^6.0.2",
     "@otplib/preset-default": "^12.0.1",
+    "@studio-freight/lenis": "^1.0.42",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.91.1",
     "@types/qrcode": "^1.5.6",

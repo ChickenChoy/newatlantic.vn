@@ -5,6 +5,14 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import "./banh-trung.css";
+import {
+    ParticleBackground,
+    MagneticButton,
+    CircularProgress,
+    FlipCard,
+    ScrambleText,
+    PageSkeleton
+} from "./components";
 
 // Skeleton Loading Component for Gallery
 function ImageSkeleton() {
@@ -74,7 +82,7 @@ export default function BanhTrungPage() {
     // Lunar calendar info for Tết 2026
     const lunarInfo = {
         year: "Bính Ngọ",
-        zodiac: "🐴",
+        zodiac: "",
         zodiacName: "Ngựa",
         lunarNewYear: "18.12 Âm lịch → 5.2.2026 Dương lịch"
     };
@@ -395,6 +403,12 @@ export default function BanhTrungPage() {
 
     return (
         <>
+            {/* Page Loading Skeleton */}
+            {!mounted && <PageSkeleton />}
+
+            {/* Particle Background - New UI Enhancement */}
+            {mounted && <ParticleBackground />}
+
             {/* Falling Flowers Effect - Hoa Mai & Hoa Đào rơi - Portal to body for z-index */}
             {mounted && showFlowers && flowerStyles.length > 0 && createPortal(
                 <div className="banh-flowers" aria-hidden="true">
@@ -419,7 +433,6 @@ export default function BanhTrungPage() {
                 <div className={`banh-quick-schedule ${showQuickSchedule && activeSection !== 'schedule' ? 'visible' : ''}`}>
                     <div className="banh-quick-schedule-content">
                         <div className="banh-quick-schedule-info">
-                            {/* <span className="banh-quick-schedule-icon">🎋</span> */}
                             <div className="banh-quick-schedule-text">
                                 <span className="banh-quick-schedule-title">Sắp diễn ra</span>
                                 <span className="banh-quick-schedule-date">5/2/2026 • Gói Bánh Trưng Tết</span>
@@ -502,10 +515,17 @@ export default function BanhTrungPage() {
                         <span className="banh-hero-badge">
                             Tết Nguyên Đán 2026
                         </span>
-                        <h1 className="banh-hero-title banh-gradient-text">
-                            Chương Trình<br />
-                            <span>Gói Bánh Trưng</span>
-                        </h1>
+                        <ScrambleText
+                            text="Chương Trình"
+                            className="banh-hero-title banh-gradient-text"
+                            as="h1"
+                        />
+                        <ScrambleText
+                            text="Gói Bánh Trưng"
+                            className="banh-hero-title banh-gradient-text"
+                            as="h1"
+                            delay={300}
+                        />
                         <p className="banh-hero-subtitle">
                             Cùng nhau gói vị tết - Gìn giữ truyền thống Việt Nam
                         </p>
@@ -522,18 +542,18 @@ export default function BanhTrungPage() {
                         </div>
 
                         <div className="banh-hero-actions">
-                            <button
-                                className="banh-btn banh-btn-primary"
+                            <MagneticButton
+                                className="banh-btn-primary"
                                 onClick={() => scrollToSection("schedule")}
                             >
                                 Xem lịch trình
-                            </button>
-                            <button
-                                className="banh-btn banh-btn-outline"
+                            </MagneticButton>
+                            <MagneticButton
+                                className="magnetic-btn-outline"
                                 onClick={() => scrollToSection("about")}
                             >
                                 Tìm hiểu thêm
-                            </button>
+                            </MagneticButton>
                         </div>
                     </div>
 
@@ -596,14 +616,18 @@ export default function BanhTrungPage() {
                 <section id="schedule" className="banh-section banh-section-alt">
                     <div className="banh-container">
                         <div className="banh-section-header animate-on-scroll">
-                            <h2 className="banh-title">Thời Gian Thực Hiện</h2>
+                            <h2 className="banh-title">Thờ̛i Gian Thực Hiện</h2>
                         </div>
 
-                        {/* Schedule Progress Indicator */}
+                        {/* Enhanced Schedule Progress with Circular Progress */}
                         <div className="banh-schedule-progress animate-on-scroll">
                             <div className="banh-progress-header">
                                 <span className="banh-progress-label">Tiến độ chương trình</span>
-                                <span className="banh-progress-count">{scheduleProgress.completedSteps}/{scheduleProgress.totalSteps} bước</span>
+                                <CircularProgress
+                                    progress={(scheduleProgress.completedSteps / scheduleProgress.totalSteps) * 100}
+                                    size={80}
+                                    strokeWidth={6}
+                                />
                             </div>
                             <div className="banh-progress-track">
                                 <div
@@ -622,9 +646,9 @@ export default function BanhTrungPage() {
                                 {scheduleProgress.completedSteps === 0 ? (
                                     <span>Chưa bắt đầu - Còn {countdown.days} ngày</span>
                                 ) : scheduleProgress.completedSteps === scheduleProgress.totalSteps ? (
-                                    <span>🎉 Hoàn thành!</span>
+                                    <span>Hoàn thành!</span>
                                 ) : (
-                                    <span>🔥 Đang thực hiện bước {scheduleProgress.completedSteps + 1}</span>
+                                    <span>Đang thực hiện bước {scheduleProgress.completedSteps + 1}</span>
                                 )}
                             </div>
                         </div>
@@ -657,10 +681,30 @@ export default function BanhTrungPage() {
                             <h3>Nguyên liệu chính</h3>
                             <div className="banh-ingredients-grid">
                                 {ingredientsData.map((item, index) => (
-                                    <div key={index} className="banh-ingredient-card">
-                                        <span className="banh-ingredient-name">{item.name}</span>
-                                        <span className="banh-ingredient-desc">{item.desc}</span>
-                                    </div>
+                                    <FlipCard
+                                        key={index}
+                                        className="banh-ingredient-card-wrapper"
+                                        flipDirection="horizontal"
+                                        front={
+                                            <>
+                                                <span className="banh-ingredient-name">{item.name}</span>
+                                                <span className="banh-ingredient-desc">{item.desc}</span>
+                                                <span style={{ marginTop: "1rem", fontSize: "0.8rem", opacity: 0.7 }}>
+                                                    Nhấn để xem chi tiết
+                                                </span>
+                                            </>
+                                        }
+                                        back={
+                                            <>
+                                                <span style={{ fontWeight: 700, fontSize: "1.1rem" }}>
+                                                    {item.name}
+                                                </span>
+                                                <p style={{ fontSize: "0.9rem", marginTop: "0.5rem", textAlign: "center" }}>
+                                                    Nguyên liệu tươi ngon được chọn lọc kỹ càng cho mùa Tết
+                                                </p>
+                                            </>
+                                        }
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -753,7 +797,6 @@ export default function BanhTrungPage() {
                             {/* Swipe Hint for first-time mobile users */}
                             {showSwipeHint && (
                                 <div className="banh-swipe-hint">
-                                    <div className="banh-swipe-hand">👆</div>
                                     <span>Vuốt để xem ảnh</span>
                                 </div>
                             )}
@@ -847,9 +890,12 @@ export default function BanhTrungPage() {
                     <div className="banh-cta-content">
                         <h2>Tân Đại Tây Dương</h2>
                         <p>Cùng nhau đón Tết - Gìn giữ truyền thống</p>
-                        <Link href="/" className="banh-btn banh-btn-white">
+                        <MagneticButton
+                            className="banh-btn-white"
+                            onClick={() => window.location.href = "/"}
+                        >
                             Về trang chủ
-                        </Link>
+                        </MagneticButton>
                     </div>
                 </section>
 
