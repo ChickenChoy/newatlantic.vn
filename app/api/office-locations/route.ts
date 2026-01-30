@@ -23,16 +23,13 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, type, region, address, phone, email, googleMapsUrl, directionsUrl, order } = body;
 
-    if (!name || !address) {
-      return NextResponse.json({ error: 'Name and address are required' }, { status: 400 });
-    }
-
+    // Allow creating with empty address, will be filled in later
     const newLocation: OfficeLocation = {
       id: String(Date.now()),
-      name,
+      name: name || 'Văn phòng mới',
       type: type || 'branch',
       region: region || '',
-      address,
+      address: address || '',
       phone: phone || '',
       email: email || '',
       googleMapsUrl: googleMapsUrl || '',
