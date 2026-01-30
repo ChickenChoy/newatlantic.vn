@@ -4,7 +4,7 @@
     "title": "ISO 9001:2015",
     "description": "Hệ thống quản lý chất lượng",
     "icon": "check-circle",
-    "enabled": false,
+    "enabled": true,
     "order": 1
   },
   {
@@ -12,7 +12,7 @@
     "title": "Nhà phân phối chính thức",
     "description": "WILL-BURT, HIAB, SKYMARK",
     "icon": "shield",
-    "enabled": false,
+    "enabled": true,
     "order": 2
   },
   {
