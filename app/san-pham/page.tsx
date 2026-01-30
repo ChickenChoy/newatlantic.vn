@@ -279,7 +279,7 @@ export default function ProductsPage() {
                 Tất cả <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Sản Phẩm</span>
               </h1>
               <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
-                Khám phá bộ sưu tập thiết bị công nghiệp chính hãng, chất lượng cao từ các thương hiệu hàng đầu thế giới.
+                Khám phá bộ sưu tập thiết bị công nghiệp chính hãng, chất lượng cao từ các thương hiệu hàng đầu.
               </p>
 
               {/* Holiday Banner - Centered Minimal */}

@@ -199,7 +199,7 @@ export default function HomePage() {
                       <strong className="text-white">Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương</strong> thành lập ngày 14/05/2003, với nỗ lực không ngừng đã phát triển từ một doanh nghiệp nhỏ thành một công ty uy tín trong và ngoài nước.
                     </p>
                     <p>
-                      Với doanh thu nhiều năm nằm trong <strong className="text-white">top 5 doanh nghiệp lớn nhất tại Quận 7, TP. Hồ Chí Minh</strong>, chúng tôi tự hào là đối tác tin cậy của các thương hiệu hàng đầu thế giới.
+                      Với doanh thu nhiều năm nằm trong <strong className="text-white">top 5 doanh nghiệp lớn nhất tại Quận 7, TP. Hồ Chí Minh</strong>, chúng tôi tự hào là đối tác tin cậy của các thương hiệu hàng đầu.
                     </p>
                   </div>
 

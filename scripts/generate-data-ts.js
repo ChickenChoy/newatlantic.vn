@@ -203,7 +203,7 @@ export const posts: Post[] = [
     title: "Thương Hiệu Cột Nâng Hơn 100 Năm Lịch Sử",
     slug: "thuong-hieu-cot-nang-hon-100-nam-lich-su",
     excerpt: "Khám phá lịch sử hơn 100 năm của thương hiệu cột nâng WILL-BURT",
-    content: "WILL-BURT là công ty hàng đầu thế giới trong lĩnh vực sản xuất cột tự nâng...",
+    content: "WILL-BURT là công ty hàng đầu trong lĩnh vực sản xuất cột tự nâng...",
     image: "/images/blog/willburt-history.jpg",
     category: "Tin tức",
     author: "Admin",

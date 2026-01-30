@@ -234,7 +234,7 @@ export default function DownloadCatalogClient() {
     'WILL-BURT': {
       logo: '/images/partner/WillBurt.png',
       title: 'WILL-BURT',
-      subtitle: 'Giải pháp cột tự nâng hàng đầu thế giới',
+      subtitle: 'Giải pháp cột tự nâng hàng đầu',
       gradient: 'from-green-700 to-emerald-600',
       iconColor: 'bg-green-500/20 text-green-400 group-hover:bg-green-600',
       hoverBorder: 'hover:border-green-400/30',

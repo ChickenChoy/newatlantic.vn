@@ -1,12 +1,16 @@
-import { getPosts } from '@/lib/db';
+'use client';
+
+import { useEffect, useState, useCallback } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ShareButtons from '@/components/ShareButtons';
 import RelatedPostsSlider from '@/components/RelatedPostsSlider';
-import { generateMetadata as genMeta, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/seo';
+import ReadingProgressBar from '@/components/ReadingProgressBar';
+import TableOfContents from '@/components/TableOfContents';
+import EstimatedReadingTime from '@/components/EstimatedReadingTime';
 import { sanitizeHtmlContent } from '@/lib/textUtils';
-import type { Metadata } from 'next';
+import type { Post } from '@/types';
 
 interface PostPageProps {
   params: Promise<{
@@ -14,45 +18,86 @@ interface PostPageProps {
   }>;
 }
 
-// Force dynamic rendering to always get fresh data
-export const dynamic = 'force-dynamic';
+export default function PostPage({ params }: PostPageProps) {
+  const [post, setPost] = useState<Post | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [slug, setSlug] = useState<string>('');
 
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const posts = getPosts();
-  const post = posts.find(p => p.slug === slug);
-  
-  if (!post) {
-    return genMeta({
-      title: 'Không tìm thấy',
-      description: 'Bài viết không tồn tại.',
-      path: `/tin-tuc/${slug}`,
-      noIndex: true,
-    });
+  useEffect(() => {
+    const loadParams = async () => {
+      const resolvedParams = await params;
+      setSlug(resolvedParams.slug);
+    };
+    loadParams();
+  }, [params]);
+
+  const loadPost = useCallback(async () => {
+    if (!slug) return;
+    
+    try {
+      const res = await fetch('/api/posts');
+      if (!res.ok) throw new Error('Failed to fetch posts');
+      
+      const posts: Post[] = await res.json();
+      const foundPost = posts.find(p => p.slug === slug);
+      
+      if (!foundPost) {
+        notFound();
+        return;
+      }
+
+      setPost(foundPost);
+      
+      // Get related posts (excluding current)
+      const related = posts.filter(p => p.id !== foundPost.id).slice(0, 6);
+      setRelatedPosts(related);
+      
+      // Update page title
+      document.title = `${foundPost.title} | NEW ATLANTIC - Tân Đại Tây Dương`;
+    } catch (error) {
+      console.error('Error loading post:', error);
+      notFound();
+    } finally {
+      setLoading(false);
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    loadPost();
+  }, [loadPost]);
+
+  // Add IDs to headings for TOC
+  useEffect(() => {
+    if (!post) return;
+    
+    const addHeadingIds = () => {
+      const content = document.querySelector('.prose');
+      if (!content) return;
+      
+      const headings = content.querySelectorAll('h2, h3');
+      headings.forEach((heading, index) => {
+        if (!heading.id) {
+          heading.id = `heading-${index}`;
+        }
+      });
+    };
+    
+    const timer = setTimeout(addHeadingIds, 100);
+    return () => clearTimeout(timer);
+  }, [post]);
+
+  if (loading) {
+    return (
+      <div className="bg-[#050c3a] min-h-screen pt-32 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400"></div>
+      </div>
+    );
   }
 
-  return genMeta({
-    title: post.title,
-    description: post.excerpt || post.title,
-    image: post.image,
-    path: `/tin-tuc/${slug}`,
-    keywords: [
-      'tin tức NEW ATLANTIC',
-      'thiết bị công nghiệp',
-      'WILL-BURT',
-      'HIAB',
-      'SKYMARK',
-    ],
-  });
-}
-
-export default async function PostPage({ params }: PostPageProps) {
-  const { slug } = await params;
-  const posts = getPosts();
-  const post = posts.find(p => p.slug === slug);
-  
   if (!post) {
     notFound();
+    return null;
   }
 
   const formattedDate = new Date(post.date).toLocaleDateString('vi-VN', {
@@ -61,47 +106,16 @@ export default async function PostPage({ params }: PostPageProps) {
     day: 'numeric',
   });
 
-  // Get all posts (excluding current post)
-  const relatedPosts = posts
-    .filter(p => p.id !== post.id);
-
-  // Generate structured data
-  const articleSchema = generateArticleSchema({
-    title: post.title,
-    description: post.excerpt || post.title,
-    image: post.image,
-    datePublished: post.date,
-    author: post.author,
-    url: `/tin-tuc/${slug}`,
-  });
-
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Trang chủ', url: '/' },
-    { name: 'Tin tức', url: '/tin-tuc' },
-    { name: post.title, url: `/tin-tuc/${slug}` },
-  ]);
-
   return (
     <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
+      {/* Reading Progress Bar */}
+      <ReadingProgressBar />
+
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
       </div>
-
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(articleSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
 
       {/* Breadcrumb */}
       <div className="relative z-10 border-b border-white/10 mt-12 md:mt-16">
@@ -126,39 +140,40 @@ export default async function PostPage({ params }: PostPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
             {/* Main Content */}
             <article className="lg:col-span-3 bg-white/10 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-white/10">
-          {/* Featured Image */}
-          {post.image && (
+              {/* Featured Image */}
+              {post.image && (
                 <div className="relative h-96 bg-gradient-to-br from-gray-100 to-gray-200">
-              <Image
-                src={post.image}
-                alt={post.title}
-                fill
-                className="object-cover"
-              />
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                  />
                   {/* Image Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-            </div>
-          )}
+                </div>
+              )}
 
               {/* Post Header */}
               <div className="p-8 lg:p-12">
-                {/* Meta Info */}
-                <div className="flex items-center gap-6 mb-8 pb-8 border-b border-white/10">
+                {/* Meta Info with Reading Time */}
+                <div className="flex flex-wrap items-center gap-4 mb-8 pb-8 border-b border-white/10">
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     <span className="font-medium">{formattedDate}</span>
                   </div>
-              {post.author && (
+                  {post.author && (
                     <div className="flex items-center gap-2 text-sm text-gray-400">
                       <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                       <span className="font-medium">{post.author}</span>
                     </div>
-              )}
-            </div>
+                  )}
+                  <EstimatedReadingTime />
+                </div>
 
                 <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 leading-tight text-white">{post.title}</h1>
 
@@ -171,68 +186,63 @@ export default async function PostPage({ params }: PostPageProps) {
                 )}
 
                 {/* Post Content */}
-                <div className="prose prose-base lg:prose-lg max-w-none mb-10 prose-invert prose-p:text-gray-300 prose-headings:text-white prose-strong:text-white prose-a:text-blue-400">
-              <div dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(post.content) }} />
+                <div 
+                  className="prose prose-base lg:prose-lg max-w-none mb-10 prose-invert prose-p:text-gray-300 prose-headings:text-white prose-strong:text-white prose-a:text-blue-400"
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(post.content) }}
+                />
 
-                  {/* Rich Content for News */}
-                  <div className="space-y-6 text-gray-300 leading-relaxed">
-                    <p className="leading-relaxed">
-                      NEW ATLANTIC tự hào là đại lý chính thức và độc quyền của các thương hiệu thiết bị công nghiệp
-                      hàng đầu thế giới. Với cam kết mang đến giải pháp tối ưu nhất cho khách hàng, chúng tôi không ngừng
-                      cập nhật và chia sẻ những thông tin mới nhất về sản phẩm, công nghệ và xu hướng ngành.
-                    </p>
+                {/* Rich Content for News */}
+                <div className="space-y-6 text-gray-300 leading-relaxed">
+                  <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Giới thiệu chi tiết</h2>
+                  <p className="leading-relaxed">
+                    NEW ATLANTIC tự hào là đại lý chính thức và độc quyền của các thương hiệu thiết bị công nghiệp
+                    hàng đầu. Với cam kết mang đến giải pháp tối ưu nhất cho khách hàng, chúng tôi không ngừng
+                    cập nhật và chia sẻ những thông tin mới nhất về sản phẩm, công nghệ và xu hướng ngành.
+                  </p>
 
-                    <div className="bg-blue-500/10 p-6 rounded-2xl border border-blue-400/20 my-8">
-                      <h3 className="text-xl font-bold mb-3 text-white">Điểm nổi bật</h3>
-                      <ul className="space-y-3">
-                        <li className="flex items-start gap-2.5">
-                          <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm">Sản phẩm chính hãng, nhập khẩu trực tiếp từ nhà sản xuất</span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm">Hỗ trợ kỹ thuật chuyên nghiệp 24/7</span>
-                        </li>
-                        <li className="flex items-start gap-2.5">
-                          <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm">Bảo hành chính hãng, dịch vụ sau bán hàng tận tâm</span>
-                        </li>
-                      </ul>
-                    </div>
+                  <div className="bg-blue-500/10 p-6 rounded-2xl border border-blue-400/20 my-8">
+                    <h3 className="text-xl font-bold mb-3 text-white">Điểm nổi bật</h3>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-2.5">
+                        <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm">Sản phẩm chính hãng, nhập khẩu trực tiếp từ nhà sản xuất</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm">Hỗ trợ kỹ thuật chuyên nghiệp 24/7</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm">Bảo hành chính hãng, dịch vụ sau bán hàng tận tâm</span>
+                      </li>
+                    </ul>
+                  </div>
 
-                    <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Giới thiệu chi tiết</h2>
-                    <p className="leading-relaxed">
-                      Trong bối cảnh ngành công nghiệp phát triển mạnh mẽ, nhu cầu về thiết bị chuyên dụng
-                      chất lượng cao ngày càng tăng. NEW ATLANTIC luôn đồng hành cùng khách hàng trong việc
-                      lựa chọn và cung cấp những giải pháp thiết bị tối ưu nhất, phù hợp với từng nhu cầu cụ thể.
-                    </p>
+                  <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Ứng dụng thực tế</h2>
+                  <p className="leading-relaxed">
+                    Các sản phẩm của chúng tôi được ứng dụng rộng rãi trong nhiều lĩnh vực: xây dựng, công nghiệp,
+                    quốc phòng, an ninh, và nhiều ngành nghề khác. Với độ bền cao và hiệu suất vượt trội, thiết bị
+                    của chúng tôi đã và đang được tin dùng bởi hàng nghìn khách hàng trên toàn quốc.
+                  </p>
 
-                    <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Ứng dụng thực tế</h2>
-                    <p className="leading-relaxed">
-                      Các sản phẩm của chúng tôi được ứng dụng rộng rãi trong nhiều lĩnh vực: xây dựng, công nghiệp,
-                      quốc phòng, an ninh, và nhiều ngành nghề khác. Với độ bền cao và hiệu suất vượt trội, thiết bị
-                      của chúng tôi đã và đang được tin dùng bởi hàng nghìn khách hàng trên toàn quốc.
-                    </p>
+                  <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Cam kết của chúng tôi</h2>
+                  <p className="leading-relaxed">
+                    NEW ATLANTIC cam kết mang đến cho khách hàng không chỉ là sản phẩm chất lượng mà còn là
+                    dịch vụ hoàn hảo. Đội ngũ kỹ thuật viên được đào tạo bài bản, sẵn sàng tư vấn và hỗ trợ
+                    khách hàng mọi lúc mọi nơi.
+                  </p>
+                </div>
 
-                    <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Cam kết của chúng tôi</h2>
-                    <p className="leading-relaxed">
-                      NEW ATLANTIC cam kết mang đến cho khách hàng không chỉ là sản phẩm chất lượng mà còn là
-                      dịch vụ hoàn hảo. Đội ngũ kỹ thuật viên được đào tạo bài bản, sẵn sàng tư vấn và hỗ trợ
-                      khách hàng mọi lúc mọi nơi.
-                    </p>
-            </div>
-          </div>
-
-                {/* Share Section - Unique to News */}
+                {/* Share Section */}
                 <ShareButtons title={post.title} />
 
-                {/* Author Info - Unique to News */}
+                {/* Author Info */}
                 <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
                   <div className="flex items-start gap-4">
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
@@ -241,7 +251,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     <div>
                       <h3 className="font-bold text-lg mb-2 text-white">NEW ATLANTIC</h3>
                       <p className="text-gray-400 text-sm leading-relaxed">
-                        Đại lý chính thức và độc quyền các thương hiệu thiết bị công nghiệp hàng đầu thế giới.
+                        Đại lý chính thức và độc quyền các thương hiệu thiết bị công nghiệp hàng đầu.
                         Chuyên cung cấp giải pháp thiết bị chuyên dụng cho các dự án xây dựng, công nghiệp và quốc phòng.
                       </p>
                     </div>
@@ -250,10 +260,12 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </article>
 
-            {/* Sidebar */}
+            {/* Sidebar with TOC */}
             <aside className="space-y-6">
+              {/* Table of Contents */}
+              <TableOfContents />
 
-              {/* Contact Card - Unique to News */}
+              {/* Contact Card */}
               <div className="bg-white/10 backdrop-blur-sm p-5 rounded-2xl shadow-xl border border-white/10">
                 <h3 className="font-bold text-lg mb-3 text-white">Cần hỗ trợ?</h3>
                 <p className="text-gray-400 mb-4 text-sm">
@@ -266,7 +278,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   >
                     <div className="w-9 h-9 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all">
                       <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.21l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
                     </div>
                     <div>
@@ -296,7 +308,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     Gửi yêu cầu tư vấn
                   </Link>
                 </div>
-            </div>
+              </div>
             </aside>
           </div>
 
@@ -311,4 +323,3 @@ export default async function PostPage({ params }: PostPageProps) {
     </div>
   );
 }
-

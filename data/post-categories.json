@@ -22,13 +22,5 @@
     "description": "Tin tức về thương hiệu WILL-BURT",
     "order": 3,
     "enabled": true
-  },
-  {
-    "id": "post-cat-1769144437763",
-    "name": "TEST",
-    "slug": "test",
-    "description": "",
-    "order": 3,
-    "enabled": true
   }
 ]
