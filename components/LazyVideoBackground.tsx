@@ -49,6 +49,10 @@ export default function LazyVideoBackground({
     // Load video after shouldLoad is true
     if (shouldLoad && videoRef.current) {
       videoRef.current.load()
+      // Try to play after loading
+      videoRef.current.play().catch(err => {
+        console.warn('Video autoplay failed:', err)
+      })
     }
   }, [shouldLoad])
 
@@ -64,8 +68,14 @@ export default function LazyVideoBackground({
             playsInline
             preload="metadata"
             poster={posterImage}
-            onLoadedData={() => setIsLoaded(true)}
-            onError={() => setIsLoaded(false)}
+            onLoadedData={() => {
+              console.log('Video loaded:', videoSrc)
+              setIsLoaded(true)
+            }}
+            onError={(e) => {
+              console.error('Video error:', videoSrc, e)
+              setIsLoaded(false)
+            }}
             className={className}
           >
             <source src={videoSrc} type="video/mp4" />
