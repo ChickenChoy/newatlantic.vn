@@ -14,7 +14,7 @@ const DEFAULT_HOLIDAY_EFFECTS: HolidayEffect[] = [
     // ===== NGÀY LỄ CHÍNH THỨC (Theo Bộ luật Lao động) =====
     {
         id: '1',
-        name: 'Tết Dương Lịch',
+        name: 'TẾT Dương Lịch',
         slug: 'tet-duong-lich',
         enabled: false,
         startDate: '12-30',
@@ -26,13 +26,13 @@ const DEFAULT_HOLIDAY_EFFECTS: HolidayEffect[] = [
     },
     {
         id: '2',
-        name: 'Tết Nguyên Đán',
+        name: 'TẾT Nguyên Đán',
         slug: 'tet-nguyen-dan',
         enabled: true,
-        startDate: '01-15',  // Bắt đầu trước Tết ~2 tuần
-        endDate: '02-15',    // Kết thúc sau Tết ~2 tuần
+        startDate: '01-15',  // Bắt đầu trước TẾT ~2 tuần
+        endDate: '02-15',    // Kết thúc sau TẾT ~2 tuần
         effectTypes: ['banner', 'flowers', 'fireworks'],
-        description: 'Tết Âm lịch - 5 ngày nghỉ chính thức (29 Chạp - Mùng 5 Giêng)',
+        description: 'TẾT Âm lịch - 5 ngày nghỉ chính thức (29 Chạp - Mùng 5 Giêng)',
         primaryColor: '#dc2626',
         secondaryColor: '#ffd700',
     },
@@ -99,13 +99,13 @@ const DEFAULT_HOLIDAY_EFFECTS: HolidayEffect[] = [
     },
     {
         id: '8',
-        name: 'Tết Trung Thu',
+        name: 'TẾT Trung Thu',
         slug: 'tet-trung-thu',
         enabled: false,
         startDate: '09-10',  // Rằm tháng 8 Âm lịch (dao động giữa 09 và 10)
         endDate: '09-20',
         effectTypes: ['banner', 'flowers'],
-        description: 'Tết Trung Thu - Rằm tháng 8 Âm lịch',
+        description: 'TẾT Trung Thu - Rằm tháng 8 Âm lịch',
         primaryColor: '#f59e0b',
         secondaryColor: '#fbbf24',
     },

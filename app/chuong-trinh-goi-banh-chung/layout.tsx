@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Outfit } from "next/font/google";
-import "./banh-trung.css";
+import "./banh-chung.css";
 
 const playfair = Playfair_Display({
     subsets: ["latin"],
@@ -22,21 +22,21 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-    title: "Chương trình gói bánh trưng | Tân Đại Tây Dương",
+    title: "Chương trình gói bánh chưng | Tân Đại Tây Dương",
     description:
-        "Chương trình gói bánh trưng truyền thống - Cùng nhau đón Tết, gìn giữ nét đẹp văn hóa Việt Nam",
+        "Chương trình gói bánh chưng truyền thống - Cùng nhau đón TẾT, gìn giữ nét đẹp văn hóa Việt Nam",
     keywords: [
-        "bánh trưng",
-        "gói bánh trưng",
-        "Tết Nguyên Đán",
+        "bánh chưng",
+        "gói bánh chưng",
+        "TẾT Nguyên Đán",
         "truyền thống Việt Nam",
         "New Atlantic",
         "Tân Đại Tây Dương",
     ],
     openGraph: {
-        title: "Chương trình gói bánh trưng | Tân Đại Tây Dương",
+        title: "Chương trình gói bánh chưng | Tân Đại Tây Dương",
         description:
-            "Chương trình gói bánh trưng truyền thống - Cùng nhau đón Tết, gìn giữ nét đẹp văn hóa Việt Nam",
+            "Chương trình gói bánh chưng truyền thống - Cùng nhau đón TẾT, gìn giữ nét đẹp văn hóa Việt Nam",
         type: "website",
         locale: "vi_VN",
     },
@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     },
 };
 
-export default function BanhTrungLayout({
+export default function BanhChungLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <div className={`${playfair.variable} ${outfit.variable} banh-trung-body`}>
+        <div className={`${playfair.variable} ${outfit.variable} banh-chung-body`}>
             {children}
         </div>
     );

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { HolidayEffect } from "@/types";
 import "@/styles/holiday-decorations.css";
 
-const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-trung"];
+const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-chung"];
 const ADMIN_PATHS = ["/admin"];
 
 // Decoration types for different holidays

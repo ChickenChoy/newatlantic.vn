@@ -6,7 +6,7 @@ import { HolidayEffect } from "@/types";
 import "@/styles/holiday-banners.css";
 
 // Paths to exclude banners
-const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-trung"];
+const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-chung"];
 const ADMIN_PATHS = ["/admin"];
 
 // Dynamic year calculations
@@ -121,7 +121,7 @@ function getHolidayContent(slug: string) {
         },
         'tet-trung-thu': {
             icon: '🥮',
-            title: 'Tết Trung Thu',
+            title: 'TẾT Trung Thu',
             subtitle: `Rằm Tháng 8 - ${year}`,
             wishes: ['Đoàn Viên', 'Hạnh Phúc'],
             wishPrefix: 'chúc gia đình',

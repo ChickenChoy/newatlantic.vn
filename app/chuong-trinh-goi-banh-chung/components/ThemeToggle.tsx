@@ -7,7 +7,7 @@ export function ThemeToggle() {
 
     useEffect(() => {
         // Check for saved preference or system preference
-        const savedTheme = localStorage.getItem("banh-trung-theme");
+        const savedTheme = localStorage.getItem("banh-chung-theme");
         if (savedTheme) {
             setIsDark(savedTheme === "dark");
         } else {
@@ -18,7 +18,7 @@ export function ThemeToggle() {
     useEffect(() => {
         // Apply theme
         document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
-        localStorage.setItem("banh-trung-theme", isDark ? "dark" : "light");
+        localStorage.setItem("banh-chung-theme", isDark ? "dark" : "light");
     }, [isDark]);
 
     return (

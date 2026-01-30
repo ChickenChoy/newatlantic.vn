@@ -176,7 +176,7 @@ export interface PostCategory {
 // Holiday Effects - Hiệu ứng ngày lễ
 export interface HolidayEffect {
   id: string;
-  name: string;           // Tên ngày lễ (VD: "Tết Nguyên Đán")
+  name: string;           // Tên ngày lễ (VD: "TẾT Nguyên Đán")
   slug: string;           // Slug (VD: "tet-nguyen-dan")
   enabled: boolean;       // Bật/tắt hiệu ứng
   startDate: string;      // Ngày bắt đầu (MM-DD hoặc YYYY-MM-DD)

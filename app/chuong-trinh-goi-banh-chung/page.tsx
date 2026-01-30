@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
-import "./banh-trung.css";
+import "./banh-chung.css";
 import {
     ParticleBackground,
     MagneticButton,
@@ -54,7 +54,7 @@ function FlipUnit({ current, label }: FlipUnitProps) {
     );
 }
 
-export default function BanhTrungPage() {
+export default function BanhChungPage() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -79,7 +79,7 @@ export default function BanhTrungPage() {
     const hasShownSwipeHint = useRef(false);
     const minSwipeDistance = 50;
 
-    // Lunar calendar info for Tết 2026
+    // Lunar calendar info for TẾT 2026
     const lunarInfo = {
         year: "Bính Ngọ",
         zodiac: "",
@@ -120,12 +120,12 @@ export default function BanhTrungPage() {
     };
 
     const galleryImages = [
-        { src: "/images/chuong-trinh-goi-banh-trung/1.jpg", alt: "Hoạt động gói bánh trưng 1" },
-        { src: "/images/chuong-trinh-goi-banh-trung/2.jpg", alt: "Hoạt động gói bánh trưng 2" },
-        { src: "/images/chuong-trinh-goi-banh-trung/3.jpg", alt: "Hoạt động gói bánh trưng 3" },
-        { src: "/images/chuong-trinh-goi-banh-trung/4.jpg", alt: "Hoạt động gói bánh trưng 4" },
-        { src: "/images/chuong-trinh-goi-banh-trung/5.jpg", alt: "Hoạt động gói bánh trưng 5" },
-        { src: "/images/chuong-trinh-goi-banh-trung/7.jpg", alt: "Hoạt động gói bánh trưng 7" },
+        { src: "/images/chuong-trinh-goi-banh-chung/1.jpg", alt: "Hoạt động gói bánh chưng 1" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2.jpg", alt: "Hoạt động gói bánh chưng 2" },
+        { src: "/images/chuong-trinh-goi-banh-chung/3.jpg", alt: "Hoạt động gói bánh chưng 3" },
+        { src: "/images/chuong-trinh-goi-banh-chung/4.jpg", alt: "Hoạt động gói bánh chưng 4" },
+        { src: "/images/chuong-trinh-goi-banh-chung/5.jpg", alt: "Hoạt động gói bánh chưng 5" },
+        { src: "/images/chuong-trinh-goi-banh-chung/7.jpg", alt: "Hoạt động gói bánh chưng 7" },
     ];
 
     const scheduleData = [
@@ -145,10 +145,10 @@ export default function BanhTrungPage() {
     ];
 
     const ingredientsData = [
-        { name: "Gạo nếp", desc: "Dẻo thơm" },
-        { name: "Đậu xanh", desc: "Bùi béo" },
-        { name: "Thịt ba chỉ", desc: "Đậm đà" },
-        { name: "Lá dong", desc: "Xanh tươi" },
+        { name: "Gạo nếp", desc: "Dẻo thơm", detail: "Gạo nếp cái hoa vàng loại 1, hạt tròn đều, thơm dẻo. Ngâm qua đêm để gạo nở đều và chín mềm khi nấu." },
+        { name: "Đậu xanh", desc: "Bùi béo", detail: "Đậu xanh lòng vàng, hạt to đều, không sâu mọt. Ngâm mềm rồi đãi vỏ, hấp chín và giã nhuyễn." },
+        { name: "Thịt ba chỉ", desc: "Đậm đà", detail: "Thịt ba chỉ tươi ngon, có đủ nạc mỡ. Ướp tiêu, nước mắm và hành tím để thịt thấm gia vị." },
+        { name: "Lá dong", desc: "Xanh tươi", detail: "Lá dong rừng xanh mướt, to bản, không rách. Rửa sạch, lau khô và cắt phần cuống để dễ gói." },
     ];
 
     // Countdown to event (Feb 5, 2026)
@@ -435,7 +435,7 @@ export default function BanhTrungPage() {
                         <div className="banh-quick-schedule-info">
                             <div className="banh-quick-schedule-text">
                                 <span className="banh-quick-schedule-title">Sắp diễn ra</span>
-                                <span className="banh-quick-schedule-date">5/2/2026 • Gói Bánh Trưng Tết</span>
+                                <span className="banh-quick-schedule-date">5/2/2026 • Gói Bánh Chưng TẾT</span>
                             </div>
                         </div>
                         <div className="banh-quick-schedule-cta">
@@ -491,8 +491,8 @@ export default function BanhTrungPage() {
                     >
                         {/* Mobile: poster.jpg (vertical) */}
                         <Image
-                            src="/images/chuong-trinh-goi-banh-trung/poster.jpg"
-                            alt="Poster Chương Trình Gói Bánh Trưng Tết 2026"
+                            src="/images/chuong-trinh-goi-banh-chung/poster.jpg"
+                            alt="Poster Chương Trình Gói Bánh Chưng TẾT 2026"
                             fill
                             priority
                             className="banh-hero-bg-mobile"
@@ -500,8 +500,8 @@ export default function BanhTrungPage() {
                         />
                         {/* Desktop: banner-ngang.jpg (horizontal) */}
                         <Image
-                            src="/images/chuong-trinh-goi-banh-trung/banner-ngang.jpg"
-                            alt="Banner Chương Trình Gói Bánh Trưng Tết 2026"
+                            src="/images/chuong-trinh-goi-banh-chung/banner-ngang.jpg"
+                            alt="Banner Chương Trình Gói Bánh Chưng TẾT 2026"
                             fill
                             priority
                             className="banh-hero-bg-desktop"
@@ -513,7 +513,7 @@ export default function BanhTrungPage() {
                     <div className="banh-hero-content">
 
                         <span className="banh-hero-badge">
-                            Tết Nguyên Đán 2026
+                            TẾT Nguyên Đán 2026
                         </span>
                         <ScrambleText
                             text="Chương Trình"
@@ -521,13 +521,13 @@ export default function BanhTrungPage() {
                             as="h1"
                         />
                         <ScrambleText
-                            text="Gói Bánh Trưng"
+                            text="Gói Bánh Chưng"
                             className="banh-hero-title banh-gradient-text"
                             as="h1"
                             delay={300}
                         />
                         <p className="banh-hero-subtitle">
-                            Cùng nhau gói vị tết - Gìn giữ truyền thống Việt Nam
+                            Cùng nhau gói vị TẾT - Gìn giữ truyền thống Việt Nam
                         </p>
 
                         {/* Flip Countdown */}
@@ -577,32 +577,32 @@ export default function BanhTrungPage() {
                             <div className="banh-about-content animate-on-scroll">
                                 <div className="banh-about-avatar">
                                     <Image
-                                        src="/images/chuong-trinh-goi-banh-trung/Avatar.png"
-                                        alt="Mascot Chương Trình Gói Bánh Trưng"
+                                        src="/images/chuong-trinh-goi-banh-chung/Avatar.png"
+                                        alt="Mascot Chương Trình Gói Bánh Chưng"
                                         width={200}
                                         height={200}
                                         style={{ objectFit: "contain" }}
                                     />
                                 </div>
                                 <p className="banh-lead">
-                                    <strong>Chương trình Gói Bánh Trưng</strong> là hoạt động truyền thống
-                                    được tổ chức hàng năm nhằm gìn giữ và phát huy nét đẹp văn hóa Tết Việt.
+                                    <strong>Chương trình Gói Bánh Chưng</strong> là hoạt động truyền thống
+                                    được tổ chức hàng năm nhằm gìn giữ và phát huy nét đẹp văn hóa TẾT Việt.
                                 </p>
                                 <p>
                                     Đây là dịp để các thành viên cùng nhau quây quần, học hỏi và trải nghiệm
-                                    nghệ thuật gói bánh trưng - món ăn không thể thiếu trong mâm cỗ ngày Tết
+                                    nghệ thuật gói bánh chưng - món ăn không thể thiếu trong mâm cỗ ngày TẾT
                                     của người Việt Nam.
                                 </p>
                                 <p>
-                                    Chương trình không chỉ mang lại những chiếc bánh trưng thơm ngon mà còn
+                                    Chương trình không chỉ mang lại những chiếc bánh chưng thơm ngon mà còn
                                     là cơ hội để gắn kết tình cảm gia đình, đồng nghiệp và bạn bè.
                                 </p>
                             </div>
 
                             <div className="banh-about-image animate-on-scroll">
                                 <Image
-                                    src="/images/chuong-trinh-goi-banh-trung/1.jpg"
-                                    alt="Gói bánh trưng truyền thống"
+                                    src="/images/chuong-trinh-goi-banh-chung/1.jpg"
+                                    alt="Gói bánh chưng truyền thống"
                                     fill
                                     style={{ objectFit: "cover" }}
                                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -700,7 +700,7 @@ export default function BanhTrungPage() {
                                                     {item.name}
                                                 </span>
                                                 <p style={{ fontSize: "0.9rem", marginTop: "0.5rem", textAlign: "center" }}>
-                                                    Nguyên liệu tươi ngon được chọn lọc kỹ càng cho mùa Tết
+                                                    {item.detail}
                                                 </p>
                                             </>
                                         }
@@ -715,7 +715,7 @@ export default function BanhTrungPage() {
                 <section id="meaning" className="banh-section">
                     <div className="banh-container">
                         <div className="banh-section-header animate-on-scroll">
-                            <h2 className="banh-title">Ý Nghĩa Bánh Trưng</h2>
+                            <h2 className="banh-title">Ý Nghĩa Bánh Chưng</h2>
                         </div>
 
                         <div className="banh-meaning-grid">
@@ -749,7 +749,7 @@ export default function BanhTrungPage() {
                                         {/* YouTube Thumbnail */}
                                         <Image
                                             src="https://img.youtube.com/vi/GSxf1XNQ-qE/maxresdefault.jpg"
-                                            alt="Video Gói Bánh Chưng Tết 2026"
+                                            alt="Video Gói Bánh Chưng TẾT 2026"
                                             fill
                                             className="banh-video-thumbnail"
                                             style={{ objectFit: 'cover' }}
@@ -776,7 +776,7 @@ export default function BanhTrungPage() {
                                     <iframe
                                         className="banh-video"
                                         src="https://www.youtube.com/embed/GSxf1XNQ-qE?autoplay=1&rel=0&modestbranding=1"
-                                        title="Video Gói Bánh Chưng Tết 2026"
+                                        title="Video Gói Bánh Chưng TẾT 2026"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     />
@@ -790,7 +790,7 @@ export default function BanhTrungPage() {
                 <section id="gallery" className="banh-section banh-section-alt">
                     <div className="banh-container">
                         <div className="banh-section-header animate-on-scroll">
-                            <h2 className="banh-title">Hình Ảnh Tết 2025</h2>
+                            <h2 className="banh-title">Hình Ảnh TẾT 2025</h2>
                         </div>
 
                         <div className="banh-gallery animate-on-scroll">
@@ -889,7 +889,7 @@ export default function BanhTrungPage() {
                 <section id="cta" className="banh-cta">
                     <div className="banh-cta-content">
                         <h2>Tân Đại Tây Dương</h2>
-                        <p>Cùng nhau đón Tết - Gìn giữ truyền thống</p>
+                        <p>Cùng nhau đón TẾT - Gìn giữ truyền thống</p>
                         <MagneticButton
                             className="banh-btn-white"
                             onClick={() => window.location.href = "/"}

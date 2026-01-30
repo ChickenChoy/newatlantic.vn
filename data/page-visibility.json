@@ -56,10 +56,10 @@
     "order": 7
   },
   {
-    "id": "banh-trung",
-    "path": "/chuong-trinh-goi-banh-trung",
-    "name": "Chương trình gói bánh trưng",
-    "description": "Trang chương trình Tết",
+    "id": "banh-chung",
+    "path": "/chuong-trinh-goi-banh-chung",
+    "name": "Chương trình gói bánh chưng",
+    "description": "Trang chương trình TẾT",
     "visible": true,
     "order": 8
   },

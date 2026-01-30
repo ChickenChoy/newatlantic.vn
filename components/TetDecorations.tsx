@@ -5,14 +5,14 @@ import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import "@/styles/tet-decorations.css";
 
-// Paths that already have Tết decorations (exclude from global effect)
-const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-trung"];
+// Paths that already have TẾT decorations (exclude from global effect)
+const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-chung"];
 
 // Admin paths - no decorations needed
 const ADMIN_PATHS = ["/admin"];
 
 /**
- * Check if current date is within Tết season
+ * Check if current date is within TẾT season
  */
 function isTetSeason(): boolean {
     const now = new Date();

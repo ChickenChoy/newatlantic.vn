@@ -91,7 +91,7 @@ NEW ATLANTIC (Vietnamese: Tân Đại Tây Dương) is a Vietnamese industrial e
 
 5. **feat: enhance falling flowers effect** (bdf435c)
    - Improved animations for Hoa Mai (apricot blossoms) & Hoa Đào (peach blossoms)
-   - Cultural elements for Vietnamese Lunar New Year (Tết)
+   - Cultural elements for Vietnamese Lunar New Year (TẾT)
    - CSS animations optimization
 
 ### Key Technical Improvements
@@ -111,7 +111,7 @@ NEW ATLANTIC (Vietnamese: Tân Đại Tây Dương) is a Vietnamese industrial e
 
 **Cultural Features:**
 - Falling Hoa Mai & Hoa Đào (Vietnamese traditional flowers)
-- Bánh Trưng program (Rice cake wrapping tradition)
+- Bánh Chưng program (Rice cake wrapping tradition)
 - Countdown timer to Lunar New Year event (Feb 5, 2026)
 - Confetti effect when countdown reaches zero
 
@@ -128,9 +128,9 @@ NEW ATLANTIC (Vietnamese: Tân Đại Tây Dương) is a Vietnamese industrial e
 - Locale setting: `vi_VN`
 
 **Cultural Considerations:**
-- Strong emphasis on Vietnamese traditions (Tết/Lunar New Year)
+- Strong emphasis on Vietnamese traditions (TẾT/Lunar New Year)
 - Traditional flower imagery (Hoa Mai - yellow apricot, Hoa Đào - pink peach blossoms)
-- Rice cake wrapping program ("Chương Trình Gói Bánh Trưng")
+- Rice cake wrapping program ("Chương Trình Gói Bánh Chưng")
 - Vietnamese business culture references
 
 **Geographic Focus:**
@@ -261,9 +261,9 @@ Admin: No cache
 
 ## 5. Cultural & Regional Considerations
 
-### Vietnamese Lunar New Year (Tết) Features
+### Vietnamese Lunar New Year (TẾT) Features
 
-**Bánh Trưng Program** (Rice Cake Wrapping Tradition)
+**Bánh Chưng Program** (Rice Cake Wrapping Tradition)
 
 **Event Details:**
 - **Date:** February 5-8, 2026 (Lunar Calendar: 18-21/12 AL)
@@ -374,9 +374,9 @@ for (const [sectionId, element] of sectionElements) {
 
 ### Special Pages
 
-**Bánh Trưng Program Page:**
-- Dedicated route: `/chuong-trinh-goi-banh-trung`
-- Custom CSS file: `banh-trung.css`
+**Bánh Chưng Program Page:**
+- Dedicated route: `/chuong-trinh-goi-banh-chung`
+- Custom CSS file: `banh-chung.css`
 - Features: Countdown, timeline, gallery, swipe hints
 - Mobile-optimized with touch gestures
 
@@ -396,7 +396,7 @@ for (const [sectionId, element] of sectionElements) {
 /lien-he                    - Contact page
 /thu-vien-hinh-anh          - Image gallery
 /page-download-catalog      - Catalog downloads
-/chuong-trinh-goi-banh-trung - Rice cake program
+/chuong-trinh-goi-banh-chung - Rice cake program
 /admin                      - Admin panel
 ```
 
@@ -433,7 +433,7 @@ for (const [sectionId, element] of sectionElements) {
 
 ## Recommendations for Developers
 
-1. **Maintain cultural authenticity** when modifying Tết-related features
+1. **Maintain cultural authenticity** when modifying TẾT-related features
 2. **Test performance** on mobile devices due to animation-heavy design
 3. **Preserve Vietnamese language** integrity in all translations
 4. **Follow Next.js 16 best practices** for App Router

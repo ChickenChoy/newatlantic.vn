@@ -38,7 +38,7 @@ const ROUTE_NAME_MAP: Record<string, { name: string; description: string }> = {
     '/lien-he': { name: 'Liên hệ', description: 'Trang liên hệ' },
     '/yeu-thich': { name: 'Yêu thích', description: 'Trang sản phẩm yêu thích' },
     '/page-download-catalog': { name: 'Tải Catalog', description: 'Trang tải catalog sản phẩm' },
-    '/chuong-trinh-goi-banh-trung': { name: 'Chương trình gói bánh chưng', description: 'Trang chương trình Tết' },
+    '/chuong-trinh-goi-banh-chung': { name: 'Chương trình gói bánh chưng', description: 'Trang chương trình TẾT' },
     '/masttech': { name: 'MastTech', description: 'Trang MastTech' },
     '/chinh-sach-bao-mat': { name: 'Chính sách bảo mật', description: 'Trang chính sách bảo mật' },
     '/dieu-khoan-dich-vu': { name: 'Điều khoản dịch vụ', description: 'Trang điều khoản dịch vụ' },

@@ -1989,7 +1989,7 @@ body:has(.banh-quick-schedule.visible) .banh-flowers-toggle {
     }
 }
 
-/* 4. Pull to Refresh - Tết Animation */
+/* 4. Pull to Refresh - TẾT Animation */
 .banh-pull-refresh {
     position: fixed;
     top: 0;
@@ -2129,7 +2129,7 @@ body:has(.banh-quick-schedule.visible) .banh-flowers-toggle {
    SENIOR-FRIENDLY UX ENHANCEMENTS
    =================================== */
 
-/* 1. Sticky Quick Schedule - Beautiful Tết Design */
+/* 1. Sticky Quick Schedule - Beautiful TẾT Design */
 .banh-quick-schedule {
     position: fixed;
     bottom: 0;

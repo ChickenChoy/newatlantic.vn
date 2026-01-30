@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import "@/styles/tet-decorations.css";
 
-// Paths that already have Tết decorations (exclude from global effect)
-const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-trung"];
+// Paths that already have TẾT decorations (exclude from global effect)
+const EXCLUDED_PATHS = ["/chuong-trinh-goi-banh-chung"];
 
 // Admin paths - no decorations needed
 const ADMIN_PATHS = ["/admin"];
 
 /**
- * Check if current date is within Tết season (fallback for SSR)
+ * Check if current date is within TẾT season (fallback for SSR)
  */
 export function isTetSeason(): boolean {
     const now = new Date();
@@ -44,7 +44,7 @@ interface TetBannerProps {
 }
 
 /**
- * Tết Banner - Premium Lunar New Year Banner
+ * TẾT Banner - Premium Lunar New Year Banner
  * Variants:
  * - hero: Large showcase banner with full decorations
  * - inline: Medium banner for sections
@@ -97,7 +97,7 @@ export default function TetBanner({
             (path) => pathname === path || pathname.startsWith(`${path}/`)
         );
 
-    // Don't render if not mounted, loading, not Tết enabled, or excluded path
+    // Don't render if not mounted, loading, not TẾT enabled, or excluded path
     if (!mounted || loading || !isTetEnabled || isExcludedPath) {
         return null;
     }
