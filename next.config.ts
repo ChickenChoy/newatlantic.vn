@@ -50,6 +50,20 @@ const nextConfig: NextConfig = {
   // Headers for optimal caching
   async headers() {
     return [
+      // Video files - proper MIME type and caching
+      {
+        source: '/videos/:path*',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'video/mp4',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
       // Security headers for all routes
       {
         source: '/(.*)',

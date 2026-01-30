@@ -135,6 +135,13 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
                 {/* Video Background (if available) */}
                 {slide.video ? (
                   <>
+                    {/* Always show image as base */}
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+                    />
+                    {/* Video overlay */}
                     <video
                       ref={index === currentSlide ? videoRef : null}
                       autoPlay
@@ -142,28 +149,20 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
                       muted
                       playsInline
                       preload="metadata"
-                      poster={slide.image}
                       onLoadedData={() => setVideoLoaded(true)}
-                      onError={() => setVideoLoaded(false)}
-                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-all duration-[2000ms] ease-out ${
-                        index === currentSlide && isMounted
-                          ? "scale-110 opacity-100"
-                          : "scale-100 opacity-90"
+                      onError={(e) => {
+                        console.error('HeroSlider video error:', slide.video, e)
+                        setVideoLoaded(false)
+                      }}
+                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${
+                        videoLoaded ? 'opacity-100' : 'opacity-0'
                       }`}
                       style={{
-                        animation: index === currentSlide && isMounted ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
+                        animation: index === currentSlide && isMounted && videoLoaded ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
                       }}
                     >
                       <source src={slide.video} type="video/mp4" />
                     </video>
-                    {/* Fallback to image if video hasn't loaded */}
-                    {!videoLoaded && (
-                      <img
-                        src={slide.image}
-                        alt={slide.title}
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover"
-                      />
-                    )}
                   </>
                 ) : (
                   /* Enhanced Image with Animation (fallback) */
