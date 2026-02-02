@@ -85,8 +85,8 @@ export default function Certifications() {
                 </svg>
                 Chứng nhận & Giải thưởng
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                Uy tín & Chất lượng được công nhận
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                UY TÍN & CHẤT LƯỢNG ĐƯỢC CÔNG NHẬN
               </h2>
               <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
                 Những chứng nhận và giải thưởng khẳng định chất lượng dịch vụ và sản phẩm của chúng tôi

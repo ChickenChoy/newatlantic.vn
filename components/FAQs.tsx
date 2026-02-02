@@ -71,8 +71,8 @@ export default function FAQs() {
                 </svg>
                 Câu hỏi thường gặp
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                Bạn có câu hỏi?
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                BẠN CÓ CÂU HỎI?
               </h2>
               <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
                 Tìm câu trả lời cho những thắc mắc phổ biến về sản phẩm và dịch vụ của chúng tôi

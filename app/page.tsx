@@ -187,10 +187,10 @@ export default function HomePage() {
                       </svg>
                       Về chúng tôi
                     </div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 leading-tight">
-                      Hành trình phát triển
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 sm:mb-3 leading-tight uppercase">
+                      HÀNH TRÌNH PHÁT TRIỂN
                       <span className="block text-white">
-                        từ 2003
+                        TỪ 2003
                       </span>
                     </h2>
                   </div>
@@ -402,10 +402,10 @@ export default function HomePage() {
                   </svg>
                   Sản phẩm & Thương hiệu
                 </div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                  Đối tác của các
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                  ĐỐI TÁC CỦA CÁC
                   <span className="block text-white">
-                    thương hiệu hàng đầu
+                    THƯƠNG HIỆU HÀNG ĐẦU
                   </span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
@@ -462,10 +462,10 @@ export default function HomePage() {
                   </svg>
                   Dịch vụ chuyên nghiệp
                 </div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                  Giải pháp
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                  GIẢI PHÁP
                   <span className="block text-white">
-                    toàn diện & chuyên nghiệp
+                    TOÀN DIỆN & CHUYÊN NGHIỆP
                   </span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
@@ -577,8 +577,8 @@ export default function HomePage() {
                     </svg>
                     Sản phẩm nổi bật
                   </div>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                    Sản phẩm nổi bật
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                    SẢN PHẨM NỔI BẬT
                   </h2>
                   <p className="text-gray-300 text-base md:text-lg lg:text-xl max-w-2xl leading-relaxed">
                     Khám phá các sản phẩm chất lượng cao được tin dùng
@@ -721,8 +721,8 @@ export default function HomePage() {
                   </svg>
                   Đối tác đa quốc gia
                 </div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                  Quan hệ đối tác
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                  QUAN HỆ ĐỐI TÁC
                 </h2>
                 <p className="text-gray-300 text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
                   Nhờ vào sự hợp tác chặt chẽ và hiệu quả với các đối tác chiến lược tại các thị trường quan trọng như <strong className="text-white">Bắc Mỹ, Châu Âu, Châu Á và Trung Đông</strong>, chúng tôi có khả năng cung cấp các giải pháp và dịch vụ tiên tiến, đáp ứng nhu cầu đa dạng của khách hàng toàn cầu.
@@ -795,10 +795,10 @@ export default function HomePage() {
                   </svg>
                   Hệ thống chi nhánh
                 </div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                  Phủ sóng{' '}
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                  PHỦ SÓNG{' '}
                   <span className="text-white">
-                    toàn quốc
+                    TOÀN QUỐC
                   </span>
                 </h2>
                 <p className="text-gray-300 text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
@@ -912,8 +912,8 @@ export default function HomePage() {
                     </svg>
                     Tin Tức & Sự Kiện
                   </div>
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                    Cập nhật mới nhất
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                    CẬP NHẬT MỚI NHẤT
                   </h2>
                   <p className="text-gray-300 text-base md:text-lg lg:text-xl max-w-2xl leading-relaxed">
                     Thông tin về sản phẩm, công nghệ và các sự kiện quan trọng trong ngành

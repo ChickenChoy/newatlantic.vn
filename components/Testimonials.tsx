@@ -94,8 +94,8 @@ export default function Testimonials() {
                 </svg>
                 Đánh giá khách hàng
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-                Khách hàng nói gì về chúng tôi
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight uppercase">
+                KHÁCH HÀNG NÓI GÌ VỀ CHÚNG TÔI
               </h2>
               <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
                 Hơn 1000+ khách hàng tin tưởng và hài lòng với dịch vụ của NEW ATLANTIC
