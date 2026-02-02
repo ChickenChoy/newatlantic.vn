@@ -66,6 +66,7 @@ export interface SiteSettings {
   companySlogan: string;
   companyDescription: string;
   logo: string;
+  footerLogo?: string;
   phone: string;
   email: string;
   hotline?: string;
@@ -227,3 +228,37 @@ export interface Certification {
   enabled: boolean;       // Bật/tắt hiển thị
   order: number;          // Thứ tự
 }
+
+// Thư viện Media - Thư viện media tập trung
+export interface MediaItem {
+  id: string;
+  filename: string;           // Tên file (vd: hiab-x-series.webp)
+  originalName: string;       // Tên file gốc
+  folder: 'products' | 'posts' | 'gallery' | 'partners' | 'slides' | 'seo' | 'general';
+  mimeType: string;           // image/webp, image/jpeg, etc.
+  size: number;               // Kích thước bytes
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  variants: {
+    thumbnail: string;        // Base64 - 150x150
+    medium: string;           // Base64 - 800x auto
+    full: string;             // Base64 - Original size (max 1200px)
+  };
+  alt: string;                // Alt text cho SEO
+  caption?: string;           // Caption/mô tả
+  tags: string[];             // Tags để tìm kiếm
+  usedIn: MediaUsage[];       // Tracking sử dụng
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MediaUsage {
+  type: 'product' | 'post' | 'gallery' | 'partner' | 'slide' | 'setting';
+  id: string;
+  field: string;              // Tên field đang sử dụng (vd: 'image', 'thumbnail')
+}
+
+export type MediaFolder = MediaItem['folder'];
+

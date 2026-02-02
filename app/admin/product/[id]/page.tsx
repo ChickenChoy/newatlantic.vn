@@ -6,6 +6,7 @@ import { Product, Category } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import dynamic from 'next/dynamic';
+import MediaPicker from '@/components/admin/MediaPicker';
 
 const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
   ssr: false,
@@ -243,38 +244,14 @@ export default function ProductPage({ params }: ProductPageProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-bodytext mb-2">Hình ảnh chính</label>
-              <div className="space-y-3">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      if (file.size > 100 * 1024 * 1024) {
-                        toast.warning('Hình ảnh không được vượt quá 100MB');
-                        return;
-                      }
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setFormData({ ...formData, image: reader.result as string });
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
-                />
-                <input
-                  type="text"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="Hoặc nhập URL hình ảnh"
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
-                />
-              </div>
-              {formData.image && (
-                <img src={formData.image} alt="Preview" className="mt-3 w-32 h-32 object-cover rounded-lg border border-border" />
-              )}
+              <MediaPicker
+                label="Hình ảnh chính"
+                value={formData.image}
+                onChange={(value) => setFormData({ ...formData, image: value })}
+                folder="products"
+                aspectRatio="square"
+                placeholder="Chọn hình ảnh sản phẩm"
+              />
             </div>
 
             <div>

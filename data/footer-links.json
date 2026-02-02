@@ -1,5 +1,45 @@
 [
   {
+    "id": "quick-home",
+    "label": "Trang chủ",
+    "href": "/",
+    "section": "quick",
+    "isExternal": false,
+    "order": 1
+  },
+  {
+    "id": "quick-products",
+    "label": "Sản phẩm ",
+    "href": "/san-pham",
+    "section": "quick",
+    "isExternal": false,
+    "order": 2
+  },
+  {
+    "id": "quick-news",
+    "label": "Tin tức",
+    "href": "/tin-tuc",
+    "section": "quick",
+    "isExternal": false,
+    "order": 3
+  },
+  {
+    "id": "quick-about",
+    "label": "Giới thiệu",
+    "href": "/masttech",
+    "section": "quick",
+    "isExternal": false,
+    "order": 4
+  },
+  {
+    "id": "quick-contact",
+    "label": "Liên hệ",
+    "href": "/lien-he",
+    "section": "quick",
+    "isExternal": false,
+    "order": 5
+  },
+  {
     "id": "service-catalog",
     "label": "Catalog sản phẩm",
     "href": "/page-download-catalog",
@@ -8,20 +48,20 @@
     "order": 1
   },
   {
-    "id": "service-gallery",
-    "label": "Thư viện hình ảnh",
-    "href": "/thu-vien-hinh-anh",
-    "section": "service",
-    "isExternal": false,
-    "order": 2
-  },
-  {
     "id": "service-contact",
     "label": "Liên hệ",
     "href": "/lien-he",
     "section": "service",
     "isExternal": false,
     "order": 3
+  },
+  {
+    "id": "service-gallery",
+    "label": "Thư viện hình ảnh",
+    "href": "/thu-vien-hinh-anh",
+    "section": "service",
+    "isExternal": false,
+    "order": 2
   },
   {
     "id": "policy-privacy",

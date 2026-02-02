@@ -269,3 +269,55 @@ select option {
   color: #1a1a1a !important;
   background: #ffffff !important;
 }
+
+/* ============================================
+   LIGHT THEME OVERRIDE FOR MODALS
+   Elements with data-theme="light" maintain light mode
+   ============================================ */
+[data-theme="light"],
+[data-theme="light"] * {
+  color: inherit;
+}
+
+[data-theme="light"] label {
+  color: #4b5563 !important;
+}
+
+[data-theme="light"] p {
+  color: #1f2937 !important;
+}
+
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  color: #1f2937 !important;
+  background-color: white !important;
+}
+
+/* ============================================
+   MODERN SCROLLBAR
+   Thin, minimal scrollbar for modals
+   ============================================ */
+.modern-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.modern-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Firefox */
+.modern-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}

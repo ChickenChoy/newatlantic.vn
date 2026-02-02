@@ -1,0 +1,181 @@
+import { NextRequest, NextResponse } from 'next/server';
+import {
+    getMediaItems,
+    addMediaItem,
+    updateMediaItem,
+    deleteMediaItem,
+    getMediaByFolder,
+    searchMedia,
+    getMediaStats
+} from '@/lib/db';
+import { revalidatePath } from 'next/cache';
+import { MediaItem, MediaFolder } from '@/types';
+
+export const runtime = 'nodejs';
+
+// GET - List all media items with optional filtering
+export async function GET(request: NextRequest) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const folder = searchParams.get('folder') as MediaFolder | null;
+        const search = searchParams.get('search');
+        const statsOnly = searchParams.get('stats') === 'true';
+
+        // Return stats only
+        if (statsOnly) {
+            const stats = getMediaStats();
+            return NextResponse.json(stats);
+        }
+
+        let items: MediaItem[];
+
+        // Filter by folder
+        if (folder) {
+            items = getMediaByFolder(folder);
+        }
+        // Search by query
+        else if (search) {
+            items = searchMedia(search);
+        }
+        // Get all
+        else {
+            items = getMediaItems();
+        }
+
+        // Sort by newest first
+        items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        return NextResponse.json(items);
+    } catch (error) {
+        console.error('Error fetching media:', error);
+        return NextResponse.json({ error: 'Failed to fetch media' }, { status: 500 });
+    }
+}
+
+// POST - Upload new media
+export async function POST(request: NextRequest) {
+    try {
+        const body = await request.json();
+
+        const {
+            filename,
+            originalName,
+            folder = 'general',
+            mimeType,
+            size,
+            dimensions,
+            variants,
+            alt = '',
+            caption = '',
+            tags = []
+        } = body;
+
+        // Validate required fields
+        if (!filename || !variants?.full) {
+            return NextResponse.json(
+                { error: 'Missing required fields: filename and variants.full are required' },
+                { status: 400 }
+            );
+        }
+
+        const now = new Date().toISOString();
+        const newMedia: MediaItem = {
+            id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            filename,
+            originalName: originalName || filename,
+            folder,
+            mimeType: mimeType || 'image/webp',
+            size: size || 0,
+            dimensions: dimensions || { width: 0, height: 0 },
+            variants: {
+                thumbnail: variants.thumbnail || '',
+                medium: variants.medium || '',
+                full: variants.full
+            },
+            alt,
+            caption,
+            tags: Array.isArray(tags) ? tags : [],
+            usedIn: [],
+            createdAt: now,
+            updatedAt: now
+        };
+
+        const success = addMediaItem(newMedia);
+
+        if (success) {
+            revalidatePath('/admin');
+            return NextResponse.json(newMedia, { status: 201 });
+        } else {
+            return NextResponse.json({ error: 'Failed to save media' }, { status: 500 });
+        }
+    } catch (error) {
+        console.error('Error uploading media:', error);
+        return NextResponse.json({ error: 'Failed to upload media' }, { status: 500 });
+    }
+}
+
+// PUT - Update media metadata
+export async function PUT(request: NextRequest) {
+    try {
+        const body = await request.json();
+        const { id, ...updates } = body;
+
+        if (!id) {
+            return NextResponse.json({ error: 'Media ID is required' }, { status: 400 });
+        }
+
+        // Only allow updating certain fields
+        const allowedUpdates: Partial<MediaItem> = {};
+        if (updates.alt !== undefined) allowedUpdates.alt = updates.alt;
+        if (updates.caption !== undefined) allowedUpdates.caption = updates.caption;
+        if (updates.tags !== undefined) allowedUpdates.tags = updates.tags;
+        if (updates.folder !== undefined) allowedUpdates.folder = updates.folder;
+
+        const success = updateMediaItem(id, allowedUpdates);
+
+        if (success) {
+            revalidatePath('/admin');
+            return NextResponse.json({ success: true });
+        } else {
+            return NextResponse.json({ error: 'Media not found' }, { status: 404 });
+        }
+    } catch (error) {
+        console.error('Error updating media:', error);
+        return NextResponse.json({ error: 'Failed to update media' }, { status: 500 });
+    }
+}
+
+// DELETE - Delete media item
+export async function DELETE(request: NextRequest) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get('id');
+
+        if (!id) {
+            return NextResponse.json({ error: 'Media ID is required' }, { status: 400 });
+        }
+
+        const success = deleteMediaItem(id);
+
+        if (success) {
+            revalidatePath('/admin');
+            return NextResponse.json({ success: true });
+        } else {
+            // Check if delete failed because media is in use
+            const items = getMediaItems();
+            const item = items.find(m => m.id === id);
+
+            if (item && item.usedIn.length > 0) {
+                return NextResponse.json(
+                    { error: 'Cannot delete media that is in use', usedIn: item.usedIn },
+                    { status: 409 }
+                );
+            }
+
+            return NextResponse.json({ error: 'Media not found' }, { status: 404 });
+        }
+    } catch (error) {
+        console.error('Error deleting media:', error);
+        return NextResponse.json({ error: 'Failed to delete media' }, { status: 500 });
+    }
+}

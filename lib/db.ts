@@ -646,3 +646,116 @@ export function deleteCertification(id: string): boolean {
 
   return saveCertifications(filtered);
 }
+
+// ==================== Thư viện Media ====================
+
+import type { MediaItem, MediaFolder, MediaUsage } from '@/types';
+
+export function getMediaItems(): MediaItem[] {
+  return readJsonFile<MediaItem>('media.json', []);
+}
+
+export function saveMediaItems(items: MediaItem[]): boolean {
+  return writeJsonFile('media.json', items);
+}
+
+export function getMediaById(id: string): MediaItem | undefined {
+  const items = getMediaItems();
+  return items.find(m => m.id === id);
+}
+
+export function getMediaByFolder(folder: MediaFolder): MediaItem[] {
+  const items = getMediaItems();
+  return items.filter(m => m.folder === folder);
+}
+
+export function searchMedia(query: string): MediaItem[] {
+  const items = getMediaItems();
+  const lowerQuery = query.toLowerCase();
+  return items.filter(m =>
+    m.filename.toLowerCase().includes(lowerQuery) ||
+    m.alt.toLowerCase().includes(lowerQuery) ||
+    m.tags.some(t => t.toLowerCase().includes(lowerQuery))
+  );
+}
+
+export function addMediaItem(item: MediaItem): boolean {
+  const items = getMediaItems();
+  items.push(item);
+  return saveMediaItems(items);
+}
+
+export function updateMediaItem(id: string, updates: Partial<MediaItem>): boolean {
+  const items = getMediaItems();
+  const index = items.findIndex(m => m.id === id);
+  if (index === -1) return false;
+
+  items[index] = { ...items[index], ...updates, updatedAt: new Date().toISOString() };
+  return saveMediaItems(items);
+}
+
+export function deleteMediaItem(id: string): boolean {
+  const items = getMediaItems();
+  const item = items.find(m => m.id === id);
+
+  // Check if media is being used
+  if (item && item.usedIn.length > 0) {
+    return false; // Cannot delete media in use
+  }
+
+  const filtered = items.filter(m => m.id !== id);
+  if (filtered.length === items.length) return false;
+
+  return saveMediaItems(filtered);
+}
+
+export function addMediaUsage(mediaId: string, usage: MediaUsage): boolean {
+  const items = getMediaItems();
+  const index = items.findIndex(m => m.id === mediaId);
+  if (index === -1) return false;
+
+  // Check if usage already exists
+  const existingUsage = items[index].usedIn.find(
+    u => u.type === usage.type && u.id === usage.id && u.field === usage.field
+  );
+  if (existingUsage) return true; // Already tracked
+
+  items[index].usedIn.push(usage);
+  items[index].updatedAt = new Date().toISOString();
+  return saveMediaItems(items);
+}
+
+export function removeMediaUsage(mediaId: string, usage: MediaUsage): boolean {
+  const items = getMediaItems();
+  const index = items.findIndex(m => m.id === mediaId);
+  if (index === -1) return false;
+
+  items[index].usedIn = items[index].usedIn.filter(
+    u => !(u.type === usage.type && u.id === usage.id && u.field === usage.field)
+  );
+  items[index].updatedAt = new Date().toISOString();
+  return saveMediaItems(items);
+}
+
+export function getUnusedMedia(): MediaItem[] {
+  const items = getMediaItems();
+  return items.filter(m => m.usedIn.length === 0);
+}
+
+export function getMediaStats(): { total: number; byFolder: Record<string, number>; totalSize: number } {
+  const items = getMediaItems();
+  const byFolder: Record<string, number> = {};
+  let totalSize = 0;
+
+  items.forEach(item => {
+    byFolder[item.folder] = (byFolder[item.folder] || 0) + 1;
+    totalSize += item.size;
+  });
+
+  return {
+    total: items.length,
+    byFolder,
+    totalSize
+  };
+}
+

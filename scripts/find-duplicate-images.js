@@ -94,7 +94,7 @@ function main() {
     console.log('='.repeat(80));
 
     for (const dup of duplicates) {
-      console.log(`\n🖼️  Image: ${dup.imageUrl}`);
+      console.log(`\n Image: ${dup.imageUrl}`);
       console.log(`   Used by ${dup.usedByCount} products:`);
 
       for (const product of dup.products) {

@@ -6,6 +6,7 @@ import { Post, PostCategory } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import dynamic from 'next/dynamic';
+import MediaPicker from '@/components/admin/MediaPicker';
 
 const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), {
   ssr: false,
@@ -228,34 +229,14 @@ export default function PostPage({ params }: PostPageProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-bodytext mb-2">Hình ảnh</label>
-              <div className="space-y-3">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        setFormData({ ...formData, image: reader.result as string });
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
-                />
-                <input
-                  type="text"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  placeholder="Hoặc nhập URL hình ảnh"
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-bodytext"
-                />
-              </div>
-              {formData.image && (
-                <img src={formData.image} alt="Preview" className="mt-3 w-48 h-32 object-cover rounded-lg border border-border" />
-              )}
+              <MediaPicker
+                label="Hình ảnh"
+                value={formData.image}
+                onChange={(value) => setFormData({ ...formData, image: value })}
+                folder="posts"
+                aspectRatio="video"
+                placeholder="Chọn hình ảnh bài viết"
+              />
             </div>
 
             <div>

@@ -13,60 +13,58 @@ export function FlipCard({
     front,
     back,
     className = "",
-    flipDirection = "horizontal"
 }: FlipCardProps) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     return (
         <div
-            className={`flip-card-wrapper ${className}`}
+            className={`${className}`}
             style={{
-                perspective: "1000px",
-                cursor: "pointer"
+                position: "relative",
+                cursor: "pointer",
             }}
             onClick={() => setIsFlipped(!isFlipped)}
         >
+            {/* Front - visible when not flipped */}
             <div
-                className={`flip-card-inner ${isFlipped ? "flipped" : ""}`}
+                className="flip-card-front"
                 style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "100%",
-                    transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
-                    transformStyle: "preserve-3d",
-                    transform: isFlipped
-                        ? flipDirection === "horizontal"
-                            ? "rotateY(180deg)"
-                            : "rotateX(180deg)"
-                        : "none"
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "1.25rem",
+                    borderRadius: "12px",
+                    opacity: isFlipped ? 0 : 1,
+                    transform: isFlipped ? "scale(0.95)" : "scale(1)",
+                    transition: "opacity 0.3s ease, transform 0.3s ease",
+                    pointerEvents: isFlipped ? "none" : "auto",
                 }}
             >
-                {/* Front */}
-                <div
-                    className="flip-card-front"
-                    style={{
-                        position: "absolute",
-                        inset: 0,
-                        backfaceVisibility: "hidden",
-                        WebkitBackfaceVisibility: "hidden"
-                    }}
-                >
-                    {front}
-                </div>
+                {front}
+            </div>
 
-                {/* Back */}
-                <div
-                    className="flip-card-back"
-                    style={{
-                        position: "absolute",
-                        inset: 0,
-                        backfaceVisibility: "hidden",
-                        WebkitBackfaceVisibility: "hidden",
-                        transform: flipDirection === "horizontal" ? "rotateY(180deg)" : "rotateX(180deg)"
-                    }}
-                >
-                    {back}
-                </div>
+            {/* Back - visible when flipped */}
+            <div
+                className="flip-card-back"
+                style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "1.25rem",
+                    borderRadius: "12px",
+                    opacity: isFlipped ? 1 : 0,
+                    transform: isFlipped ? "scale(1)" : "scale(0.95)",
+                    transition: "opacity 0.3s ease, transform 0.3s ease",
+                    pointerEvents: isFlipped ? "auto" : "none",
+                }}
+            >
+                {back}
             </div>
         </div>
     );

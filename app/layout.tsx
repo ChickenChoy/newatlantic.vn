@@ -15,6 +15,9 @@ const inter = Inter({
   preload: true,
 });
 
+// Force dynamic rendering to ensure footer data is always fresh
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {

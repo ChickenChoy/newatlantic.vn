@@ -1104,6 +1104,36 @@ body:has(.banh-quick-schedule.visible) .banh-flowers-toggle {
     color: #e5e7eb;
 }
 
+/* Flip Card Wrapper for Ingredients */
+.banh-ingredient-card-wrapper {
+    min-height: 200px;
+    height: 200px;
+}
+
+.banh-ingredient-card-wrapper .flip-card-front,
+.banh-ingredient-card-wrapper .flip-card-back {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--banh-radius);
+    box-shadow: var(--banh-shadow);
+}
+
+.banh-ingredient-card-wrapper .flip-card-front {
+    background: linear-gradient(135deg, #8B0000 0%, #5a0000 100%);
+    color: #FFD700;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.banh-ingredient-card-wrapper .flip-card-back {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #8B0000;
+}
+
+.banh-ingredient-card-wrapper:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+}
+
 /* ===================================
    Meaning Cards
    =================================== */
@@ -1719,35 +1749,35 @@ body:has(.banh-quick-schedule.visible) .banh-flowers-toggle {
     }
 
     /* Flip Card Responsive for Mobile */
-    .flip-card-wrapper {
-        min-height: 240px;
+    .banh-ingredient-card-wrapper {
+        min-height: 160px;
+        height: 160px;
     }
 
-    .flip-card-front,
-    .flip-card-back {
-        padding: 1rem 0.875rem;
-        border-radius: 12px;
+    .banh-ingredient-card-wrapper .flip-card-front,
+    .banh-ingredient-card-wrapper .flip-card-back {
+        padding: 0.875rem;
     }
 
-    .flip-card-front .banh-ingredient-name,
-    .flip-card-back span[style*="fontWeight: 700"] {
-        font-size: 1rem !important;
+    .banh-ingredient-card-wrapper .banh-ingredient-name {
+        font-size: 0.95rem !important;
+        margin-bottom: 0.25rem;
     }
 
-    .flip-card-front .banh-ingredient-desc {
-        font-size: 0.9rem;
+    .banh-ingredient-card-wrapper .banh-ingredient-desc {
+        font-size: 0.8rem !important;
     }
 
-    .flip-card-back p {
-        font-size: 0.78rem !important;
-        line-height: 1.35;
-        margin-top: 0.3rem !important;
+    /* Back card text */
+    .banh-ingredient-card-wrapper p {
+        font-size: 0.75rem !important;
+        line-height: 1.4;
+        margin-top: 0.25rem !important;
     }
 
-    /* Hint text on mobile */
-    .flip-card-front span[style*="marginTop"] {
-        font-size: 0.7rem !important;
-        margin-top: 0.5rem !important;
+    /* Hide hint text on mobile */
+    .banh-ingredient-card-wrapper span[style*="marginTop"] {
+        display: none !important;
     }
 }
 

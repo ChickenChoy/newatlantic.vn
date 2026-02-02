@@ -15,9 +15,17 @@ import PageVisibilityTab from '@/components/admin/PageVisibilityTab';
 import TestimonialsTab from '@/components/admin/TestimonialsTab';
 import FAQsTab from '@/components/admin/FAQsTab';
 import CertificationsTab from '@/components/admin/CertificationsTab';
+import FooterLinksTab from '@/components/admin/FooterLinksTab';
+import FooterSettingsTab from '@/components/admin/FooterSettingsTab';
+import AppearanceTab from '@/components/admin/AppearanceTab';
+import SocialLinksEditor from '@/components/admin/SocialLinksEditor';
+import MediaLibraryTab from '@/components/admin/MediaLibraryTab';
+import MediaPicker from '@/components/admin/MediaPicker';
+import SEOTab from '@/components/admin/SEOTab';
+import TrafficDashboard from '@/components/admin/TrafficDashboard';
 
 
-type TabType = 'dashboard' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -778,18 +786,27 @@ export default function AdminPage() {
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-dark dark:text-white capitalize">
             {activeTab === 'dashboard' ? 'Bảng điều khiển' :
-              activeTab === 'products' ? 'Danh sách sản phẩm' :
-                activeTab === 'posts' ? 'Danh sách tin tức' :
-                  activeTab === 'categories' ? 'Danh mục sản phẩm' :
-                    activeTab === 'post-categories' ? 'Danh mục tin tức' :
-                      activeTab === 'gallery' ? 'Thư viện hình ảnh' :
-                        activeTab === 'site-settings' ? 'Cài đặt Website' :
-                          activeTab === 'settings' ? 'Cài đặt bảo mật' :
-                            activeTab === 'catalogs' ? 'Quản lý Catalogs' :
-                              activeTab === 'partners' ? 'Quản lý đối tác' :
-                                activeTab === 'holiday-effects' ? 'Hiệu ứng ngày lễ' :
-                                  activeTab === 'page-visibility' ? 'Quản lý hiển thị trang' :
-                                    activeTab}
+              activeTab === 'traffic' ? 'Thống kê lưu lượng' :
+                activeTab === 'products' ? 'Danh sách sản phẩm' :
+                  activeTab === 'posts' ? 'Danh sách tin tức' :
+                    activeTab === 'categories' ? 'Danh mục sản phẩm' :
+                      activeTab === 'post-categories' ? 'Danh mục tin tức' :
+                        activeTab === 'gallery' ? 'Thư viện hình ảnh' :
+                          activeTab === 'site-settings' ? 'Cài đặt Website' :
+                            activeTab === 'footer-links' ? 'Liên kết Footer' :
+                              activeTab === 'footer-settings' ? 'Cài đặt Footer' :
+                                activeTab === 'settings' ? 'Cài đặt bảo mật' :
+                                  activeTab === 'catalogs' ? 'Quản lý Catalog' :
+                                    activeTab === 'partners' ? 'Quản lý đối tác' :
+                                      activeTab === 'holiday-effects' ? 'Hiệu ứng ngày lễ' :
+                                        activeTab === 'page-visibility' ? 'Quản lý hiển thị trang' :
+                                          activeTab === 'appearance' ? 'Giao diện' :
+                                            activeTab === 'testimonials' ? 'Đánh giá khách hàng' :
+                                              activeTab === 'faqs' ? 'Câu hỏi thường gặp' :
+                                                activeTab === 'certifications' ? 'Chứng nhận' :
+                                                  activeTab === 'media-library' ? 'Thư viện Media' :
+                                                    activeTab === 'seo' ? 'Quản lý SEO' :
+                                                      activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -970,7 +987,7 @@ export default function AdminPage() {
                             {p.featured ? (
                               <span className="badge badge-success">Nổi bật</span>
                             ) : (
-                              <span className="badge bg-muted text-bodytext">Thường</span>
+                              <span className="badge bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">Thường</span>
                             )}
                           </td>
                         </tr>
@@ -1701,86 +1718,27 @@ export default function AdminPage() {
         {/* Site Settings Tab */}
         {activeTab === 'site-settings' && (
           <div className="space-y-6">
-            {/* Site Settings Form */}
+            {/* Logo Website - Main Site Setting */}
             <div className="admin-card">
               <div className="pb-4 mb-6 border-b border-border">
-                <h2 className="text-lg font-semibold card-title mb-0">Cài đặt Website</h2>
+                <h2 className="text-lg font-semibold card-title mb-0 flex items-center gap-2">
+                  <Icon icon="solar:home-2-line-duotone" className="text-primary" height={24} />
+                  Cài đặt Website
+                </h2>
+                <p className="text-sm text-muted mt-1">Logo chính hiển thị trên header và admin panel</p>
               </div>
               <div className="p-6">
                 {siteSettings && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-bodytext mb-1">Tên công ty</label>
-                      <input
-                        type="text"
-                        value={siteSettings.companyName}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, companyName: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-bodytext"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-bodytext mb-1">Slogan</label>
-                      <input
-                        type="text"
-                        value={siteSettings.companySlogan}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, companySlogan: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-bodytext mb-1">Mô tả công ty</label>
-                      <textarea
-                        value={siteSettings.companyDescription}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, companyDescription: e.target.value })}
-                        rows={3}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-bodytext mb-1">Số điện thoại</label>
-                      <input
-                        type="text"
-                        value={siteSettings.phone}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, phone: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-bodytext mb-1">Email</label>
-                      <input
-                        type="email"
-                        value={siteSettings.email}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, email: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-bodytext mb-1">Hotline</label>
-                      <input
-                        type="text"
-                        value={siteSettings.hotline || ''}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, hotline: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-bodytext mb-1">Logo URL</label>
-                      <input
-                        type="text"
-                        value={siteSettings.logo}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, logo: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-medium text-bodytext mb-1">Copyright</label>
-                      <input
-                        type="text"
-                        value={siteSettings.copyright}
-                        onChange={(e) => setSiteSettings({ ...siteSettings, copyright: e.target.value })}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                      />
-                    </div>
+                  <div className="max-w-md">
+                    <label className="block text-sm font-medium text-bodytext mb-2">
+                      Logo Website
+                      <span className="text-xs text-muted ml-2">(Header, Admin sidebar)</span>
+                    </label>
+                    <MediaPicker
+                      value={siteSettings.logo}
+                      onChange={(url) => setSiteSettings({ ...siteSettings, logo: url })}
+                      label="Chọn logo"
+                    />
                   </div>
                 )}
                 <div className="mt-6">
@@ -1809,6 +1767,19 @@ export default function AdminPage() {
                   >
                     {saving ? 'Đang lưu...' : 'Lưu cài đặt'}
                   </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer Info Section - Link to Footer tab */}
+            <div className="admin-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+              <div className="p-4 flex items-center gap-3">
+                <Icon icon="solar:info-circle-line-duotone" className="text-blue-500" height={24} />
+                <div>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    <strong>Thông tin Footer</strong> (Logo footer, tên công ty, liên hệ, copyright, social links)
+                    được quản lý tại <strong>Cài đặt → Footer</strong>
+                  </p>
                 </div>
               </div>
             </div>
@@ -2015,10 +1986,10 @@ export default function AdminPage() {
                   <div className="p-8 text-center text-muted">Chưa có văn phòng nào</div>
                 )}
               </div>
-            </div>
+            </div >
 
             {/* Hero Slides */}
-            <div className="admin-card p-0 overflow-hidden">
+            < div className="admin-card p-0 overflow-hidden" >
               <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
                 <h2 className="text-lg font-semibold text-bodytext dark:text-white">Hero Slides ({heroSlides.length})</h2>
                 <Button
@@ -2154,18 +2125,19 @@ export default function AdminPage() {
                           />
                         </div>
 
-                        {/* Row 4: Image Upload */}
+                        {/* Row 4: Image Upload - MediaPicker */}
                         <div>
-                          <label className="block text-xs font-medium text-muted mb-1">Hình ảnh nền</label>
-                          <ImageUpload
+                          <MediaPicker
+                            label="Hình ảnh nền"
                             value={slide.image}
                             onChange={(value) => {
                               setHeroSlides(heroSlides.map(s =>
                                 s.id === slide.id ? { ...s, image: value } : s
                               ));
                             }}
-                            placeholder="URL hình ảnh hoặc upload"
-                            showPreview={false}
+                            folder="slides"
+                            aspectRatio="video"
+                            placeholder="Chọn hình ảnh nền"
                           />
                         </div>
 
@@ -2289,10 +2261,10 @@ export default function AdminPage() {
                   <div className="p-8 text-center text-muted">Chưa có slide nào</div>
                 )}
               </div>
-            </div>
+            </div >
 
             {/* Homepage Stats */}
-            <div className="admin-card p-0 overflow-hidden">
+            < div className="admin-card p-0 overflow-hidden" >
               <div className="p-4 border-b border-border dark:border-gray-700">
                 <h2 className="text-lg font-semibold text-bodytext dark:text-white">Số liệu trang chủ ({homepageStats.length})</h2>
               </div>
@@ -2361,149 +2333,325 @@ export default function AdminPage() {
                   </Button>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
+            </div >
+          </div >
+        )
+        }
 
         {/* Gallery Tab */}
-        {activeTab === 'gallery' && (
-          <div className="admin-card p-0 overflow-hidden">
-            <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý thư viện hình ảnh</h2>
-              <Button
-                onClick={async () => {
-                  const newImage: GalleryImage = {
-                    id: String(Date.now()),
-                    src: '/images/gallery/image.jpg',
-                    alt: 'Hình ảnh mới',
-                    title: 'Hình ảnh mới',
-                    description: '',
-                    category: 'general',
-                    tags: [],
-                    featured: false,
-                    order: galleryImages.length + 1,
-                  };
-                  setSaving(true);
-                  try {
-                    const res = await fetch('/api/gallery', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(newImage),
-                    });
-                    if (res.ok) {
-                      await loadData();
-                      toast.success('Đã thêm hình ảnh mới!');
+        {
+          activeTab === 'gallery' && (
+            <div className="admin-card p-0 overflow-hidden">
+              <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý thư viện hình ảnh</h2>
+                <Button
+                  onClick={async () => {
+                    const newImage: GalleryImage = {
+                      id: String(Date.now()),
+                      src: '/images/gallery/image.jpg',
+                      alt: 'Hình ảnh mới',
+                      title: 'Hình ảnh mới',
+                      description: '',
+                      category: 'general',
+                      tags: [],
+                      featured: false,
+                      order: galleryImages.length + 1,
+                    };
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/gallery', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newImage),
+                      });
+                      if (res.ok) {
+                        await loadData();
+                        toast.success('Đã thêm hình ảnh mới!');
+                      }
+                    } catch {
+                      toast.error('Có lỗi xảy ra');
+                    } finally {
+                      setSaving(false);
                     }
-                  } catch {
-                    toast.error('Có lỗi xảy ra');
-                  } finally {
-                    setSaving(false);
-                  }
-                }}
-                disabled={saving}
-              >
-                + Thêm hình ảnh
-              </Button>
-            </div>
-            <div className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {galleryImages.map((image) => (
-                  <div key={image.id} className="border border-border dark:border-gray-700 rounded-lg overflow-hidden">
-                    <img src={image.src} alt={image.alt} className="w-full h-40 object-cover" />
-                    <div className="p-3 space-y-2">
-                      {/* Image Upload */}
-                      <ImageUpload
-                        value={image.src}
-                        onChange={(value) => {
-                          setGalleryImages(galleryImages.map(img =>
-                            img.id === image.id ? { ...img, src: value } : img
-                          ));
-                        }}
-                        placeholder="URL hình ảnh hoặc upload"
-                        showPreview={false}
-                      />
-                      <input
-                        type="text"
-                        value={image.title || ''}
-                        onChange={(e) => {
-                          setGalleryImages(galleryImages.map(img =>
-                            img.id === image.id ? { ...img, title: e.target.value } : img
-                          ));
-                        }}
-                        placeholder="Tiêu đề"
-                        className="w-full px-3 py-2 border border-border rounded text-sm"
-                      />
-                      <input
-                        type="text"
-                        value={image.alt}
-                        onChange={(e) => {
-                          setGalleryImages(galleryImages.map(img =>
-                            img.id === image.id ? { ...img, alt: e.target.value } : img
-                          ));
-                        }}
-                        placeholder="Alt text"
-                        className="w-full px-3 py-2 border border-border rounded text-sm"
-                      />
-                      <input
-                        type="text"
-                        value={image.description || ''}
-                        onChange={(e) => {
-                          setGalleryImages(galleryImages.map(img =>
-                            img.id === image.id ? { ...img, description: e.target.value } : img
-                          ));
-                        }}
-                        placeholder="Mô tả"
-                        className="w-full px-3 py-2 border border-border rounded text-sm"
-                      />
-                      <div className="grid grid-cols-2 gap-2">
+                  }}
+                  disabled={saving}
+                >
+                  + Thêm hình ảnh
+                </Button>
+              </div>
+              <div className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {galleryImages.map((image) => (
+                    <div key={image.id} className="border border-border dark:border-gray-700 rounded-lg overflow-hidden">
+                      <img src={image.src} alt={image.alt} className="w-full h-40 object-cover" />
+                      <div className="p-3 space-y-2">
+                        {/* Image Upload - MediaPicker */}
+                        <MediaPicker
+                          value={image.src}
+                          onChange={(value) => {
+                            setGalleryImages(galleryImages.map(img =>
+                              img.id === image.id ? { ...img, src: value } : img
+                            ));
+                          }}
+                          folder="gallery"
+                          aspectRatio="video"
+                          placeholder="Chọn ảnh"
+                        />
                         <input
                           type="text"
-                          value={image.category || ''}
+                          value={image.title || ''}
                           onChange={(e) => {
                             setGalleryImages(galleryImages.map(img =>
-                              img.id === image.id ? { ...img, category: e.target.value } : img
+                              img.id === image.id ? { ...img, title: e.target.value } : img
                             ));
                           }}
-                          placeholder="Danh mục"
-                          className="px-3 py-2 border border-border rounded text-sm"
+                          placeholder="Tiêu đề"
+                          className="w-full px-3 py-2 border border-border rounded text-sm"
                         />
                         <input
-                          type="number"
-                          value={image.order}
+                          type="text"
+                          value={image.alt}
                           onChange={(e) => {
                             setGalleryImages(galleryImages.map(img =>
-                              img.id === image.id ? { ...img, order: parseInt(e.target.value) || 1 } : img
+                              img.id === image.id ? { ...img, alt: e.target.value } : img
                             ));
                           }}
-                          placeholder="Thứ tự"
-                          min={1}
-                          className="px-3 py-2 border border-border rounded text-sm"
+                          placeholder="Alt text"
+                          className="w-full px-3 py-2 border border-border rounded text-sm"
                         />
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <label className="flex items-center gap-1 text-sm">
+                        <input
+                          type="text"
+                          value={image.description || ''}
+                          onChange={(e) => {
+                            setGalleryImages(galleryImages.map(img =>
+                              img.id === image.id ? { ...img, description: e.target.value } : img
+                            ));
+                          }}
+                          placeholder="Mô tả"
+                          className="w-full px-3 py-2 border border-border rounded text-sm"
+                        />
+                        <div className="grid grid-cols-2 gap-2">
                           <input
-                            type="checkbox"
-                            checked={image.featured}
+                            type="text"
+                            value={image.category || ''}
                             onChange={(e) => {
                               setGalleryImages(galleryImages.map(img =>
-                                img.id === image.id ? { ...img, featured: e.target.checked } : img
+                                img.id === image.id ? { ...img, category: e.target.value } : img
+                              ));
+                            }}
+                            placeholder="Danh mục"
+                            className="px-3 py-2 border border-border rounded text-sm"
+                          />
+                          <input
+                            type="number"
+                            value={image.order}
+                            onChange={(e) => {
+                              setGalleryImages(galleryImages.map(img =>
+                                img.id === image.id ? { ...img, order: parseInt(e.target.value) || 1 } : img
+                              ));
+                            }}
+                            placeholder="Thứ tự"
+                            min={1}
+                            className="px-3 py-2 border border-border rounded text-sm"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <label className="flex items-center gap-1 text-sm">
+                            <input
+                              type="checkbox"
+                              checked={image.featured}
+                              onChange={(e) => {
+                                setGalleryImages(galleryImages.map(img =>
+                                  img.id === image.id ? { ...img, featured: e.target.checked } : img
+                                ));
+                              }}
+                              className="w-4 h-4 rounded"
+                            />
+                            Nổi bật
+                          </label>
+                          <div className="flex gap-2">
+                            <Button
+                              color="success"
+                              onClick={async () => {
+                                setSaving(true);
+                                try {
+                                  const res = await fetch('/api/gallery', {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(image),
+                                  });
+                                  if (res.ok) toast.success('Đã lưu!');
+                                } catch {
+                                  toast.error('Có lỗi xảy ra');
+                                } finally {
+                                  setSaving(false);
+                                }
+                              }}
+                              disabled={saving}
+                              className="!px-3 !py-1 text-sm"
+                            >
+                              Lưu
+                            </Button>
+                            <Button
+                              color="error"
+                              onClick={async () => {
+                                const confirmed = await toast.confirm({
+                                  title: 'Xác nhận xóa',
+                                  message: 'Bạn có chắc muốn xóa hình ảnh này?',
+                                  confirmText: 'Xóa',
+                                  type: 'danger'
+                                });
+                                if (!confirmed) return;
+                                setSaving(true);
+                                try {
+                                  const res = await fetch(`/api/gallery?id=${image.id}`, { method: 'DELETE' });
+                                  if (res.ok) {
+                                    await loadData();
+                                    toast.success('Đã xóa!');
+                                  }
+                                } catch {
+                                  toast.error('Có lỗi xảy ra');
+                                } finally {
+                                  setSaving(false);
+                                }
+                              }}
+                              disabled={saving}
+                              className="!px-3 !py-1 text-sm"
+                            >
+                              Xóa
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {galleryImages.length === 0 && (
+                  <div className="text-center py-12 text-muted">Chưa có hình ảnh nào</div>
+                )}
+              </div>
+            </div>
+          )
+        }
+
+        {/* Catalogs Tab */}
+        {
+          activeTab === 'catalogs' && (
+            <div className="admin-card p-0 overflow-hidden">
+              <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý Catalogs</h2>
+                <Button
+                  onClick={async () => {
+                    const newCatalog: Catalog = {
+                      id: String(Date.now()),
+                      title: 'Catalog mới',
+                      description: '',
+                      brand: 'HIAB',
+                      downloadUrl: '/catalogs/catalog.pdf',
+                      thumbnail: '',
+                      order: catalogs.length + 1,
+                      enabled: true,
+                    };
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/catalogs', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newCatalog),
+                      });
+                      if (res.ok) {
+                        await loadData();
+                        toast.success('Đã thêm catalog mới!');
+                      }
+                    } catch {
+                      toast.error('Có lỗi xảy ra');
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                  disabled={saving}
+                >
+                  + Thêm catalog
+                </Button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="admin-table">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th className="px-6 py-3 text-left">Tiêu đề</th>
+                      <th className="px-6 py-3 text-left">Thương hiệu</th>
+                      <th className="px-6 py-3 text-left">URL Download</th>
+                      <th className="px-6 py-3 text-center">Hiển thị</th>
+                      <th className="px-6 py-3 text-center">Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {catalogs.map((catalog) => (
+                      <tr key={catalog.id} className="hover:bg-lightgray dark:bg-gray-900">
+                        <td className="px-6 py-4">
+                          <input
+                            type="text"
+                            value={catalog.title}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, title: e.target.value } : c
+                              ));
+                            }}
+                            className="w-full px-3 py-2 border border-border rounded text-sm"
+                          />
+                        </td>
+                        <td className="px-6 py-4">
+                          <select
+                            value={catalog.brand}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, brand: e.target.value } : c
+                              ));
+                            }}
+                            className="px-3 py-2 border border-border rounded text-sm"
+                          >
+                            <option value="HIAB">HIAB</option>
+                            <option value="WILL-BURT">WILL-BURT</option>
+                            <option value="Moffett">Moffett</option>
+                            <option value="EFFER">EFFER</option>
+                            <option value="Other">Khác</option>
+                          </select>
+                        </td>
+                        <td className="px-6 py-4">
+                          <input
+                            type="text"
+                            value={catalog.downloadUrl}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, downloadUrl: e.target.value } : c
+                              ));
+                            }}
+                            className="w-full px-3 py-2 border border-border rounded text-sm"
+                          />
+                        </td>
+                        <td className="px-6 py-4 text-center">
+                          <input
+                            type="checkbox"
+                            checked={catalog.enabled}
+                            onChange={(e) => {
+                              setCatalogs(catalogs.map(c =>
+                                c.id === catalog.id ? { ...c, enabled: e.target.checked } : c
                               ));
                             }}
                             className="w-4 h-4 rounded"
                           />
-                          Nổi bật
-                        </label>
-                        <div className="flex gap-2">
+                        </td>
+                        <td className="px-6 py-4 text-center">
                           <Button
+                            variant="link"
                             color="success"
                             onClick={async () => {
                               setSaving(true);
                               try {
-                                const res = await fetch('/api/gallery', {
+                                const res = await fetch('/api/catalogs', {
                                   method: 'PUT',
                                   headers: { 'Content-Type': 'application/json' },
-                                  body: JSON.stringify(image),
+                                  body: JSON.stringify(catalog),
                                 });
                                 if (res.ok) toast.success('Đã lưu!');
                               } catch {
@@ -2513,23 +2661,24 @@ export default function AdminPage() {
                               }
                             }}
                             disabled={saving}
-                            className="!px-3 !py-1 text-sm"
+                            className="mr-3"
                           >
                             Lưu
                           </Button>
                           <Button
+                            variant="link"
                             color="error"
                             onClick={async () => {
                               const confirmed = await toast.confirm({
                                 title: 'Xác nhận xóa',
-                                message: 'Bạn có chắc muốn xóa hình ảnh này?',
+                                message: `Bạn có chắc muốn xóa catalog "${catalog.title}"?`,
                                 confirmText: 'Xóa',
                                 type: 'danger'
                               });
                               if (!confirmed) return;
                               setSaving(true);
                               try {
-                                const res = await fetch(`/api/gallery?id=${image.id}`, { method: 'DELETE' });
+                                const res = await fetch(`/api/catalogs?id=${catalog.id}`, { method: 'DELETE' });
                                 if (res.ok) {
                                   await loadData();
                                   toast.success('Đã xóa!');
@@ -2541,545 +2690,444 @@ export default function AdminPage() {
                               }
                             }}
                             disabled={saving}
-                            className="!px-3 !py-1 text-sm"
+                          >
+                            Xóa
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {catalogs.length === 0 && (
+                <div className="text-center py-12 text-muted">Chưa có catalog nào</div>
+              )}
+            </div>
+          )
+        }
+
+        {/* Partners Tab */}
+        {
+          activeTab === 'partners' && (
+            <div className="admin-card p-0 overflow-hidden">
+              <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý đối tác</h2>
+                <Button
+                  onClick={async () => {
+                    const newPartner: PartnerLogo = {
+                      id: String(Date.now()),
+                      name: 'Đối tác mới',
+                      logo: '/images/partners/logo.png',
+                      url: '',
+                      order: partnerLogos.length + 1,
+                      enabled: true,
+                    };
+                    setSaving(true);
+                    try {
+                      const res = await fetch('/api/partner-logos', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newPartner),
+                      });
+                      if (res.ok) {
+                        await loadData();
+                        toast.success('Đã thêm đối tác mới!');
+                      }
+                    } catch {
+                      toast.error('Có lỗi xảy ra');
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                  disabled={saving}
+                >
+                  + Thêm đối tác
+                </Button>
+              </div>
+              <div className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {partnerLogos.map((partner) => (
+                    <div key={partner.id} className="border border-border dark:border-gray-700 rounded-lg p-4">
+                      <div className="flex items-center gap-4 mb-3">
+                        <img src={partner.logo} alt={partner.name} className="w-16 h-16 object-contain bg-gray-100 rounded p-2" />
+                        <div className="flex-1">
+                          <input
+                            type="text"
+                            value={partner.name}
+                            onChange={(e) => {
+                              setPartnerLogos(partnerLogos.map(p =>
+                                p.id === partner.id ? { ...p, name: e.target.value } : p
+                              ));
+                            }}
+                            placeholder="Tên đối tác"
+                            className="w-full px-3 py-2 border border-border rounded text-sm"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        {/* Logo Upload - MediaPicker */}
+                        <MediaPicker
+                          value={partner.logo}
+                          onChange={(value) => {
+                            setPartnerLogos(partnerLogos.map(p =>
+                              p.id === partner.id ? { ...p, logo: value } : p
+                            ));
+                          }}
+                          folder="partners"
+                          aspectRatio="square"
+                          placeholder="Chọn logo"
+                        />
+                        <input
+                          type="text"
+                          value={partner.url || ''}
+                          onChange={(e) => {
+                            setPartnerLogos(partnerLogos.map(p =>
+                              p.id === partner.id ? { ...p, url: e.target.value } : p
+                            ));
+                          }}
+                          placeholder="URL website"
+                          className="w-full px-3 py-2 border border-border rounded text-sm"
+                        />
+                        <div className="grid grid-cols-2 gap-2">
+                          <input
+                            type="number"
+                            value={partner.order}
+                            onChange={(e) => {
+                              setPartnerLogos(partnerLogos.map(p =>
+                                p.id === partner.id ? { ...p, order: parseInt(e.target.value) || 1 } : p
+                              ));
+                            }}
+                            placeholder="Thứ tự"
+                            min={1}
+                            className="px-3 py-2 border border-border rounded text-sm"
+                          />
+                          <label className="flex items-center gap-2 text-sm">
+                            <input
+                              type="checkbox"
+                              checked={partner.enabled}
+                              onChange={(e) => {
+                                setPartnerLogos(partnerLogos.map(p =>
+                                  p.id === partner.id ? { ...p, enabled: e.target.checked } : p
+                                ));
+                              }}
+                              className="w-4 h-4 rounded"
+                            />
+                            Hiển thị
+                          </label>
+                        </div>
+                        <div className="flex gap-2 pt-2">
+                          <Button
+                            color="success"
+                            onClick={async () => {
+                              setSaving(true);
+                              try {
+                                const res = await fetch('/api/partner-logos', {
+                                  method: 'PUT',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify(partner),
+                                });
+                                if (res.ok) toast.success('Đã lưu!');
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="flex-1 !px-3 !py-1.5 text-sm"
+                          >
+                            Lưu
+                          </Button>
+                          <Button
+                            color="error"
+                            onClick={async () => {
+                              const confirmed = await toast.confirm({
+                                title: 'Xác nhận xóa',
+                                message: `Bạn có chắc muốn xóa đối tác "${partner.name}"?`,
+                                confirmText: 'Xóa',
+                                type: 'danger'
+                              });
+                              if (!confirmed) return;
+                              setSaving(true);
+                              try {
+                                const res = await fetch(`/api/partner-logos?id=${partner.id}`, { method: 'DELETE' });
+                                if (res.ok) {
+                                  await loadData();
+                                  toast.success('Đã xóa!');
+                                }
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="flex-1 !px-3 !py-1.5 text-sm"
                           >
                             Xóa
                           </Button>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              {galleryImages.length === 0 && (
-                <div className="text-center py-12 text-muted">Chưa có hình ảnh nào</div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Catalogs Tab */}
-        {activeTab === 'catalogs' && (
-          <div className="admin-card p-0 overflow-hidden">
-            <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý Catalogs</h2>
-              <Button
-                onClick={async () => {
-                  const newCatalog: Catalog = {
-                    id: String(Date.now()),
-                    title: 'Catalog mới',
-                    description: '',
-                    brand: 'HIAB',
-                    downloadUrl: '/catalogs/catalog.pdf',
-                    thumbnail: '',
-                    order: catalogs.length + 1,
-                    enabled: true,
-                  };
-                  setSaving(true);
-                  try {
-                    const res = await fetch('/api/catalogs', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(newCatalog),
-                    });
-                    if (res.ok) {
-                      await loadData();
-                      toast.success('Đã thêm catalog mới!');
-                    }
-                  } catch {
-                    toast.error('Có lỗi xảy ra');
-                  } finally {
-                    setSaving(false);
-                  }
-                }}
-                disabled={saving}
-              >
-                + Thêm catalog
-              </Button>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="admin-table">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-6 py-3 text-left">Tiêu đề</th>
-                    <th className="px-6 py-3 text-left">Thương hiệu</th>
-                    <th className="px-6 py-3 text-left">URL Download</th>
-                    <th className="px-6 py-3 text-center">Hiển thị</th>
-                    <th className="px-6 py-3 text-center">Hành động</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {catalogs.map((catalog) => (
-                    <tr key={catalog.id} className="hover:bg-lightgray dark:bg-gray-900">
-                      <td className="px-6 py-4">
-                        <input
-                          type="text"
-                          value={catalog.title}
-                          onChange={(e) => {
-                            setCatalogs(catalogs.map(c =>
-                              c.id === catalog.id ? { ...c, title: e.target.value } : c
-                            ));
-                          }}
-                          className="w-full px-3 py-2 border border-border rounded text-sm"
-                        />
-                      </td>
-                      <td className="px-6 py-4">
-                        <select
-                          value={catalog.brand}
-                          onChange={(e) => {
-                            setCatalogs(catalogs.map(c =>
-                              c.id === catalog.id ? { ...c, brand: e.target.value } : c
-                            ));
-                          }}
-                          className="px-3 py-2 border border-border rounded text-sm"
-                        >
-                          <option value="HIAB">HIAB</option>
-                          <option value="WILL-BURT">WILL-BURT</option>
-                          <option value="Moffett">Moffett</option>
-                          <option value="EFFER">EFFER</option>
-                          <option value="Other">Khác</option>
-                        </select>
-                      </td>
-                      <td className="px-6 py-4">
-                        <input
-                          type="text"
-                          value={catalog.downloadUrl}
-                          onChange={(e) => {
-                            setCatalogs(catalogs.map(c =>
-                              c.id === catalog.id ? { ...c, downloadUrl: e.target.value } : c
-                            ));
-                          }}
-                          className="w-full px-3 py-2 border border-border rounded text-sm"
-                        />
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <input
-                          type="checkbox"
-                          checked={catalog.enabled}
-                          onChange={(e) => {
-                            setCatalogs(catalogs.map(c =>
-                              c.id === catalog.id ? { ...c, enabled: e.target.checked } : c
-                            ));
-                          }}
-                          className="w-4 h-4 rounded"
-                        />
-                      </td>
-                      <td className="px-6 py-4 text-center">
-                        <Button
-                          variant="link"
-                          color="success"
-                          onClick={async () => {
-                            setSaving(true);
-                            try {
-                              const res = await fetch('/api/catalogs', {
-                                method: 'PUT',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(catalog),
-                              });
-                              if (res.ok) toast.success('Đã lưu!');
-                            } catch {
-                              toast.error('Có lỗi xảy ra');
-                            } finally {
-                              setSaving(false);
-                            }
-                          }}
-                          disabled={saving}
-                          className="mr-3"
-                        >
-                          Lưu
-                        </Button>
-                        <Button
-                          variant="link"
-                          color="error"
-                          onClick={async () => {
-                            const confirmed = await toast.confirm({
-                              title: 'Xác nhận xóa',
-                              message: `Bạn có chắc muốn xóa catalog "${catalog.title}"?`,
-                              confirmText: 'Xóa',
-                              type: 'danger'
-                            });
-                            if (!confirmed) return;
-                            setSaving(true);
-                            try {
-                              const res = await fetch(`/api/catalogs?id=${catalog.id}`, { method: 'DELETE' });
-                              if (res.ok) {
-                                await loadData();
-                                toast.success('Đã xóa!');
-                              }
-                            } catch {
-                              toast.error('Có lỗi xảy ra');
-                            } finally {
-                              setSaving(false);
-                            }
-                          }}
-                          disabled={saving}
-                        >
-                          Xóa
-                        </Button>
-                      </td>
-                    </tr>
                   ))}
-                </tbody>
-              </table>
-            </div>
-            {catalogs.length === 0 && (
-              <div className="text-center py-12 text-muted">Chưa có catalog nào</div>
-            )}
-          </div>
-        )}
-
-        {/* Partners Tab */}
-        {activeTab === 'partners' && (
-          <div className="admin-card p-0 overflow-hidden">
-            <div className="p-4 border-b border-border dark:border-gray-700 flex justify-between items-center">
-              <h2 className="text-lg font-semibold text-bodytext dark:text-white">Quản lý đối tác</h2>
-              <Button
-                onClick={async () => {
-                  const newPartner: PartnerLogo = {
-                    id: String(Date.now()),
-                    name: 'Đối tác mới',
-                    logo: '/images/partners/logo.png',
-                    url: '',
-                    order: partnerLogos.length + 1,
-                    enabled: true,
-                  };
-                  setSaving(true);
-                  try {
-                    const res = await fetch('/api/partner-logos', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(newPartner),
-                    });
-                    if (res.ok) {
-                      await loadData();
-                      toast.success('Đã thêm đối tác mới!');
-                    }
-                  } catch {
-                    toast.error('Có lỗi xảy ra');
-                  } finally {
-                    setSaving(false);
-                  }
-                }}
-                disabled={saving}
-              >
-                + Thêm đối tác
-              </Button>
-            </div>
-            <div className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {partnerLogos.map((partner) => (
-                  <div key={partner.id} className="border border-border dark:border-gray-700 rounded-lg p-4">
-                    <div className="flex items-center gap-4 mb-3">
-                      <img src={partner.logo} alt={partner.name} className="w-16 h-16 object-contain bg-gray-100 rounded p-2" />
-                      <div className="flex-1">
-                        <input
-                          type="text"
-                          value={partner.name}
-                          onChange={(e) => {
-                            setPartnerLogos(partnerLogos.map(p =>
-                              p.id === partner.id ? { ...p, name: e.target.value } : p
-                            ));
-                          }}
-                          placeholder="Tên đối tác"
-                          className="w-full px-3 py-2 border border-border rounded text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      {/* Logo Upload */}
-                      <ImageUpload
-                        value={partner.logo}
-                        onChange={(value) => {
-                          setPartnerLogos(partnerLogos.map(p =>
-                            p.id === partner.id ? { ...p, logo: value } : p
-                          ));
-                        }}
-                        placeholder="URL logo hoặc upload"
-                        showPreview={false}
-                      />
-                      <input
-                        type="text"
-                        value={partner.url || ''}
-                        onChange={(e) => {
-                          setPartnerLogos(partnerLogos.map(p =>
-                            p.id === partner.id ? { ...p, url: e.target.value } : p
-                          ));
-                        }}
-                        placeholder="URL website"
-                        className="w-full px-3 py-2 border border-border rounded text-sm"
-                      />
-                      <div className="grid grid-cols-2 gap-2">
-                        <input
-                          type="number"
-                          value={partner.order}
-                          onChange={(e) => {
-                            setPartnerLogos(partnerLogos.map(p =>
-                              p.id === partner.id ? { ...p, order: parseInt(e.target.value) || 1 } : p
-                            ));
-                          }}
-                          placeholder="Thứ tự"
-                          min={1}
-                          className="px-3 py-2 border border-border rounded text-sm"
-                        />
-                        <label className="flex items-center gap-2 text-sm">
-                          <input
-                            type="checkbox"
-                            checked={partner.enabled}
-                            onChange={(e) => {
-                              setPartnerLogos(partnerLogos.map(p =>
-                                p.id === partner.id ? { ...p, enabled: e.target.checked } : p
-                              ));
-                            }}
-                            className="w-4 h-4 rounded"
-                          />
-                          Hiển thị
-                        </label>
-                      </div>
-                      <div className="flex gap-2 pt-2">
-                        <Button
-                          color="success"
-                          onClick={async () => {
-                            setSaving(true);
-                            try {
-                              const res = await fetch('/api/partner-logos', {
-                                method: 'PUT',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(partner),
-                              });
-                              if (res.ok) toast.success('Đã lưu!');
-                            } catch {
-                              toast.error('Có lỗi xảy ra');
-                            } finally {
-                              setSaving(false);
-                            }
-                          }}
-                          disabled={saving}
-                          className="flex-1 !px-3 !py-1.5 text-sm"
-                        >
-                          Lưu
-                        </Button>
-                        <Button
-                          color="error"
-                          onClick={async () => {
-                            const confirmed = await toast.confirm({
-                              title: 'Xác nhận xóa',
-                              message: `Bạn có chắc muốn xóa đối tác "${partner.name}"?`,
-                              confirmText: 'Xóa',
-                              type: 'danger'
-                            });
-                            if (!confirmed) return;
-                            setSaving(true);
-                            try {
-                              const res = await fetch(`/api/partner-logos?id=${partner.id}`, { method: 'DELETE' });
-                              if (res.ok) {
-                                await loadData();
-                                toast.success('Đã xóa!');
-                              }
-                            } catch {
-                              toast.error('Có lỗi xảy ra');
-                            } finally {
-                              setSaving(false);
-                            }
-                          }}
-                          disabled={saving}
-                          className="flex-1 !px-3 !py-1.5 text-sm"
-                        >
-                          Xóa
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {partnerLogos.length === 0 && (
-                <div className="text-center py-12 text-muted">Chưa có đối tác nào</div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Holiday Effects Tab */}
-        {activeTab === 'holiday-effects' && (
-          <HolidayEffectsTab holidayEffects={holidayEffects} onRefresh={loadData} />
-        )}
-
-        {/* Page Visibility Tab */}
-        {activeTab === 'page-visibility' && (
-          <div className="admin-card p-6">
-            <PageVisibilityTab onDataChange={loadData} />
-          </div>
-        )}
-
-        {/* Testimonials Tab */}
-        {activeTab === 'testimonials' && (
-          <div className="admin-card p-6">
-            <TestimonialsTab />
-          </div>
-        )}
-
-        {/* FAQs Tab */}
-        {activeTab === 'faqs' && (
-          <div className="admin-card p-6">
-            <FAQsTab />
-          </div>
-        )}
-
-        {/* Certifications Tab */}
-        {activeTab === 'certifications' && (
-          <div className="admin-card p-6">
-            <CertificationsTab />
-          </div>
-        )}
-
-        {/* Settings Tab */}
-        {activeTab === 'settings' && (
-          <div className="admin-card p-0 overflow-hidden">
-            <div className="p-6 border-b border-border dark:border-gray-700">
-              <h2 className="text-xl font-bold text-bodytext dark:text-white">Cài đặt bảo mật</h2>
-              <p className="text-muted dark:text-gray-400 mt-1">Quản lý xác thực hai yếu tố (2FA) với Google Authenticator</p>
-            </div>
-
-            <div className="p-6">
-              {/* TOTP Status */}
-              <div className="mb-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${totpEnabled ? 'bg-green-100' : 'bg-gray-100'}`}>
-                    <svg className={`w-6 h-6 ${totpEnabled ? 'text-green-600' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-bodytext dark:text-white">Google Authenticator</h3>
-                    <p className={`text-sm ${totpEnabled ? 'text-green-600' : 'text-muted'}`}>
-                      {totpEnabled ? 'Đã kích hoạt' : 'Chưa kích hoạt'}
-                    </p>
-                  </div>
                 </div>
-
-                {totpEnabled ? (
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <p className="text-green-800 text-sm mb-3">
-                      Xác thực hai yếu tố đang được bật. Mỗi lần đăng nhập, bạn sẽ cần nhập mã từ ứng dụng Google Authenticator.
-                    </p>
-                    <Button
-                      color="error"
-                      onClick={() => { setShowDisableModal(true); setTotpError(''); setTotpPassword(''); setTotpDisableCode(''); }}
-                      className="text-sm"
-                    >
-                      Tắt Google Authenticator
-                    </Button>
-                  </div>
-                ) : totpSetupData ? (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                    <h4 className="font-semibold text-bodytext dark:text-white mb-4">Bước 2: Quét mã QR</h4>
-                    <div className="flex flex-col md:flex-row gap-6">
-                      <div className="flex-shrink-0">
-                        <img src={totpSetupData.qrCode} alt="QR Code" className="w-48 h-48 border border-border rounded-lg" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-bodytext text-sm mb-3">
-                          1. Mở ứng dụng Google Authenticator trên điện thoại
-                        </p>
-                        <p className="text-bodytext text-sm mb-3">
-                          2. Nhấn nút + và chọn &quot;Quét mã QR&quot;
-                        </p>
-                        <p className="text-bodytext text-sm mb-4">
-                          3. Quét mã QR bên trái, sau đó nhập mã 6 số hiển thị
-                        </p>
-
-                        <div className="mb-4">
-                          <label className="block text-sm font-medium text-bodytext mb-1">Hoặc nhập thủ công:</label>
-                          <code className="block bg-gray-100 px-3 py-2 rounded text-sm font-mono break-all">{totpSetupData.secret}</code>
-                        </div>
-
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            value={totpVerifyCode}
-                            onChange={(e) => setTotpVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            className="flex-1 px-4 py-2 border border-border rounded focus:outline-none focus:border-primary text-center text-lg tracking-widest font-mono"
-                            placeholder="000000"
-                            maxLength={6}
-                            inputMode="numeric"
-                          />
-                          <Button
-                            onClick={handleTotpVerifySetup}
-                            disabled={totpLoading || totpVerifyCode.length !== 6}
-                          >
-                            {totpLoading ? 'Đang xử lý...' : 'Xác nhận'}
-                          </Button>
-                        </div>
-
-                        {totpError && (
-                          <p className="mt-2 text-red-600 text-sm">{totpError}</p>
-                        )}
-
-                        <Button
-                          variant="ghost"
-                          color="dark"
-                          onClick={() => { setTotpSetupData(null); setTotpVerifyCode(''); setTotpError(''); }}
-                          className="mt-4 text-xs"
-                        >
-                          Hủy thiết lập
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-lightgray dark:bg-gray-900 border border-border dark:border-gray-700 rounded-lg p-6">
-                    <h4 className="font-semibold text-bodytext dark:text-white mb-4">Bước 1: Xác nhận mật khẩu</h4>
-                    <p className="text-muted dark:text-gray-400 text-sm mb-4">
-                      Để thiết lập xác thực hai yếu tố, vui lòng nhập mật khẩu admin để xác nhận.
-                    </p>
-                    <div className="flex gap-2 max-w-md">
-                      <PasswordInput
-                        id="totp-setup-password"
-                        value={totpPassword}
-                        onChange={(e) => setTotpPassword(e.target.value)}
-                        placeholder="Nhập mật khẩu admin"
-                        showLabel={false}
-                        className="flex-1"
-                      />
-                      <Button
-                        onClick={handleTotpSetup}
-                        disabled={totpLoading || !totpPassword}
-                      >
-                        {totpLoading ? 'Đang xử lý...' : 'Tiếp tục'}
-                      </Button>
-                    </div>
-                    {totpError && (
-                      <p className="mt-2 text-red-600 text-sm">{totpError}</p>
-                    )}
-                  </div>
+                {partnerLogos.length === 0 && (
+                  <div className="text-center py-12 text-muted">Chưa có đối tác nào</div>
                 )}
               </div>
+            </div>
+          )
+        }
 
-              {/* Info Section */}
-              <div className="border-t border-border dark:border-gray-700 pt-6">
-                <h3 className="font-semibold text-bodytext dark:text-white mb-3">Về xác thực hai yếu tố</h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-lightgray dark:bg-gray-900 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-800 mb-2">Tại sao nên sử dụng?</h4>
-                    <ul className="text-sm text-muted dark:text-gray-400 space-y-1">
-                      <li>- Bảo vệ tài khoản admin khỏi truy cập trái phép</li>
-                      <li>- Ngay cả khi mật khẩu bị lộ, kẻ tấn công vẫn không thể đăng nhập</li>
-                      <li>- Tiêu chuẩn bảo mật được khuyến nghị</li>
-                    </ul>
+        {/* Holiday Effects Tab */}
+        {
+          activeTab === 'holiday-effects' && (
+            <HolidayEffectsTab holidayEffects={holidayEffects} onRefresh={loadData} />
+          )
+        }
+
+        {/* Page Visibility Tab */}
+        {
+          activeTab === 'page-visibility' && (
+            <div className="admin-card p-6">
+              <PageVisibilityTab onDataChange={loadData} />
+            </div>
+          )
+        }
+
+        {/* Testimonials Tab */}
+        {
+          activeTab === 'testimonials' && (
+            <div className="admin-card p-6">
+              <TestimonialsTab />
+            </div>
+          )
+        }
+
+        {/* FAQs Tab */}
+        {
+          activeTab === 'faqs' && (
+            <div className="admin-card p-6">
+              <FAQsTab />
+            </div>
+          )
+        }
+
+        {/* Certifications Tab */}
+        {
+          activeTab === 'certifications' && (
+            <div className="admin-card p-6">
+              <CertificationsTab />
+            </div>
+          )
+        }
+
+        {/* Footer Links Tab (legacy - kept for compatibility) */}
+        {
+          activeTab === 'footer-links' && (
+            <FooterLinksTab footerLinks={footerLinks} onRefresh={loadData} />
+          )
+        }
+
+        {/* Footer Settings Tab (combined Social Links + Footer Links) */}
+        {
+          activeTab === 'footer-settings' && siteSettings && (
+            <FooterSettingsTab
+              siteSettings={siteSettings}
+              footerLinks={footerLinks}
+              onRefresh={loadData}
+            />
+          )
+        }
+
+        {/* Appearance Tab (combined Holiday Effects + Page Visibility) */}
+        {
+          activeTab === 'appearance' && (
+            <AppearanceTab
+              holidayEffects={holidayEffects}
+              onRefresh={loadData}
+            />
+          )
+        }
+
+        {/* Thư viện Media Tab */}
+        {
+          activeTab === 'media-library' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <MediaLibraryTab onRefresh={loadData} />
+            </div>
+          )
+        }
+
+        {/* SEO Tab */}
+        {
+          activeTab === 'seo' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <SEOTab />
+            </div>
+          )
+        }
+
+        {/* Traffic Dashboard Tab */}
+        {
+          activeTab === 'traffic' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <TrafficDashboard />
+            </div>
+          )
+        }
+
+        {/* Settings Tab */}
+        {
+          activeTab === 'settings' && (
+            <div className="admin-card p-0 overflow-hidden">
+              <div className="p-6 border-b border-border dark:border-gray-700">
+                <h2 className="text-xl font-bold text-bodytext dark:text-white">Cài đặt bảo mật</h2>
+                <p className="text-muted dark:text-gray-400 mt-1">Quản lý xác thực hai yếu tố (2FA) với Google Authenticator</p>
+              </div>
+
+              <div className="p-6">
+                {/* TOTP Status */}
+                <div className="mb-8">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${totpEnabled ? 'bg-green-100' : 'bg-gray-100'}`}>
+                      <svg className={`w-6 h-6 ${totpEnabled ? 'text-green-600' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-bodytext dark:text-white">Google Authenticator</h3>
+                      <p className={`text-sm ${totpEnabled ? 'text-green-600' : 'text-muted'}`}>
+                        {totpEnabled ? 'Đã kích hoạt' : 'Chưa kích hoạt'}
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-lightgray dark:bg-gray-900 rounded-lg p-4">
-                    <h4 className="font-medium text-gray-800 mb-2">Cách hoạt động</h4>
-                    <ul className="text-sm text-muted dark:text-gray-400 space-y-1">
-                      <li>- Sau khi nhập mật khẩu, bạn cần nhập thêm mã 6 số</li>
-                      <li>- Mã được tạo bởi ứng dụng Google Authenticator</li>
-                      <li>- Mã thay đổi mỗi 30 giây</li>
-                    </ul>
+
+                  {totpEnabled ? (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm mb-3">
+                        Xác thực hai yếu tố đang được bật. Mỗi lần đăng nhập, bạn sẽ cần nhập mã từ ứng dụng Google Authenticator.
+                      </p>
+                      <Button
+                        color="error"
+                        onClick={() => { setShowDisableModal(true); setTotpError(''); setTotpPassword(''); setTotpDisableCode(''); }}
+                        className="text-sm"
+                      >
+                        Tắt Google Authenticator
+                      </Button>
+                    </div>
+                  ) : totpSetupData ? (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                      <h4 className="font-semibold text-bodytext dark:text-white mb-4">Bước 2: Quét mã QR</h4>
+                      <div className="flex flex-col md:flex-row gap-6">
+                        <div className="flex-shrink-0">
+                          <img src={totpSetupData.qrCode} alt="QR Code" className="w-48 h-48 border border-border rounded-lg" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-bodytext text-sm mb-3">
+                            1. Mở ứng dụng Google Authenticator trên điện thoại
+                          </p>
+                          <p className="text-bodytext text-sm mb-3">
+                            2. Nhấn nút + và chọn &quot;Quét mã QR&quot;
+                          </p>
+                          <p className="text-bodytext text-sm mb-4">
+                            3. Quét mã QR bên trái, sau đó nhập mã 6 số hiển thị
+                          </p>
+
+                          <div className="mb-4">
+                            <label className="block text-sm font-medium text-bodytext mb-1">Hoặc nhập thủ công:</label>
+                            <code className="block bg-gray-100 px-3 py-2 rounded text-sm font-mono break-all">{totpSetupData.secret}</code>
+                          </div>
+
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              value={totpVerifyCode}
+                              onChange={(e) => setTotpVerifyCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                              className="flex-1 px-4 py-2 border border-border rounded focus:outline-none focus:border-primary text-center text-lg tracking-widest font-mono"
+                              placeholder="000000"
+                              maxLength={6}
+                              inputMode="numeric"
+                            />
+                            <Button
+                              onClick={handleTotpVerifySetup}
+                              disabled={totpLoading || totpVerifyCode.length !== 6}
+                            >
+                              {totpLoading ? 'Đang xử lý...' : 'Xác nhận'}
+                            </Button>
+                          </div>
+
+                          {totpError && (
+                            <p className="mt-2 text-red-600 text-sm">{totpError}</p>
+                          )}
+
+                          <Button
+                            variant="ghost"
+                            color="dark"
+                            onClick={() => { setTotpSetupData(null); setTotpVerifyCode(''); setTotpError(''); }}
+                            className="mt-4 text-xs"
+                          >
+                            Hủy thiết lập
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-lightgray dark:bg-gray-900 border border-border dark:border-gray-700 rounded-lg p-6">
+                      <h4 className="font-semibold text-bodytext dark:text-white mb-4">Bước 1: Xác nhận mật khẩu</h4>
+                      <p className="text-muted dark:text-gray-400 text-sm mb-4">
+                        Để thiết lập xác thực hai yếu tố, vui lòng nhập mật khẩu admin để xác nhận.
+                      </p>
+                      <div className="flex gap-2 max-w-md">
+                        <PasswordInput
+                          id="totp-setup-password"
+                          value={totpPassword}
+                          onChange={(e) => setTotpPassword(e.target.value)}
+                          placeholder="Nhập mật khẩu admin"
+                          showLabel={false}
+                          className="flex-1"
+                        />
+                        <Button
+                          onClick={handleTotpSetup}
+                          disabled={totpLoading || !totpPassword}
+                        >
+                          {totpLoading ? 'Đang xử lý...' : 'Tiếp tục'}
+                        </Button>
+                      </div>
+                      {totpError && (
+                        <p className="mt-2 text-red-600 text-sm">{totpError}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Info Section */}
+                <div className="border-t border-border dark:border-gray-700 pt-6">
+                  <h3 className="font-semibold text-bodytext dark:text-white mb-3">Về xác thực hai yếu tố</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-lightgray dark:bg-gray-900 rounded-lg p-4">
+                      <h4 className="font-medium text-gray-800 mb-2">Tại sao nên sử dụng?</h4>
+                      <ul className="text-sm text-muted dark:text-gray-400 space-y-1">
+                        <li>- Bảo vệ tài khoản admin khỏi truy cập trái phép</li>
+                        <li>- Ngay cả khi mật khẩu bị lộ, kẻ tấn công vẫn không thể đăng nhập</li>
+                        <li>- Tiêu chuẩn bảo mật được khuyến nghị</li>
+                      </ul>
+                    </div>
+                    <div className="bg-lightgray dark:bg-gray-900 rounded-lg p-4">
+                      <h4 className="font-medium text-gray-800 mb-2">Cách hoạt động</h4>
+                      <ul className="text-sm text-muted dark:text-gray-400 space-y-1">
+                        <li>- Sau khi nhập mật khẩu, bạn cần nhập thêm mã 6 số</li>
+                        <li>- Mã được tạo bởi ứng dụng Google Authenticator</li>
+                        <li>- Mã thay đổi mỗi 30 giây</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )
+        }
+      </div >
 
       {/* Bulk Edit Modal - Using Portal to render outside container */}
       {
@@ -3279,51 +3327,14 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-bodytext mb-1">Hình ảnh danh mục</label>
-                  <div className="flex items-start gap-4">
-                    <div className="flex-1">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            // Check file size (max 100MB)
-                            if (file.size > 100 * 1024 * 1024) {
-                              toast.warning('Hình ảnh không được vượt quá 100MB');
-                              return;
-                            }
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                              setCategoryForm(prev => ({ ...prev, image: reader.result as string }));
-                            };
-                            reader.readAsDataURL(file);
-                          }
-                        }}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-[#4a6199] file:cursor-pointer"
-                      />
-                      <p className="mt-1 text-xs text-muted">Chọn hình ảnh (tối đa 100MB, định dạng JPG, PNG, GIF)</p>
-                    </div>
-                    {categoryForm.image && (
-                      <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-border dark:border-gray-700 flex-shrink-0 bg-lightgray dark:bg-gray-900 p-1">
-                        <img
-                          src={categoryForm.image}
-                          alt="Preview"
-                          className="w-full h-full object-contain"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                          }}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setCategoryForm(prev => ({ ...prev, image: '' }))}
-                          className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
-                        >
-                          ×
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  <MediaPicker
+                    label="Hình ảnh danh mục"
+                    value={categoryForm.image}
+                    onChange={(imageBase64) => setCategoryForm(prev => ({ ...prev, image: imageBase64 }))}
+                    folder="products"
+                    aspectRatio="square"
+                    placeholder="Chọn ảnh danh mục"
+                  />
                 </div>
               </div>
 

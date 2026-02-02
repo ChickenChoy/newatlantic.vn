@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getFooterLinks, saveFooterLinks, addFooterLink, deleteFooterLink } from '@/lib/db';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { FooterLink } from '@/types';
 
 export const runtime = 'nodejs';
@@ -50,10 +50,23 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// PUT - Cập nhật footer link
+// PUT - Cập nhật footer link(s)
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Check if body is an array (bulk update) or single object
+    if (Array.isArray(body)) {
+      // Bulk update - save entire array
+      const success = saveFooterLinks(body);
+      if (success) {
+        revalidatePath('/');
+        return NextResponse.json(body);
+      }
+      return NextResponse.json({ error: 'Failed to save footer links' }, { status: 500 });
+    }
+
+    // Single link update
     const { id, ...updates } = body;
 
     if (!id) {

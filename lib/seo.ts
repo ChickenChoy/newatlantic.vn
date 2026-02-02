@@ -15,6 +15,37 @@ export const siteConfig = {
   foundedYear: '2003',
 };
 
+// SEO Data Types (for reference, actual data fetching should use API)
+interface SEOPage {
+  title: string;
+  description: string;
+  keywords: string;
+  ogImage: string;
+  noIndex: boolean;
+}
+
+interface SEOData {
+  global: {
+    siteName: string;
+    siteDescription: string;
+    siteKeywords: string;
+    defaultOgImage: string;
+    googleVerification: string;
+    twitterHandle: string;
+  };
+  pages: Record<string, SEOPage>;
+  openGraph: {
+    siteName: string;
+    locale: string;
+  };
+}
+
+// Note: getSEOData and getPageSEO moved to lib/seo-server.ts for server-only usage
+// Import from '@/lib/seo-server' if you need to read from file system
+
+// Export types for external use
+export type { SEOData, SEOPage };
+
 // Generate metadata for pages
 export function generateMetadata({
   title,
@@ -90,6 +121,45 @@ export function generateMetadata({
       yandex: 'your-yandex-verification-code',
     },
   };
+}
+
+// Generate dynamic metadata from CMS (uses fetch API for compatibility)
+export async function generateDynamicMetadata(
+  pageKey: string,
+  fallback: { title: string; description: string; path?: string }
+): Promise<Metadata> {
+  let pageSEO: SEOPage | null = null;
+  let defaultOgImage: string | undefined;
+
+  try {
+    // Fetch SEO data via API (works in both server and client contexts)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/seo`, {
+      next: { revalidate: 60 } // Cache for 1 minute
+    });
+    if (response.ok) {
+      const seoData = await response.json();
+      pageSEO = seoData?.pages?.[pageKey] || null;
+      defaultOgImage = seoData?.global?.defaultOgImage;
+    }
+  } catch {
+    // Fail silently, use fallback
+  }
+
+  const title = pageSEO?.title || fallback.title;
+  const description = pageSEO?.description || fallback.description;
+  const keywords = pageSEO?.keywords?.split(',').map((k: string) => k.trim()) || [];
+  const image = pageSEO?.ogImage || defaultOgImage;
+  const noIndex = pageSEO?.noIndex || false;
+
+  return generateMetadata({
+    title,
+    description,
+    image: image ? `${siteConfig.url}${image}` : undefined,
+    path: fallback.path,
+    noIndex,
+    keywords,
+  });
 }
 
 // JSON-LD Structured Data Generators
@@ -177,7 +247,7 @@ export function generateProductSchema(product: {
   category: string;
   sku?: string;
 }) {
-  const schema: any = {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
@@ -312,4 +382,3 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]) 
     })),
   };
 }
-
