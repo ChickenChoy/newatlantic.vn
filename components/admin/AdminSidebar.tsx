@@ -67,6 +67,7 @@ const menuGroups: MenuGroup[] = [
       { id: 'seo', name: 'SEO', icon: 'solar:graph-up-line-duotone', url: '/admin?tab=seo' },
       { id: 'traffic', name: 'Traffic Stats', icon: 'solar:chart-2-line-duotone', url: '/admin?tab=traffic' },
       { id: 'appearance', name: 'Giao diện', icon: 'solar:palette-line-duotone', url: '/admin?tab=appearance' },
+      { id: 'database', name: 'Database', icon: 'solar:database-line-duotone', url: '/admin?tab=database' },
       { id: 'settings', name: 'Bảo mật', icon: 'solar:shield-keyhole-line-duotone', url: '/admin?tab=settings' },
     ]
   },

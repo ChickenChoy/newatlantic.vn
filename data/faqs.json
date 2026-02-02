@@ -1,44 +1,44 @@
 [
-    {
-        "id": "1",
-        "question": "NEW ATLANTIC cung cấp những sản phẩm gì?",
-        "answer": "NEW ATLANTIC là nhà phân phối chính hãng các thương hiệu WILL-BURT, HIAB, SKYMARK tại Việt Nam. Chúng tôi cung cấp cột tự nâng, cẩu tự hành, xe nâng Moffett và thiết bị công nghiệp chất lượng cao.",
-        "enabled": true,
-        "order": 1
-    },
-    {
-        "id": "2",
-        "question": "Thời gian bảo hành sản phẩm là bao lâu?",
-        "answer": "Thời gian bảo hành phụ thuộc vào từng loại sản phẩm. Thông thường, các sản phẩm được bảo hành từ 12-24 tháng. Chúng tôi cũng cung cấp dịch vụ bảo trì và sửa chữa 24/7.",
-        "enabled": true,
-        "order": 2
-    },
-    {
-        "id": "3",
-        "question": "NEW ATLANTIC có hỗ trợ vận chuyển toàn quốc không?",
-        "answer": "Có, chúng tôi hỗ trợ vận chuyển toàn quốc trong vòng 24-48h. Đội ngũ kỹ thuật của chúng tôi cũng sẵn sàng hỗ trợ lắp đặt và hướng dẫn sử dụng tại địa điểm của khách hàng.",
-        "enabled": true,
-        "order": 3
-    },
-    {
-        "id": "4",
-        "question": "Làm thế nào để nhận báo giá sản phẩm?",
-        "answer": "Bạn có thể liên hệ trực tiếp qua hotline +84 2838 733 686, email info@newatlantic.vn hoặc điền form liên hệ trên website. Chúng tôi sẽ phản hồi trong vòng 24 giờ.",
-        "enabled": true,
-        "order": 4
-    },
-    {
-        "id": "5",
-        "question": "Có hỗ trợ tư vấn kỹ thuật không?",
-        "answer": "Có, đội ngũ kỹ thuật viên chuyên nghiệp của chúng tôi sẵn sàng tư vấn miễn phí về sản phẩm, giải pháp và ứng dụng. Chúng tôi hỗ trợ 24/7 qua điện thoại, email hoặc tại công trường.",
-        "enabled": true,
-        "order": 5
-    },
-    {
-        "id": "6",
-        "question": "Có cung cấp phụ tùng thay thế không?",
-        "answer": "Có, chúng tôi cung cấp đầy đủ phụ tùng thay thế chính hãng cho tất cả sản phẩm. Kho phụ tùng luôn có sẵn tại các chi nhánh Hồ Chí Minh, Hà Nội và Quảng Trị.",
-        "enabled": true,
-        "order": 6
-    }
+  {
+    "id": "1",
+    "question": "NEW ATLANTIC cung cấp những sản phẩm gì?",
+    "answer": "NEW ATLANTIC là nhà phân phối chính hãng các thương hiệu WILL-BURT, HIAB, SKYMARK tại Việt Nam. Chúng tôi cung cấp cột tự nâng, cẩu tự hành, xe nâng Moffett và thiết bị công nghiệp chất lượng cao.",
+    "enabled": true,
+    "order": 1
+  },
+  {
+    "id": "2",
+    "question": "Thời gian bảo hành sản phẩm là bao lâu?",
+    "answer": "Thời gian bảo hành phụ thuộc vào từng loại sản phẩm. Thông thường, các sản phẩm được bảo hành từ 12-24 tháng. Chúng tôi cũng cung cấp dịch vụ bảo trì và sửa chữa 24/7.",
+    "enabled": true,
+    "order": 2
+  },
+  {
+    "id": "3",
+    "question": "NEW ATLANTIC có hỗ trợ vận chuyển toàn quốc không?",
+    "answer": "Có, chúng tôi hỗ trợ vận chuyển toàn quốc trong vòng 24-48h. Đội ngũ kỹ thuật của chúng tôi cũng sẵn sàng hỗ trợ lắp đặt và hướng dẫn sử dụng tại địa điểm của khách hàng.",
+    "enabled": true,
+    "order": 3
+  },
+  {
+    "id": "4",
+    "question": "Làm thế nào để nhận báo giá sản phẩm?",
+    "answer": "Bạn có thể liên hệ trực tiếp qua hotline +84 2838 733 686, email info@newatlantic.vn hoặc điền form liên hệ trên website. Chúng tôi sẽ phản hồi trong vòng 24 giờ.",
+    "enabled": true,
+    "order": 4
+  },
+  {
+    "id": "5",
+    "question": "Có hỗ trợ tư vấn kỹ thuật không?",
+    "answer": "Có, đội ngũ kỹ thuật viên chuyên nghiệp của chúng tôi sẵn sàng tư vấn miễn phí về sản phẩm, giải pháp và ứng dụng. Chúng tôi hỗ trợ 24/7 qua điện thoại, email hoặc tại công trường.",
+    "enabled": true,
+    "order": 5
+  },
+  {
+    "id": "6",
+    "question": "Có cung cấp phụ tùng thay thế không?",
+    "answer": "Có, chúng tôi cung cấp đầy đủ phụ tùng thay thế chính hãng cho tất cả sản phẩm. Kho phụ tùng luôn có sẵn tại các chi nhánh Hồ Chí Minh, Hà Nội và Quảng Trị.",
+    "enabled": true,
+    "order": 6
+  }
 ]

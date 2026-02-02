@@ -24,9 +24,10 @@ import MediaPicker from '@/components/admin/MediaPicker';
 import SEOTab from '@/components/admin/SEOTab';
 import TrafficDashboard from '@/components/admin/TrafficDashboard';
 import HomepageServicesTab from '@/components/admin/HomepageServicesTab';
+import DatabaseTab from '@/components/admin/DatabaseTab';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services' | 'database';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -811,7 +812,8 @@ export default function AdminPage() {
                                                   activeTab === 'media-library' ? 'Thư viện Media' :
                                                     activeTab === 'seo' ? 'Quản lý SEO' :
                                                       activeTab === 'homepage-services' ? 'Dịch vụ trang chủ' :
-                                                        activeTab}
+                                                        activeTab === 'database' ? 'Quản lý Database' :
+                                                          activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2992,6 +2994,15 @@ export default function AdminPage() {
                 saving={saving}
                 setSaving={setSaving}
               />
+            </div>
+          )
+        }
+
+        {/* Database Tab */}
+        {
+          activeTab === 'database' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <DatabaseTab />
             </div>
           )
         }
