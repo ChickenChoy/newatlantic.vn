@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { HomepageService } from '@/types';
 import { Icon } from '@iconify/react';
 import { Button } from '@/components/admin/Button';
@@ -145,7 +146,7 @@ export default function HomepageServicesTab({ services, onUpdate, saving, setSav
     const sortedServices = [...services].sort((a, b) => a.order - b.order);
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 relative min-h-[600px]">
             {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
@@ -200,8 +201,8 @@ export default function HomepageServicesTab({ services, onUpdate, saving, setSav
                                 <button
                                     onClick={() => toggleEnabled(service)}
                                     className={`p-2 rounded-lg transition-colors ${service.enabled
-                                            ? 'text-green-600 bg-green-100 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30'
-                                            : 'text-gray-400 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                        ? 'text-green-600 bg-green-100 dark:bg-green-900/20 hover:bg-green-200 dark:hover:bg-green-900/30'
+                                        : 'text-gray-400 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600'
                                         }`}
                                     title={service.enabled ? 'Đang hiển thị' : 'Đang ẩn'}
                                 >
@@ -227,141 +228,158 @@ export default function HomepageServicesTab({ services, onUpdate, saving, setSav
                 )}
             </div>
 
-            {/* Modal */}
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-                    <div className="bg-white dark:bg-darkgray rounded-2xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-                        <div className="p-6 border-b border-border dark:border-gray-700">
-                            <h3 className="text-xl font-bold text-dark dark:text-white">
-                                {editingService ? 'Chỉnh sửa dịch vụ' : 'Thêm dịch vụ mới'}
-                            </h3>
-                        </div>
-
-                        <div className="p-6 space-y-4">
-                            {/* Title */}
-                            <div>
-                                <label className="block text-sm font-medium text-dark dark:text-white mb-2">
-                                    Tiêu đề <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    value={formData.title}
-                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                                    placeholder="VD: Cẩu tự hành"
-                                />
-                            </div>
-
-                            {/* Description */}
-                            <div>
-                                <label className="block text-sm font-medium text-dark dark:text-white mb-2">
-                                    Mô tả
-                                </label>
-                                <textarea
-                                    value={formData.description}
-                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                    rows={4}
-                                    className="w-full px-4 py-3 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none"
-                                    placeholder="Mô tả ngắn về dịch vụ..."
-                                />
-                            </div>
-
-                            {/* Color */}
-                            <div>
-                                <label className="block text-sm font-medium text-dark dark:text-white mb-2">
-                                    Màu sắc
-                                </label>
-                                <div className="flex flex-wrap gap-2 mb-3">
-                                    {colorPresets.map((color) => (
-                                        <button
-                                            key={color.value}
-                                            onClick={() => setFormData({ ...formData, color: color.value })}
-                                            className={`w-10 h-10 rounded-lg border-2 transition-all ${formData.color === color.value
-                                                    ? 'border-dark dark:border-white scale-110'
-                                                    : 'border-transparent hover:scale-105'
-                                                }`}
-                                            style={{ backgroundColor: color.value }}
-                                            title={color.name}
-                                        />
-                                    ))}
+            {/* Modal with dark overlay - Portal to body */}
+            {showModal && createPortal(
+                <>
+                    {/* Backdrop overlay */}
+                    <div
+                        className="fixed inset-0 z-[60]"
+                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
+                        onClick={() => setShowModal(false)}
+                    />
+                    {/* Modal content */}
+                    <div className="fixed inset-0 z-[61] flex items-center justify-center p-4 pointer-events-none">
+                        <div className="bg-white dark:bg-darkgray rounded-2xl shadow-2xl w-full max-w-lg max-h-[85vh] overflow-y-auto pointer-events-auto border border-border dark:border-gray-700">
+                            <div className="p-6 border-b border-border dark:border-gray-700 sticky top-0 bg-white dark:bg-darkgray z-10">
+                                <div className="flex items-center justify-between">
+                                    <h3 className="text-xl font-bold text-dark dark:text-white">
+                                        {editingService ? 'Chỉnh sửa dịch vụ' : 'Thêm dịch vụ mới'}
+                                    </h3>
+                                    <button
+                                        onClick={() => setShowModal(false)}
+                                        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-muted transition-colors"
+                                    >
+                                        <Icon icon="solar:close-circle-line-duotone" className="w-6 h-6" />
+                                    </button>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <input
-                                        type="color"
-                                        value={formData.color}
-                                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                                        className="w-10 h-10 rounded-lg border border-border cursor-pointer"
-                                    />
+                            </div>
+
+                            <div className="p-6 space-y-4">
+                                {/* Title */}
+                                <div>
+                                    <label className="block text-sm font-medium text-dark dark:text-white mb-2">
+                                        Tiêu đề <span className="text-red-500">*</span>
+                                    </label>
                                     <input
                                         type="text"
-                                        value={formData.color}
-                                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                                        className="flex-1 px-4 py-2 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white text-sm font-mono"
-                                        placeholder="#5f7ab8"
+                                        value={formData.title}
+                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                        className="w-full px-4 py-3 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                                        placeholder="VD: Cẩu tự hành"
                                     />
                                 </div>
-                            </div>
 
-                            {/* Order */}
-                            <div>
-                                <label className="block text-sm font-medium text-dark dark:text-white mb-2">
-                                    Thứ tự hiển thị
-                                </label>
-                                <input
-                                    type="number"
-                                    value={formData.order}
-                                    onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                                    className="w-full px-4 py-3 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                                    min={0}
-                                />
-                            </div>
+                                {/* Description */}
+                                <div>
+                                    <label className="block text-sm font-medium text-dark dark:text-white mb-2">
+                                        Mô tả
+                                    </label>
+                                    <textarea
+                                        value={formData.description}
+                                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                        rows={3}
+                                        className="w-full px-4 py-3 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none"
+                                        placeholder="Mô tả ngắn về dịch vụ..."
+                                    />
+                                </div>
 
-                            {/* Enabled */}
-                            <div className="flex items-center gap-3">
-                                <input
-                                    type="checkbox"
-                                    id="service-enabled"
-                                    checked={formData.enabled}
-                                    onChange={(e) => setFormData({ ...formData, enabled: e.target.checked })}
-                                    className="w-5 h-5 rounded border-border text-primary focus:ring-primary"
-                                />
-                                <label htmlFor="service-enabled" className="text-sm font-medium text-dark dark:text-white">
-                                    Hiển thị trên trang chủ
-                                </label>
-                            </div>
+                                {/* Color */}
+                                <div>
+                                    <label className="block text-sm font-medium text-dark dark:text-white mb-2">
+                                        Màu sắc
+                                    </label>
+                                    <div className="flex flex-wrap gap-2 mb-3">
+                                        {colorPresets.map((color) => (
+                                            <button
+                                                key={color.value}
+                                                onClick={() => setFormData({ ...formData, color: color.value })}
+                                                className={`w-8 h-8 rounded-lg border-2 transition-all ${formData.color === color.value
+                                                    ? 'border-dark dark:border-white scale-110'
+                                                    : 'border-transparent hover:scale-105'
+                                                    }`}
+                                                style={{ backgroundColor: color.value }}
+                                                title={color.name}
+                                            />
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="color"
+                                            value={formData.color}
+                                            onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                                            className="w-8 h-8 rounded-lg border border-border cursor-pointer"
+                                        />
+                                        <input
+                                            type="text"
+                                            value={formData.color}
+                                            onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                                            className="flex-1 px-3 py-2 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white text-sm font-mono"
+                                            placeholder="#5f7ab8"
+                                        />
+                                    </div>
+                                </div>
 
-                            {/* Preview */}
-                            <div className="mt-4 p-4 bg-gray-900 rounded-xl">
-                                <p className="text-sm text-gray-400 mb-3">Xem trước:</p>
-                                <div
-                                    className="bg-white/10 rounded-xl p-4 border-l-4"
-                                    style={{ borderColor: formData.color }}
-                                >
-                                    <span
-                                        className="text-sm font-semibold uppercase tracking-wider mb-1 block"
-                                        style={{ color: formData.color }}
+                                {/* Order & Enabled - Compact row */}
+                                <div className="flex items-center gap-4">
+                                    <div className="w-24">
+                                        <label className="block text-sm font-medium text-dark dark:text-white mb-2">
+                                            Thứ tự
+                                        </label>
+                                        <input
+                                            type="number"
+                                            value={formData.order}
+                                            onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
+                                            className="w-full px-3 py-2 rounded-lg border border-border dark:border-gray-700 bg-white dark:bg-gray-800 text-dark dark:text-white focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                                            min={0}
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-3 pt-6">
+                                        <input
+                                            type="checkbox"
+                                            id="service-enabled"
+                                            checked={formData.enabled}
+                                            onChange={(e) => setFormData({ ...formData, enabled: e.target.checked })}
+                                            className="w-5 h-5 rounded border-border text-primary focus:ring-primary"
+                                        />
+                                        <label htmlFor="service-enabled" className="text-sm font-medium text-dark dark:text-white">
+                                            Hiển thị
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {/* Preview - Compact */}
+                                <div className="p-3 bg-gray-900 rounded-xl">
+                                    <p className="text-xs text-gray-400 mb-2">Xem trước:</p>
+                                    <div
+                                        className="bg-white/10 rounded-lg p-3 border-l-4"
+                                        style={{ borderColor: formData.color }}
                                     >
-                                        01
-                                    </span>
-                                    <h3 className="text-lg font-bold text-white mb-2">{formData.title || 'Tiêu đề dịch vụ'}</h3>
-                                    <p className="text-white/80 text-sm">
-                                        {formData.description || 'Mô tả dịch vụ sẽ hiển thị ở đây...'}
-                                    </p>
+                                        <span
+                                            className="text-xs font-semibold uppercase tracking-wider mb-1 block"
+                                            style={{ color: formData.color }}
+                                        >
+                                            01
+                                        </span>
+                                        <h3 className="text-base font-bold text-white mb-1">{formData.title || 'Tiêu đề dịch vụ'}</h3>
+                                        <p className="text-white/80 text-xs line-clamp-2">
+                                            {formData.description || 'Mô tả dịch vụ sẽ hiển thị ở đây...'}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="p-6 border-t border-border dark:border-gray-700 flex justify-end gap-3">
-                            <Button color="light" onClick={() => setShowModal(false)} disabled={saving}>
-                                Hủy
-                            </Button>
-                            <Button color="primary" onClick={handleSave} disabled={saving}>
-                                {saving ? 'Đang lưu...' : (editingService ? 'Cập nhật' : 'Thêm mới')}
-                            </Button>
+                            <div className="p-4 border-t border-border dark:border-gray-700 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-darkgray">
+                                <Button color="light" onClick={() => setShowModal(false)} disabled={saving}>
+                                    Hủy
+                                </Button>
+                                <Button color="primary" onClick={handleSave} disabled={saving}>
+                                    {saving ? 'Đang lưu...' : (editingService ? 'Cập nhật' : 'Thêm mới')}
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                </>
+                , document.body)}
         </div>
     );
 }
