@@ -13,7 +13,7 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import TypingText from '@/components/TypingText';
 import HolidayBanner from '@/components/HolidayBanner';
-import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos } from '@/lib/db';
+import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
 
@@ -51,6 +51,7 @@ export default function HomePage() {
   const heroSlides = getHeroSlides().filter(s => s.enabled).sort((a, b) => a.order - b.order);
   const homepageStats = getHomepageStats().sort((a, b) => a.order - b.order);
   const partnerLogos = getPartnerLogos().filter(p => p.enabled).sort((a, b) => a.order - b.order);
+  const homepageServices = getHomepageServices().filter(s => s.enabled).sort((a, b) => a.order - b.order);
 
   const featuredProducts = products.filter((p) => p.featured).slice(0, 3);
   const latestPosts = posts.slice(0, 3);
@@ -180,8 +181,8 @@ export default function HomePage() {
               <ScrollAnimation direction="left">
                 <div className="space-y-6 sm:space-y-8">
                   <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-800 text-gray-300 rounded-full text-xs font-medium mb-3 sm:mb-4 tracking-wide uppercase border border-gray-700">
-                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-gray-800 text-gray-300 rounded-full text-sm md:text-base font-semibold mb-4 sm:mb-5 tracking-wide uppercase border border-gray-700">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
                       Về chúng tôi
@@ -284,16 +285,16 @@ export default function HomePage() {
             {/* Section Header */}
             <ScrollAnimation direction="up">
               <div className="text-center mb-12 md:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-900/40 text-amber-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-amber-700/30">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-amber-900/40 text-amber-300 rounded-full text-sm md:text-base font-semibold mb-6 tracking-wide uppercase border border-amber-700/30">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                     <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
                   </svg>
-                  Sản phẩm & Dịch vụ
+                  SẢN PHẨM & DỊCH VỤ
                 </div>
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
-                  Nhà phân phối hàng đầu
-                  <span className="block text-white">các thương hiệu nổi tiếng</span>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight uppercase">
+                  NHÀ PHÂN PHỐI HÀNG ĐẦU
+                  <span className="block text-white uppercase">CÁC THƯƠNG HIỆU NỔI TIẾNG</span>
                 </h2>
                 <p className="text-gray-300 text-sm md:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
                   <strong className="text-white">Tân Đại Tây Dương</strong> là nhà phân phối hàng đầu tại Việt Nam cho các thương hiệu nổi tiếng thế giới như <strong className="text-white">WILL-BURT, HIAB, SKYMARK</strong>. Chúng tôi cung cấp sản phẩm và dịch vụ chính hãng.
@@ -301,51 +302,71 @@ export default function HomePage() {
               </div>
             </ScrollAnimation>
 
-            {/* Services Grid */}
+            {/* Services Grid - Dynamic từ Admin */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-              {/* Service 1 - Cẩu tự hành */}
-              <ScrollAnimation direction="left" delay={0}>
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#5f7ab8] hover:border-[#5f7ab8]">
-                  <span className="text-[#5f7ab8] text-sm font-semibold uppercase tracking-wider mb-2 block">01</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Cẩu tự hành</h3>
-                  <p className="text-white/80 text-base leading-relaxed">
-                    Cẩu tự hành HIAB với nhiều tải trọng và kích thước khác nhau, phù hợp với mọi nhu cầu của khách hàng.
-                  </p>
-                </div>
-              </ScrollAnimation>
-
-              {/* Service 2 - Thiết bị cơ giới */}
-              <ScrollAnimation direction="right" delay={100}>
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#10b981] hover:border-[#10b981]">
-                  <span className="text-[#10b981] text-sm font-semibold uppercase tracking-wider mb-2 block">02</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Thiết bị cơ giới</h3>
-                  <p className="text-white/80 text-base leading-relaxed">
-                    SKYMARK với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
-                  </p>
-                </div>
-              </ScrollAnimation>
-
-              {/* Service 3 - Phụ tùng */}
-              <ScrollAnimation direction="left" delay={200}>
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#f59e0b] hover:border-[#f59e0b]">
-                  <span className="text-[#f59e0b] text-sm font-semibold uppercase tracking-wider mb-2 block">03</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Phụ tùng thay thế</h3>
-                  <p className="text-white/80 text-base leading-relaxed">
-                    Cung cấp đầy đủ phụ tùng thay thế chính hãng, đảm bảo chất lượng và độ bền cao.
-                  </p>
-                </div>
-              </ScrollAnimation>
-
-              {/* Service 4 - Sửa chữa bảo trì */}
-              <ScrollAnimation direction="right" delay={300}>
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#3b82f6] hover:border-[#3b82f6]">
-                  <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider mb-2 block">04</span>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Sửa chữa & Bảo trì</h3>
-                  <p className="text-white/80 text-base leading-relaxed">
-                    Đội ngũ kỹ thuật viên chuyên nghiệp, giàu kinh nghiệm, sẵn sàng hỗ trợ khách hàng 24/7.
-                  </p>
-                </div>
-              </ScrollAnimation>
+              {homepageServices.length > 0 ? homepageServices.map((service, index) => (
+                <ScrollAnimation
+                  key={service.id}
+                  direction={index % 2 === 0 ? "left" : "right"}
+                  delay={index * 100}
+                >
+                  <div
+                    className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4"
+                    style={{ borderColor: service.color }}
+                  >
+                    <span
+                      className="text-sm font-semibold uppercase tracking-wider mb-2 block"
+                      style={{ color: service.color }}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{service.title}</h3>
+                    <p className="text-white/80 text-base leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                </ScrollAnimation>
+              )) : (
+                <>
+                  {/* Fallback - Dữ liệu mặc định nếu chưa có trong admin */}
+                  <ScrollAnimation direction="left" delay={0}>
+                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#5f7ab8]">
+                      <span className="text-[#5f7ab8] text-sm font-semibold uppercase tracking-wider mb-2 block">01</span>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Cẩu tự hành</h3>
+                      <p className="text-white/80 text-base leading-relaxed">
+                        Cẩu tự hành HIAB với nhiều tải trọng và kích thước khác nhau, phù hợp với mọi nhu cầu của khách hàng.
+                      </p>
+                    </div>
+                  </ScrollAnimation>
+                  <ScrollAnimation direction="right" delay={100}>
+                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#10b981]">
+                      <span className="text-[#10b981] text-sm font-semibold uppercase tracking-wider mb-2 block">02</span>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Thiết bị cơ giới</h3>
+                      <p className="text-white/80 text-base leading-relaxed">
+                        SKYMARK với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.
+                      </p>
+                    </div>
+                  </ScrollAnimation>
+                  <ScrollAnimation direction="left" delay={200}>
+                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#f59e0b]">
+                      <span className="text-[#f59e0b] text-sm font-semibold uppercase tracking-wider mb-2 block">03</span>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Phụ tùng thay thế</h3>
+                      <p className="text-white/80 text-base leading-relaxed">
+                        Cung cấp đầy đủ phụ tùng thay thế chính hãng, đảm bảo chất lượng và độ bền cao.
+                      </p>
+                    </div>
+                  </ScrollAnimation>
+                  <ScrollAnimation direction="right" delay={300}>
+                    <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 border-l-4 border-[#3b82f6]">
+                      <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider mb-2 block">04</span>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Sửa chữa & Bảo trì</h3>
+                      <p className="text-white/80 text-base leading-relaxed">
+                        Đội ngũ kỹ thuật viên chuyên nghiệp, giàu kinh nghiệm, sẵn sàng hỗ trợ khách hàng 24/7.
+                      </p>
+                    </div>
+                  </ScrollAnimation>
+                </>
+              )}
             </div>
 
             {/* Commitment Box */}
@@ -375,8 +396,8 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 md:mb-20">
               <ScrollAnimation direction="up">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-800 text-gray-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-gray-700">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-gray-800 text-gray-300 rounded-full text-sm md:text-base font-semibold mb-4 tracking-wide uppercase border border-gray-700">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
                   </svg>
                   Sản phẩm & Thương hiệu
@@ -435,8 +456,8 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <ScrollAnimation direction="up">
               <div className="mb-16 md:mb-20 text-center">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-rose-900/40 text-rose-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-rose-700/30">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-rose-900/40 text-rose-300 rounded-full text-sm md:text-base font-semibold mb-4 tracking-wide uppercase border border-rose-700/30">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
                   </svg>
                   Dịch vụ chuyên nghiệp
@@ -550,8 +571,8 @@ export default function HomePage() {
             <ScrollAnimation direction="up">
               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-16">
                 <div className="mb-6 lg:mb-0">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-violet-900/40 text-violet-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-violet-700/30">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-violet-900/40 text-violet-300 rounded-full text-sm md:text-base font-semibold mb-4 tracking-wide uppercase border border-violet-700/30">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
                     </svg>
                     Sản phẩm nổi bật
@@ -694,8 +715,8 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <ScrollAnimation direction="up">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-rose-900/40 text-rose-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-rose-700/30">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-rose-900/40 text-rose-300 rounded-full text-sm md:text-base font-semibold mb-4 tracking-wide uppercase border border-rose-700/30">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
                   </svg>
                   Đối tác đa quốc gia
@@ -768,8 +789,8 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <ScrollAnimation direction="up">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-800 text-gray-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-gray-700">
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-gray-800 text-gray-300 rounded-full text-sm md:text-base font-semibold mb-4 tracking-wide uppercase border border-gray-700">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
                   Hệ thống chi nhánh
@@ -791,7 +812,7 @@ export default function HomePage() {
               <ScrollAnimation direction="left" delay={0}>
                 <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-[#5f7ab8] h-full">
 
-                  <div className="inline-block px-3 py-1.5 bg-[#5f7ab8]/20 backdrop-blur-sm text-[#5f7ab8] rounded-full text-xs font-semibold mb-3 border border-[#5f7ab8]/30">
+                  <div className="inline-block px-5 py-2.5 bg-[#5f7ab8]/20 backdrop-blur-sm text-[#5f7ab8] rounded-full text-sm md:text-base font-semibold mb-4 border border-[#5f7ab8]/30">
                     TRỤ SỞ CHÍNH
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">TP. Hồ Chí Minh</h3>
@@ -820,7 +841,7 @@ export default function HomePage() {
               <ScrollAnimation direction="up" delay={150}>
                 <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-green-500 h-full">
 
-                  <div className="inline-block px-3 py-1.5 bg-green-500/20 backdrop-blur-sm text-green-300 rounded-full text-xs font-semibold mb-3 border border-green-500/30">
+                  <div className="inline-block px-5 py-2.5 bg-green-500/20 backdrop-blur-sm text-green-300 rounded-full text-sm md:text-base font-semibold mb-4 border border-green-500/30">
                     CHI NHÁNH MIỀN BẮC
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">Hà Nội</h3>
@@ -849,7 +870,7 @@ export default function HomePage() {
               <ScrollAnimation direction="right" delay={300}>
                 <div className="group bg-white/10 backdrop-blur-md rounded-2xl shadow-lg p-6 lg:p-8 hover:bg-white/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border-t-4 border-orange-500 h-full">
 
-                  <div className="inline-block px-3 py-1.5 bg-orange-500/20 backdrop-blur-sm text-orange-300 rounded-full text-xs font-semibold mb-3 border border-orange-500/30">
+                  <div className="inline-block px-5 py-2.5 bg-orange-500/20 backdrop-blur-sm text-orange-300 rounded-full text-sm md:text-base font-semibold mb-4 border border-orange-500/30">
                     CHI NHÁNH MIỀN TRUNG
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold mb-4 text-white">Quảng Trị</h3>
@@ -885,8 +906,8 @@ export default function HomePage() {
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-16">
                 <div className="mb-6 lg:mb-0">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-cyan-900/40 text-cyan-300 rounded-full text-xs font-medium mb-4 tracking-wide uppercase border border-cyan-700/30">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-cyan-900/40 text-cyan-300 rounded-full text-sm md:text-base font-semibold mb-4 tracking-wide uppercase border border-cyan-700/30">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
                     </svg>
                     Tin Tức & Sự Kiện

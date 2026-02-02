@@ -1,0 +1,34 @@
+[
+  {
+    "id": "service-1",
+    "title": "THIẾT BỊ NÂNG HẠ",
+    "description": "Hiab, Hidrokon: Thiết bị nâng hạ hàng đầu thế giới. Đa dạng chủng loại, cấu hình theo yêu cầu",
+    "color": "#5f7ab8",
+    "order": 1,
+    "enabled": true
+  },
+  {
+    "id": "service-2",
+    "title": "XE VÀ PHƯƠNG TIỆN VẬN TẢI",
+    "description": "SKYMARK với chất lượng cao và giá cả cạnh tranh, đáp ứng mọi yêu cầu nâng hạ hàng hóa.",
+    "color": "#10b981",
+    "order": 2,
+    "enabled": true
+  },
+  {
+    "id": "service-3",
+    "title": "PHỤ TÙNG VÀ LINH KIỆN",
+    "description": "Cung cấp đầy đủ phụ tùng thay thế chính hãng, đảm bảo chất lượng và độ bền cao.",
+    "color": "#f59e0b",
+    "order": 3,
+    "enabled": true
+  },
+  {
+    "id": "service-4",
+    "title": "SỬA CHỮA & BẢO TRÌ",
+    "description": "Đội ngũ kỹ thuật viên chuyên nghiệp, giàu kinh nghiệm, sẵn sàng hỗ trợ khách hàng 24/7.",
+    "color": "#3b82f6",
+    "order": 4,
+    "enabled": true
+  }
+]

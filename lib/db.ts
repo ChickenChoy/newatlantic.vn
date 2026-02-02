@@ -4,7 +4,7 @@ import {
   Product, Category, Post,
   SiteSettings, SocialLink, OfficeLocation, FooterLink,
   GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory,
-  Testimonial, FAQ, Certification
+  Testimonial, FAQ, Certification, HomepageService
 } from '@/types';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -759,3 +759,35 @@ export function getMediaStats(): { total: number; byFolder: Record<string, numbe
   };
 }
 
+// ==================== Homepage Services ====================
+
+export function getHomepageServices(): HomepageService[] {
+  return readJsonFile<HomepageService>('homepage-services.json', []);
+}
+
+export function saveHomepageServices(services: HomepageService[]): boolean {
+  return writeJsonFile('homepage-services.json', services);
+}
+
+export function addHomepageService(service: HomepageService): boolean {
+  const services = getHomepageServices();
+  services.push(service);
+  return saveHomepageServices(services);
+}
+
+export function updateHomepageService(id: string, updates: Partial<HomepageService>): boolean {
+  const services = getHomepageServices();
+  const index = services.findIndex(s => s.id === id);
+  if (index === -1) return false;
+
+  services[index] = { ...services[index], ...updates };
+  return saveHomepageServices(services);
+}
+
+export function deleteHomepageService(id: string): boolean {
+  const services = getHomepageServices();
+  const filtered = services.filter(s => s.id !== id);
+  if (filtered.length === services.length) return false;
+
+  return saveHomepageServices(filtered);
+}

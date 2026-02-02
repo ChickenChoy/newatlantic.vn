@@ -50,6 +50,7 @@ const menuGroups: MenuGroup[] = [
     name: 'Marketing',
     icon: 'solar:star-shine-line-duotone',
     items: [
+      { id: 'homepage-services', name: 'Dịch vụ trang chủ', icon: 'solar:home-smile-line-duotone', url: '/admin?tab=homepage-services' },
       { id: 'partners', name: 'Đối tác', icon: 'solar:users-group-rounded-line-duotone', url: '/admin?tab=partners' },
       { id: 'testimonials', name: 'Đánh giá KH', icon: 'solar:chat-round-like-line-duotone', url: '/admin?tab=testimonials' },
       { id: 'faqs', name: 'FAQ', icon: 'solar:question-circle-line-duotone', url: '/admin?tab=faqs' },

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory, HolidayEffect, PageVisibility } from '@/types';
+import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory, HolidayEffect, PageVisibility, HomepageService } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
 import PasswordInput from '@/components/PasswordInput';
@@ -23,9 +23,10 @@ import MediaLibraryTab from '@/components/admin/MediaLibraryTab';
 import MediaPicker from '@/components/admin/MediaPicker';
 import SEOTab from '@/components/admin/SEOTab';
 import TrafficDashboard from '@/components/admin/TrafficDashboard';
+import HomepageServicesTab from '@/components/admin/HomepageServicesTab';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -57,6 +58,7 @@ export default function AdminPage() {
   const [partnerLogos, setPartnerLogos] = useState<PartnerLogo[]>([]);
   const [postCategories, setPostCategories] = useState<PostCategory[]>([]);
   const [holidayEffects, setHolidayEffects] = useState<HolidayEffect[]>([]);
+  const [homepageServices, setHomepageServices] = useState<HomepageService[]>([]);
 
   // Search & Filter states
   const [searchQuery, setSearchQuery] = useState('');
@@ -131,7 +133,7 @@ export default function AdminPage() {
       }
 
       // Load CMS data
-      const [siteSettingsRes, officeLocationsRes, footerLinksRes, galleryRes, catalogsRes, heroSlidesRes, homepageStatsRes, partnerLogosRes, postCategoriesRes, holidayEffectsRes] = await Promise.all([
+      const [siteSettingsRes, officeLocationsRes, footerLinksRes, galleryRes, catalogsRes, heroSlidesRes, homepageStatsRes, partnerLogosRes, postCategoriesRes, holidayEffectsRes, homepageServicesRes] = await Promise.all([
         fetch('/api/site-settings'),
         fetch('/api/office-locations'),
         fetch('/api/footer-links'),
@@ -142,6 +144,7 @@ export default function AdminPage() {
         fetch('/api/partner-logos'),
         fetch('/api/post-categories'),
         fetch('/api/holiday-effects'),
+        fetch('/api/homepage-services'),
       ]);
 
       if (siteSettingsRes.ok) setSiteSettings(await siteSettingsRes.json());
@@ -154,6 +157,7 @@ export default function AdminPage() {
       if (partnerLogosRes.ok) setPartnerLogos(await partnerLogosRes.json());
       if (postCategoriesRes.ok) setPostCategories(await postCategoriesRes.json());
       if (holidayEffectsRes.ok) setHolidayEffects(await holidayEffectsRes.json());
+      if (homepageServicesRes.ok) setHomepageServices(await homepageServicesRes.json());
     } catch (error) {
       console.error('Error loading data:', error);
       toast.error('Không thể tải dữ liệu. Vui lòng refresh trang.');
@@ -806,7 +810,8 @@ export default function AdminPage() {
                                                 activeTab === 'certifications' ? 'Chứng nhận' :
                                                   activeTab === 'media-library' ? 'Thư viện Media' :
                                                     activeTab === 'seo' ? 'Quản lý SEO' :
-                                                      activeTab}
+                                                      activeTab === 'homepage-services' ? 'Dịch vụ trang chủ' :
+                                                        activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2973,6 +2978,20 @@ export default function AdminPage() {
           activeTab === 'traffic' && (
             <div className="admin-card p-6 relative min-h-[600px]">
               <TrafficDashboard />
+            </div>
+          )
+        }
+
+        {/* Homepage Services Tab */}
+        {
+          activeTab === 'homepage-services' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <HomepageServicesTab
+                services={homepageServices}
+                onUpdate={loadData}
+                saving={saving}
+                setSaving={setSaving}
+              />
             </div>
           )
         }
