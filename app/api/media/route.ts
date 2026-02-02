@@ -10,6 +10,7 @@ import {
 } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { MediaItem, MediaFolder } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 
@@ -103,6 +104,15 @@ export async function POST(request: NextRequest) {
         const success = addMediaItem(newMedia);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'upload',
+                entity: 'media',
+                entityId: newMedia.id,
+                entityName: newMedia.originalName,
+                details: `Folder: ${folder}`,
+            });
+
             revalidatePath('/admin');
             return NextResponse.json(newMedia, { status: 201 });
         } else {
@@ -158,6 +168,13 @@ export async function DELETE(request: NextRequest) {
         const success = deleteMediaItem(id);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'delete',
+                entity: 'media',
+                entityId: id,
+            });
+
             revalidatePath('/admin');
             return NextResponse.json({ success: true });
         } else {

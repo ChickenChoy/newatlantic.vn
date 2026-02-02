@@ -25,9 +25,10 @@ import SEOTab from '@/components/admin/SEOTab';
 import TrafficDashboard from '@/components/admin/TrafficDashboard';
 import HomepageServicesTab from '@/components/admin/HomepageServicesTab';
 import DatabaseTab from '@/components/admin/DatabaseTab';
+import ActivityLogsTab from '@/components/admin/ActivityLogsTab';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services' | 'database';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -2944,6 +2945,15 @@ export default function AdminPage() {
           activeTab === 'database' && (
             <div className="admin-card p-6 relative min-h-[600px]">
               <DatabaseTab />
+            </div>
+          )
+        }
+
+        {/* Activity Logs Tab */}
+        {
+          activeTab === 'activity-logs' && (
+            <div className="admin-card p-0 relative min-h-[600px]">
+              <ActivityLogsTab />
             </div>
           )
         }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getFAQs, saveFAQs, addFAQ, deleteFAQ } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { FAQ } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -34,6 +35,14 @@ export async function POST(request: NextRequest) {
         const success = addFAQ(newFAQ);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'create',
+                entity: 'faq',
+                entityId: newFAQ.id,
+                entityName: newFAQ.question.substring(0, 50),
+            });
+
             revalidatePath('/');
             return NextResponse.json(newFAQ, { status: 201 });
         }
@@ -57,6 +66,13 @@ export async function PUT(request: NextRequest) {
         const success = saveFAQs(body);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'update',
+                entity: 'faq',
+                details: `Cập nhật ${body.length} FAQ`,
+            });
+
             revalidatePath('/');
             return NextResponse.json(body);
         }
@@ -78,9 +94,20 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'ID is required' }, { status: 400 });
         }
 
+        const faqs = getFAQs();
+        const faq = faqs.find(f => f.id === id);
+
         const success = deleteFAQ(id);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'delete',
+                entity: 'faq',
+                entityId: id,
+                entityName: faq?.question.substring(0, 50),
+            });
+
             revalidatePath('/');
             return NextResponse.json({ success: true });
         }

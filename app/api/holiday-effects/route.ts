@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { HolidayEffect } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const HOLIDAY_EFFECTS_FILE = path.join(DATA_DIR, 'holiday-effects.json');
@@ -184,6 +185,14 @@ export async function POST(request: NextRequest) {
         effects.push(newEffect);
         saveHolidayEffects(effects);
 
+        // Log activity
+        await logActivity({
+            action: 'create',
+            entity: 'holiday-effect',
+            entityId: newEffect.id,
+            entityName: newEffect.name,
+        });
+
         return NextResponse.json(newEffect, { status: 201 });
     } catch (error) {
         console.error('Error creating holiday effect:', error);
@@ -209,6 +218,14 @@ export async function PUT(request: NextRequest) {
 
         saveHolidayEffects(effects);
 
+        // Log activity
+        await logActivity({
+            action: 'update',
+            entity: 'holiday-effect',
+            entityId: effects[index].id,
+            entityName: effects[index].name,
+        });
+
         return NextResponse.json(effects[index]);
     } catch (error) {
         console.error('Error updating holiday effect:', error);
@@ -233,7 +250,16 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Holiday effect not found' }, { status: 404 });
         }
 
+        const deletedEffect = effects.find(e => e.id === id);
         saveHolidayEffects(filteredEffects);
+
+        // Log activity
+        await logActivity({
+            action: 'delete',
+            entity: 'holiday-effect',
+            entityId: id,
+            entityName: deletedEffect?.name,
+        });
 
         return NextResponse.json({ success: true });
     } catch (error) {

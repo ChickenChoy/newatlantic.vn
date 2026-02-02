@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPartnerLogos, savePartnerLogos, addPartnerLogo, deletePartnerLogo } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { PartnerLogo } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -39,6 +40,14 @@ export async function POST(request: NextRequest) {
     const success = addPartnerLogo(newLogo);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'partner',
+        entityId: newLogo.id,
+        entityName: newLogo.name,
+      });
+
       revalidatePath('/');
       return NextResponse.json(newLogo, { status: 201 });
     }
@@ -71,6 +80,14 @@ export async function PUT(request: NextRequest) {
     const success = savePartnerLogos(logos);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'partner',
+        entityId: id,
+        entityName: logos[index].name,
+      });
+
       revalidatePath('/');
       return NextResponse.json(logos[index]);
     }
@@ -92,9 +109,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Logo ID is required' }, { status: 400 });
     }
 
+    const logos = getPartnerLogos();
+    const logo = logos.find(l => l.id === id);
+
     const success = deletePartnerLogo(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'partner',
+        entityId: id,
+        entityName: logo?.name,
+      });
+
       revalidatePath('/');
       return NextResponse.json({ success: true });
     }

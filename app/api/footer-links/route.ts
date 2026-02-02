@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getFooterLinks, saveFooterLinks, addFooterLink, deleteFooterLink } from '@/lib/db';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { FooterLink } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -39,6 +40,14 @@ export async function POST(request: NextRequest) {
     const success = addFooterLink(newLink);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'footer-link',
+        entityId: newLink.id,
+        entityName: newLink.label,
+      });
+
       revalidatePath('/');
       return NextResponse.json(newLink, { status: 201 });
     }
@@ -60,6 +69,13 @@ export async function PUT(request: NextRequest) {
       // Bulk update - save entire array
       const success = saveFooterLinks(body);
       if (success) {
+        // Log activity
+        await logActivity({
+          action: 'update',
+          entity: 'footer-link',
+          details: `Cập nhật ${body.length} footer links`,
+        });
+
         revalidatePath('/');
         return NextResponse.json(body);
       }
@@ -84,6 +100,14 @@ export async function PUT(request: NextRequest) {
     const success = saveFooterLinks(links);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'footer-link',
+        entityId: id,
+        entityName: links[index].label,
+      });
+
       revalidatePath('/');
       return NextResponse.json(links[index]);
     }
@@ -105,9 +129,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Link ID is required' }, { status: 400 });
     }
 
+    const links = getFooterLinks();
+    const link = links.find(l => l.id === id);
+
     const success = deleteFooterLink(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'footer-link',
+        entityId: id,
+        entityName: link?.label,
+      });
+
       revalidatePath('/');
       return NextResponse.json({ success: true });
     }

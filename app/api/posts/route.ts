@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPosts, savePosts, addPost, deletePost } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Post } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 // Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
@@ -62,6 +63,14 @@ export async function POST(request: NextRequest) {
     const success = addPost(newPost);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'post',
+        entityId: newPost.id,
+        entityName: newPost.title,
+      });
+
       // Revalidate pages
       revalidatePath('/tin-tuc');
       revalidatePath('/');
@@ -104,6 +113,14 @@ export async function PUT(request: NextRequest) {
     const success = savePosts(posts);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'post',
+        entityId: id,
+        entityName: posts[index].title,
+      });
+
       // Revalidate pages
       revalidatePath('/tin-tuc');
       revalidatePath(`/tin-tuc/${oldSlug}`);
@@ -142,6 +159,14 @@ export async function DELETE(request: NextRequest) {
     const success = deletePost(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'post',
+        entityId: id,
+        entityName: post.title,
+      });
+
       // Revalidate pages
       revalidatePath('/tin-tuc');
       revalidatePath(`/tin-tuc/${post.slug}`);

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getGalleryImages, saveGalleryImages, addGalleryImage, deleteGalleryImage } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { GalleryImage } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -42,6 +43,14 @@ export async function POST(request: NextRequest) {
     const success = addGalleryImage(newImage);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'gallery',
+        entityId: newImage.id,
+        entityName: newImage.title || newImage.alt,
+      });
+
       revalidatePath('/thu-vien-hinh-anh');
       return NextResponse.json(newImage, { status: 201 });
     }
@@ -74,6 +83,14 @@ export async function PUT(request: NextRequest) {
     const success = saveGalleryImages(images);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'gallery',
+        entityId: id,
+        entityName: images[index].title || images[index].alt,
+      });
+
       revalidatePath('/thu-vien-hinh-anh');
       return NextResponse.json(images[index]);
     }
@@ -95,9 +112,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Image ID is required' }, { status: 400 });
     }
 
+    const images = getGalleryImages();
+    const image = images.find(i => i.id === id);
+
     const success = deleteGalleryImage(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'gallery',
+        entityId: id,
+        entityName: image?.title || image?.alt,
+      });
+
       revalidatePath('/thu-vien-hinh-anh');
       return NextResponse.json({ success: true });
     }

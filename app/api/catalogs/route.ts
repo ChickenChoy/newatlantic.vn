@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCatalogs, saveCatalogs, addCatalog, deleteCatalog } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Catalog } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -49,6 +50,14 @@ export async function POST(request: NextRequest) {
     const success = addCatalog(newCatalog);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'catalog',
+        entityId: newCatalog.id,
+        entityName: newCatalog.title,
+      });
+
       revalidatePath('/page-download-catalog');
       return NextResponse.json(newCatalog, { status: 201 });
     }
@@ -81,6 +90,14 @@ export async function PUT(request: NextRequest) {
     const success = saveCatalogs(catalogs);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'catalog',
+        entityId: id,
+        entityName: catalogs[index].title,
+      });
+
       revalidatePath('/page-download-catalog');
       return NextResponse.json(catalogs[index]);
     }
@@ -102,9 +119,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Catalog ID is required' }, { status: 400 });
     }
 
+    const catalogs = getCatalogs();
+    const catalog = catalogs.find(c => c.id === id);
+
     const success = deleteCatalog(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'catalog',
+        entityId: id,
+        entityName: catalog?.title,
+      });
+
       revalidatePath('/page-download-catalog');
       return NextResponse.json({ success: true });
     }

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSiteSettings, saveSiteSettings } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { SiteSettings } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -32,6 +33,14 @@ export async function PUT(request: NextRequest) {
     const success = saveSiteSettings(updatedSettings);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'site-settings',
+        entityName: 'Cài đặt website',
+        details: 'Cập nhật thông tin website',
+      });
+
       // Revalidate all pages that use site settings
       revalidatePath('/');
       revalidatePath('/lien-he');

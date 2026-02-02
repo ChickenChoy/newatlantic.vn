@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCategories, saveCategories, addCategory, deleteCategory } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Category } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 // Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
@@ -46,6 +47,14 @@ export async function POST(request: NextRequest) {
     const success = addCategory(newCategory);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'category',
+        entityId: newCategory.id,
+        entityName: newCategory.name,
+      });
+
       // Revalidate pages that use categories
       revalidatePath('/san-pham');
       revalidatePath('/');
@@ -94,6 +103,14 @@ export async function PUT(request: NextRequest) {
     const success = saveCategories(categories);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'category',
+        entityId: id,
+        entityName: categories[index].name,
+      });
+
       // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${oldSlug}`);
@@ -132,6 +149,14 @@ export async function DELETE(request: NextRequest) {
     const success = deleteCategory(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'category',
+        entityId: id,
+        entityName: category.name,
+      });
+
       // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${category.slug}`);

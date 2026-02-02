@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import { logActivity } from '@/lib/activity-logs';
 
 const SEO_FILE = path.join(process.cwd(), "data", "seo.json");
 
@@ -132,6 +133,14 @@ export async function PUT(request: NextRequest) {
 
         await saveSEOData(newData);
 
+        // Log activity
+        await logActivity({
+            action: 'update',
+            entity: 'seo',
+            entityName: 'Cài đặt SEO',
+            details: 'Cập nhật cài đặt SEO toàn bộ',
+        });
+
         return NextResponse.json({ success: true, data: newData });
     } catch (error) {
         console.error("Error updating SEO data:", error);
@@ -160,6 +169,14 @@ export async function PATCH(request: NextRequest) {
         }
 
         await saveSEOData(currentData);
+
+        // Log activity
+        await logActivity({
+            action: 'update',
+            entity: 'seo',
+            entityName: section,
+            details: `Cập nhật section ${section}`,
+        });
 
         return NextResponse.json({ success: true, data: currentData });
     } catch (error) {

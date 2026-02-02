@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHomepageServices, saveHomepageServices, addHomepageService, updateHomepageService, deleteHomepageService } from '@/lib/db';
+import { getHomepageServices, addHomepageService, updateHomepageService, deleteHomepageService } from '@/lib/db';
 import { HomepageService } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 // GET - Lấy danh sách dịch vụ trang chủ
 export async function GET() {
@@ -29,6 +30,14 @@ export async function POST(request: NextRequest) {
 
         const success = addHomepageService(newService);
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'create',
+                entity: 'homepage-service',
+                entityId: newService.id,
+                entityName: newService.title,
+            });
+
             return NextResponse.json(newService, { status: 201 });
         } else {
             return NextResponse.json({ error: 'Failed to add service' }, { status: 500 });
@@ -49,8 +58,19 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'Service ID is required' }, { status: 400 });
         }
 
+        const services = getHomepageServices();
+        const service = services.find(s => s.id === id);
+
         const success = updateHomepageService(id, updates);
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'update',
+                entity: 'homepage-service',
+                entityId: id,
+                entityName: updates.title || service?.title,
+            });
+
             return NextResponse.json({ success: true });
         } else {
             return NextResponse.json({ error: 'Service not found' }, { status: 404 });
@@ -71,8 +91,19 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Service ID is required' }, { status: 400 });
         }
 
+        const services = getHomepageServices();
+        const service = services.find(s => s.id === id);
+
         const success = deleteHomepageService(id);
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'delete',
+                entity: 'homepage-service',
+                entityId: id,
+                entityName: service?.title,
+            });
+
             return NextResponse.json({ success: true });
         } else {
             return NextResponse.json({ error: 'Service not found' }, { status: 404 });

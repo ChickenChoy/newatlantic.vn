@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPostCategories, savePostCategories, addPostCategory, deletePostCategory } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { PostCategory } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 // Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
@@ -49,6 +50,14 @@ export async function POST(request: NextRequest) {
     const success = addPostCategory(newCategory);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'post-category',
+        entityId: newCategory.id,
+        entityName: newCategory.name,
+      });
+
       // Revalidate news page
       revalidatePath('/tin-tuc');
 
@@ -96,6 +105,14 @@ export async function PUT(request: NextRequest) {
     const success = savePostCategories(categories);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'post-category',
+        entityId: id,
+        entityName: categories[index].name,
+      });
+
       // Revalidate news page
       revalidatePath('/tin-tuc');
 
@@ -134,6 +151,14 @@ export async function DELETE(request: NextRequest) {
     const success = deletePostCategory(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'post-category',
+        entityId: id,
+        entityName: category.name,
+      });
+
       // Revalidate news page
       revalidatePath('/tin-tuc');
 

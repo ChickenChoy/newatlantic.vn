@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOfficeLocations, saveOfficeLocations, addOfficeLocation, deleteOfficeLocation } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { OfficeLocation } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -40,6 +41,14 @@ export async function POST(request: NextRequest) {
     const success = addOfficeLocation(newLocation);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'office-location',
+        entityId: newLocation.id,
+        entityName: newLocation.name,
+      });
+
       revalidatePath('/');
       revalidatePath('/lien-he');
       return NextResponse.json(newLocation, { status: 201 });
@@ -73,6 +82,14 @@ export async function PUT(request: NextRequest) {
     const success = saveOfficeLocations(locations);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'office-location',
+        entityId: id,
+        entityName: locations[index].name,
+      });
+
       revalidatePath('/');
       revalidatePath('/lien-he');
       return NextResponse.json(locations[index]);
@@ -95,9 +112,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Location ID is required' }, { status: 400 });
     }
 
+    const locations = getOfficeLocations();
+    const location = locations.find(l => l.id === id);
+
     const success = deleteOfficeLocation(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'office-location',
+        entityId: id,
+        entityName: location?.name,
+      });
+
       revalidatePath('/');
       revalidatePath('/lien-he');
       return NextResponse.json({ success: true });

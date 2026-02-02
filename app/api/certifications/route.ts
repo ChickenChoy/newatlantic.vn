@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getCertifications, saveCertifications, addCertification, deleteCertification } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Certification } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -35,6 +36,14 @@ export async function POST(request: NextRequest) {
         const success = addCertification(newCertification);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'create',
+                entity: 'certification',
+                entityId: newCertification.id,
+                entityName: newCertification.title,
+            });
+
             revalidatePath('/');
             return NextResponse.json(newCertification, { status: 201 });
         }
@@ -58,6 +67,13 @@ export async function PUT(request: NextRequest) {
         const success = saveCertifications(body);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'update',
+                entity: 'certification',
+                details: `Cập nhật ${body.length} chứng nhận`,
+            });
+
             revalidatePath('/');
             return NextResponse.json(body);
         }
@@ -79,9 +95,20 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'ID is required' }, { status: 400 });
         }
 
+        const certifications = getCertifications();
+        const certification = certifications.find(c => c.id === id);
+
         const success = deleteCertification(id);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'delete',
+                entity: 'certification',
+                entityId: id,
+                entityName: certification?.title,
+            });
+
             revalidatePath('/');
             return NextResponse.json({ success: true });
         }

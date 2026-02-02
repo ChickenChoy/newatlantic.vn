@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { logActivity } from '@/lib/activity-logs';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const BACKUP_DIR = path.join(process.cwd(), 'backups');
@@ -91,6 +92,13 @@ export async function GET(request: NextRequest) {
             fileList: Object.keys(exportData.data as object),
         };
 
+        // Log activity
+        await logActivity({
+            action: 'export',
+            entity: 'database',
+            details: `Xuất ${metadata.totalFiles} file dữ liệu`,
+        });
+
         return NextResponse.json({
             ...exportData,
             metadata,
@@ -139,6 +147,14 @@ export async function POST(request: NextRequest) {
 
             fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2), 'utf-8');
 
+            // Log activity
+            await logActivity({
+                action: 'backup',
+                entity: 'database',
+                entityName: backupFilename,
+                details: 'Tạo bản sao lưu',
+            });
+
             return NextResponse.json({
                 success: true,
                 message: 'Backup created successfully',
@@ -184,6 +200,14 @@ export async function POST(request: NextRequest) {
                     console.error(`Error restoring ${key}:`, error);
                 }
             }
+
+            // Log activity
+            await logActivity({
+                action: 'restore',
+                entity: 'database',
+                entityName: filename,
+                details: `Khôi phục ${restoredCount} file từ backup`,
+            });
 
             return NextResponse.json({
                 success: true,
@@ -268,6 +292,13 @@ export async function POST(request: NextRequest) {
                 errors.push(key);
             }
         }
+
+        // Log activity
+        await logActivity({
+            action: 'import',
+            entity: 'database',
+            details: `Nhập ${importedCount} file dữ liệu`,
+        });
 
         return NextResponse.json({
             success: true,

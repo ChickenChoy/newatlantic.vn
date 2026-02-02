@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getTestimonials, saveTestimonials, addTestimonial, deleteTestimonial } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Testimonial } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -37,6 +38,14 @@ export async function POST(request: NextRequest) {
         const success = addTestimonial(newTestimonial);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'create',
+                entity: 'testimonial',
+                entityId: newTestimonial.id,
+                entityName: newTestimonial.name,
+            });
+
             revalidatePath('/');
             return NextResponse.json(newTestimonial, { status: 201 });
         }
@@ -60,6 +69,13 @@ export async function PUT(request: NextRequest) {
         const success = saveTestimonials(body);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'update',
+                entity: 'testimonial',
+                details: `Cập nhật ${body.length} đánh giá`,
+            });
+
             revalidatePath('/');
             return NextResponse.json(body);
         }
@@ -81,9 +97,20 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'ID is required' }, { status: 400 });
         }
 
+        const testimonials = getTestimonials();
+        const testimonial = testimonials.find(t => t.id === id);
+
         const success = deleteTestimonial(id);
 
         if (success) {
+            // Log activity
+            await logActivity({
+                action: 'delete',
+                entity: 'testimonial',
+                entityId: id,
+                entityName: testimonial?.name,
+            });
+
             revalidatePath('/');
             return NextResponse.json({ success: true });
         }

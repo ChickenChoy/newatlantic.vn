@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getProducts, saveProducts, addProduct, deleteProduct, getCategories } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Product } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 // Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
@@ -87,6 +88,14 @@ export async function POST(request: NextRequest) {
     const success = addProduct(newProduct);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'product',
+        entityId: newProduct.id,
+        entityName: newProduct.name,
+      });
+
       // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${category}`);
@@ -138,6 +147,14 @@ export async function PUT(request: NextRequest) {
     const success = saveProducts(products);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'product',
+        entityId: id,
+        entityName: products[index].name,
+      });
+
       // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${oldCategory}`);
@@ -180,6 +197,14 @@ export async function DELETE(request: NextRequest) {
     const success = deleteProduct(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'product',
+        entityId: id,
+        entityName: product.name,
+      });
+
       // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${product.category}`);

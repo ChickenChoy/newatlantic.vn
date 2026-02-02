@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getHeroSlides, saveHeroSlides, addHeroSlide, deleteHeroSlide } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { HeroSlide } from '@/types';
+import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -40,6 +41,14 @@ export async function POST(request: NextRequest) {
     const success = addHeroSlide(newSlide);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'create',
+        entity: 'hero-slide',
+        entityId: newSlide.id,
+        entityName: newSlide.title,
+      });
+
       revalidatePath('/');
       return NextResponse.json(newSlide, { status: 201 });
     }
@@ -72,6 +81,14 @@ export async function PUT(request: NextRequest) {
     const success = saveHeroSlides(slides);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'update',
+        entity: 'hero-slide',
+        entityId: id,
+        entityName: slides[index].title,
+      });
+
       revalidatePath('/');
       return NextResponse.json(slides[index]);
     }
@@ -93,9 +110,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Slide ID is required' }, { status: 400 });
     }
 
+    const slides = getHeroSlides();
+    const slide = slides.find(s => s.id === id);
+
     const success = deleteHeroSlide(id);
 
     if (success) {
+      // Log activity
+      await logActivity({
+        action: 'delete',
+        entity: 'hero-slide',
+        entityId: id,
+        entityName: slide?.title,
+      });
+
       revalidatePath('/');
       return NextResponse.json({ success: true });
     }

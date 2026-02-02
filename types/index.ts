@@ -271,3 +271,61 @@ export interface HomepageService {
   order: number;           // Thứ tự hiển thị
   enabled: boolean;        // Bật/tắt hiển thị
 }
+
+// Activity Log - Nhật ký hoạt động (Audit Trail)
+export interface ActivityLog {
+  id: string;
+  timestamp: string;       // ISO timestamp
+  action: ActivityAction;  // Loại hành động
+  entity: ActivityEntity;  // Loại đối tượng
+  entityId?: string;       // ID của đối tượng (nếu có)
+  entityName?: string;     // Tên đối tượng (để hiển thị)
+  user: string;            // Người thực hiện (mặc định: "Admin")
+  details?: string;        // Chi tiết bổ sung
+  changes?: ActivityChange[]; // Các thay đổi cụ thể
+  ipAddress?: string;      // IP address (nếu có)
+}
+
+export type ActivityAction =
+  | 'create'
+  | 'update'
+  | 'delete'
+  | 'login'
+  | 'logout'
+  | 'export'
+  | 'import'
+  | 'backup'
+  | 'restore'
+  | 'upload'
+  | 'toggle';
+
+export type ActivityEntity =
+  | 'product'
+  | 'post'
+  | 'category'
+  | 'post-category'
+  | 'gallery'
+  | 'catalog'
+  | 'partner'
+  | 'testimonial'
+  | 'faq'
+  | 'certification'
+  | 'holiday-effect'
+  | 'page-visibility'
+  | 'hero-slide'
+  | 'homepage-stat'
+  | 'homepage-service'
+  | 'footer-link'
+  | 'site-settings'
+  | 'office-location'
+  | 'seo'
+  | 'media'
+  | 'database'
+  | 'auth';
+
+export interface ActivityChange {
+  field: string;           // Tên field thay đổi
+  oldValue?: string;       // Giá trị cũ
+  newValue?: string;       // Giá trị mới
+}
+
