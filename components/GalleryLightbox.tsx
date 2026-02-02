@@ -95,12 +95,12 @@ export default function GalleryLightbox({
     if (isOpen) {
       // Save current scroll position BEFORE scrolling
       savedScrollYRef.current = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-      
+
       // Force scroll to top immediately using multiple methods
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      
+
       // Use requestAnimationFrame to ensure scroll happens before render
       requestAnimationFrame(() => {
         window.scrollTo(0, 0);
@@ -118,37 +118,37 @@ export default function GalleryLightbox({
       const originalPosition = document.body.style.position;
       const originalTop = document.body.style.top;
       const originalWidth = document.body.style.width;
-      
+
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${savedScrollYRef.current}px`;
       document.body.style.width = '100%';
-      
+
       // Also prevent html scroll
       document.documentElement.style.overflow = 'hidden';
-      
+
       const header = document.querySelector('header');
       const floatingContact = document.querySelector('[data-floating-contact="true"]');
       if (header) header.style.display = 'none';
       if (floatingContact) (floatingContact as HTMLElement).style.display = 'none';
-      
+
       return () => {
         // Restore scroll position on cleanup
         const scrollY = savedScrollYRef.current;
-        
+
         document.body.style.overflow = originalOverflow;
         document.body.style.position = originalPosition;
         document.body.style.top = originalTop;
         document.body.style.width = originalWidth;
         document.documentElement.style.overflow = '';
-        
+
         // Restore scroll position
         requestAnimationFrame(() => {
           window.scrollTo(0, scrollY);
           document.documentElement.scrollTop = scrollY;
           document.body.scrollTop = scrollY;
         });
-        
+
         const header = document.querySelector('header');
         const floatingContact = document.querySelector('[data-floating-contact="true"]');
         if (header) header.style.display = '';
@@ -360,20 +360,7 @@ export default function GalleryLightbox({
       {/* Controls Bar */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 z-50">
         <div className="max-w-7xl mx-auto">
-          {/* Image Info */}
-          <div className="mb-4">
-            <h3 className="text-white text-xl font-semibold mb-1">
-              {currentImage.title || currentImage.alt}
-            </h3>
-            {currentImage.description && (
-              <p className="text-white/80 text-sm">{currentImage.description}</p>
-            )}
-            {currentImage.category && (
-              <span className="inline-block mt-2 px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full">
-                {currentImage.category}
-              </span>
-            )}
-          </div>
+
 
           {/* Controls */}
           <div className="flex items-center justify-between flex-wrap gap-4">
@@ -444,11 +431,10 @@ export default function GalleryLightbox({
                   setPosition({ x: 0, y: 0 });
                   onNavigate?.(index);
                 }}
-                className={`flex-shrink-0 relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${
-                  index === imageIndex
+                className={`flex-shrink-0 relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${index === imageIndex
                     ? 'border-white scale-110'
                     : 'border-transparent hover:border-white/50 opacity-60 hover:opacity-100'
-                }`}
+                  }`}
               >
                 <Image
                   src={image.src}

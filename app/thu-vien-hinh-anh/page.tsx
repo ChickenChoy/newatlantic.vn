@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import GalleryLightbox from '@/components/GalleryLightbox';
@@ -11,18 +11,10 @@ import { GalleryImage as GalleryImageType } from '@/types';
 interface GalleryImage {
   src: string;
   alt: string;
-  title?: string;
-  description?: string;
-  category?: string;
-  tags?: string[];
 }
-
-
 
 export default function GalleryPage() {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
 
@@ -39,10 +31,6 @@ export default function GalleryPage() {
           .map(img => ({
             src: img.src,
             alt: img.alt,
-            title: img.title,
-            description: img.description,
-            category: img.category,
-            tags: img.tags,
           }));
         setGalleryImages(images);
       }
@@ -53,40 +41,16 @@ export default function GalleryPage() {
     }
   }, []);
 
-  // Get unique categories
-  const categories = useMemo(() => {
-    const cats = ['all', ...Array.from(new Set(galleryImages.map((img) => img.category).filter((c): c is string => !!c)))];
-    return cats;
-  }, [galleryImages]);
-
-  // Filter images
-  const filteredImages = useMemo(() => {
-    return galleryImages.filter((image) => {
-      const matchesCategory = selectedCategory === 'all' || image.category === selectedCategory;
-      const matchesSearch =
-        searchQuery === '' ||
-        image.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        image.alt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        image.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        image.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesCategory && matchesSearch;
-    });
-  }, [galleryImages, searchQuery, selectedCategory]);
-
   // Load images on mount and update page title
   useEffect(() => {
     document.title = 'Thư viện hình ảnh | NEW ATLANTIC - Tân Đại Tây Dương';
     loadGalleryImages();
   }, [loadGalleryImages]);
 
-
-
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Trang chủ', url: '/' },
     { name: 'Thư viện hình ảnh', url: '/thu-vien-hinh-anh' },
   ]);
-
-
 
   const openLightbox = (index: number) => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -101,8 +65,6 @@ export default function GalleryPage() {
   const closeLightbox = () => {
     setSelectedImageIndex(null);
   };
-
-
 
   return (
     <>
@@ -145,61 +107,6 @@ export default function GalleryPage() {
 
         {/* Main Content */}
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12 relative z-10">
-          {/* Controls Bar */}
-          <div className="flex flex-col gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
-            {/* Search - Full width on mobile, moved to top for better UX */}
-            <div className="relative w-full lg:hidden">
-              <input
-                type="text"
-                placeholder="Tìm kiếm hình ảnh..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-sm text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500/40 focus:border-purple-400 transition-all outline-none shadow-sm"
-              />
-              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-
-            {/* Categories & Desktop Search */}
-            <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-center justify-between">
-              {/* Categories - Horizontal scroll on mobile */}
-              <div className="w-full lg:w-auto -mx-4 sm:-mx-6 px-4 sm:px-6 lg:mx-0 lg:px-0">
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide snap-x snap-mandatory">
-                  {categories.map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat)}
-                      className={`
-                        px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap snap-start flex-shrink-0
-                        ${selectedCategory === cat
-                          ? 'bg-purple-600 text-white shadow-lg shadow-purple-600/30 scale-105'
-                          : 'bg-white/10 text-gray-300 hover:bg-white/20 border border-white/20 hover:border-purple-400/50'
-                        }
-                      `}
-                    >
-                      {cat === 'all' ? 'Tất cả' : cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Search - Desktop only */}
-              <div className="hidden lg:block relative w-80">
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm hình ảnh..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm text-white placeholder-gray-400 focus:ring-2 focus:ring-purple-500/40 focus:border-purple-400 transition-all outline-none"
-                />
-                <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-
           {/* Content Area */}
           {isLoading ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
@@ -207,76 +114,52 @@ export default function GalleryPage() {
                 <SkeletonLoader key={i} className="aspect-square rounded-xl sm:rounded-2xl" />
               ))}
             </div>
-          ) : filteredImages.length === 0 ? (
+          ) : galleryImages.length === 0 ? (
             <div className="text-center py-16 sm:py-20 md:py-24 bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-white/10">
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-1">Không tìm thấy hình ảnh</h3>
-              <p className="text-sm sm:text-base text-gray-400">Thử tìm kiếm với từ khóa khác</p>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-1">Chưa có hình ảnh</h3>
+              <p className="text-sm sm:text-base text-gray-400">Hình ảnh sẽ được cập nhật sớm</p>
             </div>
           ) : (
             /* Grid View */
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-              {filteredImages.map((image, index) => {
-                const actualIndex = galleryImages.findIndex((img) => img.src === image.src);
-                return (
-                  <div
-                    key={index}
-                    className="group relative bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden border border-white/10"
-                    onClick={() => openLightbox(actualIndex)}
-                  >
-                    <div className="relative aspect-square bg-gray-900/50 overflow-hidden">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                      {/* Category Badge */}
-                      {image.category && (
-                        <div className="absolute top-2 sm:top-3 right-2 sm:right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                          <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-white/90 backdrop-blur-sm text-purple-700 text-[10px] sm:text-xs font-bold rounded-full shadow-sm">
-                            {image.category}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Content Overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                        <h3 className="text-white font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 line-clamp-1">
-                          {image.title || image.alt}
-                        </h3>
-                        {image.description && (
-                          <p className="text-white/80 text-[10px] sm:text-xs line-clamp-2 hidden sm:block">{image.description}</p>
-                        )}
-                      </div>
-                    </div>
+              {galleryImages.map((image, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden border border-white/10"
+                  onClick={() => openLightbox(index)}
+                >
+                  <div className="relative aspect-square bg-gray-900/50 overflow-hidden">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           )}
-        </div >
+        </div>
 
         {/* Lightbox */}
-        {
-          selectedImageIndex !== null && (
-            <GalleryLightbox
-              images={galleryImages}
-              currentIndex={selectedImageIndex}
-              isOpen={true}
-              onClose={closeLightbox}
-            />
-          )
-        }
-      </div >
+        {selectedImageIndex !== null && (
+          <GalleryLightbox
+            images={galleryImages}
+            currentIndex={selectedImageIndex}
+            isOpen={true}
+            onClose={closeLightbox}
+          />
+        )}
+      </div>
     </>
   );
 }

@@ -2356,10 +2356,10 @@ export default function AdminPage() {
                     const newImage: GalleryImage = {
                       id: String(Date.now()),
                       src: '/images/gallery/image.jpg',
-                      alt: 'Hình ảnh mới',
-                      title: 'Hình ảnh mới',
+                      alt: 'Hình ảnh',
+                      title: '',
                       description: '',
-                      category: 'general',
+                      category: '',
                       tags: [],
                       featured: false,
                       order: galleryImages.length + 1,
@@ -2387,68 +2387,26 @@ export default function AdminPage() {
                 </Button>
               </div>
               <div className="p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                   {galleryImages.map((image) => (
-                    <div key={image.id} className="border border-border dark:border-gray-700 rounded-lg overflow-hidden">
-                      <img src={image.src} alt={image.alt} className="w-full h-40 object-cover" />
+                    <div key={image.id} className="border border-border dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+                      <div className="relative aspect-square">
+                        <img src={image.src} alt={image.alt} className="w-full h-full object-cover" />
+                      </div>
                       <div className="p-3 space-y-2">
                         {/* Image Upload - MediaPicker */}
                         <MediaPicker
                           value={image.src}
                           onChange={(value) => {
                             setGalleryImages(galleryImages.map(img =>
-                              img.id === image.id ? { ...img, src: value } : img
+                              img.id === image.id ? { ...img, src: value, alt: 'Hình ảnh' } : img
                             ));
                           }}
                           folder="gallery"
-                          aspectRatio="video"
+                          aspectRatio="square"
                           placeholder="Chọn ảnh"
                         />
-                        <input
-                          type="text"
-                          value={image.title || ''}
-                          onChange={(e) => {
-                            setGalleryImages(galleryImages.map(img =>
-                              img.id === image.id ? { ...img, title: e.target.value } : img
-                            ));
-                          }}
-                          placeholder="Tiêu đề"
-                          className="w-full px-3 py-2 border border-border rounded text-sm"
-                        />
-                        <input
-                          type="text"
-                          value={image.alt}
-                          onChange={(e) => {
-                            setGalleryImages(galleryImages.map(img =>
-                              img.id === image.id ? { ...img, alt: e.target.value } : img
-                            ));
-                          }}
-                          placeholder="Alt text"
-                          className="w-full px-3 py-2 border border-border rounded text-sm"
-                        />
-                        <input
-                          type="text"
-                          value={image.description || ''}
-                          onChange={(e) => {
-                            setGalleryImages(galleryImages.map(img =>
-                              img.id === image.id ? { ...img, description: e.target.value } : img
-                            ));
-                          }}
-                          placeholder="Mô tả"
-                          className="w-full px-3 py-2 border border-border rounded text-sm"
-                        />
-                        <div className="grid grid-cols-2 gap-2">
-                          <input
-                            type="text"
-                            value={image.category || ''}
-                            onChange={(e) => {
-                              setGalleryImages(galleryImages.map(img =>
-                                img.id === image.id ? { ...img, category: e.target.value } : img
-                              ));
-                            }}
-                            placeholder="Danh mục"
-                            className="px-3 py-2 border border-border rounded text-sm"
-                          />
+                        <div className="flex items-center gap-2">
                           <input
                             type="number"
                             value={image.order}
@@ -2459,75 +2417,58 @@ export default function AdminPage() {
                             }}
                             placeholder="Thứ tự"
                             min={1}
-                            className="px-3 py-2 border border-border rounded text-sm"
+                            className="w-16 px-2 py-1.5 border border-border rounded text-sm text-center"
                           />
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <label className="flex items-center gap-1 text-sm">
-                            <input
-                              type="checkbox"
-                              checked={image.featured}
-                              onChange={(e) => {
-                                setGalleryImages(galleryImages.map(img =>
-                                  img.id === image.id ? { ...img, featured: e.target.checked } : img
-                                ));
-                              }}
-                              className="w-4 h-4 rounded"
-                            />
-                            Nổi bật
-                          </label>
-                          <div className="flex gap-2">
-                            <Button
-                              color="success"
-                              onClick={async () => {
-                                setSaving(true);
-                                try {
-                                  const res = await fetch('/api/gallery', {
-                                    method: 'PUT',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify(image),
-                                  });
-                                  if (res.ok) toast.success('Đã lưu!');
-                                } catch {
-                                  toast.error('Có lỗi xảy ra');
-                                } finally {
-                                  setSaving(false);
-                                }
-                              }}
-                              disabled={saving}
-                              className="!px-3 !py-1 text-sm"
-                            >
-                              Lưu
-                            </Button>
-                            <Button
-                              color="error"
-                              onClick={async () => {
-                                const confirmed = await toast.confirm({
-                                  title: 'Xác nhận xóa',
-                                  message: 'Bạn có chắc muốn xóa hình ảnh này?',
-                                  confirmText: 'Xóa',
-                                  type: 'danger'
+                          <Button
+                            color="success"
+                            onClick={async () => {
+                              setSaving(true);
+                              try {
+                                const res = await fetch('/api/gallery', {
+                                  method: 'PUT',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify(image),
                                 });
-                                if (!confirmed) return;
-                                setSaving(true);
-                                try {
-                                  const res = await fetch(`/api/gallery?id=${image.id}`, { method: 'DELETE' });
-                                  if (res.ok) {
-                                    await loadData();
-                                    toast.success('Đã xóa!');
-                                  }
-                                } catch {
-                                  toast.error('Có lỗi xảy ra');
-                                } finally {
-                                  setSaving(false);
+                                if (res.ok) toast.success('Đã lưu!');
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="!px-2 !py-1 text-xs flex-1"
+                          >
+                            Lưu
+                          </Button>
+                          <Button
+                            color="error"
+                            onClick={async () => {
+                              const confirmed = await toast.confirm({
+                                title: 'Xác nhận xóa',
+                                message: 'Bạn có chắc muốn xóa hình ảnh này?',
+                                confirmText: 'Xóa',
+                                type: 'danger'
+                              });
+                              if (!confirmed) return;
+                              setSaving(true);
+                              try {
+                                const res = await fetch(`/api/gallery?id=${image.id}`, { method: 'DELETE' });
+                                if (res.ok) {
+                                  await loadData();
+                                  toast.success('Đã xóa!');
                                 }
-                              }}
-                              disabled={saving}
-                              className="!px-3 !py-1 text-sm"
-                            >
-                              Xóa
-                            </Button>
-                          </div>
+                              } catch {
+                                toast.error('Có lỗi xảy ra');
+                              } finally {
+                                setSaving(false);
+                              }
+                            }}
+                            disabled={saving}
+                            className="!px-2 !py-1 text-xs"
+                          >
+                            Xóa
+                          </Button>
                         </div>
                       </div>
                     </div>
