@@ -13,7 +13,7 @@ import HolidayDecorations from "@/components/HolidayDecorations";
 import PageGuard from "@/components/PageGuard";
 
 // Routes that should NOT show the main header/footer
-const STANDALONE_ROUTES = ["/masttech"];
+const STANDALONE_ROUTES = ["/masttech", "/admin"];
 
 // Routes that should skip page visibility check
 const SKIP_VISIBILITY_CHECK = ["/admin"];

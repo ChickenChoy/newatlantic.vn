@@ -47,7 +47,7 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
           videoRef.current.load()
         }
       }, 500)
-      
+
       return () => clearTimeout(timer)
     }
   }, [isMounted])
@@ -55,7 +55,7 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
   // Auto slide every 5 seconds
   useEffect(() => {
     if (!isAutoPlaying) return
-    
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
     }, 5000)
@@ -75,7 +75,7 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
 
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return
-    
+
     const distance = touchStartX.current - touchEndX.current
     const isLeftSwipe = distance > 50
     const isRightSwipe = distance < -50
@@ -104,7 +104,7 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
   return (
     <div>
       {/* Hero Slider Section */}
-      <section 
+      <section
         ref={sliderRef}
         className="relative min-h-[600px] h-[calc(100vh-80px)] sm:h-[calc(100vh-60px)] md:h-screen overflow-hidden"
         onTouchStart={handleTouchStart}
@@ -116,15 +116,13 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
           >
             {/* Background with Enhanced Animation */}
             <div
-              className={`absolute inset-0 transition-all duration-[1000ms] ease-out ${
-                index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-              }`}
+              className={`absolute inset-0 transition-all duration-[1000ms] ease-out ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
               style={{
                 transform: index === currentSlide ? 'scale(1.1)' : 'scale(1)'
               }}
@@ -136,11 +134,13 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
                 {slide.video ? (
                   <>
                     {/* Always show image as base */}
-                    <img
-                      src={slide.image}
-                      alt={slide.title}
-                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
-                    />
+                    {slide.image && (
+                      <img
+                        src={slide.image}
+                        alt={slide.title}
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-0' : 'opacity-100'}`}
+                      />
+                    )}
                     {/* Video overlay - only render on client to prevent hydration errors */}
                     {isMounted && (
                       <video
@@ -155,9 +155,8 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
                           console.warn('HeroSlider video load failed:', slide.video)
                           setVideoLoaded(false)
                         }}
-                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${
-                          videoLoaded ? 'opacity-100' : 'opacity-0'
-                        }`}
+                        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-opacity duration-700 ${videoLoaded ? 'opacity-100' : 'opacity-0'
+                          }`}
                         style={{
                           animation: index === currentSlide && videoLoaded ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
                         }}
@@ -171,36 +170,34 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
                   <img
                     src={slide.image}
                     alt={slide.title}
-                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-all duration-[2000ms] ease-out ${
-                      index === currentSlide && isMounted
+                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full w-auto h-auto object-cover transition-all duration-[2000ms] ease-out ${index === currentSlide && isMounted
                         ? "scale-110 opacity-100"
                         : "scale-100 opacity-90"
-                    }`}
+                      }`}
                     style={{
                       animation: index === currentSlide && isMounted ? 'subtleZoom 20s ease-in-out infinite alternate' : 'none'
                     }}
                   />
                 )}
-                
+
                 {/* Enhanced Gradient Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70 transition-all duration-1000 ${
-                  index === currentSlide ? "opacity-100" : "opacity-90"
-                }`}>
+                <div className={`absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70 transition-all duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-90"
+                  }`}>
                   {/* Animated light rays effect */}
                   <div className="absolute inset-0 opacity-20">
                     <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/50 to-transparent transform rotate-12"></div>
                     <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white/30 to-transparent transform -rotate-12"></div>
                   </div>
                 </div>
-                
+
                 {/* Enhanced Particle Effect Overlay */}
                 {index === currentSlide && isMounted && (
                   <div className="absolute inset-0 opacity-40">
-                    <div className="absolute top-20 left-20 w-2 h-2 bg-white rounded-full animate-pulse" style={{animationDelay: '0s'}}></div>
-                    <div className="absolute top-1/4 right-1/4 w-1 h-1 bg-white rounded-full animate-ping" style={{animationDelay: '1s'}}></div>
-                    <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
-                    <div className="absolute bottom-20 right-20 w-1 h-1 bg-white rounded-full animate-ping" style={{animationDelay: '3s'}}></div>
-                    <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
+                    <div className="absolute top-20 left-20 w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '0s' }}></div>
+                    <div className="absolute top-1/4 right-1/4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-white rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+                    <div className="absolute bottom-20 right-20 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '3s' }}></div>
+                    <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
                   </div>
                 )}
               </div>
@@ -210,11 +207,10 @@ export function HeroSlider({ slides: propSlides }: HeroSliderProps) {
             <div className="relative h-full flex items-center justify-center z-20 py-8 sm:py-12">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div
-                  className={`max-w-5xl mx-auto text-center transition-all duration-[1500ms] ${
-                    index === currentSlide
+                  className={`max-w-5xl mx-auto text-center transition-all duration-[1500ms] ${index === currentSlide
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-8"
-                  }`}
+                    }`}
                   style={{
                     animation: index === currentSlide && isMounted ? 'slideInFromBottom 1.2s ease-out' : 'none'
                   }}

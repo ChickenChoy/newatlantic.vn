@@ -22,6 +22,9 @@ interface AdminContextType {
   canAccessTab: (tabId: string) => boolean;
   isLoadingUser: boolean;
   refreshUser: () => Promise<void>;
+  // Sidebar state
+  isSidebarCollapsed: boolean;
+  setIsSidebarCollapsed: (collapsed: boolean) => void;
 }
 
 export const AdminContext = createContext<AdminContextType>({
@@ -34,6 +37,8 @@ export const AdminContext = createContext<AdminContextType>({
   canAccessTab: () => false,
   isLoadingUser: true,
   refreshUser: async () => { },
+  isSidebarCollapsed: false,
+  setIsSidebarCollapsed: () => { },
 });
 
 export const useAdminContext = () => useContext(AdminContext);
@@ -55,6 +60,8 @@ export default function AdminLayout({
   // New state for user management
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+  // Sidebar state
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const router = useRouter();
   const supabase = getSupabaseClient();
 
@@ -514,12 +521,13 @@ export default function AdminLayout({
       canAccessTab: canAccessTabCheck,
       isLoadingUser,
       refreshUser,
+      isSidebarCollapsed,
+      setIsSidebarCollapsed,
     }}>
-      <div className="flex min-h-screen bg-lightgray dark:bg-dark font-sans">
+      <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900 font-sans">
         <AdminSidebar />
-        <main className="flex-1 min-h-screen xl:ml-64 transition-all duration-300">
-          <div className="h-[70px]" />
-          <div className="p-6 lg:p-8">
+        <main className={`flex-1 min-h-screen transition-all duration-300 ${isSidebarCollapsed ? 'xl:ml-20' : 'xl:ml-72'}`}>
+          <div className="p-4 md:p-6 lg:p-8 xl:p-10">
             {children}
           </div>
         </main>
