@@ -18,16 +18,34 @@
     padding: 3rem 2rem;
     border-radius: 1.25rem;
     overflow: hidden;
-    background: linear-gradient(135deg,
-            var(--holiday-primary) 0%,
-            color-mix(in srgb, var(--holiday-primary) 70%, #1a1a2e) 50%,
-            color-mix(in srgb, var(--holiday-primary) 50%, black) 100%);
+    /* Animated gradient background */
+    background: linear-gradient(-45deg,
+            var(--holiday-primary),
+            color-mix(in srgb, var(--holiday-primary) 70%, #1a1a2e),
+            color-mix(in srgb, var(--holiday-primary) 50%, black),
+            var(--holiday-primary));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     box-shadow:
         0 20px 60px rgba(0, 0, 0, 0.4),
         0 0 40px color-mix(in srgb, var(--holiday-primary) 30%, transparent),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     font-family: inherit;
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .holiday-banner-hero::before {
@@ -194,10 +212,24 @@
     text-shadow:
         2px 2px 4px rgba(0, 0, 0, 0.4),
         0 0 30px color-mix(in srgb, var(--holiday-secondary) 50%, transparent);
-    background: linear-gradient(180deg, #fff 0%, #fff 40%, var(--holiday-secondary) 100%);
+    /* Text shine effect */
+    background: linear-gradient(90deg,
+            var(--holiday-secondary) 0%,
+            #fff 25%,
+            var(--holiday-secondary) 50%,
+            #fff 75%,
+            var(--holiday-secondary) 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    animation: textShine 4s linear infinite;
+}
+
+@keyframes textShine {
+    to {
+        background-position: 200% center;
+    }
 }
 
 .holiday-banner-company {
@@ -254,7 +286,7 @@
 }
 
 /* ========================================
-   INLINE VARIANT - Medium Banner
+   INLINE VARIANT - Medium Banner (Enhanced)
    ======================================== */
 .holiday-banner-inline {
     position: relative;
@@ -262,15 +294,32 @@
     padding: 1.25rem 2rem;
     border-radius: 1rem;
     overflow: hidden;
-    background: linear-gradient(90deg,
-            var(--holiday-primary) 0%,
-            color-mix(in srgb, var(--holiday-primary) 75%, #1a1a2e) 50%,
-            color-mix(in srgb, var(--holiday-primary) 60%, black) 100%);
+    /* Animated gradient background */
+    background: linear-gradient(-45deg,
+            var(--holiday-primary),
+            color-mix(in srgb, var(--holiday-primary) 75%, #1a1a2e),
+            color-mix(in srgb, var(--holiday-primary) 60%, black),
+            var(--holiday-primary));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     font-family: inherit;
     box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.3),
+        0 0 25px color-mix(in srgb, var(--holiday-primary) 25%, transparent),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Shimmer effect */
+.holiday-banner-inline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 4s ease-in-out infinite;
 }
 
 .holiday-inline-bg {
@@ -279,7 +328,20 @@
     background:
         radial-gradient(circle at 5% 50%, var(--holiday-secondary) 0%, transparent 30%),
         radial-gradient(circle at 95% 50%, var(--holiday-secondary) 0%, transparent 30%);
-    opacity: 0.15;
+    opacity: 0.2;
+    animation: bgPulse 4s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+
+    0%,
+    100% {
+        opacity: 0.15;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
 }
 
 .holiday-inline-content {
@@ -372,7 +434,7 @@
 }
 
 /* ========================================
-   SIDEBAR VARIANT - Vertical Banner
+   SIDEBAR VARIANT - Vertical Banner (Enhanced)
    ======================================== */
 .holiday-banner-sidebar {
     position: relative;
@@ -381,16 +443,34 @@
     padding: 1.5rem;
     border-radius: 1.25rem;
     overflow: hidden;
+    /* Animated gradient background */
     background: linear-gradient(180deg,
-            var(--holiday-primary) 0%,
-            color-mix(in srgb, var(--holiday-primary) 70%, #1a1a2e) 50%,
-            color-mix(in srgb, var(--holiday-primary) 50%, black) 100%);
+            var(--holiday-primary),
+            color-mix(in srgb, var(--holiday-primary) 70%, #1a1a2e),
+            color-mix(in srgb, var(--holiday-primary) 50%, black),
+            var(--holiday-primary));
+    background-size: 100% 400%;
+    animation: gradientShiftVertical 15s ease infinite;
     box-shadow:
         0 10px 40px rgba(0, 0, 0, 0.3),
         0 0 30px color-mix(in srgb, var(--holiday-primary) 25%, transparent),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.15);
     font-family: inherit;
+}
+
+@keyframes gradientShiftVertical {
+    0% {
+        background-position: 50% 0%;
+    }
+
+    50% {
+        background-position: 50% 100%;
+    }
+
+    100% {
+        background-position: 50% 0%;
+    }
 }
 
 .holiday-banner-sidebar::before {
@@ -480,35 +560,82 @@
 }
 
 /* ========================================
-   MINIMAL VARIANT - Compact Banner
+   MINIMAL VARIANT - Compact Banner (Enhanced)
    ======================================== */
 .holiday-banner-minimal {
+    position: relative;
     display: inline-flex;
     width: auto;
     margin: 0 auto;
-    padding: 1rem 2rem;
-    background: linear-gradient(90deg,
-            var(--holiday-primary) 0%,
-            color-mix(in srgb, var(--holiday-primary) 80%, black) 100%);
+    padding: 1rem 2.5rem;
+    /* Animated gradient background */
+    background: linear-gradient(-45deg,
+            var(--holiday-primary),
+            color-mix(in srgb, var(--holiday-primary) 70%, #1a1a2e),
+            color-mix(in srgb, var(--holiday-primary) 50%, black),
+            var(--holiday-primary));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
     border-radius: 9999px;
-    border: 1px solid var(--holiday-secondary);
+    border: 2px solid var(--holiday-secondary);
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.2),
-        0 0 20px color-mix(in srgb, var(--holiday-primary) 20%, transparent);
+        0 8px 24px rgba(0, 0, 0, 0.3),
+        0 0 30px color-mix(in srgb, var(--holiday-primary) 30%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
     font-family: inherit;
+    overflow: hidden;
+}
+
+/* Shimmer effect */
+.holiday-banner-minimal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Glow border effect */
+.holiday-banner-minimal::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, var(--holiday-secondary), transparent, var(--holiday-secondary));
+    z-index: -1;
+    opacity: 0.5;
+    animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
 }
 
 .holiday-mini-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1.25rem;
     color: white;
+    z-index: 1;
 }
 
 .holiday-mini-decor span {
     font-size: 1.75rem;
     animation: holidayPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px var(--holiday-secondary));
 }
 
 .holiday-mini-center {
@@ -522,9 +649,19 @@
 
 .holiday-mini-title {
     font-weight: 800;
-    color: var(--holiday-secondary);
     font-size: 1.25rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    /* Text shine effect */
+    background: linear-gradient(90deg,
+            var(--holiday-secondary) 0%,
+            #fff 30%,
+            var(--holiday-secondary) 60%,
+            #fff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textShine 3s linear infinite;
+    text-shadow: none;
 }
 
 .holiday-mini-divider {

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { HolidayEffect } from "@/types";
+import HolidayParticles, { HolidayParticleType } from "./HolidayParticles";
 import "@/styles/holiday-banners.css";
 
 // Paths to exclude banners
@@ -157,11 +158,13 @@ function getHolidayContent(slug: string) {
 interface HolidayBannerProps {
     variant?: "hero" | "inline" | "minimal" | "sidebar";
     className?: string;
+    showParticles?: boolean;
 }
 
 export default function HolidayBanner({
     variant = "minimal",
     className = "",
+    showParticles = true,
 }: HolidayBannerProps) {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
@@ -222,6 +225,12 @@ export default function HolidayBanner({
                     <div className="holiday-banner-pattern"></div>
                     <div className="holiday-banner-glow holiday-glow-1"></div>
                     <div className="holiday-banner-glow holiday-glow-2"></div>
+                    {showParticles && (
+                        <HolidayParticles
+                            holidayType={activeHoliday.slug as HolidayParticleType}
+                            intensity="high"
+                        />
+                    )}
                 </div>
 
                 <div className="holiday-banner-content">
@@ -271,7 +280,14 @@ export default function HolidayBanner({
                     '--holiday-secondary': textColor,
                 } as React.CSSProperties}
             >
-                <div className="holiday-inline-bg"></div>
+                <div className="holiday-inline-bg">
+                    {showParticles && (
+                        <HolidayParticles
+                            holidayType={activeHoliday.slug as HolidayParticleType}
+                            intensity="medium"
+                        />
+                    )}
+                </div>
                 <div className="holiday-inline-content">
                     <span className="holiday-inline-icon">{content.decorLeft}</span>
                     <div className="holiday-inline-text">
@@ -304,6 +320,12 @@ export default function HolidayBanner({
                     '--holiday-secondary': textColor,
                 } as React.CSSProperties}
             >
+                {showParticles && (
+                    <HolidayParticles
+                        holidayType={activeHoliday.slug as HolidayParticleType}
+                        intensity="low"
+                    />
+                )}
                 <div className="holiday-sidebar-content">
                     <div className="holiday-sidebar-decor">
                         <span>{content.decorLeft}</span>
@@ -350,6 +372,12 @@ export default function HolidayBanner({
                 '--holiday-secondary': textColor,
             } as React.CSSProperties}
         >
+            {showParticles && (
+                <HolidayParticles
+                    holidayType={activeHoliday.slug as HolidayParticleType}
+                    intensity="low"
+                />
+            )}
             <div className="holiday-mini-wrapper">
                 <div className="holiday-mini-decor">
                     <span>{content.decorLeft}</span>
