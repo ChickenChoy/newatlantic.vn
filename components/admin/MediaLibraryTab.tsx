@@ -684,14 +684,32 @@ export default function MediaLibraryTab({ onRefresh }: MediaLibraryTabProps) {
 
                                     {/* Usage info */}
                                     <div>
-                                        <label style={{ color: '#4b5563', fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 4 }}>Sử dụng tại</label>
+                                        <label style={{ color: '#4b5563', fontSize: 14, fontWeight: 500, display: 'block', marginBottom: 8 }}>Sử dụng tại</label>
                                         {selectedMedia.usedIn.length > 0 ? (
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                                                {selectedMedia.usedIn.map((usage, i) => (
-                                                    <div key={i} style={{ fontSize: 14, backgroundColor: '#dcfce7', color: '#15803d', padding: '4px 8px', borderRadius: 4 }}>
-                                                        {usage.type} / {usage.field}
-                                                    </div>
-                                                ))}
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                                {selectedMedia.usedIn.map((usage: any, i) => {
+                                                    // Format usage display
+                                                    const typeLabel = usage.type === 'product' ? 'Sản phẩm'
+                                                        : usage.type === 'post' ? 'Bài viết'
+                                                            : usage.type === 'gallery' ? 'Thư viện'
+                                                                : usage.type === 'slide' ? 'Slide'
+                                                                    : usage.type === 'partner' ? 'Đối tác'
+                                                                        : usage.type || 'Khác';
+                                                    const idDisplay = usage.productId || usage.postId || usage.id || '';
+
+                                                    return (
+                                                        <div key={i} style={{
+                                                            fontSize: 13,
+                                                            backgroundColor: '#059669',
+                                                            color: '#ffffff',
+                                                            padding: '6px 10px',
+                                                            borderRadius: 6,
+                                                            fontWeight: 500
+                                                        }}>
+                                                            {typeLabel}{idDisplay ? ` (ID: ${idDisplay.slice(0, 8)}...)` : ''}
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                         ) : (
                                             <p style={{ color: '#6b7280', fontSize: 14 }}>Chưa được sử dụng</p>

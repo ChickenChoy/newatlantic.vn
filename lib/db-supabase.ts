@@ -21,6 +21,34 @@ function getClient() {
     return client;
 }
 
+// Helper: Convert snake_case keys to camelCase
+function snakeToCamel(obj: any): any {
+    if (obj === null || obj === undefined) return obj;
+    if (Array.isArray(obj)) return obj.map(snakeToCamel);
+    if (typeof obj !== 'object') return obj;
+
+    const result: any = {};
+    for (const key in obj) {
+        const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+        result[camelKey] = snakeToCamel(obj[key]);
+    }
+    return result;
+}
+
+// Helper: Convert camelCase keys to snake_case (for saving to Supabase)
+function camelToSnake(obj: any): any {
+    if (obj === null || obj === undefined) return obj;
+    if (Array.isArray(obj)) return obj.map(camelToSnake);
+    if (typeof obj !== 'object') return obj;
+
+    const result: any = {};
+    for (const key in obj) {
+        const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+        result[snakeKey] = camelToSnake(obj[key]);
+    }
+    return result;
+}
+
 // ==================== Categories ====================
 
 export async function getCategories(): Promise<Category[]> {
@@ -33,7 +61,7 @@ export async function getCategories(): Promise<Category[]> {
         console.error('Error fetching categories:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
@@ -44,7 +72,7 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
         .single();
 
     if (error) return null;
-    return data;
+    return snakeToCamel(data);
 }
 
 export async function addCategory(category: Category): Promise<boolean> {
@@ -307,7 +335,7 @@ export async function getPostCategories(): Promise<PostCategory[]> {
         console.error('Error fetching post categories:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function getPostCategoryBySlug(slug: string): Promise<PostCategory | null> {
@@ -318,7 +346,7 @@ export async function getPostCategoryBySlug(slug: string): Promise<PostCategory 
         .single();
 
     if (error) return null;
-    return data;
+    return snakeToCamel(data);
 }
 
 export async function addPostCategory(category: PostCategory): Promise<boolean> {
@@ -422,7 +450,7 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
         console.error('Error fetching hero slides:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addHeroSlide(slide: HeroSlide): Promise<boolean> {
@@ -487,7 +515,7 @@ export async function getGalleryImages(): Promise<GalleryImage[]> {
         console.error('Error fetching gallery images:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addGalleryImage(image: GalleryImage): Promise<boolean> {
@@ -553,7 +581,7 @@ export async function getOfficeLocations(): Promise<OfficeLocation[]> {
         console.error('Error fetching office locations:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addOfficeLocation(location: OfficeLocation): Promise<boolean> {
@@ -619,7 +647,7 @@ export async function getFooterLinks(): Promise<FooterLink[]> {
         console.error('Error fetching footer links:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addFooterLink(link: FooterLink): Promise<boolean> {
@@ -685,7 +713,7 @@ export async function getCatalogs(): Promise<Catalog[]> {
         console.error('Error fetching catalogs:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function getCatalogsByBrand(brand: string): Promise<Catalog[]> {
@@ -700,7 +728,7 @@ export async function getCatalogsByBrand(brand: string): Promise<Catalog[]> {
         console.error('Error fetching catalogs by brand:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addCatalog(catalog: Catalog): Promise<boolean> {
@@ -766,7 +794,7 @@ export async function getHomepageStats(): Promise<HomepageStat[]> {
         console.error('Error fetching homepage stats:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function saveHomepageStats(stats: HomepageStat[]): Promise<boolean> {
@@ -794,7 +822,7 @@ export async function getHomepageServices(): Promise<HomepageService[]> {
         console.error('Error fetching homepage services:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addHomepageService(service: HomepageService): Promise<boolean> {
@@ -860,7 +888,7 @@ export async function getPartnerLogos(): Promise<PartnerLogo[]> {
         console.error('Error fetching partner logos:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addPartnerLogo(logo: PartnerLogo): Promise<boolean> {
@@ -926,7 +954,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
         console.error('Error fetching testimonials:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addTestimonial(testimonial: Testimonial): Promise<boolean> {
@@ -992,7 +1020,7 @@ export async function getFAQs(): Promise<FAQ[]> {
         console.error('Error fetching FAQs:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addFAQ(faq: FAQ): Promise<boolean> {
@@ -1058,7 +1086,7 @@ export async function getCertifications(): Promise<Certification[]> {
         console.error('Error fetching certifications:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(snakeToCamel);
 }
 
 export async function addCertification(cert: Certification): Promise<boolean> {
@@ -1113,6 +1141,36 @@ export async function saveCertifications(certs: Certification[]): Promise<boolea
 
 // ==================== Media Library ====================
 
+// Transform Supabase media to frontend MediaItem type
+function transformMedia(data: any): MediaItem {
+    // Check if variants has actual content
+    const hasValidVariants = data.variants &&
+        (data.variants.full || data.variants.medium || data.variants.thumbnail);
+
+    const fallbackUrl = data.storage_url || '';
+
+    return {
+        id: data.id,
+        filename: data.filename,
+        originalName: data.original_name || data.originalName || data.filename,
+        folder: data.folder || 'general',
+        mimeType: data.mime_type || data.mimeType || 'image/jpeg',
+        size: data.size || 0,
+        dimensions: data.dimensions || { width: 0, height: 0 },
+        variants: hasValidVariants ? data.variants : {
+            thumbnail: fallbackUrl,
+            medium: fallbackUrl,
+            full: fallbackUrl
+        },
+        alt: data.alt_text || data.alt || '',
+        caption: data.caption || '',
+        tags: data.tags || [],
+        usedIn: data.usage ? [data.usage] : [],
+        createdAt: data.created_at || data.createdAt || new Date().toISOString(),
+        updatedAt: data.updated_at || data.updatedAt || new Date().toISOString()
+    };
+}
+
 export async function getMediaItems(): Promise<MediaItem[]> {
     const { data, error } = await getClient()
         .from('media')
@@ -1123,7 +1181,7 @@ export async function getMediaItems(): Promise<MediaItem[]> {
         console.error('Error fetching media items:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformMedia);
 }
 
 export async function getMediaById(id: string): Promise<MediaItem | null> {
@@ -1134,7 +1192,7 @@ export async function getMediaById(id: string): Promise<MediaItem | null> {
         .single();
 
     if (error) return null;
-    return data;
+    return transformMedia(data);
 }
 
 export async function getMediaByFolder(folder: MediaFolder): Promise<MediaItem[]> {
@@ -1148,13 +1206,32 @@ export async function getMediaByFolder(folder: MediaFolder): Promise<MediaItem[]
         console.error('Error fetching media by folder:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformMedia);
 }
 
 export async function addMediaItem(item: MediaItem): Promise<boolean> {
+    // Convert camelCase to snake_case for Supabase
+    const snakeItem = {
+        id: item.id || `media_${Date.now()}`,
+        filename: item.filename,
+        original_name: item.originalName,
+        folder: item.folder,
+        mime_type: item.mimeType,
+        size: item.size,
+        dimensions: item.dimensions,
+        variants: item.variants,
+        alt_text: item.alt,
+        caption: item.caption,
+        tags: item.tags,
+        usage: item.usedIn?.[0] || null,
+        storage_url: item.variants?.full || '',
+        created_at: item.createdAt || new Date().toISOString(),
+        updated_at: item.updatedAt || new Date().toISOString()
+    };
+
     const { error } = await getClient()
         .from('media')
-        .insert(item);
+        .insert(snakeItem);
 
     if (error) {
         console.error('Error adding media item:', error);
@@ -1164,9 +1241,23 @@ export async function addMediaItem(item: MediaItem): Promise<boolean> {
 }
 
 export async function updateMediaItem(id: string, updates: Partial<MediaItem>): Promise<boolean> {
+    // Convert camelCase to snake_case for Supabase
+    const snakeUpdates: any = {};
+    if (updates.filename) snakeUpdates.filename = updates.filename;
+    if (updates.originalName) snakeUpdates.original_name = updates.originalName;
+    if (updates.folder) snakeUpdates.folder = updates.folder;
+    if (updates.mimeType) snakeUpdates.mime_type = updates.mimeType;
+    if (updates.size !== undefined) snakeUpdates.size = updates.size;
+    if (updates.dimensions) snakeUpdates.dimensions = updates.dimensions;
+    if (updates.variants) snakeUpdates.variants = updates.variants;
+    if (updates.alt) snakeUpdates.alt_text = updates.alt;
+    if (updates.caption) snakeUpdates.caption = updates.caption;
+    if (updates.tags) snakeUpdates.tags = updates.tags;
+    snakeUpdates.updated_at = new Date().toISOString();
+
     const { error } = await getClient()
         .from('media')
-        .update(updates)
+        .update(snakeUpdates)
         .eq('id', id);
 
     if (error) {
@@ -1205,14 +1296,14 @@ export async function searchMedia(query: string): Promise<MediaItem[]> {
     const { data, error } = await getClient()
         .from('media')
         .select('*')
-        .or(`filename.ilike.%${query}%,original_name.ilike.%${query}%,alt.ilike.%${query}%`)
+        .or(`filename.ilike.%${query}%,original_name.ilike.%${query}%,alt_text.ilike.%${query}%`)
         .order('created_at', { ascending: false });
 
     if (error) {
         console.error('Error searching media:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformMedia);
 }
 
 export async function getMediaStats(): Promise<{ total: number; byFolder: Record<string, number>; totalSize: number }> {
@@ -1236,6 +1327,18 @@ export async function getMediaStats(): Promise<{ total: number; byFolder: Record
 
 // ==================== Holiday Effects ====================
 
+// Transform Supabase holiday effect to frontend type
+function transformHolidayEffect(data: any): HolidayEffect {
+    return {
+        ...data,
+        effectTypes: data.effect_types || [],
+        startDate: data.start_date || '',
+        endDate: data.end_date || '',
+        primaryColor: data.primary_color || '#dc2626',
+        secondaryColor: data.secondary_color || '#ffd700',
+    };
+}
+
 export async function getHolidayEffects(): Promise<HolidayEffect[]> {
     const { data, error } = await getClient()
         .from('holiday_effects')
@@ -1246,7 +1349,7 @@ export async function getHolidayEffects(): Promise<HolidayEffect[]> {
         console.error('Error fetching holiday effects:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformHolidayEffect);
 }
 
 export async function getHolidayEffectById(id: string): Promise<HolidayEffect | null> {
@@ -1257,7 +1360,7 @@ export async function getHolidayEffectById(id: string): Promise<HolidayEffect | 
         .single();
 
     if (error) return null;
-    return data;
+    return transformHolidayEffect(data);
 }
 
 export async function getActiveHolidayEffects(): Promise<HolidayEffect[]> {
@@ -1270,7 +1373,7 @@ export async function getActiveHolidayEffects(): Promise<HolidayEffect[]> {
         console.error('Error fetching active holiday effects:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformHolidayEffect);
 }
 
 export async function addHolidayEffect(effect: any): Promise<boolean> {

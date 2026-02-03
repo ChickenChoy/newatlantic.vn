@@ -1,5 +1,47 @@
 [
   {
+    "id": "log_1770100808901_y1tcy01fx",
+    "timestamp": "2026-02-03T06:40:08.901Z",
+    "action": "delete",
+    "entity": "media",
+    "entityId": "media_1770100763498_hqx82ypq3",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770100764456_4n1x6uu6a",
+    "timestamp": "2026-02-03T06:39:24.456Z",
+    "action": "upload",
+    "entity": "media",
+    "entityId": "media_1770100763498_hqx82ypq3",
+    "entityName": "markus-winkler-3vlGNkDep4E-unsplash.jpg",
+    "user": "Admin",
+    "details": "Folder: general"
+  },
+  {
+    "id": "log_1770100341880_lxkopr7rn",
+    "timestamp": "2026-02-03T06:32:21.880Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770100335618_baz1rggk3",
+    "timestamp": "2026-02-03T06:32:15.618Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770100324743_2b955gerk",
+    "timestamp": "2026-02-03T06:32:04.743Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
     "id": "log_1770098120089_g58zj6n84",
     "timestamp": "2026-02-03T05:55:20.089Z",
     "action": "update",
