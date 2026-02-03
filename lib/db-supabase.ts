@@ -466,15 +466,18 @@ export async function addHeroSlide(slide: HeroSlide): Promise<boolean> {
 }
 
 export async function updateHeroSlide(id: string, updates: Partial<HeroSlide>): Promise<boolean> {
+    console.log('updateHeroSlide called with id:', id, 'updates:', JSON.stringify(updates, null, 2));
+
     const { error } = await getClient()
         .from('hero_slides')
         .update(updates)
         .eq('id', id);
 
     if (error) {
-        console.error('Error updating hero slide:', error);
+        console.error('Error updating hero slide:', error.message, error.details, error.hint);
         return false;
     }
+    console.log('updateHeroSlide success');
     return true;
 }
 

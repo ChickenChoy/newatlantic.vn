@@ -62,7 +62,9 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, order, linkText, ...updates } = body;
+    console.log('Hero slide PUT body:', JSON.stringify(body, null, 2));
+
+    const { id, order, linkText, enabled, ...restUpdates } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Slide ID is required' }, { status: 400 });
@@ -75,9 +77,20 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Slide not found' }, { status: 404 });
     }
 
-    const supabaseUpdates: any = { ...updates };
+    // Map JavaScript field names to Supabase column names
+    const supabaseUpdates: any = { ...restUpdates };
     if (order !== undefined) supabaseUpdates.order_index = order;
     if (linkText !== undefined) supabaseUpdates.link_text = linkText;
+    if (enabled !== undefined) supabaseUpdates.enabled = enabled;
+
+    // Remove any fields that don't exist in Supabase or are auto-managed
+    delete supabaseUpdates.linkText;
+    delete supabaseUpdates.order;
+    delete supabaseUpdates.createdAt;
+    delete supabaseUpdates.updatedAt;
+    delete supabaseUpdates.orderIndex;
+
+    console.log('Supabase updates:', JSON.stringify(supabaseUpdates, null, 2));
 
     const success = await updateHeroSlide(id, supabaseUpdates);
 
@@ -86,17 +99,21 @@ export async function PUT(request: NextRequest) {
         action: 'update',
         entity: 'hero-slide',
         entityId: id,
-        entityName: updates.title || slide.title,
+        entityName: restUpdates.title || slide.title,
       });
 
       revalidatePath('/');
-      return NextResponse.json({ ...slide, ...updates });
+      return NextResponse.json({ ...slide, ...body });
     }
 
     return NextResponse.json({ error: 'Failed to update hero slide' }, { status: 500 });
-  } catch (error) {
-    console.error('Error updating hero slide:', error);
-    return NextResponse.json({ error: 'Failed to update hero slide' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Error updating hero slide:', error?.message || error);
+    console.error('Error stack:', error?.stack);
+    return NextResponse.json({
+      error: 'Failed to update hero slide',
+      details: error?.message || String(error)
+    }, { status: 500 });
   }
 }
 

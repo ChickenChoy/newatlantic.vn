@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "log_1770111566190_1tihd1vsg",
+    "timestamp": "2026-02-03T09:39:26.190Z",
+    "action": "update",
+    "entity": "hero-slide",
+    "entityId": "slide-1",
+    "entityName": "NEW ATLANTIC",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770111531492_v2icv6j1m",
+    "timestamp": "2026-02-03T09:38:51.492Z",
+    "action": "update",
+    "entity": "hero-slide",
+    "entityId": "slide-1",
+    "entityName": "NEW ATLANTIC",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770111452692_6pim7mhhn",
+    "timestamp": "2026-02-03T09:37:32.692Z",
+    "action": "upload",
+    "entity": "media",
+    "entityId": "media_1770111452263_h3by2u2bo",
+    "entityName": "logo-color.png",
+    "user": "Admin",
+    "details": "Folder: slides"
+  }
+]
