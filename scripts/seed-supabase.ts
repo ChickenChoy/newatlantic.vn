@@ -320,6 +320,81 @@ function transformHolidayEffects(effects: any[]): any[] {
     }));
 }
 
+// Extract all images from products to media table
+function extractMediaFromProducts(products: any[]): any[] {
+    const mediaItems: any[] = [];
+    const seenUrls = new Set<string>();
+
+    products.forEach(product => {
+        // Add main image
+        if (product.image && !seenUrls.has(product.image)) {
+            seenUrls.add(product.image);
+            const filename = product.image.split('/').pop() || 'unknown.jpg';
+            mediaItems.push({
+                id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                filename: filename,
+                original_name: filename,
+                folder: 'products',
+                mime_type: getMimeType(filename),
+                size: 0, // Unknown size
+                dimensions: null,
+                variants: {},
+                alt_text: product.name,
+                caption: product.shortDescription?.substring(0, 200) || '',
+                tags: [product.category, product.categoryName].filter(Boolean),
+                usage: { type: 'product', productId: product.id },
+                storage_url: product.image,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            });
+        }
+
+        // Add additional images
+        if (product.images && Array.isArray(product.images)) {
+            product.images.forEach((imgUrl: string) => {
+                if (imgUrl && !seenUrls.has(imgUrl)) {
+                    seenUrls.add(imgUrl);
+                    const filename = imgUrl.split('/').pop() || 'unknown.jpg';
+                    mediaItems.push({
+                        id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+                        filename: filename,
+                        original_name: filename,
+                        folder: 'products',
+                        mime_type: getMimeType(filename),
+                        size: 0,
+                        dimensions: null,
+                        variants: {},
+                        alt_text: product.name,
+                        caption: '',
+                        tags: [product.category, product.categoryName].filter(Boolean),
+                        usage: { type: 'product', productId: product.id },
+                        storage_url: imgUrl,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    });
+                }
+            });
+        }
+    });
+
+    return mediaItems;
+}
+
+// Helper to get MIME type from filename
+function getMimeType(filename: string): string {
+    const ext = filename.split('.').pop()?.toLowerCase();
+    const mimeTypes: Record<string, string> = {
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'png': 'image/png',
+        'gif': 'image/gif',
+        'webp': 'image/webp',
+        'svg': 'image/svg+xml',
+        'bmp': 'image/bmp'
+    };
+    return mimeTypes[ext || ''] || 'image/jpeg';
+}
+
 async function main() {
     console.log('🚀 Starting Supabase seed from JSON files...\n');
     console.log(`Supabase URL: ${supabaseUrl}`);
@@ -348,6 +423,37 @@ async function main() {
 
         // Holiday effects
         await seedTable('holiday_effects', 'holiday-effects.json', transformHolidayEffects);
+
+        // Extract and seed media from products
+        console.log('\n📦 Seeding media from products...');
+        const products = readJsonFile('products.json');
+        if (products && products.length > 0) {
+            const mediaItems = extractMediaFromProducts(products);
+            if (mediaItems.length > 0) {
+                // Clear existing product media first
+                await supabase
+                    .from('media')
+                    .delete()
+                    .eq('folder', 'products');
+
+                // Insert new media items in batches
+                const batchSize = 50;
+                let insertedCount = 0;
+                for (let i = 0; i < mediaItems.length; i += batchSize) {
+                    const batch = mediaItems.slice(i, i + batchSize);
+                    const { error } = await supabase
+                        .from('media')
+                        .insert(batch);
+
+                    if (error) {
+                        console.error(`  ⚠️ Batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
+                    } else {
+                        insertedCount += batch.length;
+                    }
+                }
+                console.log(`  ✅ Inserted ${insertedCount}/${mediaItems.length} media items from products`);
+            }
+        }
 
         // Settings
         const siteSettings = readJsonFile('site-settings.json');

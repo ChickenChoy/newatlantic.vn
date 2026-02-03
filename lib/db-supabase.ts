@@ -87,6 +87,17 @@ export async function deleteCategory(id: string): Promise<boolean> {
 
 // ==================== Products ====================
 
+// Transform Supabase product to frontend Product type
+function transformProduct(data: any): Product {
+    return {
+        ...data,
+        image: data.thumbnail || data.image, // Map thumbnail to image for frontend
+        categoryName: data.category_name,
+        shortDescription: data.short_description,
+        fullDescription: data.description,
+    };
+}
+
 export async function getProducts(): Promise<Product[]> {
     const { data, error } = await getClient()
         .from('products')
@@ -98,7 +109,7 @@ export async function getProducts(): Promise<Product[]> {
         console.error('Error fetching products:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformProduct);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -109,7 +120,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
         .single();
 
     if (error) return null;
-    return data;
+    return transformProduct(data);
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
@@ -120,7 +131,7 @@ export async function getProductById(id: string): Promise<Product | null> {
         .single();
 
     if (error) return null;
-    return data;
+    return transformProduct(data);
 }
 
 export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
@@ -135,7 +146,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
         console.error('Error fetching products by category:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformProduct);
 }
 
 export async function addProduct(product: Product): Promise<boolean> {
