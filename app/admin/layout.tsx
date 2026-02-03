@@ -1,25 +1,39 @@
 'use client';
 
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase';
 import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import AdminSidebar from '@/components/admin/AdminSidebar';
+import { AdminUser, UserRole, Permission, hasPermission as checkPermission } from '@/types';
 import './admin.css';
 
 type AuthStep = 'login' | 'totp' | 'authenticated';
 
-// Context cho logout function
+// Extended AdminContext with user management
 interface AdminContextType {
   handleLogout: () => void;
   userEmail: string | null;
   mfaEnabled: boolean;
+  // New fields for multi-user management
+  currentUser: AdminUser | null;
+  userRole: UserRole | undefined;
+  hasPermission: (permission: Permission) => boolean;
+  canAccessTab: (tabId: string) => boolean;
+  isLoadingUser: boolean;
+  refreshUser: () => Promise<void>;
 }
 
 export const AdminContext = createContext<AdminContextType>({
   handleLogout: () => { },
   userEmail: null,
   mfaEnabled: false,
+  currentUser: null,
+  userRole: undefined,
+  hasPermission: () => false,
+  canAccessTab: () => false,
+  isLoadingUser: true,
+  refreshUser: async () => { },
 });
 
 export const useAdminContext = () => useContext(AdminContext);
@@ -38,6 +52,9 @@ export default function AdminLayout({
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [totpEnabled, setTotpEnabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  // New state for user management
+  const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
   const router = useRouter();
   const supabase = getSupabaseClient();
 
@@ -75,6 +92,9 @@ export default function AdminLayout({
       if (session) {
         setUserEmail(session.user.email || null);
 
+        // Fetch current user data for permissions
+        await fetchCurrentUser(session.user.email || '');
+
         if (totpData.totpEnabled && totpVerified !== 'true') {
           // Need TOTP verification
           setAuthStep('totp');
@@ -85,6 +105,7 @@ export default function AdminLayout({
         // No session - reset to login state
         setAuthStep('login');
         setUserEmail(null);
+        setCurrentUser(null);
         sessionStorage.removeItem('totp_verified');
       }
     } catch (error) {
@@ -92,9 +113,91 @@ export default function AdminLayout({
       // On error, reset to login state for safety
       setAuthStep('login');
       setUserEmail(null);
+      setCurrentUser(null);
     }
     setIsLoading(false);
+    setIsLoadingUser(false);
   };
+
+  // Fetch current user from API
+  const fetchCurrentUser = async (email: string, updateLogin: boolean = true) => {
+    if (!email) {
+      setCurrentUser(null);
+      setIsLoadingUser(false);
+      return;
+    }
+
+    try {
+      setIsLoadingUser(true);
+      const loginParam = updateLogin ? '&updateLogin=true' : '';
+      const response = await fetch(`/api/users?action=me&email=${encodeURIComponent(email)}${loginParam}`);
+
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentUser(data.user || null);
+      } else {
+        setCurrentUser(null);
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      setCurrentUser(null);
+    } finally {
+      setIsLoadingUser(false);
+    }
+  };
+
+  // Refresh user data (without updating login time)
+  const refreshUser = useCallback(async () => {
+    if (userEmail) {
+      await fetchCurrentUser(userEmail, false);
+    }
+  }, [userEmail]);
+
+  // Check if user has a specific permission
+  const hasPermissionCheck = useCallback((permission: Permission): boolean => {
+    if (!currentUser || !currentUser.isActive) return false;
+    return checkPermission(currentUser.role, permission);
+  }, [currentUser]);
+
+  // Tab permission mapping
+  const tabPermissions: Record<string, Permission> = {
+    'products': 'manage_content',
+    'categories': 'manage_content',
+    'posts': 'manage_content',
+    'post-categories': 'manage_content',
+    'gallery': 'manage_content',
+    'catalogs': 'manage_content',
+    'partners': 'manage_content',
+    'testimonials': 'manage_content',
+    'faqs': 'manage_content',
+    'certifications': 'manage_content',
+    'media-library': 'manage_media',
+    'homepage-services': 'manage_appearance',
+    'hero-slides': 'manage_appearance',
+    'holiday-effects': 'manage_appearance',
+    'page-visibility': 'manage_appearance',
+    'appearance': 'manage_appearance',
+    'site-settings': 'manage_settings',
+    'offices': 'manage_settings',
+    'footer': 'manage_settings',
+    'footer-links': 'manage_settings',
+    'social-links': 'manage_settings',
+    'seo': 'manage_seo',
+    'dashboard': 'view_dashboard',
+    'traffic': 'view_analytics',
+    'database': 'backup_restore',
+    'activity-logs': 'view_activity_logs',
+    'settings': 'manage_security',
+    'users': 'manage_users',
+  };
+
+  // Check if user can access a tab
+  const canAccessTabCheck = useCallback((tabId: string): boolean => {
+    if (!currentUser || !currentUser.isActive) return false;
+    const requiredPermission = tabPermissions[tabId];
+    if (!requiredPermission) return true; // No specific permission required
+    return checkPermission(currentUser.role, requiredPermission);
+  }, [currentUser]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -400,7 +503,17 @@ export default function AdminLayout({
 
   // Authenticated - show admin content
   return (
-    <AdminContext.Provider value={{ handleLogout, userEmail, mfaEnabled: totpEnabled }}>
+    <AdminContext.Provider value={{
+      handleLogout,
+      userEmail,
+      mfaEnabled: totpEnabled,
+      currentUser,
+      userRole: currentUser?.role,
+      hasPermission: hasPermissionCheck,
+      canAccessTab: canAccessTabCheck,
+      isLoadingUser,
+      refreshUser,
+    }}>
       <div className="flex min-h-screen bg-lightgray dark:bg-dark font-sans">
         <AdminSidebar />
         <main className="flex-1 min-h-screen xl:ml-64 transition-all duration-300">

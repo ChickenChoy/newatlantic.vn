@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "log_1770094546136_lay2p2fox",
+    "timestamp": "2026-02-03T04:55:46.136Z",
+    "action": "delete",
+    "entity": "auth",
+    "entityId": "c3b90b39-96af-467f-8dc7-c751401a5a69",
+    "entityName": "admin@newatlantic.vn",
+    "user": "nhunam1311@gmail.com",
+    "details": "Xóa người dùng: Super Admin"
+  },
+  {
+    "id": "log_1770094464183_z6day4eam",
+    "timestamp": "2026-02-03T04:54:24.183Z",
+    "action": "create",
+    "entity": "auth",
+    "entityId": "e9def97c-ff17-41c4-8df3-00a7419e0ca7",
+    "entityName": "nhunam1311@gmail.com",
+    "user": "admin@newatlantic.vn",
+    "details": "Tạo người dùng mới: Nam Nam (super_admin) với mật khẩu"
+  },
+  {
+    "id": "log_1770084201053_riyq3nqqz",
+    "timestamp": "2026-02-03T02:03:21.053Z",
+    "action": "update",
+    "entity": "auth",
+    "entityId": "super-admin-1",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Cập nhật người dùng: email, name, password, role, isActive"
+  }
+]

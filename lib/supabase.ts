@@ -1,4 +1,5 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient, createServerClient, type CookieOptions } from '@supabase/ssr'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
 // Lazy evaluation of environment variables
 function getSupabaseUrl(): string {
@@ -19,6 +20,15 @@ function getSupabaseAnonKey(): string {
     return key;
 }
 
+function getSupabaseServiceRoleKey(): string {
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!key) {
+        console.warn('SUPABASE_SERVICE_ROLE_KEY is not configured');
+        return '';
+    }
+    return key;
+}
+
 export function createClient() {
     const supabaseUrl = getSupabaseUrl();
     const supabaseAnonKey = getSupabaseAnonKey();
@@ -28,6 +38,25 @@ export function createClient() {
     }
 
     return createBrowserClient(supabaseUrl, supabaseAnonKey)
+}
+
+// Create admin client with service role key for server-side operations
+// WARNING: Only use this on the server, never expose service role key to client
+export function createAdminClient() {
+    const supabaseUrl = getSupabaseUrl();
+    const serviceRoleKey = getSupabaseServiceRoleKey();
+
+    if (!supabaseUrl || !serviceRoleKey) {
+        console.error('Supabase admin client: Missing URL or service role key');
+        return null;
+    }
+
+    return createSupabaseClient(supabaseUrl, serviceRoleKey, {
+        auth: {
+            autoRefreshToken: false,
+            persistSession: false
+        }
+    });
 }
 
 // Singleton instance for client-side

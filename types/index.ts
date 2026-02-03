@@ -329,3 +329,105 @@ export interface ActivityChange {
   newValue?: string;       // Giá trị mới
 }
 
+// ==================== Multi-user Management ====================
+
+// User Roles - Phân quyền người dùng
+export type UserRole = 'super_admin' | 'admin' | 'editor' | 'viewer';
+
+// Permissions - Các quyền hạn trong hệ thống
+export type Permission =
+  | 'manage_users'        // Quản lý người dùng
+  | 'manage_security'     // Quản lý bảo mật (2FA, settings)
+  | 'manage_settings'     // Quản lý cài đặt website
+  | 'manage_content'      // Tạo/sửa/xóa nội dung (products, posts, etc.)
+  | 'manage_media'        // Upload/xóa media
+  | 'manage_seo'          // Quản lý SEO
+  | 'manage_appearance'   // Quản lý giao diện (holiday effects, page visibility)
+  | 'export_data'         // Export dữ liệu
+  | 'import_data'         // Import dữ liệu
+  | 'backup_restore'      // Backup/Restore database
+  | 'view_analytics'      // Xem analytics
+  | 'view_activity_logs'  // Xem nhật ký hoạt động
+  | 'view_dashboard';     // Xem dashboard
+
+// Permission Matrix - Ma trận quyền hạn theo role
+export const PERMISSION_MATRIX: Record<UserRole, Permission[]> = {
+  super_admin: [
+    'manage_users',
+    'manage_security',
+    'manage_settings',
+    'manage_content',
+    'manage_media',
+    'manage_seo',
+    'manage_appearance',
+    'export_data',
+    'import_data',
+    'backup_restore',
+    'view_analytics',
+    'view_activity_logs',
+    'view_dashboard',
+  ],
+  admin: [
+    'manage_security',
+    'manage_settings',
+    'manage_content',
+    'manage_media',
+    'manage_seo',
+    'manage_appearance',
+    'export_data',
+    'import_data',
+    'backup_restore',
+    'view_analytics',
+    'view_activity_logs',
+    'view_dashboard',
+  ],
+  editor: [
+    'manage_content',
+    'manage_media',
+    'view_analytics',
+    'view_dashboard',
+  ],
+  viewer: [
+    'view_analytics',
+    'view_dashboard',
+  ],
+};
+
+// Admin User - Người dùng admin
+export interface AdminUser {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  avatar?: string;
+  isActive: boolean;
+  totpEnabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+  lastLogin?: string;
+  invitedBy?: string;        // ID của người mời
+  invitedAt?: string;        // Thời gian mời
+  supabaseId?: string;       // ID trong Supabase Auth
+}
+
+// Helper function to check if a role has a specific permission
+export function hasPermission(role: UserRole, permission: Permission): boolean {
+  return PERMISSION_MATRIX[role]?.includes(permission) ?? false;
+}
+
+// Role Display Names - Tên hiển thị của role
+export const ROLE_DISPLAY_NAMES: Record<UserRole, string> = {
+  super_admin: 'Super Admin',
+  admin: 'Quản trị viên',
+  editor: 'Biên tập viên',
+  viewer: 'Người xem',
+};
+
+// Role Descriptions - Mô tả role
+export const ROLE_DESCRIPTIONS: Record<UserRole, string> = {
+  super_admin: 'Toàn quyền quản lý hệ thống và người dùng',
+  admin: 'Quản lý nội dung, cài đặt và backup',
+  editor: 'Tạo và chỉnh sửa nội dung',
+  viewer: 'Chỉ có quyền xem',
+};
+

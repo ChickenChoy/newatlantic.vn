@@ -69,6 +69,7 @@ const menuGroups: MenuGroup[] = [
       { id: 'appearance', name: 'Giao diện', icon: 'solar:palette-line-duotone', url: '/admin?tab=appearance' },
       { id: 'database', name: 'Database', icon: 'solar:database-line-duotone', url: '/admin?tab=database' },
       { id: 'activity-logs', name: 'Nhật ký', icon: 'solar:history-line-duotone', url: '/admin?tab=activity-logs' },
+      { id: 'users', name: 'Người dùng', icon: 'solar:users-group-two-rounded-line-duotone', url: '/admin?tab=users' },
       { id: 'settings', name: 'Bảo mật', icon: 'solar:shield-keyhole-line-duotone', url: '/admin?tab=settings' },
     ]
   },
@@ -81,7 +82,7 @@ export default function AdminSidebar() {
   const [logo, setLogo] = useState<string>('/images/logo/logo-color.png');
   const searchParams = useSearchParams();
   const currentTab = searchParams.get('tab') || 'dashboard';
-  const { handleLogout, userEmail, mfaEnabled } = useAdminContext();
+  const { handleLogout, userEmail, mfaEnabled, currentUser, canAccessTab } = useAdminContext();
 
   // Fetch logo from site settings
   useEffect(() => {
@@ -116,20 +117,27 @@ export default function AdminSidebar() {
   const isGroupExpanded = (groupId: string) => expandedGroups.includes(groupId);
   const isGroupActive = (group: MenuGroup) => group.items.some(item => item.id === currentTab);
 
-  const renderMenuItem = (item: MenuItem, closeMobile = false) => (
-    <Link
-      key={item.id}
-      href={item.url}
-      onClick={closeMobile ? () => setIsMobileOpen(false) : undefined}
-      className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm ${isActiveLink(item.id)
-        ? 'bg-primary text-white shadow-md'
-        : 'text-dark dark:text-bodytext hover:bg-lighthover dark:hover:bg-darkmuted'
-        }`}
-    >
-      <Icon icon={item.icon} height={16} className="flex-shrink-0" />
-      {!isCollapsed && <span className="font-medium">{item.name}</span>}
-    </Link>
-  );
+  const renderMenuItem = (item: MenuItem, closeMobile = false) => {
+    // Check if user can access this tab
+    if (!canAccessTab(item.id)) {
+      return null;
+    }
+
+    return (
+      <Link
+        key={item.id}
+        href={item.url}
+        onClick={closeMobile ? () => setIsMobileOpen(false) : undefined}
+        className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-sm ${isActiveLink(item.id)
+          ? 'bg-primary text-white shadow-md'
+          : 'text-dark dark:text-bodytext hover:bg-lighthover dark:hover:bg-darkmuted'
+          }`}
+      >
+        <Icon icon={item.icon} height={16} className="flex-shrink-0" />
+        {!isCollapsed && <span className="font-medium">{item.name}</span>}
+      </Link>
+    );
+  };
 
   const renderMenuGroup = (group: MenuGroup, closeMobile = false) => {
     const isExpanded = isGroupExpanded(group.id);
@@ -263,6 +271,16 @@ export default function AdminSidebar() {
                   <Icon icon="solar:user-circle-line-duotone" height={14} />
                   <span className="font-medium truncate">{userEmail}</span>
                 </div>
+                {currentUser && (
+                  <div className="flex items-center gap-2 mt-1.5 text-xs text-primary">
+                    <Icon icon={currentUser.role === 'super_admin' ? 'solar:crown-line-duotone' : 'solar:user-check-line-duotone'} height={14} />
+                    <span className="font-medium capitalize">
+                      {currentUser.role === 'super_admin' ? 'Super Admin' :
+                        currentUser.role === 'admin' ? 'Admin' :
+                          currentUser.role === 'editor' ? 'Editor' : 'Viewer'}
+                    </span>
+                  </div>
+                )}
                 <div className={`flex items-center gap-2 mt-1.5 text-xs ${mfaEnabled ? 'text-green-600' : 'text-amber-600'}`}>
                   <Icon icon={mfaEnabled ? 'solar:shield-check-line-duotone' : 'solar:shield-warning-line-duotone'} height={14} />
                   <span className="font-medium">2FA: {mfaEnabled ? 'Bật' : 'Tắt'}</span>
@@ -352,6 +370,16 @@ export default function AdminSidebar() {
                   <Icon icon="solar:user-circle-line-duotone" height={14} />
                   <span className="font-medium truncate">{userEmail}</span>
                 </div>
+                {currentUser && (
+                  <div className="flex items-center gap-2 mt-1.5 text-xs text-primary">
+                    <Icon icon={currentUser.role === 'super_admin' ? 'solar:crown-line-duotone' : 'solar:user-check-line-duotone'} height={14} />
+                    <span className="font-medium capitalize">
+                      {currentUser.role === 'super_admin' ? 'Super Admin' :
+                        currentUser.role === 'admin' ? 'Admin' :
+                          currentUser.role === 'editor' ? 'Editor' : 'Viewer'}
+                    </span>
+                  </div>
+                )}
                 <div className={`flex items-center gap-2 mt-1.5 text-xs ${mfaEnabled ? 'text-green-600' : 'text-amber-600'}`}>
                   <Icon icon={mfaEnabled ? 'solar:shield-check-line-duotone' : 'solar:shield-warning-line-duotone'} height={14} />
                   <span className="font-medium">2FA: {mfaEnabled ? 'Bật' : 'Tắt'}</span>

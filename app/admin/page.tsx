@@ -26,13 +26,16 @@ import TrafficDashboard from '@/components/admin/TrafficDashboard';
 import HomepageServicesTab from '@/components/admin/HomepageServicesTab';
 import DatabaseTab from '@/components/admin/DatabaseTab';
 import ActivityLogsTab from '@/components/admin/ActivityLogsTab';
+import UsersManagementTab from '@/components/admin/UsersManagementTab';
+import { useAdminContext } from './layout';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users';
 
 export default function AdminPage() {
   const toast = useToast();
   const router = useRouter();
+  const { userEmail } = useAdminContext();
 
   const searchParams = useSearchParams();
 
@@ -814,7 +817,9 @@ export default function AdminPage() {
                                                     activeTab === 'seo' ? 'Quản lý SEO' :
                                                       activeTab === 'homepage-services' ? 'Dịch vụ trang chủ' :
                                                         activeTab === 'database' ? 'Quản lý Database' :
-                                                          activeTab}
+                                                          activeTab === 'activity-logs' ? 'Nhật ký hoạt động' :
+                                                            activeTab === 'users' ? 'Quản lý người dùng' :
+                                                              activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2954,6 +2959,18 @@ export default function AdminPage() {
           activeTab === 'activity-logs' && (
             <div className="admin-card p-0 relative min-h-[600px]">
               <ActivityLogsTab />
+            </div>
+          )
+        }
+
+        {/* Users Management Tab */}
+        {
+          activeTab === 'users' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <UsersManagementTab
+                currentUserEmail={userEmail || ''}
+                onToast={(t) => t.type === 'success' ? toast.success(t.message) : t.type === 'error' ? toast.error(t.message) : toast.info(t.message)}
+              />
             </div>
           )
         }
