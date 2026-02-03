@@ -201,6 +201,15 @@ export async function saveProducts(products: Product[]): Promise<boolean> {
 
 // ==================== Posts ====================
 
+// Transform Supabase post to frontend Post type
+function transformPost(data: any): Post {
+    return {
+        ...data,
+        image: data.featured_image || data.thumbnail || data.image, // Map featured_image to image
+        date: data.published_at || data.created_at || data.date, // Map published_at to date
+    };
+}
+
 export async function getPosts(): Promise<Post[]> {
     const { data, error } = await getClient()
         .from('posts')
@@ -211,7 +220,7 @@ export async function getPosts(): Promise<Post[]> {
         console.error('Error fetching posts:', error);
         return [];
     }
-    return data || [];
+    return (data || []).map(transformPost);
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
@@ -222,7 +231,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
         .single();
 
     if (error) return null;
-    return data;
+    return transformPost(data);
 }
 
 export async function getPostById(id: string): Promise<Post | null> {
@@ -233,7 +242,7 @@ export async function getPostById(id: string): Promise<Post | null> {
         .single();
 
     if (error) return null;
-    return data;
+    return transformPost(data);
 }
 
 export async function addPost(post: Post): Promise<boolean> {
