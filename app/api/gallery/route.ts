@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getGalleryImages, saveGalleryImages, addGalleryImage, deleteGalleryImage } from '@/lib/db';
+import { getGalleryImages, addGalleryImage, updateGalleryImage, deleteGalleryImage } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { GalleryImage } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách gallery images
 export async function GET() {
   try {
-    const images = getGalleryImages();
+    const images = await getGalleryImages();
     return NextResponse.json(images);
   } catch (error) {
     console.error('Error fetching gallery images:', error);
@@ -28,7 +27,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Src and alt are required' }, { status: 400 });
     }
 
-    const newImage: GalleryImage = {
+    const newImage: any = {
       id: String(Date.now()),
       src,
       alt,
@@ -37,13 +36,12 @@ export async function POST(request: NextRequest) {
       category: category || '',
       tags: tags || [],
       featured: featured || false,
-      order: order || 0,
+      order_index: order || 0,
     };
 
-    const success = addGalleryImage(newImage);
+    const success = await addGalleryImage(newImage);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'gallery',
@@ -66,33 +64,34 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, ...updates } = body;
+    const { id, order, ...updates } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Image ID is required' }, { status: 400 });
     }
 
-    const images = getGalleryImages();
-    const index = images.findIndex(i => i.id === id);
+    const images = await getGalleryImages();
+    const image = images.find(i => i.id === id);
 
-    if (index === -1) {
+    if (!image) {
       return NextResponse.json({ error: 'Image not found' }, { status: 404 });
     }
 
-    images[index] = { ...images[index], ...updates };
-    const success = saveGalleryImages(images);
+    const supabaseUpdates: any = { ...updates };
+    if (order !== undefined) supabaseUpdates.order_index = order;
+
+    const success = await updateGalleryImage(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'gallery',
         entityId: id,
-        entityName: images[index].title || images[index].alt,
+        entityName: updates.title || image.title || image.alt,
       });
 
       revalidatePath('/thu-vien-hinh-anh');
-      return NextResponse.json(images[index]);
+      return NextResponse.json({ ...image, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update gallery image' }, { status: 500 });
@@ -112,13 +111,12 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Image ID is required' }, { status: 400 });
     }
 
-    const images = getGalleryImages();
+    const images = await getGalleryImages();
     const image = images.find(i => i.id === id);
 
-    const success = deleteGalleryImage(id);
+    const success = await deleteGalleryImage(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'gallery',

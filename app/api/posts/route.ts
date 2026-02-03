@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPosts, savePosts, addPost, deletePost } from '@/lib/db';
+import { getPosts, addPost, updatePost, deletePost } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { Post } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
-// Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
@@ -14,9 +12,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
-    const posts = getPosts();
+    const posts = await getPosts();
 
-    // Filter by single post ID
     if (id) {
       const post = posts.find(p => p.id === id);
       if (post) {
@@ -42,28 +39,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Title and slug are required' }, { status: 400 });
     }
 
-    const posts = getPosts();
+    const posts = await getPosts();
 
-    // Check if slug already exists
     if (posts.some(p => p.slug === slug)) {
       return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
 
-    const newPost: Post = {
+    const newPost: any = {
       id: String(Date.now()),
       title,
       slug,
       excerpt: excerpt || '',
       content: content || '',
-      image: image || '/images/posts/placeholder.jpg',
-      date: date || new Date().toISOString().split('T')[0],
+      featured_image: image || '/images/posts/placeholder.jpg',
+      published_at: date || new Date().toISOString(),
       author: author || 'Admin',
+      status: 'published'
     };
 
-    const success = addPost(newPost);
+    const success = await addPost(newPost);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'post',
@@ -71,7 +67,6 @@ export async function POST(request: NextRequest) {
         entityName: newPost.title,
       });
 
-      // Revalidate pages
       revalidatePath('/tin-tuc');
       revalidatePath('/');
 
@@ -95,41 +90,37 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
     }
 
-    const posts = getPosts();
-    const index = posts.findIndex(p => p.id === id);
+    const posts = await getPosts();
+    const post = posts.find(p => p.id === id);
 
-    if (index === -1) {
+    if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    // Check if new slug conflicts with another post
     if (updates.slug && posts.some(p => p.slug === updates.slug && p.id !== id)) {
       return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
 
-    const oldSlug = posts[index].slug;
-    posts[index] = { ...posts[index], ...updates };
+    // Map camelCase to snake_case
+    const supabaseUpdates: any = { ...updates };
+    if (updates.image) supabaseUpdates.featured_image = updates.image;
+    if (updates.date) supabaseUpdates.published_at = updates.date;
 
-    const success = savePosts(posts);
+    const success = await updatePost(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'post',
         entityId: id,
-        entityName: posts[index].title,
+        entityName: updates.title || post.title,
       });
 
-      // Revalidate pages
       revalidatePath('/tin-tuc');
-      revalidatePath(`/tin-tuc/${oldSlug}`);
-      if (updates.slug && updates.slug !== oldSlug) {
-        revalidatePath(`/tin-tuc/${updates.slug}`);
-      }
+      revalidatePath(`/tin-tuc/${post.slug}`);
       revalidatePath('/');
 
-      return NextResponse.json(posts[index]);
+      return NextResponse.json({ ...post, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update post' }, { status: 500 });
@@ -149,17 +140,16 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
     }
 
-    const posts = getPosts();
+    const posts = await getPosts();
     const post = posts.find(p => p.id === id);
 
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
 
-    const success = deletePost(id);
+    const success = await deletePost(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'post',
@@ -167,7 +157,6 @@ export async function DELETE(request: NextRequest) {
         entityName: post.title,
       });
 
-      // Revalidate pages
       revalidatePath('/tin-tuc');
       revalidatePath(`/tin-tuc/${post.slug}`);
       revalidatePath('/');

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getFooterLinks, saveFooterLinks, addFooterLink, deleteFooterLink } from '@/lib/db';
+import { getFooterLinks, saveFooterLinks, addFooterLink, updateFooterLink, deleteFooterLink } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { FooterLink } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách footer links
 export async function GET() {
   try {
-    const links = getFooterLinks();
+    const links = await getFooterLinks();
     return NextResponse.json(links);
   } catch (error) {
     console.error('Error fetching footer links:', error);
@@ -28,19 +27,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Label and href are required' }, { status: 400 });
     }
 
-    const newLink: FooterLink = {
+    const newLink: any = {
       id: String(Date.now()),
       label,
       href,
       section: section || 'quick',
-      isExternal: isExternal || false,
-      order: order || 0,
+      is_external: isExternal || false,
+      order_index: order || 0,
+      enabled: true,
     };
 
-    const success = addFooterLink(newLink);
+    const success = await addFooterLink(newLink);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'footer-link',
@@ -64,12 +63,17 @@ export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Check if body is an array (bulk update) or single object
+    // Check if body is an array (bulk update)
     if (Array.isArray(body)) {
-      // Bulk update - save entire array
-      const success = saveFooterLinks(body);
+      // Transform to snake_case
+      const transformed = body.map(l => ({
+        ...l,
+        order_index: l.order ?? l.order_index ?? 0,
+        is_external: l.isExternal ?? l.is_external ?? false
+      }));
+
+      const success = await saveFooterLinks(transformed);
       if (success) {
-        // Log activity
         await logActivity({
           action: 'update',
           entity: 'footer-link',
@@ -83,33 +87,35 @@ export async function PUT(request: NextRequest) {
     }
 
     // Single link update
-    const { id, ...updates } = body;
+    const { id, order, isExternal, ...updates } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Link ID is required' }, { status: 400 });
     }
 
-    const links = getFooterLinks();
-    const index = links.findIndex(l => l.id === id);
+    const links = await getFooterLinks();
+    const link = links.find(l => l.id === id);
 
-    if (index === -1) {
+    if (!link) {
       return NextResponse.json({ error: 'Link not found' }, { status: 404 });
     }
 
-    links[index] = { ...links[index], ...updates };
-    const success = saveFooterLinks(links);
+    const supabaseUpdates: any = { ...updates };
+    if (order !== undefined) supabaseUpdates.order_index = order;
+    if (isExternal !== undefined) supabaseUpdates.is_external = isExternal;
+
+    const success = await updateFooterLink(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'footer-link',
         entityId: id,
-        entityName: links[index].label,
+        entityName: updates.label || link.label,
       });
 
       revalidatePath('/');
-      return NextResponse.json(links[index]);
+      return NextResponse.json({ ...link, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update footer link' }, { status: 500 });
@@ -129,13 +135,12 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Link ID is required' }, { status: 400 });
     }
 
-    const links = getFooterLinks();
+    const links = await getFooterLinks();
     const link = links.find(l => l.id === id);
 
-    const success = deleteFooterLink(id);
+    const success = await deleteFooterLink(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'footer-link',

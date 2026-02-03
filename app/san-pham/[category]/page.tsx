@@ -1,4 +1,4 @@
-import { getCategories, getProducts, getProductsByCategory } from '@/lib/db';
+import { getCategories, getProductsByCategory } from '@/lib/db-supabase';
 import { notFound } from 'next/navigation';
 import CategoryPageContent from './category-content';
 import { generateMetadata as genMeta } from '@/lib/seo';
@@ -15,7 +15,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { category: categorySlug } = await params;
-  const categories = getCategories();
+  const categories = await getCategories();
   const category = categories.find(c => c.slug === categorySlug);
 
   if (!category) {
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     });
   }
 
-  const categoryProducts = getProductsByCategory(categorySlug);
+  const categoryProducts = await getProductsByCategory(categorySlug);
 
   return genMeta({
     title: category.name,
@@ -45,14 +45,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category: categorySlug } = await params;
-  const categories = getCategories();
+  const categories = await getCategories();
   const category = categories.find(c => c.slug === categorySlug);
 
   if (!category) {
     notFound();
   }
 
-  const categoryProducts = getProductsByCategory(categorySlug);
+  const categoryProducts = await getProductsByCategory(categorySlug);
 
   return (
     <CategoryPageContent

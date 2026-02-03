@@ -7,7 +7,7 @@ import ToastProvider from "@/components/ToastProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { siteConfig } from "@/lib/seo";
-import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } from "@/lib/db";
+import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } from "@/lib/db-supabase";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext", "vietnamese"],
@@ -108,17 +108,17 @@ export const metadata: Metadata = {
   category: "Industrial Equipment",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   // Fetch footer data server-side
   const footerData = {
-    categories: getCategories(),
-    siteSettings: getSiteSettings(),
-    offices: getOfficeLocations(),
-    footerLinks: getFooterLinks(),
+    categories: await getCategories(),
+    siteSettings: await getSiteSettings(),
+    offices: await getOfficeLocations(),
+    footerLinks: await getFooterLinks(),
   };
 
   return (

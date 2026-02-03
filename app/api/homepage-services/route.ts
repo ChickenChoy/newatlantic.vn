@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHomepageServices, addHomepageService, updateHomepageService, deleteHomepageService } from '@/lib/db';
-import { HomepageService } from '@/types';
+import { getHomepageServices, addHomepageService, updateHomepageService, deleteHomepageService } from '@/lib/db-supabase';
 import { logActivity } from '@/lib/activity-logs';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 // GET - Lấy danh sách dịch vụ trang chủ
 export async function GET() {
     try {
-        const services = getHomepageServices();
+        const services = await getHomepageServices();
         return NextResponse.json(services);
     } catch (error) {
         console.error('Error fetching homepage services:', error);
@@ -19,18 +21,19 @@ export async function POST(request: NextRequest) {
     try {
         const data = await request.json();
 
-        const newService: HomepageService = {
+        const newService: any = {
             id: `service-${Date.now()}`,
             title: data.title || '',
             description: data.description || '',
+            icon: data.icon || '',
             color: data.color || '#5f7ab8',
-            order: data.order ?? 0,
+            link: data.link || '',
+            order_index: data.order ?? 0,
             enabled: data.enabled ?? true,
         };
 
-        const success = addHomepageService(newService);
+        const success = await addHomepageService(newService);
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'create',
                 entity: 'homepage-service',
@@ -39,9 +42,9 @@ export async function POST(request: NextRequest) {
             });
 
             return NextResponse.json(newService, { status: 201 });
-        } else {
-            return NextResponse.json({ error: 'Failed to add service' }, { status: 500 });
         }
+
+        return NextResponse.json({ error: 'Failed to add service' }, { status: 500 });
     } catch (error) {
         console.error('Error adding homepage service:', error);
         return NextResponse.json({ error: 'Failed to add service' }, { status: 500 });
@@ -52,18 +55,20 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
     try {
         const data = await request.json();
-        const { id, ...updates } = data;
+        const { id, order, ...updates } = data;
 
         if (!id) {
             return NextResponse.json({ error: 'Service ID is required' }, { status: 400 });
         }
 
-        const services = getHomepageServices();
+        const services = await getHomepageServices();
         const service = services.find(s => s.id === id);
 
-        const success = updateHomepageService(id, updates);
+        const supabaseUpdates: any = { ...updates };
+        if (order !== undefined) supabaseUpdates.order_index = order;
+
+        const success = await updateHomepageService(id, supabaseUpdates);
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'update',
                 entity: 'homepage-service',
@@ -72,9 +77,9 @@ export async function PUT(request: NextRequest) {
             });
 
             return NextResponse.json({ success: true });
-        } else {
-            return NextResponse.json({ error: 'Service not found' }, { status: 404 });
         }
+
+        return NextResponse.json({ error: 'Service not found' }, { status: 404 });
     } catch (error) {
         console.error('Error updating homepage service:', error);
         return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
@@ -91,12 +96,11 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Service ID is required' }, { status: 400 });
         }
 
-        const services = getHomepageServices();
+        const services = await getHomepageServices();
         const service = services.find(s => s.id === id);
 
-        const success = deleteHomepageService(id);
+        const success = await deleteHomepageService(id);
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'delete',
                 entity: 'homepage-service',
@@ -105,9 +109,9 @@ export async function DELETE(request: NextRequest) {
             });
 
             return NextResponse.json({ success: true });
-        } else {
-            return NextResponse.json({ error: 'Service not found' }, { status: 404 });
         }
+
+        return NextResponse.json({ error: 'Service not found' }, { status: 404 });
     } catch (error) {
         console.error('Error deleting homepage service:', error);
         return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });

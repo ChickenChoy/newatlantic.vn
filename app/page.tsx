@@ -13,7 +13,7 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import TypingText from '@/components/TypingText';
 import HolidayBanner from '@/components/HolidayBanner';
-import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db';
+import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db-supabase';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
 
@@ -44,16 +44,22 @@ export const metadata: Metadata = genMeta({
   ],
 });
 
-export default function HomePage() {
-  const products = getProducts();
-  const posts = getPosts();
-  const categories = getCategories();
-  const heroSlides = getHeroSlides().filter(s => s.enabled).sort((a, b) => a.order - b.order);
-  const homepageStats = getHomepageStats().sort((a, b) => a.order - b.order);
-  const partnerLogos = getPartnerLogos().filter(p => p.enabled).sort((a, b) => a.order - b.order);
-  const homepageServices = getHomepageServices().filter(s => s.enabled).sort((a, b) => a.order - b.order);
+export default async function HomePage() {
+  const products = await getProducts();
+  const posts = await getPosts();
+  const categories = await getCategories();
+  const allHeroSlides = await getHeroSlides();
+  const allHomepageStats = await getHomepageStats();
+  const allPartnerLogos = await getPartnerLogos();
+  const allHomepageServices = await getHomepageServices();
 
-  const featuredProducts = products.filter((p) => p.featured).slice(0, 3);
+  // Filter and sort with proper typing
+  const heroSlides = allHeroSlides.filter((s: any) => s.enabled).sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
+  const homepageStats = allHomepageStats.sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
+  const partnerLogos = allPartnerLogos.filter((p: any) => p.enabled).sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
+  const homepageServices = allHomepageServices.filter((s: any) => s.enabled).sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
+
+  const featuredProducts = products.filter((p: any) => p.featured || p.is_featured).slice(0, 3);
   const latestPosts = posts.slice(0, 3);
 
   // Generate JSON-LD structured data

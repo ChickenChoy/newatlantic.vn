@@ -1,17 +1,20 @@
 import { NextResponse } from 'next/server';
-import { initializeDataIfNeeded } from '@/lib/db';
 
-// Force Node.js runtime for fs operations
+// Force Node.js runtime
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-// POST - Initialize data from lib/data.ts to JSON files
+// POST - Initialize data (now using Supabase, no initialization needed)
 export async function POST() {
   try {
-    await initializeDataIfNeeded();
-    return NextResponse.json({ success: true, message: 'Data initialized successfully' });
+    // With Supabase, data is already seeded via seed-supabase.ts
+    // This endpoint is kept for backward compatibility
+    return NextResponse.json({
+      success: true,
+      message: 'Using Supabase - data already seeded via npm run seed:supabase'
+    });
   } catch (error) {
-    console.error('Error initializing data:', error);
-    return NextResponse.json({ error: 'Failed to initialize data' }, { status: 500 });
+    console.error('Error:', error);
+    return NextResponse.json({ error: 'Operation failed' }, { status: 500 });
   }
 }

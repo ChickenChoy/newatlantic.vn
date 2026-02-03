@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getProducts, saveProducts, addProduct, deleteProduct, getCategories } from '@/lib/db';
+import { getProducts, addProduct, updateProduct, deleteProduct, getCategories } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
 import { Product } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
-// Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +15,7 @@ export async function GET(request: NextRequest) {
     const featured = searchParams.get('featured');
     const id = searchParams.get('id');
 
-    let products = getProducts();
+    let products = await getProducts();
 
     // Filter by single product ID
     if (id) {
@@ -34,7 +33,7 @@ export async function GET(request: NextRequest) {
 
     // Filter by featured
     if (featured === 'true') {
-      products = products.filter(p => p.featured);
+      products = products.filter(p => (p as any).is_featured || (p as any).featured);
     }
 
     return NextResponse.json(products);
@@ -57,7 +56,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name, slug and category are required' }, { status: 400 });
     }
 
-    const products = getProducts();
+    const products = await getProducts();
 
     // Check if slug already exists
     if (products.some(p => p.slug === slug)) {
@@ -65,30 +64,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Get category name
-    const categories = getCategories();
+    const categories = await getCategories();
     const categoryObj = categories.find(c => c.slug === category);
     const categoryName = categoryObj?.name || category;
 
-    const newProduct: Product = {
+    const newProduct: any = {
       id: String(Date.now()),
       name,
       slug,
       category,
-      categoryName,
-      description: description || '',
-      fullDescription: fullDescription || '',
-      shortDescription: shortDescription || '',
-      image: image || '/images/products/placeholder.jpg',
+      category_name: categoryName,
+      description: description || fullDescription || '',
+      short_description: shortDescription || '',
+      thumbnail: image || '/images/products/placeholder.jpg',
       images: images || [],
-      price: price || 'Liên hệ',
-      featured: featured || false,
+      price: null,
+      is_featured: featured || false,
       specifications: specifications || {},
+      enabled: true
     };
 
-    const success = addProduct(newProduct);
+    const success = await addProduct(newProduct);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'product',
@@ -96,7 +94,6 @@ export async function POST(request: NextRequest) {
         entityName: newProduct.name,
       });
 
-      // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${category}`);
       revalidatePath('/');
@@ -121,10 +118,10 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
     }
 
-    const products = getProducts();
-    const index = products.findIndex(p => p.id === id);
+    const products = await getProducts();
+    const product = products.find(p => p.id === id);
 
-    if (index === -1) {
+    if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
@@ -135,39 +132,32 @@ export async function PUT(request: NextRequest) {
 
     // Update category name if category changed
     if (updates.category) {
-      const categories = getCategories();
+      const categories = await getCategories();
       const categoryObj = categories.find(c => c.slug === updates.category);
-      updates.categoryName = categoryObj?.name || updates.category;
+      updates.category_name = categoryObj?.name || updates.category;
     }
 
-    const oldSlug = products[index].slug;
-    const oldCategory = products[index].category;
-    products[index] = { ...products[index], ...updates };
+    // Map camelCase to snake_case
+    const supabaseUpdates: any = { ...updates };
+    if (updates.categoryName) supabaseUpdates.category_name = updates.categoryName;
+    if (updates.shortDescription) supabaseUpdates.short_description = updates.shortDescription;
+    if (updates.featured !== undefined) supabaseUpdates.is_featured = updates.featured;
 
-    const success = saveProducts(products);
+    const success = await updateProduct(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'product',
         entityId: id,
-        entityName: products[index].name,
+        entityName: updates.name || product.name,
       });
 
-      // Revalidate pages
       revalidatePath('/san-pham');
-      revalidatePath(`/san-pham/${oldCategory}`);
-      revalidatePath(`/san-pham/${oldCategory}/${oldSlug}`);
-      if (updates.category && updates.category !== oldCategory) {
-        revalidatePath(`/san-pham/${updates.category}`);
-      }
-      if (updates.slug && updates.slug !== oldSlug) {
-        revalidatePath(`/san-pham/${products[index].category}/${updates.slug}`);
-      }
+      revalidatePath(`/san-pham/${product.category}`);
       revalidatePath('/');
 
-      return NextResponse.json(products[index]);
+      return NextResponse.json({ ...product, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update product' }, { status: 500 });
@@ -187,17 +177,16 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
     }
 
-    const products = getProducts();
+    const products = await getProducts();
     const product = products.find(p => p.id === id);
 
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
 
-    const success = deleteProduct(id);
+    const success = await deleteProduct(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'product',
@@ -205,10 +194,8 @@ export async function DELETE(request: NextRequest) {
         entityName: product.name,
       });
 
-      // Revalidate pages
       revalidatePath('/san-pham');
       revalidatePath(`/san-pham/${product.category}`);
-      revalidatePath(`/san-pham/${product.category}/${product.slug}`);
       revalidatePath('/');
 
       return NextResponse.json({ success: true });

@@ -1,12 +1,12 @@
 import { MetadataRoute } from 'next';
-import { getProducts, getCategories, getPosts } from '@/lib/db';
+import { getProducts, getCategories, getPosts } from '@/lib/db-supabase';
 import { siteConfig } from '@/lib/seo';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const currentDate = new Date();
-  const products = getProducts();
-  const categories = getCategories();
-  const posts = getPosts();
+  const products = await getProducts();
+  const categories = await getCategories();
+  const posts = await getPosts();
 
   // Homepage
   const homepage = {
@@ -65,17 +65,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Product pages
-  const productPages = products.map((product) => ({
-    url: `${siteConfig.url}/san-pham/${product.categorySlug || product.category}/${product.slug}`,
+  const productPages = products.map((product: any) => ({
+    url: `${siteConfig.url}/san-pham/${product.category_slug || product.categorySlug || product.category}/${product.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));
 
   // Post pages
-  const postPages = posts.map((post) => ({
+  const postPages = posts.map((post: any) => ({
     url: `${siteConfig.url}/tin-tuc/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.date || post.created_at),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
@@ -88,4 +88,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...postPages,
   ];
 }
-

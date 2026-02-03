@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCertifications, saveCertifications, addCertification, deleteCertification } from '@/lib/db';
+import { getCertifications, saveCertifications, addCertification, deleteCertification } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { Certification } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,9 +9,8 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách certifications
 export async function GET() {
     try {
-        const certifications = getCertifications();
-        const sorted = certifications.sort((a, b) => a.order - b.order);
-        return NextResponse.json(sorted);
+        const certifications = await getCertifications();
+        return NextResponse.json(certifications);
     } catch (error) {
         console.error('Error fetching certifications:', error);
         return NextResponse.json({ error: 'Failed to fetch certifications' }, { status: 500 });
@@ -24,19 +22,19 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
 
-        const newCertification: Certification = {
+        const newCertification: any = {
             id: Date.now().toString(),
             title: body.title || '',
             description: body.description || '',
             icon: body.icon || 'check-circle',
+            image: body.image || '',
             enabled: body.enabled ?? true,
-            order: body.order || 1,
+            order_index: body.order || 0,
         };
 
-        const success = addCertification(newCertification);
+        const success = await addCertification(newCertification);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'create',
                 entity: 'certification',
@@ -64,10 +62,15 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'Certifications must be an array' }, { status: 400 });
         }
 
-        const success = saveCertifications(body);
+        // Transform to snake_case
+        const transformed = body.map(c => ({
+            ...c,
+            order_index: c.order ?? c.order_index ?? 0
+        }));
+
+        const success = await saveCertifications(transformed);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'update',
                 entity: 'certification',
@@ -95,13 +98,12 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'ID is required' }, { status: 400 });
         }
 
-        const certifications = getCertifications();
+        const certifications = await getCertifications();
         const certification = certifications.find(c => c.id === id);
 
-        const success = deleteCertification(id);
+        const success = await deleteCertification(id);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'delete',
                 entity: 'certification',

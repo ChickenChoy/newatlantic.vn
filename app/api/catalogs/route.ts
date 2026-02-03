@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCatalogs, saveCatalogs, addCatalog, deleteCatalog } from '@/lib/db';
+import { getCatalogs, addCatalog, updateCatalog, deleteCatalog } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { Catalog } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -13,10 +12,10 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const brand = searchParams.get('brand');
 
-    let catalogs = getCatalogs();
+    let catalogs = await getCatalogs();
 
     if (brand) {
-      catalogs = catalogs.filter(c => c.brand === brand && c.enabled);
+      catalogs = catalogs.filter(c => c.brand === brand);
     }
 
     return NextResponse.json(catalogs);
@@ -36,21 +35,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Title, brand, and downloadUrl are required' }, { status: 400 });
     }
 
-    const newCatalog: Catalog = {
+    const newCatalog: any = {
       id: String(Date.now()),
       title,
       description: description || '',
       brand,
-      downloadUrl,
+      download_url: downloadUrl,
       thumbnail: thumbnail || '',
-      order: order || 0,
+      order_index: order || 0,
       enabled: enabled !== false,
     };
 
-    const success = addCatalog(newCatalog);
+    const success = await addCatalog(newCatalog);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'catalog',
@@ -73,33 +71,35 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, ...updates } = body;
+    const { id, order, downloadUrl, ...updates } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Catalog ID is required' }, { status: 400 });
     }
 
-    const catalogs = getCatalogs();
-    const index = catalogs.findIndex(c => c.id === id);
+    const catalogs = await getCatalogs();
+    const catalog = catalogs.find(c => c.id === id);
 
-    if (index === -1) {
+    if (!catalog) {
       return NextResponse.json({ error: 'Catalog not found' }, { status: 404 });
     }
 
-    catalogs[index] = { ...catalogs[index], ...updates };
-    const success = saveCatalogs(catalogs);
+    const supabaseUpdates: any = { ...updates };
+    if (order !== undefined) supabaseUpdates.order_index = order;
+    if (downloadUrl !== undefined) supabaseUpdates.download_url = downloadUrl;
+
+    const success = await updateCatalog(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'catalog',
         entityId: id,
-        entityName: catalogs[index].title,
+        entityName: updates.title || catalog.title,
       });
 
       revalidatePath('/page-download-catalog');
-      return NextResponse.json(catalogs[index]);
+      return NextResponse.json({ ...catalog, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update catalog' }, { status: 500 });
@@ -119,13 +119,12 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Catalog ID is required' }, { status: 400 });
     }
 
-    const catalogs = getCatalogs();
+    const catalogs = await getCatalogs();
     const catalog = catalogs.find(c => c.id === id);
 
-    const success = deleteCatalog(id);
+    const success = await deleteCatalog(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'catalog',

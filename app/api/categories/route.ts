@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCategories, saveCategories, addCategory, deleteCategory } from '@/lib/db';
+import { getCategories, addCategory, updateCategory, deleteCategory } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { Category } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
-// Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 // GET - Lấy danh sách categories
 export async function GET() {
   try {
-    const categories = getCategories();
+    const categories = await getCategories();
     return NextResponse.json(categories);
   } catch (error) {
     console.error('Error fetching categories:', error);
@@ -29,25 +27,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name and slug are required' }, { status: 400 });
     }
 
-    const categories = getCategories();
+    const categories = await getCategories();
 
-    // Check if slug already exists
     if (categories.some(c => c.slug === slug)) {
       return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
 
-    const newCategory: Category = {
+    const newCategory: any = {
       id: String(Date.now()),
       name,
       slug,
       description: description || '',
       image: image || '',
+      enabled: true,
+      order_index: categories.length
     };
 
-    const success = addCategory(newCategory);
+    const success = await addCategory(newCategory);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'category',
@@ -55,7 +53,6 @@ export async function POST(request: NextRequest) {
         entityName: newCategory.name,
       });
 
-      // Revalidate pages that use categories
       revalidatePath('/san-pham');
       revalidatePath('/');
 
@@ -79,47 +76,37 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Category ID is required' }, { status: 400 });
     }
 
-    const categories = getCategories();
-    const index = categories.findIndex(c => c.id === id);
+    const categories = await getCategories();
+    const category = categories.find(c => c.id === id);
 
-    if (index === -1) {
+    if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
-    // Check if new slug conflicts with another category
     if (slug && categories.some(c => c.slug === slug && c.id !== id)) {
       return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
 
-    const oldSlug = categories[index].slug;
-    categories[index] = {
-      ...categories[index],
-      name: name || categories[index].name,
-      slug: slug || categories[index].slug,
-      description: description !== undefined ? description : categories[index].description,
-      image: image !== undefined ? image : categories[index].image,
-    };
+    const updates: any = {};
+    if (name !== undefined) updates.name = name;
+    if (slug !== undefined) updates.slug = slug;
+    if (description !== undefined) updates.description = description;
+    if (image !== undefined) updates.image = image;
 
-    const success = saveCategories(categories);
+    const success = await updateCategory(id, updates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'category',
         entityId: id,
-        entityName: categories[index].name,
+        entityName: name || category.name,
       });
 
-      // Revalidate pages
       revalidatePath('/san-pham');
-      revalidatePath(`/san-pham/${oldSlug}`);
-      if (slug && slug !== oldSlug) {
-        revalidatePath(`/san-pham/${slug}`);
-      }
       revalidatePath('/');
 
-      return NextResponse.json(categories[index]);
+      return NextResponse.json({ ...category, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update category' }, { status: 500 });
@@ -139,17 +126,16 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Category ID is required' }, { status: 400 });
     }
 
-    const categories = getCategories();
+    const categories = await getCategories();
     const category = categories.find(c => c.id === id);
 
     if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
-    const success = deleteCategory(id);
+    const success = await deleteCategory(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'category',
@@ -157,9 +143,7 @@ export async function DELETE(request: NextRequest) {
         entityName: category.name,
       });
 
-      // Revalidate pages
       revalidatePath('/san-pham');
-      revalidatePath(`/san-pham/${category.slug}`);
       revalidatePath('/');
 
       return NextResponse.json({ success: true });

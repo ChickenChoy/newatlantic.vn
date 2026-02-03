@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTestimonials, saveTestimonials, addTestimonial, deleteTestimonial } from '@/lib/db';
+import { getTestimonials, saveTestimonials, addTestimonial, deleteTestimonial } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { Testimonial } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,9 +9,8 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách testimonials
 export async function GET() {
     try {
-        const testimonials = getTestimonials();
-        const sorted = testimonials.sort((a, b) => a.order - b.order);
-        return NextResponse.json(sorted);
+        const testimonials = await getTestimonials();
+        return NextResponse.json(testimonials);
     } catch (error) {
         console.error('Error fetching testimonials:', error);
         return NextResponse.json({ error: 'Failed to fetch testimonials' }, { status: 500 });
@@ -24,21 +22,21 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
 
-        const newTestimonial: Testimonial = {
+        const newTestimonial: any = {
             id: Date.now().toString(),
             name: body.name || '',
             position: body.position || '',
+            company: body.company || '',
             rating: body.rating || 5,
             text: body.text || '',
             image: body.image || '',
             enabled: body.enabled ?? true,
-            order: body.order || 1,
+            order_index: body.order || 0,
         };
 
-        const success = addTestimonial(newTestimonial);
+        const success = await addTestimonial(newTestimonial);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'create',
                 entity: 'testimonial',
@@ -66,10 +64,15 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'Testimonials must be an array' }, { status: 400 });
         }
 
-        const success = saveTestimonials(body);
+        // Transform to snake_case
+        const transformed = body.map(t => ({
+            ...t,
+            order_index: t.order ?? t.order_index ?? 0
+        }));
+
+        const success = await saveTestimonials(transformed);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'update',
                 entity: 'testimonial',
@@ -97,13 +100,12 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'ID is required' }, { status: 400 });
         }
 
-        const testimonials = getTestimonials();
+        const testimonials = await getTestimonials();
         const testimonial = testimonials.find(t => t.id === id);
 
-        const success = deleteTestimonial(id);
+        const success = await deleteTestimonial(id);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'delete',
                 entity: 'testimonial',

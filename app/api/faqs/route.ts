@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getFAQs, saveFAQs, addFAQ, deleteFAQ } from '@/lib/db';
+import { getFAQs, saveFAQs, addFAQ, deleteFAQ } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { FAQ } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,9 +9,8 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách FAQs
 export async function GET() {
     try {
-        const faqs = getFAQs();
-        const sorted = faqs.sort((a, b) => a.order - b.order);
-        return NextResponse.json(sorted);
+        const faqs = await getFAQs();
+        return NextResponse.json(faqs);
     } catch (error) {
         console.error('Error fetching FAQs:', error);
         return NextResponse.json({ error: 'Failed to fetch FAQs' }, { status: 500 });
@@ -24,18 +22,18 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
 
-        const newFAQ: FAQ = {
+        const newFAQ: any = {
             id: Date.now().toString(),
             question: body.question || '',
             answer: body.answer || '',
+            category: body.category || null,
             enabled: body.enabled ?? true,
-            order: body.order || 1,
+            order_index: body.order || 0,
         };
 
-        const success = addFAQ(newFAQ);
+        const success = await addFAQ(newFAQ);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'create',
                 entity: 'faq',
@@ -63,10 +61,15 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'FAQs must be an array' }, { status: 400 });
         }
 
-        const success = saveFAQs(body);
+        // Transform to snake_case
+        const transformedFaqs = body.map(f => ({
+            ...f,
+            order_index: f.order ?? f.order_index ?? 0
+        }));
+
+        const success = await saveFAQs(transformedFaqs);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'update',
                 entity: 'faq',
@@ -94,18 +97,17 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'ID is required' }, { status: 400 });
         }
 
-        const faqs = getFAQs();
+        const faqs = await getFAQs();
         const faq = faqs.find(f => f.id === id);
 
-        const success = deleteFAQ(id);
+        const success = await deleteFAQ(id);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'delete',
                 entity: 'faq',
                 entityId: id,
-                entityName: faq?.question.substring(0, 50),
+                entityName: faq?.question?.substring(0, 50),
             });
 
             revalidatePath('/');

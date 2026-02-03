@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPostCategories, savePostCategories, addPostCategory, deletePostCategory } from '@/lib/db';
+import { getPostCategories, savePostCategories, addPostCategory, updatePostCategory, deletePostCategory } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { PostCategory } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
-// Force Node.js runtime for fs operations
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 // GET - Lấy danh sách post categories
 export async function GET() {
   try {
-    const categories = getPostCategories();
-    // Sort by order
-    categories.sort((a, b) => a.order - b.order);
+    const categories = await getPostCategories();
     return NextResponse.json(categories);
   } catch (error) {
     console.error('Error fetching post categories:', error);
@@ -31,26 +27,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name and slug are required' }, { status: 400 });
     }
 
-    const categories = getPostCategories();
+    const categories = await getPostCategories();
 
-    // Check if slug already exists
     if (categories.some(c => c.slug === slug)) {
       return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
 
-    const newCategory: PostCategory = {
+    const newCategory: any = {
       id: `post-cat-${Date.now()}`,
       name,
       slug,
       description: description || '',
-      order: order ?? categories.length,
+      order_index: order ?? categories.length,
       enabled: enabled !== false,
     };
 
-    const success = addPostCategory(newCategory);
+    const success = await addPostCategory(newCategory);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'post-category',
@@ -58,9 +52,7 @@ export async function POST(request: NextRequest) {
         entityName: newCategory.name,
       });
 
-      // Revalidate news page
       revalidatePath('/tin-tuc');
-
       return NextResponse.json(newCategory, { status: 201 });
     }
 
@@ -75,48 +67,38 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, name, slug, description, order, enabled } = body;
+    const { id, order, ...updates } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Category ID is required' }, { status: 400 });
     }
 
-    const categories = getPostCategories();
-    const index = categories.findIndex(c => c.id === id);
+    const categories = await getPostCategories();
+    const category = categories.find(c => c.id === id);
 
-    if (index === -1) {
+    if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
-    // Check if new slug conflicts with another category
-    if (slug && categories.some(c => c.slug === slug && c.id !== id)) {
+    if (updates.slug && categories.some(c => c.slug === updates.slug && c.id !== id)) {
       return NextResponse.json({ error: 'Slug already exists' }, { status: 400 });
     }
 
-    categories[index] = {
-      ...categories[index],
-      name: name ?? categories[index].name,
-      slug: slug ?? categories[index].slug,
-      description: description !== undefined ? description : categories[index].description,
-      order: order !== undefined ? order : categories[index].order,
-      enabled: enabled !== undefined ? enabled : categories[index].enabled,
-    };
+    const supabaseUpdates: any = { ...updates };
+    if (order !== undefined) supabaseUpdates.order_index = order;
 
-    const success = savePostCategories(categories);
+    const success = await updatePostCategory(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'post-category',
         entityId: id,
-        entityName: categories[index].name,
+        entityName: updates.name || category.name,
       });
 
-      // Revalidate news page
       revalidatePath('/tin-tuc');
-
-      return NextResponse.json(categories[index]);
+      return NextResponse.json({ ...category, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update post category' }, { status: 500 });
@@ -136,22 +118,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Category ID is required' }, { status: 400 });
     }
 
-    const categories = getPostCategories();
+    const categories = await getPostCategories();
     const category = categories.find(c => c.id === id);
 
     if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }
 
-    // Don't allow deleting the "all" category
     if (category.slug === 'all') {
       return NextResponse.json({ error: 'Cannot delete the "All" category' }, { status: 400 });
     }
 
-    const success = deletePostCategory(id);
+    const success = await deletePostCategory(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'post-category',
@@ -159,9 +139,7 @@ export async function DELETE(request: NextRequest) {
         entityName: category.name,
       });
 
-      // Revalidate news page
       revalidatePath('/tin-tuc');
-
       return NextResponse.json({ success: true });
     }
 

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getSiteSettings, saveSiteSettings } from '@/lib/db';
+import { getSiteSettings, saveSiteSettings } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { SiteSettings } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy site settings
 export async function GET() {
   try {
-    const settings = getSiteSettings();
+    const settings = await getSiteSettings();
     return NextResponse.json(settings);
   } catch (error) {
     console.error('Error fetching site settings:', error);
@@ -22,18 +21,17 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const currentSettings = getSiteSettings();
+    const currentSettings = await getSiteSettings();
 
-    const updatedSettings: SiteSettings = {
+    const updatedSettings = {
       ...currentSettings,
       ...body,
-      id: 'site-settings', // Always keep the same ID
+      id: 'site-settings',
     };
 
-    const success = saveSiteSettings(updatedSettings);
+    const success = await saveSiteSettings(updatedSettings);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'site-settings',
@@ -41,7 +39,6 @@ export async function PUT(request: NextRequest) {
         details: 'Cập nhật thông tin website',
       });
 
-      // Revalidate all pages that use site settings
       revalidatePath('/');
       revalidatePath('/lien-he');
 

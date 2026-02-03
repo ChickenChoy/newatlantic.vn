@@ -7,7 +7,7 @@ import {
     getMediaByFolder,
     searchMedia,
     getMediaStats
-} from '@/lib/db';
+} from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
 import { MediaItem, MediaFolder } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
         // Return stats only
         if (statsOnly) {
-            const stats = getMediaStats();
+            const stats = await getMediaStats();
             return NextResponse.json(stats);
         }
 
@@ -32,19 +32,19 @@ export async function GET(request: NextRequest) {
 
         // Filter by folder
         if (folder) {
-            items = getMediaByFolder(folder);
+            items = await getMediaByFolder(folder);
         }
         // Search by query
         else if (search) {
-            items = searchMedia(search);
+            items = await searchMedia(search);
         }
         // Get all
         else {
-            items = getMediaItems();
+            items = await getMediaItems();
         }
 
         // Sort by newest first
-        items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        items.sort((a: any, b: any) => new Date(b.createdAt || b.created_at).getTime() - new Date(a.createdAt || a.created_at).getTime());
 
         return NextResponse.json(items);
     } catch (error) {
@@ -80,12 +80,12 @@ export async function POST(request: NextRequest) {
         }
 
         const now = new Date().toISOString();
-        const newMedia: MediaItem = {
+        const newMedia: any = {
             id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
             filename,
-            originalName: originalName || filename,
+            original_name: originalName || filename,
             folder,
-            mimeType: mimeType || 'image/webp',
+            mime_type: mimeType || 'image/webp',
             size: size || 0,
             dimensions: dimensions || { width: 0, height: 0 },
             variants: {
@@ -96,20 +96,19 @@ export async function POST(request: NextRequest) {
             alt,
             caption,
             tags: Array.isArray(tags) ? tags : [],
-            usedIn: [],
-            createdAt: now,
-            updatedAt: now
+            used_in: [],
+            created_at: now,
+            updated_at: now
         };
 
-        const success = addMediaItem(newMedia);
+        const success = await addMediaItem(newMedia);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'upload',
                 entity: 'media',
                 entityId: newMedia.id,
-                entityName: newMedia.originalName,
+                entityName: newMedia.original_name,
                 details: `Folder: ${folder}`,
             });
 
@@ -135,13 +134,13 @@ export async function PUT(request: NextRequest) {
         }
 
         // Only allow updating certain fields
-        const allowedUpdates: Partial<MediaItem> = {};
+        const allowedUpdates: any = {};
         if (updates.alt !== undefined) allowedUpdates.alt = updates.alt;
         if (updates.caption !== undefined) allowedUpdates.caption = updates.caption;
         if (updates.tags !== undefined) allowedUpdates.tags = updates.tags;
         if (updates.folder !== undefined) allowedUpdates.folder = updates.folder;
 
-        const success = updateMediaItem(id, allowedUpdates);
+        const success = await updateMediaItem(id, allowedUpdates);
 
         if (success) {
             revalidatePath('/admin');
@@ -165,10 +164,9 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ error: 'Media ID is required' }, { status: 400 });
         }
 
-        const success = deleteMediaItem(id);
+        const success = await deleteMediaItem(id);
 
         if (success) {
-            // Log activity
             await logActivity({
                 action: 'delete',
                 entity: 'media',
@@ -179,12 +177,12 @@ export async function DELETE(request: NextRequest) {
             return NextResponse.json({ success: true });
         } else {
             // Check if delete failed because media is in use
-            const items = getMediaItems();
-            const item = items.find(m => m.id === id);
+            const items = await getMediaItems();
+            const item = items.find((m: any) => m.id === id);
 
-            if (item && item.usedIn.length > 0) {
+            if (item && (item as any).usedIn?.length > 0) {
                 return NextResponse.json(
-                    { error: 'Cannot delete media that is in use', usedIn: item.usedIn },
+                    { error: 'Cannot delete media that is in use', usedIn: (item as any).usedIn },
                     { status: 409 }
                 );
             }

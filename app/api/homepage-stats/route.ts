@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHomepageStats, saveHomepageStats } from '@/lib/db';
+import { getHomepageStats, saveHomepageStats } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { HomepageStat } from '@/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -9,7 +8,7 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách homepage stats
 export async function GET() {
   try {
-    const stats = getHomepageStats();
+    const stats = await getHomepageStats();
     return NextResponse.json(stats);
   } catch (error) {
     console.error('Error fetching homepage stats:', error);
@@ -26,15 +25,17 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Stats must be an array' }, { status: 400 });
     }
 
-    const stats: HomepageStat[] = body.map((stat, index) => ({
+    const stats = body.map((stat, index) => ({
       id: stat.id || String(Date.now() + index),
       label: stat.label || '',
       value: stat.value || '0',
       suffix: stat.suffix || '',
-      order: stat.order || index + 1,
+      icon: stat.icon || '',
+      order_index: stat.order ?? stat.order_index ?? index,
+      enabled: stat.enabled !== false,
     }));
 
-    const success = saveHomepageStats(stats);
+    const success = await saveHomepageStats(stats as any);
 
     if (success) {
       revalidatePath('/');

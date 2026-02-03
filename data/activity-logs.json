@@ -1,5 +1,23 @@
 [
   {
+    "id": "log_1770098120089_g58zj6n84",
+    "timestamp": "2026-02-03T05:55:20.089Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "entityName": "TẾT Nguyên Đán",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770098000281_2ugrcpty1",
+    "timestamp": "2026-02-03T05:53:20.281Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "entityName": "TẾT Nguyên Đán",
+    "user": "Admin"
+  },
+  {
     "id": "log_1770094546136_lay2p2fox",
     "timestamp": "2026-02-03T04:55:46.136Z",
     "action": "delete",

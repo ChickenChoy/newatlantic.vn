@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPartnerLogos, savePartnerLogos, addPartnerLogo, deletePartnerLogo } from '@/lib/db';
+import { getPartnerLogos, savePartnerLogos, addPartnerLogo, updatePartnerLogo, deletePartnerLogo } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
-import { PartnerLogo } from '@/types';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';
@@ -10,7 +9,7 @@ export const dynamic = 'force-dynamic';
 // GET - Lấy danh sách partner logos
 export async function GET() {
   try {
-    const logos = getPartnerLogos();
+    const logos = await getPartnerLogos();
     return NextResponse.json(logos);
   } catch (error) {
     console.error('Error fetching partner logos:', error);
@@ -28,19 +27,18 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name and logo are required' }, { status: 400 });
     }
 
-    const newLogo: PartnerLogo = {
+    const newLogo: any = {
       id: String(Date.now()),
       name,
       logo,
       url: url || '',
-      order: order || 0,
+      order_index: order || 0,
       enabled: enabled !== false,
     };
 
-    const success = addPartnerLogo(newLogo);
+    const success = await addPartnerLogo(newLogo);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'create',
         entity: 'partner',
@@ -63,33 +61,34 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, ...updates } = body;
+    const { id, order, ...updates } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Logo ID is required' }, { status: 400 });
     }
 
-    const logos = getPartnerLogos();
-    const index = logos.findIndex(l => l.id === id);
+    const logos = await getPartnerLogos();
+    const logo = logos.find(l => l.id === id);
 
-    if (index === -1) {
+    if (!logo) {
       return NextResponse.json({ error: 'Logo not found' }, { status: 404 });
     }
 
-    logos[index] = { ...logos[index], ...updates };
-    const success = savePartnerLogos(logos);
+    const supabaseUpdates: any = { ...updates };
+    if (order !== undefined) supabaseUpdates.order_index = order;
+
+    const success = await updatePartnerLogo(id, supabaseUpdates);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'update',
         entity: 'partner',
         entityId: id,
-        entityName: logos[index].name,
+        entityName: updates.name || logo.name,
       });
 
       revalidatePath('/');
-      return NextResponse.json(logos[index]);
+      return NextResponse.json({ ...logo, ...updates });
     }
 
     return NextResponse.json({ error: 'Failed to update partner logo' }, { status: 500 });
@@ -109,13 +108,12 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Logo ID is required' }, { status: 400 });
     }
 
-    const logos = getPartnerLogos();
+    const logos = await getPartnerLogos();
     const logo = logos.find(l => l.id === id);
 
-    const success = deletePartnerLogo(id);
+    const success = await deletePartnerLogo(id);
 
     if (success) {
-      // Log activity
       await logActivity({
         action: 'delete',
         entity: 'partner',
