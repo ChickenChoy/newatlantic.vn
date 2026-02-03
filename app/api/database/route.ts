@@ -1,36 +1,33 @@
-'use server';
-
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { logActivity } from '@/lib/activity-logs';
+import { createAdminClient } from '@/lib/supabase';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
 const BACKUP_DIR = path.join(process.cwd(), 'backups');
 
-// List of all JSON data files to include in export
-const DATA_FILES = [
-    'admin-settings.json',
-    'catalogs.json',
-    'categories.json',
-    'certifications.json',
-    'faqs.json',
-    'footer-links.json',
-    'gallery-images.json',
-    'hero-slides.json',
-    'holiday-effects.json',
-    'homepage-services.json',
-    'homepage-stats.json',
-    'media.json',
-    'office-locations.json',
-    'page-visibility.json',
-    'partner-logos.json',
-    'post-categories.json',
-    'posts.json',
-    'products.json',
-    'seo.json',
-    'site-settings.json',
-    'testimonials.json',
+// All Supabase tables to export/import
+const SUPABASE_TABLES = [
+    'categories',
+    'products',
+    'posts',
+    'post_categories',
+    'hero_slides',
+    'gallery_images',
+    'office_locations',
+    'footer_links',
+    'catalogs',
+    'homepage_stats',
+    'homepage_services',
+    'partner_logos',
+    'testimonials',
+    'faqs',
+    'certifications',
+    'media',
+    'holiday_effects',
+    'site_settings',
+    'seo_settings',
+    'page_visibility',
 ];
 
 // Ensure backup directory exists
@@ -40,7 +37,16 @@ function ensureBackupDir() {
     }
 }
 
-// GET - Export all database to JSON
+// Get Supabase client
+function getClient() {
+    const client = createAdminClient();
+    if (!client) {
+        throw new Error('Supabase admin client not configured');
+    }
+    return client;
+}
+
+// GET - Export all data from Supabase or list backups
 export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
@@ -66,37 +72,46 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ backups: files });
         }
 
-        // Export all data
+        // Export all data from Supabase
+        const supabase = getClient();
         const exportData: Record<string, unknown> = {
             exportedAt: new Date().toISOString(),
-            version: '1.0.0',
+            version: '2.0.0', // Supabase version
+            source: 'supabase',
             data: {},
         };
 
-        for (const filename of DATA_FILES) {
-            const filePath = path.join(DATA_DIR, filename);
-            if (fs.existsSync(filePath)) {
-                try {
-                    const content = fs.readFileSync(filePath, 'utf-8');
-                    const key = filename.replace('.json', '');
-                    (exportData.data as Record<string, unknown>)[key] = JSON.parse(content);
-                } catch (error) {
-                    console.error(`Error reading ${filename}:`, error);
+        let tableCount = 0;
+        let totalRecords = 0;
+
+        for (const table of SUPABASE_TABLES) {
+            try {
+                const { data, error } = await supabase
+                    .from(table)
+                    .select('*');
+
+                if (!error && data) {
+                    (exportData.data as Record<string, unknown>)[table] = data;
+                    tableCount++;
+                    totalRecords += data.length;
                 }
+            } catch (e) {
+                console.error(`Error exporting table ${table}:`, e);
             }
         }
 
-        // Get file counts for metadata
+        // Get metadata
         const metadata = {
-            totalFiles: Object.keys(exportData.data as object).length,
-            fileList: Object.keys(exportData.data as object),
+            totalTables: tableCount,
+            totalRecords,
+            tableList: Object.keys(exportData.data as object),
         };
 
         // Log activity
         await logActivity({
             action: 'export',
             entity: 'database',
-            details: `Xuất ${metadata.totalFiles} file dữ liệu`,
+            details: `Xuất ${tableCount} bảng, ${totalRecords} bản ghi từ Supabase`,
         });
 
         return NextResponse.json({
@@ -106,42 +121,44 @@ export async function GET(request: NextRequest) {
     } catch (error) {
         console.error('Export error:', error);
         return NextResponse.json(
-            { error: 'Failed to export database' },
+            { error: 'Failed to export database from Supabase' },
             { status: 500 }
         );
     }
 }
 
-// POST - Import database from JSON or create backup
+// POST - Import data to Supabase or manage backups
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         const { action, data, filename } = body;
 
         if (action === 'create-backup') {
-            // Create a backup before import
+            // Create a backup from current Supabase data
             ensureBackupDir();
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const backupFilename = `backup-${timestamp}.json`;
+            const backupFilename = `backup-supabase-${timestamp}.json`;
             const backupPath = path.join(BACKUP_DIR, backupFilename);
 
-            // Export current data to backup
+            const supabase = getClient();
             const backupData: Record<string, unknown> = {
                 backupAt: new Date().toISOString(),
-                version: '1.0.0',
+                version: '2.0.0',
+                source: 'supabase',
                 data: {},
             };
 
-            for (const file of DATA_FILES) {
-                const filePath = path.join(DATA_DIR, file);
-                if (fs.existsSync(filePath)) {
-                    try {
-                        const content = fs.readFileSync(filePath, 'utf-8');
-                        const key = file.replace('.json', '');
-                        (backupData.data as Record<string, unknown>)[key] = JSON.parse(content);
-                    } catch (error) {
-                        console.error(`Error reading ${file}:`, error);
+            for (const table of SUPABASE_TABLES) {
+                try {
+                    const { data: tableData } = await supabase
+                        .from(table)
+                        .select('*');
+
+                    if (tableData) {
+                        (backupData.data as Record<string, unknown>)[table] = tableData;
                     }
+                } catch (e) {
+                    console.error(`Error backing up table ${table}:`, e);
                 }
             }
 
@@ -152,18 +169,18 @@ export async function POST(request: NextRequest) {
                 action: 'backup',
                 entity: 'database',
                 entityName: backupFilename,
-                details: 'Tạo bản sao lưu',
+                details: 'Tạo bản sao lưu từ Supabase',
             });
 
             return NextResponse.json({
                 success: true,
-                message: 'Backup created successfully',
+                message: 'Backup created successfully from Supabase',
                 filename: backupFilename,
             });
         }
 
         if (action === 'restore-backup') {
-            // Restore from a specific backup file
+            // Restore from a backup file to Supabase
             if (!filename) {
                 return NextResponse.json(
                     { error: 'Filename is required' },
@@ -189,15 +206,28 @@ export async function POST(request: NextRequest) {
                 );
             }
 
-            // Restore each file
+            const supabase = getClient();
             let restoredCount = 0;
-            for (const [key, value] of Object.entries(backupData.data)) {
-                const filePath = path.join(DATA_DIR, `${key}.json`);
+            const errors: string[] = [];
+
+            for (const [table, records] of Object.entries(backupData.data)) {
+                if (!SUPABASE_TABLES.includes(table)) continue;
+                if (!Array.isArray(records) || records.length === 0) continue;
+
                 try {
-                    fs.writeFileSync(filePath, JSON.stringify(value, null, 2), 'utf-8');
-                    restoredCount++;
-                } catch (error) {
-                    console.error(`Error restoring ${key}:`, error);
+                    // Delete existing data
+                    await supabase.from(table).delete().neq('id', '');
+
+                    // Insert backup data
+                    const { error } = await supabase.from(table).insert(records);
+
+                    if (error) {
+                        errors.push(`${table}: ${error.message}`);
+                    } else {
+                        restoredCount++;
+                    }
+                } catch (e) {
+                    errors.push(`${table}: ${String(e)}`);
                 }
             }
 
@@ -206,111 +236,130 @@ export async function POST(request: NextRequest) {
                 action: 'restore',
                 entity: 'database',
                 entityName: filename,
-                details: `Khôi phục ${restoredCount} file từ backup`,
+                details: `Khôi phục ${restoredCount} bảng vào Supabase`,
             });
 
             return NextResponse.json({
                 success: true,
-                message: `Restored ${restoredCount} files from backup`,
+                message: `Restored ${restoredCount} tables to Supabase`,
                 restoredCount,
+                errors: errors.length > 0 ? errors : undefined,
             });
         }
 
-        if (action === 'delete-backup') {
-            // Delete a specific backup file
-            if (!filename) {
+        if (action === 'import') {
+            // Import from uploaded JSON data to Supabase
+            if (!data) {
                 return NextResponse.json(
-                    { error: 'Filename is required' },
+                    { error: 'Import data is required' },
                     { status: 400 }
                 );
             }
 
-            const backupPath = path.join(BACKUP_DIR, filename);
-            if (!fs.existsSync(backupPath)) {
-                return NextResponse.json(
-                    { error: 'Backup file not found' },
-                    { status: 404 }
-                );
+            const supabase = getClient();
+            let importedCount = 0;
+            let recordsImported = 0;
+            const errors: string[] = [];
+
+            for (const [table, records] of Object.entries(data)) {
+                if (!SUPABASE_TABLES.includes(table)) continue;
+                if (!Array.isArray(records) || records.length === 0) continue;
+
+                try {
+                    // Clear existing data
+                    await supabase.from(table).delete().neq('id', '');
+
+                    // Insert new data
+                    const { error } = await supabase.from(table).insert(records);
+
+                    if (error) {
+                        errors.push(`${table}: ${error.message}`);
+                    } else {
+                        importedCount++;
+                        recordsImported += records.length;
+                    }
+                } catch (e) {
+                    errors.push(`${table}: ${String(e)}`);
+                }
             }
 
-            fs.unlinkSync(backupPath);
+            // Log activity
+            await logActivity({
+                action: 'import',
+                entity: 'database',
+                details: `Import ${importedCount} bảng, ${recordsImported} bản ghi vào Supabase`,
+            });
 
             return NextResponse.json({
                 success: true,
-                message: 'Backup deleted successfully',
+                message: `Imported ${importedCount} tables, ${recordsImported} records to Supabase`,
+                importedCount,
+                recordsImported,
+                errors: errors.length > 0 ? errors : undefined,
             });
         }
 
-        // Import data
-        if (!data || !data.data) {
+        return NextResponse.json(
+            { error: 'Invalid action' },
+            { status: 400 }
+        );
+    } catch (error) {
+        console.error('Database operation error:', error);
+        return NextResponse.json(
+            { error: 'Database operation failed' },
+            { status: 500 }
+        );
+    }
+}
+
+// DELETE - Delete a backup file
+export async function DELETE(request: NextRequest) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const filename = searchParams.get('filename');
+
+        if (!filename) {
             return NextResponse.json(
-                { error: 'Invalid import data format. Expected { data: { ... } }' },
+                { error: 'Filename is required' },
                 { status: 400 }
             );
         }
 
-        // Create backup before import
-        ensureBackupDir();
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        const preImportBackup = `pre-import-${timestamp}.json`;
-        const preImportPath = path.join(BACKUP_DIR, preImportBackup);
+        const backupPath = path.join(BACKUP_DIR, filename);
 
-        const currentData: Record<string, unknown> = {
-            backupAt: new Date().toISOString(),
-            reason: 'Pre-import backup',
-            data: {},
-        };
-
-        for (const file of DATA_FILES) {
-            const filePath = path.join(DATA_DIR, file);
-            if (fs.existsSync(filePath)) {
-                try {
-                    const content = fs.readFileSync(filePath, 'utf-8');
-                    const key = file.replace('.json', '');
-                    (currentData.data as Record<string, unknown>)[key] = JSON.parse(content);
-                } catch (error) {
-                    console.error(`Error reading ${file}:`, error);
-                }
-            }
+        // Security check - ensure path is within BACKUP_DIR
+        if (!backupPath.startsWith(BACKUP_DIR)) {
+            return NextResponse.json(
+                { error: 'Invalid filename' },
+                { status: 400 }
+            );
         }
 
-        fs.writeFileSync(preImportPath, JSON.stringify(currentData, null, 2), 'utf-8');
-
-        // Import each data file
-        let importedCount = 0;
-        const importedFiles: string[] = [];
-        const errors: string[] = [];
-
-        for (const [key, value] of Object.entries(data.data)) {
-            const filePath = path.join(DATA_DIR, `${key}.json`);
-            try {
-                fs.writeFileSync(filePath, JSON.stringify(value, null, 2), 'utf-8');
-                importedCount++;
-                importedFiles.push(key);
-            } catch (error) {
-                console.error(`Error importing ${key}:`, error);
-                errors.push(key);
-            }
+        if (!fs.existsSync(backupPath)) {
+            return NextResponse.json(
+                { error: 'Backup file not found' },
+                { status: 404 }
+            );
         }
+
+        fs.unlinkSync(backupPath);
 
         // Log activity
         await logActivity({
-            action: 'import',
+            action: 'delete',
             entity: 'database',
-            details: `Nhập ${importedCount} file dữ liệu`,
+            entityName: filename,
+            details: 'Xóa bản sao lưu',
         });
 
         return NextResponse.json({
             success: true,
-            message: `Imported ${importedCount} files successfully`,
-            importedFiles,
-            errors: errors.length > 0 ? errors : undefined,
-            preImportBackup,
+            message: 'Backup deleted successfully',
         });
     } catch (error) {
-        console.error('Import error:', error);
+        console.error('Delete backup error:', error);
         return NextResponse.json(
-            { error: 'Failed to import database' },
+            { error: 'Failed to delete backup' },
             { status: 500 }
         );
     }

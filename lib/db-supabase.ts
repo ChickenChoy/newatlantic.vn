@@ -1414,3 +1414,72 @@ export async function deleteHolidayEffect(id: string): Promise<boolean> {
     return true;
 }
 
+// ==================== SEO Settings ====================
+
+const DEFAULT_SEO = {
+    global: {
+        siteName: "NEW ATLANTIC - Tân Đại Tây Dương",
+        siteDescription: "",
+        siteKeywords: "",
+        defaultOgImage: "/images/logo/og-image.jpg",
+        googleVerification: "",
+        bingVerification: "",
+        yandexVerification: "",
+        facebookAppId: "",
+        twitterHandle: "",
+    },
+    pages: {},
+    robots: {
+        allowAll: true,
+        disallowPaths: ["/api/", "/admin/", "/_next/"],
+        crawlDelay: 0,
+        customRules: "",
+    },
+    sitemap: {
+        enabled: true,
+        changeFrequency: { home: "daily", products: "weekly", posts: "monthly" },
+        priority: { home: 1.0, products: 0.8, posts: 0.6 },
+        excludePaths: [],
+    },
+    openGraph: {
+        defaultType: "website",
+        siteName: "NEW ATLANTIC",
+        locale: "vi_VN",
+        facebookPageUrl: "",
+    },
+    updatedAt: new Date().toISOString(),
+};
+
+export async function getSEOSettings(): Promise<any> {
+    const { data, error } = await getClient()
+        .from('seo_settings')
+        .select('*')
+        .eq('key', 'main')
+        .single();
+
+    if (error || !data) {
+        console.log('No SEO settings found, returning defaults');
+        return DEFAULT_SEO;
+    }
+
+    return data.value || DEFAULT_SEO;
+}
+
+export async function saveSEOSettings(settings: any): Promise<boolean> {
+    settings.updatedAt = new Date().toISOString();
+
+    const { error } = await getClient()
+        .from('seo_settings')
+        .upsert({
+            key: 'main',
+            value: settings,
+            updated_at: new Date().toISOString()
+        }, { onConflict: 'key' });
+
+    if (error) {
+        console.error('Error saving SEO settings:', error);
+        return false;
+    }
+    return true;
+}
+

@@ -54,13 +54,13 @@ export default function DatabaseTab() {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `newatlantic-db-${new Date().toISOString().split('T')[0]}.json`;
+                a.download = `newatlantic-supabase-${new Date().toISOString().split('T')[0]}.json`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
 
-                toast.success(`Đã xuất ${data.metadata.totalFiles} bảng dữ liệu thành công!`);
+                toast.success(`Đã xuất ${data.metadata.totalTables} bảng, ${data.metadata.totalRecords} bản ghi từ Supabase!`);
             } else {
                 throw new Error('Export failed');
             }
@@ -144,18 +144,19 @@ export default function DatabaseTab() {
 
         setLoading(true);
         try {
+            const parsedImport = JSON.parse(importData);
             const response = await fetch('/api/database', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     action: 'import',
-                    data: JSON.parse(importData),
+                    data: parsedImport.data || parsedImport, // Handle both formats
                 }),
             });
 
             if (response.ok) {
                 const result = await response.json();
-                toast.success(`Đã import ${result.importedFiles.length} bảng dữ liệu thành công!`);
+                toast.success(`Đã import ${result.importedCount} bảng, ${result.recordsImported} bản ghi vào Supabase!`);
                 setShowImportModal(false);
                 setImportData('');
                 setImportPreview(null);
@@ -216,10 +217,8 @@ export default function DatabaseTab() {
 
         setLoading(true);
         try {
-            const response = await fetch('/api/database', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'delete-backup', filename }),
+            const response = await fetch(`/api/database?filename=${encodeURIComponent(filename)}`, {
+                method: 'DELETE',
             });
 
             if (response.ok) {
@@ -259,7 +258,7 @@ export default function DatabaseTab() {
                 <div>
                     <h2 className="text-lg font-semibold text-dark dark:text-white">Quản lý Database</h2>
                     <p className="text-sm text-muted dark:text-gray-400">
-                        Import, Export và Backup dữ liệu website
+                        Import, Export và Backup dữ liệu từ Supabase
                     </p>
                 </div>
             </div>
@@ -278,7 +277,7 @@ export default function DatabaseTab() {
                         </div>
                     </div>
                     <p className="text-sm text-muted dark:text-gray-400 mb-4">
-                        Xuất tất cả dữ liệu website thành file JSON để sao lưu hoặc chuyển sang server khác.
+                        Xuất tất cả dữ liệu từ Supabase thành file JSON để sao lưu local hoặc migrate.
                     </p>
                     <Button
                         color="primary"
@@ -303,7 +302,7 @@ export default function DatabaseTab() {
                         </div>
                     </div>
                     <p className="text-sm text-muted dark:text-gray-400 mb-4">
-                        Import dữ liệu từ file JSON đã export trước đó. Dữ liệu hiện tại sẽ được backup tự động.
+                        Import dữ liệu từ file JSON vào Supabase. Dữ liệu hiện tại sẽ được backup tự động.
                     </p>
                     <input
                         ref={fileInputRef}
@@ -335,7 +334,7 @@ export default function DatabaseTab() {
                         </div>
                     </div>
                     <p className="text-sm text-muted dark:text-gray-400 mb-4">
-                        Tạo bản sao lưu trực tiếp trên server. Có thể khôi phục bất cứ lúc nào.
+                        Tạo bản sao lưu từ Supabase ra file JSON trên server. Có thể khôi phục bất cứ lúc nào.
                     </p>
                     <Button
                         color="light"

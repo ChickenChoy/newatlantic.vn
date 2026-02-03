@@ -320,63 +320,89 @@ function transformHolidayEffects(effects: any[]): any[] {
     }));
 }
 
-// Extract all images from products to media table
-function extractMediaFromProducts(products: any[]): any[] {
+// Extract all images from all sources to media table
+function extractAllMedia(data: {
+    products?: any[];
+    posts?: any[];
+    galleryImages?: any[];
+    heroSlides?: any[];
+    partnerLogos?: any[];
+    testimonials?: any[];
+    catalogs?: any[];
+}): any[] {
     const mediaItems: any[] = [];
     const seenUrls = new Set<string>();
 
-    products.forEach(product => {
-        // Add main image
-        if (product.image && !seenUrls.has(product.image)) {
-            seenUrls.add(product.image);
-            const filename = product.image.split('/').pop() || 'unknown.jpg';
-            mediaItems.push({
-                id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                filename: filename,
-                original_name: filename,
-                folder: 'products',
-                mime_type: getMimeType(filename),
-                size: 0, // Unknown size
-                dimensions: null,
-                variants: {},
-                alt_text: product.name,
-                caption: product.shortDescription?.substring(0, 200) || '',
-                tags: [product.category, product.categoryName].filter(Boolean),
-                usage: { type: 'product', productId: product.id },
-                storage_url: product.image,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString()
-            });
-        }
+    // Helper to add a media item
+    const addMedia = (url: string, folder: string, altText: string, usage: any, caption = '', tags: string[] = []) => {
+        if (!url || seenUrls.has(url) || url.startsWith('data:')) return;
+        seenUrls.add(url);
+        const filename = url.split('/').pop() || 'unknown.jpg';
+        mediaItems.push({
+            id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            filename,
+            original_name: filename,
+            folder,
+            mime_type: getMimeType(filename),
+            size: 0,
+            dimensions: null,
+            variants: {},
+            alt_text: altText,
+            caption: caption.substring(0, 200),
+            tags: tags.filter(Boolean),
+            usage,
+            storage_url: url,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        });
+    };
 
-        // Add additional images
-        if (product.images && Array.isArray(product.images)) {
-            product.images.forEach((imgUrl: string) => {
-                if (imgUrl && !seenUrls.has(imgUrl)) {
-                    seenUrls.add(imgUrl);
-                    const filename = imgUrl.split('/').pop() || 'unknown.jpg';
-                    mediaItems.push({
-                        id: `media_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-                        filename: filename,
-                        original_name: filename,
-                        folder: 'products',
-                        mime_type: getMimeType(filename),
-                        size: 0,
-                        dimensions: null,
-                        variants: {},
-                        alt_text: product.name,
-                        caption: '',
-                        tags: [product.category, product.categoryName].filter(Boolean),
-                        usage: { type: 'product', productId: product.id },
-                        storage_url: imgUrl,
-                        created_at: new Date().toISOString(),
-                        updated_at: new Date().toISOString()
-                    });
-                }
-            });
-        }
+    // 1. Products
+    data.products?.forEach(p => {
+        if (p.image) addMedia(p.image, 'products', p.name, { type: 'product', productId: p.id }, p.shortDescription || '', [p.category, p.categoryName]);
+        if (p.thumbnail) addMedia(p.thumbnail, 'products', p.name, { type: 'product', productId: p.id });
+        p.images?.forEach((img: string) => addMedia(img, 'products', p.name, { type: 'product', productId: p.id }));
     });
 
+    // 2. Posts
+    data.posts?.forEach(p => {
+        if (p.image) addMedia(p.image, 'posts', p.title, { type: 'post', postId: p.id }, p.excerpt || '');
+        if (p.featuredImage) addMedia(p.featuredImage, 'posts', p.title, { type: 'post', postId: p.id }, p.excerpt || '');
+        if (p.thumbnail) addMedia(p.thumbnail, 'posts', p.title, { type: 'post', postId: p.id });
+    });
+
+    // 3. Gallery Images
+    data.galleryImages?.forEach(g => {
+        if (g.src) addMedia(g.src, 'gallery', g.alt || g.title || 'Gallery', { type: 'gallery', galleryId: g.id }, g.description || '', g.tags || []);
+        if (g.image) addMedia(g.image, 'gallery', g.alt || g.title || 'Gallery', { type: 'gallery', galleryId: g.id });
+        if (g.thumbnail) addMedia(g.thumbnail, 'gallery', g.alt || g.title || 'Gallery', { type: 'gallery', galleryId: g.id });
+    });
+
+    // 4. Hero Slides
+    data.heroSlides?.forEach(s => {
+        if (s.image) addMedia(s.image, 'slides', s.title || 'Hero Slide', { type: 'slide', slideId: s.id }, s.description || '');
+        if (s.backgroundImage) addMedia(s.backgroundImage, 'slides', s.title || 'Hero Slide', { type: 'slide', slideId: s.id });
+    });
+
+    // 5. Partner Logos
+    data.partnerLogos?.forEach(p => {
+        if (p.logo) addMedia(p.logo, 'partners', p.name, { type: 'partner', partnerId: p.id });
+        if (p.image) addMedia(p.image, 'partners', p.name, { type: 'partner', partnerId: p.id });
+    });
+
+    // 6. Testimonials
+    data.testimonials?.forEach(t => {
+        if (t.avatar) addMedia(t.avatar, 'general', t.name || 'Testimonial', { type: 'testimonial', testimonialId: t.id });
+        if (t.image) addMedia(t.image, 'general', t.name || 'Testimonial', { type: 'testimonial', testimonialId: t.id });
+    });
+
+    // 7. Catalogs
+    data.catalogs?.forEach(c => {
+        if (c.thumbnail) addMedia(c.thumbnail, 'general', c.name || c.title || 'Catalog', { type: 'catalog', catalogId: c.id });
+        if (c.image) addMedia(c.image, 'general', c.name || c.title || 'Catalog', { type: 'catalog', catalogId: c.id });
+    });
+
+    console.log(`  📸 Found ${mediaItems.length} unique images from all sources`);
     return mediaItems;
 }
 
@@ -424,35 +450,49 @@ async function main() {
         // Holiday effects
         await seedTable('holiday_effects', 'holiday-effects.json', transformHolidayEffects);
 
-        // Extract and seed media from products
-        console.log('\n📦 Seeding media from products...');
+        // Extract and seed media from ALL sources
+        console.log('\n📦 Seeding media from all sources...');
         const products = readJsonFile('products.json');
-        if (products && products.length > 0) {
-            const mediaItems = extractMediaFromProducts(products);
-            if (mediaItems.length > 0) {
-                // Clear existing product media first
-                await supabase
+        const posts = readJsonFile('posts.json');
+        const galleryImages = readJsonFile('gallery-images.json');
+        const heroSlides = readJsonFile('hero-slides.json');
+        const partnerLogos = readJsonFile('partner-logos.json');
+        const testimonials = readJsonFile('testimonials.json');
+        const catalogs = readJsonFile('catalogs.json');
+
+        const mediaItems = extractAllMedia({
+            products,
+            posts,
+            galleryImages,
+            heroSlides,
+            partnerLogos,
+            testimonials,
+            catalogs
+        });
+
+        if (mediaItems.length > 0) {
+            // Clear existing media first
+            await supabase
+                .from('media')
+                .delete()
+                .neq('id', '');
+
+            // Insert new media items in batches
+            const batchSize = 50;
+            let insertedCount = 0;
+            for (let i = 0; i < mediaItems.length; i += batchSize) {
+                const batch = mediaItems.slice(i, i + batchSize);
+                const { error } = await supabase
                     .from('media')
-                    .delete()
-                    .eq('folder', 'products');
+                    .insert(batch);
 
-                // Insert new media items in batches
-                const batchSize = 50;
-                let insertedCount = 0;
-                for (let i = 0; i < mediaItems.length; i += batchSize) {
-                    const batch = mediaItems.slice(i, i + batchSize);
-                    const { error } = await supabase
-                        .from('media')
-                        .insert(batch);
-
-                    if (error) {
-                        console.error(`  ⚠️ Batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
-                    } else {
-                        insertedCount += batch.length;
-                    }
+                if (error) {
+                    console.error(`  ⚠️ Batch ${Math.floor(i / batchSize) + 1} error:`, error.message);
+                } else {
+                    insertedCount += batch.length;
                 }
-                console.log(`  ✅ Inserted ${insertedCount}/${mediaItems.length} media items from products`);
             }
+            console.log(`  ✅ Inserted ${insertedCount}/${mediaItems.length} media items from all sources`);
         }
 
         // Settings
@@ -467,6 +507,21 @@ async function main() {
                 console.error('  ❌ Error:', error.message);
             } else {
                 console.log('  ✅ Site settings saved');
+            }
+        }
+
+        // SEO Settings
+        const seoSettings = readJsonFile('seo.json');
+        if (seoSettings && Object.keys(seoSettings).length > 0) {
+            console.log('\n📦 Seeding seo_settings...');
+            const { error } = await supabase
+                .from('seo_settings')
+                .upsert({ key: 'main', value: seoSettings }, { onConflict: 'key' });
+
+            if (error) {
+                console.error('  ❌ Error:', error.message);
+            } else {
+                console.log('  ✅ SEO settings saved');
             }
         }
 
