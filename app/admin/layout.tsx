@@ -172,6 +172,7 @@ export default function AdminLayout({
     'faqs': 'manage_content',
     'certifications': 'manage_content',
     'media-library': 'manage_media',
+    'video-library': 'manage_media',
     'homepage-services': 'manage_appearance',
     'hero-slides': 'manage_appearance',
     'holiday-effects': 'manage_appearance',

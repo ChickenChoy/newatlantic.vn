@@ -20,7 +20,9 @@ import FooterSettingsTab from '@/components/admin/FooterSettingsTab';
 import AppearanceTab from '@/components/admin/AppearanceTab';
 import SocialLinksEditor from '@/components/admin/SocialLinksEditor';
 import MediaLibraryTab from '@/components/admin/MediaLibraryTab';
+import VideoLibraryTab from '@/components/admin/VideoLibraryTab';
 import MediaPicker from '@/components/admin/MediaPicker';
+import VideoPicker from '@/components/admin/VideoPicker';
 import SEOTab from '@/components/admin/SEOTab';
 import TrafficDashboard from '@/components/admin/TrafficDashboard';
 import HomepageServicesTab from '@/components/admin/HomepageServicesTab';
@@ -30,7 +32,7 @@ import UsersManagementTab from '@/components/admin/UsersManagementTab';
 import { useAdminContext } from './layout';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'video-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -814,12 +816,13 @@ export default function AdminPage() {
                                               activeTab === 'faqs' ? 'Câu hỏi thường gặp' :
                                                 activeTab === 'certifications' ? 'Chứng nhận' :
                                                   activeTab === 'media-library' ? 'Thư viện Media' :
-                                                    activeTab === 'seo' ? 'Quản lý SEO' :
-                                                      activeTab === 'homepage-services' ? 'Dịch vụ trang chủ' :
-                                                        activeTab === 'database' ? 'Quản lý Database' :
-                                                          activeTab === 'activity-logs' ? 'Nhật ký hoạt động' :
-                                                            activeTab === 'users' ? 'Quản lý người dùng' :
-                                                              activeTab}
+                                                    activeTab === 'video-library' ? 'Thư viện Video' :
+                                                      activeTab === 'seo' ? 'Quản lý SEO' :
+                                                        activeTab === 'homepage-services' ? 'Dịch vụ trang chủ' :
+                                                          activeTab === 'database' ? 'Quản lý Database' :
+                                                            activeTab === 'activity-logs' ? 'Nhật ký hoạt động' :
+                                                              activeTab === 'users' ? 'Quản lý người dùng' :
+                                                                activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2157,16 +2160,14 @@ export default function AdminPage() {
                         {/* Row 5: Video Upload */}
                         <div>
                           <label className="block text-xs font-medium text-muted mb-1">Video nền (tùy chọn)</label>
-                          <ImageUpload
+                          <VideoPicker
                             value={slide.video || ''}
                             onChange={(value) => {
                               setHeroSlides(heroSlides.map(s =>
                                 s.id === slide.id ? { ...s, video: value } : s
                               ));
                             }}
-                            accept="video/*"
-                            placeholder="URL video hoặc upload (mp4, webm)"
-                            showPreview={false}
+                            placeholder="Chọn video từ thư viện"
                           />
                         </div>
 
@@ -2909,6 +2910,15 @@ export default function AdminPage() {
           activeTab === 'media-library' && (
             <div className="admin-card p-6 relative min-h-[600px]">
               <MediaLibraryTab onRefresh={loadData} />
+            </div>
+          )
+        }
+
+        {/* Thư viện Video Tab */}
+        {
+          activeTab === 'video-library' && (
+            <div className="admin-card p-6 relative min-h-[600px]">
+              <VideoLibraryTab onRefresh={loadData} />
             </div>
           )
         }

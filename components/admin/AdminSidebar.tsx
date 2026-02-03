@@ -42,6 +42,7 @@ const menuGroups: MenuGroup[] = [
     items: [
       { id: 'gallery', name: 'Thư viện ảnh', icon: 'solar:gallery-line-duotone', url: '/admin?tab=gallery' },
       { id: 'media-library', name: 'Thư viện Media', icon: 'solar:cloud-storage-line-duotone', url: '/admin?tab=media-library' },
+      { id: 'video-library', name: 'Thư viện Video', icon: 'solar:video-library-line-duotone', url: '/admin?tab=video-library' },
       { id: 'catalogs', name: 'Catalogs', icon: 'solar:book-2-line-duotone', url: '/admin?tab=catalogs' },
     ]
   },
