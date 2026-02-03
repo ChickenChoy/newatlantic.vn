@@ -1,5 +1,22 @@
 [
   {
+    "id": "log_1770112468171_njjxecsl5",
+    "timestamp": "2026-02-03T09:54:28.171Z",
+    "action": "backup",
+    "entity": "database",
+    "entityName": "backup-supabase-2026-02-03T09-54-23-963Z.json",
+    "user": "Admin",
+    "details": "Tạo bản sao lưu từ Supabase"
+  },
+  {
+    "id": "log_1770112463075_dvwowfjtn",
+    "timestamp": "2026-02-03T09:54:23.075Z",
+    "action": "export",
+    "entity": "database",
+    "user": "Admin",
+    "details": "Xuất 20 bảng, 239 bản ghi từ Supabase"
+  },
+  {
     "id": "log_1770111566190_1tihd1vsg",
     "timestamp": "2026-02-03T09:39:26.190Z",
     "action": "update",
