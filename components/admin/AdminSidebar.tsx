@@ -59,11 +59,10 @@ const menuGroups: MenuGroup[] = [
     ]
   },
   {
-    id: 'appearance',
+    id: 'design',
     name: 'Giao diện',
     icon: 'solar:palette-bold-duotone',
     items: [
-      { id: 'appearance', name: 'Tùy chỉnh giao diện', icon: 'solar:paint-roller-bold-duotone', url: '/admin?tab=appearance' },
       { id: 'holiday-effects', name: 'Hiệu ứng lễ hội', icon: 'solar:confetti-bold-duotone', url: '/admin?tab=holiday-effects' },
       { id: 'page-visibility', name: 'Ẩn/hiện trang', icon: 'solar:eye-bold-duotone', url: '/admin?tab=page-visibility' },
       { id: 'seo', name: 'SEO & Meta', icon: 'solar:graph-up-bold-duotone', url: '/admin?tab=seo' },

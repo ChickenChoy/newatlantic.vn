@@ -1,5 +1,15 @@
 [
   {
+    "id": "log_1770167674350_1eqvz1guu",
+    "timestamp": "2026-02-04T01:14:34.350Z",
+    "action": "delete",
+    "entity": "auth",
+    "entityId": "0f95bb8a-55c6-4d52-bfcf-042f15e278a9",
+    "entityName": "admin@newatlantic.vn",
+    "user": "nhunam1311@gmail.com",
+    "details": "Xóa người dùng: admin"
+  },
+  {
     "id": "log_1770112468171_njjxecsl5",
     "timestamp": "2026-02-03T09:54:28.171Z",
     "action": "backup",
