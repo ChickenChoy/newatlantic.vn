@@ -1,5 +1,53 @@
 [
   {
+    "id": "log_1770180185706_jx4h44uo3",
+    "timestamp": "2026-02-04T04:43:05.706Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "9",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770180185532_1x97flpu7",
+    "timestamp": "2026-02-04T04:43:05.532Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770180169077_vawosc0mg",
+    "timestamp": "2026-02-04T04:42:49.077Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "3",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770180168890_tpjw8dqab",
+    "timestamp": "2026-02-04T04:42:48.890Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "9",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770180160449_sauvz1dj1",
+    "timestamp": "2026-02-04T04:42:40.449Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770180160285_7kf074sdm",
+    "timestamp": "2026-02-04T04:42:40.285Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "3",
+    "user": "Admin"
+  },
+  {
     "id": "log_1770167674350_1eqvz1guu",
     "timestamp": "2026-02-04T01:14:34.350Z",
     "action": "delete",
