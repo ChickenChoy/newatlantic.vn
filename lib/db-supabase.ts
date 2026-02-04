@@ -1469,23 +1469,31 @@ export async function getSEOSettings(): Promise<any> {
 }
 
 export async function saveSEOSettings(settings: any): Promise<boolean> {
-    settings.updatedAt = new Date().toISOString();
+    try {
+        settings.updatedAt = new Date().toISOString();
 
-    console.log('Saving SEO settings...');
+        console.log('Saving SEO settings...');
 
-    const { error } = await getClient()
-        .from('seo_settings')
-        .upsert({
-            key: 'main',
-            value: settings,
-            updated_at: new Date().toISOString()
-        }, { onConflict: 'key' });
+        const client = getClient();
+        console.log('Got Supabase client');
 
-    if (error) {
-        console.error('Error saving SEO settings:', error.message, error.details, error.hint, error.code);
+        const { error } = await client
+            .from('seo_settings')
+            .upsert({
+                key: 'main',
+                value: settings,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'key' });
+
+        if (error) {
+            console.error('Supabase error saving SEO settings:', error.message, error.details, error.hint, error.code);
+            return false;
+        }
+        console.log('SEO settings saved successfully');
+        return true;
+    } catch (err: any) {
+        console.error('Exception in saveSEOSettings:', err.message);
         return false;
     }
-    console.log('SEO settings saved successfully');
-    return true;
 }
 
