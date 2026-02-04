@@ -1471,6 +1471,8 @@ export async function getSEOSettings(): Promise<any> {
 export async function saveSEOSettings(settings: any): Promise<boolean> {
     settings.updatedAt = new Date().toISOString();
 
+    console.log('Saving SEO settings...');
+
     const { error } = await getClient()
         .from('seo_settings')
         .upsert({
@@ -1480,9 +1482,10 @@ export async function saveSEOSettings(settings: any): Promise<boolean> {
         }, { onConflict: 'key' });
 
     if (error) {
-        console.error('Error saving SEO settings:', error);
+        console.error('Error saving SEO settings:', error.message, error.details, error.hint, error.code);
         return false;
     }
+    console.log('SEO settings saved successfully');
     return true;
 }
 
