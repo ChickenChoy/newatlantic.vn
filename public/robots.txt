@@ -1,0 +1,41 @@
+# robots.txt cho trang web
+# Cho phép tất cả các bot
+User-agent: *
+Allow: /
+
+# Chặn các thư mục riêng tư/quản trị
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+Disallow: /api/
+
+# Chặn các file cụ thể
+Disallow: /*.php$
+Disallow: /*.inc$
+
+# Sitemap
+Sitemap: https://newatlantic.vn/sitemap.xml
+
+# Crawl-delay (số giây giữa các request)
+Crawl-delay: 1
+
+# Các bot cụ thể
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Chặn bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
