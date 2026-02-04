@@ -228,7 +228,7 @@ export default function MediaPicker({
             {/* Preview or Placeholder */}
             <div
                 onClick={() => setShowModal(true)}
-                className={`relative border-2 border-dashed border-border dark:border-darkborder rounded-lg cursor-pointer hover:border-primary transition-colors overflow-hidden ${aspectRatioClass} ${value ? 'w-fit max-w-[150px]' : ''}`}
+                className={`relative border-2 border-dashed border-border dark:border-darkborder rounded-lg cursor-pointer hover:border-primary transition-colors overflow-hidden ${value ? 'w-fit' : aspectRatioClass}`}
             >
                 {value ? (
                     <>
@@ -236,7 +236,7 @@ export default function MediaPicker({
                         <img
                             src={value}
                             alt="Selected"
-                            className="w-auto h-auto max-w-[150px] max-h-[120px] object-contain"
+                            className="w-auto h-auto max-w-[150px] max-h-[120px] object-contain block"
                         />
                         {/* Change button overlay - behind clear button */}
                         <div className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 hover:opacity-100 pointer-events-none">
@@ -250,9 +250,9 @@ export default function MediaPicker({
                                 e.preventDefault();
                                 handleClear();
                             }}
-                            className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors z-10"
+                            className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors z-10 shadow-md"
                         >
-                            <Icon icon="solar:close-circle-bold" className="w-3 h-3" />
+                            <Icon icon="solar:close-circle-bold" className="w-4 h-4" />
                         </button>
                     </>
                 ) : (
