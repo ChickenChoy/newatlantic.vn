@@ -1,5 +1,50 @@
 [
   {
+    "id": "log_1770255672503_gxazvzcgi",
+    "timestamp": "2026-02-05T01:41:12.503Z",
+    "action": "update",
+    "entity": "global-partner",
+    "entityId": "willburt",
+    "entityName": "willburt",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770255415913_pbxu9b7wx",
+    "timestamp": "2026-02-05T01:36:55.913Z",
+    "action": "update",
+    "entity": "global-partner",
+    "entityId": "willburt",
+    "entityName": "willburt",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770255400151_west9t4xb",
+    "timestamp": "2026-02-05T01:36:40.151Z",
+    "action": "update",
+    "entity": "global-partner",
+    "entityId": "willburt",
+    "entityName": "willburt",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770255398960_2ku1wl0pq",
+    "timestamp": "2026-02-05T01:36:38.960Z",
+    "action": "update",
+    "entity": "global-partner",
+    "entityId": "willburt",
+    "entityName": "willburt",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770255396244_c7gzi5qzk",
+    "timestamp": "2026-02-05T01:36:36.244Z",
+    "action": "update",
+    "entity": "global-partner",
+    "entityId": "willburt",
+    "entityName": "willburt",
+    "user": "Admin"
+  },
+  {
     "id": "log_1770255322898_8ips5e1xa",
     "timestamp": "2026-02-05T01:35:22.898Z",
     "action": "create",

@@ -9,7 +9,7 @@ import type {
     SiteSettings, OfficeLocation, FooterLink,
     GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory,
     Testimonial, FAQ, Certification, HomepageService, MediaItem, MediaFolder, MediaUsage,
-    HolidayEffect
+    HolidayEffect, GlobalPartnerRegion, GlobalPartner
 } from '@/types';
 
 // Get admin client for server-side operations
@@ -1498,8 +1498,6 @@ export async function saveSEOSettings(settings: any): Promise<boolean> {
 }
 
 // ==================== Global Partner Regions ====================
-
-import type { GlobalPartnerRegion, GlobalPartner } from '@/types';
 
 // Default regions (for initialization)
 const DEFAULT_GLOBAL_REGIONS: GlobalPartnerRegion[] = [

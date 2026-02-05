@@ -30,6 +30,7 @@ const ENTITY_LABELS: Record<ActivityEntity, string> = {
     gallery: 'Thư viện ảnh',
     catalog: 'Catalog',
     partner: 'Đối tác',
+    'global-partner': 'Đối tác đa quốc gia',
     testimonial: 'Đánh giá',
     faq: 'FAQ',
     certification: 'Chứng nhận',
