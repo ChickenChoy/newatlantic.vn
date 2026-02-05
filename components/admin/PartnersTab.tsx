@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Icon } from '@iconify/react';
 import { useToast } from '@/components/ToastProvider';
 import { Button } from '@/components/admin/Button';
@@ -626,9 +627,9 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
             )}
 
             {/* Modal: Add/Edit Logo */}
-            {showLogoModal && (
-                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md">
+            {showLogoModal && createPortal(
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[9999] p-4" onClick={() => setShowLogoModal(false)}>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md" onClick={e => e.stopPropagation()}>
                         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                 {editingLogo ? 'Chỉnh sửa Logo' : 'Thêm Logo mới'}
@@ -702,13 +703,14 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                             </Button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
 
             {/* Modal: Add/Edit Region */}
-            {showRegionModal && (
-                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md">
+            {showRegionModal && createPortal(
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[9999] p-4" onClick={() => setShowRegionModal(false)}>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md" onClick={e => e.stopPropagation()}>
                         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                 {editingRegion ? 'Chỉnh sửa Khu vực' : 'Thêm Khu vực mới'}
@@ -772,13 +774,14 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                             </Button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
 
             {/* Modal: Add/Edit Partner */}
-            {showPartnerModal && (
-                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            {showPartnerModal && createPortal(
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[9999] p-4" onClick={() => setShowPartnerModal(false)}>
+                    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
                         <div className="p-6 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                                 {editingPartner ? 'Chỉnh sửa Đối tác' : 'Thêm Đối tác mới'}
@@ -878,7 +881,8 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                             </Button>
                         </div>
                     </div>
-                </div>
+                </div>,
+                document.body
             )}
         </div>
     );
