@@ -1,5 +1,46 @@
 [
   {
+    "id": "log_1770257681850_g0crshj54",
+    "timestamp": "2026-02-05T02:14:41.850Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "9",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770257681674_mb832pg54",
+    "timestamp": "2026-02-05T02:14:41.674Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770257659050_h8aziwxok",
+    "timestamp": "2026-02-05T02:14:19.050Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "2",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770257658847_0621l0v96",
+    "timestamp": "2026-02-05T02:14:18.847Z",
+    "action": "update",
+    "entity": "holiday-effect",
+    "entityId": "9",
+    "user": "Admin"
+  },
+  {
+    "id": "log_1770257508835_g37j5apm7",
+    "timestamp": "2026-02-05T02:11:48.835Z",
+    "action": "update",
+    "entity": "seo",
+    "entityName": "Cài đặt SEO",
+    "user": "Admin",
+    "details": "Cập nhật cài đặt SEO toàn bộ"
+  },
+  {
     "id": "log_1770255672503_gxazvzcgi",
     "timestamp": "2026-02-05T01:41:12.503Z",
     "action": "update",

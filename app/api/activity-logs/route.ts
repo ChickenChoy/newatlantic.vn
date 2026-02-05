@@ -1,67 +1,81 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
-import { ActivityLog, ActivityAction, ActivityEntity } from '@/types';
+import { createAdminClient } from '@/lib/supabase';
+import { ActivityLog, ActivityAction, ActivityEntity, ActivityChange } from '@/types';
 
-const LOGS_FILE = path.join(process.cwd(), 'data', 'activity-logs.json');
-const MAX_LOGS = 1000;
+const TABLE_NAME = 'activity_logs';
 
-// Đọc logs từ file
-async function readLogs(): Promise<ActivityLog[]> {
-    try {
-        const content = await fs.readFile(LOGS_FILE, 'utf-8');
-        return JSON.parse(content);
-    } catch {
-        return [];
-    }
-}
-
-// Ghi logs vào file
-async function writeLogs(logs: ActivityLog[]): Promise<void> {
-    const trimmed = logs.slice(0, MAX_LOGS);
-    await fs.writeFile(LOGS_FILE, JSON.stringify(trimmed, null, 2), 'utf-8');
+// Helper to convert DB row to ActivityLog
+function rowToActivityLog(row: Record<string, unknown>): ActivityLog {
+    return {
+        id: row.id as string,
+        timestamp: row.timestamp as string,
+        action: row.action as ActivityAction,
+        entity: row.entity as ActivityEntity,
+        entityId: row.entity_id as string | undefined,
+        entityName: row.entity_name as string | undefined,
+        user: (row.user_email as string) || 'Admin',
+        details: row.details as string | undefined,
+        changes: row.changes as ActivityChange[] | undefined,
+        ipAddress: row.ip_address as string | undefined,
+    };
 }
 
 // GET - Lấy danh sách logs với filter
 export async function GET(request: NextRequest) {
     try {
+        const supabase = createAdminClient();
+        if (!supabase) {
+            return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+        }
+
         const searchParams = request.nextUrl.searchParams;
         const action = searchParams.get('action') as ActivityAction | null;
         const entity = searchParams.get('entity') as ActivityEntity | null;
         const startDate = searchParams.get('startDate');
         const endDate = searchParams.get('endDate');
-        const limit = parseInt(searchParams.get('limit') || '100');
+        const limit = parseInt(searchParams.get('limit') || '20');
         const page = parseInt(searchParams.get('page') || '1');
+        const offset = (page - 1) * limit;
 
-        let logs = await readLogs();
+        // Build query
+        let query = supabase
+            .from(TABLE_NAME)
+            .select('*', { count: 'exact' });
 
-        // Apply filters
         if (action) {
-            logs = logs.filter(log => log.action === action);
+            query = query.eq('action', action);
         }
 
         if (entity) {
-            logs = logs.filter(log => log.entity === entity);
+            query = query.eq('entity', entity);
         }
 
         if (startDate) {
-            logs = logs.filter(log => new Date(log.timestamp) >= new Date(startDate));
+            query = query.gte('timestamp', startDate);
         }
 
         if (endDate) {
             const end = new Date(endDate);
             end.setHours(23, 59, 59, 999);
-            logs = logs.filter(log => new Date(log.timestamp) <= end);
+            query = query.lte('timestamp', end.toISOString());
         }
 
-        // Pagination
-        const total = logs.length;
+        query = query
+            .order('timestamp', { ascending: false })
+            .range(offset, offset + limit - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Error fetching activity logs:', error);
+            return NextResponse.json({ error: 'Failed to read activity logs' }, { status: 500 });
+        }
+
+        const total = count || 0;
         const totalPages = Math.ceil(total / limit);
-        const startIndex = (page - 1) * limit;
-        const paginatedLogs = logs.slice(startIndex, startIndex + limit);
 
         return NextResponse.json({
-            logs: paginatedLogs,
+            logs: (data || []).map(rowToActivityLog),
             pagination: {
                 page,
                 limit,
@@ -81,6 +95,11 @@ export async function GET(request: NextRequest) {
 // POST - Tạo log mới
 export async function POST(request: NextRequest) {
     try {
+        const supabase = createAdminClient();
+        if (!supabase) {
+            return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+        }
+
         const body = await request.json();
         const { action, entity, entityId, entityName, user, details, changes } = body;
 
@@ -96,24 +115,29 @@ export async function POST(request: NextRequest) {
         const realIp = request.headers.get('x-real-ip');
         const ipAddress = forwardedFor?.split(',')[0] || realIp || 'unknown';
 
-        const log: ActivityLog = {
-            id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-            timestamp: new Date().toISOString(),
+        const logData = {
             action,
             entity,
-            entityId,
-            entityName,
-            user: user || 'Admin',
+            entity_id: entityId,
+            entity_name: entityName,
+            user_email: user || 'Admin',
             details,
-            changes,
-            ipAddress,
+            changes: changes || null,
+            ip_address: ipAddress,
         };
 
-        const logs = await readLogs();
-        logs.unshift(log);
-        await writeLogs(logs);
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .insert(logData)
+            .select()
+            .single();
 
-        return NextResponse.json({ success: true, log });
+        if (error) {
+            console.error('Error creating activity log:', error);
+            return NextResponse.json({ error: 'Failed to create activity log' }, { status: 500 });
+        }
+
+        return NextResponse.json({ success: true, log: data ? rowToActivityLog(data) : null });
     } catch (error) {
         console.error('Error creating activity log:', error);
         return NextResponse.json(
@@ -126,12 +150,26 @@ export async function POST(request: NextRequest) {
 // DELETE - Xóa logs (có thể xóa tất cả hoặc theo điều kiện)
 export async function DELETE(request: NextRequest) {
     try {
+        const supabase = createAdminClient();
+        if (!supabase) {
+            return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+        }
+
         const searchParams = request.nextUrl.searchParams;
         const clearAll = searchParams.get('clearAll') === 'true';
         const olderThan = searchParams.get('olderThan'); // Số ngày
 
         if (clearAll) {
-            await writeLogs([]);
+            const { error } = await supabase
+                .from(TABLE_NAME)
+                .delete()
+                .neq('id', ''); // Delete all rows
+
+            if (error) {
+                console.error('Error clearing logs:', error);
+                return NextResponse.json({ error: 'Failed to clear logs' }, { status: 500 });
+            }
+
             return NextResponse.json({ success: true, message: 'All logs cleared' });
         }
 
@@ -140,12 +178,18 @@ export async function DELETE(request: NextRequest) {
             const cutoffDate = new Date();
             cutoffDate.setDate(cutoffDate.getDate() - days);
 
-            let logs = await readLogs();
-            const originalCount = logs.length;
-            logs = logs.filter(log => new Date(log.timestamp) > cutoffDate);
-            await writeLogs(logs);
+            const { data: deletedData, error } = await supabase
+                .from(TABLE_NAME)
+                .delete()
+                .lt('timestamp', cutoffDate.toISOString())
+                .select('id');
 
-            const deletedCount = originalCount - logs.length;
+            if (error) {
+                console.error('Error deleting old logs:', error);
+                return NextResponse.json({ error: 'Failed to delete logs' }, { status: 500 });
+            }
+
+            const deletedCount = deletedData?.length || 0;
             return NextResponse.json({
                 success: true,
                 message: `Deleted ${deletedCount} logs older than ${days} days`

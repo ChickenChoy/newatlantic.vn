@@ -228,7 +228,7 @@ export default function MediaPicker({
             {/* Preview or Placeholder */}
             <div
                 onClick={() => setShowModal(true)}
-                className={`relative border-2 border-dashed border-border dark:border-darkborder rounded-lg cursor-pointer hover:border-primary transition-colors overflow-hidden ${value ? 'w-fit' : aspectRatioClass}`}
+                className={`relative border-2 border-dashed border-border dark:border-darkborder rounded-lg cursor-pointer hover:border-primary transition-colors overflow-visible ${value ? 'w-fit' : aspectRatioClass}`}
             >
                 {value ? (
                     <>

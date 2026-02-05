@@ -1,30 +1,59 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { createAdminClient } from './supabase';
 import { ActivityLog, ActivityAction, ActivityEntity, ActivityChange } from '@/types';
 
-const LOGS_FILE = path.join(process.cwd(), 'data', 'activity-logs.json');
+const TABLE_NAME = 'activity_logs';
 const MAX_LOGS = 1000; // Giữ tối đa 1000 logs gần nhất
+
+// Get Supabase admin client (with error handling)
+function getSupabaseAdmin() {
+    const client = createAdminClient();
+    if (!client) {
+        console.warn('Supabase not configured, activity logs will be skipped');
+        return null;
+    }
+    return client;
+}
+
+// Helper to convert DB row to ActivityLog
+function rowToActivityLog(row: Record<string, unknown>): ActivityLog {
+    return {
+        id: row.id as string,
+        timestamp: row.timestamp as string,
+        action: row.action as ActivityAction,
+        entity: row.entity as ActivityEntity,
+        entityId: row.entity_id as string | undefined,
+        entityName: row.entity_name as string | undefined,
+        user: (row.user_email as string) || 'Admin',
+        details: row.details as string | undefined,
+        changes: row.changes as ActivityChange[] | undefined,
+        ipAddress: row.ip_address as string | undefined,
+    };
+}
 
 /**
  * Đọc danh sách activity logs
  */
 export async function getActivityLogs(): Promise<ActivityLog[]> {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return [];
+
     try {
-        const content = await fs.readFile(LOGS_FILE, 'utf-8');
-        return JSON.parse(content);
-    } catch {
-        // File chưa tồn tại, trả về mảng rỗng
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .select('*')
+            .order('timestamp', { ascending: false })
+            .limit(MAX_LOGS);
+
+        if (error) {
+            console.error('Error fetching activity logs:', error);
+            return [];
+        }
+
+        return (data || []).map(rowToActivityLog);
+    } catch (err) {
+        console.error('Exception fetching activity logs:', err);
         return [];
     }
-}
-
-/**
- * Lưu activity logs vào file
- */
-async function saveActivityLogs(logs: ActivityLog[]): Promise<void> {
-    // Chỉ giữ MAX_LOGS logs gần nhất
-    const trimmedLogs = logs.slice(0, MAX_LOGS);
-    await fs.writeFile(LOGS_FILE, JSON.stringify(trimmedLogs, null, 2), 'utf-8');
 }
 
 /**
@@ -39,7 +68,10 @@ export async function logActivity(params: {
     details?: string;
     changes?: ActivityChange[];
     ipAddress?: string;
-}): Promise<ActivityLog> {
+}): Promise<ActivityLog | null> {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return null;
+
     const {
         action,
         entity,
@@ -51,40 +83,59 @@ export async function logActivity(params: {
         ipAddress,
     } = params;
 
-    const log: ActivityLog = {
-        id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        timestamp: new Date().toISOString(),
+    const logData = {
         action,
         entity,
-        entityId,
-        entityName,
-        user,
+        entity_id: entityId,
+        entity_name: entityName,
+        user_email: user,
         details,
-        changes,
-        ipAddress,
+        changes: changes || null,
+        ip_address: ipAddress,
     };
 
-    // Đọc logs hiện tại
-    const logs = await getActivityLogs();
+    try {
+        const { data, error } = await supabase
+            .from(TABLE_NAME)
+            .insert(logData)
+            .select()
+            .single();
 
-    // Thêm log mới vào đầu danh sách
-    logs.unshift(log);
+        if (error) {
+            console.error('Error inserting activity log:', error);
+            return null;
+        }
 
-    // Lưu lại
-    await saveActivityLogs(logs);
-
-    return log;
+        return data ? rowToActivityLog(data) : null;
+    } catch (err) {
+        console.error('Exception inserting activity log:', err);
+        return null;
+    }
 }
 
 /**
  * Xóa tất cả logs (cho mục đích dọn dẹp)
  */
 export async function clearActivityLogs(): Promise<void> {
-    await saveActivityLogs([]);
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return;
+
+    try {
+        const { error } = await supabase
+            .from(TABLE_NAME)
+            .delete()
+            .neq('id', ''); // Delete all rows
+
+        if (error) {
+            console.error('Error clearing activity logs:', error);
+        }
+    } catch (err) {
+        console.error('Exception clearing activity logs:', err);
+    }
 }
 
 /**
- * Lấy logs với filter
+ * Lấy logs với filter và pagination
  */
 export async function getFilteredLogs(params: {
     action?: ActivityAction;
@@ -92,28 +143,55 @@ export async function getFilteredLogs(params: {
     startDate?: string;
     endDate?: string;
     limit?: number;
-}): Promise<ActivityLog[]> {
-    const { action, entity, startDate, endDate, limit = 100 } = params;
+    page?: number;
+}): Promise<{ logs: ActivityLog[]; total: number }> {
+    const supabase = getSupabaseAdmin();
+    if (!supabase) return { logs: [], total: 0 };
 
-    let logs = await getActivityLogs();
+    const { action, entity, startDate, endDate, limit = 20, page = 1 } = params;
+    const offset = (page - 1) * limit;
 
-    if (action) {
-        logs = logs.filter(log => log.action === action);
+    try {
+        // Build query
+        let query = supabase
+            .from(TABLE_NAME)
+            .select('*', { count: 'exact' });
+
+        if (action) {
+            query = query.eq('action', action);
+        }
+
+        if (entity) {
+            query = query.eq('entity', entity);
+        }
+
+        if (startDate) {
+            query = query.gte('timestamp', startDate);
+        }
+
+        if (endDate) {
+            query = query.lte('timestamp', endDate);
+        }
+
+        query = query
+            .order('timestamp', { ascending: false })
+            .range(offset, offset + limit - 1);
+
+        const { data, error, count } = await query;
+
+        if (error) {
+            console.error('Error fetching filtered logs:', error);
+            return { logs: [], total: 0 };
+        }
+
+        return {
+            logs: (data || []).map(rowToActivityLog),
+            total: count || 0,
+        };
+    } catch (err) {
+        console.error('Exception fetching filtered logs:', err);
+        return { logs: [], total: 0 };
     }
-
-    if (entity) {
-        logs = logs.filter(log => log.entity === entity);
-    }
-
-    if (startDate) {
-        logs = logs.filter(log => new Date(log.timestamp) >= new Date(startDate));
-    }
-
-    if (endDate) {
-        logs = logs.filter(log => new Date(log.timestamp) <= new Date(endDate));
-    }
-
-    return logs.slice(0, limit);
 }
 
 // ==================== Helper functions cho các entity cụ thể ====================
@@ -163,11 +241,13 @@ export async function logGalleryAction(
 
 export async function logAuthAction(
     action: 'login' | 'logout',
+    user?: string,
     ipAddress?: string
 ): Promise<void> {
     await logActivity({
         action,
         entity: 'auth',
+        user,
         details: action === 'login' ? 'Đăng nhập thành công' : 'Đăng xuất',
         ipAddress,
     });
@@ -175,24 +255,28 @@ export async function logAuthAction(
 
 export async function logDatabaseAction(
     action: 'export' | 'import' | 'backup' | 'restore',
-    details?: string
+    details?: string,
+    user?: string
 ): Promise<void> {
     await logActivity({
         action,
         entity: 'database',
         details,
+        user,
     });
 }
 
 export async function logMediaAction(
     action: 'upload' | 'delete',
     filename: string,
-    folder?: string
+    folder?: string,
+    user?: string
 ): Promise<void> {
     await logActivity({
         action,
         entity: 'media',
         entityName: filename,
         details: folder ? `Folder: ${folder}` : undefined,
+        user,
     });
 }

@@ -421,7 +421,7 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                         {logos.map(logo => (
                             <div
                                 key={logo.id}
-                                className={`group relative bg-gray-50 dark:bg-gray-700 rounded-xl p-4 border-2 transition-all cursor-pointer ${logo.enabled
+                                className={`group relative bg-gray-50 dark:bg-gray-700 rounded-xl p-4 border-2 transition-all cursor-pointer overflow-visible ${logo.enabled
                                     ? 'border-gray-200 dark:border-gray-600 hover:border-primary'
                                     : 'border-dashed border-gray-300 dark:border-gray-600 opacity-60'
                                     }`}
@@ -441,11 +441,11 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                                     {logo.name}
                                 </p>
 
-                                {/* Quick actions */}
-                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+                                {/* Quick actions - always visible */}
+                                <div className="absolute -top-2 -right-2 flex gap-1 z-10">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); deleteLogo(logo.id); }}
-                                        className="p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                        className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600 shadow-lg"
                                         title="Xóa"
                                     >
                                         <Icon icon="solar:trash-bin-2-bold" height={14} />
