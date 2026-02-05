@@ -17,10 +17,11 @@ export default function GoogleAnalytics() {
     }
   }, [pathname, searchParams, isGALoaded]);
 
-  // Don't load analytics in development
-  if (process.env.NODE_ENV === 'development') {
-    return null;
-  }
+  // TEMPORARILY DISABLED: Enable analytics in development for testing
+  // Uncomment this block to disable analytics in development
+  // if (process.env.NODE_ENV === 'development') {
+  //   return null;
+  // }
 
   return (
     <>

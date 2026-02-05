@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "newatlantic",
+  "private_key_id": "b3682b08098d0df23189defa5d86d3e7b29ddc8d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC9wj/AmiiIw3zU\nJtyPeCv2tQq5KSQp2L2r6gN6bMOjwEtXoArvIqy2AgrBtXLPE3+/DJA71zB2+xHr\nRkgolRQicqhLuJoUjoFLA/6w0cw24b5oKS6hFxVU8p6BragOoIv0Whil4OKbZeK+\nfJq7zCCeXZT2fKCkpzAKbi6/tWcH7xrG/3Co/XgJ8KDcNlfCz5nsnuSEnku5ozLC\nQzMY5p+gWTu77fMpOKpRSkZVAXUI9QhXrMqQyBSkJLxB8ohnsh12RpxVlzPDbzWs\nkjTu3t+aKxQh3xpvBTBmbdrj3VGqbfj8JmsQIS3sY/TKvz4cb+0Qcxj4LXnjRM1E\nc08DwA+pAgMBAAECggEAQMnZyoDX5hoYvLaoB7QYDpuxlZaeaks+NzwnA92uznIR\nR1G1agCEx3/a/FhfYqRdsXUwqb3HJliCvbm5WWHNBhXvsCrPMMWXD23Fv8lh2Dsr\nL5Uf/pBLED3mMJCCGLxoDH3WfIxT0oru5+rTSdtgJ7H78kyK7KzIkkccXwgorWQ2\n1mpcLaXrL+m0SlQWDjctYMb3qzOiTNYtb5jgLXHiFSxzNjb4qOCPcxLXc73bkU7C\nSFq+fwoBzhAvCk3qIvhIMjrsZVbBFqQgGHgEwceixQ38OuLxbE7BmCFUEY9974T4\nLLS5SiEhKV9cYsu/Q76WdVeYkxUHFUzqp1CBCdQGIQKBgQDvJVz/Mx6SKY1Qgnwm\nugFvU6whgSLZ7z+Mxgs6W4IRUARqrBo6E3w9RRRzDpDDDL+Jne/UeF2iV3o4qoc2\nAa+h9KBnMF9avP0go7X8xR0oVXTw+NNunXxOGD91bLcenYyPQogPGzeQHxESgN0w\nmXFs0NRtGzgdIqHTYrXK2Bh6/wKBgQDLIdmDN2zwD49KQ3tmXjs5m7xjzRPda6da\nIpZuATDB2qUUwtQCrI7Xiwo6zth+joiPZL5wWsRQ5DYgEtT7/Ln1BmswSp3TkDmf\n62MpULJg/ySA9xTdtYaHP8cyopVo+IdDQ8SMepr1Fv8pp5rSTL5QyvITcM0oR/Vx\nLyK9n2C9VwKBgQCjN5P+FSyjQzrQnQ4Q/FhoW+oaP+HCblioQq59GOFv4XXyPB32\nT0A3LQOk92bzyKqdSS7bi38UgrHHJRP9Vy9A0Q38/3XFH0F/2lwl9X5N/e0/XgQn\n9dJWFpSRFy7v9UVurVDhRokokxt6znqoZcGVK/4frTkiIXXjKPa8R7qFjwKBgHPS\ngSuIVt0qghFeGOZtpGdcnTZqoIEH+Qwz3IIsu5hNCwOjcy9zJJ9R8CtH9blzm/nm\n/48gsf9NoG75TefAWmeTmVqXsRYIjlLY7FmKYatcz3uZZpRkBKjpfLMqcPbBfp6j\n7VYMMn689hDSODzg9UMr9IuRLelh3lkC/1QPpCFRAoGBAK03MM4dfPbggpA3Tofd\nRC1Khz+hhmZz5/hnurfHYKeMOJg1SKfnER16biEb56hyhprWj1FsQdQbwfJysVP0\nmmstwbV/uxDyGkWBTsm+VYbNTnGsmaBZX0asaC5KNO6+I9kzUlZKZLkdz2AO3qMQ\n7VgYLpkMJsNsVnGls1TZmm3y\n-----END PRIVATE KEY-----\n",
+  "client_email": "newatlantic@newatlantic.iam.gserviceaccount.com",
+  "client_id": "107698384469926566803",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/newatlantic%40newatlantic.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
