@@ -218,13 +218,42 @@ export async function deleteUser(id: string): Promise<boolean> {
         }
     }
 
+    // Delete from Supabase Auth if supabaseId exists
+    if (user.supabaseId) {
+        try {
+            const { error: authError } = await supabase.auth.admin.deleteUser(user.supabaseId);
+            if (authError) {
+                console.error('Error deleting user from Supabase Auth:', authError);
+                // Continue to delete from DB even if Auth deletion fails
+            }
+        } catch (authErr) {
+            console.error('Exception deleting user from Supabase Auth:', authErr);
+            // Continue to delete from DB
+        }
+    } else if (user.email) {
+        // Try to find and delete by email in Supabase Auth
+        try {
+            const { data: authUsers } = await supabase.auth.admin.listUsers();
+            const authUser = authUsers?.users?.find(u => u.email?.toLowerCase() === user.email.toLowerCase());
+            if (authUser) {
+                const { error: authError } = await supabase.auth.admin.deleteUser(authUser.id);
+                if (authError) {
+                    console.error('Error deleting user from Supabase Auth by email:', authError);
+                }
+            }
+        } catch (authErr) {
+            console.error('Exception finding/deleting user from Supabase Auth:', authErr);
+        }
+    }
+
+    // Delete from admin_users table
     const { error } = await supabase
         .from(TABLE_NAME)
         .delete()
         .eq('id', id);
 
     if (error) {
-        console.error('Error deleting user:', error);
+        console.error('Error deleting user from DB:', error);
         throw new Error(error.message);
     }
 

@@ -710,7 +710,7 @@ export default function AdminPage() {
       const response = await fetch('/api/totp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'setup', password: totpPassword }),
+        body: JSON.stringify({ action: 'setup', password: totpPassword, userEmail }),
       });
       const data = await response.json();
       if (response.ok && data.success) {
@@ -760,7 +760,7 @@ export default function AdminPage() {
       const response = await fetch('/api/totp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'disable', password: totpPassword, token: totpDisableCode }),
+        body: JSON.stringify({ action: 'disable', password: totpPassword, token: totpDisableCode, userEmail }),
       });
       const data = await response.json();
       if (response.ok && data.success) {

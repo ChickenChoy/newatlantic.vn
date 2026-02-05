@@ -83,15 +83,20 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case 'setup': {
         try {
-          const { password } = body;
+          const { password, userEmail } = body;
 
           // Verify password is provided
           if (!password) {
             return NextResponse.json({ error: 'Vui lòng nhập mật khẩu' }, { status: 400 });
           }
 
-          // Get the admin email from environment or use default
-          const adminEmail = process.env.ADMIN_EMAIL || 'admin@newatlantic.vn';
+          // Verify userEmail is provided (current logged-in user)
+          if (!userEmail) {
+            return NextResponse.json({ error: 'Thiếu thông tin người dùng' }, { status: 400 });
+          }
+
+          // Use the current logged-in user's email for verification
+          const adminEmail = userEmail;
 
           // Create a separate Supabase client for password verification
           // We use the anon key for auth operations
@@ -211,15 +216,20 @@ export async function POST(request: NextRequest) {
       }
 
       case 'disable': {
-        const { password } = body;
+        const { password, userEmail } = body;
 
         // Verify password is provided
         if (!password) {
           return NextResponse.json({ error: 'Vui lòng nhập mật khẩu' }, { status: 400 });
         }
 
-        // Get the admin email from environment or use default
-        const adminEmail = process.env.ADMIN_EMAIL || 'admin@newatlantic.vn';
+        // Verify userEmail is provided (current logged-in user)
+        if (!userEmail) {
+          return NextResponse.json({ error: 'Thiếu thông tin người dùng' }, { status: 400 });
+        }
+
+        // Use the current logged-in user's email for verification
+        const adminEmail = userEmail;
 
         // Create a separate Supabase client for password verification
         const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
