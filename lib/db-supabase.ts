@@ -1497,3 +1497,266 @@ export async function saveSEOSettings(settings: any): Promise<boolean> {
     }
 }
 
+// ==================== Global Partner Regions ====================
+
+import type { GlobalPartnerRegion, GlobalPartner } from '@/types';
+
+// Default regions (for initialization)
+const DEFAULT_GLOBAL_REGIONS: GlobalPartnerRegion[] = [
+    { id: 'north-america', name: 'North America', nameVi: 'Bắc Mỹ', order: 0, enabled: true },
+    { id: 'europe', name: 'Europe', nameVi: 'Châu Âu', order: 1, enabled: true },
+    { id: 'middle-east', name: 'Middle East', nameVi: 'Trung Đông', order: 2, enabled: true },
+    { id: 'asia', name: 'Asia', nameVi: 'Châu Á', order: 3, enabled: true },
+    { id: 'southeast-asia', name: 'Southeast Asia', nameVi: 'Đông Nam Á', order: 4, enabled: true },
+];
+
+// Default partners (for initialization)
+const DEFAULT_GLOBAL_PARTNERS: GlobalPartner[] = [
+    { id: 'willburt', regionId: 'north-america', name: 'WILL-BURT (USA)', country: 'USA', order: 0, enabled: true },
+    { id: 'moffett', regionId: 'north-america', name: 'Moffett (USA)', country: 'USA', order: 1, enabled: true },
+    { id: 'hiab', regionId: 'europe', name: 'HIAB (Sweden)', country: 'Sweden', order: 0, enabled: true },
+    { id: 'effer', regionId: 'europe', name: 'EFFER (Italy)', country: 'Italy', order: 1, enabled: true },
+    { id: 'clarkmasts', regionId: 'europe', name: 'Clark Masts (UK)', country: 'UK', order: 2, enabled: true },
+    { id: 'petronas', regionId: 'middle-east', name: 'Petronas', country: 'Malaysia', order: 0, enabled: true },
+    { id: 'skymark', regionId: 'asia', name: 'SKYMARK', country: 'South Korea', order: 0, enabled: true },
+    { id: 'lovol', regionId: 'asia', name: 'LOVOL (China)', country: 'China', order: 1, enabled: true },
+    { id: 'eldis', regionId: 'asia', name: 'Eldis (Czech)', country: 'Czech Republic', order: 2, enabled: true },
+    { id: 'stairborne', regionId: 'asia', name: 'ST Airborne', country: 'Singapore', order: 3, enabled: true },
+    { id: 'newatlantic', regionId: 'southeast-asia', name: 'NEW ATLANTIC (Vietnam) 🇻🇳', country: 'Vietnam', order: 0, enabled: true },
+];
+
+export async function getGlobalPartnerRegions(): Promise<GlobalPartnerRegion[]> {
+    const { data, error } = await getClient()
+        .from('global_partner_regions')
+        .select('*')
+        .order('order_index', { ascending: true });
+
+    if (error) {
+        console.error('Error fetching global partner regions:', error);
+        // Return defaults if table doesn't exist yet
+        return DEFAULT_GLOBAL_REGIONS;
+    }
+
+    if (!data || data.length === 0) {
+        return DEFAULT_GLOBAL_REGIONS;
+    }
+
+    return data.map((item: any) => ({
+        id: item.id,
+        name: item.name,
+        nameVi: item.name_vi,
+        order: item.order_index,
+        enabled: item.enabled,
+    }));
+}
+
+export async function addGlobalPartnerRegion(region: GlobalPartnerRegion): Promise<boolean> {
+    const { error } = await getClient()
+        .from('global_partner_regions')
+        .insert({
+            id: region.id,
+            name: region.name,
+            name_vi: region.nameVi,
+            order_index: region.order,
+            enabled: region.enabled,
+        });
+
+    if (error) {
+        console.error('Error adding global partner region:', error);
+        return false;
+    }
+    return true;
+}
+
+export async function updateGlobalPartnerRegion(id: string, updates: Partial<GlobalPartnerRegion>): Promise<boolean> {
+    const dbUpdates: any = {};
+    if (updates.name !== undefined) dbUpdates.name = updates.name;
+    if (updates.nameVi !== undefined) dbUpdates.name_vi = updates.nameVi;
+    if (updates.order !== undefined) dbUpdates.order_index = updates.order;
+    if (updates.enabled !== undefined) dbUpdates.enabled = updates.enabled;
+
+    const { error } = await getClient()
+        .from('global_partner_regions')
+        .update(dbUpdates)
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error updating global partner region:', error);
+        return false;
+    }
+    return true;
+}
+
+export async function deleteGlobalPartnerRegion(id: string): Promise<boolean> {
+    // First delete all partners in this region
+    await getClient()
+        .from('global_partners')
+        .delete()
+        .eq('region_id', id);
+
+    const { error } = await getClient()
+        .from('global_partner_regions')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error deleting global partner region:', error);
+        return false;
+    }
+    return true;
+}
+
+export async function saveGlobalPartnerRegions(regions: GlobalPartnerRegion[]): Promise<boolean> {
+    const dbData = regions.map(r => ({
+        id: r.id,
+        name: r.name,
+        name_vi: r.nameVi,
+        order_index: r.order,
+        enabled: r.enabled,
+    }));
+
+    const { error } = await getClient()
+        .from('global_partner_regions')
+        .upsert(dbData, { onConflict: 'id' });
+
+    if (error) {
+        console.error('Error saving global partner regions:', error);
+        return false;
+    }
+    return true;
+}
+
+// ==================== Global Partners ====================
+
+export async function getGlobalPartners(): Promise<GlobalPartner[]> {
+    const { data, error } = await getClient()
+        .from('global_partners')
+        .select('*')
+        .order('order_index', { ascending: true });
+
+    if (error) {
+        console.error('Error fetching global partners:', error);
+        // Return defaults if table doesn't exist yet
+        return DEFAULT_GLOBAL_PARTNERS;
+    }
+
+    if (!data || data.length === 0) {
+        return DEFAULT_GLOBAL_PARTNERS;
+    }
+
+    return data.map((item: any) => ({
+        id: item.id,
+        regionId: item.region_id,
+        name: item.name,
+        country: item.country,
+        logo: item.logo,
+        url: item.url,
+        order: item.order_index,
+        enabled: item.enabled,
+    }));
+}
+
+export async function getGlobalPartnersByRegion(regionId: string): Promise<GlobalPartner[]> {
+    const { data, error } = await getClient()
+        .from('global_partners')
+        .select('*')
+        .eq('region_id', regionId)
+        .order('order_index', { ascending: true });
+
+    if (error) {
+        console.error('Error fetching global partners by region:', error);
+        return DEFAULT_GLOBAL_PARTNERS.filter(p => p.regionId === regionId);
+    }
+
+    return (data || []).map((item: any) => ({
+        id: item.id,
+        regionId: item.region_id,
+        name: item.name,
+        country: item.country,
+        logo: item.logo,
+        url: item.url,
+        order: item.order_index,
+        enabled: item.enabled,
+    }));
+}
+
+export async function addGlobalPartner(partner: GlobalPartner): Promise<boolean> {
+    const { error } = await getClient()
+        .from('global_partners')
+        .insert({
+            id: partner.id,
+            region_id: partner.regionId,
+            name: partner.name,
+            country: partner.country,
+            logo: partner.logo,
+            url: partner.url,
+            order_index: partner.order,
+            enabled: partner.enabled,
+        });
+
+    if (error) {
+        console.error('Error adding global partner:', error);
+        return false;
+    }
+    return true;
+}
+
+export async function updateGlobalPartner(id: string, updates: Partial<GlobalPartner>): Promise<boolean> {
+    const dbUpdates: any = {};
+    if (updates.regionId !== undefined) dbUpdates.region_id = updates.regionId;
+    if (updates.name !== undefined) dbUpdates.name = updates.name;
+    if (updates.country !== undefined) dbUpdates.country = updates.country;
+    if (updates.logo !== undefined) dbUpdates.logo = updates.logo;
+    if (updates.url !== undefined) dbUpdates.url = updates.url;
+    if (updates.order !== undefined) dbUpdates.order_index = updates.order;
+    if (updates.enabled !== undefined) dbUpdates.enabled = updates.enabled;
+
+    const { error } = await getClient()
+        .from('global_partners')
+        .update(dbUpdates)
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error updating global partner:', error);
+        return false;
+    }
+    return true;
+}
+
+export async function deleteGlobalPartner(id: string): Promise<boolean> {
+    const { error } = await getClient()
+        .from('global_partners')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error deleting global partner:', error);
+        return false;
+    }
+    return true;
+}
+
+export async function saveGlobalPartners(partners: GlobalPartner[]): Promise<boolean> {
+    const dbData = partners.map(p => ({
+        id: p.id,
+        region_id: p.regionId,
+        name: p.name,
+        country: p.country,
+        logo: p.logo,
+        url: p.url,
+        order_index: p.order,
+        enabled: p.enabled,
+    }));
+
+    const { error } = await getClient()
+        .from('global_partners')
+        .upsert(dbData, { onConflict: 'id' });
+
+    if (error) {
+        console.error('Error saving global partners:', error);
+        return false;
+    }
+    return true;
+}
+
+

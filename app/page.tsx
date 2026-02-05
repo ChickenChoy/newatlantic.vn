@@ -736,39 +736,66 @@ export default async function HomePage() {
               </ScrollAnimation>
             </div>
 
-            {/* Partners Grid */}
+            {/* Partners Grid - Dynamic from Admin */}
             <ScrollAnimation direction="up">
               <div className="max-w-6xl mx-auto">
-                {/* First row - 3 logos */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mb-4 mx-auto">
-                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                {partnerLogos.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+                    {partnerLogos.map((logo: any) => (
+                      <div
+                        key={logo.id}
+                        className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]"
+                      >
+                        {logo.url ? (
+                          <a href={logo.url} target="_blank" rel="noopener noreferrer" className="w-full h-full flex items-center justify-center">
+                            <img
+                              src={logo.logo}
+                              alt={logo.name}
+                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                            />
+                          </a>
+                        ) : (
+                          <img
+                            src={logo.logo}
+                            alt={logo.name}
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                          />
+                        )}
+                      </div>
+                    ))}
                   </div>
-                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                </div>
+                ) : (
+                  /* Fallback - hardcoded if no data in database */
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mb-4 mx-auto">
+                      <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                        <img src="/images/partner/airbones.png" alt="ST Airborne Systems" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                        <img src="/images/partner/eldis.png" alt="Eldis Radar Systems" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                        <img src="/images/partner/hiab.png" alt="HIAB" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+                      <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                        <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                        <img src="/images/partner/LS.png" alt="SKYMARK" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
+                        <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    </div>
+                  </>
+                )}
 
-                {/* Second row - 3 logos */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/lovol.png" alt="Weichai Lovol" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/LS.png" alt="SKYMARK" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]">
-                    <img src="/images/partner/petronas.png" alt="Petronas" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-                  </div>
+                {/* Interactive Partner Map */}
+                <div className="mt-12">
+                  <InteractivePartnerMap />
                 </div>
-              </div>
-
-              {/* Interactive Partner Map */}
-              <div className="mt-12">
-                <InteractivePartnerMap />
               </div>
             </ScrollAnimation>
           </div>

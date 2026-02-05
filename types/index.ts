@@ -154,7 +154,7 @@ export interface HomepageStat {
   order: number;
 }
 
-// Partner Logos - Logo đối tác
+// Partner Logos - Logo đối tác (homepage banner)
 export interface PartnerLogo {
   id: string;
   name: string;
@@ -162,6 +162,27 @@ export interface PartnerLogo {
   url?: string;
   order: number;
   enabled: boolean;
+}
+
+// Global Partner Regions - Đối tác đa quốc gia (bản đồ thế giới)
+export interface GlobalPartnerRegion {
+  id: string;
+  name: string;           // English name (e.g., "North America")
+  nameVi: string;         // Vietnamese name (e.g., "Bắc Mỹ")
+  order: number;          // Display order
+  enabled: boolean;       // Show/hide this region
+}
+
+// Global Partners - Đối tác trong từng vùng
+export interface GlobalPartner {
+  id: string;
+  regionId: string;       // Reference to GlobalPartnerRegion.id
+  name: string;           // Partner name (e.g., "WILL-BURT (USA)")
+  country?: string;       // Country name
+  logo?: string;          // Optional partner logo URL
+  url?: string;           // Optional website URL
+  order: number;          // Display order within region
+  enabled: boolean;       // Show/hide this partner
 }
 
 // Post Categories - Danh mục tin tức & sự kiện
@@ -307,6 +328,7 @@ export type ActivityEntity =
   | 'gallery'
   | 'catalog'
   | 'partner'
+  | 'global-partner'
   | 'testimonial'
   | 'faq'
   | 'certification'
