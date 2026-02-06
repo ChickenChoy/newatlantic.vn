@@ -119,6 +119,7 @@ export default function ProductCard({ product, className = '', hideQuickView = f
             <button
               onClick={handleQuickView}
               className="absolute top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 md:opacity-0 md:group-hover:opacity-100 rounded-full bg-white/95 shadow-md hover:shadow-lg hover:bg-white"
+              aria-label={`Xem nhanh sản phẩm ${product.name}`}
               title="Xem nhanh"
             >
               <svg
@@ -127,6 +128,7 @@ export default function ProductCard({ product, className = '', hideQuickView = f
                 stroke="currentColor"
                 strokeWidth={2}
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

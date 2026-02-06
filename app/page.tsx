@@ -13,6 +13,7 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import TypingText from '@/components/TypingText';
 import HolidayBanner from '@/components/HolidayBanner';
+import EmptyState from '@/components/EmptyState';
 import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db-supabase';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -428,8 +429,9 @@ export default async function HomePage() {
                   <div className="h-40 sm:h-44 md:h-48 bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative overflow-hidden p-6">
                     <img
                       src={category.image || '/images/box-image/MAY.jpg'}
-                      alt={category.name}
+                      alt={`${category.name} - ${category.description || 'Thiết bị công nghiệp chính hãng'}`}
                       className="w-full h-full object-contain object-center group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
                     />
                   </div>
                   <div className="p-5 md:p-6 flex flex-col flex-grow">
@@ -602,21 +604,30 @@ export default async function HomePage() {
               </div>
             </ScrollAnimation>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {featuredProducts.map((product, index) => (
-              <ScrollAnimation
-                key={product.id}
-                direction={index % 2 === 0 ? 'left' : 'right'}
-                delay={index * 150}
-                className="h-full"
-              >
-                <ProductCard
-                  product={product}
+          {featuredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {featuredProducts.map((product, index) => (
+                <ScrollAnimation
+                  key={product.id}
+                  direction={index % 2 === 0 ? 'left' : 'right'}
+                  delay={index * 150}
                   className="h-full"
-                />
-              </ScrollAnimation>
-            ))}
-          </div>
+                >
+                  <ProductCard
+                    product={product}
+                    className="h-full"
+                  />
+                </ScrollAnimation>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="Chưa có sản phẩm nổi bật"
+              description="Hiện tại chưa có sản phẩm nào được đánh dấu là nổi bật. Vui lòng quay lại sau hoặc xem tất cả sản phẩm của chúng tôi."
+              actionLabel="Xem tất cả sản phẩm"
+              actionHref="/san-pham"
+            />
+          )}
         </div>
       </section>
 
