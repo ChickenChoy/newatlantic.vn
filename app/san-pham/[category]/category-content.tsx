@@ -3,8 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { Suspense as SuspenseBoundary } from 'react';
-import ProductCard from '@/components/ProductCard';
-import Pagination from '@/components/Pagination';
+import InfiniteProductList from '@/components/InfiniteProductList';
 import ProductFilter from '@/components/ProductFilter';
 import HolidayBanner from '@/components/HolidayBanner';
 import Link from 'next/link';
@@ -129,44 +128,13 @@ function CategoryContentInner({
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
-            {/* Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-              {paginatedProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  className="h-full"
-                />
-              ))}
-            </div>
-
-            {/* Empty State for Search */}
-            {paginatedProducts.length === 0 && searchQuery && (
-              <div className="text-center py-20 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
-                <div className="max-w-md mx-auto">
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Không tìm thấy sản phẩm</h3>
-                  <p className="text-gray-400 mb-6">Không có sản phẩm nào phù hợp với từ khóa "{searchQuery}"</p>
-                </div>
-              </div>
-            )}
-
-            {/* Pagination */}
-            {paginatedProducts.length > 0 && (
-              <div className="mt-12">
-                <Pagination
-                  currentPage={validPage}
-                  totalPages={totalPages}
-                  totalItems={filteredProducts.length}
-                  itemsPerPage={ITEMS_PER_PAGE}
-                  baseUrl={`/san-pham/${categorySlug}`}
-                />
-              </div>
-            )}
+            {/* Infinite Scroll Products List */}
+            <InfiniteProductList
+              initialProducts={filteredProducts.slice(0, ITEMS_PER_PAGE)}
+              category={categorySlug}
+              searchQuery={searchQuery}
+              pageSize={ITEMS_PER_PAGE}
+            />
           </div>
         </div>
       )}

@@ -2,14 +2,14 @@
 
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useMemo, useState } from 'react';
-import ProductCard from '@/components/ProductCard';
-import Pagination from '@/components/Pagination';
+import InfiniteProductList from '@/components/InfiniteProductList';
 import ProductFilter from '@/components/ProductFilter';
 import Link from 'next/link';
 import { generateBreadcrumbSchema } from '@/lib/seo';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
 import HolidayBanner from '@/components/HolidayBanner';
 import { Product, Category } from '@/types';
+import { ProductListSkeleton } from '@/components/LoadingIndicator';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -144,82 +144,12 @@ function ProductsPageContent() {
             </div>
           </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-            {paginatedProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                className="h-full"
-              />
-            ))}
-          </div>
-
-          {/* Enhanced Empty State */}
-          {paginatedProducts.length === 0 && (
-            <div className="text-center py-20 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/10">
-              <div className="max-w-md mx-auto">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Không tìm thấy sản phẩm</h3>
-                <p className="text-gray-400 mb-6">Thử tìm kiếm với từ khóa khác hoặc xem các gợi ý bên dưới</p>
-
-                {/* Popular Keywords */}
-                <div className="mb-8">
-                  <p className="text-sm text-gray-500 mb-3">Từ khóa phổ biến:</p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    {popularKeywords.slice(0, 4).map((keyword) => (
-                      <Link
-                        key={keyword}
-                        href={`/san-pham?q=${encodeURIComponent(keyword)}`}
-                        className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg text-sm font-medium hover:bg-blue-500/30 transition-colors"
-                      >
-                        {keyword}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Link
-                    href="/san-pham"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-lg hover:scale-105 transition-all"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    Xem tất cả sản phẩm
-                  </Link>
-                  <Link
-                    href="/"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-gray-300 border border-white/20 rounded-xl font-semibold hover:bg-white/15 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                    Về trang chủ
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Pagination */}
-          {paginatedProducts.length > 0 && (
-            <div className="mt-12">
-              <Pagination
-                currentPage={validPage}
-                totalPages={totalPages}
-                totalItems={filteredProducts.length}
-                itemsPerPage={ITEMS_PER_PAGE}
-                baseUrl="/san-pham"
-              />
-            </div>
-          )}
+          {/* Infinite Scroll Products List */}
+          <InfiniteProductList
+            initialProducts={filteredProducts.slice(0, ITEMS_PER_PAGE)}
+            searchQuery={searchQuery}
+            pageSize={ITEMS_PER_PAGE}
+          />
         </div>
       </div>
     </>
