@@ -191,6 +191,27 @@ export default function Toast({
   );
 }
 
+// Confirm Dialog Types
+export interface ConfirmOptions {
+  title?: string;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+  type?: 'danger' | 'warning' | 'info';
+}
+
+// Global Toast and Confirm handlers
+let globalToastHandler: ((toast: ToastProps) => void) | null = null;
+let globalConfirmHandler: ((options: ConfirmOptions) => Promise<boolean>) | null = null;
+
+export function setGlobalToastHandler(handler: (toast: ToastProps) => void) {
+  globalToastHandler = handler;
+}
+
+export function setGlobalConfirmHandler(handler: (options: ConfirmOptions) => Promise<boolean>) {
+  globalConfirmHandler = handler;
+}
+
 // Toast Manager Hook
 export function useToast() {
   const [toasts, setToasts] = useState<Array<ToastProps & { id: number }>>([]);
@@ -202,6 +223,14 @@ export function useToast() {
 
   const removeToast = (id: number) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const confirm = (options: ConfirmOptions): Promise<boolean> => {
+    if (!globalConfirmHandler) {
+      console.error('Confirm handler not set. Make sure ToastProvider is mounted.');
+      return Promise.resolve(false);
+    }
+    return globalConfirmHandler(options);
   };
 
   return {
@@ -216,14 +245,8 @@ export function useToast() {
       showToast({ message, type: 'warning', ...options }),
     info: (message: string, options?: Partial<ToastProps>) =>
       showToast({ message, type: 'info', ...options }),
+    confirm,
   };
-}
-
-// Global Toast function for easy usage
-let globalToastHandler: ((toast: ToastProps) => void) | null = null;
-
-export function setGlobalToastHandler(handler: (toast: ToastProps) => void) {
-  globalToastHandler = handler;
 }
 
 export const toast = {
@@ -238,5 +261,12 @@ export const toast = {
   },
   info: (message: string, options?: Partial<ToastProps>) => {
     globalToastHandler?.({ message, type: 'info', ...options });
+  },
+  confirm: (options: ConfirmOptions): Promise<boolean> => {
+    if (!globalConfirmHandler) {
+      console.error('Confirm handler not set. Make sure ToastProvider is mounted.');
+      return Promise.resolve(false);
+    }
+    return globalConfirmHandler(options);
   },
 };
