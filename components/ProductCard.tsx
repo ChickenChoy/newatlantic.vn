@@ -40,8 +40,16 @@ export default function ProductCard({ product, className = '', hideQuickView = f
   const handleWishlistToggle = (liked: boolean) => {
     if (!liked) {
       WishlistManager.removeFromWishlist(product.id);
+      // Dynamic import toast to avoid bundling issues
+      import('@/components/ToastProvider').then(({ toast }) => {
+        toast.info('Đã xóa khỏi yêu thích');
+      });
     } else {
       WishlistManager.addToWishlist(product);
+      // Dynamic import toast to avoid bundling issues
+      import('@/components/ToastProvider').then(({ toast }) => {
+        toast.success(`Đã thêm "${product.name}" vào yêu thích`);
+      });
     }
   };
 

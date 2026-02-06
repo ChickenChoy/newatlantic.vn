@@ -33,9 +33,17 @@ export default function ProductPageContent({ product, relatedProducts }: Product
     if (isInWishlist) {
       WishlistManager.removeFromWishlist(product.id);
       setIsInWishlist(false);
+      // Dynamic import toast to avoid bundling issues
+      import('@/components/ToastProvider').then(({ toast }) => {
+        toast.info('Đã xóa khỏi yêu thích');
+      });
     } else {
       WishlistManager.addToWishlist(product);
       setIsInWishlist(true);
+      // Dynamic import toast to avoid bundling issues
+      import('@/components/ToastProvider').then(({ toast }) => {
+        toast.success(`Đã thêm "${product.name}" vào yêu thích`);
+      });
     }
   };
 

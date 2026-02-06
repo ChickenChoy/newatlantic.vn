@@ -5,11 +5,9 @@ import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { WishlistManager } from '@/lib/wishlist';
 import { Product } from '@/types';
-import { useToast } from '@/components/ToastProvider';
 import HolidayBanner from '@/components/HolidayBanner';
 
 export default function WishlistPage() {
-  const toast = useToast();
   const [wishlist, setWishlist] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMounted, setHasMounted] = useState(false);
@@ -41,20 +39,27 @@ export default function WishlistPage() {
     };
   }, []);
 
-  const removeFromWishlist = (productId: string) => {
-    WishlistManager.removeFromWishlist(productId);
+  const removeFromWishlist = (productId: string, productName: string) => {
+    if (window.confirm(`Xóa "${productName}" khỏi danh sách yêu thích?`)) {
+      WishlistManager.removeFromWishlist(productId);
+      // Dynamic import toast to show notification
+      import('@/components/ToastProvider').then(({ toast }) => {
+        toast.info(`Đã xóa "${productName}" khỏi yêu thích`);
+      }).catch((err) => {
+        console.error('Failed to load toast:', err);
+      });
+    }
   };
 
-  const clearAll = async () => {
-    const confirmed = await toast.confirm({
-      title: 'Xác nhận xóa',
-      message: 'Bạn có chắc chắn muốn xóa tất cả sản phẩm yêu thích?',
-      confirmText: 'Xóa tất cả',
-      type: 'danger'
-    });
-    if (confirmed) {
+  const clearAll = () => {
+    if (window.confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm yêu thích?')) {
       WishlistManager.clearWishlist();
-      toast.success('Đã xóa tất cả sản phẩm yêu thích!');
+      // Dynamic import toast to show notification
+      import('@/components/ToastProvider').then(({ toast }) => {
+        toast.success('Đã xóa tất cả sản phẩm yêu thích!');
+      }).catch((err) => {
+        console.error('Failed to load toast:', err);
+      });
     }
   };
 
@@ -127,14 +132,26 @@ export default function WishlistPage() {
                     key={product.id}
                     className="relative group animate-fade-in-up"
                   >
-                    {/* Remove from wishlist button */}
+                    {/* Improved Remove Button - Bigger, with text, easier to click */}
                     <button
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        removeFromWishlist(product.id);
+                        removeFromWishlist(product.id, product.name);
                       }}
-                      className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-300 transform hover:scale-110 border border-gray-100"
+                      className="absolute -top-3 -right-3 z-20 
+                        flex items-center gap-2 
+                        px-4 py-2.5 
+                        bg-gradient-to-r from-red-500 to-rose-600 
+                        text-white rounded-xl 
+                        shadow-lg shadow-red-500/30
+                        hover:shadow-xl hover:shadow-red-500/50
+                        hover:scale-105
+                        transition-all duration-300 
+                        font-semibold text-sm
+                        border-2 border-white/20
+                        opacity-0 group-hover:opacity-100
+                        sm:opacity-100"
                       title="Xóa khỏi yêu thích"
                     >
                       <svg
@@ -143,8 +160,9 @@ export default function WishlistPage() {
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
+                      <span className="hidden sm:inline">Xóa</span>
                     </button>
                     <div className="h-full transform transition-all duration-500 hover:-translate-y-2">
                       <ProductCard

@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import ProgressBar from "@/components/ProgressBar";
-import ToastProvider from "@/components/ToastProvider";
+import { ToastProvider } from "@/components/ToastProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { siteConfig } from "@/lib/seo";
