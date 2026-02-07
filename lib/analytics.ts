@@ -20,7 +20,7 @@ declare global {
 
 declare namespace Gtag {
   type Gtag = (
-    command: 'config' | 'event' | 'js' | 'set',
+    command: 'config' | 'event' | 'js' | 'set' | 'consent',
     targetOrDate: string | Date,
     params?: Record<string, GtagValue>
   ) => void;
@@ -41,7 +41,7 @@ export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
  */
 export const initGA = () => {
   if (typeof window === 'undefined') return;
-  
+
   window.dataLayer = window.dataLayer || [];
   window.gtag = function gtag() {
     window.dataLayer.push(arguments);
@@ -58,7 +58,7 @@ export const initGA = () => {
  */
 export const pageview = (url: string) => {
   if (typeof window === 'undefined') return;
-  
+
   window.gtag('config', GA_MEASUREMENT_ID, {
     page_path: url,
   });
@@ -79,7 +79,7 @@ export const event = ({
   value?: number;
 }) => {
   if (typeof window === 'undefined') return;
-  
+
   window.gtag('event', action, {
     event_category: category,
     event_label: label,
@@ -106,7 +106,7 @@ export const trackProductView = (product: {
     category: 'ecommerce',
     label: product.name,
   });
-  
+
   if (typeof window !== 'undefined') {
     window.gtag('event', 'view_item', {
       currency: 'VND',
@@ -136,7 +136,7 @@ export const trackAddToWishlist = (product: {
     category: 'ecommerce',
     label: product.name,
   });
-  
+
   if (typeof window !== 'undefined') {
     window.gtag('event', 'add_to_wishlist', {
       items: [
@@ -159,7 +159,7 @@ export const trackSearch = (searchTerm: string) => {
     category: 'engagement',
     label: searchTerm,
   });
-  
+
   if (typeof window !== 'undefined') {
     window.gtag('event', 'search', {
       search_term: searchTerm,
@@ -176,7 +176,7 @@ export const trackContactForm = (formType: string) => {
     category: 'engagement',
     label: formType,
   });
-  
+
   if (typeof window !== 'undefined') {
     window.gtag('event', 'generate_lead', {
       currency: 'VND',
@@ -216,7 +216,7 @@ export const trackSocialShare = (platform: string, url: string) => {
     category: 'engagement',
     label: `${platform} - ${url}`,
   });
-  
+
   if (typeof window !== 'undefined') {
     window.gtag('event', 'share', {
       method: platform,
@@ -291,7 +291,7 @@ export const trackTimeOnPage = (seconds: number) => {
  */
 export const pushToDataLayer = (data: Record<string, any>) => {
   if (typeof window === 'undefined') return;
-  
+
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(data);
 };
@@ -340,7 +340,7 @@ export const trackError = (error: Error, errorInfo?: { componentStack?: string }
     category: 'error',
     label: `${error.message} - ${error.stack?.substring(0, 150)}`,
   });
-  
+
   if (typeof window !== 'undefined') {
     window.gtag('event', 'exception', {
       description: error.message,

@@ -3,7 +3,7 @@
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { pageview, GA_MEASUREMENT_ID, GTM_ID } from '@/lib/analytics';
+import { pageview, GA_MEASUREMENT_ID } from '@/lib/analytics';
 
 // Extend Window interface for Do Not Track
 declare global {
@@ -62,6 +62,21 @@ export default function GoogleAnalytics() {
     };
   }, []);
 
+  // Update consent mode when consent changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.gtag) return;
+
+    if (hasConsent) {
+      window.gtag('consent', 'update', {
+        analytics_storage: 'granted',
+      });
+    } else {
+      window.gtag('consent', 'update', {
+        analytics_storage: 'denied',
+      });
+    }
+  }, [hasConsent]);
+
   // Track page views only if consent is given
   useEffect(() => {
     if (pathname && isGALoaded && hasConsent) {
@@ -70,36 +85,43 @@ export default function GoogleAnalytics() {
     }
   }, [pathname, searchParams, isGALoaded, hasConsent]);
 
-  // Don't load analytics if no consent
-  if (!hasConsent) {
+  // Don't render if no measurement ID
+  if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
     return null;
   }
 
+  // ALWAYS load the gtag script (Google needs to detect it for verification)
+  // Use Consent Mode v2 to control data collection based on user consent
   return (
     <>
-      {/* Google Tag Manager */}
+      {/* Google Analytics 4 - Consent Mode v2 */}
+      {/* Default consent: denied until user accepts */}
       <Script
-        id="gtm-script"
-        strategy="afterInteractive"
+        id="ga-consent-default"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${GTM_ID}');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              wait_for_update: 500
+            });
           `,
         }}
       />
 
-      {/* Google Analytics 4 */}
+      {/* Load gtag.js */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         onLoad={() => setIsGALoaded(true)}
       />
       <Script
-        id="ga-script"
+        id="ga-config"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -108,24 +130,13 @@ export default function GoogleAnalytics() {
             gtag('js', new Date());
             gtag('config', '${GA_MEASUREMENT_ID}', {
               page_path: window.location.pathname,
-              send_page_view: false,
+              send_page_view: true,
               anonymize_ip: true,
               cookie_flags: 'SameSite=None;Secure'
             });
           `,
         }}
       />
-
-      {/* GTM noscript fallback */}
-      <noscript>
-        <iframe
-          src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-          height="0"
-          width="0"
-          style={{ display: 'none', visibility: 'hidden' }}
-        />
-      </noscript>
     </>
   );
 }
-
