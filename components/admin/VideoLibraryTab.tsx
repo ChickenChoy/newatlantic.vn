@@ -56,7 +56,8 @@ export default function VideoLibraryTab({ onRefresh }: VideoLibraryTabProps) {
         } finally {
             setLoading(false);
         }
-    }, [selectedFolder, toast]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedFolder]);
 
     useEffect(() => {
         loadVideos();

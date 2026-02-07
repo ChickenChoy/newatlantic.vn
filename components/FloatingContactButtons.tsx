@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { trackPhoneCall } from '@/lib/analytics';
 
 export default function FloatingContactButtons() {
   const [scrolled, setScrolled] = useState(false);
@@ -72,6 +73,7 @@ export default function FloatingContactButtons() {
       {/* Phone Call */}
       <Link
         href="tel:+842838733686"
+        onClick={() => trackPhoneCall()}
         className="group relative w-12 h-12 md:w-14 md:h-14 bg-[#1e3a5f] hover:bg-[#2d4a6f] rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
         title="Gọi điện thoại"
       >

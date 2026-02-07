@@ -94,6 +94,7 @@ function NewsPageContent() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<{ id: string; label: string }[]>(FALLBACK_CATEGORIES);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+  const [disabledCategoryNames, setDisabledCategoryNames] = useState<string[]>([]);
 
   // Fetch posts and categories from API
   useEffect(() => {
@@ -111,6 +112,11 @@ function NewsPageContent() {
 
         if (categoriesRes.ok) {
           const categoriesData: PostCategory[] = await categoriesRes.json();
+          // Store disabled category names for filtering posts
+          const disabledNames = categoriesData
+            .filter(cat => !cat.enabled)
+            .map(cat => cat.name.toLowerCase());
+          setDisabledCategoryNames(disabledNames);
           // Transform to the format used by the filter and filter out disabled categories
           const enabledCategories = categoriesData
             .filter(cat => cat.enabled)
@@ -131,16 +137,21 @@ function NewsPageContent() {
 
   // Filter posts
   const filteredPosts = useMemo(() => {
-    let result = posts;
+    // First filter out disabled posts and posts in disabled categories
+    let result = posts.filter(post => {
+      if ((post as any).enabled === false) return false;
+      if (post.category && disabledCategoryNames.includes(post.category.toLowerCase())) return false;
+      return true;
+    });
     if (activeCategory !== 'all') {
-      result = posts.filter(post =>
+      result = result.filter(post =>
         post.category?.toLowerCase().includes(activeCategory.toLowerCase()) ||
         post.title.toLowerCase().includes(activeCategory.toLowerCase())
       );
     }
     // Sort by date (newest first)
     return result.sort((a: Post, b: Post) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [activeCategory, posts]);
+  }, [activeCategory, posts, disabledCategoryNames]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE);

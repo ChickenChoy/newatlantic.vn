@@ -152,7 +152,8 @@ export default function MediaLibraryTab({ onRefresh }: MediaLibraryTabProps) {
         } finally {
             setLoading(false);
         }
-    }, [selectedFolder, searchQuery, error]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedFolder, searchQuery]);
 
     useEffect(() => {
         fetchMedia();

@@ -17,6 +17,7 @@ import EmptyState from '@/components/EmptyState';
 import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db-supabase';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
+import type { Product, HeroSlide, HomepageStat, PartnerLogo, HomepageService } from '@/types';
 
 // Force dynamic rendering to always get fresh data
 export const dynamic = 'force-dynamic';
@@ -55,12 +56,12 @@ export default async function HomePage() {
   const allHomepageServices = await getHomepageServices();
 
   // Filter and sort with proper typing
-  const heroSlides = allHeroSlides.filter((s: any) => s.enabled).sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
-  const homepageStats = allHomepageStats.sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
-  const partnerLogos = allPartnerLogos.filter((p: any) => p.enabled).sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
-  const homepageServices = allHomepageServices.filter((s: any) => s.enabled).sort((a: any, b: any) => (a.order_index || a.order || 0) - (b.order_index || b.order || 0));
+  const heroSlides = allHeroSlides.filter((s: HeroSlide) => s.enabled).sort((a: HeroSlide, b: HeroSlide) => a.order - b.order);
+  const homepageStats = allHomepageStats.sort((a: HomepageStat, b: HomepageStat) => a.order - b.order);
+  const partnerLogos = allPartnerLogos.filter((p: PartnerLogo) => p.enabled).sort((a: PartnerLogo, b: PartnerLogo) => a.order - b.order);
+  const homepageServices = allHomepageServices.filter((s: HomepageService) => s.enabled).sort((a: HomepageService, b: HomepageService) => a.order - b.order);
 
-  const featuredProducts = products.filter((p: any) => p.featured || p.is_featured).slice(0, 3);
+  const featuredProducts = products.filter((p: Product) => p.featured && p.enabled !== false).slice(0, 3);
   const latestPosts = posts.slice(0, 3);
 
   // Generate JSON-LD structured data
@@ -616,6 +617,7 @@ export default async function HomePage() {
                   <ProductCard
                     product={product}
                     className="h-full"
+                    priority={true} // All featured products are above-the-fold
                   />
                 </ScrollAnimation>
               ))}
@@ -752,7 +754,7 @@ export default async function HomePage() {
               <div className="max-w-6xl mx-auto">
                 {partnerLogos.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                    {partnerLogos.map((logo: any) => (
+                    {partnerLogos.map((logo: PartnerLogo) => (
                       <div
                         key={logo.id}
                         className="group relative bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl p-6 lg:p-8 hover:shadow-2xl hover:shadow-[#5f7ab8]/30 transition-all duration-500 border border-white/30 hover:border-[#5f7ab8]/70 flex items-center justify-center aspect-[4/3] hover:scale-[1.02]"

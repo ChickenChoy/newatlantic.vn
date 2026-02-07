@@ -75,18 +75,20 @@ export default function PostPage({ params }: PostPageProps) {
       }
     } catch (error) {
       console.error('Error loading data:', error);
-      toast.error('Không thể tải dữ liệu. Vui lòng thử lại.');
+      // Removed toast call to avoid dependency issues causing infinite loop
     } finally {
       setLoading(false);
     }
-  }, [toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps - function should only be created once
 
   useEffect(() => {
     params.then((p) => {
       setId(p.id);
       loadData(p.id);
     });
-  }, [params, loadData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]); // loadData is stable (empty deps)
 
   const generateSlug = (title: string) => {
     return title

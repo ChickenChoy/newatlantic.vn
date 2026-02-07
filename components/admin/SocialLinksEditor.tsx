@@ -114,24 +114,26 @@ export default function SocialLinksEditor({ socialLinks, onChange }: SocialLinks
                     <p className="text-sm text-muted">Chưa có social link nào</p>
                 ) : (
                     <div className="flex flex-wrap gap-3">
-                        {socialLinks
-                            .filter(link => link.enabled)
-                            .map((link) => {
-                                const platform = getPlatformInfo(link.platform);
-                                return (
-                                    <a
-                                        key={link.id}
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                                        style={{ borderLeft: `3px solid ${platform.color}` }}
-                                    >
-                                        <Icon icon={platform.icon} height={18} style={{ color: platform.color }} />
-                                        <span className="text-sm text-dark dark:text-white">{platform.label}</span>
-                                    </a>
-                                );
-                            })}
+                        {socialLinks.map((link) => {
+                            const platform = getPlatformInfo(link.platform);
+                            return (
+                                <a
+                                    key={link.id}
+                                    href={link.url || '#'}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${link.enabled
+                                            ? 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                            : 'bg-gray-100/50 dark:bg-gray-800/30 opacity-50'
+                                        }`}
+                                    style={{ borderLeft: `3px solid ${link.enabled ? platform.color : '#9ca3af'}` }}
+                                >
+                                    <Icon icon={platform.icon} height={18} style={{ color: link.enabled ? platform.color : '#9ca3af' }} />
+                                    <span className={`text-sm ${link.enabled ? 'text-dark dark:text-white' : 'text-muted line-through'}`}>{platform.label}</span>
+                                    {!link.enabled && <span className="text-[10px] text-red-500 font-medium">(tắt)</span>}
+                                </a>
+                            );
+                        })}
                     </div>
                 )}
             </div>

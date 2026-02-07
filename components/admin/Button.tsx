@@ -68,8 +68,13 @@ export const Button: React.FC<ButtonProps> = ({
 
     const finalSizeClasses = variant === 'link' ? '' : sizeClasses;
 
+    // Default to type="button" to prevent form submission
+    // Components that need submit behavior should explicitly pass type="submit"
+    const buttonType = props.type ?? 'button';
+
     return (
         <button
+            type={buttonType}
             className={`${baseClasses} ${finalSizeClasses} ${variantClasses} ${className}`}
             {...props}
         >

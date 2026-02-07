@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import { Button } from '@/components/admin/Button';
 import { useAdminContext } from '@/app/admin/layout';
+import { adminFetch } from '@/lib/admin-fetch';
 
 interface MenuItem {
   id: string;
@@ -32,7 +33,7 @@ const menuGroups: MenuGroup[] = [
       { id: 'products', name: 'Sản phẩm', icon: 'solar:box-bold-duotone', url: '/admin?tab=products' },
       { id: 'categories', name: 'Danh mục SP', icon: 'solar:layers-bold-duotone', url: '/admin?tab=categories' },
       { id: 'posts', name: 'Bài viết', icon: 'solar:document-add-bold-duotone', url: '/admin?tab=posts' },
-      { id: 'post-categories', name: 'Danh mục bài viết', icon: 'solar:folder-bold-duotone', url: '/admin?tab=post-categories' },
+      { id: 'post-categories', name: 'Danh mục tin tức', icon: 'solar:folder-bold-duotone', url: '/admin?tab=post-categories' },
     ]
   },
   {
@@ -98,7 +99,7 @@ export default function AdminSidebar() {
 
   // Fetch logo from site settings
   useEffect(() => {
-    fetch('/api/site-settings')
+    adminFetch('/api/site-settings')
       .then(res => res.json())
       .then(data => {
         if (data.logo) setLogo(data.logo);

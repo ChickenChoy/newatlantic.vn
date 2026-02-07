@@ -22,31 +22,31 @@ function getClient() {
 }
 
 // Helper: Convert snake_case keys to camelCase
-function snakeToCamel(obj: any): any {
+function snakeToCamel<T>(obj: T): T {
     if (obj === null || obj === undefined) return obj;
-    if (Array.isArray(obj)) return obj.map(snakeToCamel);
+    if (Array.isArray(obj)) return obj.map(snakeToCamel) as T;
     if (typeof obj !== 'object') return obj;
 
-    const result: any = {};
+    const result: Record<string, unknown> = {};
     for (const key in obj) {
         const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
         result[camelKey] = snakeToCamel(obj[key]);
     }
-    return result;
+    return result as T;
 }
 
 // Helper: Convert camelCase keys to snake_case (for saving to Supabase)
-function camelToSnake(obj: any): any {
+function camelToSnake<T>(obj: T): T {
     if (obj === null || obj === undefined) return obj;
-    if (Array.isArray(obj)) return obj.map(camelToSnake);
+    if (Array.isArray(obj)) return obj.map(camelToSnake) as T;
     if (typeof obj !== 'object') return obj;
 
-    const result: any = {};
+    const result: Record<string, unknown> = {};
     for (const key in obj) {
         const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
         result[snakeKey] = camelToSnake(obj[key]);
     }
-    return result;
+    return result as T;
 }
 
 // ==================== Categories ====================
@@ -78,7 +78,7 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
 export async function addCategory(category: Category): Promise<boolean> {
     const { error } = await getClient()
         .from('categories')
-        .insert(category);
+        .insert(camelToSnake(category));
 
     if (error) {
         console.error('Error adding category:', error);
@@ -90,7 +90,7 @@ export async function addCategory(category: Category): Promise<boolean> {
 export async function updateCategory(id: string, updates: Partial<Category>): Promise<boolean> {
     const { error } = await getClient()
         .from('categories')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -116,22 +116,51 @@ export async function deleteCategory(id: string): Promise<boolean> {
 // ==================== Products ====================
 
 // Transform Supabase product to frontend Product type
-function transformProduct(data: any): Product {
+function transformProduct(data: Record<string, unknown>): Product {
     return {
-        ...data,
-        image: data.thumbnail || data.image, // Map thumbnail to image for frontend
-        categoryName: data.category_name,
-        shortDescription: data.short_description,
-        fullDescription: data.description,
-    };
+        ...snakeToCamel(data),
+        // Specific mappings
+        image: (data.image as string) || (data.thumbnail as string) || '',
+        categoryName: (data.category_name as string) || '',
+        categorySlug: (data.category as string) || '',
+        shortDescription: (data.short_description as string) || '',
+        fullDescription: (data.full_description as string) || (data.description as string) || '',
+        // Map is_featured to featured for frontend compatibility
+        featured: (data.is_featured as boolean) || (data.featured as boolean) || false,
+        // Ensure price is always a string
+        price: data.price != null ? String(data.price) : 'Liên hệ',
+    } as Product;
 }
 
-export async function getProducts(): Promise<Product[]> {
-    const { data, error } = await getClient()
+export async function getProducts(options?: {
+    limit?: number;
+    offset?: number;
+    category?: string;
+    search?: string;
+}): Promise<Product[]> {
+    let query = getClient()
         .from('products')
-        .select('*')
-        .eq('enabled', true)
-        .order('order_index', { ascending: true });
+        .select('*');
+
+    // Apply category filter at database level
+    if (options?.category) {
+        query = query.eq('category', options.category);
+    }
+
+    // Apply search filter at database level
+    if (options?.search) {
+        query = query.or(`name.ilike.%${options.search}%,description.ilike.%${options.search}%,category.ilike.%${options.search}%`);
+    }
+
+    // Apply pagination
+    if (options?.limit !== undefined) {
+        const offset = options.offset || 0;
+        query = query.range(offset, offset + options.limit - 1);
+    }
+
+    query = query.order('order_index', { ascending: true });
+
+    const { data, error } = await query;
 
     if (error) {
         console.error('Error fetching products:', error);
@@ -167,7 +196,6 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
         .from('products')
         .select('*')
         .eq('category', categorySlug)
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -180,7 +208,7 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
 export async function addProduct(product: Product): Promise<boolean> {
     const { error } = await getClient()
         .from('products')
-        .insert(product);
+        .insert(camelToSnake(product));
 
     if (error) {
         console.error('Error adding product:', error);
@@ -192,7 +220,7 @@ export async function addProduct(product: Product): Promise<boolean> {
 export async function updateProduct(id: string, updates: Partial<Product>): Promise<boolean> {
     const { error } = await getClient()
         .from('products')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -218,7 +246,7 @@ export async function deleteProduct(id: string): Promise<boolean> {
 export async function saveProducts(products: Product[]): Promise<boolean> {
     const { error } = await getClient()
         .from('products')
-        .upsert(products, { onConflict: 'id' });
+        .upsert(products.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving products:', error);
@@ -230,12 +258,13 @@ export async function saveProducts(products: Product[]): Promise<boolean> {
 // ==================== Posts ====================
 
 // Transform Supabase post to frontend Post type
-function transformPost(data: any): Post {
+function transformPost(data: Record<string, unknown>): Post {
     return {
-        ...data,
-        image: data.featured_image || data.thumbnail || data.image, // Map featured_image to image
-        date: data.published_at || data.created_at || data.date, // Map published_at to date
-    };
+        ...snakeToCamel(data),
+        // Specific mappings
+        image: (data.image as string) || (data.featured_image as string) || (data.thumbnail as string) || '',
+        date: (data.date as string) || ((data.published_at as string)?.split('T')[0]) || ((data.created_at as string)?.split('T')[0]) || '',
+    } as Post;
 }
 
 export async function getPosts(): Promise<Post[]> {
@@ -276,7 +305,7 @@ export async function getPostById(id: string): Promise<Post | null> {
 export async function addPost(post: Post): Promise<boolean> {
     const { error } = await getClient()
         .from('posts')
-        .insert(post);
+        .insert(camelToSnake(post));
 
     if (error) {
         console.error('Error adding post:', error);
@@ -288,7 +317,7 @@ export async function addPost(post: Post): Promise<boolean> {
 export async function updatePost(id: string, updates: Partial<Post>): Promise<boolean> {
     const { error } = await getClient()
         .from('posts')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -314,7 +343,7 @@ export async function deletePost(id: string): Promise<boolean> {
 export async function savePosts(posts: Post[]): Promise<boolean> {
     const { error } = await getClient()
         .from('posts')
-        .upsert(posts, { onConflict: 'id' });
+        .upsert(posts.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving posts:', error);
@@ -352,7 +381,7 @@ export async function getPostCategoryBySlug(slug: string): Promise<PostCategory 
 export async function addPostCategory(category: PostCategory): Promise<boolean> {
     const { error } = await getClient()
         .from('post_categories')
-        .insert(category);
+        .insert(camelToSnake(category));
 
     if (error) {
         console.error('Error adding post category:', error);
@@ -364,7 +393,7 @@ export async function addPostCategory(category: PostCategory): Promise<boolean> 
 export async function updatePostCategory(id: string, updates: Partial<PostCategory>): Promise<boolean> {
     const { error } = await getClient()
         .from('post_categories')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -390,7 +419,7 @@ export async function deletePostCategory(id: string): Promise<boolean> {
 export async function savePostCategories(categories: PostCategory[]): Promise<boolean> {
     const { error } = await getClient()
         .from('post_categories')
-        .upsert(categories, { onConflict: 'id' });
+        .upsert(categories.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving post categories:', error);
@@ -443,7 +472,6 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
     const { data, error } = await getClient()
         .from('hero_slides')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -456,7 +484,7 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
 export async function addHeroSlide(slide: HeroSlide): Promise<boolean> {
     const { error } = await getClient()
         .from('hero_slides')
-        .insert(slide);
+        .insert(camelToSnake(slide));
 
     if (error) {
         console.error('Error adding hero slide:', error);
@@ -470,7 +498,7 @@ export async function updateHeroSlide(id: string, updates: Partial<HeroSlide>): 
 
     const { error } = await getClient()
         .from('hero_slides')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -497,7 +525,7 @@ export async function deleteHeroSlide(id: string): Promise<boolean> {
 export async function saveHeroSlides(slides: HeroSlide[]): Promise<boolean> {
     const { error } = await getClient()
         .from('hero_slides')
-        .upsert(slides, { onConflict: 'id' });
+        .upsert(slides.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving hero slides:', error);
@@ -524,7 +552,7 @@ export async function getGalleryImages(): Promise<GalleryImage[]> {
 export async function addGalleryImage(image: GalleryImage): Promise<boolean> {
     const { error } = await getClient()
         .from('gallery_images')
-        .insert(image);
+        .insert(camelToSnake(image));
 
     if (error) {
         console.error('Error adding gallery image:', error);
@@ -536,7 +564,7 @@ export async function addGalleryImage(image: GalleryImage): Promise<boolean> {
 export async function updateGalleryImage(id: string, updates: Partial<GalleryImage>): Promise<boolean> {
     const { error } = await getClient()
         .from('gallery_images')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -562,7 +590,7 @@ export async function deleteGalleryImage(id: string): Promise<boolean> {
 export async function saveGalleryImages(images: GalleryImage[]): Promise<boolean> {
     const { error } = await getClient()
         .from('gallery_images')
-        .upsert(images, { onConflict: 'id' });
+        .upsert(images.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving gallery images:', error);
@@ -577,7 +605,6 @@ export async function getOfficeLocations(): Promise<OfficeLocation[]> {
     const { data, error } = await getClient()
         .from('office_locations')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -590,7 +617,7 @@ export async function getOfficeLocations(): Promise<OfficeLocation[]> {
 export async function addOfficeLocation(location: OfficeLocation): Promise<boolean> {
     const { error } = await getClient()
         .from('office_locations')
-        .insert(location);
+        .insert(camelToSnake(location));
 
     if (error) {
         console.error('Error adding office location:', error);
@@ -602,7 +629,7 @@ export async function addOfficeLocation(location: OfficeLocation): Promise<boole
 export async function updateOfficeLocation(id: string, updates: Partial<OfficeLocation>): Promise<boolean> {
     const { error } = await getClient()
         .from('office_locations')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -628,7 +655,7 @@ export async function deleteOfficeLocation(id: string): Promise<boolean> {
 export async function saveOfficeLocations(locations: OfficeLocation[]): Promise<boolean> {
     const { error } = await getClient()
         .from('office_locations')
-        .upsert(locations, { onConflict: 'id' });
+        .upsert(locations.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving office locations:', error);
@@ -643,7 +670,6 @@ export async function getFooterLinks(): Promise<FooterLink[]> {
     const { data, error } = await getClient()
         .from('footer_links')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -656,7 +682,7 @@ export async function getFooterLinks(): Promise<FooterLink[]> {
 export async function addFooterLink(link: FooterLink): Promise<boolean> {
     const { error } = await getClient()
         .from('footer_links')
-        .insert(link);
+        .insert(camelToSnake(link));
 
     if (error) {
         console.error('Error adding footer link:', error);
@@ -668,7 +694,7 @@ export async function addFooterLink(link: FooterLink): Promise<boolean> {
 export async function updateFooterLink(id: string, updates: Partial<FooterLink>): Promise<boolean> {
     const { error } = await getClient()
         .from('footer_links')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -694,7 +720,7 @@ export async function deleteFooterLink(id: string): Promise<boolean> {
 export async function saveFooterLinks(links: FooterLink[]): Promise<boolean> {
     const { error } = await getClient()
         .from('footer_links')
-        .upsert(links, { onConflict: 'id' });
+        .upsert(links.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving footer links:', error);
@@ -709,7 +735,6 @@ export async function getCatalogs(): Promise<Catalog[]> {
     const { data, error } = await getClient()
         .from('catalogs')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -724,7 +749,6 @@ export async function getCatalogsByBrand(brand: string): Promise<Catalog[]> {
         .from('catalogs')
         .select('*')
         .eq('brand', brand)
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -737,7 +761,7 @@ export async function getCatalogsByBrand(brand: string): Promise<Catalog[]> {
 export async function addCatalog(catalog: Catalog): Promise<boolean> {
     const { error } = await getClient()
         .from('catalogs')
-        .insert(catalog);
+        .insert(camelToSnake(catalog));
 
     if (error) {
         console.error('Error adding catalog:', error);
@@ -749,7 +773,7 @@ export async function addCatalog(catalog: Catalog): Promise<boolean> {
 export async function updateCatalog(id: string, updates: Partial<Catalog>): Promise<boolean> {
     const { error } = await getClient()
         .from('catalogs')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -775,7 +799,7 @@ export async function deleteCatalog(id: string): Promise<boolean> {
 export async function saveCatalogs(catalogs: Catalog[]): Promise<boolean> {
     const { error } = await getClient()
         .from('catalogs')
-        .upsert(catalogs, { onConflict: 'id' });
+        .upsert(catalogs.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving catalogs:', error);
@@ -790,7 +814,6 @@ export async function getHomepageStats(): Promise<HomepageStat[]> {
     const { data, error } = await getClient()
         .from('homepage_stats')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -803,7 +826,7 @@ export async function getHomepageStats(): Promise<HomepageStat[]> {
 export async function saveHomepageStats(stats: HomepageStat[]): Promise<boolean> {
     const { error } = await getClient()
         .from('homepage_stats')
-        .upsert(stats, { onConflict: 'id' });
+        .upsert(stats.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving homepage stats:', error);
@@ -818,7 +841,6 @@ export async function getHomepageServices(): Promise<HomepageService[]> {
     const { data, error } = await getClient()
         .from('homepage_services')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -831,7 +853,7 @@ export async function getHomepageServices(): Promise<HomepageService[]> {
 export async function addHomepageService(service: HomepageService): Promise<boolean> {
     const { error } = await getClient()
         .from('homepage_services')
-        .insert(service);
+        .insert(camelToSnake(service));
 
     if (error) {
         console.error('Error adding homepage service:', error);
@@ -843,7 +865,7 @@ export async function addHomepageService(service: HomepageService): Promise<bool
 export async function updateHomepageService(id: string, updates: Partial<HomepageService>): Promise<boolean> {
     const { error } = await getClient()
         .from('homepage_services')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -869,7 +891,7 @@ export async function deleteHomepageService(id: string): Promise<boolean> {
 export async function saveHomepageServices(services: HomepageService[]): Promise<boolean> {
     const { error } = await getClient()
         .from('homepage_services')
-        .upsert(services, { onConflict: 'id' });
+        .upsert(services.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving homepage services:', error);
@@ -884,7 +906,6 @@ export async function getPartnerLogos(): Promise<PartnerLogo[]> {
     const { data, error } = await getClient()
         .from('partner_logos')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -897,7 +918,7 @@ export async function getPartnerLogos(): Promise<PartnerLogo[]> {
 export async function addPartnerLogo(logo: PartnerLogo): Promise<boolean> {
     const { error } = await getClient()
         .from('partner_logos')
-        .insert(logo);
+        .insert(camelToSnake(logo));
 
     if (error) {
         console.error('Error adding partner logo:', error);
@@ -909,7 +930,7 @@ export async function addPartnerLogo(logo: PartnerLogo): Promise<boolean> {
 export async function updatePartnerLogo(id: string, updates: Partial<PartnerLogo>): Promise<boolean> {
     const { error } = await getClient()
         .from('partner_logos')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -935,7 +956,7 @@ export async function deletePartnerLogo(id: string): Promise<boolean> {
 export async function savePartnerLogos(logos: PartnerLogo[]): Promise<boolean> {
     const { error } = await getClient()
         .from('partner_logos')
-        .upsert(logos, { onConflict: 'id' });
+        .upsert(logos.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving partner logos:', error);
@@ -950,7 +971,6 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     const { data, error } = await getClient()
         .from('testimonials')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -963,7 +983,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
 export async function addTestimonial(testimonial: Testimonial): Promise<boolean> {
     const { error } = await getClient()
         .from('testimonials')
-        .insert(testimonial);
+        .insert(camelToSnake(testimonial));
 
     if (error) {
         console.error('Error adding testimonial:', error);
@@ -975,7 +995,7 @@ export async function addTestimonial(testimonial: Testimonial): Promise<boolean>
 export async function updateTestimonial(id: string, updates: Partial<Testimonial>): Promise<boolean> {
     const { error } = await getClient()
         .from('testimonials')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -1001,7 +1021,7 @@ export async function deleteTestimonial(id: string): Promise<boolean> {
 export async function saveTestimonials(testimonials: Testimonial[]): Promise<boolean> {
     const { error } = await getClient()
         .from('testimonials')
-        .upsert(testimonials, { onConflict: 'id' });
+        .upsert(testimonials.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving testimonials:', error);
@@ -1016,7 +1036,6 @@ export async function getFAQs(): Promise<FAQ[]> {
     const { data, error } = await getClient()
         .from('faqs')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -1029,7 +1048,7 @@ export async function getFAQs(): Promise<FAQ[]> {
 export async function addFAQ(faq: FAQ): Promise<boolean> {
     const { error } = await getClient()
         .from('faqs')
-        .insert(faq);
+        .insert(camelToSnake(faq));
 
     if (error) {
         console.error('Error adding FAQ:', error);
@@ -1041,7 +1060,7 @@ export async function addFAQ(faq: FAQ): Promise<boolean> {
 export async function updateFAQ(id: string, updates: Partial<FAQ>): Promise<boolean> {
     const { error } = await getClient()
         .from('faqs')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -1067,7 +1086,7 @@ export async function deleteFAQ(id: string): Promise<boolean> {
 export async function saveFAQs(faqs: FAQ[]): Promise<boolean> {
     const { error } = await getClient()
         .from('faqs')
-        .upsert(faqs, { onConflict: 'id' });
+        .upsert(faqs.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving FAQs:', error);
@@ -1082,7 +1101,6 @@ export async function getCertifications(): Promise<Certification[]> {
     const { data, error } = await getClient()
         .from('certifications')
         .select('*')
-        .eq('enabled', true)
         .order('order_index', { ascending: true });
 
     if (error) {
@@ -1095,7 +1113,7 @@ export async function getCertifications(): Promise<Certification[]> {
 export async function addCertification(cert: Certification): Promise<boolean> {
     const { error } = await getClient()
         .from('certifications')
-        .insert(cert);
+        .insert(camelToSnake(cert));
 
     if (error) {
         console.error('Error adding certification:', error);
@@ -1107,7 +1125,7 @@ export async function addCertification(cert: Certification): Promise<boolean> {
 export async function updateCertification(id: string, updates: Partial<Certification>): Promise<boolean> {
     const { error } = await getClient()
         .from('certifications')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -1133,7 +1151,7 @@ export async function deleteCertification(id: string): Promise<boolean> {
 export async function saveCertifications(certs: Certification[]): Promise<boolean> {
     const { error } = await getClient()
         .from('certifications')
-        .upsert(certs, { onConflict: 'id' });
+        .upsert(certs.map(camelToSnake), { onConflict: 'id' });
 
     if (error) {
         console.error('Error saving certifications:', error);
@@ -1145,32 +1163,43 @@ export async function saveCertifications(certs: Certification[]): Promise<boolea
 // ==================== Media Library ====================
 
 // Transform Supabase media to frontend MediaItem type
-function transformMedia(data: any): MediaItem {
+function transformMedia(data: Record<string, unknown>): MediaItem {
     // Check if variants has actual content
-    const hasValidVariants = data.variants &&
-        (data.variants.full || data.variants.medium || data.variants.thumbnail);
+    const variants = data.variants as { full?: string; medium?: string; thumbnail?: string } | undefined;
+    const hasValidVariants = variants &&
+        (variants.full || variants.medium || variants.thumbnail);
 
-    const fallbackUrl = data.storage_url || '';
+    const fallbackUrl = (data.storage_url as string) || '';
+
+    const folder = (data.folder as string) || 'general';
+    const validFolder: MediaFolder =
+        folder === 'products' || folder === 'posts' || folder === 'gallery' ||
+            folder === 'partners' || folder === 'slides' || folder === 'seo'
+            ? folder : 'general';
 
     return {
-        id: data.id,
-        filename: data.filename,
-        originalName: data.original_name || data.originalName || data.filename,
-        folder: data.folder || 'general',
-        mimeType: data.mime_type || data.mimeType || 'image/jpeg',
-        size: data.size || 0,
-        dimensions: data.dimensions || { width: 0, height: 0 },
-        variants: hasValidVariants ? data.variants : {
+        id: data.id as string,
+        filename: data.filename as string,
+        originalName: (data.original_name as string) || (data.originalName as string) || (data.filename as string),
+        folder: validFolder,
+        mimeType: (data.mime_type as string) || (data.mimeType as string) || 'image/jpeg',
+        size: (data.size as number) || 0,
+        dimensions: (data.dimensions as { width: number; height: number }) || { width: 0, height: 0 },
+        variants: hasValidVariants && variants ? {
+            thumbnail: variants.thumbnail || fallbackUrl,
+            medium: variants.medium || fallbackUrl,
+            full: variants.full || fallbackUrl
+        } : {
             thumbnail: fallbackUrl,
             medium: fallbackUrl,
             full: fallbackUrl
         },
-        alt: data.alt_text || data.alt || '',
-        caption: data.caption || '',
-        tags: data.tags || [],
-        usedIn: data.usage ? [data.usage] : [],
-        createdAt: data.created_at || data.createdAt || new Date().toISOString(),
-        updatedAt: data.updated_at || data.updatedAt || new Date().toISOString()
+        alt: (data.alt_text as string) || (data.alt as string) || '',
+        caption: (data.caption as string) || '',
+        tags: (data.tags as string[]) || [],
+        usedIn: (data.usage as MediaUsage[]) || [],
+        createdAt: (data.created_at as string) || (data.createdAt as string) || new Date().toISOString(),
+        updatedAt: (data.updated_at as string) || (data.updatedAt as string) || new Date().toISOString()
     };
 }
 
@@ -1245,7 +1274,7 @@ export async function addMediaItem(item: MediaItem): Promise<boolean> {
 
 export async function updateMediaItem(id: string, updates: Partial<MediaItem>): Promise<boolean> {
     // Convert camelCase to snake_case for Supabase
-    const snakeUpdates: any = {};
+    const snakeUpdates: Record<string, unknown> = {};
     if (updates.filename) snakeUpdates.filename = updates.filename;
     if (updates.originalName) snakeUpdates.original_name = updates.originalName;
     if (updates.folder) snakeUpdates.folder = updates.folder;
@@ -1315,7 +1344,7 @@ export async function getMediaStats(): Promise<{ total: number; byFolder: Record
     const byFolder: Record<string, number> = {};
     let totalSize = 0;
 
-    items.forEach((item: any) => {
+    items.forEach((item: MediaItem) => {
         const folder = item.folder || 'general';
         byFolder[folder] = (byFolder[folder] || 0) + 1;
         totalSize += item.size || 0;
@@ -1331,15 +1360,15 @@ export async function getMediaStats(): Promise<{ total: number; byFolder: Record
 // ==================== Holiday Effects ====================
 
 // Transform Supabase holiday effect to frontend type
-function transformHolidayEffect(data: any): HolidayEffect {
+function transformHolidayEffect(data: Record<string, unknown>): HolidayEffect {
     return {
         ...data,
-        effectTypes: data.effect_types || [],
-        startDate: data.start_date || '',
-        endDate: data.end_date || '',
-        primaryColor: data.primary_color || '#dc2626',
-        secondaryColor: data.secondary_color || '#ffd700',
-    };
+        effectTypes: (data.effect_types as string[]) || [],
+        startDate: (data.start_date as string) || '',
+        endDate: (data.end_date as string) || '',
+        primaryColor: (data.primary_color as string) || '#dc2626',
+        secondaryColor: (data.secondary_color as string) || '#ffd700',
+    } as HolidayEffect;
 }
 
 export async function getHolidayEffects(): Promise<HolidayEffect[]> {
@@ -1379,10 +1408,10 @@ export async function getActiveHolidayEffects(): Promise<HolidayEffect[]> {
     return (data || []).map(transformHolidayEffect);
 }
 
-export async function addHolidayEffect(effect: any): Promise<boolean> {
+export async function addHolidayEffect(effect: Partial<HolidayEffect>): Promise<boolean> {
     const { error } = await getClient()
         .from('holiday_effects')
-        .insert(effect);
+        .insert(camelToSnake(effect));
 
     if (error) {
         console.error('Error adding holiday effect:', error);
@@ -1391,10 +1420,10 @@ export async function addHolidayEffect(effect: any): Promise<boolean> {
     return true;
 }
 
-export async function updateHolidayEffect(id: string, updates: any): Promise<boolean> {
+export async function updateHolidayEffect(id: string, updates: Partial<HolidayEffect>): Promise<boolean> {
     const { error } = await getClient()
         .from('holiday_effects')
-        .update(updates)
+        .update(camelToSnake(updates))
         .eq('id', id);
 
     if (error) {
@@ -1453,7 +1482,7 @@ const DEFAULT_SEO = {
     updatedAt: new Date().toISOString(),
 };
 
-export async function getSEOSettings(): Promise<any> {
+export async function getSEOSettings(): Promise<typeof DEFAULT_SEO> {
     const { data, error } = await getClient()
         .from('seo_settings')
         .select('*')
@@ -1465,10 +1494,10 @@ export async function getSEOSettings(): Promise<any> {
         return DEFAULT_SEO;
     }
 
-    return data.value || DEFAULT_SEO;
+    return (data.value as typeof DEFAULT_SEO) || DEFAULT_SEO;
 }
 
-export async function saveSEOSettings(settings: any): Promise<boolean> {
+export async function saveSEOSettings(settings: typeof DEFAULT_SEO): Promise<boolean> {
     try {
         settings.updatedAt = new Date().toISOString();
 
@@ -1491,8 +1520,8 @@ export async function saveSEOSettings(settings: any): Promise<boolean> {
         }
         console.log('SEO settings saved successfully');
         return true;
-    } catch (err: any) {
-        console.error('Exception in saveSEOSettings:', err.message);
+    } catch (err: unknown) {
+        console.error('Exception in saveSEOSettings:', (err as Error).message);
         return false;
     }
 }
@@ -1539,12 +1568,12 @@ export async function getGlobalPartnerRegions(): Promise<GlobalPartnerRegion[]> 
         return DEFAULT_GLOBAL_REGIONS;
     }
 
-    return data.map((item: any) => ({
-        id: item.id,
-        name: item.name,
-        nameVi: item.name_vi,
-        order: item.order_index,
-        enabled: item.enabled,
+    return data.map((item: Record<string, unknown>) => ({
+        id: item.id as string,
+        name: item.name as string,
+        nameVi: item.name_vi as string,
+        order: item.order_index as number,
+        enabled: item.enabled as boolean,
     }));
 }
 
@@ -1567,7 +1596,7 @@ export async function addGlobalPartnerRegion(region: GlobalPartnerRegion): Promi
 }
 
 export async function updateGlobalPartnerRegion(id: string, updates: Partial<GlobalPartnerRegion>): Promise<boolean> {
-    const dbUpdates: any = {};
+    const dbUpdates: Record<string, unknown> = {};
     if (updates.name !== undefined) dbUpdates.name = updates.name;
     if (updates.nameVi !== undefined) dbUpdates.name_vi = updates.nameVi;
     if (updates.order !== undefined) dbUpdates.order_index = updates.order;
@@ -1642,15 +1671,15 @@ export async function getGlobalPartners(): Promise<GlobalPartner[]> {
         return DEFAULT_GLOBAL_PARTNERS;
     }
 
-    return data.map((item: any) => ({
-        id: item.id,
-        regionId: item.region_id,
-        name: item.name,
-        country: item.country,
-        logo: item.logo,
-        url: item.url,
-        order: item.order_index,
-        enabled: item.enabled,
+    return data.map((item: Record<string, unknown>) => ({
+        id: item.id as string,
+        regionId: item.region_id as string,
+        name: item.name as string,
+        country: item.country as string,
+        logo: item.logo as string,
+        url: item.url as string,
+        order: item.order_index as number,
+        enabled: item.enabled as boolean,
     }));
 }
 
@@ -1666,15 +1695,15 @@ export async function getGlobalPartnersByRegion(regionId: string): Promise<Globa
         return DEFAULT_GLOBAL_PARTNERS.filter(p => p.regionId === regionId);
     }
 
-    return (data || []).map((item: any) => ({
-        id: item.id,
-        regionId: item.region_id,
-        name: item.name,
-        country: item.country,
-        logo: item.logo,
-        url: item.url,
-        order: item.order_index,
-        enabled: item.enabled,
+    return (data || []).map((item: Record<string, unknown>) => ({
+        id: item.id as string,
+        regionId: item.region_id as string,
+        name: item.name as string,
+        country: item.country as string,
+        logo: item.logo as string,
+        url: item.url as string | undefined,
+        order: item.order_index as number,
+        enabled: item.enabled as boolean,
     }));
 }
 
@@ -1700,7 +1729,7 @@ export async function addGlobalPartner(partner: GlobalPartner): Promise<boolean>
 }
 
 export async function updateGlobalPartner(id: string, updates: Partial<GlobalPartner>): Promise<boolean> {
-    const dbUpdates: any = {};
+    const dbUpdates: Record<string, unknown> = {};
     if (updates.regionId !== undefined) dbUpdates.region_id = updates.regionId;
     if (updates.name !== undefined) dbUpdates.name = updates.name;
     if (updates.country !== undefined) dbUpdates.country = updates.country;
@@ -1756,5 +1785,3 @@ export async function saveGlobalPartners(partners: GlobalPartner[]): Promise<boo
     }
     return true;
 }
-
-

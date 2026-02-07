@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     });
   }
 
-  const categoryProducts = await getProductsByCategory(categorySlug);
+  const categoryProducts = (await getProductsByCategory(categorySlug)).filter(p => p.enabled !== false);
 
   return genMeta({
     title: category.name,
@@ -52,7 +52,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const categoryProducts = await getProductsByCategory(categorySlug);
+  const categoryProducts = (await getProductsByCategory(categorySlug)).filter(p => p.enabled !== false);
 
   return (
     <CategoryPageContent

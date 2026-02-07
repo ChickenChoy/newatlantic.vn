@@ -65,7 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Product pages
-  const productPages = products.map((product: any) => ({
+  const productPages = products.filter((p: any) => p.enabled !== false).map((product: any) => ({
     url: `${siteConfig.url}/san-pham/${product.category_slug || product.categorySlug || product.category}/${product.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,

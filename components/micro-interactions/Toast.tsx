@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 
 export interface ToastProps {
   message: string;
@@ -216,37 +216,45 @@ export function setGlobalConfirmHandler(handler: (options: ConfirmOptions) => Pr
 export function useToast() {
   const [toasts, setToasts] = useState<Array<ToastProps & { id: number }>>([]);
 
-  const showToast = (toast: ToastProps) => {
+  const showToast = useCallback((toast: ToastProps) => {
     const id = Date.now();
     setToasts((prev) => [...prev, { ...toast, id }]);
-  };
+  }, []);
 
-  const removeToast = (id: number) => {
+  const removeToast = useCallback((id: number) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
+  }, []);
 
-  const confirm = (options: ConfirmOptions): Promise<boolean> => {
+  const confirm = useCallback((options: ConfirmOptions): Promise<boolean> => {
     if (!globalConfirmHandler) {
       console.error('Confirm handler not set. Make sure ToastProvider is mounted.');
       return Promise.resolve(false);
     }
     return globalConfirmHandler(options);
-  };
+  }, []);
 
-  return {
+  const success = useCallback((message: string, options?: Partial<ToastProps>) =>
+    showToast({ message, type: 'success', ...options }), [showToast]);
+
+  const error = useCallback((message: string, options?: Partial<ToastProps>) =>
+    showToast({ message, type: 'error', ...options }), [showToast]);
+
+  const warning = useCallback((message: string, options?: Partial<ToastProps>) =>
+    showToast({ message, type: 'warning', ...options }), [showToast]);
+
+  const info = useCallback((message: string, options?: Partial<ToastProps>) =>
+    showToast({ message, type: 'info', ...options }), [showToast]);
+
+  return useMemo(() => ({
     toasts,
     showToast,
     removeToast,
-    success: (message: string, options?: Partial<ToastProps>) =>
-      showToast({ message, type: 'success', ...options }),
-    error: (message: string, options?: Partial<ToastProps>) =>
-      showToast({ message, type: 'error', ...options }),
-    warning: (message: string, options?: Partial<ToastProps>) =>
-      showToast({ message, type: 'warning', ...options }),
-    info: (message: string, options?: Partial<ToastProps>) =>
-      showToast({ message, type: 'info', ...options }),
+    success,
+    error,
+    warning,
+    info,
     confirm,
-  };
+  }), [toasts, showToast, removeToast, success, error, warning, info, confirm]);
 }
 
 export const toast = {

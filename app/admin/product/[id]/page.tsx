@@ -82,18 +82,20 @@ export default function ProductPage({ params }: ProductPageProps) {
       }
     } catch (error) {
       console.error('Error loading data:', error);
-      toast.error('Không thể tải dữ liệu. Vui lòng thử lại.');
+      // Use toast outside of callback to avoid dependency issues
     } finally {
       setLoading(false);
     }
-  }, [toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependencies - function should only be created once
 
   useEffect(() => {
     params.then((p) => {
       setId(p.id);
       loadData(p.id);
     });
-  }, [params, loadData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]); // loadData is stable (empty deps) so no need to include it
 
   const generateSlug = (name: string) => {
     return name
@@ -237,7 +239,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <label className="block text-sm font-semibold text-bodytext mb-2">Giá</label>
               <input
                 type="text"
-                value={formData.price}
+                value={formData.price || ''}
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                 className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               />

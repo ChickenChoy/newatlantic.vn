@@ -9,6 +9,8 @@ import LiveVisitorCount from './LiveVisitorCount';
 import StickyCTABar from './StickyCTABar';
 import { WishlistManager } from '@/lib/wishlist';
 import { cleanText, sanitizeHtmlContent } from '@/lib/textUtils';
+import { trackProductView, trackAddToWishlist } from '@/lib/analytics';
+import { showToast } from '@/lib/toast-utils';
 import type { Product } from '@/types';
 
 interface ProductPageContentProps {
@@ -29,23 +31,35 @@ export default function ProductPageContent({ product, relatedProducts }: Product
     setIsInWishlist(WishlistManager.isInWishlist(product.id));
   }, [product.id]);
 
+  // Track product view on mount
+  useEffect(() => {
+    trackProductView({
+      id: product.id,
+      name: product.name,
+      category: product.categoryName || product.category,
+      price: product.price,
+    });
+  }, [product.id, product.name, product.category, product.categoryName, product.price]);
+
   const toggleWishlist = () => {
     if (isInWishlist) {
       WishlistManager.removeFromWishlist(product.id);
       setIsInWishlist(false);
-      // Dynamic import toast to avoid bundling issues
-      import('@/components/ToastProvider').then(({ toast }) => {
-        toast.info('Đã xóa khỏi yêu thích');
-      });
+      showToast.info('Đã xóa khỏi yêu thích');
     } else {
       WishlistManager.addToWishlist(product);
       setIsInWishlist(true);
-      // Dynamic import toast to avoid bundling issues
-      import('@/components/ToastProvider').then(({ toast }) => {
-        toast.success(`Đã thêm "${product.name}" vào yêu thích`);
+      showToast.success(`Đã thêm "${product.name}" vào yêu thích`);
+
+      // Track analytics
+      trackAddToWishlist({
+        id: product.id,
+        name: product.name,
+        category: product.categoryName || product.category,
       });
     }
   };
+
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -85,10 +99,16 @@ export default function ProductPageContent({ product, relatedProducts }: Product
     const slider = sliderRef.current;
     if (!slider || relatedProducts.length <= 3) return;
 
-    let scrollInterval: NodeJS.Timeout;
+    let scrollInterval: NodeJS.Timeout | null = null;
+    let resumeTimeout: NodeJS.Timeout | null = null;
     let isUserInteracting = false;
 
     const startAutoScroll = () => {
+      // Clear any existing interval before starting a new one
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+      }
+
       scrollInterval = setInterval(() => {
         if (!isUserInteracting && slider) {
           const maxScroll = slider.scrollWidth - slider.clientWidth;
@@ -107,10 +127,20 @@ export default function ProductPageContent({ product, relatedProducts }: Product
 
     const handleUserInteraction = () => {
       isUserInteracting = true;
-      clearInterval(scrollInterval);
+
+      // Clear existing interval
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+      }
+
+      // Clear any pending resume timeout
+      if (resumeTimeout) {
+        clearTimeout(resumeTimeout);
+      }
 
       // Resume auto-scroll after 5 seconds of no interaction
-      setTimeout(() => {
+      resumeTimeout = setTimeout(() => {
         isUserInteracting = false;
         startAutoScroll();
       }, 5000);
@@ -122,7 +152,13 @@ export default function ProductPageContent({ product, relatedProducts }: Product
     startAutoScroll();
 
     return () => {
-      clearInterval(scrollInterval);
+      // Cleanup: clear all intervals and timeouts
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+      }
+      if (resumeTimeout) {
+        clearTimeout(resumeTimeout);
+      }
       if (slider) {
         slider.removeEventListener('mouseenter', handleUserInteraction);
         slider.removeEventListener('touchstart', handleUserInteraction);

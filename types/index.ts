@@ -14,6 +14,7 @@ export interface Product {
   price?: string;
   specifications?: Record<string, string>;
   featured?: boolean;
+  enabled?: boolean;
   createdAt?: string;
 }
 

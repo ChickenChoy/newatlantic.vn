@@ -6,6 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Product, Post, Category, SiteSettings, OfficeLocation, FooterLink, GalleryImage, Catalog, HeroSlide, HomepageStat, PartnerLogo, PostCategory, HolidayEffect, PageVisibility, HomepageService } from '@/types';
 import Link from 'next/link';
 import { useToast } from '@/components/ToastProvider';
+import { adminFetch } from '@/lib/admin-fetch';
 import PasswordInput from '@/components/PasswordInput';
 import ImageUpload from '@/components/ImageUpload';
 import { Icon } from '@iconify/react';
@@ -92,6 +93,7 @@ export default function AdminPage() {
   const [showPostCategoryModal, setShowPostCategoryModal] = useState(false);
   const [editingPostCategory, setEditingPostCategory] = useState<PostCategory | null>(null);
   const [postCategoryForm, setPostCategoryForm] = useState({ name: '', slug: '', description: '', order: 0, enabled: true });
+  const [selectedPostCatIds, setSelectedPostCatIds] = useState<string[]>([]);
 
   // TOTP/Settings states
   const [totpEnabled, setTotpEnabled] = useState(false);
@@ -104,18 +106,18 @@ export default function AdminPage() {
   const [totpError, setTotpError] = useState('');
   const [showDisableModal, setShowDisableModal] = useState(false);
 
-  // Load data từ API
+  // Load data từ API (always fresh from Supabase, using adminFetch)
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
 
-      // Gọi init API để đảm bảo data đã được khởi tạo từ lib/data.ts
-      await fetch('/api/init', { method: 'POST' });
+      // Gọi init API để đảm bảo data đã được khởi tạo
+      await adminFetch('/api/init', { method: 'POST' });
 
       const [productsRes, postsRes, categoriesRes] = await Promise.all([
-        fetch('/api/products'),
-        fetch('/api/posts'),
-        fetch('/api/categories'),
+        adminFetch('/api/products'),
+        adminFetch('/api/posts'),
+        adminFetch('/api/categories'),
       ]);
 
       if (productsRes.ok) {
@@ -134,7 +136,7 @@ export default function AdminPage() {
       }
 
       // Load TOTP status
-      const totpRes = await fetch('/api/totp');
+      const totpRes = await adminFetch('/api/totp');
       if (totpRes.ok) {
         const totpData = await totpRes.json();
         setTotpEnabled(totpData.totpEnabled);
@@ -142,17 +144,17 @@ export default function AdminPage() {
 
       // Load CMS data
       const [siteSettingsRes, officeLocationsRes, footerLinksRes, galleryRes, catalogsRes, heroSlidesRes, homepageStatsRes, partnerLogosRes, postCategoriesRes, holidayEffectsRes, homepageServicesRes] = await Promise.all([
-        fetch('/api/site-settings'),
-        fetch('/api/office-locations'),
-        fetch('/api/footer-links'),
-        fetch('/api/gallery'),
-        fetch('/api/catalogs'),
-        fetch('/api/hero-slides'),
-        fetch('/api/homepage-stats'),
-        fetch('/api/partner-logos'),
-        fetch('/api/post-categories'),
-        fetch('/api/holiday-effects'),
-        fetch('/api/homepage-services'),
+        adminFetch('/api/site-settings'),
+        adminFetch('/api/office-locations'),
+        adminFetch('/api/footer-links'),
+        adminFetch('/api/gallery'),
+        adminFetch('/api/catalogs'),
+        adminFetch('/api/hero-slides'),
+        adminFetch('/api/homepage-stats'),
+        adminFetch('/api/partner-logos'),
+        adminFetch('/api/post-categories'),
+        adminFetch('/api/holiday-effects'),
+        adminFetch('/api/homepage-services'),
       ]);
 
       if (siteSettingsRes.ok) setSiteSettings(await siteSettingsRes.json());
@@ -1600,12 +1602,110 @@ export default function AdminPage() {
               </Button>
             </div>
 
+            {/* Bulk Actions Bar */}
+            {selectedPostCatIds.length > 0 && (
+              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800 flex flex-wrap items-center gap-2">
+                <span className="text-sm font-medium text-blue-700 dark:text-blue-300">
+                  Đã chọn {selectedPostCatIds.length} danh mục
+                </span>
+                <div className="flex gap-2 ml-auto">
+                  <Button
+                    color="primary"
+                    className="!px-3 !py-1.5 !text-xs"
+                    onClick={async () => {
+                      const confirmed = await toast.confirm({ title: 'Bật hiển thị', message: `Bật ${selectedPostCatIds.length} danh mục đã chọn?`, confirmText: 'Bật', type: 'info' });
+                      if (!confirmed) return;
+                      setSaving(true);
+                      try {
+                        for (const id of selectedPostCatIds) {
+                          const cat = postCategories.find(c => c.id === id);
+                          if (cat) {
+                            await fetch('/api/post-categories', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...cat, enabled: true }) });
+                          }
+                        }
+                        await loadData();
+                        toast.success(`Đã bật ${selectedPostCatIds.length} danh mục`);
+                        setSelectedPostCatIds([]);
+                      } catch { toast.error('Có lỗi xảy ra'); } finally { setSaving(false); }
+                    }}
+                    disabled={saving}
+                  >
+                    <Icon icon="solar:eye-bold" className="mr-1" height={14} /> Bật
+                  </Button>
+                  <Button
+                    color="secondary"
+                    className="!px-3 !py-1.5 !text-xs"
+                    onClick={async () => {
+                      const confirmed = await toast.confirm({ title: 'Ẩn danh mục', message: `Ẩn ${selectedPostCatIds.length} danh mục đã chọn?`, confirmText: 'Ẩn', type: 'warning' });
+                      if (!confirmed) return;
+                      setSaving(true);
+                      try {
+                        for (const id of selectedPostCatIds) {
+                          const cat = postCategories.find(c => c.id === id);
+                          if (cat) {
+                            await fetch('/api/post-categories', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...cat, enabled: false }) });
+                          }
+                        }
+                        await loadData();
+                        toast.success(`Đã ẩn ${selectedPostCatIds.length} danh mục`);
+                        setSelectedPostCatIds([]);
+                      } catch { toast.error('Có lỗi xảy ra'); } finally { setSaving(false); }
+                    }}
+                    disabled={saving}
+                  >
+                    <Icon icon="solar:eye-closed-bold" className="mr-1" height={14} /> Ẩn
+                  </Button>
+                  <Button
+                    color="error"
+                    className="!px-3 !py-1.5 !text-xs"
+                    onClick={async () => {
+                      const deletable = selectedPostCatIds.filter(id => {
+                        const cat = postCategories.find(c => c.id === id);
+                        return cat && cat.slug !== 'all';
+                      });
+                      if (deletable.length === 0) { toast.warning('Không có danh mục nào có thể xóa'); return; }
+                      const confirmed = await toast.confirm({ title: 'Xóa hàng loạt', message: `Xóa ${deletable.length} danh mục đã chọn? Hành động này không thể hoàn tác.`, confirmText: 'Xóa', type: 'danger' });
+                      if (!confirmed) return;
+                      setSaving(true);
+                      try {
+                        for (const id of deletable) {
+                          await fetch(`/api/post-categories?id=${id}`, { method: 'DELETE' });
+                        }
+                        await loadData();
+                        toast.success(`Đã xóa ${deletable.length} danh mục`);
+                        setSelectedPostCatIds([]);
+                      } catch { toast.error('Có lỗi xảy ra'); } finally { setSaving(false); }
+                    }}
+                    disabled={saving}
+                  >
+                    <Icon icon="solar:trash-bin-trash-bold" className="mr-1" height={14} /> Xóa
+                  </Button>
+                  <button
+                    onClick={() => setSelectedPostCatIds([])}
+                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 ml-1"
+                  >
+                    Bỏ chọn
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Desktop Table */}
             <div className="hidden md:block overflow-x-auto">
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Thứ tự</th>
+                    <th className="w-10">
+                      <input
+                        type="checkbox"
+                        checked={postCategories.length > 0 && selectedPostCatIds.length === postCategories.length}
+                        onChange={(e) => {
+                          setSelectedPostCatIds(e.target.checked ? postCategories.map(c => c.id) : []);
+                        }}
+                        className="rounded border-gray-300"
+                      />
+                    </th>
+                    <th className="w-14">STT</th>
                     <th>Tên danh mục</th>
                     <th>Slug</th>
                     <th>Mô tả</th>
@@ -1615,13 +1715,25 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {postCategories.map((category) => {
+                  {postCategories.map((category, index) => {
                     const postCount = category.slug === 'all'
                       ? posts.length
                       : posts.filter(p => p.category?.toLowerCase() === category.name.toLowerCase() || p.title.toLowerCase().includes(category.slug.toLowerCase())).length;
                     return (
-                      <tr key={category.id}>
-                        <td>{category.order}</td>
+                      <tr key={category.id} className={selectedPostCatIds.includes(category.id) ? 'bg-blue-50 dark:bg-blue-900/10' : ''}>
+                        <td>
+                          <input
+                            type="checkbox"
+                            checked={selectedPostCatIds.includes(category.id)}
+                            onChange={(e) => {
+                              setSelectedPostCatIds(prev =>
+                                e.target.checked ? [...prev, category.id] : prev.filter(id => id !== category.id)
+                              );
+                            }}
+                            className="rounded border-gray-300"
+                          />
+                        </td>
+                        <td className="text-center font-medium text-muted">{index + 1}</td>
                         <td>
                           <span className="font-medium">{category.name}</span>
                         </td>
@@ -1669,15 +1781,25 @@ export default function AdminPage() {
 
             {/* Mobile Cards */}
             <div className="md:hidden divide-y divide-border">
-              {postCategories.map((category) => {
+              {postCategories.map((category, index) => {
                 const postCount = category.slug === 'all'
                   ? posts.length
                   : posts.filter(p => p.category?.toLowerCase() === category.name.toLowerCase() || p.title.toLowerCase().includes(category.slug.toLowerCase())).length;
                 return (
-                  <div key={category.id} className="p-4">
+                  <div key={category.id} className={`p-4 ${selectedPostCatIds.includes(category.id) ? 'bg-blue-50 dark:bg-blue-900/10' : ''}`}>
                     <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        checked={selectedPostCatIds.includes(category.id)}
+                        onChange={(e) => {
+                          setSelectedPostCatIds(prev =>
+                            e.target.checked ? [...prev, category.id] : prev.filter(id => id !== category.id)
+                          );
+                        }}
+                        className="rounded border-gray-300 mt-1"
+                      />
                       <div className="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center text-muted dark:text-gray-400 text-sm font-bold flex-shrink-0">
-                        {category.order}
+                        {index + 1}
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="text-sm font-medium text-bodytext dark:text-white">{category.name}</h3>

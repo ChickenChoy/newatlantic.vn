@@ -504,10 +504,11 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                                     : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                     }`}
                             >
-                                Tất cả ({partners.filter(p => p.enabled).length})
+                                Tất cả ({partners.length})
                             </button>
                             {regions.map(region => {
-                                const count = partners.filter(p => p.regionId === region.id && p.enabled).length;
+                                const total = partners.filter(p => p.regionId === region.id).length;
+                                const enabled = partners.filter(p => p.regionId === region.id && p.enabled).length;
                                 return (
                                     <button
                                         key={region.id}
@@ -520,7 +521,7 @@ export default function PartnersTab({ partnerLogos, onUpdate }: PartnersTabProps
                                         <span>{region.nameVi}</span>
                                         <span className={`text-xs px-1.5 py-0.5 rounded-full ${selectedRegionId === region.id ? 'bg-white/20' : 'bg-gray-200 dark:bg-gray-600'
                                             }`}>
-                                            {count}
+                                            {enabled}/{total}
                                         </span>
                                         <button
                                             onClick={(e) => { e.stopPropagation(); openEditRegionModal(region); }}

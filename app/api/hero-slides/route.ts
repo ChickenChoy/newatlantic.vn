@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getHeroSlides, addHeroSlide, updateHeroSlide, deleteHeroSlide } from '@/lib/db-supabase';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
+import type { HeroSlide } from '@/types';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { title, subtitle, label, description, image, video, link, linkText, order, enabled } = body;
 
-    const newSlide: any = {
+    const newSlide: Omit<HeroSlide, 'createdAt' | 'updatedAt'> = {
       id: String(Date.now()),
       title: title || 'Slide mới',
       subtitle: subtitle || '',
@@ -32,8 +33,8 @@ export async function POST(request: NextRequest) {
       image: image || '/images/hero/slide1.jpg',
       video: video || '',
       link: link || '/',
-      link_text: linkText || 'Xem thêm',
-      order_index: order || 0,
+      linkText: linkText || 'Xem thêm',
+      order: order || 0,
       enabled: enabled !== false,
     };
 
@@ -77,18 +78,11 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Slide not found' }, { status: 404 });
     }
 
-    // Map JavaScript field names to Supabase column names
-    const supabaseUpdates: any = { ...restUpdates };
-    if (order !== undefined) supabaseUpdates.order_index = order;
-    if (linkText !== undefined) supabaseUpdates.link_text = linkText;
+    // No need for manual mapping anymore - camelToSnake() handles everything
+    const supabaseUpdates = { ...restUpdates };
+    if (order !== undefined) supabaseUpdates.order = order;
+    if (linkText !== undefined) supabaseUpdates.linkText = linkText;
     if (enabled !== undefined) supabaseUpdates.enabled = enabled;
-
-    // Remove any fields that don't exist in Supabase or are auto-managed
-    delete supabaseUpdates.linkText;
-    delete supabaseUpdates.order;
-    delete supabaseUpdates.createdAt;
-    delete supabaseUpdates.updatedAt;
-    delete supabaseUpdates.orderIndex;
 
     console.log('Supabase updates:', JSON.stringify(supabaseUpdates, null, 2));
 
@@ -107,12 +101,13 @@ export async function PUT(request: NextRequest) {
     }
 
     return NextResponse.json({ error: 'Failed to update hero slide' }, { status: 500 });
-  } catch (error: any) {
-    console.error('Error updating hero slide:', error?.message || error);
-    console.error('Error stack:', error?.stack);
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error('Error updating hero slide:', err?.message || error);
+    console.error('Error stack:', err?.stack);
     return NextResponse.json({
       error: 'Failed to update hero slide',
-      details: error?.message || String(error)
+      details: err?.message || String(error)
     }, { status: 500 });
   }
 }

@@ -5,6 +5,7 @@ import "./globals.css";
 import ProgressBar from "@/components/ProgressBar";
 import { ToastProvider } from "@/components/ToastProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsent from "@/components/CookieConsent";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { siteConfig } from "@/lib/seo";
 import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } from "@/lib/db-supabase";
@@ -117,8 +118,8 @@ export default async function RootLayout({
   const footerData = {
     categories: await getCategories(),
     siteSettings: await getSiteSettings(),
-    offices: await getOfficeLocations(),
-    footerLinks: await getFooterLinks(),
+    offices: (await getOfficeLocations()).filter(o => (o as any).enabled !== false),
+    footerLinks: (await getFooterLinks()).filter(l => (l as any).enabled !== false),
   };
 
   return (
@@ -139,6 +140,7 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
+        <CookieConsent />
         <ToastProvider>
           <ProgressBar />
           <LayoutWrapper footerData={footerData}>{children}</LayoutWrapper>

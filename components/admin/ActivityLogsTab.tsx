@@ -26,7 +26,7 @@ const ENTITY_LABELS: Record<ActivityEntity, string> = {
     product: 'Sản phẩm',
     post: 'Bài viết',
     category: 'Danh mục SP',
-    'post-category': 'Danh mục bài viết',
+    'post-category': 'Danh mục tin tức',
     gallery: 'Thư viện ảnh',
     catalog: 'Catalog',
     partner: 'Đối tác',
@@ -100,7 +100,8 @@ export default function ActivityLogsTab() {
         } finally {
             setLoading(false);
         }
-    }, [filterAction, filterEntity, filterStartDate, filterEndDate, toast]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterAction, filterEntity, filterStartDate, filterEndDate]);
 
     useEffect(() => {
         fetchLogs(1);

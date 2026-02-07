@@ -62,7 +62,7 @@ function ProductsPageContent() {
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    let result = products.filter(p => p.enabled !== false);
 
     // Filter by search query
     if (searchQuery) {

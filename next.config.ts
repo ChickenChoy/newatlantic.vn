@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Allow cross-origin requests from local network devices (mobile testing)
-  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*'],
+  // Include 169.254.*.* for link-local addresses (Windows APIPA)
+  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*', '169.254.*.*'],
 
   // Enable experimental features for better performance
   experimental: {
@@ -50,6 +51,24 @@ const nextConfig: NextConfig = {
   // Headers for optimal caching
   async headers() {
     return [
+      // API routes - NEVER cache (critical for admin data freshness)
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+          {
+            key: 'Expires',
+            value: '0',
+          },
+        ],
+      },
       // Video files - proper MIME type and caching
       {
         source: '/videos/:path*',

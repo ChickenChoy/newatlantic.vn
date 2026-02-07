@@ -526,7 +526,7 @@ export default function FooterSettingsTab({ siteSettings, footerLinks, onRefresh
                                 <p className="text-sm text-muted text-center py-8">Chưa có social link nào</p>
                             ) : (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                    {socialLinks.filter(link => link.enabled).map((link) => {
+                                    {socialLinks.map((link) => {
                                         const platform = getPlatformInfo(link.platform);
                                         return (
                                             <a
@@ -534,15 +534,25 @@ export default function FooterSettingsTab({ siteSettings, footerLinks, onRefresh
                                                 href={link.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors group"
-                                                style={{ borderLeft: `4px solid ${platform.color}` }}
+                                                className={`flex items-center gap-3 p-4 rounded-xl transition-colors group ${link.enabled
+                                                        ? 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                        : 'bg-gray-100/50 dark:bg-gray-800/30 opacity-50'
+                                                    }`}
+                                                style={{ borderLeft: `4px solid ${link.enabled ? platform.color : '#9ca3af'}` }}
                                             >
-                                                <Icon icon={platform.icon} height={24} style={{ color: platform.color }} />
+                                                <Icon icon={platform.icon} height={24} style={{ color: link.enabled ? platform.color : '#9ca3af' }} />
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-medium text-dark dark:text-white">{platform.label}</p>
-                                                    <p className="text-xs text-muted truncate">{link.url}</p>
+                                                    <p className={`font-medium ${link.enabled ? 'text-dark dark:text-white' : 'text-muted line-through'}`}>{platform.label}</p>
+                                                    <p className="text-xs text-muted truncate">{link.url || '(chưa có URL)'}</p>
                                                 </div>
-                                                <Icon icon="solar:arrow-right-up-line-duotone" height={16} className="text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                {!link.enabled && (
+                                                    <span className="text-xs bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-2 py-0.5 rounded-full font-medium">
+                                                        Đã tắt
+                                                    </span>
+                                                )}
+                                                {link.enabled && (
+                                                    <Icon icon="solar:arrow-right-up-line-duotone" height={16} className="text-muted opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                )}
                                             </a>
                                         );
                                     })}
