@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/ToastProvider";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieConsent from "@/components/CookieConsent";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import SiteTracker from "@/components/SiteTracker";
 import { siteConfig } from "@/lib/seo";
 import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } from "@/lib/db-supabase";
 
@@ -140,6 +141,7 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
+        <SiteTracker />
         <CookieConsent />
         <ToastProvider>
           <ProgressBar />

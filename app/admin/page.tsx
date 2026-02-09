@@ -32,6 +32,7 @@ import ActivityLogsTab from '@/components/admin/ActivityLogsTab';
 import UsersManagementTab from '@/components/admin/UsersManagementTab';
 import PartnersTab from '@/components/admin/PartnersTab';
 import NavbarSettingsTab from '@/components/admin/NavbarSettingsTab';
+import DashboardOverview from '@/components/admin/DashboardOverview';
 import { useAdminContext } from './layout';
 
 
@@ -947,99 +948,13 @@ export default function AdminPage() {
 
         {/* Search & Filter Bar - Only show for products and posts */}
         {activeTab === 'dashboard' && (
-          <div className="space-y-6 mb-6">
-            <div className="w-full bg-lightprimary dark:bg-darkmuted p-6 rounded-lg relative overflow-hidden border border-primary/10">
-              <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
-                  <h4 className="text-2xl font-bold text-dark dark:text-white mb-2">Xin chào Admin!</h4>
-                  <p className="text-bodytext mb-4">Chào mừng trở lại bảng điều khiển quản trị.</p>
-                </div>
-                <div className="col-span-12 md:col-span-5 relative h-32 md:h-auto hidden md:block">
-                  {/* Placeholder for welcome image if needed */}
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { title: 'Sản phẩm', value: products.length, icon: 'solar:cart-3-bold-duotone', color: 'text-primary', bg: 'bg-lightprimary' },
-                { title: 'Bài viết', value: posts.length, icon: 'solar:file-text-bold-duotone', color: 'text-secondary', bg: 'bg-lightsecondary' },
-                { title: 'Danh mục', value: categories.length, icon: 'solar:folder-bold-duotone', color: 'text-warning', bg: 'bg-lightwarning' },
-                { title: 'Đối tác', value: partnerLogos.length, icon: 'solar:users-group-rounded-bold-duotone', color: 'text-success', bg: 'bg-lightsuccess' },
-              ].map((stat, i) => (
-                <div key={i} className="admin-card flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${stat.bg} ${stat.color}`}>
-                    <Icon icon={stat.icon} width={24} />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-dark dark:text-white">{stat.value}</h3>
-                    <p className="text-bodytext text-sm">{stat.title}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="admin-card">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="card-title">Sản phẩm mới nhất</h3>
-                  <button onClick={() => setActiveTab('products')} className="text-primary text-sm font-medium hover:underline">Xem tất cả</button>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th className="pb-3 text-sm font-medium text-bodytext">Tên</th>
-                        <th className="pb-3 text-sm font-medium text-bodytext">Giá</th>
-                        <th className="pb-3 text-sm font-medium text-bodytext">Trạng thái</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {products.slice(0, 5).map(p => (
-                        <tr key={p.id}>
-                          <td className="py-3">
-                            <div className="flex items-center gap-3">
-                              <img src={p.image} className="w-10 h-10 rounded-lg object-cover bg-muted" alt="" />
-                              <span className="truncate max-w-[150px] text-sm font-medium text-dark dark:text-white">{p.name}</span>
-                            </div>
-                          </td>
-                          <td className="py-3 text-sm text-success font-medium">{p.price}</td>
-                          <td className="py-3">
-                            {p.featured ? (
-                              <span className="badge badge-success">Nổi bật</span>
-                            ) : (
-                              <span className="badge bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">Thường</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="admin-card">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="card-title">Bài viết mới nhất</h3>
-                  <button onClick={() => setActiveTab('posts')} className="text-primary text-sm font-medium hover:underline">Xem tất cả</button>
-                </div>
-                <div className="space-y-4">
-                  {posts.slice(0, 4).map(post => (
-                    <div key={post.id} className="flex gap-4 items-start border-b border-border dark:border-darkborder pb-4 last:border-0 last:pb-0">
-                      <img src={post.image} className="w-20 h-14 rounded-lg object-cover flex-shrink-0 bg-muted" alt="" />
-                      <div>
-                        <h4 className="text-sm font-medium text-dark dark:text-white line-clamp-2 hover:text-primary cursor-pointer transition-colors">{post.title}</h4>
-                        <div className="flex items-center gap-2 mt-2">
-                          <Icon icon="solar:calendar-date-line-duotone" className="text-bodytext" width={14} />
-                          <span className="text-xs text-bodytext">{post.date}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <DashboardOverview
+            products={products}
+            posts={posts}
+            categories={categories}
+            postCategories={postCategories}
+            galleryImages={galleryImages}
+          />
         )}
 
         {/* Search & Filter Bar - Only show for products and posts */}
