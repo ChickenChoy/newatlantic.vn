@@ -6,6 +6,64 @@ import { Icon } from '@iconify/react';
 import { useToast } from '@/components/ToastProvider';
 import { adminFetch } from '@/lib/admin-fetch';
 
+// All available internal pages for URL dropdowns
+const SITE_PAGES = [
+    { value: '/', label: 'Trang chủ' },
+    { value: '/san-pham', label: 'Sản phẩm' },
+    { value: '/tin-tuc', label: 'Tin tức' },
+    { value: '/thu-vien-hinh-anh', label: 'Thư viện hình ảnh' },
+    { value: '/lien-he', label: 'Liên hệ' },
+    { value: '/page-download-catalog', label: 'Tải Catalog' },
+    { value: '/yeu-thich', label: 'Yêu thích' },
+    { value: '/masttech', label: 'Masttech' },
+    { value: '/chuong-trinh-goi-banh-chung', label: 'Chương trình gói bánh chưng' },
+    { value: '/chinh-sach-bao-mat', label: 'Chính sách bảo mật' },
+    { value: '/dieu-khoan-dich-vu', label: 'Điều khoản dịch vụ' },
+] as const;
+
+// Reusable URL select component
+function UrlSelect({ value, onChange, className = '' }: {
+    value: string;
+    onChange: (val: string) => void;
+    className?: string;
+}) {
+    const isCustom = value !== '' && !SITE_PAGES.some(p => p.value === value);
+    const [showCustom, setShowCustom] = useState(isCustom);
+
+    return (
+        <div className="space-y-2">
+            <select
+                value={showCustom ? '__custom__' : value}
+                onChange={(e) => {
+                    if (e.target.value === '__custom__') {
+                        setShowCustom(true);
+                        onChange('');
+                    } else {
+                        setShowCustom(false);
+                        onChange(e.target.value);
+                    }
+                }}
+                className={`w-full px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary ${className}`}
+            >
+                <option value="">-- Chọn trang --</option>
+                {SITE_PAGES.map(page => (
+                    <option key={page.value} value={page.value}>{page.label} ({page.value})</option>
+                ))}
+                <option value="__custom__">✏️ Nhập URL tùy chỉnh...</option>
+            </select>
+            {showCustom && (
+                <input
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    placeholder="Nhập URL tùy chỉnh, ví dụ: https://example.com"
+                    className={`w-full px-3 py-2 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary ${className}`}
+                    autoFocus
+                />
+            )}
+        </div>
+    );
+}
+
 interface NavItem {
     id: string;
     label: string;
@@ -396,11 +454,10 @@ export default function NavbarSettingsTab() {
                                         placeholder="Text nút"
                                         className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm"
                                     />
-                                    <input
+                                    <UrlSelect
                                         value={settings.catalogButtonUrl}
-                                        onChange={(e) => setSettings(prev => ({ ...prev, catalogButtonUrl: e.target.value }))}
-                                        placeholder="URL"
-                                        className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm"
+                                        onChange={(val) => setSettings(prev => ({ ...prev, catalogButtonUrl: val }))}
+                                        className="!rounded-lg"
                                     />
                                 </div>
                             )}
@@ -425,11 +482,10 @@ export default function NavbarSettingsTab() {
                                         placeholder="Text nút"
                                         className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm"
                                     />
-                                    <input
+                                    <UrlSelect
                                         value={settings.contactButtonUrl}
-                                        onChange={(e) => setSettings(prev => ({ ...prev, contactButtonUrl: e.target.value }))}
-                                        placeholder="URL"
-                                        className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm"
+                                        onChange={(val) => setSettings(prev => ({ ...prev, contactButtonUrl: val }))}
+                                        className="!rounded-lg"
                                     />
                                 </div>
                             )}
@@ -487,11 +543,9 @@ function ItemEditModal({ item, onSave, onClose }: {
                     {/* URL */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Đường dẫn (URL) *</label>
-                        <input
+                        <UrlSelect
                             value={form.href}
-                            onChange={(e) => setForm(prev => ({ ...prev, href: e.target.value }))}
-                            placeholder="Ví dụ: /san-pham, /tin-tuc, https://..."
-                            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                            onChange={(val) => setForm(prev => ({ ...prev, href: val }))}
                         />
                     </div>
 
