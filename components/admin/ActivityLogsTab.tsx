@@ -46,6 +46,7 @@ const ENTITY_LABELS: Record<ActivityEntity, string> = {
     media: 'Media',
     database: 'Database',
     auth: 'Xác thực',
+    'navbar-settings': 'Thanh điều hướng',
 };
 
 interface Pagination {
