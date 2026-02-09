@@ -184,6 +184,7 @@ export default function AdminLayout({
     'hero-slides': 'manage_appearance',
     'holiday-effects': 'manage_appearance',
     'page-visibility': 'manage_appearance',
+    'navbar-settings': 'manage_appearance',
     'appearance': 'manage_appearance',
     'site-settings': 'manage_settings',
     'offices': 'manage_settings',

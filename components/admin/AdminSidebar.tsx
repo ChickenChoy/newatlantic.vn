@@ -64,6 +64,7 @@ const menuGroups: MenuGroup[] = [
     name: 'Giao diện',
     icon: 'solar:palette-bold-duotone',
     items: [
+      { id: 'navbar-settings', name: 'Thanh điều hướng', icon: 'solar:menu-dots-bold-duotone', url: '/admin?tab=navbar-settings' },
       { id: 'holiday-effects', name: 'Hiệu ứng lễ hội', icon: 'solar:confetti-bold-duotone', url: '/admin?tab=holiday-effects' },
       { id: 'page-visibility', name: 'Ẩn/hiện trang', icon: 'solar:eye-bold-duotone', url: '/admin?tab=page-visibility' },
       { id: 'seo', name: 'SEO & Meta', icon: 'solar:graph-up-bold-duotone', url: '/admin?tab=seo' },

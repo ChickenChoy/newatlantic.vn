@@ -58,6 +58,7 @@ export default function BanhChungPage() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxIndex, setLightboxIndex] = useState(0);
+    const [lightboxSource, setLightboxSource] = useState<'2025' | '2026'>('2025');
     const [scrollProgress, setScrollProgress] = useState(0);
     const [activeSection, setActiveSection] = useState("hero");
     const [showSwipeHint, setShowSwipeHint] = useState(false);
@@ -72,13 +73,26 @@ export default function BanhChungPage() {
     const [imageLoaded, setImageLoaded] = useState<Record<number, boolean>>({});
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [isVideoStarted, setIsVideoStarted] = useState(false);
+    const [currentSlide2026, setCurrentSlide2026] = useState(0);
+    const [isAutoPlaying2026, setIsAutoPlaying2026] = useState(true);
+    const [gallery2026Loaded, setGallery2026Loaded] = useState<Record<number, boolean>>({});
     const parallaxBgRef = useRef<HTMLDivElement>(null);
+    const thumbs2026Ref = useRef<HTMLDivElement>(null);
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
     const hasConfettiTriggered = useRef(false);
     const hasShownSwipeHint = useRef(false);
     const minSwipeDistance = 50;
 
+    // Auto-scroll 2026 thumbnails to keep active in view
+    useEffect(() => {
+        if (thumbs2026Ref.current) {
+            const activeThumb = thumbs2026Ref.current.children[currentSlide2026] as HTMLElement;
+            if (activeThumb) {
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+    }, [currentSlide2026]);
     // Lunar calendar info for TẾT 2026
     const lunarInfo = {
         year: "Bính Ngọ",
@@ -114,8 +128,8 @@ export default function BanhChungPage() {
         about: "Giới thiệu",
         schedule: "Lịch trình",
         meaning: "Ý nghĩa",
-        video: "Video",
-        gallery: "Hình ảnh",
+        gallery2026: "TẾT 2026",
+        gallery: "TẾT 2025",
         cta: "Liên hệ"
     };
 
@@ -149,6 +163,49 @@ export default function BanhChungPage() {
         { name: "Đậu xanh", desc: "Bùi béo", detail: "Đậu xanh lòng vàng, hạt to đều, không sâu mọt. Ngâm mềm rồi đãi vỏ, hấp chín và giã nhuyễn." },
         { name: "Thịt ba chỉ", desc: "Đậm đà", detail: "Thịt ba chỉ tươi ngon, có đủ nạc mỡ. Ướp tiêu, nước mắm và hành tím để thịt thấm gia vị." },
         { name: "Lá dong", desc: "Xanh tươi", detail: "Lá dong rừng xanh mướt, to bản, không rách. Rửa sạch, lau khô và cắt phần cuống để dễ gói." },
+    ];
+
+    // Gallery 2026 images - curated selection
+    const gallery2026Images = [
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/rua la.jpg", alt: "Rửa lá dong chuẩn bị gói bánh", category: "chuẩn bị" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2615.jpg", alt: "Hoạt động gói bánh chưng TẾT 2026", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2619.jpg", alt: "Cùng nhau gói bánh chưng", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2620.jpg", alt: "Khoảnh khắc gói bánh chưng", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2621.jpg", alt: "Hoạt động gói bánh", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2622-2.jpg", alt: "Gói bánh chưng truyền thống", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2625.jpg", alt: "Thành quả bánh chưng", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2628.jpg", alt: "Hoạt động gói bánh TẾT", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2631-2.jpg", alt: "Khoảnh khắc đáng nhớ", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2634.jpg", alt: "Không khí TẾT ấm áp", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2635.jpg", alt: "Hoạt động cộng đồng", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2639.jpg", alt: "Gói bánh chưng đoàn kết", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2641-2.jpg", alt: "Niềm vui ngày TẾT", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2642.jpg", alt: "Kỷ niệm TẾT 2026", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7509848643185_5e92ff07a1001bf37df066f74294698b.jpg", alt: "Chương trình gói bánh", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7509848644423_51b132b7906e1e154fbb8b8a65a8f42c.jpg", alt: "Hoạt động TẾT", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7509848647708_40d593b035dcf4679b38fa7be6bbb493.jpg", alt: "Gói bánh chưng ngày TẾT", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7509848649856_a2332141318c709d28c49af63f5a0f48.jpg", alt: "Hoạt động cộng đồng TẾT", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149727046_99d13f69079236bf59be0e0185d8eaa5.jpg", alt: "Nấu bánh chưng", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149730381_cb922463cfc1e8f8f102296c0462af07.jpg", alt: "Gói bánh TẾT", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149735588_cb88a0c5ff8800f498bbc0355165e581.jpg", alt: "Thành phẩm bánh chưng", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149736883_c780196924a0d4c49f562a4cd00e2190.jpg", alt: "Hoạt động đoàn kết", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149740661_d0ed1c163e47be8a13784c956ee9aac8.jpg", alt: "Gói bánh cùng nhau", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149745412_79cfdea7fee29d896f17f7a9cd5709d3.jpg", alt: "Khoảnh khắc vui vẻ", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149747895_24cbe7539d486e6152f0ebfa800790ec.jpg", alt: "Niềm vui gói bánh", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149749127_5af65a9450fbcc6774a3434d9078e2c8.jpg", alt: "Thành phẩm đẹp mắt", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510149749834_63ea2e160829afbec9af5060a5f97238.jpg", alt: "Hoạt động TẾT Bính Ngọ", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510159107372_a6c2f2039511a839e83f0d021074d6a2.jpg", alt: "Chương trình gói bánh 2026", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510159194511_ca2ac9751cc565950b8e6a8b6bc385be.jpg", alt: "Hoạt động gói bánh chưng", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510159232424_060404497b4b23a13a776c6a475d8d91.jpg", alt: "Kỷ niệm đẹp TẾT 2026", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510159300617_cc03b57cba479980d4b6d25c0dc8cb81.jpg", alt: "Gói bánh chưng ngày TẾT", category: "gói bánh" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7510159328845_f7696e2286e9fd374da3a7811faf2951.jpg", alt: "TẾT ấm áp bên nhau", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7512723073934_5b203e7fc14f9a5b1487900c63416008.jpg", alt: "Thành phẩm bánh chưng đẹp", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7512723073935_b1a026482dd76aa5168359022cb23795.jpg", alt: "Bánh chưng xanh", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7512723073937_dce9a050b6d687da944d1b7f97232173.jpg", alt: "Thành quả gói bánh", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7512723074579_89a67cd9468322aa82f7356fdfb84260.jpg", alt: "Bánh chưng truyền thống", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/z7512723076507_10f72c4c9b5fd04d6d7edf8a543a573c.jpg", alt: "Niềm tự hào TẾT Việt", category: "thành quả" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2631.jpg", alt: "Khoảnh khắc đẹp bên nhau", category: "kỷ niệm" },
+        { src: "/images/chuong-trinh-goi-banh-chung/2026/IMG_2641.jpg", alt: "Vui vẻ ngày TẾT", category: "kỷ niệm" },
     ];
 
     // Countdown to event (Feb 5, 2026)
@@ -210,7 +267,7 @@ export default function BanhChungPage() {
     useEffect(() => {
         // Cache section elements for performance
         const sectionElements = new Map<string, HTMLElement>();
-        const sections = ["hero", "about", "schedule", "meaning", "video", "gallery", "cta"];
+        const sections = ["hero", "about", "schedule", "meaning", "gallery2026", "gallery", "cta"];
         sections.forEach(id => {
             const el = document.getElementById(id);
             if (el) sectionElements.set(id, el);
@@ -332,10 +389,11 @@ export default function BanhChungPage() {
     useEffect(() => {
         if (!lightboxOpen) return;
 
+        const activeImages = lightboxSource === '2026' ? gallery2026Images : galleryImages;
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") setLightboxOpen(false);
-            if (e.key === "ArrowLeft") setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
-            if (e.key === "ArrowRight") setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+            if (e.key === "ArrowLeft") setLightboxIndex((prev) => (prev - 1 + activeImages.length) % activeImages.length);
+            if (e.key === "ArrowRight") setLightboxIndex((prev) => (prev + 1) % activeImages.length);
         };
 
         document.body.style.overflow = "hidden";
@@ -345,7 +403,16 @@ export default function BanhChungPage() {
             document.body.style.overflow = "";
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [lightboxOpen, galleryImages.length]);
+    }, [lightboxOpen, galleryImages.length, lightboxSource, gallery2026Images]);
+
+    // Auto-play for gallery 2026 slider
+    useEffect(() => {
+        if (!isAutoPlaying2026) return;
+        const interval = setInterval(() => {
+            setCurrentSlide2026((prev) => (prev + 1) % gallery2026Images.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [isAutoPlaying2026, gallery2026Images.length]);
 
     const scrollToSection = useCallback((sectionId: string) => {
         const element = document.getElementById(sectionId);
@@ -354,8 +421,9 @@ export default function BanhChungPage() {
         }
     }, []);
 
-    const openLightbox = (index: number) => {
+    const openLightbox = (index: number, source: '2025' | '2026' = '2025') => {
         setLightboxIndex(index);
+        setLightboxSource(source);
         setLightboxOpen(true);
     };
 
@@ -429,34 +497,7 @@ export default function BanhChungPage() {
 
             {/* Toggle Flowers Button - Hidden */}
             {/* Quick Schedule Bar */}
-            {mounted && createPortal(
-                <div className={`banh-quick-schedule ${showQuickSchedule && activeSection !== 'schedule' ? 'visible' : ''}`}>
-                    <div className="banh-quick-schedule-content">
-                        <div className="banh-quick-schedule-info">
-                            <div className="banh-quick-schedule-text">
-                                <span className="banh-quick-schedule-title">Sắp diễn ra</span>
-                                <span className="banh-quick-schedule-date">5/2/2026 • Gói Bánh Chưng TẾT</span>
-                            </div>
-                        </div>
-                        <div className="banh-quick-schedule-cta">
-                            <button
-                                className="banh-quick-schedule-btn"
-                                onClick={() => scrollToSection('schedule')}
-                            >
-                                Xem lịch
-                            </button>
-                            <button
-                                className="banh-quick-schedule-close"
-                                onClick={() => setShowQuickSchedule(false)}
-                                aria-label="Đóng"
-                            >
-                                ×
-                            </button>
-                        </div>
-                    </div>
-                </div>,
-                document.body
-            )}
+
 
             <main className="banh-main">
                 {/* Sticky Section Indicator */}
@@ -472,13 +513,13 @@ export default function BanhChungPage() {
 
                 {/* Floating Nav Dots */}
                 <nav className="banh-nav-dots">
-                    {["hero", "about", "schedule", "meaning", "video", "gallery"].map((section, i) => (
+                    {["hero", "about", "schedule", "meaning", "gallery2026", "gallery"].map((section, i) => (
                         <button
                             key={section}
                             onClick={() => scrollToSection(section)}
                             className="banh-nav-dot"
                             aria-label={`Đến phần ${section}`}
-                            title={["Trang chính", "Giới thiệu", "Lịch trình", "Ý nghĩa", "Video", "Hình ảnh"][i]}
+                            title={["Trang chính", "Giới thiệu", "Lịch trình", "Ý nghĩa", "TẾT 2026", "TẾT 2025"][i]}
                         />
                     ))}
                 </nav>
@@ -734,28 +775,133 @@ export default function BanhChungPage() {
                     </div>
                 </section>
 
-                {/* Video Section */}
-                <section id="video" className="banh-section">
+                {/* ✨ Gallery 2026 - Image Slider */}
+                <section id="gallery2026" className="banh-section">
                     <div className="banh-container">
                         <div className="banh-section-header animate-on-scroll">
-                            <h2 className="banh-title">Video Gói Bánh Chưng</h2>
-                            <p className="banh-subtitle">Xem lại khoảnh khắc ấm áp của chương trình</p>
+                            <span className="banh-label">Mới nhất</span>
+                            <h2 className="banh-title">Hình Ảnh TẾT 2026</h2>
+                            <p className="banh-subtitle">
+                                {gallery2026Images.length} khoảnh khắc đáng nhớ từ chương trình gói bánh chưng
+                            </p>
                         </div>
 
-                        <div className="banh-video-wrapper animate-on-scroll">
+                        <div className="banh-gallery animate-on-scroll">
+                            <div
+                                className="banh-gallery-main"
+                                onClick={() => openLightbox(currentSlide2026, '2026')}
+                                onMouseEnter={() => setIsAutoPlaying2026(false)}
+                                onMouseLeave={() => setIsAutoPlaying2026(true)}
+                                onTouchStart={handleTouchStart}
+                                onTouchMove={handleTouchMove}
+                                onTouchEnd={(e) => {
+                                    const diff = touchStartX.current - touchEndX.current;
+                                    if (Math.abs(diff) > 50) {
+                                        if (diff > 0) setCurrentSlide2026((prev) => (prev + 1) % gallery2026Images.length);
+                                        else setCurrentSlide2026((prev) => (prev - 1 + gallery2026Images.length) % gallery2026Images.length);
+                                    }
+                                }}
+                            >
+                                {!gallery2026Loaded[currentSlide2026] && <ImageSkeleton />}
+                                <Image
+                                    src={gallery2026Images[currentSlide2026].src}
+                                    alt={gallery2026Images[currentSlide2026].alt}
+                                    fill
+                                    style={{ objectFit: "cover", opacity: gallery2026Loaded[currentSlide2026] ? 1 : 0 }}
+                                    sizes="(max-width: 768px) 100vw, 70vw"
+                                    onLoad={() => setGallery2026Loaded(prev => ({ ...prev, [currentSlide2026]: true }))}
+                                />
+                                <div className="banh-gallery-overlay">
+                                    <span className="banh-gallery-zoom">Xem lớn</span>
+                                </div>
+                                <div className="banh-gallery-controls">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setCurrentSlide2026((prev) =>
+                                                (prev - 1 + gallery2026Images.length) % gallery2026Images.length
+                                            );
+                                        }}
+                                        aria-label="Ảnh trước"
+                                    >
+                                        ‹
+                                    </button>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setCurrentSlide2026((prev) =>
+                                                (prev + 1) % gallery2026Images.length
+                                            );
+                                        }}
+                                        aria-label="Ảnh tiếp theo"
+                                    >
+                                        ›
+                                    </button>
+                                </div>
+                                <div className="banh-gallery-counter">
+                                    {currentSlide2026 + 1} / {gallery2026Images.length}
+                                </div>
+                                <div className="banh-gallery-dots">
+                                    {gallery2026Images.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            className={currentSlide2026 === index ? "active" : ""}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setCurrentSlide2026(index);
+                                            }}
+                                            aria-label={`Xem ảnh ${index + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="banh-gallery-thumbs" ref={thumbs2026Ref}>
+                                {gallery2026Images.map((img, index) => (
+                                    <button
+                                        key={index}
+                                        className={`banh-thumb ${currentSlide2026 === index ? "active" : ""}`}
+                                        onClick={() => setCurrentSlide2026(index)}
+                                    >
+                                        <Image
+                                            src={img.src}
+                                            alt={img.alt}
+                                            fill
+                                            style={{ objectFit: "cover" }}
+                                            sizes="100px"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Gallery Section - TẾT 2025 (Video + Hình ảnh) */}
+                <section id="gallery" className="banh-section banh-section-alt">
+                    <div className="banh-container">
+                        <div className="banh-section-header animate-on-scroll">
+                            <h2 className="banh-title">Kỷ Niệm TẾT 2025</h2>
+                        </div>
+
+                        {/* Video - thuộc TẾT 2025 */}
+                        <div className="banh-video-wrapper animate-on-scroll" style={{ marginBottom: '3rem' }}>
+                            <h3 style={{ textAlign: 'center', marginBottom: '0.75rem', fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)' }}>
+                                Video Gói Bánh Chưng
+                            </h3>
+                            <p style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.95rem', color: 'rgba(255,255,255,0.65)' }}>
+                                Xem lại khoảnh khắc ấm áp của chương trình
+                            </p>
                             <div id="youtube-container" className="banh-video-container">
                                 {!isVideoStarted ? (
                                     <>
-                                        {/* YouTube Thumbnail */}
                                         <Image
                                             src="https://img.youtube.com/vi/GSxf1XNQ-qE/maxresdefault.jpg"
-                                            alt="Video Gói Bánh Chưng TẾT 2026"
+                                            alt="Video Gói Bánh Chưng TẾT 2025"
                                             fill
                                             className="banh-video-thumbnail"
                                             style={{ objectFit: 'cover' }}
                                         />
-
-                                        {/* Big Play Button */}
                                         <button
                                             className="banh-video-play-btn"
                                             onClick={() => {
@@ -772,25 +918,20 @@ export default function BanhChungPage() {
                                         </button>
                                     </>
                                 ) : (
-                                    /* YouTube Iframe - loads only after click */
                                     <iframe
                                         className="banh-video"
                                         src="https://www.youtube.com/embed/GSxf1XNQ-qE?autoplay=1&rel=0&modestbranding=1"
-                                        title="Video Gói Bánh Chưng TẾT 2026"
+                                        title="Video Gói Bánh Chưng TẾT 2025"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
                                     />
                                 )}
                             </div>
                         </div>
-                    </div>
-                </section>
 
-                {/* Gallery Section */}
-                <section id="gallery" className="banh-section banh-section-alt">
-                    <div className="banh-container">
-                        <div className="banh-section-header animate-on-scroll">
-                            <h2 className="banh-title">Hình Ảnh TẾT 2025</h2>
+                        {/* Hình ảnh TẾT 2025 */}
+                        <div className="banh-section-header animate-on-scroll" style={{ marginTop: '2rem' }}>
+                            <h3 style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', textAlign: 'center' }}>Hình Ảnh</h3>
                         </div>
 
                         <div className="banh-gallery animate-on-scroll">
@@ -899,74 +1040,82 @@ export default function BanhChungPage() {
                     </div>
                 </section>
 
-            </main>
+            </main >
 
             {/* Lightbox - Portal to document.body to fix position issues */}
-            {mounted && lightboxOpen && createPortal(
-                <div className="banh-lightbox" onClick={() => setLightboxOpen(false)}>
-                    <button className="banh-lightbox-close" aria-label="Đóng">×</button>
-                    <button
-                        className="banh-lightbox-nav banh-lightbox-prev"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
-                        }}
-                        aria-label="Ảnh trước"
-                    >
-                        ‹
-                    </button>
-                    <div
-                        className="banh-lightbox-content"
-                        onClick={(e) => e.stopPropagation()}
-                        onTouchStart={handleLightboxTouchStart}
-                        onTouchMove={handleLightboxTouchMove}
-                        onTouchEnd={handleLightboxTouchEnd}
-                    >
-                        <Image
-                            src={galleryImages[lightboxIndex].src}
-                            alt={galleryImages[lightboxIndex].alt}
-                            fill
-                            style={{ objectFit: "contain" }}
-                            sizes="100vw"
-                            priority
-                        />
-                    </div>
-                    <button
-                        className="banh-lightbox-nav banh-lightbox-next"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
-                        }}
-                        aria-label="Ảnh tiếp theo"
-                    >
-                        ›
-                    </button>
-                    <div className="banh-lightbox-counter">
-                        {lightboxIndex + 1} / {galleryImages.length}
-                    </div>
-                </div>,
-                document.body
-            )}
+            {
+                mounted && lightboxOpen && (() => {
+                    const activeLightboxImages = lightboxSource === '2026' ? gallery2026Images : galleryImages;
+                    const safeIndex = lightboxIndex % activeLightboxImages.length;
+                    return createPortal(
+                        <div className="banh-lightbox" onClick={() => setLightboxOpen(false)}>
+                            <button className="banh-lightbox-close" aria-label="Đóng">×</button>
+                            <button
+                                className="banh-lightbox-nav banh-lightbox-prev"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setLightboxIndex((prev) => (prev - 1 + activeLightboxImages.length) % activeLightboxImages.length);
+                                }}
+                                aria-label="Ảnh trước"
+                            >
+                                ‹
+                            </button>
+                            <div
+                                className="banh-lightbox-content"
+                                onClick={(e) => e.stopPropagation()}
+                                onTouchStart={handleLightboxTouchStart}
+                                onTouchMove={handleLightboxTouchMove}
+                                onTouchEnd={handleLightboxTouchEnd}
+                            >
+                                <Image
+                                    src={activeLightboxImages[safeIndex].src}
+                                    alt={activeLightboxImages[safeIndex].alt}
+                                    fill
+                                    style={{ objectFit: "contain" }}
+                                    sizes="100vw"
+                                    priority
+                                />
+                            </div>
+                            <button
+                                className="banh-lightbox-nav banh-lightbox-next"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setLightboxIndex((prev) => (prev + 1) % activeLightboxImages.length);
+                                }}
+                                aria-label="Ảnh tiếp theo"
+                            >
+                                ›
+                            </button>
+                            <div className="banh-lightbox-counter">
+                                {safeIndex + 1} / {activeLightboxImages.length}
+                            </div>
+                        </div>,
+                        document.body
+                    );
+                })()
+            }
 
             {/* Confetti Celebration Effect */}
-            {mounted && showConfetti && createPortal(
-                <div className="banh-confetti" aria-hidden="true">
-                    {confettiPieces.map((piece, i) => (
-                        <span
-                            key={i}
-                            className="banh-confetti-piece"
-                            style={{
-                                left: piece.left,
-                                animationDelay: piece.delay,
-                                animationDuration: piece.duration,
-                                backgroundColor: piece.color,
-                                transform: `rotate(${piece.rotation})`
-                            }}
-                        />
-                    ))}
-                </div>,
-                document.body
-            )}
+            {
+                mounted && showConfetti && createPortal(
+                    <div className="banh-confetti" aria-hidden="true">
+                        {confettiPieces.map((piece, i) => (
+                            <span
+                                key={i}
+                                className="banh-confetti-piece"
+                                style={{
+                                    left: piece.left,
+                                    animationDelay: piece.delay,
+                                    animationDuration: piece.duration,
+                                    backgroundColor: piece.color,
+                                    transform: `rotate(${piece.rotation})`
+                                }}
+                            />
+                        ))}
+                    </div>,
+                    document.body
+                )
+            }
         </>
     );
 }

@@ -343,6 +343,7 @@ export type ActivityEntity =
   | 'office-location'
   | 'seo'
   | 'media'
+  | 'navbar-settings'
   | 'database'
   | 'auth';
 

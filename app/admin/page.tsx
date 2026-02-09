@@ -31,10 +31,11 @@ import DatabaseTab from '@/components/admin/DatabaseTab';
 import ActivityLogsTab from '@/components/admin/ActivityLogsTab';
 import UsersManagementTab from '@/components/admin/UsersManagementTab';
 import PartnersTab from '@/components/admin/PartnersTab';
+import NavbarSettingsTab from '@/components/admin/NavbarSettingsTab';
 import { useAdminContext } from './layout';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'video-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'video-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users' | 'navbar-settings';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -825,7 +826,8 @@ export default function AdminPage() {
                                                           activeTab === 'database' ? 'Quản lý Database' :
                                                             activeTab === 'activity-logs' ? 'Nhật ký hoạt động' :
                                                               activeTab === 'users' ? 'Quản lý người dùng' :
-                                                                activeTab}
+                                                                activeTab === 'navbar-settings' ? 'Cài đặt thanh điều hướng' :
+                                                                  activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2788,6 +2790,13 @@ export default function AdminPage() {
         {
           activeTab === 'partners' && (
             <PartnersTab partnerLogos={partnerLogos} onUpdate={loadData} />
+          )
+        }
+
+        {/* Navbar Settings Tab */}
+        {
+          activeTab === 'navbar-settings' && (
+            <NavbarSettingsTab />
           )
         }
 
