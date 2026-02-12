@@ -11,6 +11,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import GlobalBackground from "@/components/GlobalBackground";
 import HolidayDecorations from "@/components/HolidayDecorations";
 import PageGuard from "@/components/PageGuard";
+import TetAnnouncementPopup from "@/components/TetAnnouncementPopup";
 
 // Routes that should NOT show the main header/footer
 const STANDALONE_ROUTES = ["/masttech", "/admin"];
@@ -63,6 +64,7 @@ export default function LayoutWrapper({
             <Footer {...footerData} />
             <FloatingContactButtons />
             <ScrollToTop />
+            <TetAnnouncementPopup />
         </>
     );
 }

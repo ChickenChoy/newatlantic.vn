@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   // Include 169.254.*.* for link-local addresses (Windows APIPA)
   allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*', '169.254.*.*'],
 
+  // Fix: Set turbopack root to this project directory
+  // Prevents resolving modules from parent directories
+  turbopack: {
+    root: import.meta.dirname,
+  },
+
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],

@@ -32,11 +32,12 @@ import ActivityLogsTab from '@/components/admin/ActivityLogsTab';
 import UsersManagementTab from '@/components/admin/UsersManagementTab';
 import PartnersTab from '@/components/admin/PartnersTab';
 import NavbarSettingsTab from '@/components/admin/NavbarSettingsTab';
+import PopupSettingsTab from '@/components/admin/PopupSettingsTab';
 import DashboardOverview from '@/components/admin/DashboardOverview';
 import { useAdminContext } from './layout';
 
 
-type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'video-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users' | 'navbar-settings';
+type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | 'post-categories' | 'settings' | 'site-settings' | 'gallery' | 'catalogs' | 'partners' | 'holiday-effects' | 'popup-settings' | 'page-visibility' | 'testimonials' | 'faqs' | 'certifications' | 'footer-links' | 'footer-settings' | 'appearance' | 'media-library' | 'video-library' | 'seo' | 'homepage-services' | 'database' | 'activity-logs' | 'users' | 'navbar-settings';
 
 export default function AdminPage() {
   const toast = useToast();
@@ -828,7 +829,8 @@ export default function AdminPage() {
                                                             activeTab === 'activity-logs' ? 'Nhật ký hoạt động' :
                                                               activeTab === 'users' ? 'Quản lý người dùng' :
                                                                 activeTab === 'navbar-settings' ? 'Cài đặt thanh điều hướng' :
-                                                                  activeTab}
+                                                                  activeTab === 'popup-settings' ? 'Cài đặt Popup thông báo' :
+                                                                    activeTab}
           </h1>
           <div className="flex items-center gap-4">
             {saving && (
@@ -2719,6 +2721,13 @@ export default function AdminPage() {
         {
           activeTab === 'holiday-effects' && (
             <HolidayEffectsTab holidayEffects={holidayEffects} onRefresh={loadData} />
+          )
+        }
+
+        {/* Popup Settings Tab */}
+        {
+          activeTab === 'popup-settings' && (
+            <PopupSettingsTab holidayEffects={holidayEffects} />
           )
         }
 
