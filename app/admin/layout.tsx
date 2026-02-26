@@ -87,9 +87,14 @@ export default function AdminLayout({
     try {
       // Check Supabase session
       const { data: { session } } = await supabase.auth.getSession();
+      const sessionEmail = session?.user.email || '';
 
       // Check TOTP status from API
-      const totpRes = await fetch('/api/totp');
+      const totpRes = sessionEmail
+        ? await fetch(`/api/totp?userEmail=${encodeURIComponent(sessionEmail)}`, {
+          headers: { 'x-user-email': sessionEmail }
+        })
+        : await fetch('/api/totp');
       const totpData = await totpRes.json();
       setTotpEnabled(totpData.totpEnabled || false);
 
@@ -233,7 +238,10 @@ export default function AdminLayout({
         setPassword('');
 
         // Check TOTP
-        const totpRes = await fetch('/api/totp');
+        const sessionEmail = data.session.user.email || '';
+        const totpRes = await fetch(`/api/totp?userEmail=${encodeURIComponent(sessionEmail)}`, {
+          headers: { 'x-user-email': sessionEmail }
+        });
         const totpData = await totpRes.json();
 
         if (totpData.totpEnabled) {
@@ -260,7 +268,7 @@ export default function AdminLayout({
       const response = await fetch('/api/totp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'verify', token: totpCode }),
+        body: JSON.stringify({ action: 'verify', token: totpCode, userEmail }),
       });
 
       const data = await response.json();
@@ -327,7 +335,7 @@ export default function AdminLayout({
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="admin-system-font min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Đang kiểm tra xác thực...</p>
@@ -339,7 +347,7 @@ export default function AdminLayout({
   // Login form
   if (authStep === 'login') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
+      <div className="admin-system-font min-h-screen flex items-center justify-center px-4 bg-gray-50">
         <div className="max-w-md w-full">
           <div className="mb-10">
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
@@ -365,7 +373,7 @@ export default function AdminLayout({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 py-4 pr-5 bg-transparent focus:outline-none text-gray-900 placeholder-gray-300"
-                  placeholder="admin@newatlantic.vn"
+                  placeholder="*@newatlantic.vn"
                   required
                   autoFocus
                 />
@@ -440,7 +448,7 @@ export default function AdminLayout({
   // TOTP verification form
   if (authStep === 'totp') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
+      <div className="admin-system-font min-h-screen flex items-center justify-center px-4 bg-gray-50">
         <div className="max-w-md w-full">
           <div className="mb-10">
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
@@ -525,7 +533,7 @@ export default function AdminLayout({
       isSidebarCollapsed,
       setIsSidebarCollapsed,
     }}>
-      <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900 font-sans">
+      <div className="admin-system-font flex min-h-screen bg-gray-100 dark:bg-gray-900 font-sans">
         <AdminSidebar />
         <main className={`flex-1 min-h-screen transition-all duration-300 ${isSidebarCollapsed ? 'xl:ml-20' : 'xl:ml-72'}`}>
           <div className="p-4 md:p-6 lg:p-8 xl:p-10">

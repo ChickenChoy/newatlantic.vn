@@ -3,6 +3,39 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { authenticator } from '@otplib/preset-default';
 import QRCode from 'qrcode';
 
+interface TotpSettingsValue {
+  totp_enabled?: boolean;
+  totp_secret?: string | null;
+  updated_at?: string;
+}
+
+const SECURITY_KEY_PREFIX = 'security:';
+
+function normalizeUserEmail(userEmail: string): string {
+  return userEmail.trim().toLowerCase();
+}
+
+function getSecurityKeyForUser(userEmail: string): string {
+  return `${SECURITY_KEY_PREFIX}${normalizeUserEmail(userEmail)}`;
+}
+
+async function syncUserTotpStatus(client: SupabaseClient, userEmail: string | undefined, enabled: boolean): Promise<void> {
+  if (!userEmail) return;
+
+  const { error } = await client
+    .from('admin_users')
+    .update({
+      totp_enabled: enabled,
+      updated_at: new Date().toISOString(),
+    })
+    .ilike('email', normalizeUserEmail(userEmail));
+
+  if (error) {
+    // Non-blocking: TOTP core flow should continue even if metadata sync fails
+    console.warn(`Failed to sync user 2FA status for ${userEmail}:`, error.message);
+  }
+}
+
 // Lazy-loaded Supabase client for server-side
 let supabaseClient: SupabaseClient | null = null;
 
@@ -21,12 +54,11 @@ function getSupabaseClient(): SupabaseClient | null {
   return supabaseClient;
 }
 
-// Helper to get supabase URL for auth client
+// Helper to get Supabase URL for auth client
 function getSupabaseUrl(): string | null {
   return process.env.NEXT_PUBLIC_SUPABASE_URL || null;
 }
 
-// Helper functions using otplib
 function generateSecret(): string {
   return authenticator.generateSecret();
 }
@@ -39,27 +71,55 @@ function generateKeyUri(email: string, issuer: string, secret: string): string {
   return authenticator.keyuri(email, issuer, secret);
 }
 
+async function readTotpSettings(client: SupabaseClient, userEmail: string): Promise<TotpSettingsValue> {
+  const { data, error } = await client
+    .from('admin_settings')
+    .select('value')
+    .eq('key', getSecurityKeyForUser(userEmail))
+    .maybeSingle();
+
+  if (error) {
+    console.error('Error reading TOTP settings:', error);
+    return {};
+  }
+
+  const value = data?.value;
+  if (!value || typeof value !== 'object') return {};
+  return value as TotpSettingsValue;
+}
+
+async function writeTotpSettings(client: SupabaseClient, userEmail: string, value: TotpSettingsValue): Promise<string | null> {
+  const { error } = await client
+    .from('admin_settings')
+    .upsert({
+      key: getSecurityKeyForUser(userEmail),
+      value,
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'key' });
+
+  return error ? error.message : null;
+}
+
 // GET - Check TOTP status
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const client = getSupabaseClient();
     if (!client) {
       return NextResponse.json({ totpEnabled: false, message: 'Supabase not configured' });
     }
 
-    const { data, error } = await client
-      .from('admin_settings')
-      .select('totp_enabled')
-      .eq('id', 'admin')
-      .single();
-
-    if (error) {
-      console.error('Error getting TOTP status:', error);
+    const userEmail = request.nextUrl.searchParams.get('userEmail') || request.headers.get('x-user-email');
+    if (!userEmail) {
       return NextResponse.json({ totpEnabled: false });
     }
 
+    const normalizedEmail = normalizeUserEmail(userEmail);
+    const settings = await readTotpSettings(client, normalizedEmail);
+
+    await syncUserTotpStatus(client, normalizedEmail, Boolean(settings.totp_enabled));
+
     return NextResponse.json({
-      totpEnabled: data?.totp_enabled || false,
+      totpEnabled: settings.totp_enabled || false,
     });
   } catch (error) {
     console.error('Error getting TOTP status:', error);
@@ -85,21 +145,16 @@ export async function POST(request: NextRequest) {
         try {
           const { password, userEmail } = body;
 
-          // Verify password is provided
           if (!password) {
             return NextResponse.json({ error: 'Vui lòng nhập mật khẩu' }, { status: 400 });
           }
 
-          // Verify userEmail is provided (current logged-in user)
           if (!userEmail) {
             return NextResponse.json({ error: 'Thiếu thông tin người dùng' }, { status: 400 });
           }
 
-          // Use the current logged-in user's email for verification
-          const adminEmail = userEmail;
+          const normalizedEmail = normalizeUserEmail(userEmail);
 
-          // Create a separate Supabase client for password verification
-          // We use the anon key for auth operations
           const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
           if (!supabaseAnonKey) {
             return NextResponse.json({ error: 'Supabase anon key not configured' }, { status: 503 });
@@ -108,10 +163,9 @@ export async function POST(request: NextRequest) {
           const { createClient: createAnonClient } = await import('@supabase/supabase-js');
           const supabaseAuth = createAnonClient(supabaseUrl, supabaseAnonKey);
 
-          // Verify password by attempting to sign in
           const { error: authError } = await supabaseAuth.auth.signInWithPassword({
-            email: adminEmail,
-            password: password,
+            email: normalizedEmail,
+            password,
           });
 
           if (authError) {
@@ -119,31 +173,23 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Mật khẩu không đúng' }, { status: 401 });
           }
 
-          // Password verified successfully, now generate TOTP secret
           const secret = generateSecret();
-          console.log('Generated secret:', secret);
-
-          const otpauth = generateKeyUri(adminEmail, 'NewAtlantic Admin', secret);
-          console.log('Generated otpauth:', otpauth);
-
-          // Generate QR code
+          const otpauth = generateKeyUri(normalizedEmail, 'NewAtlantic Admin', secret);
           const qrCodeDataUrl = await QRCode.toDataURL(otpauth);
-          console.log('Generated QR code');
 
-          // Save secret but don't enable yet
-          const { error } = await client
-            .from('admin_settings')
-            .upsert({
-              id: 'admin',
-              totp_secret: secret,
-              totp_enabled: false,
-              updated_at: new Date().toISOString(),
-            });
+          const currentSettings = await readTotpSettings(client, normalizedEmail);
+          const writeError = await writeTotpSettings(client, normalizedEmail, {
+            ...currentSettings,
+            totp_secret: secret,
+            totp_enabled: false,
+            updated_at: new Date().toISOString(),
+          });
 
-          if (error) {
-            console.error('Error saving TOTP secret:', error);
-            return NextResponse.json({ error: 'Không thể lưu cài đặt: ' + error.message }, { status: 500 });
+          if (writeError) {
+            return NextResponse.json({ error: `Không thể lưu cài đặt: ${writeError}` }, { status: 500 });
           }
+
+          await syncUserTotpStatus(client, normalizedEmail, false);
 
           return NextResponse.json({
             success: true,
@@ -153,37 +199,38 @@ export async function POST(request: NextRequest) {
           });
         } catch (setupError) {
           console.error('Setup error:', setupError);
-          return NextResponse.json({ error: 'Lỗi setup: ' + String(setupError) }, { status: 500 });
+          return NextResponse.json({ error: `Lỗi setup: ${String(setupError)}` }, { status: 500 });
         }
       }
 
       case 'verify-setup': {
-        // Get secret from database
-        const { data, error: fetchError } = await client
-          .from('admin_settings')
-          .select('totp_secret')
-          .eq('id', 'admin')
-          .single();
+        const { userEmail } = body as { userEmail?: string };
+        if (!userEmail) {
+          return NextResponse.json({ error: 'Thiếu thông tin người dùng' }, { status: 400 });
+        }
 
-        if (fetchError || !data?.totp_secret) {
+        const normalizedEmail = normalizeUserEmail(userEmail);
+        const settings = await readTotpSettings(client, normalizedEmail);
+        if (!settings.totp_secret) {
           return NextResponse.json({ error: 'Chưa thiết lập TOTP' }, { status: 400 });
         }
 
-        // Verify token
-        const isValid = verifyTOTP(data.totp_secret, token);
+        const isValid = verifyTOTP(settings.totp_secret, token);
         if (!isValid) {
           return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
         }
 
-        // Enable TOTP
-        const { error: updateError } = await client
-          .from('admin_settings')
-          .update({ totp_enabled: true, updated_at: new Date().toISOString() })
-          .eq('id', 'admin');
+        const writeError = await writeTotpSettings(client, normalizedEmail, {
+          ...settings,
+          totp_enabled: true,
+          updated_at: new Date().toISOString(),
+        });
 
-        if (updateError) {
+        if (writeError) {
           return NextResponse.json({ error: 'Không thể kích hoạt TOTP' }, { status: 500 });
         }
+
+        await syncUserTotpStatus(client, normalizedEmail, true);
 
         return NextResponse.json({
           success: true,
@@ -192,19 +239,18 @@ export async function POST(request: NextRequest) {
       }
 
       case 'verify': {
-        // Get settings
-        const { data, error: fetchError } = await client
-          .from('admin_settings')
-          .select('totp_secret, totp_enabled')
-          .eq('id', 'admin')
-          .single();
+        const { userEmail } = body as { userEmail?: string };
+        if (!userEmail) {
+          return NextResponse.json({ error: 'Thiếu thông tin người dùng' }, { status: 400 });
+        }
 
-        if (fetchError || !data?.totp_enabled || !data?.totp_secret) {
+        const normalizedEmail = normalizeUserEmail(userEmail);
+        const settings = await readTotpSettings(client, normalizedEmail);
+        if (!settings.totp_enabled || !settings.totp_secret) {
           return NextResponse.json({ error: 'TOTP chưa được kích hoạt' }, { status: 400 });
         }
 
-        // Verify token
-        const isValid = verifyTOTP(data.totp_secret, token);
+        const isValid = verifyTOTP(settings.totp_secret, token);
         if (!isValid) {
           return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
         }
@@ -218,20 +264,16 @@ export async function POST(request: NextRequest) {
       case 'disable': {
         const { password, userEmail } = body;
 
-        // Verify password is provided
         if (!password) {
           return NextResponse.json({ error: 'Vui lòng nhập mật khẩu' }, { status: 400 });
         }
 
-        // Verify userEmail is provided (current logged-in user)
         if (!userEmail) {
           return NextResponse.json({ error: 'Thiếu thông tin người dùng' }, { status: 400 });
         }
 
-        // Use the current logged-in user's email for verification
-        const adminEmail = userEmail;
+        const normalizedEmail = normalizeUserEmail(userEmail);
 
-        // Create a separate Supabase client for password verification
         const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
         if (!supabaseAnonKey) {
           return NextResponse.json({ error: 'Supabase anon key not configured' }, { status: 503 });
@@ -240,10 +282,9 @@ export async function POST(request: NextRequest) {
         const { createClient: createAnonClient } = await import('@supabase/supabase-js');
         const supabaseAuth = createAnonClient(supabaseUrl, supabaseAnonKey);
 
-        // Verify password by attempting to sign in
         const { error: authError } = await supabaseAuth.auth.signInWithPassword({
-          email: adminEmail,
-          password: password,
+          email: normalizedEmail,
+          password,
         });
 
         if (authError) {
@@ -251,38 +292,27 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ error: 'Mật khẩu không đúng' }, { status: 401 });
         }
 
-        // Get settings
-        const { data, error: fetchError } = await client
-          .from('admin_settings')
-          .select('totp_secret, totp_enabled')
-          .eq('id', 'admin')
-          .single();
+        const settings = await readTotpSettings(client, normalizedEmail);
 
-        if (fetchError) {
-          return NextResponse.json({ error: 'Không thể đọc cài đặt' }, { status: 500 });
-        }
-
-        // Verify token before disabling
-        if (data?.totp_enabled && data?.totp_secret) {
-          const isValid = verifyTOTP(data.totp_secret, token);
+        if (settings.totp_enabled && settings.totp_secret) {
+          const isValid = verifyTOTP(settings.totp_secret, token);
           if (!isValid) {
             return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
           }
         }
 
-        // Disable TOTP
-        const { error: updateError } = await client
-          .from('admin_settings')
-          .update({
-            totp_enabled: false,
-            totp_secret: null,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', 'admin');
+        const writeError = await writeTotpSettings(client, normalizedEmail, {
+          ...settings,
+          totp_enabled: false,
+          totp_secret: null,
+          updated_at: new Date().toISOString(),
+        });
 
-        if (updateError) {
+        if (writeError) {
           return NextResponse.json({ error: 'Không thể tắt TOTP' }, { status: 500 });
         }
+
+        await syncUserTotpStatus(client, normalizedEmail, false);
 
         return NextResponse.json({
           success: true,

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
     getUsers,
     getUserByEmail,
+    getUserById,
     createUser,
     updateUser,
     deleteUser,
@@ -13,6 +14,7 @@ import {
 import { createAdminClient } from '@/lib/supabase';
 import { logActivity } from '@/lib/activity-logs';
 import { AdminUser, UserRole } from '@/types';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 
 // Helper to get current user from request (from cookies/session)
 async function getCurrentUserEmail(request: NextRequest): Promise<string | null> {
@@ -86,8 +88,42 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        const users = await getUsers();
-        const stats = await getUserStats();
+        let users = await getUsers();
+        let stats = await getUserStats();
+
+        // Best-effort sync: keep current user's 2FA flag aligned with per-user security settings
+        // so Users Management does not show stale status.
+        if (currentEmail) {
+            try {
+                const supabaseAdmin = createAdminClient();
+                if (supabaseAdmin) {
+                    const { data: securityData } = await supabaseAdmin
+                        .from('admin_settings')
+                        .select('value')
+                        .eq('key', `security:${currentEmail.toLowerCase()}`)
+                        .maybeSingle();
+
+                    const value = securityData?.value as { totp_enabled?: boolean } | undefined;
+                    const userTotpEnabled = Boolean(value?.totp_enabled);
+                    const currentUserRow = users.find(u => u.email.toLowerCase() === currentEmail.toLowerCase());
+
+                    if (currentUserRow && currentUserRow.totpEnabled !== userTotpEnabled) {
+                        users = users.map(u =>
+                            u.id === currentUserRow.id ? { ...u, totpEnabled: userTotpEnabled } : u
+                        );
+                        stats = {
+                            ...stats,
+                            with2FA: users.filter(u => u.totpEnabled).length,
+                        };
+
+                        // Persist sync to DB (non-blocking for response correctness)
+                        await updateUser(currentUserRow.id, { totpEnabled: userTotpEnabled });
+                    }
+                }
+            } catch (syncError) {
+                console.warn('Failed to sync user 2FA status on users listing:', syncError);
+            }
+        }
 
         return NextResponse.json({
             users,
@@ -104,6 +140,220 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
+        const { action } = body as { action?: string };
+
+        if (action === 'change-password') {
+            const { currentPassword, newPassword, userEmail } = body as {
+                currentPassword?: string;
+                newPassword?: string;
+                userEmail?: string;
+            };
+
+            if (!userEmail || !currentPassword || !newPassword) {
+                return NextResponse.json({ error: 'Thiếu thông tin bắt buộc' }, { status: 400 });
+            }
+
+            if (newPassword.length < 6) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 6 ký tự' }, { status: 400 });
+            }
+
+            if (!/[A-Z]/.test(newPassword)) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 1 ký tự in hoa' }, { status: 400 });
+            }
+
+            if (!/[a-z]/.test(newPassword)) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 1 ký tự in thường' }, { status: 400 });
+            }
+
+            if (!/[^\w\s]/.test(newPassword)) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 1 ký tự đặc biệt' }, { status: 400 });
+            }
+
+            if (currentPassword === newPassword) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải khác mật khẩu hiện tại' }, { status: 400 });
+            }
+
+            const targetEmail = userEmail.toLowerCase();
+            const currentEmail = (await getCurrentUserEmail(request))?.toLowerCase();
+            if (!currentEmail) {
+                return NextResponse.json({ error: 'Không xác định được người dùng hiện tại' }, { status: 401 });
+            }
+            if (currentEmail !== targetEmail) {
+                return NextResponse.json({ error: 'Chỉ được đổi mật khẩu của chính bạn' }, { status: 403 });
+            }
+
+            const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+            const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+            if (!supabaseUrl || !supabaseAnonKey) {
+                return NextResponse.json({ error: 'Supabase chưa được cấu hình đầy đủ' }, { status: 500 });
+            }
+
+            // Verify current password first
+            const verifyClient = createSupabaseClient(supabaseUrl, supabaseAnonKey, {
+                auth: { autoRefreshToken: false, persistSession: false }
+            });
+            const { error: verifyError } = await verifyClient.auth.signInWithPassword({
+                email: targetEmail,
+                password: currentPassword,
+            });
+
+            if (verifyError) {
+                return NextResponse.json({ error: 'Mật khẩu hiện tại không đúng' }, { status: 401 });
+            }
+
+            const supabaseAdmin = createAdminClient();
+            if (!supabaseAdmin) {
+                return NextResponse.json({ error: 'Không thể kết nối Supabase Admin' }, { status: 500 });
+            }
+
+            const dbUser = await getUserByEmail(targetEmail);
+            let supabaseUserId = dbUser?.supabaseId;
+
+            // Fallback: find auth user by email if DB row does not have supabase_id
+            if (!supabaseUserId) {
+                const { data: authUsersData, error: listUsersError } = await supabaseAdmin.auth.admin.listUsers();
+                if (listUsersError) {
+                    return NextResponse.json({ error: `Không thể lấy danh sách user auth: ${listUsersError.message}` }, { status: 500 });
+                }
+
+                const authUser = authUsersData.users.find(u => u.email?.toLowerCase() === targetEmail);
+                if (!authUser) {
+                    return NextResponse.json({ error: 'Không tìm thấy tài khoản xác thực cho email này' }, { status: 404 });
+                }
+                supabaseUserId = authUser.id;
+
+                if (dbUser && !dbUser.supabaseId) {
+                    await updateUser(dbUser.id, { supabaseId: supabaseUserId });
+                }
+            }
+
+            const { error: updatePasswordError } = await supabaseAdmin.auth.admin.updateUserById(
+                supabaseUserId,
+                { password: newPassword }
+            );
+
+            if (updatePasswordError) {
+                return NextResponse.json({ error: `Không thể cập nhật mật khẩu: ${updatePasswordError.message}` }, { status: 500 });
+            }
+
+            await logActivity({
+                action: 'update',
+                entity: 'auth',
+                entityId: dbUser?.id || supabaseUserId,
+                entityName: targetEmail,
+                user: currentEmail,
+                details: 'Đổi mật khẩu tài khoản admin',
+            });
+
+            return NextResponse.json({
+                success: true,
+                message: 'Đổi mật khẩu thành công',
+            });
+        }
+
+        if (action === 'admin-change-user-password') {
+            const { userId, newPassword } = body as {
+                userId?: string;
+                newPassword?: string;
+            };
+
+            if (!userId || !newPassword) {
+                return NextResponse.json({ error: 'Thiếu thông tin bắt buộc' }, { status: 400 });
+            }
+
+            if (newPassword.length < 6) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 6 ký tự' }, { status: 400 });
+            }
+
+            if (!/[A-Z]/.test(newPassword)) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 1 ký tự in hoa' }, { status: 400 });
+            }
+
+            if (!/[a-z]/.test(newPassword)) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 1 ký tự in thường' }, { status: 400 });
+            }
+
+            if (!/[^\w\s]/.test(newPassword)) {
+                return NextResponse.json({ error: 'Mật khẩu mới phải có ít nhất 1 ký tự đặc biệt' }, { status: 400 });
+            }
+
+            const currentEmail = (await getCurrentUserEmail(request))?.toLowerCase();
+            if (!currentEmail) {
+                return NextResponse.json({ error: 'Không xác định được người dùng hiện tại' }, { status: 401 });
+            }
+
+            const hasPermission = await emailHasPermission(currentEmail, 'manage_users');
+            if (!hasPermission) {
+                return NextResponse.json({ error: 'Không có quyền đổi mật khẩu người dùng' }, { status: 403 });
+            }
+
+            const currentUser = await getUserByEmail(currentEmail);
+            if (!currentUser || !currentUser.isActive) {
+                return NextResponse.json({ error: 'Tài khoản hiện tại không hợp lệ' }, { status: 403 });
+            }
+
+            const targetUser = await getUserById(userId);
+            if (!targetUser) {
+                return NextResponse.json({ error: 'Người dùng không tồn tại' }, { status: 404 });
+            }
+
+            if (targetUser.email.toLowerCase() === currentEmail) {
+                return NextResponse.json({
+                    error: 'Vui lòng dùng mục Cài đặt bảo mật để đổi mật khẩu của chính bạn'
+                }, { status: 400 });
+            }
+
+            if (targetUser.role === 'super_admin' && currentUser.role !== 'super_admin') {
+                return NextResponse.json({ error: 'Không có quyền đổi mật khẩu cho Super Admin' }, { status: 403 });
+            }
+
+            const supabaseAdmin = createAdminClient();
+            if (!supabaseAdmin) {
+                return NextResponse.json({ error: 'Không thể kết nối Supabase Admin' }, { status: 500 });
+            }
+
+            let supabaseUserId = targetUser.supabaseId;
+
+            // Fallback: find auth user by email if DB row does not have supabase_id
+            if (!supabaseUserId) {
+                const { data: authUsersData, error: listUsersError } = await supabaseAdmin.auth.admin.listUsers();
+                if (listUsersError) {
+                    return NextResponse.json({ error: `Không thể lấy danh sách user auth: ${listUsersError.message}` }, { status: 500 });
+                }
+
+                const authUser = authUsersData.users.find(u => u.email?.toLowerCase() === targetUser.email.toLowerCase());
+                if (!authUser) {
+                    return NextResponse.json({ error: 'Không tìm thấy tài khoản xác thực cho người dùng này' }, { status: 404 });
+                }
+
+                supabaseUserId = authUser.id;
+                await updateUser(targetUser.id, { supabaseId: supabaseUserId });
+            }
+
+            const { error: updatePasswordError } = await supabaseAdmin.auth.admin.updateUserById(
+                supabaseUserId,
+                { password: newPassword }
+            );
+
+            if (updatePasswordError) {
+                return NextResponse.json({ error: `Không thể cập nhật mật khẩu: ${updatePasswordError.message}` }, { status: 500 });
+            }
+
+            await logActivity({
+                action: 'update',
+                entity: 'auth',
+                entityId: targetUser.id,
+                entityName: targetUser.email,
+                user: currentEmail,
+                details: `Đổi mật khẩu bởi quản trị viên cho tài khoản ${targetUser.email}`,
+            });
+
+            return NextResponse.json({
+                success: true,
+                message: `Đã đổi mật khẩu cho ${targetUser.email}`,
+            });
+        }
+
         const { email, name, role, password, isActive = true, invitedBy } = body as {
             email: string;
             name: string;
@@ -266,6 +516,25 @@ export async function PUT(request: NextRequest) {
 
         if (!updatedUser) {
             return NextResponse.json({ error: 'Không thể cập nhật người dùng' }, { status: 500 });
+        }
+
+        // If admin forces 2FA off for a user, clear per-user TOTP secret/settings as well.
+        if (updates.totpEnabled === false) {
+            const supabaseAdmin = createAdminClient();
+            if (supabaseAdmin) {
+                const totpKey = `security:${updatedUser.email.toLowerCase()}`;
+                await supabaseAdmin
+                    .from('admin_settings')
+                    .upsert({
+                        key: totpKey,
+                        value: {
+                            totp_enabled: false,
+                            totp_secret: null,
+                            updated_at: new Date().toISOString(),
+                        },
+                        updated_at: new Date().toISOString(),
+                    }, { onConflict: 'key' });
+            }
         }
 
         // Log activity

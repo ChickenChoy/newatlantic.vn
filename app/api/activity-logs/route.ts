@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
         }
 
         const body = await request.json();
-        const { action, entity, entityId, entityName, user, details, changes } = body;
+        const { action, entity, entityId, entityName, user, details } = body;
 
         if (!action || !entity) {
             return NextResponse.json(
@@ -122,7 +122,6 @@ export async function POST(request: NextRequest) {
             entity_name: entityName,
             user_email: user || 'Admin',
             details,
-            changes: changes || null,
             ip_address: ipAddress,
         };
 

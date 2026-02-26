@@ -42,7 +42,7 @@ type TabType = 'dashboard' | 'traffic' | 'products' | 'posts' | 'categories' | '
 export default function AdminPage() {
   const toast = useToast();
   const router = useRouter();
-  const { userEmail } = useAdminContext();
+  const { userEmail, handleLogout } = useAdminContext();
 
   const searchParams = useSearchParams();
 
@@ -108,6 +108,21 @@ export default function AdminPage() {
   const [totpLoading, setTotpLoading] = useState(false);
   const [totpError, setTotpError] = useState('');
   const [showDisableModal, setShowDisableModal] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const passwordValidationRules = useMemo(() => ([
+    { id: 'length', label: 'Ít nhất 6 ký tự', valid: newPassword.length >= 6 },
+    { id: 'upper', label: 'Có chữ in hoa (A-Z)', valid: /[A-Z]/.test(newPassword) },
+    { id: 'lower', label: 'Có chữ in thường (a-z)', valid: /[a-z]/.test(newPassword) },
+    { id: 'special', label: 'Có ký tự đặc biệt', valid: /[^\w\s]/.test(newPassword) },
+    { id: 'different', label: 'Khác mật khẩu hiện tại', valid: Boolean(newPassword) && currentPassword !== newPassword },
+    { id: 'confirm', label: 'Xác nhận mật khẩu khớp', valid: Boolean(confirmPassword) && newPassword === confirmPassword },
+  ]), [currentPassword, newPassword, confirmPassword]);
+  const showPasswordValidation = Boolean(currentPassword || newPassword || confirmPassword);
 
   // Load data từ API (always fresh from Supabase, using adminFetch)
   const loadData = useCallback(async () => {
@@ -139,7 +154,10 @@ export default function AdminPage() {
       }
 
       // Load TOTP status
-      const totpRes = await adminFetch('/api/totp');
+      const totpRes = await adminFetch(
+        userEmail ? `/api/totp?userEmail=${encodeURIComponent(userEmail)}` : '/api/totp',
+        userEmail ? { headers: { 'x-user-email': userEmail } } : undefined
+      );
       if (totpRes.ok) {
         const totpData = await totpRes.json();
         setTotpEnabled(totpData.totpEnabled);
@@ -739,7 +757,7 @@ export default function AdminPage() {
       const response = await fetch('/api/totp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'verify-setup', token: totpVerifyCode }),
+        body: JSON.stringify({ action: 'verify-setup', token: totpVerifyCode, userEmail }),
       });
       const data = await response.json();
       if (response.ok && data.success) {
@@ -782,6 +800,88 @@ export default function AdminPage() {
       setTotpError('Có lỗi xảy ra. Vui lòng thử lại.');
     } finally {
       setTotpLoading(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    setPasswordError('');
+    setPasswordSuccess('');
+
+    if (!userEmail) {
+      setPasswordError('Không tìm thấy thông tin người dùng đăng nhập');
+      return;
+    }
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setPasswordError('Vui lòng nhập đầy đủ thông tin');
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      setPasswordError('Mật khẩu mới phải có ít nhất 6 ký tự');
+      return;
+    }
+
+    if (!/[A-Z]/.test(newPassword)) {
+      setPasswordError('Mật khẩu mới phải có ít nhất 1 ký tự in hoa');
+      return;
+    }
+
+    if (!/[a-z]/.test(newPassword)) {
+      setPasswordError('Mật khẩu mới phải có ít nhất 1 ký tự in thường');
+      return;
+    }
+
+    if (!/[^\w\s]/.test(newPassword)) {
+      setPasswordError('Mật khẩu mới phải có ít nhất 1 ký tự đặc biệt');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError('Xác nhận mật khẩu mới không khớp');
+      return;
+    }
+
+    if (currentPassword === newPassword) {
+      setPasswordError('Mật khẩu mới phải khác mật khẩu hiện tại');
+      return;
+    }
+
+    setPasswordLoading(true);
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-email': userEmail,
+        },
+        body: JSON.stringify({
+          action: 'change-password',
+          userEmail,
+          currentPassword,
+          newPassword,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setPasswordError(data.error || 'Không thể đổi mật khẩu');
+        return;
+      }
+
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setPasswordSuccess('Đổi mật khẩu thành công. Hệ thống sẽ tự đăng xuất để bạn đăng nhập lại.');
+      toast.success('Đổi mật khẩu thành công');
+      toast.info('Đang đăng xuất...');
+      setTimeout(() => {
+        void handleLogout();
+      }, 1200);
+    } catch {
+      setPasswordError('Có lỗi xảy ra. Vui lòng thử lại.');
+    } finally {
+      setPasswordLoading(false);
     }
   };
 
@@ -2885,6 +2985,116 @@ export default function AdminPage() {
               </div>
 
               <div className="p-6">
+                {/* Change Password */}
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold text-bodytext dark:text-white mb-2">Đổi mật khẩu đăng nhập</h3>
+                  <p className="text-muted dark:text-gray-400 text-sm mb-4">
+                    Để đảm bảo an toàn, vui lòng nhập mật khẩu hiện tại trước khi đặt mật khẩu mới.
+                  </p>
+
+                  <div className="bg-lightgray dark:bg-gray-900 border border-border dark:border-gray-700 rounded-lg p-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <PasswordInput
+                        id="current-password"
+                        value={currentPassword}
+                        onChange={(e) => {
+                          setCurrentPassword(e.target.value);
+                          if (passwordError) setPasswordError('');
+                          if (passwordSuccess) setPasswordSuccess('');
+                        }}
+                        placeholder="Mật khẩu hiện tại"
+                        label="Mật khẩu hiện tại"
+                        showLabel
+                      />
+                      <PasswordInput
+                        id="new-password"
+                        value={newPassword}
+                        onChange={(e) => {
+                          setNewPassword(e.target.value);
+                          if (passwordError) setPasswordError('');
+                          if (passwordSuccess) setPasswordSuccess('');
+                        }}
+                        placeholder="Mật khẩu mới"
+                        label="Mật khẩu mới"
+                        showLabel
+                      />
+                    </div>
+
+                    <div className="mt-4 max-w-md">
+                      <PasswordInput
+                        id="confirm-password"
+                        value={confirmPassword}
+                        onChange={(e) => {
+                          setConfirmPassword(e.target.value);
+                          if (passwordError) setPasswordError('');
+                          if (passwordSuccess) setPasswordSuccess('');
+                        }}
+                        placeholder="Nhập lại mật khẩu mới"
+                        label="Xác nhận mật khẩu mới"
+                        showLabel
+                      />
+                    </div>
+
+                    {showPasswordValidation && (
+                      <div className="mt-4 rounded-xl border border-amber-200/80 bg-gradient-to-br from-amber-50 to-yellow-50 p-4 dark:border-amber-700/40 dark:from-amber-900/20 dark:to-yellow-900/10">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Icon icon="solar:shield-warning-bold-duotone" width="18" className="text-amber-600 dark:text-amber-400" />
+                          <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+                            Kiểm tra điều kiện mật khẩu
+                          </p>
+                        </div>
+                        <div className="grid sm:grid-cols-2 gap-2">
+                          {passwordValidationRules.map((rule) => (
+                            <div
+                              key={rule.id}
+                              className={`flex items-center gap-2 rounded-lg px-3 py-2 border text-xs font-medium transition-colors ${rule.valid
+                                ? 'border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-700/40 dark:bg-emerald-900/20 dark:text-emerald-300'
+                                : 'border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700/40 dark:bg-amber-900/20 dark:text-amber-300'
+                                }`}
+                            >
+                              <Icon icon={rule.valid ? 'solar:check-circle-bold-duotone' : 'solar:close-circle-bold-duotone'} width="16" />
+                              <span>{rule.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {passwordError && (
+                      <div className="mt-4 rounded-xl border border-red-300 bg-gradient-to-r from-red-50 via-rose-50 to-red-100 px-4 py-3 shadow-sm dark:border-red-700/40 dark:from-red-900/30 dark:via-rose-900/20 dark:to-red-900/10">
+                        <div className="flex items-start gap-3">
+                          <Icon icon="solar:danger-triangle-bold-duotone" width="20" className="mt-0.5 text-red-600 dark:text-red-400" />
+                          <div>
+                            <p className="text-sm font-semibold text-red-700 dark:text-red-300">Đổi mật khẩu thất bại</p>
+                            <p className="text-sm text-red-700/90 dark:text-red-300/90">{passwordError}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {passwordSuccess && (
+                      <div className="mt-4 rounded-xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-lime-50 to-emerald-100 px-4 py-3 shadow-sm dark:border-emerald-700/40 dark:from-emerald-900/30 dark:via-lime-900/20 dark:to-emerald-900/10">
+                        <div className="flex items-start gap-3">
+                          <Icon icon="solar:check-circle-bold-duotone" width="20" className="mt-0.5 text-emerald-600 dark:text-emerald-400" />
+                          <div>
+                            <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">Đổi mật khẩu thành công</p>
+                            <p className="text-sm text-emerald-700/90 dark:text-emerald-300/90">{passwordSuccess}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="mt-5 flex justify-end">
+                      <Button
+                        onClick={handleChangePassword}
+                        disabled={passwordLoading || !currentPassword || !newPassword || !confirmPassword}
+                      >
+                        {passwordLoading ? 'Đang cập nhật...' : 'Đổi mật khẩu'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
                 {/* TOTP Status */}
                 <div className="mb-8">
                   <div className="flex items-center gap-4 mb-4">

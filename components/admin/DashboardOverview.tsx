@@ -66,7 +66,7 @@ export default function DashboardOverview({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1.5">
-              {greeting} 👋
+              {greeting}
             </h1>
             <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
               Quản lý nội dung website <span className="font-medium text-gray-700 dark:text-gray-200">New Atlantic</span> một cách dễ dàng.

@@ -90,7 +90,6 @@ export async function logActivity(params: {
         entity_name: entityName,
         user_email: user,
         details,
-        changes: changes || null,
         ip_address: ipAddress,
     };
 

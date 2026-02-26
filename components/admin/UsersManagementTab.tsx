@@ -53,6 +53,7 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
 
     // Form states
@@ -65,6 +66,12 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
     });
     const [formError, setFormError] = useState('');
     const [isSaving, setIsSaving] = useState(false);
+    const [changePasswordForm, setChangePasswordForm] = useState({
+        newPassword: '',
+        confirmPassword: '',
+    });
+    const [changePasswordError, setChangePasswordError] = useState('');
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
 
     const showToast = useCallback((type: Toast['type'], message: string) => {
         if (onToast) {
@@ -144,6 +151,16 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
     const openDeleteModal = (user: AdminUser) => {
         setSelectedUser(user);
         setShowDeleteModal(true);
+    };
+
+    const openChangePasswordModal = (user: AdminUser) => {
+        setSelectedUser(user);
+        setChangePasswordForm({
+            newPassword: '',
+            confirmPassword: '',
+        });
+        setChangePasswordError('');
+        setShowChangePasswordModal(true);
     };
 
     // Handle form submit (create)
@@ -233,6 +250,69 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
         }
     };
 
+    const validateStrongPassword = (password: string): string | null => {
+        if (password.length < 6) return 'Mật khẩu mới phải có ít nhất 6 ký tự';
+        if (!/[A-Z]/.test(password)) return 'Mật khẩu mới phải có ít nhất 1 ký tự in hoa';
+        if (!/[a-z]/.test(password)) return 'Mật khẩu mới phải có ít nhất 1 ký tự in thường';
+        if (!/[^\w\s]/.test(password)) return 'Mật khẩu mới phải có ít nhất 1 ký tự đặc biệt';
+        return null;
+    };
+
+    const handleChangeUserPassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedUser) return;
+
+        setChangePasswordError('');
+
+        if (selectedUser.email === currentUserEmail) {
+            setChangePasswordError('Không thể đổi mật khẩu chính bạn tại đây. Vui lòng vào Cài đặt bảo mật.');
+            return;
+        }
+
+        const passwordValidationError = validateStrongPassword(changePasswordForm.newPassword);
+        if (passwordValidationError) {
+            setChangePasswordError(passwordValidationError);
+            return;
+        }
+
+        if (changePasswordForm.newPassword !== changePasswordForm.confirmPassword) {
+            setChangePasswordError('Xác nhận mật khẩu mới không khớp');
+            return;
+        }
+
+        setIsChangingPassword(true);
+
+        try {
+            const response = await fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-user-email': currentUserEmail,
+                },
+                body: JSON.stringify({
+                    action: 'admin-change-user-password',
+                    userId: selectedUser.id,
+                    newPassword: changePasswordForm.newPassword,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Không thể đổi mật khẩu người dùng');
+            }
+
+            showToast('success', data.message || `Đã đổi mật khẩu cho ${selectedUser.email}`);
+            setShowChangePasswordModal(false);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Có lỗi xảy ra';
+            setChangePasswordError(message);
+            showToast('error', message);
+        } finally {
+            setIsChangingPassword(false);
+        }
+    };
+
     // Handle delete
     const handleDeleteUser = async () => {
         if (!selectedUser) return;
@@ -295,6 +375,11 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
 
     // Toggle user 2FA status
     const handleToggle2FA = async (user: AdminUser) => {
+        if (user.email === currentUserEmail) {
+            showToast('info', 'Để tắt 2FA của chính bạn, vui lòng vào tab Cài đặt bảo mật.');
+            return;
+        }
+
         if (!user.totpEnabled) {
             showToast('info', 'Người dùng chưa bật 2FA');
             return;
@@ -584,6 +669,7 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
                                         </td>
                                         <td className="px-6 py-4">
                                             <button
+                                                type="button"
                                                 onClick={() => canEditUser(user) && handleToggleActive(user)}
                                                 disabled={!canEditUser(user)}
                                                 className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full ${user.isActive
@@ -598,14 +684,27 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
                                         <td className="px-6 py-4">
                                             {user.totpEnabled ? (
                                                 <button
-                                                    onClick={() => canEditUser(user) && handleToggle2FA(user)}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        if (!canEditUser(user)) return;
+                                                        handleToggle2FA(user);
+                                                    }}
                                                     disabled={!canEditUser(user)}
-                                                    className={`inline-flex items-center gap-1 text-green-600 ${canEditUser(user) ? 'cursor-pointer hover:text-orange-600 hover:bg-orange-50 px-2 py-1 rounded-lg transition-colors' : 'cursor-not-allowed'}`}
-                                                    title={canEditUser(user) ? "Click để tắt 2FA" : "Không có quyền"}
+                                                    className={`inline-flex items-center gap-1 text-green-600 ${canEditUser(user) && user.email !== currentUserEmail
+                                                        ? 'cursor-pointer hover:text-orange-600 hover:bg-orange-50 px-2 py-1 rounded-lg transition-colors'
+                                                        : 'cursor-not-allowed opacity-70 px-2 py-1'
+                                                        }`}
+                                                    title={
+                                                        canEditUser(user)
+                                                            ? user.email === currentUserEmail
+                                                                ? 'Vào Cài đặt bảo mật để tắt 2FA của chính bạn'
+                                                                : 'Click để tắt 2FA'
+                                                            : 'Không có quyền'
+                                                    }
                                                 >
                                                     <Icon icon="solar:shield-check-bold-duotone" className="w-4 h-4" />
                                                     <span className="text-xs">Bật</span>
-                                                    {canEditUser(user) && (
+                                                    {canEditUser(user) && user.email !== currentUserEmail && (
                                                         <Icon icon="solar:close-circle-line-duotone" className="w-3 h-3 text-gray-400 hover:text-red-500" />
                                                     )}
                                                 </button>
@@ -623,6 +722,7 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
                                             <div className="flex items-center justify-end gap-2">
                                                 {canEditUser(user) && (
                                                     <button
+                                                        type="button"
                                                         onClick={() => openEditModal(user)}
                                                         className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                                         title="Chỉnh sửa"
@@ -630,8 +730,29 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
                                                         <Icon icon="solar:pen-2-line-duotone" className="w-4 h-4" />
                                                     </button>
                                                 )}
+                                                {canEditUser(user) && user.email !== currentUserEmail && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => openChangePasswordModal(user)}
+                                                        className="p-2 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                                                        title="Đổi mật khẩu"
+                                                    >
+                                                        <Icon icon="solar:key-line-duotone" className="w-4 h-4" />
+                                                    </button>
+                                                )}
+                                                {canEditUser(user) && user.totpEnabled && user.email !== currentUserEmail && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleToggle2FA(user)}
+                                                        className="p-2 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+                                                        title="Tắt 2FA"
+                                                    >
+                                                        <Icon icon="solar:shield-cross-line-duotone" className="w-4 h-4" />
+                                                    </button>
+                                                )}
                                                 {canDeleteUser(user) && (
                                                     <button
+                                                        type="button"
                                                         onClick={() => openDeleteModal(user)}
                                                         className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                                         title="Xóa"
@@ -849,6 +970,80 @@ export default function UsersManagementTab({ currentUserEmail, onToast }: UsersM
                                 </Button>
                                 <Button type="submit" disabled={isSaving} className="flex-1">
                                     {isSaving ? 'Đang lưu...' : 'Lưu thay đổi'}
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
+                </div>,
+                document.body
+            )}
+
+            {/* Change User Password Modal */}
+            {showChangePasswordModal && selectedUser && typeof document !== 'undefined' && createPortal(
+                <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50">
+                    <div className="bg-white rounded-2xl w-full max-w-md shadow-xl">
+                        <div className="p-6 border-b border-gray-100">
+                            <h3 className="text-xl font-semibold text-gray-900">Đổi mật khẩu người dùng</h3>
+                            <p className="text-sm text-gray-500 mt-1">
+                                Tạo mật khẩu mới cho tài khoản được chọn
+                            </p>
+                        </div>
+                        <form onSubmit={handleChangeUserPassword} className="p-6 space-y-4">
+                            <div className="p-3 rounded-lg border border-blue-200 bg-blue-50">
+                                <p className="text-sm text-blue-800">
+                                    <span className="font-semibold">{selectedUser.name}</span> ({selectedUser.email})
+                                </p>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Mật khẩu mới *</label>
+                                <input
+                                    type="password"
+                                    value={changePasswordForm.newPassword}
+                                    onChange={(e) => {
+                                        setChangePasswordForm({ ...changePasswordForm, newPassword: e.target.value });
+                                        if (changePasswordError) setChangePasswordError('');
+                                    }}
+                                    required
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Nhập mật khẩu mới"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Xác nhận mật khẩu mới *</label>
+                                <input
+                                    type="password"
+                                    value={changePasswordForm.confirmPassword}
+                                    onChange={(e) => {
+                                        setChangePasswordForm({ ...changePasswordForm, confirmPassword: e.target.value });
+                                        if (changePasswordError) setChangePasswordError('');
+                                    }}
+                                    required
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Nhập lại mật khẩu mới"
+                                />
+                            </div>
+                            <p className="text-xs text-gray-500">
+                                Mật khẩu phải có tối thiểu 6 ký tự, gồm chữ hoa, chữ thường và ký tự đặc biệt.
+                            </p>
+
+                            {changePasswordError && (
+                                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
+                                    {changePasswordError}
+                                </div>
+                            )}
+
+                            <div className="flex gap-3 pt-4">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => setShowChangePasswordModal(false)}
+                                    className="flex-1"
+                                    disabled={isChangingPassword}
+                                >
+                                    Hủy
+                                </Button>
+                                <Button type="submit" disabled={isChangingPassword} className="flex-1">
+                                    {isChangingPassword ? 'Đang cập nhật...' : 'Đổi mật khẩu'}
                                 </Button>
                             </div>
                         </form>

@@ -3,6 +3,28 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 
+interface PageVisibilityRow {
+    id: string;
+    path: string;
+    name: string;
+    description: string | null;
+    visible: boolean;
+    order_index: number;
+    updated_at?: string;
+}
+
+interface PageVisibilityApiItem {
+    id: string;
+    path: string;
+    name: string;
+    description: string;
+    visible: boolean;
+    order: number;
+    order_index: number;
+    updated_at?: string;
+    isAutoDetected?: boolean;
+}
+
 // Lazy-loaded Supabase client for server-side
 let supabase: SupabaseClient | null = null;
 
@@ -132,6 +154,15 @@ function generatePageInfo(routePath: string, index: number) {
     };
 }
 
+function toApiPage(page: PageVisibilityRow): PageVisibilityApiItem {
+    return {
+        ...page,
+        description: page.description || '',
+        order: page.order_index ?? 0,
+        order_index: page.order_index ?? 0,
+    };
+}
+
 // Sync detected routes to Supabase (add new pages, don't remove existing)
 async function syncRoutesToDatabase(detectedRoutes: string[]) {
     const client = getSupabaseClient();
@@ -157,11 +188,11 @@ async function syncRoutesToDatabase(detectedRoutes: string[]) {
             // Get max order
             const { data: maxOrderData } = await client
                 .from('page_visibility')
-                .select('order')
-                .order('order', { ascending: false })
+                .select('order_index')
+                .order('order_index', { ascending: false })
                 .limit(1);
 
-            const maxOrder = maxOrderData?.[0]?.order || 0;
+            const maxOrder = maxOrderData?.[0]?.order_index || 0;
 
             // Insert new pages
             const newPages = newRoutes.map((route, index) => {
@@ -172,7 +203,7 @@ async function syncRoutesToDatabase(detectedRoutes: string[]) {
                     name: info.name,
                     description: info.description,
                     visible: true,
-                    order: maxOrder + index + 1
+                    order_index: maxOrder + index + 1
                 };
             });
 
@@ -220,7 +251,7 @@ export async function GET(request: NextRequest) {
         const { data: pages, error } = await client
             .from('page_visibility')
             .select('*')
-            .order('order', { ascending: true });
+            .order('order_index', { ascending: true });
 
         if (error) {
             console.error('Error fetching pages from database:', error);
@@ -229,14 +260,15 @@ export async function GET(request: NextRequest) {
 
         // If path is provided, check if that specific page is visible
         if (pagePath) {
-            const page = pages?.find(p =>
+            const page = pages?.find((p: PageVisibilityRow) =>
                 pagePath === p.path || pagePath.startsWith(p.path + '/')
             );
 
             if (page) {
+                const apiPage = toApiPage(page);
                 return NextResponse.json({
-                    visible: page.visible,
-                    page: page
+                    visible: apiPage.visible,
+                    page: apiPage
                 });
             }
 
@@ -245,8 +277,8 @@ export async function GET(request: NextRequest) {
         }
 
         // Mark pages as auto-detected if not in ROUTE_NAME_MAP
-        const pagesWithDetection = pages?.map(page => ({
-            ...page,
+        const pagesWithDetection = pages?.map((page: PageVisibilityRow) => ({
+            ...toApiPage(page),
             isAutoDetected: !ROUTE_NAME_MAP[page.path]
         })) || [];
 
