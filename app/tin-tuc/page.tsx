@@ -21,6 +21,20 @@ const FALLBACK_CATEGORIES = [
   { id: 'su-kien', label: 'Sự kiện' },
 ];
 
+function normalizeCategoryKey(value?: string | null): string {
+  if (!value) return '';
+
+  return value
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[\u0111\u0110]/g, 'd')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function FeaturedPost({ post }: { post: Post }) {
   if (!post) return null;
 
@@ -94,7 +108,7 @@ function NewsPageContent() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [categories, setCategories] = useState<{ id: string; label: string }[]>(FALLBACK_CATEGORIES);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
-  const [disabledCategoryNames, setDisabledCategoryNames] = useState<string[]>([]);
+  const [disabledCategoryKeys, setDisabledCategoryKeys] = useState<string[]>([]);
 
   // Fetch posts and categories from API
   useEffect(() => {
@@ -112,19 +126,25 @@ function NewsPageContent() {
 
         if (categoriesRes.ok) {
           const categoriesData: PostCategory[] = await categoriesRes.json();
-          // Store disabled category names for filtering posts
-          const disabledNames = categoriesData
+          // Store disabled category keys for filtering posts (supports both slug + name values in DB posts)
+          const disabledKeys = categoriesData
             .filter(cat => !cat.enabled)
-            .map(cat => cat.name.toLowerCase());
-          setDisabledCategoryNames(disabledNames);
-          // Transform to the format used by the filter and filter out disabled categories
+            .flatMap(cat => [normalizeCategoryKey(cat.slug), normalizeCategoryKey(cat.name)])
+            .filter(Boolean);
+          setDisabledCategoryKeys(Array.from(new Set(disabledKeys)));
+
+          // Transform to the format used by the filter and filter out disabled categories.
+          // Always keep the "all" tab as the first tab.
           const enabledCategories = categoriesData
             .filter(cat => cat.enabled)
             .sort((a, b) => a.order - b.order)
-            .map(cat => ({ id: cat.slug, label: cat.name }));
-          if (enabledCategories.length > 0) {
-            setCategories(enabledCategories);
-          }
+            .map(cat => ({
+              id: normalizeCategoryKey(cat.slug || cat.name),
+              label: cat.name
+            }))
+            .filter(cat => cat.id && cat.id !== 'all');
+
+          setCategories([{ id: 'all', label: FALLBACK_CATEGORIES[0]?.label || 'All' }, ...enabledCategories]);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -140,18 +160,34 @@ function NewsPageContent() {
     // First filter out disabled posts and posts in disabled categories
     let result = posts.filter(post => {
       if ((post as any).enabled === false) return false;
-      if (post.category && disabledCategoryNames.includes(post.category.toLowerCase())) return false;
+      const postCategoryKey = normalizeCategoryKey(
+        (post as any).category || (post as any).categoryName || (post as any).category_name
+      );
+      if (postCategoryKey && disabledCategoryKeys.includes(postCategoryKey)) return false;
       return true;
     });
     if (activeCategory !== 'all') {
-      result = result.filter(post =>
-        post.category?.toLowerCase().includes(activeCategory.toLowerCase()) ||
-        post.title.toLowerCase().includes(activeCategory.toLowerCase())
-      );
+      const selectedCategory = categories.find(cat => cat.id === activeCategory);
+      const activeKey = normalizeCategoryKey(activeCategory);
+      const activeLabelKey = normalizeCategoryKey(selectedCategory?.label);
+
+      result = result.filter(post => {
+        const postKeys = [
+          normalizeCategoryKey((post as any).category),
+          normalizeCategoryKey((post as any).categoryName),
+          normalizeCategoryKey((post as any).category_name),
+        ].filter(Boolean);
+
+        if (activeKey === 'tin-tuc' && postKeys.length === 0) {
+          return true;
+        }
+
+        return postKeys.includes(activeKey) || (activeLabelKey ? postKeys.includes(activeLabelKey) : false);
+      });
     }
     // Sort by date (newest first)
     return result.sort((a: Post, b: Post) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [activeCategory, posts, disabledCategoryNames]);
+  }, [activeCategory, posts, disabledCategoryKeys, categories]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredPosts.length / ITEMS_PER_PAGE);

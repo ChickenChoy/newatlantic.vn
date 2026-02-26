@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createReadStream, statSync, existsSync } from 'fs'
 import { join } from 'path'
-import { Readable } from 'stream'
 
 // Video mapping - obfuscate real filenames
 const VIDEO_MAP: Record<string, string> = {
@@ -16,6 +15,55 @@ const ALLOWED_ORIGINS = [
   'http://localhost:3000',
   'http://localhost:3001',
 ]
+
+function createSafeWebStream(videoPath: string, start?: number, end?: number): ReadableStream<Uint8Array> {
+  const nodeStream = createReadStream(videoPath, start !== undefined && end !== undefined ? { start, end } : undefined)
+  let isClosed = false
+
+  const closeStream = () => {
+    if (isClosed) return
+    isClosed = true
+    nodeStream.destroy()
+  }
+
+  return new ReadableStream<Uint8Array>({
+    start(controller) {
+      nodeStream.on('data', (chunk: string | Buffer) => {
+        if (isClosed) return
+
+        try {
+          const bufferChunk = typeof chunk === 'string' ? Buffer.from(chunk) : chunk
+          controller.enqueue(new Uint8Array(bufferChunk))
+        } catch {
+          closeStream()
+        }
+      })
+
+      nodeStream.on('end', () => {
+        if (isClosed) return
+        isClosed = true
+        try {
+          controller.close()
+        } catch {
+          // Stream can already be closed when client cancels request.
+        }
+      })
+
+      nodeStream.on('error', (error) => {
+        if (isClosed) return
+        isClosed = true
+        try {
+          controller.error(error)
+        } catch {
+          // Ignore if controller is already closed.
+        }
+      })
+    },
+    cancel() {
+      closeStream()
+    },
+  })
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -62,10 +110,19 @@ export async function GET(request: NextRequest) {
       const parts = range.replace(/bytes=/, '').split('-')
       const start = parseInt(parts[0], 10)
       const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
+
+      if (Number.isNaN(start) || Number.isNaN(end) || start < 0 || end < start || end >= fileSize) {
+        return new NextResponse('Invalid range', {
+          status: 416,
+          headers: {
+            'Content-Range': `bytes */${fileSize}`,
+          },
+        })
+      }
+
       const chunkSize = end - start + 1
 
-      const stream = createReadStream(videoPath, { start, end })
-      const webStream = Readable.toWeb(stream) as ReadableStream
+      const webStream = createSafeWebStream(videoPath, start, end)
 
       return new NextResponse(webStream, {
         status: 206,
@@ -81,8 +138,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Full file response
-    const stream = createReadStream(videoPath)
-    const webStream = Readable.toWeb(stream) as ReadableStream
+    const webStream = createSafeWebStream(videoPath)
 
     return new NextResponse(webStream, {
       status: 200,
