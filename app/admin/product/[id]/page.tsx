@@ -137,7 +137,7 @@ export default function ProductPage({ params }: ProductPageProps) {
       }
 
       toast.success(isNew ? 'Đã thêm sản phẩm mới thành công!' : 'Đã cập nhật sản phẩm thành công!');
-      setTimeout(() => router.push('/admin'), 500);
+      setTimeout(() => router.push('/admin?tab=products'), 500);
     } catch (error) {
       console.error('Error saving product:', error);
       toast.error(error instanceof Error ? error.message : 'Có lỗi xảy ra khi lưu sản phẩm');
@@ -161,8 +161,8 @@ export default function ProductPage({ params }: ProductPageProps) {
     <div className="min-h-screen bg-lightgray">
       <div className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         <div className="mb-6">
-          <Link href="/admin" className="text-primary hover:underline">
-            ← Quay lại Admin
+          <Link href="/admin?tab=products" className="text-primary hover:underline">
+            ← Quay lại Danh sách sản phẩm
           </Link>
         </div>
 
@@ -311,7 +311,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
             <div className="flex gap-4 pt-6 border-t border-border">
               <Link
-                href="/admin"
+                href="/admin?tab=products"
                 className="px-8 py-3 border border-border text-bodytext rounded-lg hover:bg-lighthover transition-colors font-semibold"
               >
                 Hủy

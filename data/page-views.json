@@ -614,5 +614,37 @@
     "ip": "::ffff:100.112.27.19",
     "referrer": "http://100.112.27.19:3000/",
     "createdAt": "2026-05-13T08:47:34.309Z"
+  },
+  {
+    "path": "/",
+    "sessionId": "9xiw1rawhzump3uv60n",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Whale/4.37.378.12 Safari/537.36",
+    "ip": "::1",
+    "referrer": "http://localhost:3000/",
+    "createdAt": "2026-05-13T09:26:49.703Z"
+  },
+  {
+    "path": "/",
+    "sessionId": "bg22a2prz64mp3uyjov",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Whale/4.37.378.12 Safari/537.36",
+    "ip": "::1",
+    "referrer": "http://localhost:3000/",
+    "createdAt": "2026-05-13T09:29:27.418Z"
+  },
+  {
+    "path": "/san-pham/cot-tu-nang-mastech",
+    "sessionId": "bg22a2prz64mp3uyjov",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Whale/4.37.378.12 Safari/537.36",
+    "ip": "::1",
+    "referrer": "http://localhost:3000/san-pham/cot-tu-nang-mastech",
+    "createdAt": "2026-05-13T09:29:29.112Z"
+  },
+  {
+    "path": "/san-pham/cot-tu-nang-mastech/cot-tu-nang-hang-nhe-mts",
+    "sessionId": "bg22a2prz64mp3uyjov",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Whale/4.37.378.12 Safari/537.36",
+    "ip": "::1",
+    "referrer": "http://localhost:3000/san-pham/cot-tu-nang-mastech/cot-tu-nang-hang-nhe-mts",
+    "createdAt": "2026-05-13T09:29:30.257Z"
   }
 ]

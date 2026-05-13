@@ -24,7 +24,7 @@ export default function ProductPageContent({ product, relatedProducts }: Product
   const [isInWishlist, setIsInWishlist] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const images = product.images || [product.image];
+  const images = product.images?.length ? product.images : [product.image];
 
   // Check if product is in wishlist
   useEffect(() => {
