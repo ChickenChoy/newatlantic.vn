@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { authenticator } from '@otplib/preset-default';
 import QRCode from 'qrcode';
+import fs from 'fs';
+import path from 'path';
 
 interface TotpSettingsValue {
   totp_enabled?: boolean;
@@ -10,6 +12,39 @@ interface TotpSettingsValue {
 }
 
 const SECURITY_KEY_PREFIX = 'security:';
+const DATA_DIR = path.join(process.cwd(), 'data');
+const TOTP_FILE = path.join(DATA_DIR, 'totp-settings.json');
+
+function ensureDataDir() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+}
+
+function readLocalTotpSettings(userEmail: string): TotpSettingsValue {
+  try {
+    if (!fs.existsSync(TOTP_FILE)) return {};
+    const data = JSON.parse(fs.readFileSync(TOTP_FILE, 'utf-8')) as Record<string, TotpSettingsValue>;
+    return data[normalizeUserEmail(userEmail)] || {};
+  } catch {
+    return {};
+  }
+}
+
+function writeLocalTotpSettings(userEmail: string, value: TotpSettingsValue): void {
+  ensureDataDir();
+  let data: Record<string, TotpSettingsValue> = {};
+  try {
+    if (fs.existsSync(TOTP_FILE)) {
+      data = JSON.parse(fs.readFileSync(TOTP_FILE, 'utf-8')) as Record<string, TotpSettingsValue>;
+    }
+  } catch {
+    data = {};
+  }
+
+  data[normalizeUserEmail(userEmail)] = value;
+  fs.writeFileSync(TOTP_FILE, JSON.stringify(data, null, 2), 'utf-8');
+}
 
 function normalizeUserEmail(userEmail: string): string {
   return userEmail.trim().toLowerCase();
@@ -105,7 +140,9 @@ export async function GET(request: NextRequest) {
   try {
     const client = getSupabaseClient();
     if (!client) {
-      return NextResponse.json({ totpEnabled: false, message: 'Supabase not configured' });
+      const userEmail = request.nextUrl.searchParams.get('userEmail') || request.headers.get('x-user-email');
+      const settings = userEmail ? readLocalTotpSettings(userEmail) : {};
+      return NextResponse.json({ totpEnabled: settings.totp_enabled || false });
     }
 
     const userEmail = request.nextUrl.searchParams.get('userEmail') || request.headers.get('x-user-email');
@@ -133,12 +170,68 @@ export async function POST(request: NextRequest) {
     const client = getSupabaseClient();
     const supabaseUrl = getSupabaseUrl();
 
-    if (!client || !supabaseUrl) {
-      return NextResponse.json({ error: 'Supabase not configured' }, { status: 503 });
-    }
-
     const body = await request.json();
     const { action, token } = body;
+
+    if (!client || !supabaseUrl) {
+      const { userEmail } = body as { userEmail?: string };
+      const normalizedEmail = normalizeUserEmail(userEmail || 'admin@newatlantic.vn');
+
+      switch (action) {
+        case 'setup': {
+          const secret = generateSecret();
+          const otpauth = generateKeyUri(normalizedEmail, 'NewAtlantic Admin', secret);
+          const qrCodeDataUrl = await QRCode.toDataURL(otpauth);
+          writeLocalTotpSettings(normalizedEmail, {
+            totp_secret: secret,
+            totp_enabled: false,
+            updated_at: new Date().toISOString(),
+          });
+          return NextResponse.json({
+            success: true,
+            secret,
+            qrCode: qrCodeDataUrl,
+            message: 'Quét mã QR bằng Google Authenticator, sau đó nhập mã xác thực để hoàn tất.',
+          });
+        }
+
+        case 'verify-setup': {
+          const settings = readLocalTotpSettings(normalizedEmail);
+          if (!settings.totp_secret) return NextResponse.json({ error: 'Chưa thiết lập TOTP' }, { status: 400 });
+          if (!verifyTOTP(settings.totp_secret, token)) return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
+          writeLocalTotpSettings(normalizedEmail, {
+            ...settings,
+            totp_enabled: true,
+            updated_at: new Date().toISOString(),
+          });
+          return NextResponse.json({ success: true, message: 'Đã kích hoạt Google Authenticator thành công!' });
+        }
+
+        case 'verify': {
+          const settings = readLocalTotpSettings(normalizedEmail);
+          if (!settings.totp_enabled || !settings.totp_secret) return NextResponse.json({ success: true });
+          if (!verifyTOTP(settings.totp_secret, token)) return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
+          return NextResponse.json({ success: true, message: 'Xác thực thành công!' });
+        }
+
+        case 'disable': {
+          const settings = readLocalTotpSettings(normalizedEmail);
+          if (settings.totp_enabled && settings.totp_secret && token && !verifyTOTP(settings.totp_secret, token)) {
+            return NextResponse.json({ error: 'Mã xác thực không đúng' }, { status: 400 });
+          }
+          writeLocalTotpSettings(normalizedEmail, {
+            ...settings,
+            totp_enabled: false,
+            totp_secret: null,
+            updated_at: new Date().toISOString(),
+          });
+          return NextResponse.json({ success: true, message: 'Đã tắt Google Authenticator thành công!' });
+        }
+
+        default:
+          return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
+      }
+    }
 
     switch (action) {
       case 'setup': {

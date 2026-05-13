@@ -100,6 +100,10 @@ const FOLDERS: { value: MediaFolder | 'all'; label: string; icon: string }[] = [
     { value: 'general', label: 'Khác', icon: 'solar:folder-bold' },
 ];
 
+function getMediaImageSrc(item: MediaItem): string {
+    return item.variants?.thumbnail || item.variants?.medium || item.variants?.full || '';
+}
+
 export default function MediaLibraryTab({ onRefresh }: MediaLibraryTabProps) {
     const { success, error } = useToast();
     const [media, setMedia] = useState<MediaItem[]>([]);
@@ -433,8 +437,8 @@ export default function MediaLibraryTab({ onRefresh }: MediaLibraryTabProps) {
                 </div>
             ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    {media.filter(item => item.variants.full || item.variants.medium || item.variants.thumbnail).map(item => {
-                        const imageSrc = item.variants.thumbnail || item.variants.medium || item.variants.full;
+                    {media.map(item => {
+                        const imageSrc = getMediaImageSrc(item);
                         return (
                             <div
                                 key={item.id}
@@ -613,12 +617,18 @@ export default function MediaLibraryTab({ onRefresh }: MediaLibraryTabProps) {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                                 {/* Preview */}
                                 <div style={{ textAlign: 'center' }}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img
-                                        src={selectedMedia.variants.medium || selectedMedia.variants.full}
-                                        alt={selectedMedia.alt}
-                                        style={{ maxWidth: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 8, margin: '0 auto', display: 'block' }}
-                                    />
+                                    {getMediaImageSrc(selectedMedia) ? (
+                                        /* eslint-disable-next-line @next/next/no-img-element */
+                                        <img
+                                            src={getMediaImageSrc(selectedMedia)}
+                                            alt={selectedMedia.alt}
+                                            style={{ maxWidth: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 8, margin: '0 auto', display: 'block' }}
+                                        />
+                                    ) : (
+                                        <div style={{ width: '100%', height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f3f4f6', borderRadius: 8 }}>
+                                            <Icon icon="solar:gallery-broken" className="w-12 h-12 text-gray-300" />
+                                        </div>
+                                    )}
                                     <div style={{ marginTop: 12 }}>
                                         <button
                                             onClick={() => handleDelete(selectedMedia.id)}

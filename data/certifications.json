@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "title": "ISO 9001:2015",
+    "description": "Hệ thống quản lý chất lượng",
+    "icon": "check-circle",
+    "image": null,
+    "orderIndex": 1,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:28.314651+00:00",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "title": "Nhà phân phối chính thức",
+    "description": "WILL-BURT, HIAB, SKYMARK",
+    "icon": "shield",
+    "image": null,
+    "orderIndex": 2,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:28.314651+00:00",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "title": "Chứng nhận xuất xứ",
+    "description": "Sản phẩm chính hãng 100%",
+    "icon": "document",
+    "image": null,
+    "orderIndex": 3,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:28.314651+00:00",
+    "order": 3
+  },
+  {
+    "id": "4",
+    "title": "Giải thưởng uy tín",
+    "description": "Top 5 doanh nghiệp lớn nhất Quận 7",
+    "icon": "star",
+    "image": null,
+    "orderIndex": 4,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:28.314651+00:00",
+    "order": 4
+  }
+]

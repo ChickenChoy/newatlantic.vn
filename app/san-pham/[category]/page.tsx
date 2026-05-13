@@ -1,4 +1,4 @@
-import { getCategories, getProductsByCategory } from '@/lib/db-supabase';
+import { getCategories, getProductsByCategory } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import CategoryPageContent from './category-content';
 import { generateMetadata as genMeta } from '@/lib/seo';

@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getProducts, getCategories, getPosts } from '@/lib/db-supabase';
+import { getProducts, getCategories, getPosts } from '@/lib/db';
 import { siteConfig } from '@/lib/seo';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

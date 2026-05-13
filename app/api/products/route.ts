@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getProducts, addProduct, updateProduct, deleteProduct, getCategories, getProductById } from '@/lib/db-supabase';
+import { getProducts, addProduct, updateProduct, deleteProduct, getCategories, getProductById } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { Product } from '@/types';
 import { logActivity } from '@/lib/activity-logs';

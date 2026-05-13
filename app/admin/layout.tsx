@@ -10,6 +10,24 @@ import './admin.css';
 
 type AuthStep = 'login' | 'totp' | 'authenticated';
 
+const LOCAL_ADMIN_EMAIL = 'admin@newatlantic.vn';
+
+function createLocalAdminUser(email: string = LOCAL_ADMIN_EMAIL): AdminUser {
+  const now = new Date().toISOString();
+
+  return {
+    id: 'local-super-admin',
+    email,
+    name: 'Local Super Admin',
+    role: 'super_admin',
+    isActive: true,
+    totpEnabled: false,
+    createdAt: now,
+    updatedAt: now,
+    lastLogin: now,
+  };
+}
+
 // Extended AdminContext with user management
 interface AdminContextType {
   handleLogout: () => void;
@@ -64,9 +82,12 @@ export default function AdminLayout({
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const router = useRouter();
   const supabase = getSupabaseClient();
+  const isLocalJsonMode = !supabase && process.env.NODE_ENV !== 'production';
 
   useEffect(() => {
     checkAuth();
+
+    if (!supabase) return;
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event: AuthChangeEvent, session: Session | null) => {
@@ -85,6 +106,24 @@ export default function AdminLayout({
 
   const checkAuth = async () => {
     try {
+      if (!supabase) {
+        if (isLocalJsonMode) {
+          const localUser = createLocalAdminUser();
+          setUserEmail(localUser.email);
+          setCurrentUser(localUser);
+          setTotpEnabled(false);
+          setAuthStep('authenticated');
+        } else {
+          setError('Supabase chưa được cấu hình. Admin login bị tắt trong production.');
+          setAuthStep('login');
+          setUserEmail(null);
+          setCurrentUser(null);
+        }
+        setIsLoading(false);
+        setIsLoadingUser(false);
+        return;
+      }
+
       // Check Supabase session
       const { data: { session } } = await supabase.auth.getSession();
       const sessionEmail = session?.user.email || '';
@@ -219,6 +258,21 @@ export default function AdminLayout({
     setIsLoading(true);
 
     try {
+      if (!supabase) {
+        if (isLocalJsonMode) {
+          const localUser = createLocalAdminUser(email || LOCAL_ADMIN_EMAIL);
+          setUserEmail(localUser.email);
+          setCurrentUser(localUser);
+          setEmail('');
+          setPassword('');
+          setAuthStep('authenticated');
+        } else {
+          setError('Supabase chưa được cấu hình. Không thể đăng nhập admin.');
+        }
+        setIsLoading(false);
+        return;
+      }
+
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -314,7 +368,7 @@ export default function AdminLayout({
       });
 
       // Sign out with global scope to clear all sessions
-      await supabase.auth.signOut({ scope: 'global' });
+      await supabase?.auth.signOut({ scope: 'global' });
 
       // Reset state
       setAuthStep('login');
@@ -493,7 +547,7 @@ export default function AdminLayout({
               <button
                 type="button"
                 onClick={() => {
-                  supabase.auth.signOut();
+                  supabase?.auth.signOut();
                   setAuthStep('login');
                 }}
                 className="text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"

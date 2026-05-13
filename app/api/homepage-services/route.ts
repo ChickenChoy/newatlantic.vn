@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHomepageServices, addHomepageService, updateHomepageService, deleteHomepageService } from '@/lib/db-supabase';
+import { getHomepageServices, addHomepageService, updateHomepageService, deleteHomepageService } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logs';
 
 export const runtime = 'nodejs';

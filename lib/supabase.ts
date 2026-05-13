@@ -1,32 +1,36 @@
 import { createBrowserClient, createServerClient, type CookieOptions } from '@supabase/ssr'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 
+function shouldWarnMissingSupabase(): boolean {
+    return process.env.DB_MODE === 'supabase';
+}
+
 // Lazy evaluation of environment variables
 function getSupabaseUrl(): string {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    if (!url) {
+    if (!url && shouldWarnMissingSupabase()) {
         console.warn('NEXT_PUBLIC_SUPABASE_URL is not configured');
         return '';
     }
-    return url;
+    return url || '';
 }
 
 function getSupabaseAnonKey(): string {
     const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (!key) {
+    if (!key && shouldWarnMissingSupabase()) {
         console.warn('NEXT_PUBLIC_SUPABASE_ANON_KEY is not configured');
         return '';
     }
-    return key;
+    return key || '';
 }
 
 function getSupabaseServiceRoleKey(): string {
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!key) {
+    if (!key && shouldWarnMissingSupabase()) {
         console.warn('SUPABASE_SERVICE_ROLE_KEY is not configured');
         return '';
     }
-    return key;
+    return key || '';
 }
 
 export function createClient() {
@@ -47,6 +51,7 @@ export function createAdminClient() {
     const serviceRoleKey = getSupabaseServiceRoleKey();
 
     if (!supabaseUrl || !serviceRoleKey) {
+        if (!shouldWarnMissingSupabase()) return null;
         console.error('Supabase admin client: Missing URL or service role key');
         return null;
     }

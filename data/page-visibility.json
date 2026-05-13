@@ -1,0 +1,122 @@
+[
+  {
+    "id": "san-pham",
+    "path": "/san-pham",
+    "name": "Sản phẩm",
+    "description": "Trang danh sách sản phẩm",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:20:24.424748+00:00",
+    "order": 0
+  },
+  {
+    "id": "tin-tuc",
+    "path": "/tin-tuc",
+    "name": "Tin tức",
+    "description": "Trang tin tức & sự kiện",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:20:24.424748+00:00",
+    "order": 0
+  },
+  {
+    "id": "thu-vien-hinh-anh",
+    "path": "/thu-vien-hinh-anh",
+    "name": "Thư viện hình ảnh",
+    "description": "Trang thư viện hình ảnh",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:20:24.424748+00:00",
+    "order": 0
+  },
+  {
+    "id": "yeu-thich",
+    "path": "/yeu-thich",
+    "name": "Yêu thích",
+    "description": "Trang sản phẩm yêu thích",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:20:24.424748+00:00",
+    "order": 0
+  },
+  {
+    "id": "masttech",
+    "path": "/masttech",
+    "name": "MastTech",
+    "description": "Trang MastTech",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:22:07.101978+00:00",
+    "order": 0
+  },
+  {
+    "id": "chinh-sach-bao-mat",
+    "path": "/chinh-sach-bao-mat",
+    "name": "Chính sách bảo mật",
+    "description": "Trang chính sách bảo mật",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:22:07.101978+00:00",
+    "order": 0
+  },
+  {
+    "id": "dieu-khoan-dich-vu",
+    "path": "/dieu-khoan-dich-vu",
+    "name": "Điều khoản dịch vụ",
+    "description": "Trang điều khoản dịch vụ",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:22:07.101978+00:00",
+    "order": 0
+  },
+  {
+    "id": "lien-he",
+    "path": "/lien-he",
+    "name": "Liên hệ",
+    "description": "Trang liên hệ",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-01-28T13:26:22.764+00:00",
+    "order": 0
+  },
+  {
+    "id": "page-download-catalog",
+    "path": "/page-download-catalog",
+    "name": "Tải Catalog",
+    "description": "Trang tải catalog sản phẩm",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-02-05T03:23:43.050223+00:00",
+    "order": 0
+  },
+  {
+    "id": "home",
+    "path": "/",
+    "name": "Trang chủ",
+    "description": "Trang chủ website",
+    "visible": true,
+    "orderIndex": 0,
+    "updatedAt": "2026-02-07T01:23:21.038234+00:00",
+    "order": 0
+  },
+  {
+    "id": "toast-demo",
+    "path": "/toast-demo",
+    "name": "Toast Demo",
+    "description": "",
+    "visible": false,
+    "orderIndex": 0,
+    "updatedAt": "2026-02-26T04:31:12.645986+00:00",
+    "order": 0
+  },
+  {
+    "id": "chuong-trinh-goi-banh-chung",
+    "path": "/chuong-trinh-goi-banh-chung",
+    "name": "Chương trình gói bánh chưng",
+    "description": "Trang chương trình TẾT",
+    "visible": false,
+    "orderIndex": 0,
+    "updatedAt": "2026-02-28T02:09:25.328595+00:00",
+    "order": 0
+  }
+]

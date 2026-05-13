@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSEOSettings, saveSEOSettings } from '@/lib/db-supabase';
+import { getSEOSettings, saveSEOSettings } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logs';
 
 // GET - Retrieve SEO settings

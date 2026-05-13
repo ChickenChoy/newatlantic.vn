@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOfficeLocations, addOfficeLocation, updateOfficeLocation, deleteOfficeLocation } from '@/lib/db-supabase';
+import { getOfficeLocations, addOfficeLocation, updateOfficeLocation, deleteOfficeLocation } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 

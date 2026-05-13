@@ -14,9 +14,9 @@ export async function getDbFunctions() {
     if (isSupabaseEnabled) {
         return await import('./db-supabase');
     }
-    return await import('./db');
+    return await import('./db-json');
 }
 
 // For synchronous imports (legacy support)
-export * as jsonDb from './db';
+export * as jsonDb from './db-json';
 export * as supabaseDb from './db-supabase';

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase';
 import { ActivityLog, ActivityAction, ActivityEntity, ActivityChange } from '@/types';
+import { clearActivityLogs, getFilteredLogs, logActivity } from '@/lib/activity-logs';
 
 const TABLE_NAME = 'activity_logs';
 
@@ -24,10 +25,6 @@ function rowToActivityLog(row: Record<string, unknown>): ActivityLog {
 export async function GET(request: NextRequest) {
     try {
         const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
-        }
-
         const searchParams = request.nextUrl.searchParams;
         const action = searchParams.get('action') as ActivityAction | null;
         const entity = searchParams.get('entity') as ActivityEntity | null;
@@ -36,6 +33,27 @@ export async function GET(request: NextRequest) {
         const limit = parseInt(searchParams.get('limit') || '20');
         const page = parseInt(searchParams.get('page') || '1');
         const offset = (page - 1) * limit;
+
+        if (!supabase) {
+            const { logs, total } = await getFilteredLogs({
+                action: action || undefined,
+                entity: entity || undefined,
+                startDate: startDate || undefined,
+                endDate: endDate || undefined,
+                limit,
+                page,
+            });
+
+            return NextResponse.json({
+                logs,
+                pagination: {
+                    page,
+                    limit,
+                    total,
+                    totalPages: Math.ceil(total / limit),
+                }
+            });
+        }
 
         // Build query
         let query = supabase
@@ -96,10 +114,6 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
-        }
-
         const body = await request.json();
         const { action, entity, entityId, entityName, user, details } = body;
 
@@ -124,6 +138,11 @@ export async function POST(request: NextRequest) {
             details,
             ip_address: ipAddress,
         };
+
+        if (!supabase) {
+            const log = await logActivity({ action, entity, entityId, entityName, user, details, ipAddress });
+            return NextResponse.json({ success: true, log });
+        }
 
         const { data, error } = await supabase
             .from(TABLE_NAME)
@@ -150,15 +169,16 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
     try {
         const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
-        }
-
         const searchParams = request.nextUrl.searchParams;
         const clearAll = searchParams.get('clearAll') === 'true';
         const olderThan = searchParams.get('olderThan'); // Số ngày
 
         if (clearAll) {
+            if (!supabase) {
+                await clearActivityLogs();
+                return NextResponse.json({ success: true, message: 'All logs cleared' });
+            }
+
             const { error } = await supabase
                 .from(TABLE_NAME)
                 .delete()
@@ -176,6 +196,19 @@ export async function DELETE(request: NextRequest) {
             const days = parseInt(olderThan);
             const cutoffDate = new Date();
             cutoffDate.setDate(cutoffDate.getDate() - days);
+
+            if (!supabase) {
+                const { logs } = await getFilteredLogs({ limit: 1000, page: 1 });
+                const keptLogs = logs.filter(log => log.timestamp >= cutoffDate.toISOString());
+                await clearActivityLogs();
+                for (const log of keptLogs.reverse()) {
+                    await logActivity(log);
+                }
+                return NextResponse.json({
+                    success: true,
+                    message: `Deleted ${logs.length - keptLogs.length} logs older than ${days} days`
+                });
+            }
 
             const { data: deletedData, error } = await supabase
                 .from(TABLE_NAME)

@@ -1,0 +1,194 @@
+[
+  {
+    "id": "1",
+    "src": "/images/resources/1.png",
+    "alt": "Hình ảnh thiết bị 1",
+    "title": "Thiết bị công trình ",
+    "description": "Hình ảnh về thiết bị công trình chất lượng cao",
+    "category": "Thiết bị",
+    "tags": [
+      "thiết bị",
+      "công trình",
+      "máy móc"
+    ],
+    "featured": false,
+    "orderIndex": 1,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "src": "/images/resources/2.png",
+    "alt": "Hình ảnh thiết bị 2",
+    "title": "Máy móc xây dựng",
+    "description": "Máy móc xây dựng hiện đại",
+    "category": "Thiết bị",
+    "tags": [
+      "thiết bị",
+      "xây dựng",
+      "máy móc"
+    ],
+    "featured": false,
+    "orderIndex": 2,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "src": "/images/resources/3.png",
+    "alt": "Hình ảnh thiết bị 3",
+    "title": "Cẩu tự hành",
+    "description": "Cẩu tự hành chất lượng cao",
+    "category": "Cẩu",
+    "tags": [
+      "cẩu",
+      "nâng hạ",
+      "thiết bị"
+    ],
+    "featured": false,
+    "orderIndex": 3,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 3
+  },
+  {
+    "id": "4",
+    "src": "/images/resources/4.png",
+    "alt": "Hình ảnh thiết bị 4",
+    "title": "Thiết bị nâng hạ",
+    "description": "Thiết bị nâng hạ chuyên nghiệp",
+    "category": "Thiết bị",
+    "tags": [
+      "thiết bị",
+      "nâng hạ"
+    ],
+    "featured": false,
+    "orderIndex": 4,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 4
+  },
+  {
+    "id": "5",
+    "src": "/images/resources/5.png",
+    "alt": "Hình ảnh thiết bị 5",
+    "title": "Cột tự nâng",
+    "description": "Cột tự nâng Will-Burt",
+    "category": "Cột nâng",
+    "tags": [
+      "cột",
+      "nâng",
+      "will-burt"
+    ],
+    "featured": false,
+    "orderIndex": 5,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 5
+  },
+  {
+    "id": "6",
+    "src": "/images/resources/6.png",
+    "alt": "Hình ảnh thiết bị 6",
+    "title": "Thiết bị công trình",
+    "description": "Thiết bị công trình đa năng",
+    "category": "Thiết bị",
+    "tags": [
+      "thiết bị",
+      "công trình"
+    ],
+    "featured": false,
+    "orderIndex": 6,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 6
+  },
+  {
+    "id": "7",
+    "src": "/images/resources/7.png",
+    "alt": "Hình ảnh thiết bị 7",
+    "title": "Máy xúc",
+    "description": "Máy xúc công suất lớn",
+    "category": "Máy móc",
+    "tags": [
+      "máy xúc",
+      "công trình"
+    ],
+    "featured": false,
+    "orderIndex": 7,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 7
+  },
+  {
+    "id": "8",
+    "src": "/images/resources/8.png",
+    "alt": "Hình ảnh thiết bị 8",
+    "title": "Thiết bị nâng",
+    "description": "Thiết bị nâng hiện đại",
+    "category": "Thiết bị",
+    "tags": [
+      "thiết bị",
+      "nâng"
+    ],
+    "featured": false,
+    "orderIndex": 8,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 8
+  },
+  {
+    "id": "9",
+    "src": "/images/resources/9.png",
+    "alt": "Hình ảnh thiết bị 9",
+    "title": "Cẩu tháp",
+    "description": "Cẩu tháp công nghiệp",
+    "category": "Cẩu",
+    "tags": [
+      "cẩu",
+      "tháp"
+    ],
+    "featured": false,
+    "orderIndex": 9,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 9
+  },
+  {
+    "id": "10",
+    "src": "/images/resources/10.png",
+    "alt": "Hình ảnh thiết bị 10",
+    "title": "Thiết bị chuyên dụng",
+    "description": "Thiết bị chuyên dụng chất lượng",
+    "category": "Thiết bị",
+    "tags": [
+      "thiết bị",
+      "chuyên dụng"
+    ],
+    "featured": false,
+    "orderIndex": 10,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 10
+  },
+  {
+    "id": "11",
+    "src": "/images/resources/AIT.jpg",
+    "alt": "Hình ảnh AIT",
+    "title": "Chứng nhận AIT",
+    "description": "Chứng nhận chất lượng AIT",
+    "category": "Chứng nhận",
+    "tags": [
+      "chứng nhận",
+      "ait",
+      "chất lượng"
+    ],
+    "featured": false,
+    "orderIndex": 11,
+    "createdAt": "2026-02-03T06:59:27.361294+00:00",
+    "updatedAt": "2026-02-06T16:25:54.743793+00:00",
+    "order": 11
+  }
+]

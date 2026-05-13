@@ -14,7 +14,7 @@ import InteractivePartnerMap from '@/components/InteractivePartnerMap';
 import TypingText from '@/components/TypingText';
 import HolidayBanner from '@/components/HolidayBanner';
 import EmptyState from '@/components/EmptyState';
-import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db-supabase';
+import { getProducts, getPosts, getCategories, getHeroSlides, getHomepageStats, getPartnerLogos, getHomepageServices } from '@/lib/db';
 import { generateMetadata as genMeta, generateOrganizationSchema, generateWebSiteSchema, generateLocalBusinessSchema } from '@/lib/seo';
 import type { Metadata } from 'next';
 import type { Product, HeroSlide, HomepageStat, PartnerLogo, HomepageService } from '@/types';

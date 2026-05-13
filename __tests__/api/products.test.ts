@@ -5,13 +5,13 @@
 
 import { NextRequest } from 'next/server';
 import { GET, POST, PUT, DELETE } from '@/app/api/products/route';
-import { getProducts, getProductById, addProduct, updateProduct, deleteProduct } from '@/lib/db-supabase';
+import { getProducts, getProductById, addProduct, updateProduct, deleteProduct } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logs';
 import { revalidatePath } from 'next/cache';
 import type { Product } from '@/types';
 
 // Mock dependencies
-jest.mock('@/lib/db-supabase');
+jest.mock('@/lib/db');
 jest.mock('@/lib/activity-logs');
 jest.mock('next/cache');
 
@@ -49,7 +49,7 @@ function createMockRequest(url: string, options: RequestInit = {}): NextRequest 
 describe('Products API - Pagination Tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockGetProducts.mockResolvedValue([]);
+    mockGetProducts.mockReturnValue([]);
   });
 
   it('should support limit parameter', async () => {
@@ -124,7 +124,7 @@ describe('Products API - Pagination Tests', () => {
 describe('Products API - Cache Headers', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockGetProducts.mockResolvedValue([]);
+    mockGetProducts.mockReturnValue([]);
   });
 
   it('should include cache-control headers in response', async () => {
@@ -158,8 +158,8 @@ describe('Products API - N+1 Query Prevention', () => {
       createdAt: new Date().toISOString(),
     };
 
-    mockGetProductById.mockResolvedValue(mockProduct);
-    mockUpdateProduct.mockResolvedValue(true);
+    mockGetProductById.mockReturnValue(mockProduct);
+    mockUpdateProduct.mockReturnValue(true);
 
     const request = createMockRequest('http://localhost:3000/api/products', {
       method: 'PUT',
@@ -186,8 +186,8 @@ describe('Products API - N+1 Query Prevention', () => {
       createdAt: new Date().toISOString(),
     };
 
-    mockGetProductById.mockResolvedValue(mockProduct);
-    mockDeleteProduct.mockResolvedValue(true);
+    mockGetProductById.mockReturnValue(mockProduct);
+    mockDeleteProduct.mockReturnValue(true);
 
     const request = createMockRequest('http://localhost:3000/api/products?id=123', {
       method: 'DELETE',
@@ -206,7 +206,9 @@ describe('Products API - Error Handling', () => {
   });
 
   it('should handle database errors gracefully in GET', async () => {
-    mockGetProducts.mockRejectedValue(new Error('Database connection failed'));
+    mockGetProducts.mockImplementation(() => {
+      throw new Error('Database connection failed');
+    });
 
     const request = createMockRequest('http://localhost:3000/api/products');
     const response = await GET(request);
@@ -215,7 +217,7 @@ describe('Products API - Error Handling', () => {
   });
 
   it('should return 404 when product not found in PUT', async () => {
-    mockGetProductById.mockResolvedValue(null);
+    mockGetProductById.mockReturnValue(undefined);
 
     const request = createMockRequest('http://localhost:3000/api/products', {
       method: 'PUT',
@@ -230,7 +232,7 @@ describe('Products API - Error Handling', () => {
   });
 
   it('should return 404 when product not found in DELETE', async () => {
-    mockGetProductById.mockResolvedValue(null);
+    mockGetProductById.mockReturnValue(undefined);
 
     const request = createMockRequest('http://localhost:3000/api/products?id=999', {
       method: 'DELETE',
@@ -271,7 +273,7 @@ describe('Products API - Activity Logging', () => {
       images: [],
     };
 
-    mockAddProduct.mockResolvedValue(true);
+    mockAddProduct.mockReturnValue(true);
 
     const request = createMockRequest('http://localhost:3000/api/products', {
       method: 'POST',
@@ -293,7 +295,7 @@ describe('Products API - Activity Logging', () => {
       images: [],
     };
 
-    mockAddProduct.mockResolvedValue(true);
+    mockAddProduct.mockReturnValue(true);
 
     const request = createMockRequest('http://localhost:3000/api/products', {
       method: 'POST',

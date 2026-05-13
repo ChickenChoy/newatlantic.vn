@@ -9,7 +9,7 @@ import CookieConsent from "@/components/CookieConsent";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import SiteTracker from "@/components/SiteTracker";
 import { siteConfig } from "@/lib/seo";
-import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } from "@/lib/db-supabase";
+import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } from "@/lib/db";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext", "vietnamese"],

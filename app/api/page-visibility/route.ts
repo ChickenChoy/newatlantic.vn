@@ -1,17 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
-
-interface PageVisibilityRow {
-    id: string;
-    path: string;
-    name: string;
-    description: string | null;
-    visible: boolean;
-    order_index: number;
-    updated_at?: string;
-}
+import { getPageVisibility, savePageVisibility } from '@/lib/db';
+import type { PageVisibility } from '@/types';
 
 interface PageVisibilityApiItem {
     id: string;
@@ -23,24 +14,6 @@ interface PageVisibilityApiItem {
     order_index: number;
     updated_at?: string;
     isAutoDetected?: boolean;
-}
-
-// Lazy-loaded Supabase client for server-side
-let supabase: SupabaseClient | null = null;
-
-function getSupabaseClient(): SupabaseClient | null {
-    if (supabase) return supabase;
-
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-    if (!supabaseUrl || !supabaseServiceKey) {
-        console.warn('Supabase credentials not configured. Page visibility features will be disabled.');
-        return null;
-    }
-
-    supabase = createClient(supabaseUrl, supabaseServiceKey);
-    return supabase;
 }
 
 const APP_DIR = path.join(process.cwd(), 'app');
@@ -154,72 +127,31 @@ function generatePageInfo(routePath: string, index: number) {
     };
 }
 
-function toApiPage(page: PageVisibilityRow): PageVisibilityApiItem {
+function toApiPage(page: PageVisibility): PageVisibilityApiItem {
     return {
         ...page,
         description: page.description || '',
-        order: page.order_index ?? 0,
-        order_index: page.order_index ?? 0,
+        order: page.order ?? 0,
+        order_index: page.order ?? 0,
     };
 }
 
-// Sync detected routes to Supabase (add new pages, don't remove existing)
-async function syncRoutesToDatabase(detectedRoutes: string[]) {
-    const client = getSupabaseClient();
-    if (!client) return; // Supabase not configured, skip sync
+function getPagesWithDetectedRoutes(): PageVisibility[] {
+    const detectedRoutes = scanRoutes();
+    const pages = getPageVisibility();
+    const existingPaths = new Set(pages.map(page => page.path));
+    const maxOrder = pages.reduce((max, page) => Math.max(max, page.order || 0), 0);
+    const newPages = detectedRoutes
+        .filter(route => !existingPaths.has(route))
+        .map((route, index) => generatePageInfo(route, maxOrder + index));
 
-    try {
-        // Get existing pages from database
-        const { data: existingPages, error: fetchError } = await client
-            .from('page_visibility')
-            .select('path');
+    const mergedPages = [...pages, ...newPages].sort((a, b) => (a.order || 0) - (b.order || 0));
 
-        if (fetchError) {
-            console.error('Error fetching existing pages:', fetchError);
-            return;
-        }
-
-        const existingPaths = new Set(existingPages?.map(p => p.path) || []);
-
-        // Find new routes that don't exist in database
-        const newRoutes = detectedRoutes.filter(route => !existingPaths.has(route));
-
-        if (newRoutes.length > 0) {
-            // Get max order
-            const { data: maxOrderData } = await client
-                .from('page_visibility')
-                .select('order_index')
-                .order('order_index', { ascending: false })
-                .limit(1);
-
-            const maxOrder = maxOrderData?.[0]?.order_index || 0;
-
-            // Insert new pages
-            const newPages = newRoutes.map((route, index) => {
-                const info = generatePageInfo(route, maxOrder + index);
-                return {
-                    id: info.id,
-                    path: info.path,
-                    name: info.name,
-                    description: info.description,
-                    visible: true,
-                    order_index: maxOrder + index + 1
-                };
-            });
-
-            const { error: insertError } = await client
-                .from('page_visibility')
-                .upsert(newPages, { onConflict: 'id' });
-
-            if (insertError) {
-                console.error('Error inserting new pages:', insertError);
-            } else {
-                console.log(`Synced ${newPages.length} new pages to database`);
-            }
-        }
-    } catch (error) {
-        console.error('Error syncing routes to database:', error);
+    if (newPages.length > 0) {
+        savePageVisibility(mergedPages);
     }
+
+    return mergedPages;
 }
 
 // GET - Get all page visibility settings
@@ -227,40 +159,11 @@ export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url);
         const pagePath = searchParams.get('path');
-        const client = getSupabaseClient();
-
-        // Scan routes
-        const detectedRoutes = scanRoutes();
-
-        // If Supabase is not configured, return file-based routes
-        if (!client) {
-            const fallbackPages = detectedRoutes.map((route, index) => generatePageInfo(route, index));
-
-            if (pagePath) {
-                const page = fallbackPages.find(p => pagePath === p.path || pagePath.startsWith(p.path + '/'));
-                return NextResponse.json({ visible: true, page: page || null });
-            }
-
-            return NextResponse.json(fallbackPages);
-        }
-
-        // Sync new routes to database
-        await syncRoutesToDatabase(detectedRoutes);
-
-        // Fetch all pages from database
-        const { data: pages, error } = await client
-            .from('page_visibility')
-            .select('*')
-            .order('order_index', { ascending: true });
-
-        if (error) {
-            console.error('Error fetching pages from database:', error);
-            return NextResponse.json({ error: 'Failed to fetch pages' }, { status: 500 });
-        }
+        const pages = getPagesWithDetectedRoutes();
 
         // If path is provided, check if that specific page is visible
         if (pagePath) {
-            const page = pages?.find((p: PageVisibilityRow) =>
+            const page = pages.find((p: PageVisibility) =>
                 pagePath === p.path || pagePath.startsWith(p.path + '/')
             );
 
@@ -277,10 +180,10 @@ export async function GET(request: NextRequest) {
         }
 
         // Mark pages as auto-detected if not in ROUTE_NAME_MAP
-        const pagesWithDetection = pages?.map((page: PageVisibilityRow) => ({
+        const pagesWithDetection = pages.map((page: PageVisibility) => ({
             ...toApiPage(page),
             isAutoDetected: !ROUTE_NAME_MAP[page.path]
-        })) || [];
+        }));
 
         return NextResponse.json(pagesWithDetection);
     } catch (error) {
@@ -292,11 +195,6 @@ export async function GET(request: NextRequest) {
 // PUT - Update page visibility
 export async function PUT(request: NextRequest) {
     try {
-        const client = getSupabaseClient();
-        if (!client) {
-            return NextResponse.json({ error: 'Supabase not configured' }, { status: 503 });
-        }
-
         const body = await request.json();
         const { id, visible, path: pagePath } = body;
 
@@ -304,23 +202,20 @@ export async function PUT(request: NextRequest) {
             return NextResponse.json({ error: 'ID or path is required' }, { status: 400 });
         }
 
-        // Update in database
-        const { data, error } = await client
-            .from('page_visibility')
-            .update({
-                visible: visible,
-                updated_at: new Date().toISOString()
-            })
-            .eq(id ? 'id' : 'path', id || pagePath)
-            .select()
-            .single();
+        const pages = getPagesWithDetectedRoutes();
+        const index = pages.findIndex(page => id ? page.id === id : page.path === pagePath);
 
-        if (error) {
-            console.error('Error updating page visibility:', error);
+        if (index === -1) {
+            return NextResponse.json({ error: 'Page not found' }, { status: 404 });
+        }
+
+        pages[index] = { ...pages[index], visible };
+
+        if (!savePageVisibility(pages)) {
             return NextResponse.json({ error: 'Failed to update page' }, { status: 500 });
         }
 
-        return NextResponse.json(data);
+        return NextResponse.json(toApiPage(pages[index]));
     } catch (error) {
         console.error('Error in PUT /api/page-visibility:', error);
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

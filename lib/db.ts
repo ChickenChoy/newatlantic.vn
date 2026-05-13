@@ -1,11 +1,6 @@
 /**
- * Database wrapper - Re-exports from Supabase
- * This file provides backward compatibility for sync imports
- * but uses Supabase as the data source
+ * Database wrapper - JSON file storage by default.
+ * Import Supabase directly from ./db-supabase only when explicitly needed.
  */
 
-// Re-export all functions from db-supabase
-export * from './db-supabase';
-
-// Note: All functions from db-supabase are async
-// Pages and components using these must handle promises appropriately
+export * from './db-json';

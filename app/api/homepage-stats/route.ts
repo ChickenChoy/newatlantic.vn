@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHomepageStats, saveHomepageStats } from '@/lib/db-supabase';
+import { getHomepageStats, saveHomepageStats } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 
 export const runtime = 'nodejs';

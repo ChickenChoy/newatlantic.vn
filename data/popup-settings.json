@@ -1,0 +1,9 @@
+{
+  "image": "/images/TB NGHI TET trang.png",
+  "title": "Thông báo lịch nghỉ Tết Nguyên Đán",
+  "delayMs": 1800,
+  "enabled": false,
+  "maxWidth": 360,
+  "dismissHours": 24,
+  "linkedHolidaySlug": "tet-nguyen-dan"
+}

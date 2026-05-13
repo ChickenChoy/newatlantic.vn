@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCatalogs, addCatalog, updateCatalog, deleteCatalog } from '@/lib/db-supabase';
+import { getCatalogs, addCatalog, updateCatalog, deleteCatalog } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 

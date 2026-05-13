@@ -1,0 +1,35 @@
+[
+  {
+    "id": "post-cat-1",
+    "name": "Tất cả",
+    "slug": "all",
+    "description": "Tất cả bài viết",
+    "orderIndex": 0,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:25.35851+00:00",
+    "updatedAt": "2026-02-07T01:37:25.387956+00:00",
+    "order": 0
+  },
+  {
+    "id": "post-cat-2",
+    "name": "Tin tức",
+    "slug": "tin-tuc",
+    "description": "Tin tức công ty và ngành",
+    "orderIndex": 1,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:25.35851+00:00",
+    "updatedAt": "2026-02-07T01:37:25.910222+00:00",
+    "order": 1
+  },
+  {
+    "id": "post-cat-4",
+    "name": "WILL-BURT",
+    "slug": "will-burt",
+    "description": "Tin tức về thương hiệu WILL-BURT",
+    "orderIndex": 2,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:25.35851+00:00",
+    "updatedAt": "2026-02-07T01:37:26.393756+00:00",
+    "order": 2
+  }
+]

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase';
 import { logActivity } from '@/lib/activity-logs';
 import { revalidatePath } from 'next/cache';
+import { getPopupSettings, savePopupSettings } from '@/lib/db';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -26,26 +26,10 @@ const DEFAULT_POPUP_SETTINGS: PopupSettings = {
     maxWidth: 360,
 };
 
-function getClient() {
-    const client = createAdminClient();
-    if (!client) throw new Error('Supabase client not available');
-    return client;
-}
-
 // GET - Lấy popup settings
 export async function GET() {
     try {
-        const { data, error } = await getClient()
-            .from('site_settings')
-            .select('*')
-            .eq('key', 'popup-settings')
-            .single();
-
-        if (error || !data) {
-            return NextResponse.json(DEFAULT_POPUP_SETTINGS);
-        }
-
-        return NextResponse.json({ ...DEFAULT_POPUP_SETTINGS, ...data.value });
+        return NextResponse.json(getPopupSettings(DEFAULT_POPUP_SETTINGS));
     } catch (error) {
         console.error('Error fetching popup settings:', error);
         return NextResponse.json(DEFAULT_POPUP_SETTINGS);
@@ -67,12 +51,7 @@ export async function PUT(request: NextRequest) {
             maxWidth: body.maxWidth ?? DEFAULT_POPUP_SETTINGS.maxWidth,
         };
 
-        const { error } = await getClient()
-            .from('site_settings')
-            .upsert({ key: 'popup-settings', value: settings }, { onConflict: 'key' });
-
-        if (error) {
-            console.error('Error saving popup settings:', error);
+        if (!savePopupSettings(settings)) {
             return NextResponse.json({ error: 'Failed to save popup settings' }, { status: 500 });
         }
 

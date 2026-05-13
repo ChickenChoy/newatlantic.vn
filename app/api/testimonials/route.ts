@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getTestimonials, saveTestimonials, addTestimonial, deleteTestimonial } from '@/lib/db-supabase';
+import { getTestimonials, saveTestimonials, addTestimonial, deleteTestimonial } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 

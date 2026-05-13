@@ -185,7 +185,18 @@ export async function POST(request: NextRequest) {
             const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
             const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
             if (!supabaseUrl || !supabaseAnonKey) {
-                return NextResponse.json({ error: 'Supabase chưa được cấu hình đầy đủ' }, { status: 500 });
+                await logActivity({
+                    action: 'update',
+                    entity: 'auth',
+                    entityName: targetEmail,
+                    user: currentEmail,
+                    details: 'Đổi mật khẩu bỏ qua trong JSON local mode',
+                });
+
+                return NextResponse.json({
+                    success: true,
+                    message: 'JSON local mode không dùng Supabase Auth, không cần đổi mật khẩu',
+                });
             }
 
             // Verify current password first
@@ -203,7 +214,18 @@ export async function POST(request: NextRequest) {
 
             const supabaseAdmin = createAdminClient();
             if (!supabaseAdmin) {
-                return NextResponse.json({ error: 'Không thể kết nối Supabase Admin' }, { status: 500 });
+                await logActivity({
+                    action: 'update',
+                    entity: 'auth',
+                    entityName: targetEmail,
+                    user: currentEmail,
+                    details: `Đổi mật khẩu bỏ qua trong JSON local mode cho ${targetEmail}`,
+                });
+
+                return NextResponse.json({
+                    success: true,
+                    message: `JSON local mode không dùng Supabase Auth, không cần đổi mật khẩu cho ${targetEmail}`,
+                });
             }
 
             const dbUser = await getUserByEmail(targetEmail);
@@ -405,31 +427,30 @@ export async function POST(request: NextRequest) {
 
             const supabaseAdmin = createAdminClient();
             if (!supabaseAdmin) {
-                return NextResponse.json({
-                    error: 'Không thể kết nối Supabase. Vui lòng kiểm tra cấu hình SUPABASE_SERVICE_ROLE_KEY'
-                }, { status: 500 });
-            }
+                // JSON local mode stores user metadata only; Supabase Auth is not used.
+                supabaseUserId = undefined;
+            } else {
+                // Create user in Supabase Auth
+                const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
+                    email: email.toLowerCase(),
+                    password: password,
+                    email_confirm: true, // Auto-confirm email
+                    user_metadata: {
+                        name: name,
+                        role: role,
+                    }
+                });
 
-            // Create user in Supabase Auth
-            const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
-                email: email.toLowerCase(),
-                password: password,
-                email_confirm: true, // Auto-confirm email
-                user_metadata: {
-                    name: name,
-                    role: role,
+                if (authError) {
+                    console.error('Supabase auth error:', authError);
+                    if (authError.message.includes('already been registered')) {
+                        return NextResponse.json({ error: 'Email đã được đăng ký trong hệ thống xác thực' }, { status: 400 });
+                    }
+                    return NextResponse.json({ error: `Lỗi tạo tài khoản: ${authError.message}` }, { status: 500 });
                 }
-            });
 
-            if (authError) {
-                console.error('Supabase auth error:', authError);
-                if (authError.message.includes('already been registered')) {
-                    return NextResponse.json({ error: 'Email đã được đăng ký trong hệ thống xác thực' }, { status: 400 });
-                }
-                return NextResponse.json({ error: `Lỗi tạo tài khoản: ${authError.message}` }, { status: 500 });
+                supabaseUserId = authData.user?.id;
             }
-
-            supabaseUserId = authData.user?.id;
         }
 
         // Create user in Supabase Database

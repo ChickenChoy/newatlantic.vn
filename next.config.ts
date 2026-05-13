@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Allow cross-origin requests from local network devices (mobile testing)
   // Include 169.254.*.* for link-local addresses (Windows APIPA)
-  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*', '169.254.*.*'],
+  allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*', '169.254.*.*', '100.*.*.*'],
 
   // Fix: Set turbopack root to this project directory
   // Prevents resolving modules from parent directories

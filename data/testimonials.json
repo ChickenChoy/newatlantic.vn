@@ -1,0 +1,54 @@
+[
+  {
+    "id": "2",
+    "name": "Ông Nguyễn Ngọc Hùng",
+    "position": "Giám đốc Vật tư Thiết bị",
+    "company": null,
+    "text": "Cẩu tự hành HIAB từ TÂN ĐẠI TÂY DƯƠNG hoạt động ổn định trên các công trình lớn. Phụ tùng chính hãng, bảo trì định kỳ chuyên nghiệp.",
+    "rating": 5,
+    "image": "/images/place-holder/2.png",
+    "orderIndex": 2,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:27.032425+00:00",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "name": "Bà Lê Thị Mai Hương",
+    "position": "Phó Giám đốc",
+    "company": null,
+    "text": "Xe nâng Moffett giúp tối ưu hóa logistics đáng kể. Đội ngũ TÂN ĐẠI TÂY DƯƠNG tư vấn giải pháp phù hợp, hỗ trợ tận nơi khi cần.",
+    "rating": 5,
+    "image": "/images/place-holder/3.png",
+    "orderIndex": 3,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:27.032425+00:00",
+    "order": 3
+  },
+  {
+    "id": "4",
+    "name": "Ông Võ Minh Tuấn",
+    "position": "Trưởng phòng Kỹ thuật",
+    "company": null,
+    "text": "Cột anten WILL-BURT hỗ trợ truyền hình trực tiếp các sự kiện lớn. Chất lượng tín hiệu ổn định, thiết bị bền bỉ qua nhiều năm sử dụng.",
+    "rating": 5,
+    "image": "/images/place-holder/1.png",
+    "orderIndex": 4,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:27.032425+00:00",
+    "order": 4
+  },
+  {
+    "id": "1",
+    "name": "Ông Phạm Quốc Việt",
+    "position": "Giám đốc Kỹ thuật",
+    "company": null,
+    "text": "Cột tự nâng WILL-BURT đáp ứng hoàn hảo yêu cầu triển khai trạm phát sóng. Độ bền cao, lắp đặt nhanh, hỗ trợ kỹ thuật 24/7 từ TÂN ĐẠI TÂY DƯƠNG.",
+    "rating": 5,
+    "image": "/images/place-holder/1.png",
+    "orderIndex": 1,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:27.032425+00:00",
+    "order": 1
+  }
+]

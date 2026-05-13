@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getGlobalPartnerRegions, getGlobalPartners, addGlobalPartnerRegion, updateGlobalPartnerRegion, deleteGlobalPartnerRegion, addGlobalPartner, updateGlobalPartner, deleteGlobalPartner } from '@/lib/db-supabase';
+import { getGlobalPartnerRegions, getGlobalPartners, addGlobalPartnerRegion, updateGlobalPartnerRegion, deleteGlobalPartnerRegion, addGlobalPartner, updateGlobalPartner, deleteGlobalPartner } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 import { GlobalPartnerRegion, GlobalPartner } from '@/types';

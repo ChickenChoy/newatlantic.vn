@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getCategories, addCategory, updateCategory, deleteCategory } from '@/lib/db-supabase';
+import { getCategories, addCategory, updateCategory, deleteCategory } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 

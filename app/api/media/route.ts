@@ -7,7 +7,7 @@ import {
     getMediaByFolder,
     searchMedia,
     getMediaStats
-} from '@/lib/db-supabase';
+} from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { MediaItem, MediaFolder } from '@/types';
 import { logActivity } from '@/lib/activity-logs';

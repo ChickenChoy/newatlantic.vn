@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase';
 import { logActivity } from '@/lib/activity-logs';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 
@@ -14,6 +16,41 @@ const ALLOWED_VIDEO_TYPES = [
 
 const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB (Supabase free plan limit)
 const BUCKET_NAME = 'videos';
+const DATA_DIR = path.join(process.cwd(), 'data');
+const LOCAL_VIDEO_INDEX = path.join(DATA_DIR, 'videos.json');
+const LOCAL_VIDEO_DIR = path.join(process.cwd(), 'public', 'videos', 'uploads');
+
+interface LocalVideoItem {
+    id: string;
+    name: string;
+    path: string;
+    url: string;
+    size: number;
+    mimeType: string;
+    folder: string;
+    title: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+function ensureLocalVideoDirs() {
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+    if (!fs.existsSync(LOCAL_VIDEO_DIR)) fs.mkdirSync(LOCAL_VIDEO_DIR, { recursive: true });
+}
+
+function readLocalVideos(): LocalVideoItem[] {
+    try {
+        if (!fs.existsSync(LOCAL_VIDEO_INDEX)) return [];
+        return JSON.parse(fs.readFileSync(LOCAL_VIDEO_INDEX, 'utf-8')) as LocalVideoItem[];
+    } catch {
+        return [];
+    }
+}
+
+function writeLocalVideos(videos: LocalVideoItem[]) {
+    ensureLocalVideoDirs();
+    fs.writeFileSync(LOCAL_VIDEO_INDEX, JSON.stringify(videos, null, 2), 'utf-8');
+}
 
 // Helper function to ensure bucket exists
 async function ensureBucketExists(supabase: ReturnType<typeof createAdminClient>) {
@@ -56,23 +93,6 @@ async function ensureBucketExists(supabase: ReturnType<typeof createAdminClient>
 // POST - Upload video to Supabase Storage
 export async function POST(request: NextRequest) {
     try {
-        const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json(
-                { error: 'Supabase not configured' },
-                { status: 500 }
-            );
-        }
-
-        // Ensure bucket exists
-        const bucketReady = await ensureBucketExists(supabase);
-        if (!bucketReady) {
-            return NextResponse.json(
-                { error: 'Storage bucket not available. Please check Supabase configuration.' },
-                { status: 500 }
-            );
-        }
-
         const formData = await request.formData();
         const file = formData.get('file') as File | null;
         const folder = (formData.get('folder') as string) || 'general';
@@ -110,6 +130,57 @@ export async function POST(request: NextRequest) {
         // Convert File to ArrayBuffer
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
+
+        const supabase = createAdminClient();
+        if (!supabase) {
+            ensureLocalVideoDirs();
+            const safeFilename = filename.replace(/[\\/]/g, '_');
+            const localPath = path.join(LOCAL_VIDEO_DIR, safeFilename);
+            fs.writeFileSync(localPath, buffer);
+
+            const now = new Date().toISOString();
+            const video: LocalVideoItem = {
+                id: safeFilename,
+                name: file.name,
+                path: `uploads/${safeFilename}`,
+                url: `/videos/uploads/${safeFilename}`,
+                size: file.size,
+                mimeType: file.type,
+                folder,
+                title,
+                createdAt: now,
+                updatedAt: now,
+            };
+
+            writeLocalVideos([video, ...readLocalVideos()]);
+
+            await logActivity({
+                action: 'upload',
+                entity: 'media',
+                entityName: title || file.name,
+                details: `Video uploaded locally: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`,
+            });
+
+            return NextResponse.json({
+                success: true,
+                filename: video.path,
+                originalName: file.name,
+                size: file.size,
+                mimeType: file.type,
+                url: video.url,
+                folder,
+                title,
+            });
+        }
+
+        // Ensure bucket exists
+        const bucketReady = await ensureBucketExists(supabase);
+        if (!bucketReady) {
+            return NextResponse.json(
+                { error: 'Storage bucket not available. Please check Supabase configuration.' },
+                { status: 500 }
+            );
+        }
 
         // Upload to Supabase Storage
         const { data, error } = await supabase.storage
@@ -168,10 +239,13 @@ export async function GET(request: NextRequest) {
     try {
         const supabase = createAdminClient();
         if (!supabase) {
-            return NextResponse.json(
-                { error: 'Supabase not configured' },
-                { status: 500 }
-            );
+            const { searchParams } = new URL(request.url);
+            const folder = searchParams.get('folder') || '';
+            const videos = readLocalVideos()
+                .filter(video => !folder || video.folder === folder)
+                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+            return NextResponse.json(videos);
         }
 
         // Ensure bucket exists
@@ -261,19 +335,12 @@ export async function GET(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
     try {
         const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json(
-                { error: 'Supabase not configured' },
-                { status: 500 }
-            );
-        }
-
         const { searchParams } = new URL(request.url);
-        const path = searchParams.get('path');
+        const videoPath = searchParams.get('path');
 
-        console.log('Delete request for path:', path);
+        console.log('Delete request for path:', videoPath);
 
-        if (!path) {
+        if (!videoPath) {
             return NextResponse.json(
                 { error: 'Video path is required' },
                 { status: 400 }
@@ -281,8 +348,27 @@ export async function DELETE(request: NextRequest) {
         }
 
         // Decode path if needed (it might be double-encoded)
-        const decodedPath = decodeURIComponent(path);
+        const decodedPath = decodeURIComponent(videoPath);
         console.log('Decoded path:', decodedPath);
+
+        if (!supabase) {
+            const safeName = path.basename(decodedPath);
+            const localPath = path.join(LOCAL_VIDEO_DIR, safeName);
+            if (localPath.startsWith(LOCAL_VIDEO_DIR) && fs.existsSync(localPath)) {
+                fs.unlinkSync(localPath);
+            }
+
+            writeLocalVideos(readLocalVideos().filter(video => video.path !== decodedPath && video.id !== safeName));
+
+            await logActivity({
+                action: 'delete',
+                entity: 'media',
+                entityName: decodedPath,
+                details: 'Video deleted from local storage',
+            });
+
+            return NextResponse.json({ success: true, deleted: decodedPath });
+        }
 
         // Remove the file
         const { data, error } = await supabase.storage

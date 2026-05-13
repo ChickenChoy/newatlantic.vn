@@ -13,7 +13,7 @@ type DataLayerEntry = Record<string, GtagValue> | IArguments;
 
 declare global {
   interface Window {
-    gtag: Gtag.Gtag;
+    gtag?: Gtag.Gtag;
     dataLayer: DataLayerEntry[];
   }
 }
@@ -32,6 +32,27 @@ export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G
 // Google Tag Manager ID
 export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
 
+function ensureGtag(): Gtag.Gtag | null {
+  if (typeof window === 'undefined') return null;
+
+  window.dataLayer = window.dataLayer || [];
+
+  if (typeof window.gtag !== 'function') {
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+  }
+
+  return window.gtag;
+}
+
+function sendGtag(command: 'config' | 'event' | 'js' | 'set' | 'consent', targetOrDate: string | Date, params?: Record<string, GtagValue>) {
+  const gtag = ensureGtag();
+  if (!gtag) return;
+
+  gtag(command, targetOrDate, params);
+}
+
 // ============================================
 // GOOGLE ANALYTICS 4 FUNCTIONS
 // ============================================
@@ -42,12 +63,8 @@ export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
 export const initGA = () => {
   if (typeof window === 'undefined') return;
 
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag() {
-    window.dataLayer.push(arguments);
-  };
-  window.gtag('js', new Date());
-  window.gtag('config', GA_MEASUREMENT_ID, {
+  sendGtag('js', new Date());
+  sendGtag('config', GA_MEASUREMENT_ID, {
     page_path: window.location.pathname,
     send_page_view: false, // We'll send manually
   });
@@ -57,9 +74,7 @@ export const initGA = () => {
  * Track page views
  */
 export const pageview = (url: string) => {
-  if (typeof window === 'undefined') return;
-
-  window.gtag('config', GA_MEASUREMENT_ID, {
+  sendGtag('config', GA_MEASUREMENT_ID, {
     page_path: url,
   });
 };
@@ -78,9 +93,7 @@ export const event = ({
   label?: string;
   value?: number;
 }) => {
-  if (typeof window === 'undefined') return;
-
-  window.gtag('event', action, {
+  sendGtag('event', action, {
     event_category: category,
     event_label: label,
     value: value,
@@ -107,20 +120,18 @@ export const trackProductView = (product: {
     label: product.name,
   });
 
-  if (typeof window !== 'undefined') {
-    window.gtag('event', 'view_item', {
-      currency: 'VND',
-      value: product.price !== 'Liên hệ' ? parseFloat(product.price || '0') : 0,
-      items: [
-        {
-          item_id: product.id,
-          item_name: product.name,
-          item_category: product.category,
-          item_brand: product.brand || 'NEW ATLANTIC',
-        },
-      ],
-    });
-  }
+  sendGtag('event', 'view_item', {
+    currency: 'VND',
+    value: product.price !== 'Liên hệ' ? parseFloat(product.price || '0') : 0,
+    items: [
+      {
+        item_id: product.id,
+        item_name: product.name,
+        item_category: product.category,
+        item_brand: product.brand || 'NEW ATLANTIC',
+      },
+    ],
+  });
 };
 
 /**
@@ -137,17 +148,15 @@ export const trackAddToWishlist = (product: {
     label: product.name,
   });
 
-  if (typeof window !== 'undefined') {
-    window.gtag('event', 'add_to_wishlist', {
-      items: [
-        {
-          item_id: product.id,
-          item_name: product.name,
-          item_category: product.category,
-        },
-      ],
-    });
-  }
+  sendGtag('event', 'add_to_wishlist', {
+    items: [
+      {
+        item_id: product.id,
+        item_name: product.name,
+        item_category: product.category,
+      },
+    ],
+  });
 };
 
 /**
@@ -160,11 +169,9 @@ export const trackSearch = (searchTerm: string) => {
     label: searchTerm,
   });
 
-  if (typeof window !== 'undefined') {
-    window.gtag('event', 'search', {
-      search_term: searchTerm,
-    });
-  }
+  sendGtag('event', 'search', {
+    search_term: searchTerm,
+  });
 };
 
 /**
@@ -177,12 +184,10 @@ export const trackContactForm = (formType: string) => {
     label: formType,
   });
 
-  if (typeof window !== 'undefined') {
-    window.gtag('event', 'generate_lead', {
-      currency: 'VND',
-      value: 0,
-    });
-  }
+  sendGtag('event', 'generate_lead', {
+    currency: 'VND',
+    value: 0,
+  });
 };
 
 /**
@@ -217,13 +222,11 @@ export const trackSocialShare = (platform: string, url: string) => {
     label: `${platform} - ${url}`,
   });
 
-  if (typeof window !== 'undefined') {
-    window.gtag('event', 'share', {
-      method: platform,
-      content_type: 'product',
-      item_id: url,
-    });
-  }
+  sendGtag('event', 'share', {
+    method: platform,
+    content_type: 'product',
+    item_id: url,
+  });
 };
 
 /**
@@ -341,12 +344,10 @@ export const trackError = (error: Error, errorInfo?: { componentStack?: string }
     label: `${error.message} - ${error.stack?.substring(0, 150)}`,
   });
 
-  if (typeof window !== 'undefined') {
-    window.gtag('event', 'exception', {
-      description: error.message,
-      fatal: false,
-    });
-  }
+  sendGtag('event', 'exception', {
+    description: error.message,
+    fatal: false,
+  });
 };
 
 // ============================================

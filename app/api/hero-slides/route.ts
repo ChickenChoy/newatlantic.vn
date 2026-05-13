@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getHeroSlides, addHeroSlide, updateHeroSlide, deleteHeroSlide } from '@/lib/db-supabase';
+import { getHeroSlides, addHeroSlide, updateHeroSlide, deleteHeroSlide } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 import type { HeroSlide } from '@/types';

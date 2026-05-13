@@ -1,0 +1,46 @@
+[
+  {
+    "id": "stat-1",
+    "label": "Năm kinh nghiệm",
+    "value": "22",
+    "suffix": "+",
+    "icon": null,
+    "orderIndex": 1,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:26.042677+00:00",
+    "order": 1
+  },
+  {
+    "id": "stat-2",
+    "label": "Khách hàng tin tưởng",
+    "value": "500",
+    "suffix": "+",
+    "icon": null,
+    "orderIndex": 2,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:26.042677+00:00",
+    "order": 2
+  },
+  {
+    "id": "stat-3",
+    "label": "Dự án hoàn thành",
+    "value": "1000",
+    "suffix": "+",
+    "icon": null,
+    "orderIndex": 3,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:26.042677+00:00",
+    "order": 3
+  },
+  {
+    "id": "stat-4",
+    "label": "Đối tác chiến lược",
+    "value": "20",
+    "suffix": "+",
+    "icon": null,
+    "orderIndex": 4,
+    "enabled": true,
+    "createdAt": "2026-02-03T06:59:26.042677+00:00",
+    "order": 4
+  }
+]

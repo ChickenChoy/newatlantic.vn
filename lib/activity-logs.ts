@@ -1,14 +1,37 @@
 import { createAdminClient } from './supabase';
 import { ActivityLog, ActivityAction, ActivityEntity, ActivityChange } from '@/types';
+import fs from 'fs';
+import path from 'path';
 
 const TABLE_NAME = 'activity_logs';
 const MAX_LOGS = 1000; // Giữ tối đa 1000 logs gần nhất
+const DATA_DIR = path.join(process.cwd(), 'data');
+const LOGS_FILE = path.join(DATA_DIR, 'activity-logs.json');
+
+function ensureDataDir() {
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+}
+
+function readLocalLogs(): ActivityLog[] {
+    try {
+        if (!fs.existsSync(LOGS_FILE)) return [];
+        return JSON.parse(fs.readFileSync(LOGS_FILE, 'utf-8')) as ActivityLog[];
+    } catch {
+        return [];
+    }
+}
+
+function writeLocalLogs(logs: ActivityLog[]): void {
+    ensureDataDir();
+    fs.writeFileSync(LOGS_FILE, JSON.stringify(logs.slice(0, MAX_LOGS), null, 2), 'utf-8');
+}
 
 // Get Supabase admin client (with error handling)
 function getSupabaseAdmin() {
     const client = createAdminClient();
     if (!client) {
-        console.warn('Supabase not configured, activity logs will be skipped');
         return null;
     }
     return client;
@@ -35,7 +58,7 @@ function rowToActivityLog(row: Record<string, unknown>): ActivityLog {
  */
 export async function getActivityLogs(): Promise<ActivityLog[]> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return [];
+    if (!supabase) return readLocalLogs().slice(0, MAX_LOGS);
 
     try {
         const { data, error } = await supabase
@@ -70,8 +93,6 @@ export async function logActivity(params: {
     ipAddress?: string;
 }): Promise<ActivityLog | null> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return null;
-
     const {
         action,
         entity,
@@ -82,6 +103,24 @@ export async function logActivity(params: {
         changes,
         ipAddress,
     } = params;
+
+    if (!supabase) {
+        const localLog: ActivityLog = {
+            id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+            timestamp: new Date().toISOString(),
+            action,
+            entity,
+            entityId,
+            entityName,
+            user,
+            details,
+            changes,
+            ipAddress,
+        };
+
+        writeLocalLogs([localLog, ...readLocalLogs()]);
+        return localLog;
+    }
 
     const logData = {
         action,
@@ -117,7 +156,10 @@ export async function logActivity(params: {
  */
 export async function clearActivityLogs(): Promise<void> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return;
+    if (!supabase) {
+        writeLocalLogs([]);
+        return;
+    }
 
     try {
         const { error } = await supabase
@@ -145,10 +187,20 @@ export async function getFilteredLogs(params: {
     page?: number;
 }): Promise<{ logs: ActivityLog[]; total: number }> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return { logs: [], total: 0 };
-
     const { action, entity, startDate, endDate, limit = 20, page = 1 } = params;
     const offset = (page - 1) * limit;
+
+    if (!supabase) {
+        let logs = readLocalLogs();
+
+        if (action) logs = logs.filter(log => log.action === action);
+        if (entity) logs = logs.filter(log => log.entity === entity);
+        if (startDate) logs = logs.filter(log => log.timestamp >= startDate);
+        if (endDate) logs = logs.filter(log => log.timestamp <= endDate);
+
+        const total = logs.length;
+        return { logs: logs.slice(offset, offset + limit), total };
+    }
 
     try {
         // Build query

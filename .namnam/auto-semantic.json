@@ -12,6 +12,7 @@
     "**/build/**",
     "**/.namnam/**"
   ],
-  "lastIndexed": "2026-01-29T07:41:43.946Z",
-  "lastIndexCount": 0
+  "lastIndexed": "2026-05-13T07:11:40.356Z",
+  "lastIndexCount": 0,
+  "provider": "openai"
 }

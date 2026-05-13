@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPartnerLogos, savePartnerLogos, addPartnerLogo, updatePartnerLogo, deletePartnerLogo } from '@/lib/db-supabase';
+import { getPartnerLogos, savePartnerLogos, addPartnerLogo, updatePartnerLogo, deletePartnerLogo } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
 

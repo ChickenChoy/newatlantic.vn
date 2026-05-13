@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAdminClient } from '@/lib/supabase';
 import { revalidatePath } from 'next/cache';
 import { logActivity } from '@/lib/activity-logs';
+import { getNavbarSettings, saveNavbarSettings } from '@/lib/db';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -52,23 +52,7 @@ const DEFAULT_NAVBAR: NavbarSettings = {
 // GET - Lấy navbar settings
 export async function GET() {
     try {
-        const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json(DEFAULT_NAVBAR);
-        }
-
-        const { data, error } = await supabase
-            .from('navbar_settings')
-            .select('*')
-            .eq('id', 'navbar')
-            .single();
-
-        if (error || !data) {
-            // Return defaults if no settings found
-            return NextResponse.json(DEFAULT_NAVBAR);
-        }
-
-        return NextResponse.json(data.settings as NavbarSettings);
+        return NextResponse.json(getNavbarSettings(DEFAULT_NAVBAR));
     } catch (error) {
         console.error('Error fetching navbar settings:', error);
         return NextResponse.json(DEFAULT_NAVBAR);
@@ -78,23 +62,9 @@ export async function GET() {
 // PUT - Cập nhật navbar settings
 export async function PUT(request: NextRequest) {
     try {
-        const supabase = createAdminClient();
-        if (!supabase) {
-            return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-        }
-
         const body: NavbarSettings = await request.json();
 
-        const { error } = await supabase
-            .from('navbar_settings')
-            .upsert({
-                id: 'navbar',
-                settings: body,
-                updated_at: new Date().toISOString(),
-            });
-
-        if (error) {
-            console.error('Supabase error:', error);
+        if (!saveNavbarSettings(body)) {
             return NextResponse.json({ error: 'Failed to save navbar settings' }, { status: 500 });
         }
 

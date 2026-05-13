@@ -89,6 +89,10 @@ export async function middleware(request: NextRequest) {
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (!supabaseUrl || !supabaseAnonKey) {
+        if (process.env.DB_MODE !== 'supabase' && process.env.NODE_ENV !== 'production') {
+            return response;
+        }
+
         // If Supabase is not configured, block admin routes entirely
         return NextResponse.json(
             { error: 'Unauthorized' },

@@ -1,8 +1,48 @@
 import { AdminUser, UserRole, Permission, hasPermission, PERMISSION_MATRIX } from '@/types';
 import { createAdminClient } from './supabase';
+import fs from 'fs';
+import path from 'path';
 
 // Supabase table name
 const TABLE_NAME = 'admin_users';
+const DATA_DIR = path.join(process.cwd(), 'data');
+const USERS_FILE = path.join(DATA_DIR, 'admin-users.json');
+
+function ensureDataDir() {
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+}
+
+function createDefaultAdmin(): AdminUser {
+    const now = new Date().toISOString();
+    return {
+        id: 'local-super-admin',
+        email: 'admin@newatlantic.vn',
+        name: 'Super Admin',
+        role: 'super_admin',
+        isActive: true,
+        totpEnabled: false,
+        createdAt: now,
+        updatedAt: now,
+        lastLogin: now,
+    };
+}
+
+function readLocalUsers(): AdminUser[] {
+    try {
+        if (!fs.existsSync(USERS_FILE)) return [createDefaultAdmin()];
+        const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8')) as AdminUser[];
+        return users.length > 0 ? users : [createDefaultAdmin()];
+    } catch {
+        return [createDefaultAdmin()];
+    }
+}
+
+function writeLocalUsers(users: AdminUser[]): void {
+    ensureDataDir();
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+}
 
 // Helper to convert Supabase row to AdminUser
 function rowToAdminUser(row: Record<string, unknown>): AdminUser {
@@ -45,7 +85,7 @@ function adminUserToRow(user: Partial<AdminUser>): Record<string, unknown> {
 function getSupabaseAdmin() {
     const client = createAdminClient();
     if (!client) {
-        throw new Error('Không thể kết nối Supabase. Vui lòng kiểm tra cấu hình.');
+        return null;
     }
     return client;
 }
@@ -57,6 +97,7 @@ function getSupabaseAdmin() {
  */
 export async function getUsers(): Promise<AdminUser[]> {
     const supabase = getSupabaseAdmin();
+    if (!supabase) return readLocalUsers();
 
     const { data, error } = await supabase
         .from(TABLE_NAME)
@@ -76,6 +117,7 @@ export async function getUsers(): Promise<AdminUser[]> {
  */
 export async function getUserById(id: string): Promise<AdminUser | null> {
     const supabase = getSupabaseAdmin();
+    if (!supabase) return readLocalUsers().find(user => user.id === id) || null;
 
     const { data, error } = await supabase
         .from(TABLE_NAME)
@@ -95,6 +137,7 @@ export async function getUserById(id: string): Promise<AdminUser | null> {
  */
 export async function getUserByEmail(email: string): Promise<AdminUser | null> {
     const supabase = getSupabaseAdmin();
+    if (!supabase) return readLocalUsers().find(user => user.email.toLowerCase() === email.toLowerCase()) || null;
 
     const { data, error } = await supabase
         .from(TABLE_NAME)
@@ -121,6 +164,18 @@ export async function createUser(
     const existing = await getUserByEmail(user.email);
     if (existing) {
         throw new Error('Email đã tồn tại');
+    }
+
+    if (!supabase) {
+        const now = new Date().toISOString();
+        const newUser: AdminUser = {
+            ...user,
+            id: `user-${Date.now()}`,
+            createdAt: now,
+            updatedAt: now,
+        };
+        writeLocalUsers([newUser, ...readLocalUsers()]);
+        return newUser;
     }
 
     const insertData = adminUserToRow(user);
@@ -180,6 +235,20 @@ export async function updateUser(
         }
     }
 
+    if (!supabase) {
+        const users = readLocalUsers();
+        const index = users.findIndex(user => user.id === id);
+        if (index === -1) return null;
+
+        users[index] = {
+            ...users[index],
+            ...updates,
+            updatedAt: new Date().toISOString(),
+        };
+        writeLocalUsers(users);
+        return users[index];
+    }
+
     const updateData = adminUserToRow(updates);
 
     const { data, error } = await supabase
@@ -216,6 +285,12 @@ export async function deleteUser(id: string): Promise<boolean> {
         if (superAdmins.length <= 1) {
             throw new Error('Không thể xóa Super Admin cuối cùng');
         }
+    }
+
+    if (!supabase) {
+        const users = readLocalUsers();
+        writeLocalUsers(users.filter(user => user.id !== id));
+        return true;
     }
 
     // Delete from Supabase Auth if supabaseId exists

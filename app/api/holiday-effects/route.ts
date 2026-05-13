@@ -4,7 +4,7 @@ import {
     addHolidayEffect,
     updateHolidayEffect,
     deleteHolidayEffect
-} from '@/lib/db-supabase';
+} from '@/lib/db';
 import { logActivity } from '@/lib/activity-logs';
 import { revalidatePath } from 'next/cache';
 

@@ -1,0 +1,23 @@
+{
+  "embedding": {
+    "provider": "openai",
+    "model": "text-embedding-3-small",
+    "dimensions": 1536,
+    "batchSize": 10
+  },
+  "llm": {
+    "provider": "ollama",
+    "model": "codellama",
+    "maxTokens": 4096,
+    "temperature": 0.1
+  },
+  "chunking": {
+    "strategy": "hybrid",
+    "maxChunkSize": 1500,
+    "overlap": 100
+  },
+  "vectorStore": {
+    "type": "json",
+    "path": ".namnam/vectors"
+  }
+}
