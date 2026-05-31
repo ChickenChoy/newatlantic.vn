@@ -108,11 +108,10 @@ export default function AdminLayout({
     try {
       if (!supabase) {
         if (isLocalJsonMode) {
-          const localUser = createLocalAdminUser();
-          setUserEmail(localUser.email);
-          setCurrentUser(localUser);
-          setTotpEnabled(false);
-          setAuthStep('authenticated');
+          // JSON mode: don't auto-login, let user click login button
+          setAuthStep('login');
+          setUserEmail(null);
+          setCurrentUser(null);
         } else {
           setError('Supabase chưa được cấu hình. Admin login bị tắt trong production.');
           setAuthStep('login');

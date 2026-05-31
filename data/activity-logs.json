@@ -1,5 +1,41 @@
 [
   {
+    "id": "1780218748093-i3x8kzj",
+    "timestamp": "2026-05-31T09:12:28.094Z",
+    "action": "update",
+    "entity": "site-settings",
+    "entityName": "Cài đặt website",
+    "user": "Admin",
+    "details": "Cập nhật thông tin website"
+  },
+  {
+    "id": "1780218743294-imhqhd1",
+    "timestamp": "2026-05-31T09:12:23.294Z",
+    "action": "update",
+    "entity": "site-settings",
+    "entityName": "Cài đặt website",
+    "user": "Admin",
+    "details": "Cập nhật thông tin website"
+  },
+  {
+    "id": "1780218739956-813fomc",
+    "timestamp": "2026-05-31T09:12:19.956Z",
+    "action": "update",
+    "entity": "site-settings",
+    "entityName": "Cài đặt website",
+    "user": "Admin",
+    "details": "Cập nhật thông tin website"
+  },
+  {
+    "id": "1780218739208-pwe96u0",
+    "timestamp": "2026-05-31T09:12:19.208Z",
+    "action": "update",
+    "entity": "site-settings",
+    "entityName": "Cài đặt website",
+    "user": "Admin",
+    "details": "Cập nhật thông tin website"
+  },
+  {
     "id": "log_1770257681850_g0crshj54",
     "timestamp": "2026-02-05T02:14:41.850Z",
     "action": "update",
