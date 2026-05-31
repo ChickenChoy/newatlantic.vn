@@ -82,7 +82,7 @@ export default function AdminLayout({
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const router = useRouter();
   const supabase = getSupabaseClient();
-  const isLocalJsonMode = !supabase && process.env.NODE_ENV !== 'production';
+  const isLocalJsonMode = !supabase;
 
   useEffect(() => {
     checkAuth();
