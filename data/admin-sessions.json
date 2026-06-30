@@ -1,0 +1,10 @@
+[
+  {
+    "token": "0200aac54acf475b4593fe729d8d46235a9e3a0f3dd5f56335b7819bb177dbb7",
+    "userId": "local-super-admin",
+    "email": "admin@newatlantic.vn",
+    "totpVerified": true,
+    "createdAt": "2026-06-30T17:02:24.940Z",
+    "expiresAt": "2026-07-07T17:02:24.940Z"
+  }
+]

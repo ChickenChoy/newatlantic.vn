@@ -1,5 +1,78 @@
 [
   {
+    "id": "1782838944941-13c5gww",
+    "timestamp": "2026-06-30T17:02:24.941Z",
+    "action": "login",
+    "entity": "auth",
+    "entityId": "local-super-admin",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thành công"
+  },
+  {
+    "id": "1782838811544-oyvupdb",
+    "timestamp": "2026-06-30T17:00:11.544Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
+    "id": "1782838810971-fhi45zg",
+    "timestamp": "2026-06-30T17:00:10.971Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
+    "id": "1782838734053-o2v5tku",
+    "timestamp": "2026-06-30T16:58:54.053Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
+    "id": "1782838733364-uolv2gn",
+    "timestamp": "2026-06-30T16:58:53.364Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
+    "id": "1782838726208-ob3g7sa",
+    "timestamp": "2026-06-30T16:58:46.208Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
+    "id": "1782838613193-6h95wzm",
+    "timestamp": "2026-06-30T16:56:53.193Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
+    "id": "1782838606995-tqkkvfl",
+    "timestamp": "2026-06-30T16:56:46.995Z",
+    "action": "login",
+    "entity": "auth",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thất bại"
+  },
+  {
     "id": "1782794773688-ggwx2ti",
     "timestamp": "2026-06-30T04:46:13.688Z",
     "action": "update",

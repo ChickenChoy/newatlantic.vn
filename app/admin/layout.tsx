@@ -413,7 +413,7 @@ export default function AdminLayout({
           </form>
 
           <p className="text-center text-gray-400 text-xs mt-12">
-            Bảo mật bởi Supabase
+            &copy; NEW ATLANTIC Admin Panel
           </p>
         </div>
       </div>

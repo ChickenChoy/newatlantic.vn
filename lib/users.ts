@@ -19,7 +19,7 @@ function ensureDataDir() {
 
 // Default admin credentials for first-time JSON setup.
 // IMPORTANT: Change this password immediately after first login.
-const DEFAULT_ADMIN_PASSWORD = 'NewAtlantic2026!';
+const DEFAULT_ADMIN_PASSWORD = '@Tandaitayduong';
 
 function createDefaultAdmin(): StoredAdminUser {
     const now = new Date().toISOString();

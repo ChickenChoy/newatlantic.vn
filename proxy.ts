@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { getSessionUser, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getSessionUser, getSessionCookieValue, SESSION_COOKIE_NAME } from '@/lib/auth';
 
 // ─── API routes that are ALWAYS admin-only (all methods) ───────────────
 const ADMIN_ONLY_ROUTES = [
@@ -57,7 +57,7 @@ function isPublicReadRoute(pathname: string): boolean {
     );
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Only apply to /api routes
@@ -70,28 +70,25 @@ export async function middleware(request: NextRequest) {
         if (request.method === 'POST') {
             return NextResponse.next(); // public – SiteTracker
         }
-        // GET → requires auth (falls through to auth check below)
     }
 
     // ── Determine if this request needs auth ──────────────────────────
     const needsAuth =
         isAdminOnlyRoute(pathname) ||
         (isPublicReadRoute(pathname) && !['GET', 'HEAD', 'OPTIONS'].includes(request.method)) ||
-        pathname === '/api/track'; // GET /api/track
+        pathname === '/api/track';
 
     if (!needsAuth) {
         return NextResponse.next();
     }
 
-    // ── Verify session ────────────────────────────────────────────────
-    // JSON mode: validate our own session cookie.
-    // Supabase mode: validate Supabase Auth session.
+    // ── Verify session (Node.js runtime - full validation) ────────────
     const isSupabaseMode = process.env.DB_MODE === 'supabase';
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (!isSupabaseMode || !supabaseUrl || !supabaseAnonKey) {
-        const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+        const token = getSessionCookieValue(request);
         const user = token ? await getSessionUser(token) : null;
 
         if (!user) {

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "local-super-admin",
+    "email": "admin@newatlantic.vn",
+    "name": "Super Admin",
+    "role": "super_admin",
+    "isActive": true,
+    "totpEnabled": false,
+    "passwordHash": "scrypt$xcwYLD4YEoy8JFVkRHX+QQ==$HWwwzulnKFBczHyYfwCaAtFGFtrf47yU5R7Rr3Ow52TdHUoX8YDRyQOHt5wOVScnqp5DQH762wMHzsWEw9smOw==",
+    "createdAt": "2026-06-30T17:02:24.876Z",
+    "updatedAt": "2026-06-30T17:02:28.130Z",
+    "lastLogin": "2026-06-30T17:02:28.130Z"
+  }
+]
