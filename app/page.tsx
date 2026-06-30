@@ -556,7 +556,7 @@ export default async function HomePage() {
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>
-                    Máy móc LOVOL, SKYMARK
+                    Máy móc SKYMARK
                   </li>
                   <li className="flex items-center gap-3">
                     <div className="w-2 h-2 bg-[#5f7ab8] rounded-full"></div>

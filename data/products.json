@@ -44,8 +44,7 @@
     "image": "/images/products/cot-nang-type-pu/11-2.png",
     "categorySlug": "cot-tu-nang-will-burt",
     "fullDescription": "Khi lắp đặt như một cột ăng ten gắn trên đồng, thời gian trung bình để lắp đặt bởi một đội gồm hai người là 10 phút bao gồm việc cắm cọc và gắn dây cáp và ăng ten. Các ăng ten được hỗ trợ phổ biến nhất là dipole băng thông rộng, có thể là đầu hoặc trung tâm, thường từ 30-108 MHz. Sử dụng phụ kiện dây thừng halyard, các cột PU cũng được sử dụng bởi một số lực lượng quốc phòng để hỗ trợ các ăng ten dây HF trong nhiều cấu hình khác nhau. Ứng dụng: lắp đặt được trên xe tải, xe bán tải xe bán tải lắp cột >> XEM CATALOG CHI TIẾT [caption id=\"attachment_1518\" align=\"alignleft\" width=\"337\"] DỤNG CỤ THIẾT BỊ LẮP ĐẶT TYPE PU[/caption] [caption id=\"attachment_1517\" align=\"alignleft\" width=\"79\"] CỘT NÂNG TYPE PU[/caption]",
-    "featured": true,
-    "category_name": "Cột (Trụ) Tự Nâng WILL-BURT"
+    "featured": true
   },
   {
     "id": "10",
@@ -1334,9 +1333,10 @@
     "enabled": true,
     "createdAt": "2026-05-13T07:04:52.462562+00:00",
     "updatedAt": "2026-05-13T07:04:52.462562+00:00",
-    "image": "/images/box-image/MAY.jpg",
+    "image": "",
     "categorySlug": "cot-tu-nang-mastech",
     "fullDescription": "<p></p>",
-    "featured": false
+    "featured": false,
+    "category_name": "Cột tự nâng Mastech"
   }
 ]

@@ -234,6 +234,15 @@ export default function MasttechPage() {
                 <div className="mast-section-container">
                     <div className="mast-section-header animate-on-scroll">
                         <p className="mast-section-label">Về chúng tôi</p>
+                        <div className="mast-about-logo">
+                            <Image
+                                src="/images/masttech-mt+letter.png"
+                                alt="Masttech Letter of Appointment"
+                                width={2481}
+                                height={3508}
+                                className="mast-about-letter-img"
+                            />
+                        </div>
                         <h2 className="mast-section-title mast-heading">
                             Giới thiệu MASTTECH
                         </h2>
