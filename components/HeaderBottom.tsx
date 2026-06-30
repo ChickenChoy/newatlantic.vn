@@ -305,7 +305,10 @@ export default function HeaderBottom() {
                                 <Link
                                   key={cat.id}
                                   href={`/san-pham/${cat.slug}`}
-                                  onClick={() => setOpenDropdown(null)}
+                                  onClick={(e) => {
+                                    setOpenDropdown(null);
+                                    if (cat.href) window.open(cat.href, '_blank');
+                                  }}
                                   className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
                                 >
                                   <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50 p-1 border border-gray-100">
@@ -543,7 +546,10 @@ export default function HeaderBottom() {
                                 <Link
                                   key={cat.id}
                                   href={`/san-pham/${cat.slug}`}
-                                  onClick={closeMobileMenu}
+                                  onClick={(e) => {
+                                    closeMobileMenu();
+                                    if (cat.href) window.open(cat.href, '_blank');
+                                  }}
                                   className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
                                 >
                                   {cat.name}

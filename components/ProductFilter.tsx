@@ -219,7 +219,8 @@ export default function ProductFilter({
               return (
                 <Link
                   key={category.id}
-                  href={category.href || `/san-pham/${category.slug}`}
+                  href={`/san-pham/${category.slug}`}
+                  onClick={() => { if (category.href) window.open(category.href, '_blank'); }}
                   className={`
                     group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all duration-200
                     ${isActive

@@ -18,6 +18,7 @@ interface SearchResult {
   description: string;
   image?: string;
   url: string;
+  href?: string;
   type: 'product' | 'post' | 'category';
   category?: string;
   price?: string;
@@ -183,7 +184,8 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
           title: category.name,
           description: category.description || `Danh mục sản phẩm ${category.name}`,
           image: category.image,
-          url: category.href || `/san-pham/${category.slug}`,
+          url: `/san-pham/${category.slug}`,
+          href: category.href || '',
           type: 'category',
           highlightedTitle: highlightText(category.name, query)
         });
@@ -340,7 +342,10 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
             <Link
               key={result.id}
               href={result.url}
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                if (result.href) window.open(result.href, '_blank');
+              }}
               className={`block p-4 hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50/30 transition-all duration-200 border-b border-gray-100 last:border-0 group ${
                 index === selectedIndex ? 'bg-gradient-to-r from-[#5f7ab8]/10 to-blue-50 border-l-4 border-l-[#5f7ab8] shadow-sm' : ''
               }`}

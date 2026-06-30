@@ -21,7 +21,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, slug, description, image } = body;
+    const { name, slug, description, image, href } = body;
 
     if (!name || !slug) {
       return NextResponse.json({ error: 'Name and slug are required' }, { status: 400 });
@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
       slug,
       description: description || '',
       image: image || '',
+      href: href || '',
       enabled: true,
       order_index: categories.length
     };
@@ -70,7 +71,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, name, slug, description, image } = body;
+    const { id, name, slug, description, image, href } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'Category ID is required' }, { status: 400 });
@@ -92,6 +93,7 @@ export async function PUT(request: NextRequest) {
     if (slug !== undefined) updates.slug = slug;
     if (description !== undefined) updates.description = description;
     if (image !== undefined) updates.image = image;
+    if (href !== undefined) updates.href = href;
 
     const success = await updateCategory(id, updates);
 
