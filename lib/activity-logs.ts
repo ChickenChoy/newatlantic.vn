@@ -5,7 +5,9 @@ import path from 'path';
 
 const TABLE_NAME = 'activity_logs';
 const MAX_LOGS = 1000; // Giữ tối đa 1000 logs gần nhất
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.PERSISTENT_DATA_PATH
+  ? path.resolve(process.env.PERSISTENT_DATA_PATH)
+  : path.join(process.cwd(), 'data');
 const LOGS_FILE = path.join(DATA_DIR, 'activity-logs.json');
 
 function ensureDataDir() {

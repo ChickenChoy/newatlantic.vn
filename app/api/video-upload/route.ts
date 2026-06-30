@@ -16,7 +16,9 @@ const ALLOWED_VIDEO_TYPES = [
 
 const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB (Supabase free plan limit)
 const BUCKET_NAME = 'videos';
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.PERSISTENT_DATA_PATH
+  ? path.resolve(process.env.PERSISTENT_DATA_PATH)
+  : path.join(process.cwd(), 'data');
 const LOCAL_VIDEO_INDEX = path.join(DATA_DIR, 'videos.json');
 const LOCAL_VIDEO_DIR = path.join(process.cwd(), 'public', 'videos', 'uploads');
 

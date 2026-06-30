@@ -8,7 +8,9 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const BACKUP_DIR = path.join(process.cwd(), 'backups');
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.PERSISTENT_DATA_PATH
+  ? path.resolve(process.env.PERSISTENT_DATA_PATH)
+  : path.join(process.cwd(), 'data');
 
 const DATABASE_TABLES = [
     'categories',

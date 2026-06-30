@@ -4,7 +4,9 @@ import path from 'path';
 
 export const runtime = 'nodejs';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.PERSISTENT_DATA_PATH
+  ? path.resolve(process.env.PERSISTENT_DATA_PATH)
+  : path.join(process.cwd(), 'data');
 const PAGE_VIEWS_FILE = path.join(DATA_DIR, 'page-views.json');
 const MAX_STORED_VIEWS = 5000;
 

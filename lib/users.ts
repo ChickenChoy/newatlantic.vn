@@ -1,11 +1,14 @@
-import { AdminUser, UserRole, Permission, hasPermission, PERMISSION_MATRIX } from '@/types';
+import { AdminUser, StoredAdminUser, UserRole, Permission, hasPermission, PERMISSION_MATRIX } from '@/types';
 import { createAdminClient } from './supabase';
+import { hashPasswordSync } from './auth';
 import fs from 'fs';
 import path from 'path';
 
 // Supabase table name
 const TABLE_NAME = 'admin_users';
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.PERSISTENT_DATA_PATH
+  ? path.resolve(process.env.PERSISTENT_DATA_PATH)
+  : path.join(process.cwd(), 'data');
 const USERS_FILE = path.join(DATA_DIR, 'admin-users.json');
 
 function ensureDataDir() {
@@ -14,7 +17,11 @@ function ensureDataDir() {
     }
 }
 
-function createDefaultAdmin(): AdminUser {
+// Default admin credentials for first-time JSON setup.
+// IMPORTANT: Change this password immediately after first login.
+const DEFAULT_ADMIN_PASSWORD = 'NewAtlantic2026!';
+
+function createDefaultAdmin(): StoredAdminUser {
     const now = new Date().toISOString();
     return {
         id: 'local-super-admin',
@@ -23,23 +30,34 @@ function createDefaultAdmin(): AdminUser {
         role: 'super_admin',
         isActive: true,
         totpEnabled: false,
+        passwordHash: hashPasswordSync(DEFAULT_ADMIN_PASSWORD),
         createdAt: now,
         updatedAt: now,
         lastLogin: now,
     };
 }
 
-function readLocalUsers(): AdminUser[] {
+function stripPasswordHash(user: StoredAdminUser): AdminUser {
+    const { passwordHash, ...publicUser } = user;
+    return publicUser;
+}
+
+function readLocalUsers(): StoredAdminUser[] {
     try {
-        if (!fs.existsSync(USERS_FILE)) return [createDefaultAdmin()];
-        const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8')) as AdminUser[];
-        return users.length > 0 ? users : [createDefaultAdmin()];
+        if (!fs.existsSync(USERS_FILE)) {
+            const defaultAdmin = createDefaultAdmin();
+            writeLocalUsers([defaultAdmin]);
+            return [defaultAdmin];
+        }
+        const users = JSON.parse(fs.readFileSync(USERS_FILE, 'utf-8')) as StoredAdminUser[];
+        if (!Array.isArray(users) || users.length === 0) return [createDefaultAdmin()];
+        return users;
     } catch {
         return [createDefaultAdmin()];
     }
 }
 
-function writeLocalUsers(users: AdminUser[]): void {
+function writeLocalUsers(users: StoredAdminUser[]): void {
     ensureDataDir();
     fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
 }
@@ -97,7 +115,7 @@ function getSupabaseAdmin() {
  */
 export async function getUsers(): Promise<AdminUser[]> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return readLocalUsers();
+    if (!supabase) return readLocalUsers().map(stripPasswordHash);
 
     const { data, error } = await supabase
         .from(TABLE_NAME)
@@ -117,7 +135,10 @@ export async function getUsers(): Promise<AdminUser[]> {
  */
 export async function getUserById(id: string): Promise<AdminUser | null> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return readLocalUsers().find(user => user.id === id) || null;
+    if (!supabase) {
+        const user = readLocalUsers().find(user => user.id === id) || null;
+        return user ? stripPasswordHash(user) : null;
+    }
 
     const { data, error } = await supabase
         .from(TABLE_NAME)
@@ -133,11 +154,13 @@ export async function getUserById(id: string): Promise<AdminUser | null> {
 }
 
 /**
- * Get user by email
+ * Get user by email (internal raw shape includes passwordHash)
  */
-export async function getUserByEmail(email: string): Promise<AdminUser | null> {
+export async function getUserByEmail(email: string): Promise<StoredAdminUser | null> {
     const supabase = getSupabaseAdmin();
-    if (!supabase) return readLocalUsers().find(user => user.email.toLowerCase() === email.toLowerCase()) || null;
+    if (!supabase) {
+        return readLocalUsers().find(user => user.email.toLowerCase() === email.toLowerCase()) || null;
+    }
 
     const { data, error } = await supabase
         .from(TABLE_NAME)
@@ -149,14 +172,15 @@ export async function getUserByEmail(email: string): Promise<AdminUser | null> {
         return null;
     }
 
-    return rowToAdminUser(data);
+    return rowToAdminUser(data) as StoredAdminUser;
 }
 
 /**
  * Create a new user
  */
 export async function createUser(
-    user: Omit<AdminUser, 'id' | 'createdAt' | 'updatedAt'>
+    user: Omit<AdminUser, 'id' | 'createdAt' | 'updatedAt'>,
+    passwordHash?: string
 ): Promise<AdminUser | null> {
     const supabase = getSupabaseAdmin();
 
@@ -168,14 +192,17 @@ export async function createUser(
 
     if (!supabase) {
         const now = new Date().toISOString();
-        const newUser: AdminUser = {
+        const newUser: StoredAdminUser = {
             ...user,
             id: `user-${Date.now()}`,
             createdAt: now,
             updatedAt: now,
         };
+        if (passwordHash) {
+            newUser.passwordHash = passwordHash;
+        }
         writeLocalUsers([newUser, ...readLocalUsers()]);
-        return newUser;
+        return stripPasswordHash(newUser);
     }
 
     const insertData = adminUserToRow(user);
@@ -354,6 +381,26 @@ export async function updateLastLogin(id: string): Promise<AdminUser | null> {
  */
 export async function updateUserTotpStatus(id: string, totpEnabled: boolean): Promise<AdminUser | null> {
     return updateUser(id, { totpEnabled });
+}
+
+/**
+ * Update user's password (JSON mode only; no-op in Supabase mode)
+ */
+export async function updateUserPassword(id: string, password: string): Promise<boolean> {
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+        // Supabase mode handles password via Supabase Auth admin SDK
+        return false;
+    }
+
+    const users = readLocalUsers();
+    const index = users.findIndex(user => user.id === id);
+    if (index === -1) return false;
+
+    users[index].passwordHash = hashPasswordSync(password);
+    users[index].updatedAt = new Date().toISOString();
+    writeLocalUsers(users);
+    return true;
 }
 
 // ==================== Permission Functions ====================

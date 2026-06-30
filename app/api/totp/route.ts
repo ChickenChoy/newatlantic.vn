@@ -12,7 +12,9 @@ interface TotpSettingsValue {
 }
 
 const SECURITY_KEY_PREFIX = 'security:';
-const DATA_DIR = path.join(process.cwd(), 'data');
+const DATA_DIR = process.env.PERSISTENT_DATA_PATH
+  ? path.resolve(process.env.PERSISTENT_DATA_PATH)
+  : path.join(process.cwd(), 'data');
 const TOTP_FILE = path.join(DATA_DIR, 'totp-settings.json');
 
 function ensureDataDir() {

@@ -2,31 +2,11 @@
 
 import { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { getSupabaseClient } from '@/lib/supabase';
-import type { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { AdminUser, UserRole, Permission, hasPermission as checkPermission } from '@/types';
 import './admin.css';
 
 type AuthStep = 'login' | 'totp' | 'authenticated';
-
-const LOCAL_ADMIN_EMAIL = 'admin@newatlantic.vn';
-
-function createLocalAdminUser(email: string = LOCAL_ADMIN_EMAIL): AdminUser {
-  const now = new Date().toISOString();
-
-  return {
-    id: 'local-super-admin',
-    email,
-    name: 'Local Super Admin',
-    role: 'super_admin',
-    isActive: true,
-    totpEnabled: false,
-    createdAt: now,
-    updatedAt: now,
-    lastLogin: now,
-  };
-}
 
 // Extended AdminContext with user management
 interface AdminContextType {
@@ -81,78 +61,51 @@ export default function AdminLayout({
   // Sidebar state
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const router = useRouter();
-  const supabase = getSupabaseClient();
-  const isLocalJsonMode = !supabase;
 
   useEffect(() => {
     checkAuth();
-
-    if (!supabase) return;
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event: AuthChangeEvent, session: Session | null) => {
-        if (!session) {
-          setAuthStep('login');
-          setUserEmail(null);
-          setIsLoading(false);
-        }
-      }
-    );
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
   const checkAuth = async () => {
     try {
-      if (!supabase) {
-        if (isLocalJsonMode) {
-          // JSON mode: don't auto-login, let user click login button
-          setAuthStep('login');
-          setUserEmail(null);
-          setCurrentUser(null);
-        } else {
-          setError('Supabase chưa được cấu hình. Admin login bị tắt trong production.');
-          setAuthStep('login');
-          setUserEmail(null);
-          setCurrentUser(null);
-        }
+      const res = await fetch('/api/auth/me');
+
+      if (!res.ok || res.status === 404) {
+        setAuthStep('login');
+        setUserEmail(null);
+        setCurrentUser(null);
         setIsLoading(false);
         setIsLoadingUser(false);
         return;
       }
 
-      // Check Supabase session
-      const { data: { session } } = await supabase.auth.getSession();
-      const sessionEmail = session?.user.email || '';
+      const contentType = res.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        setAuthStep('login');
+        setUserEmail(null);
+        setCurrentUser(null);
+        setIsLoading(false);
+        setIsLoadingUser(false);
+        return;
+      }
 
-      // Check TOTP status from API
-      const totpRes = sessionEmail
-        ? await fetch(`/api/totp?userEmail=${encodeURIComponent(sessionEmail)}`, {
-          headers: { 'x-user-email': sessionEmail }
-        })
-        : await fetch('/api/totp');
-      const totpData = await totpRes.json();
-      setTotpEnabled(totpData.totpEnabled || false);
+      const { user, totpVerified } = await res.json();
 
-      // Check if TOTP was verified this session
-      const totpVerified = sessionStorage.getItem('totp_verified');
+      if (user) {
+        setUserEmail(user.email || null);
+        setCurrentUser(user);
+        setTotpEnabled(user.totpEnabled || false);
 
-      if (session) {
-        setUserEmail(session.user.email || null);
+        // Refresh full profile and update lastLogin in background
+        fetchCurrentUser(user.email).catch(console.error);
 
-        // Fetch current user data for permissions
-        await fetchCurrentUser(session.user.email || '');
-
-        if (totpData.totpEnabled && totpVerified !== 'true') {
-          // Need TOTP verification
+        if (user.totpEnabled && !totpVerified) {
           setAuthStep('totp');
         } else {
           setAuthStep('authenticated');
         }
       } else {
-        // No session - reset to login state
+        // No valid session
         setAuthStep('login');
         setUserEmail(null);
         setCurrentUser(null);
@@ -160,7 +113,6 @@ export default function AdminLayout({
       }
     } catch (error) {
       console.error('Error checking auth:', error);
-      // On error, reset to login state for safety
       setAuthStep('login');
       setUserEmail(null);
       setCurrentUser(null);
@@ -257,47 +209,27 @@ export default function AdminLayout({
     setIsLoading(true);
 
     try {
-      if (!supabase) {
-        if (isLocalJsonMode) {
-          const localUser = createLocalAdminUser(email || LOCAL_ADMIN_EMAIL);
-          setUserEmail(localUser.email);
-          setCurrentUser(localUser);
-          setEmail('');
-          setPassword('');
-          setAuthStep('authenticated');
-        } else {
-          setError('Supabase chưa được cấu hình. Không thể đăng nhập admin.');
-        }
-        setIsLoading(false);
-        return;
-      }
-
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'login', email, password }),
       });
 
-      if (authError) {
-        setError(authError.message === 'Invalid login credentials'
-          ? 'Email hoặc mật khẩu không đúng!'
-          : authError.message);
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Email hoặc mật khẩu không đúng!');
         setIsLoading(false);
         return;
       }
 
-      if (data.session) {
-        setUserEmail(data.session.user.email || null);
+      if (data.user) {
+        setUserEmail(data.user.email || null);
+        setCurrentUser(data.user);
         setEmail('');
         setPassword('');
 
-        // Check TOTP
-        const sessionEmail = data.session.user.email || '';
-        const totpRes = await fetch(`/api/totp?userEmail=${encodeURIComponent(sessionEmail)}`, {
-          headers: { 'x-user-email': sessionEmail }
-        });
-        const totpData = await totpRes.json();
-
-        if (totpData.totpEnabled) {
+        if (data.user.totpEnabled && !data.totpVerified) {
           setTotpEnabled(true);
           setAuthStep('totp');
         } else {
@@ -327,6 +259,13 @@ export default function AdminLayout({
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // Mark server-side session as TOTP-verified so F5 stays logged in
+        await fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'verify-totp' }),
+        });
+
         sessionStorage.setItem('totp_verified', 'true');
         setAuthStep('authenticated');
         setTotpCode('');
@@ -343,38 +282,21 @@ export default function AdminLayout({
 
   const handleLogout = async () => {
     try {
-      // Clear all session-related storage
-      sessionStorage.removeItem('totp_verified');
-      sessionStorage.clear();
-
-      // Clear Supabase-related localStorage items
-      const keysToRemove: string[] = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && (key.startsWith('sb-') || key.includes('supabase'))) {
-          keysToRemove.push(key);
-        }
-      }
-      keysToRemove.forEach(key => localStorage.removeItem(key));
-
-      // Clear all Supabase cookies (used by @supabase/ssr)
-      document.cookie.split(';').forEach(cookie => {
-        const name = cookie.split('=')[0].trim();
-        if (name.startsWith('sb-') || name.includes('supabase')) {
-          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${window.location.hostname}`;
-        }
+      // Tell server to destroy session and clear cookie
+      await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'logout' }),
       });
 
-      // Sign out with global scope to clear all sessions
-      await supabase?.auth.signOut({ scope: 'global' });
+      // Clear local verification state
+      sessionStorage.removeItem('totp_verified');
+      sessionStorage.clear();
 
       // Reset state
       setAuthStep('login');
       setUserEmail(null);
-
-      // Small delay to ensure everything is cleared
-      await new Promise(resolve => setTimeout(resolve, 100));
+      setCurrentUser(null);
 
       // Force reload to ensure clean state
       window.location.href = '/admin';
@@ -545,8 +467,13 @@ export default function AdminLayout({
             <div className="flex items-center justify-between pt-4">
               <button
                 type="button"
-                onClick={() => {
-                  supabase?.auth.signOut();
+                onClick={async () => {
+                  await fetch('/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'logout' }),
+                  });
+                  sessionStorage.removeItem('totp_verified');
                   setAuthStep('login');
                 }}
                 className="text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"

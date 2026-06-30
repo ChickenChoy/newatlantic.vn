@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { getSessionUser, SESSION_COOKIE_NAME } from '@/lib/auth';
 
 // ─── API routes that are ALWAYS admin-only (all methods) ───────────────
 const ADMIN_ONLY_ROUTES = [
@@ -82,23 +83,28 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // ── Verify Supabase session ──────────────────────────────────
-    let response = NextResponse.next({ request });
-
+    // ── Verify session ────────────────────────────────────────────────
+    // JSON mode: validate our own session cookie.
+    // Supabase mode: validate Supabase Auth session.
+    const isSupabaseMode = process.env.DB_MODE === 'supabase';
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-        if (process.env.DB_MODE !== 'supabase' && process.env.NODE_ENV !== 'production') {
-            return response;
+    if (!isSupabaseMode || !supabaseUrl || !supabaseAnonKey) {
+        const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+        const user = token ? await getSessionUser(token) : null;
+
+        if (!user) {
+            return NextResponse.json(
+                { error: 'Unauthorized – admin login required' },
+                { status: 401 }
+            );
         }
 
-        // If Supabase is not configured, block admin routes entirely
-        return NextResponse.json(
-            { error: 'Unauthorized' },
-            { status: 401 }
-        );
+        return NextResponse.next({ request });
     }
+
+    let response = NextResponse.next({ request });
 
     const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
         cookies: {

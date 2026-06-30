@@ -434,6 +434,11 @@ export interface AdminUser {
   supabaseId?: string;       // ID trong Supabase Auth
 }
 
+// Internal shape persisted to data/admin-users.json (contains password hash)
+export interface StoredAdminUser extends AdminUser {
+  passwordHash?: string;
+}
+
 // Helper function to check if a role has a specific permission
 export function hasPermission(role: UserRole, permission: Permission): boolean {
   return PERMISSION_MATRIX[role]?.includes(permission) ?? false;

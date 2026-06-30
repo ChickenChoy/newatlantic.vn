@@ -15,24 +15,20 @@ import { createAdminClient } from '@/lib/supabase';
 import { logActivity } from '@/lib/activity-logs';
 import { AdminUser, UserRole } from '@/types';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
+import { verifyPasswordSync, hashPasswordSync, getSessionCookieValue, getSession } from '@/lib/auth';
+import { updateUserPassword } from '@/lib/users';
 
-// Helper to get current user from request (from cookies/session)
+// Helper to get current user from request (from session cookie first, then header)
 async function getCurrentUserEmail(request: NextRequest): Promise<string | null> {
-    // Get user email from Supabase session cookie or header
-    const authHeader = request.headers.get('x-user-email');
-    if (authHeader) {
-        return authHeader;
+    // Try our own session cookie first
+    const token = getSessionCookieValue(request);
+    if (token) {
+        const session = getSession(token);
+        if (session) return session.email;
     }
 
-    // Fallback: try to get from session cookie (simplified)
-    // In production, you'd verify the Supabase JWT token
-    const cookieHeader = request.headers.get('cookie');
-    if (cookieHeader) {
-        // Parse sb-access-token or similar
-        // For now, we'll rely on the x-user-email header set by the client
-    }
-
-    return null;
+    // Fallback: header used by some legacy client calls
+    return request.headers.get('x-user-email');
 }
 
 // GET - List all users or get current user
@@ -185,17 +181,36 @@ export async function POST(request: NextRequest) {
             const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
             const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
             if (!supabaseUrl || !supabaseAnonKey) {
+                // JSON mode: verify current password and update stored hash
+                const dbUser = await getUserByEmail(targetEmail);
+                if (!dbUser || !dbUser.passwordHash) {
+                    return NextResponse.json(
+                        { error: 'Không tìm thấy tài khoản hoặc tài khoản chưa có mật khẩu' },
+                        { status: 404 }
+                    );
+                }
+
+                if (!verifyPasswordSync(currentPassword, dbUser.passwordHash)) {
+                    return NextResponse.json({ error: 'Mật khẩu hiện tại không đúng' }, { status: 401 });
+                }
+
+                const updated = await updateUserPassword(dbUser.id, newPassword);
+                if (!updated) {
+                    return NextResponse.json({ error: 'Không thể cập nhật mật khẩu' }, { status: 500 });
+                }
+
                 await logActivity({
                     action: 'update',
                     entity: 'auth',
+                    entityId: dbUser.id,
                     entityName: targetEmail,
                     user: currentEmail,
-                    details: 'Đổi mật khẩu bỏ qua trong JSON local mode',
+                    details: 'Đổi mật khẩu trong JSON local mode',
                 });
 
                 return NextResponse.json({
                     success: true,
-                    message: 'JSON local mode không dùng Supabase Auth, không cần đổi mật khẩu',
+                    message: 'Đổi mật khẩu thành công',
                 });
             }
 
@@ -214,18 +229,7 @@ export async function POST(request: NextRequest) {
 
             const supabaseAdmin = createAdminClient();
             if (!supabaseAdmin) {
-                await logActivity({
-                    action: 'update',
-                    entity: 'auth',
-                    entityName: targetEmail,
-                    user: currentEmail,
-                    details: `Đổi mật khẩu bỏ qua trong JSON local mode cho ${targetEmail}`,
-                });
-
-                return NextResponse.json({
-                    success: true,
-                    message: `JSON local mode không dùng Supabase Auth, không cần đổi mật khẩu cho ${targetEmail}`,
-                });
+                return NextResponse.json({ error: 'Không thể kết nối Supabase Admin' }, { status: 500 });
             }
 
             const dbUser = await getUserByEmail(targetEmail);
@@ -331,7 +335,29 @@ export async function POST(request: NextRequest) {
 
             const supabaseAdmin = createAdminClient();
             if (!supabaseAdmin) {
-                return NextResponse.json({ error: 'Không thể kết nối Supabase Admin' }, { status: 500 });
+                // JSON mode: only Super Admin can reset another user's password
+                if (currentUser.role !== 'super_admin') {
+                    return NextResponse.json({ error: 'Chỉ Super Admin mới được đặt lại mật khẩu người dùng' }, { status: 403 });
+                }
+
+                const updated = await updateUserPassword(targetUser.id, newPassword);
+                if (!updated) {
+                    return NextResponse.json({ error: 'Không thể cập nhật mật khẩu' }, { status: 500 });
+                }
+
+                await logActivity({
+                    action: 'update',
+                    entity: 'auth',
+                    entityId: targetUser.id,
+                    entityName: targetUser.email,
+                    user: currentEmail,
+                    details: `Đổi mật khẩu bởi quản trị viên cho tài khoản ${targetUser.email}`,
+                });
+
+                return NextResponse.json({
+                    success: true,
+                    message: `Đã đổi mật khẩu cho ${targetUser.email}`,
+                });
             }
 
             let supabaseUserId = targetUser.supabaseId;
@@ -417,8 +443,9 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Email đã tồn tại trong hệ thống' }, { status: 400 });
         }
 
-        // If password is provided, create user in Supabase Auth
+        // If password is provided, create user in Supabase Auth (or hash for JSON mode)
         let supabaseUserId: string | undefined;
+        let passwordHash: string | undefined;
         if (password) {
             // Validate password
             if (password.length < 6) {
@@ -427,8 +454,9 @@ export async function POST(request: NextRequest) {
 
             const supabaseAdmin = createAdminClient();
             if (!supabaseAdmin) {
-                // JSON local mode stores user metadata only; Supabase Auth is not used.
+                // JSON local mode: hash password locally
                 supabaseUserId = undefined;
+                passwordHash = hashPasswordSync(password);
             } else {
                 // Create user in Supabase Auth
                 const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
@@ -453,17 +481,20 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        // Create user in Supabase Database
-        const newUser = await createUser({
-            email: email.toLowerCase(),
-            name,
-            role,
-            isActive,
-            totpEnabled: false,
-            invitedBy,
-            invitedAt: new Date().toISOString(),
-            supabaseId: supabaseUserId,
-        });
+        // Create user in admin users
+        const newUser = await createUser(
+            {
+                email: email.toLowerCase(),
+                name,
+                role,
+                isActive,
+                totpEnabled: false,
+                invitedBy,
+                invitedAt: new Date().toISOString(),
+                supabaseId: supabaseUserId,
+            },
+            passwordHash
+        );
 
         if (!newUser) {
             return NextResponse.json({ error: 'Không thể tạo người dùng' }, { status: 500 });

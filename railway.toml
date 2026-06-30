@@ -8,5 +8,15 @@ healthcheckTimeout = 30
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
 
+# Railway Volume setup for persistent JSON data:
+# 1. In the Railway dashboard, go to your service → "Volumes" tab
+# 2. Click "New Volume", mount path: /data
+# 3. In your service → "Variables" tab, add:
+#    PERSISTENT_DATA_PATH=/data
+# 4. Deploy/restart the service. The volume will persist across redeploys.
+#
+# Note: Backups are NOT configured here. Set up Railway Volume snapshots
+# or export data regularly via the admin dashboard.
+
 [deploy.env]
 NODE_ENV = "production"
