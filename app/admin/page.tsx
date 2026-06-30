@@ -90,7 +90,7 @@ export default function AdminPage() {
   // Category edit modal states
   const [showCategoryModal, setShowCategoryModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
-  const [categoryForm, setCategoryForm] = useState({ name: '', slug: '', description: '', image: '' });
+  const [categoryForm, setCategoryForm] = useState({ name: '', slug: '', description: '', image: '', href: '' });
 
   // Post Category edit modal states
   const [showPostCategoryModal, setShowPostCategoryModal] = useState(false);
@@ -393,7 +393,7 @@ export default function AdminPage() {
   // Category CRUD functions
   const openAddCategoryModal = () => {
     setEditingCategory(null);
-    setCategoryForm({ name: '', slug: '', description: '', image: '' });
+    setCategoryForm({ name: '', slug: '', description: '', image: '', href: '' });
     setShowCategoryModal(true);
   };
 
@@ -403,7 +403,8 @@ export default function AdminPage() {
       name: category.name,
       slug: category.slug,
       description: category.description || '',
-      image: category.image || ''
+      image: category.image || '',
+      href: category.href || ''
     });
     setShowCategoryModal(true);
   };
@@ -441,7 +442,8 @@ export default function AdminPage() {
             name: categoryForm.name,
             slug,
             description: categoryForm.description,
-            image: categoryForm.image
+            image: categoryForm.image,
+            href: categoryForm.href
           }),
         });
 
@@ -477,7 +479,8 @@ export default function AdminPage() {
             name: categoryForm.name,
             slug,
             description: categoryForm.description,
-            image: categoryForm.image
+            image: categoryForm.image,
+            href: categoryForm.href
           }),
         });
 
@@ -3382,7 +3385,9 @@ export default function AdminPage() {
                 borderRadius: '12px',
                 boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
                 width: '100%',
-                maxWidth: '500px',
+                maxWidth: 'min(500px, calc(100vw - 32px))',
+                maxHeight: 'calc(100vh - 48px)',
+                overflowY: 'auto',
                 padding: '24px',
                 zIndex: 100000
               }}
@@ -3432,6 +3437,18 @@ export default function AdminPage() {
                     rows={3}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-bodytext mb-1">Link chuyển hướng (href)</label>
+                  <input
+                    type="text"
+                    value={categoryForm.href}
+                    onChange={(e) => setCategoryForm(prev => ({ ...prev, href: e.target.value }))}
+                    placeholder="VD: /thuong-hieu/will-burt"
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-mono text-sm"
+                  />
+                  <p className="mt-1 text-xs text-muted">Khi người dùng click vào danh mục sẽ chuyển đến link này (nếu để trống thì về mặc định /san-pham/[slug])</p>
                 </div>
 
                 <div>

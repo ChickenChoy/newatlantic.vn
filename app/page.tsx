@@ -440,7 +440,7 @@ export default async function HomePage() {
                     <p className="text-xs md:text-sm text-white mb-4 md:mb-5 flex-grow leading-relaxed">
                       {category.description || `Khám phá các sản phẩm ${category.name} chất lượng cao từ NEW ATLANTIC.`}
                     </p>
-                    <Link href={`/san-pham/${category.slug}`} className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
+                    <Link href={category.href || `/san-pham/${category.slug}`} className="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all group-hover:text-white/80 text-xs md:text-sm">
                       Khám phá ngay
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

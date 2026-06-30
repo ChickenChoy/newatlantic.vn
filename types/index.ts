@@ -25,6 +25,7 @@ export interface Category {
   slug: string;
   description?: string;
   image?: string;
+  href?: string;
 }
 
 // Types cho bài viết/tin tức

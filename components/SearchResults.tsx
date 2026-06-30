@@ -183,7 +183,7 @@ export default function SearchResults({ isOpen, onClose, query }: SearchResultsP
           title: category.name,
           description: category.description || `Danh mục sản phẩm ${category.name}`,
           image: category.image,
-          url: `/san-pham/${category.slug}`,
+          url: category.href || `/san-pham/${category.slug}`,
           type: 'category',
           highlightedTitle: highlightText(category.name, query)
         });
