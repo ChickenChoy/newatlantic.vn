@@ -1,30 +1,21 @@
-import '@testing-library/jest-dom'
+// jest-dom's matchers only make sense against a DOM. API route tests run under
+// `@jest-environment node`, where there is no `document`, so load them lazily.
+if (typeof document !== 'undefined') {
+  require('@testing-library/jest-dom');
+}
 
-// Polyfill Next.js global objects for testing
-import { TextEncoder, TextDecoder } from 'util';
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
+// jsdom does not expose Node's TextEncoder/TextDecoder as globals.
+const { TextEncoder, TextDecoder } = require('util');
+if (typeof global.TextEncoder === 'undefined') {
+  global.TextEncoder = TextEncoder;
+}
+if (typeof global.TextDecoder === 'undefined') {
+  global.TextDecoder = TextDecoder;
+}
 
-// Mock Next.js Request and Response if not available
-if (typeof Request === 'undefined') {
-  global.Request = class Request {};
-}
-if (typeof Response === 'undefined') {
-  global.Response = class Response {};
-}
-if (typeof Headers === 'undefined') {
-  global.Headers = class Headers {
-    constructor() {
-      this.headers = new Map();
-    }
-    get(name) {
-      return this.headers.get(name);
-    }
-    set(name, value) {
-      this.headers.set(name, value);
-    }
-    has(name) {
-      return this.headers.has(name);
-    }
-  };
-}
+// NOTE: do not stub Request/Response/Headers here. Hand-rolled stubs such as
+// `class Response {}` silently drop the statics that Next.js relies on --
+// `NextResponse.json()` calls `Response.json()`, so a stub turns every route
+// handler test into "TypeError: Response.json is not a function". Tests that
+// exercise route handlers should declare `@jest-environment node` and use the
+// real fetch primitives Node provides.

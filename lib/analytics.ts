@@ -39,6 +39,10 @@ function ensureGtag(): Gtag.Gtag | null {
 
   if (typeof window.gtag !== 'function') {
     window.gtag = function gtag() {
+      // Google's own snippet pushes the `arguments` object itself, not a copy.
+      // gtag.js reads each queued entry as an array-like when it replays the
+      // queue, so rest parameters (which push a real Array) are not equivalent.
+      // eslint-disable-next-line prefer-rest-params
       window.dataLayer.push(arguments);
     };
   }

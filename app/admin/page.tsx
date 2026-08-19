@@ -44,7 +44,7 @@ export default function AdminPage() {
   const router = useRouter();
   const { userEmail, handleLogout } = useAdminContext();
 
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
 
   const setActiveTab = (tab: TabType) => {
     const params = new URLSearchParams(searchParams.toString());

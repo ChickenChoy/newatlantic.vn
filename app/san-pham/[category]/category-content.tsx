@@ -6,8 +6,9 @@ import { Suspense as SuspenseBoundary } from 'react';
 import InfiniteProductList from '@/components/InfiniteProductList';
 import ProductFilter from '@/components/ProductFilter';
 import HolidayBanner from '@/components/HolidayBanner';
-import Link from 'next/link';
+import EmptyState from '@/components/EmptyState';
 import { ProductCardSkeleton } from '@/components/SkeletonLoader';
+import { ArrowButton, CTABand, PageHero, Section } from '@/components/sections';
 import type { Category, Product } from '@/types';
 
 const ITEMS_PER_PAGE = 9;
@@ -19,11 +20,10 @@ export interface CategoryPageContentProps {
 }
 
 function CategoryContentInner({
-  category,
   categoryProducts,
   categorySlug,
-}: CategoryPageContentProps) {
-  const searchParams = useSearchParams();
+}: Omit<CategoryPageContentProps, 'category'>) {
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const [refreshKey, setRefreshKey] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -79,72 +79,52 @@ function CategoryContentInner({
     }
   }, [categoryProducts, searchQuery, sortOption, refreshKey]);
 
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-  const validPage = Math.min(Math.max(1, page), totalPages || 1);
-  const startIdx = (validPage - 1) * ITEMS_PER_PAGE;
-  const endIdx = startIdx + ITEMS_PER_PAGE;
-  const paginatedProducts = filteredProducts.slice(startIdx, endIdx);
+  const isEmpty = filteredProducts.length === 0 && !searchQuery;
 
   return (
-    <>
-      {/* Results Count */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="text-sm text-gray-300">
-          Hiển thị <span className="font-bold text-blue-400">{filteredProducts.length}</span> sản phẩm
+    <div className="flex flex-col gap-8 lg:flex-row">
+      {/* Filter Sidebar */}
+      <aside className="flex-shrink-0 lg:w-80">
+        <ProductFilter
+          totalProducts={filteredProducts.length}
+          currentCategory={categorySlug}
+          onFilterChange={() => setRefreshKey(prev => prev + 1)}
+          categories={categories}
+        />
+      </aside>
+
+      {/* Main Content */}
+      <div className="min-w-0 flex-1">
+        {/* Results Count */}
+        <div className="mb-8 flex items-center justify-between border-b border-navy/14 pb-6">
+          <p className="text-sm text-muted">
+            Hiển thị <span className="font-semibold text-navy">{filteredProducts.length}</span> sản phẩm
+          </p>
         </div>
+
+        {isEmpty ? (
+          <EmptyState
+            title="Chưa có sản phẩm trong danh mục này"
+            description="Chúng tôi đang cập nhật danh mục. Liên hệ trực tiếp để được tư vấn thiết bị phù hợp."
+            actionLabel="Liên hệ tư vấn"
+            actionHref="/lien-he"
+          />
+        ) : (
+          <InfiniteProductList
+            initialProducts={filteredProducts.slice(0, ITEMS_PER_PAGE)}
+            category={categorySlug}
+            searchQuery={searchQuery}
+            pageSize={ITEMS_PER_PAGE}
+          />
+        )}
       </div>
-
-      {filteredProducts.length === 0 && !searchQuery ? (
-        <div className="flex flex-col lg:flex-row gap-6">
-          <aside className="lg:w-80 flex-shrink-0">
-            <ProductFilter
-              totalProducts={0}
-              currentCategory={categorySlug}
-              onFilterChange={() => setRefreshKey(prev => prev + 1)}
-              categories={categories}
-            />
-          </aside>
-          <div className="flex-1">
-            <div className="text-center py-20 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10">
-              <svg className="w-24 h-24 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-              </svg>
-              <p className="text-gray-400 text-xl font-medium">Chưa có sản phẩm trong danh mục này</p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filter Sidebar */}
-          <aside className="lg:w-80 flex-shrink-0">
-            <ProductFilter
-              totalProducts={filteredProducts.length}
-              currentCategory={categorySlug}
-              onFilterChange={() => setRefreshKey(prev => prev + 1)}
-              categories={categories}
-            />
-          </aside>
-
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            {/* Infinite Scroll Products List */}
-            <InfiniteProductList
-              initialProducts={filteredProducts.slice(0, ITEMS_PER_PAGE)}
-              category={categorySlug}
-              searchQuery={searchQuery}
-              pageSize={ITEMS_PER_PAGE}
-            />
-          </div>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 
 function CategoryContentFallback() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4">
       {[...Array(8)].map((_, i) => (
         <ProductCardSkeleton key={i} />
       ))}
@@ -158,46 +138,51 @@ export default function CategoryPageContent({
   categorySlug,
 }: CategoryPageContentProps) {
   return (
-    <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
-      {/* Background decorative elements - Subtle blue accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
+    <>
+      <PageHero
+        eyebrow={category.name}
+        title={`Sản phẩm ${category.name}`}
+        image={category.image || '/images/place-holder/hiab-crane-truck.jpg'}
+        intro={
+          category.description ||
+          `Thiết bị ${category.name.toLowerCase()} chính hãng, nhập khẩu trực tiếp và bảo hành tại Việt Nam.`
+        }
+        breadcrumbs={[
+          { name: 'Trang chủ', href: '/' },
+          { name: 'Sản phẩm', href: '/san-pham' },
+          { name: category.name },
+        ]}
+      />
+
+      {/* Holiday banner — collapses on days with no active holiday effect */}
+      <div className="mx-auto flex w-full max-w-site justify-center px-5 py-12 md:px-gutter empty:hidden">
+        <HolidayBanner variant="minimal" />
       </div>
 
-      {/* Header Section */}
-      <div className="relative z-10 border-b border-white/10">
-        <div className="container mx-auto px-4 py-12 md:py-16">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-              {category.name}
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-              Sản Phẩm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{category.name}</span>
-            </h1>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
-              {category.description || `Khám phá bộ sưu tập ${category.name.toLowerCase()} chính hãng, chất lượng cao từ các thương hiệu hàng đầu.`}
-            </p>
-
-            {/* Holiday Banner - Centered Minimal */}
-            <div className="flex justify-center">
-              <HolidayBanner variant="minimal" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Products Grid */}
-      <div className="container mx-auto px-4 py-12 relative z-10">
+      <Section>
         <SuspenseBoundary fallback={<CategoryContentFallback />}>
           <CategoryContentInner
-            category={category}
             categoryProducts={categoryProducts}
             categorySlug={categorySlug}
           />
         </SuspenseBoundary>
-      </div>
-    </div>
+      </Section>
+
+      <CTABand
+        eyebrow="Cần tư vấn kỹ thuật?"
+        title={`Chọn đúng model ${category.name.toLowerCase()}`}
+        intro="Kỹ sư của NEW ATLANTIC sẽ khảo sát điều kiện vận hành và đề xuất cấu hình phù hợp với công trình của bạn."
+        actions={
+          <>
+            <ArrowButton href="/lien-he" variant="accent">
+              Liên hệ tư vấn
+            </ArrowButton>
+            <ArrowButton href="/san-pham" variant="outline-light">
+              Xem tất cả sản phẩm
+            </ArrowButton>
+          </>
+        }
+      />
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Oswald, Be_Vietnam_Pro } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import ProgressBar from "@/components/ProgressBar";
@@ -14,6 +14,26 @@ import { getCategories, getSiteSettings, getOfficeLocations, getFooterLinks } fr
 const inter = Inter({
   subsets: ["latin", "latin-ext", "vietnamese"],
   variable: "--font-inter",
+  preload: true,
+});
+
+// Condensed display face for oversized headings.
+// Oswald is used instead of a non-Vietnamese condensed font because it ships the
+// `vietnamese` subset, so diacritics render in the display face rather than
+// falling back mid-word.
+const oswald = Oswald({
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  variable: "--font-oswald",
+  display: "swap",
+  preload: true,
+});
+
+// Body and UI face. Purpose-built for Vietnamese diacritic spacing.
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "latin-ext", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-be-vietnam",
+  display: "swap",
   preload: true,
 });
 
@@ -129,7 +149,7 @@ export default async function RootLayout({
         <meta charSet="utf-8" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#5f7ab8" />
+        <meta name="theme-color" content="#0a2540" />
         <link rel="icon" type="image/x-icon" href="/images/logo/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16x16.png" />
@@ -137,7 +157,7 @@ export default async function RootLayout({
         <link rel="shortcut icon" href="/images/logo/favicon.ico" />
         <link rel="manifest" href="/images/logo/site.webmanifest" />
       </head>
-      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${oswald.variable} ${beVietnamPro.variable} font-body antialiased`} suppressHydrationWarning>
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>

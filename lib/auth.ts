@@ -165,13 +165,58 @@ export interface SessionCookieOptions {
   };
 }
 
-export function sessionCookieSetOptions(token: string): SessionCookieOptions {
+export interface RequestLike {
+  headers?: Headers;
+  nextUrl?: { protocol?: string };
+  url?: string;
+}
+
+/**
+ * Whether the request actually arrived over TLS.
+ *
+ * This must be derived from the request, NOT from NODE_ENV. Marking the session
+ * cookie `Secure` on a plain-HTTP production deployment makes the browser
+ * silently DISCARD it: login still returns 200 (so the UI enters the panel from
+ * the response body), but no cookie is ever stored — so the next page load and
+ * every write request arrive unauthenticated and 401.
+ *
+ * `x-forwarded-proto` is checked first so TLS-terminating proxies (nginx,
+ * Cloudflare, a platform load balancer) are still treated as secure.
+ */
+export function isSecureRequest(request?: RequestLike): boolean {
+  if (!request) return false;
+
+  const forwardedProto = request.headers?.get('x-forwarded-proto');
+  if (forwardedProto) {
+    // May be a comma-separated proxy chain; the client-facing hop is first.
+    return forwardedProto.split(',')[0].trim().toLowerCase() === 'https';
+  }
+
+  if (request.nextUrl?.protocol) {
+    return request.nextUrl.protocol === 'https:';
+  }
+
+  if (request.url) {
+    try {
+      return new URL(request.url).protocol === 'https:';
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
+}
+
+export function sessionCookieSetOptions(
+  token: string,
+  request?: RequestLike
+): SessionCookieOptions {
   return {
     name: SESSION_COOKIE_NAME,
     value: token,
     options: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isSecureRequest(request),
       sameSite: 'lax',
       path: '/',
       maxAge: Math.floor(SESSION_MAX_AGE_MS / 1000),
@@ -179,13 +224,17 @@ export function sessionCookieSetOptions(token: string): SessionCookieOptions {
   };
 }
 
-export function sessionCookieClearOptions(): SessionCookieOptions {
+export function sessionCookieClearOptions(
+  request?: RequestLike
+): SessionCookieOptions {
   return {
     name: SESSION_COOKIE_NAME,
     value: '',
     options: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      // Must mirror the flags used when setting, or the browser treats this as a
+      // different cookie and the old one survives the logout.
+      secure: isSecureRequest(request),
       sameSite: 'lax',
       path: '/',
       maxAge: 0,

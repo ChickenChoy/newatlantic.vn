@@ -15,7 +15,7 @@ function getSessionId(): string {
 }
 
 export default function SiteTracker() {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? '';
 
     useEffect(() => {
         // Don't track admin pages

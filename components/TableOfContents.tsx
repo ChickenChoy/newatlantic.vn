@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EASE_BRAND } from './motion/ease';
 
 interface TOCItem {
   id: string;
@@ -99,35 +100,40 @@ export default function TableOfContents({
   if (headings.length === 0) return null;
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden sticky top-32">
+    <div className="overflow-hidden rounded-card border border-navy/14 bg-surface">
       {/* Header */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors"
+        aria-expanded={isExpanded}
+        className="flex w-full items-center justify-between gap-3 p-6 transition-colors duration-300 ease-brand hover:bg-navy/[0.04]"
       >
-        <div className="flex items-center gap-2">
+        <span className="flex items-center gap-3">
           <svg
-            className="w-5 h-5 text-blue-400"
+            className="h-5 w-5 text-accent"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
+              strokeWidth={1.75}
               d="M4 6h16M4 12h16M4 18h7"
             />
           </svg>
-          <h3 className="font-bold text-white">Mục lục</h3>
-        </div>
+          <span className="font-display text-d6 uppercase leading-display tracking-display text-navy">
+            Mục lục
+          </span>
+        </span>
         <motion.svg
           animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="w-5 h-5 text-gray-400"
+          transition={{ duration: 0.3, ease: EASE_BRAND }}
+          className="h-5 w-5 shrink-0 text-navy"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
@@ -139,48 +145,43 @@ export default function TableOfContents({
       </button>
 
       {/* Content */}
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isExpanded && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: EASE_BRAND }}
             className="overflow-hidden"
           >
-            <nav className="p-4 pt-0">
-              <ul className="space-y-1">
-                {headings.map((heading, index) => (
-                  <motion.li
-                    key={heading.id}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <button
-                      onClick={() => scrollToHeading(heading.id)}
-                      className={`w-full text-left py-2 px-3 rounded-lg text-sm transition-all duration-200 ${
-                        activeId === heading.id
-                          ? 'bg-blue-500/20 text-blue-400 font-medium'
-                          : 'text-gray-400 hover:text-white hover:bg-white/5'
-                      } ${
-                        heading.level === 3 ? 'pl-6 text-xs' : ''
-                      }`}
-                    >
-                      <span className="flex items-center gap-2">
-                        {activeId === heading.id && (
-                          <motion.span
-                            layoutId="activeIndicator"
-                            className="w-1.5 h-1.5 rounded-full bg-blue-400"
+            <nav className="px-4 pb-6">
+              <ul className="space-y-1 border-t border-navy/14 pt-4">
+                {headings.map((heading) => {
+                  const isActive = activeId === heading.id;
+                  return (
+                    <li key={heading.id}>
+                      <button
+                        onClick={() => scrollToHeading(heading.id)}
+                        aria-current={isActive ? 'true' : undefined}
+                        className={`w-full rounded-card px-3 py-2 text-left text-sm transition-colors duration-300 ease-brand ${
+                          isActive
+                            ? 'bg-navy font-semibold text-white'
+                            : 'text-ink hover:bg-navy/[0.06] hover:text-navy'
+                        } ${heading.level === 3 ? 'pl-7 text-xs' : ''}`}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span
+                            aria-hidden="true"
+                            className={`h-1.5 w-1.5 shrink-0 rounded-pill transition-colors duration-300 ease-brand ${
+                              isActive ? 'bg-accent' : 'bg-navy/30'
+                            }`}
                           />
-                        )}
-                        <span className={activeId === heading.id ? 'ml-0' : 'ml-3.5'}>
-                          {heading.text}
+                          <span>{heading.text}</span>
                         </span>
-                      </span>
-                    </button>
-                  </motion.li>
-                ))}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </motion.div>

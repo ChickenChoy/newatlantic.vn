@@ -2,13 +2,13 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import Image from 'next/image';
 import ShareButtons from '@/components/ShareButtons';
 import RelatedPostsSlider from '@/components/RelatedPostsSlider';
 import ReadingProgressBar from '@/components/ReadingProgressBar';
 import TableOfContents from '@/components/TableOfContents';
 import EstimatedReadingTime from '@/components/EstimatedReadingTime';
+import { PageHero, Section, CTABand, ArrowButton } from '@/components/sections';
 import { sanitizeHtmlContent } from '@/lib/textUtils';
 import type { Post } from '@/types';
 
@@ -17,6 +17,23 @@ interface PostPageProps {
     slug: string;
   }>;
 }
+
+/** Article body typography, tuned to the template's light palette. */
+const PROSE_CLASS = `prose max-w-none prose-base lg:prose-lg
+  prose-headings:font-display prose-headings:uppercase prose-headings:tracking-display prose-headings:text-navy
+  prose-p:text-ink prose-p:leading-[1.6]
+  prose-strong:text-navy prose-strong:font-semibold
+  prose-ul:text-ink prose-ol:text-ink prose-li:text-ink
+  prose-blockquote:border-l-accent prose-blockquote:text-navy prose-blockquote:not-italic
+  prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+  prose-img:rounded-card`;
+
+/** Trust points shown beside every article. */
+const HIGHLIGHTS = [
+  'Sản phẩm chính hãng, nhập khẩu trực tiếp từ nhà sản xuất',
+  'Hỗ trợ kỹ thuật chuyên nghiệp 24/7 trên toàn quốc',
+  'Bảo hành chính hãng, dịch vụ sau bán hàng tận tâm',
+];
 
 export default function PostPage({ params }: PostPageProps) {
   const [post, setPost] = useState<Post | null>(null);
@@ -34,25 +51,25 @@ export default function PostPage({ params }: PostPageProps) {
 
   const loadPost = useCallback(async () => {
     if (!slug) return;
-    
+
     try {
       const res = await fetch('/api/posts');
       if (!res.ok) throw new Error('Failed to fetch posts');
-      
+
       const posts: Post[] = await res.json();
       const foundPost = posts.find(p => p.slug === slug);
-      
+
       if (!foundPost) {
         notFound();
         return;
       }
 
       setPost(foundPost);
-      
+
       // Get related posts (excluding current)
       const related = posts.filter(p => p.id !== foundPost.id).slice(0, 6);
       setRelatedPosts(related);
-      
+
       // Update page title
       document.title = `${foundPost.title} | NEW ATLANTIC - Tân Đại Tây Dương`;
     } catch (error) {
@@ -70,11 +87,11 @@ export default function PostPage({ params }: PostPageProps) {
   // Add IDs to headings for TOC
   useEffect(() => {
     if (!post) return;
-    
+
     const addHeadingIds = () => {
       const content = document.querySelector('.prose');
       if (!content) return;
-      
+
       const headings = content.querySelectorAll('h2, h3');
       headings.forEach((heading, index) => {
         if (!heading.id) {
@@ -82,15 +99,15 @@ export default function PostPage({ params }: PostPageProps) {
         }
       });
     };
-    
+
     const timer = setTimeout(addHeadingIds, 100);
     return () => clearTimeout(timer);
   }, [post]);
 
   if (loading) {
     return (
-      <div className="bg-[#050c3a] min-h-screen pt-32 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400"></div>
+      <div className="flex min-h-screen items-center justify-center bg-background pt-32">
+        <div className="h-12 w-12 animate-spin rounded-pill border-2 border-navy/14 border-t-accent" />
       </div>
     );
   }
@@ -107,219 +124,216 @@ export default function PostPage({ params }: PostPageProps) {
   });
 
   return (
-    <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32 relative overflow-hidden">
+    <>
       {/* Reading Progress Bar */}
       <ReadingProgressBar />
 
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-      </div>
-
-      {/* Breadcrumb */}
-      <div className="relative z-10 border-b border-white/10 mt-12 md:mt-16">
-        <div className="container mx-auto px-4 py-3">
-          <nav className="flex items-center gap-2 text-sm text-gray-400">
-            <Link href="/" className="hover:text-blue-400 transition">
-              Trang chủ
-            </Link>
-            <span className="text-gray-500">/</span>
-            <Link href="/tin-tuc" className="hover:text-blue-400 transition">
-              Tin tức
-            </Link>
-            <span className="text-gray-500">/</span>
-            <span className="text-blue-400 font-medium truncate">{post.title}</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Post Content */}
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-            {/* Main Content */}
-            <article className="lg:col-span-3 bg-white/10 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-white/10">
-              {/* Featured Image */}
-              {post.image && (
-                <div className="relative h-96 bg-gradient-to-br from-gray-100 to-gray-200">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                  />
-                  {/* Image Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                </div>
-              )}
-
-              {/* Post Header */}
-              <div className="p-8 lg:p-12">
-                {/* Meta Info with Reading Time */}
-                <div className="flex flex-wrap items-center gap-4 mb-8 pb-8 border-b border-white/10">
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span className="font-medium">{formattedDate}</span>
-                  </div>
-                  {post.author && (
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <span className="font-medium">{post.author}</span>
-                    </div>
-                  )}
-                  <EstimatedReadingTime />
-                </div>
-
-                <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 leading-tight text-white">{post.title}</h1>
-
-                {post.excerpt && (
-                  <div className="bg-blue-500/10 border-l-4 border-blue-400 p-6 rounded-r-2xl mb-8">
-                    <p className="text-lg lg:text-xl text-gray-300 leading-relaxed italic">
-                      {post.excerpt}
-                    </p>
-                  </div>
-                )}
-
-                {/* Post Content */}
-                <div 
-                  className="prose prose-base lg:prose-lg max-w-none mb-10 prose-invert prose-p:text-gray-300 prose-headings:text-white prose-strong:text-white prose-a:text-blue-400"
-                  dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(post.content) }}
-                />
-
-                {/* Rich Content for News */}
-                <div className="space-y-6 text-gray-300 leading-relaxed">
-                  <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Giới thiệu chi tiết</h2>
-                  <p className="leading-relaxed">
-                    NEW ATLANTIC tự hào là đại lý chính thức và độc quyền của các thương hiệu thiết bị công nghiệp
-                    hàng đầu. Với cam kết mang đến giải pháp tối ưu nhất cho khách hàng, chúng tôi không ngừng
-                    cập nhật và chia sẻ những thông tin mới nhất về sản phẩm, công nghệ và xu hướng ngành.
-                  </p>
-
-                  <div className="bg-blue-500/10 p-6 rounded-2xl border border-blue-400/20 my-8">
-                    <h3 className="text-xl font-bold mb-3 text-white">Điểm nổi bật</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-2.5">
-                        <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-sm">Sản phẩm chính hãng, nhập khẩu trực tiếp từ nhà sản xuất</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-sm">Hỗ trợ kỹ thuật chuyên nghiệp 24/7</span>
-                      </li>
-                      <li className="flex items-start gap-2.5">
-                        <svg className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-sm">Bảo hành chính hãng, dịch vụ sau bán hàng tận tâm</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Ứng dụng thực tế</h2>
-                  <p className="leading-relaxed">
-                    Các sản phẩm của chúng tôi được ứng dụng rộng rãi trong nhiều lĩnh vực: xây dựng, công nghiệp,
-                    quốc phòng, an ninh, và nhiều ngành nghề khác. Với độ bền cao và hiệu suất vượt trội, thiết bị
-                    của chúng tôi đã và đang được tin dùng bởi hàng nghìn khách hàng trên toàn quốc.
-                  </p>
-
-                  <h2 className="text-2xl font-bold mt-10 mb-4 text-white">Cam kết của chúng tôi</h2>
-                  <p className="leading-relaxed">
-                    NEW ATLANTIC cam kết mang đến cho khách hàng không chỉ là sản phẩm chất lượng mà còn là
-                    dịch vụ hoàn hảo. Đội ngũ kỹ thuật viên được đào tạo bài bản, sẵn sàng tư vấn và hỗ trợ
-                    khách hàng mọi lúc mọi nơi.
-                  </p>
-                </div>
-
-                {/* Share Section */}
-                <ShareButtons title={post.title} />
-
-                {/* Author Info */}
-                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
-                  <div className="flex items-start gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
-                      NA
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-lg mb-2 text-white">NEW ATLANTIC</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed">
-                        Đại lý chính thức và độc quyền các thương hiệu thiết bị công nghiệp hàng đầu.
-                        Chuyên cung cấp giải pháp thiết bị chuyên dụng cho các dự án xây dựng, công nghiệp và quốc phòng.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            {/* Sidebar with TOC */}
-            <aside className="space-y-6">
-              {/* Table of Contents */}
-              <TableOfContents />
-
-              {/* Contact Card */}
-              <div className="bg-white/10 backdrop-blur-sm p-5 rounded-2xl shadow-xl border border-white/10">
-                <h3 className="font-bold text-lg mb-3 text-white">Cần hỗ trợ?</h3>
-                <p className="text-gray-400 mb-4 text-sm">
-                  Liên hệ với chúng tôi để được tư vấn
-                </p>
-                <div className="space-y-2.5">
-                  <a
-                    href="tel:+842838733686"
-                    className="flex items-center gap-2.5 text-blue-400 hover:text-blue-300 transition-colors group"
-                  >
-                    <div className="w-9 h-9 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.21l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500">Hotline</div>
-                      <div className="font-semibold text-sm">+84 28 3873 3686</div>
-                    </div>
-                  </a>
-                  <a
-                    href="mailto:info@newatlantic.vn"
-                    className="flex items-center gap-2.5 text-blue-400 hover:text-blue-300 transition-colors group"
-                  >
-                    <div className="w-9 h-9 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500">Email</div>
-                      <div className="font-semibold text-xs">info@newatlantic.vn</div>
-                    </div>
-                  </a>
-                  <Link
-                    href="/lien-he"
-                    className="block w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-center px-4 py-2.5 rounded-lg font-bold hover:shadow-lg hover:scale-105 transition-all mt-3 text-sm"
-                  >
-                    Gửi yêu cầu tư vấn
-                  </Link>
-                </div>
-              </div>
-            </aside>
+      <PageHero
+        eyebrow="Tin tức & Sự kiện"
+        title={post.title}
+        image={post.image || '/images/place-holder/excavator-construction.jpg'}
+        breadcrumbs={[
+          { name: 'Trang chủ', href: '/' },
+          { name: 'Tin tức', href: '/tin-tuc' },
+          { name: post.title },
+        ]}
+        footer={
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-white/60">
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {formattedDate}
+            </span>
+            {post.author && (
+              <span className="flex items-center gap-2">
+                <svg className="h-4 w-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                {post.author}
+              </span>
+            )}
+            <EstimatedReadingTime />
           </div>
+        }
+      />
 
-          {/* Related Posts Slider */}
-          {relatedPosts.length > 0 && (
-            <div className="mt-12">
-              <RelatedPostsSlider relatedPosts={relatedPosts} />
+      <Section>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-12">
+          {/* Main Content */}
+          <article className="lg:col-span-3">
+            {/* Featured Image */}
+            {post.image && (
+              <div className="relative mb-12 aspect-[16/9] w-full overflow-hidden rounded-card bg-surface">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 880px"
+                  className="object-cover"
+                />
+              </div>
+            )}
+
+            {/* Lead paragraph */}
+            {post.excerpt && (
+              <p className="mb-10 border-l-2 border-accent pl-6 text-lg leading-[1.6] text-navy md:text-xl">
+                {post.excerpt}
+              </p>
+            )}
+
+            {/* Post Content */}
+            <div
+              className={PROSE_CLASS}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtmlContent(post.content) }}
+            />
+
+            {/* Standing brand context — shown under every article */}
+            <div className="mt-16 space-y-6 border-t border-navy/14 pt-12">
+              <h2 className="font-display text-d5 uppercase leading-display tracking-display text-navy">
+                Về NEW ATLANTIC
+              </h2>
+              <p className="text-base leading-[1.6] text-ink">
+                NEW ATLANTIC là đại lý chính thức tại Việt Nam của các thương hiệu thiết bị công nghiệp
+                hàng đầu — WILL-BURT, HIAB, SKYMARK, LOVOL và EFFER. Hơn 22 năm hoạt động, chúng tôi
+                cung cấp cột nâng viễn thông, cẩu tự hành, thiết bị nâng hạ cùng giải pháp phòng cháy
+                chữa cháy và điện công nghiệp cho các dự án trên toàn quốc.
+              </p>
+
+              <div className="rounded-card border border-navy/14 bg-surface p-8">
+                <h3 className="font-display text-d6 uppercase leading-display tracking-display text-navy">
+                  Điểm nổi bật
+                </h3>
+                <ul className="mt-6 space-y-4">
+                  {HIGHLIGHTS.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <svg className="mt-0.5 h-5 w-5 shrink-0 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-sm leading-[1.6] text-ink">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="text-base leading-[1.6] text-ink">
+                Thiết bị của chúng tôi được ứng dụng trong xây dựng, công nghiệp, viễn thông, quốc phòng
+                và an ninh. Đội ngũ kỹ sư khảo sát hiện trường, lắp đặt, nghiệm thu và bảo trì định kỳ —
+                đồng hành cùng công trình sau khi bàn giao.
+              </p>
             </div>
-          )}
+
+            {/* Share Section */}
+            <ShareButtons title={post.title} />
+
+            {/* Author Info */}
+            <div className="mt-12 rounded-card border border-navy/14 bg-surface p-8">
+              <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+                <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-pill bg-navy font-display text-xl uppercase tracking-display text-white">
+                  NA
+                </span>
+                <div>
+                  <h3 className="font-display text-d6 uppercase leading-display tracking-display text-navy">
+                    NEW ATLANTIC
+                  </h3>
+                  <p className="mt-3 text-sm leading-[1.6] text-ink">
+                    Tân Đại Tây Dương — nhà phân phối thiết bị công nghiệp, cột nâng viễn thông và
+                    giải pháp nâng hạ chuyên dụng cho dự án xây dựng, công nghiệp và quốc phòng.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* Sidebar with TOC */}
+          <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
+            {/* Table of Contents */}
+            <TableOfContents />
+
+            {/* Contact Card */}
+            <div className="rounded-card bg-navy p-8">
+              <h3 className="font-display text-d6 uppercase leading-display tracking-display text-white">
+                Cần hỗ trợ?
+              </h3>
+              <p className="mt-3 text-sm leading-[1.6] text-white/60">
+                Kỹ sư của chúng tôi sẵn sàng tư vấn cấu hình thiết bị phù hợp với công trình của bạn.
+              </p>
+
+              <div className="mt-6 space-y-3">
+                <a
+                  href="tel:+842838733686"
+                  className="group flex items-center gap-3 rounded-card border border-white/14 p-3 transition-colors duration-300 ease-brand hover:border-accent"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-white/14 text-accent transition-colors duration-300 ease-brand group-hover:bg-accent group-hover:text-white">
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.21l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-xs uppercase tracking-[0.14em] text-white/60">Hotline</span>
+                    <span className="block break-words text-sm font-semibold text-white">+84 28 3873 3686</span>
+                  </span>
+                </a>
+
+                <a
+                  href="mailto:info@newatlantic.vn"
+                  className="group flex items-center gap-3 rounded-card border border-white/14 p-3 transition-colors duration-300 ease-brand hover:border-accent"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-pill bg-white/14 text-accent transition-colors duration-300 ease-brand group-hover:bg-accent group-hover:text-white">
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </span>
+                  {/*
+                    `min-w-0` + `break-words`: this sidebar column is 264px wide
+                    on every desktop (the grid is 4-col inside a 1200px cap), which
+                    leaves ~126px for the text once the card padding, row padding,
+                    icon and gap are subtracted. "info@newatlantic.vn" is a single
+                    unbreakable token far wider than that, and as a flex child with
+                    the default `min-width: auto` it refused to shrink — so it ran
+                    straight through the row's border and out of the navy card.
+                  */}
+                  <span className="min-w-0">
+                    <span className="block text-xs uppercase tracking-[0.14em] text-white/60">Email</span>
+                    <span className="block break-words text-sm font-semibold text-white">info@newatlantic.vn</span>
+                  </span>
+                </a>
+              </div>
+
+              <div className="mt-6">
+                <ArrowButton href="/lien-he" variant="accent" full>
+                  Gửi yêu cầu tư vấn
+                </ArrowButton>
+              </div>
+            </div>
+          </aside>
         </div>
-      </div>
-    </div>
+      </Section>
+
+      {/* Related Posts Slider */}
+      {relatedPosts.length > 0 && (
+        <Section tone="surface">
+          <RelatedPostsSlider relatedPosts={relatedPosts} />
+        </Section>
+      )}
+
+      <CTABand
+        eyebrow="Bắt đầu dự án của bạn"
+        title="Thiết bị phù hợp, đúng tiến độ"
+        intro="Gửi yêu cầu để nhận khảo sát hiện trường và báo giá từ kỹ sư New Atlantic trong 24 giờ làm việc."
+        actions={
+          <>
+            <ArrowButton href="/lien-he" variant="accent">
+              Liên hệ tư vấn
+            </ArrowButton>
+            <ArrowButton href="/tin-tuc" variant="outline-light">
+              Xem thêm tin tức
+            </ArrowButton>
+          </>
+        }
+      />
+    </>
   );
 }

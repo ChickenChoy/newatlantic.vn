@@ -87,20 +87,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
 // Loading skeleton component for better UX
 function ProductPageSkeleton() {
   return (
-    <div className="bg-[#050c3a] min-h-screen pt-24 sm:pt-28 md:pt-32">
-      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-10 md:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl lg:rounded-3xl p-3 sm:p-4 md:p-6 lg:p-8 xl:p-12">
+    <div className="min-h-screen bg-background pt-24 sm:pt-28 md:pt-32">
+      <div className="mx-auto w-full max-w-site px-5 py-12 md:px-gutter">
+        <div className="grid grid-cols-1 gap-8 rounded-card border border-navy/14 bg-surface p-6 md:p-10 lg:grid-cols-2 lg:gap-12">
           {/* Image Skeleton */}
           <div className="animate-pulse">
-            <div className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] bg-white/20 rounded-lg sm:rounded-xl lg:rounded-2xl"></div>
+            <div className="relative h-[250px] rounded-card bg-navy/14 sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px]"></div>
           </div>
 
           {/* Content Skeleton */}
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-white/20 rounded w-3/4"></div>
-            <div className="h-6 bg-white/20 rounded w-1/2"></div>
-            <div className="h-32 bg-white/20 rounded"></div>
-            <div className="h-12 bg-white/20 rounded"></div>
+            <div className="h-8 w-3/4 rounded-card bg-navy/14"></div>
+            <div className="h-6 w-1/2 rounded-card bg-navy/14"></div>
+            <div className="h-32 rounded-card bg-navy/14"></div>
+            <div className="h-12 rounded-pill bg-navy/14"></div>
           </div>
         </div>
       </div>

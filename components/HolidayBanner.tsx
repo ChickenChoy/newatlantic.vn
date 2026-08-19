@@ -166,7 +166,7 @@ export default function HolidayBanner({
     className = "",
     showParticles = true,
 }: HolidayBannerProps) {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? '';
     const [mounted, setMounted] = useState(false);
     const [activeHoliday, setActiveHoliday] = useState<HolidayEffect | null>(null);
     const [loading, setLoading] = useState(true);

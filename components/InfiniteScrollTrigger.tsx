@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import LoadingIndicator from './LoadingIndicator';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { EASE_BRAND, DURATION_REVEAL } from './motion/ease';
 
 interface InfiniteScrollTriggerProps {
     onLoadMore: () => void;
@@ -22,6 +23,7 @@ export default function InfiniteScrollTrigger({
     threshold = 0.5,
     skeletonCount = 3
 }: InfiniteScrollTriggerProps) {
+    const reduceMotion = useReducedMotion();
     const { ref, inView } = useInView({
         threshold,
         triggerOnce: false,
@@ -36,38 +38,34 @@ export default function InfiniteScrollTrigger({
     if (!hasMore) {
         return (
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: DURATION_REVEAL, ease: EASE_BRAND }}
                 className="py-16 text-center"
             >
-                <div className="inline-flex flex-col items-center gap-4 px-8 py-6 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl border border-white/20 shadow-xl">
-                    {/* Success Icon */}
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                        className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-full flex items-center justify-center border-2 border-green-400/30"
-                    >
-                        <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="inline-flex flex-col items-center gap-5 rounded-card border border-navy/14 bg-surface px-10 py-8">
+                    {/* Completed marker */}
+                    <span className="flex h-14 w-14 items-center justify-center rounded-pill bg-accent/10 text-accent">
+                        <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <motion.path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth={2.5}
                                 d="M5 13l4 4L19 7"
-                                initial={{ pathLength: 0 }}
+                                initial={reduceMotion ? false : { pathLength: 0 }}
                                 animate={{ pathLength: 1 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
+                                transition={{ duration: 0.5, delay: 0.15, ease: EASE_BRAND }}
                             />
                         </svg>
-                    </motion.div>
+                    </span>
 
                     {/* Text */}
-                    <div className="space-y-1">
-                        <p className="text-white font-semibold text-lg">
+                    <div>
+                        <p className="font-display text-d6 uppercase leading-display tracking-display text-navy">
                             Đã hiển thị tất cả sản phẩm
                         </p>
-                        <p className="text-white/60 text-sm">
-                            Hãy quay lại sau để xem thêm sản phẩm mới
+                        <p className="mt-3 text-sm leading-[1.6] text-muted">
+                            Hãy quay lại sau để xem thiết bị mới cập nhật
                         </p>
                     </div>
                 </div>
@@ -88,44 +86,27 @@ export default function InfiniteScrollTrigger({
 
 // End of list component
 export function EndOfList({ message = 'Bạn đã xem hết tất cả sản phẩm' }: { message?: string }) {
+    const reduceMotion = useReducedMotion();
+
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DURATION_REVEAL, ease: EASE_BRAND }}
             className="py-20 text-center"
         >
             <div className="inline-block">
-                <motion.div
-                    className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-full flex items-center justify-center border-2 border-blue-400/30"
-                    animate={{
-                        boxShadow: [
-                            '0 0 20px rgba(59, 130, 246, 0.2)',
-                            '0 0 40px rgba(99, 102, 241, 0.4)',
-                            '0 0 20px rgba(59, 130, 246, 0.2)'
-                        ]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                    <svg className="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <span className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-pill border border-navy/14 bg-surface text-accent">
+                    <svg className="h-10 w-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                </motion.div>
-                <motion.p
-                    className="text-white font-semibold text-xl mb-2"
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                >
+                </span>
+                <p className="font-display text-d5 uppercase leading-display tracking-display text-navy">
                     {message}
-                </motion.p>
-                <motion.p
-                    className="text-white/60 text-sm"
-                    initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                >
-                    Hãy quay lại sau để xem thêm sản phẩm mới
-                </motion.p>
+                </p>
+                <p className="mt-4 text-sm leading-[1.6] text-muted">
+                    Hãy quay lại sau để xem thiết bị mới cập nhật
+                </p>
             </div>
         </motion.div>
     );

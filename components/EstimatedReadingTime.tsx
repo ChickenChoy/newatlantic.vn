@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 interface EstimatedReadingTimeProps {
   contentSelector?: string;
@@ -48,29 +47,26 @@ export default function EstimatedReadingTime({
   if (readingTime === 0) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className={`flex items-center gap-2 text-sm text-gray-400 ${className}`}
-    >
+    <span className={`flex items-center gap-2 text-sm ${className}`}>
       <svg
-        className="w-4 h-4 text-blue-400"
+        className="h-4 w-4 text-accent"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
+        aria-hidden="true"
       >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth={2}
+          strokeWidth={1.75}
           d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
         />
       </svg>
       <span>
-        <span className="font-medium text-white">{readingTime} phút</span> đọc
-        <span className="text-gray-500 mx-1">•</span>
-        <span className="text-gray-500">{wordCount.toLocaleString()} từ</span>
+        <span className="font-semibold">{readingTime} phút</span> đọc
+        <span aria-hidden="true" className="mx-2 opacity-40">•</span>
+        <span className="opacity-70">{wordCount.toLocaleString()} từ</span>
       </span>
-    </motion.div>
+    </span>
   );
 }

@@ -71,7 +71,7 @@ function generateFlowers(count: number) {
  * Renders via portal at body level for proper overlay
  */
 export default function TetDecorations() {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? '';
     const [mounted, setMounted] = useState(false);
     const [isFlowersEnabled, setIsFlowersEnabled] = useState(false);
     const [loading, setLoading] = useState(true);

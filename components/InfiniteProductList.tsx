@@ -92,14 +92,14 @@ export default function InfiniteProductList({
 
             {/* Error Message */}
             {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
-                    <p className="text-red-600 text-sm">{error}</p>
+                <div className="rounded-card border border-accent/30 bg-accent/5 p-6 text-center">
+                    <p className="text-sm text-navy">{error}</p>
                     <button
                         onClick={() => {
                             setError(null);
                             loadMore();
                         }}
-                        className="mt-2 text-red-700 hover:text-red-800 underline text-sm font-medium"
+                        className="mt-3 inline-flex items-center gap-2 rounded-pill bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-300 ease-brand hover:bg-navy"
                     >
                         Thử lại
                     </button>

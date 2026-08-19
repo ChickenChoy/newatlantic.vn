@@ -5,9 +5,11 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import SearchResults from './SearchResults';
 import MobileTouchMenu from './MobileTouchMenu';
 import { WishlistManager } from '@/lib/wishlist';
+import { EASE_BRAND } from './motion/ease';
 import { Category } from '@/types';
 
 interface NavItem {
@@ -51,6 +53,20 @@ const DEFAULT_NAVBAR: NavbarSettings = {
   contactButtonUrl: '/lien-he',
 };
 
+/**
+ * Routes whose hero is a full-bleed dark image, so the bar sits on top of it
+ * in the light-on-dark variant until the user scrolls away.
+ */
+const DARK_HERO_ROUTES = new Set(['/']);
+
+function ArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+    </svg>
+  );
+}
+
 export default function HeaderBottom() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -62,8 +78,8 @@ export default function HeaderBottom() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [logo, setLogo] = useState('/images/logo/logo-color.png');
   const [navSettings, setNavSettings] = useState<NavbarSettings>(DEFAULT_NAVBAR);
-  const pathname = usePathname();
-
+  const pathname = usePathname() ?? '';
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -78,7 +94,7 @@ export default function HeaderBottom() {
       setWishlistCount(WishlistManager.getWishlistCount());
     };
 
-    // Scroll detection for glass effect
+    // Scroll detection: swaps the bar from transparent to solid
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -162,16 +178,18 @@ export default function HeaderBottom() {
     };
   }, [mobileMenuOpen]);
 
+  // Close the panel on route change so a nav click never leaves it hanging open
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setOpenDropdown(null);
+  }, [pathname]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       if (!target.closest('.dropdown-container')) {
         setOpenDropdown(null);
-      }
-      // Close mobile menu when clicking outside
-      if (mobileMenuOpen && !target.closest('.mobile-menu-container') && !target.closest('.mobile-menu-button')) {
-        setMobileMenuOpen(false);
       }
       // Close search when clicking outside
       if (searchOpen && !target.closest('.search-container')) {
@@ -180,14 +198,14 @@ export default function HeaderBottom() {
       }
     };
 
-    if (openDropdown || mobileMenuOpen || searchOpen) {
+    if (openDropdown || searchOpen) {
       document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [openDropdown, mobileMenuOpen, searchOpen]);
+  }, [openDropdown, searchOpen]);
 
   // Close dropdown on ESC key
   useEffect(() => {
@@ -232,203 +250,468 @@ export default function HeaderBottom() {
     debouncedSearch(value);
   }, [debouncedSearch]);
 
+  // A suggestion chip has to write back through here -- the panel does not own the query.
+  const handleSuggestionPick = useCallback((value: string) => {
+    setSearchQuery(value);
+    setSearchOpen(true);
+  }, []);
+
   // Memoize mobile menu categories to prevent re-render
   const mobileCategoryItems = useMemo(() => categories, [categories]);
 
   // Close mobile menu callback
   const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), []);
 
-  // Count active desktop items for responsive sizing
-  const desktopItemCount = useMemo(() =>
-    navSettings.items.filter(item => item.enabled && item.showInDesktop).length,
+  const desktopItems = useMemo(
+    () => navSettings.items
+      .filter(item => item.enabled && item.showInDesktop)
+      .sort((a, b) => a.order - b.order),
     [navSettings.items]
   );
-  const isCompact = desktopItemCount > 4;
+  const mobileItems = useMemo(
+    () => navSettings.items
+      .filter(item => item.enabled && item.showInMobile)
+      .sort((a, b) => a.order - b.order),
+    [navSettings.items]
+  );
+
+  // Tighten the pill when the CMS adds more than the template's five slots
+  const isCompact = desktopItems.length > 4;
+
+  // The bar rides on top of a dark hero until the first scroll; everywhere else
+  // it is the template's light variant.
+  const onDark = mounted && !isScrolled && DARK_HERO_ROUTES.has(pathname);
+  const solid = !onDark;
+
+  const isActive = useCallback(
+    (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href),
+    [pathname]
+  );
 
   return (
     <>
-      <div className={`fixed top-12 md:top-8 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none header-bottom ${isScrolled ? 'top-2 md:top-3' : ''}`} data-header-bottom suppressHydrationWarning>
-        <nav className="w-full max-w-7xl mx-auto pointer-events-auto">
-          <div className={`px-4 py-2 md:px-6 md:py-2.5 ${mobileMenuOpen ? 'rounded-2xl' : 'rounded-full'
-            } ${isScrolled
-              ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 border border-gray-200/60'
-              : 'bg-white/90 backdrop-blur-md shadow-xl border border-gray-200/40'
-            }`}>
-            <div className={`flex items-center justify-between ${isCompact ? 'gap-2' : 'gap-4'}`}>
-              {/* Logo và Brand Name */}
-              <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-                <div className="relative w-7 h-7 md:w-8 md:h-8 group-hover:scale-105 transition-transform duration-200">
-                  <Image
-                    src={logo}
-                    alt="NEW ATLANTIC"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <div suppressHydrationWarning className="flex items-center gap-1.5">
-                  <span className="text-sm md:text-base font-semibold text-gray-900 whitespace-nowrap group-hover:text-[#5f7ab8] transition-colors">
-                    NEW ATLANTIC
-                  </span>
-                </div>
-              </Link>
+      <header
+        className={`header-bottom fixed top-0 left-0 right-0 z-40 transition-colors duration-300 ease-brand ${
+          solid
+            ? 'bg-white/95 backdrop-blur-md border-b border-navy/14'
+            : 'bg-transparent border-b border-transparent'
+        }`}
+        data-header-bottom
+        suppressHydrationWarning
+      >
+        <div className="mx-auto flex max-w-site items-center gap-3 px-5 py-4 md:px-[30px] md:py-6">
+          {/* Logo */}
+          <Link href="/" className="group flex flex-shrink-0 items-center gap-2.5">
+            <div className="relative h-8 w-8 transition-transform duration-300 ease-brand group-hover:scale-105 md:h-[34px] md:w-[34px]">
+              <Image src={logo} alt="NEW ATLANTIC" fill className="object-contain" />
+            </div>
+            <span
+              suppressHydrationWarning
+              className={`font-display whitespace-nowrap text-lg uppercase leading-none tracking-wide transition-colors duration-300 ease-brand md:text-xl ${
+                solid ? 'text-navy' : 'text-white'
+              }`}
+            >
+              New Atlantic
+            </span>
+          </Link>
 
-              {/* Desktop Navigation - Dynamic from navbar settings */}
-              <div className={`hidden lg:flex items-center flex-1 justify-center ${isCompact ? 'gap-0' : 'gap-1'}`} suppressHydrationWarning>
-                {navSettings.items
-                  .filter(item => item.enabled && item.showInDesktop)
-                  .sort((a, b) => a.order - b.order)
-                  .map(item => {
-                    if (item.type === 'dropdown' && item.href === '/san-pham') {
-                      // Products Dropdown - maintains existing category dropdown behavior
-                      return (
-                        <div key={item.id} className="relative dropdown-container">
-                          <button
-                            onClick={() => toggleDropdown('products')}
-                            onMouseEnter={() => setOpenDropdown('products')}
-                            className={`${isCompact ? 'px-2.5' : 'px-4'} py-2 rounded-lg text-sm font-medium text-gray-800 hover:text-[#5f7ab8] hover:bg-gray-50/80 transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap`}
-                          >
-                            {item.label}
-                            <svg
-                              className={`w-3.5 h-3.5 transition-transform duration-200 ${mounted && openDropdown === 'products' ? 'rotate-180' : ''}`}
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-                          <div
-                            className={`absolute left-0 top-full mt-2 w-[700px] bg-white shadow-2xl rounded-xl transition-all duration-200 overflow-hidden border border-gray-100 ${mounted && openDropdown === 'products' ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-                          >
-                            <div className="p-4 grid grid-cols-2 gap-4">
-                              {categories.map((cat) => (
-                                <Link
-                                  key={cat.id}
-                                  href={`/san-pham/${cat.slug}`}
-                                  onClick={(e) => {
-                                    setOpenDropdown(null);
-                                    if (cat.href) window.open(cat.href, '_blank');
-                                  }}
-                                  className="flex items-start gap-4 px-4 py-4 text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg transition-colors group"
-                                >
-                                  <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50 p-1 border border-gray-100">
-                                    <img
-                                      src={cat.image || '/images/box-image/MAY.jpg'}
-                                      alt={`${cat.name} - ${cat.description || 'Thiết bị công nghiệp'}`}
-                                      className="w-full h-full object-contain"
-                                      loading="lazy"
-                                    />
-                                  </div>
-                                  <div className="flex-1">
-                                    <div className="font-semibold text-base mb-1.5">{cat.name}</div>
-                                    <div className="text-sm opacity-75">{cat.description || ''}</div>
-                                  </div>
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    }
-                    // Regular link items
-                    return (
-                      <Link
-                        key={item.id}
-                        href={item.href}
-                        target={item.target || '_self'}
-                        className={`${isCompact ? 'px-2.5' : 'px-4'} py-2 rounded-lg text-sm font-medium text-gray-800 hover:text-[#5f7ab8] hover:bg-gray-50/80 transition-all duration-200 whitespace-nowrap`}
+          {/* Desktop menu — the template's bordered pill */}
+          <nav className="hidden flex-1 justify-center lg:flex" aria-label="Điều hướng chính">
+            <div
+              suppressHydrationWarning
+              className={`flex items-center rounded-pill border px-6 py-[18px] transition-colors duration-300 ease-brand ${
+                isCompact ? 'gap-6' : 'gap-8 xl:gap-10'
+              } ${solid ? 'border-navy/14 bg-surface' : 'border-white/14 bg-white/10 backdrop-blur-sm'}`}
+            >
+              {desktopItems.map(item => {
+                if (item.type === 'dropdown' && item.href === '/san-pham') {
+                  return (
+                    <div key={item.id} className="dropdown-container relative">
+                      <button
+                        onClick={() => toggleDropdown('products')}
+                        onMouseEnter={() => setOpenDropdown('products')}
+                        aria-expanded={mounted && openDropdown === 'products'}
+                        className={`flex items-center gap-1 whitespace-nowrap text-base font-medium leading-none transition-colors duration-300 ease-brand hover:text-accent ${
+                          solid ? 'text-navy' : 'text-white'
+                        }`}
                       >
                         {item.label}
-                      </Link>
-                    );
-                  })
-                }
-              </div>
-
-              {/* Desktop Search Bar và Buttons - Right Side */}
-              <div className={`hidden lg:flex items-center ${isCompact ? 'gap-2' : 'gap-3'} flex-shrink-0`}>
-                {/* Wishlist Icon - controlled by navSettings */}
-                {navSettings.showWishlist && (
-                  <Link
-                    href="/yeu-thich"
-                    className="relative p-2 rounded-lg text-gray-700 hover:bg-gray-50/80 transition-all duration-200"
-                    aria-label={wishlistCount > 0 ? `Sản phẩm yêu thích (${wishlistCount})` : 'Sản phẩm yêu thích'}
-                    title="Sản phẩm yêu thích"
-                  >
-                    <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    </svg>
-                    {wishlistCount > 0 && (
-                      <span
-                        className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
-                        aria-label={`${wishlistCount} sản phẩm`}
-                      >
-                        {wishlistCount}
-                      </span>
-                    )}
-                  </Link>
-                )}
-
-                {/* Search Container - controlled by navSettings */}
-                {navSettings.showSearch && (
-                  <div className="relative search-container">
-                    <div className="flex flex-col items-center">
-                      <div className="relative">
-                        <label htmlFor="search-desktop" className="sr-only">
-                          Tìm kiếm sản phẩm
-                        </label>
-                        <input
-                          id="search-desktop"
-                          type="search"
-                          placeholder="Tìm kiếm sản phẩm..."
-                          value={searchQuery}
-                          onChange={handleSearchChange}
-                          onFocus={() => searchQuery.trim().length >= 2 && setSearchOpen(true)}
-                          autoComplete="off"
-                          aria-label="Tìm kiếm sản phẩm"
-                          role="searchbox"
-                          aria-autocomplete="list"
-                          aria-controls="search-results"
-                          aria-expanded={searchOpen}
-                          className={`px-3 py-1.5 pr-8 rounded-lg text-xs bg-gray-50/80 text-gray-700 placeholder-gray-400 border border-gray-200/60 focus:bg-white focus:border-[#5f7ab8] focus:ring-1 focus:ring-[#5f7ab8]/30 transition-all duration-200 h-8`}
-                          style={{ width: searchOpen ? (isCompact ? '200px' : '240px') : (isCompact ? '120px' : '160px') }}
-                        />
-                        <button
-                          onClick={handleSearchToggle}
-                          aria-label="Thực hiện tìm kiếm"
-                          title="Tìm kiếm"
-                          className="absolute right-1.5 top-1/2 -translate-y-1/2 p-0.5 rounded transition-colors text-gray-400 hover:text-[#5f7ab8]"
+                        <svg
+                          className={`h-3.5 w-3.5 transition-transform duration-300 ease-brand ${mounted && openDropdown === 'products' ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
                         >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                          </svg>
-                        </button>
-                      </div>
-                      {/* Character count feedback */}
-                      {searchQuery.length > 0 && searchQuery.length < 2 && (
-                        <div className="text-[10px] text-gray-400 mt-1 absolute top-full left-0">
-                          Nhập thêm {2 - searchQuery.length} ký tự
-                        </div>
-                      )}
-                    </div>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
 
-                    {/* Search Results */}
-                    <SearchResults
-                      isOpen={searchOpen}
-                      onClose={() => {
-                        setSearchOpen(false);
-                        setSearchQuery('');
-                      }}
-                      query={searchQuery}
-                    />
+                      {/* Category panel */}
+                      <div
+                        className={`absolute left-1/2 top-full mt-6 w-[700px] -translate-x-1/2 overflow-hidden rounded-card border border-navy/14 bg-white shadow-2xl transition-all duration-300 ease-brand ${
+                          mounted && openDropdown === 'products'
+                            ? 'visible translate-y-0 opacity-100'
+                            : 'invisible -translate-y-2 opacity-0'
+                        }`}
+                      >
+                        <div className="grid grid-cols-2 gap-3 p-4">
+                          {categories.map(cat => (
+                            <Link
+                              key={cat.id}
+                              href={`/san-pham/${cat.slug}`}
+                              onClick={() => {
+                                setOpenDropdown(null);
+                                if (cat.href) window.open(cat.href, '_blank');
+                              }}
+                              className="group flex items-start gap-4 rounded-card px-4 py-4 transition-colors duration-300 ease-brand hover:bg-navy"
+                            >
+                              <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-card border border-navy/14 bg-surface p-1">
+                                <img
+                                  src={cat.image || '/images/box-image/MAY.jpg'}
+                                  alt={`${cat.name} - ${cat.description || 'Thiết bị công nghiệp'}`}
+                                  className="h-full w-full object-contain"
+                                  loading="lazy"
+                                />
+                              </div>
+                              <div className="flex-1">
+                                <div className="font-display mb-1.5 text-lg uppercase leading-tight tracking-wide text-navy transition-colors duration-300 ease-brand group-hover:text-white">
+                                  {cat.name}
+                                </div>
+                                <div className="text-sm text-ink transition-colors duration-300 ease-brand group-hover:text-white/80">
+                                  {cat.description || ''}
+                                </div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    target={item.target || '_self'}
+                    className={`whitespace-nowrap text-base font-medium leading-none transition-colors duration-300 ease-brand hover:text-accent ${
+                      isActive(item.href) ? 'text-accent' : solid ? 'text-navy' : 'text-white'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </nav>
+
+          {/* Desktop actions */}
+          <div className="hidden flex-shrink-0 items-center gap-3 lg:flex">
+            {navSettings.showSearch && (
+              <div className="search-container relative">
+                <label htmlFor="search-desktop" className="sr-only">
+                  Tìm kiếm sản phẩm
+                </label>
+                <input
+                  id="search-desktop"
+                  type="search"
+                  placeholder="Tìm kiếm..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  onFocus={() => searchQuery.trim().length >= 2 && setSearchOpen(true)}
+                  autoComplete="off"
+                  aria-label="Tìm kiếm sản phẩm"
+                  aria-autocomplete="list"
+                  aria-controls="search-results"
+                  aria-expanded={searchOpen}
+                  className={`h-10 rounded-pill border py-2 pl-4 pr-9 text-sm transition-all duration-300 ease-brand focus:outline-none ${
+                    solid
+                      ? 'border-navy/14 bg-surface text-navy placeholder-muted focus:border-accent'
+                      : 'border-white/14 bg-white/10 text-white placeholder-white/60 focus:border-white/60'
+                  }`}
+                  style={{ width: searchOpen ? (isCompact ? '190px' : '220px') : (isCompact ? '130px' : '160px') }}
+                />
+                <button
+                  onClick={handleSearchToggle}
+                  aria-label="Thực hiện tìm kiếm"
+                  title="Tìm kiếm"
+                  className={`absolute right-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ease-brand hover:text-accent ${
+                    solid ? 'text-navy/60' : 'text-white/60'
+                  }`}
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+
+                {searchQuery.length > 0 && searchQuery.length < 2 && (
+                  <div className={`absolute left-4 top-full mt-1 text-[10px] ${solid ? 'text-muted' : 'text-white/60'}`}>
+                    Nhập thêm {2 - searchQuery.length} ký tự
                   </div>
                 )}
 
-                {/* CTA Buttons - controlled by navSettings */}
+                <SearchResults
+                  isOpen={searchOpen}
+                  onClose={() => {
+                    setSearchOpen(false);
+                    setSearchQuery('');
+                  }}
+                  query={searchQuery}
+                  onQueryChange={handleSuggestionPick}
+                  className="absolute left-0 right-0 top-full z-50 mt-2 w-full min-w-80 lg:left-auto lg:w-[28rem]"
+                />
+              </div>
+            )}
+
+            {navSettings.showWishlist && (
+              <Link
+                href="/yeu-thich"
+                className={`relative flex h-10 w-10 items-center justify-center rounded-pill border transition-colors duration-300 ease-brand ${
+                  solid
+                    ? 'border-navy/14 bg-surface text-navy hover:border-accent hover:text-accent'
+                    : 'border-white/14 bg-white/10 text-white hover:border-white/60'
+                }`}
+                aria-label={wishlistCount > 0 ? `Sản phẩm yêu thích (${wishlistCount})` : 'Sản phẩm yêu thích'}
+                title="Sản phẩm yêu thích"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                {wishlistCount > 0 && (
+                  <span
+                    className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-pill bg-accent px-1 text-[10px] font-bold text-white"
+                    aria-label={`${wishlistCount} sản phẩm`}
+                  >
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+            )}
+
+            {navSettings.showCatalogButton && (
+              <Link
+                href={navSettings.catalogButtonUrl}
+                className={`whitespace-nowrap rounded-pill border px-5 py-[11px] text-sm font-medium leading-none transition-colors duration-300 ease-brand ${
+                  solid
+                    ? 'border-navy/14 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white'
+                    : 'border-white/14 bg-transparent text-white hover:bg-white/10'
+                }`}
+              >
+                {navSettings.catalogButtonText}
+              </Link>
+            )}
+
+            {navSettings.showContactButton && (
+              <Link
+                href={navSettings.contactButtonUrl}
+                className={`group relative inline-flex items-center gap-6 whitespace-nowrap rounded-pill py-[13px] pl-[19px] pr-[13px] text-sm font-semibold leading-none transition-colors duration-300 ease-brand ${
+                  solid ? 'bg-navy text-white' : 'bg-white text-navy'
+                }`}
+              >
+                <span className="relative z-10">{navSettings.contactButtonText}</span>
+                <span className="relative z-10 flex h-6 w-6 items-center justify-center text-white">
+                  <ArrowIcon className="h-4 w-4" />
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="absolute right-[5px] top-1/2 z-0 h-10 w-10 -translate-y-1/2 rounded-pill bg-accent transition-transform duration-300 ease-brand group-hover:scale-105"
+                />
+              </Link>
+            )}
+          </div>
+
+          {/* Mobile burger */}
+          <div className="ml-auto lg:hidden">
+            <MobileTouchMenu>
+              <button
+                onClick={() => setMobileMenuOpen(prev => !prev)}
+                className={`mobile-menu-button flex h-10 w-10 items-center justify-center rounded-pill border transition-colors duration-300 ease-brand ${
+                  solid ? 'border-navy/14 bg-surface text-navy' : 'border-white/14 bg-white/10 text-white'
+                }`}
+                aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu"
+                suppressHydrationWarning
+              >
+                <span className="relative block h-4 w-5" aria-hidden="true">
+                  <span
+                    className={`absolute left-0 block h-[2px] w-5 rounded-pill bg-current transition-all duration-300 ease-brand ${
+                      mobileMenuOpen ? 'top-[7px] rotate-45' : 'top-0'
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 top-[7px] block h-[2px] w-5 rounded-pill bg-current transition-opacity duration-300 ease-brand ${
+                      mobileMenuOpen ? 'opacity-0' : 'opacity-100'
+                    }`}
+                  />
+                  <span
+                    className={`absolute left-0 block h-[2px] w-5 rounded-pill bg-current transition-all duration-300 ease-brand ${
+                      mobileMenuOpen ? 'top-[7px] -rotate-45' : 'top-[14px]'
+                    }`}
+                  />
+                </span>
+              </button>
+            </MobileTouchMenu>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile panel — the template's full-screen close/open sheet */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            id="mobile-menu"
+            key="mobile-panel"
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -16 }}
+            animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -16 }}
+            transition={{ duration: 0.3, ease: EASE_BRAND }}
+            className="mobile-menu-container fixed inset-0 z-50 flex flex-col bg-navy lg:hidden"
+          >
+            {/* Panel head mirrors the bar so the logo never jumps */}
+            <div className="flex flex-shrink-0 items-center justify-between px-5 py-4">
+              <Link href="/" onClick={closeMobileMenu} className="flex items-center gap-2.5">
+                <div className="relative h-8 w-8">
+                  <Image src={logo} alt="NEW ATLANTIC" fill className="object-contain" />
+                </div>
+                <span className="font-display text-lg uppercase leading-none tracking-wide text-white">
+                  New Atlantic
+                </span>
+              </Link>
+              <button
+                onClick={closeMobileMenu}
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white"
+                aria-label="Đóng menu"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto overscroll-contain px-5 pb-8">
+              {navSettings.showSearch && (
+                <div className="search-container mb-8">
+                  <div className="relative">
+                    <label htmlFor="search-mobile" className="sr-only">
+                      Tìm kiếm sản phẩm
+                    </label>
+                    <input
+                      id="search-mobile"
+                      type="search"
+                      placeholder="Tìm kiếm sản phẩm..."
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      onFocus={() => searchQuery.trim().length >= 2 && setSearchOpen(true)}
+                      autoComplete="off"
+                      aria-label="Tìm kiếm sản phẩm"
+                      aria-autocomplete="list"
+                      aria-controls="search-results"
+                      aria-expanded={searchOpen}
+                      className="h-12 w-full rounded-pill border border-white/14 bg-white/10 py-2 pl-5 pr-11 text-sm text-white placeholder-white/60 transition-colors duration-300 ease-brand focus:border-white/60 focus:outline-none"
+                    />
+                    <button
+                      onClick={handleSearchToggle}
+                      aria-label="Thực hiện tìm kiếm"
+                      title="Tìm kiếm"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 transition-colors duration-300 ease-brand hover:text-accent"
+                    >
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  {searchOpen && (
+                    <div className="mt-3">
+                      <SearchResults
+                        isOpen={searchOpen}
+                        onClose={() => {
+                          setSearchOpen(false);
+                          setSearchQuery('');
+                        }}
+                        query={searchQuery}
+                        onQueryChange={handleSuggestionPick}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Oversized display links, staggered in on the brand curve */}
+              <nav aria-label="Điều hướng di động">
+                <ul className="divide-y divide-white/14 border-y border-white/14">
+                  {mobileItems.map((item, index) => (
+                    <motion.li
+                      key={item.id}
+                      initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, ease: EASE_BRAND, delay: 0.06 * index }}
+                    >
+                      <Link
+                        href={item.href}
+                        target={item.target || '_self'}
+                        onClick={closeMobileMenu}
+                        className={`font-display flex items-center justify-between py-4 text-3xl uppercase leading-none tracking-wide transition-colors duration-300 ease-brand ${
+                          isActive(item.href) ? 'text-accent' : 'text-white hover:text-accent'
+                        }`}
+                      >
+                        {item.label}
+                        <ArrowIcon className="h-5 w-5 text-accent" />
+                      </Link>
+
+                      {item.type === 'dropdown' && item.href === '/san-pham' && mobileCategoryItems.length > 0 && (
+                        <ul className="pb-5">
+                          <li className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/60">
+                            Danh mục
+                          </li>
+                          {mobileCategoryItems.map(cat => (
+                            <li key={cat.id}>
+                              <Link
+                                href={`/san-pham/${cat.slug}`}
+                                onClick={() => {
+                                  closeMobileMenu();
+                                  if (cat.href) window.open(cat.href, '_blank');
+                                }}
+                                className="block py-2 text-base text-white/80 transition-colors duration-300 ease-brand hover:text-accent"
+                              >
+                                {cat.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </motion.li>
+                  ))}
+
+                  {navSettings.showWishlist && (
+                    <li>
+                      <Link
+                        href="/yeu-thich"
+                        onClick={closeMobileMenu}
+                        className="font-display flex items-center justify-between py-4 text-3xl uppercase leading-none tracking-wide text-white transition-colors duration-300 ease-brand hover:text-accent"
+                      >
+                        Yêu thích
+                        {wishlistCount > 0 ? (
+                          <span className="flex h-7 min-w-7 items-center justify-center rounded-pill bg-accent px-2 text-sm font-bold text-white">
+                            {wishlistCount}
+                          </span>
+                        ) : (
+                          <ArrowIcon className="h-5 w-5 text-accent" />
+                        )}
+                      </Link>
+                    </li>
+                  )}
+                </ul>
+              </nav>
+
+              <div className="mt-8 flex flex-col gap-3">
                 {navSettings.showCatalogButton && (
                   <Link
                     href={navSettings.catalogButtonUrl}
-                    className="px-4 py-2 rounded-full text-xs font-medium text-gray-800 border border-gray-300/80 bg-white hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 whitespace-nowrap"
+                    onClick={closeMobileMenu}
+                    className="rounded-pill border border-white/14 py-4 text-center text-sm font-medium text-white transition-colors duration-300 ease-brand hover:bg-white/10"
                   >
                     {navSettings.catalogButtonText}
                   </Link>
@@ -436,191 +719,18 @@ export default function HeaderBottom() {
                 {navSettings.showContactButton && (
                   <Link
                     href={navSettings.contactButtonUrl}
-                    className="px-5 py-2 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] hover:from-[#4a6199] hover:to-[#3d4f7d] transition-all duration-200 shadow-md hover:shadow-xl whitespace-nowrap"
+                    onClick={closeMobileMenu}
+                    className="flex items-center justify-center gap-3 rounded-pill bg-accent py-4 text-center text-sm font-semibold text-white transition-colors duration-300 ease-brand hover:bg-accent-dark"
                   >
                     {navSettings.contactButtonText}
+                    <ArrowIcon className="h-4 w-4" />
                   </Link>
                 )}
               </div>
-
-              {/* Mobile menu button */}
-              <MobileTouchMenu className="lg:hidden">
-                <button
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="mobile-menu-button p-2 rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
-                  aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
-                  aria-expanded={mobileMenuOpen}
-                  aria-controls="mobile-menu"
-                  suppressHydrationWarning
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    {mobileMenuOpen ? (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    ) : (
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    )}
-                  </svg>
-                </button>
-              </MobileTouchMenu>
             </div>
-
-            {/* Mobile Navigation - Dropdown */}
-            {mobileMenuOpen && (
-              <div id="mobile-menu" className="mobile-menu-container lg:hidden mt-3 pb-3">
-                <div className="space-y-1 overflow-y-auto max-h-[calc(100vh-140px)] overscroll-contain">
-                  {/* Mobile Search - controlled by navSettings */}
-                  {navSettings.showSearch && (
-                    <div className="search-container mb-3">
-                      <div className="relative">
-                        <label htmlFor="search-mobile" className="sr-only">
-                          Tìm kiếm sản phẩm
-                        </label>
-                        <input
-                          id="search-mobile"
-                          type="search"
-                          placeholder="Tìm kiếm sản phẩm..."
-                          value={searchQuery}
-                          onChange={handleSearchChange}
-                          onFocus={() => searchQuery.trim().length >= 2 && setSearchOpen(true)}
-                          autoComplete="off"
-                          aria-label="Tìm kiếm sản phẩm"
-                          role="searchbox"
-                          aria-autocomplete="list"
-                          aria-controls="search-results"
-                          aria-expanded={searchOpen}
-                          className="w-full px-3 py-2 pr-8 rounded-lg text-xs bg-gray-50 text-gray-700 placeholder-gray-500 border border-gray-200 focus:bg-white focus:border-[#5f7ab8] focus:ring-1 focus:ring-[#5f7ab8]/20 transition-all"
-                        />
-                        <button
-                          onClick={handleSearchToggle}
-                          aria-label="Thực hiện tìm kiếm"
-                          title="Tìm kiếm"
-                          className="absolute right-1.5 top-1/2 -translate-y-1/2 p-0.5 rounded transition-colors text-gray-400 hover:text-[#5f7ab8]"
-                        >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                          </svg>
-                        </button>
-                      </div>
-
-                      {/* Mobile Search Results */}
-                      {searchOpen && (
-                        <div className="mt-2">
-                          <SearchResults
-                            isOpen={searchOpen}
-                            onClose={() => {
-                              setSearchOpen(false);
-                              setSearchQuery('');
-                            }}
-                            query={searchQuery}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Dynamic mobile nav items from settings */}
-                  {navSettings.items
-                    .filter(item => item.enabled && item.showInMobile)
-                    .sort((a, b) => a.order - b.order)
-                    .map(item => {
-                      if (item.type === 'dropdown' && item.href === '/san-pham') {
-                        // Special rendering for product dropdown in mobile
-                        return (
-                          <div key={item.id}>
-                            <Link
-                              href={item.href}
-                              onClick={closeMobileMenu}
-                              className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
-                            >
-                              {item.label}
-                            </Link>
-                            <div className="ml-3">
-                              <div className="text-xs font-semibold text-gray-500 px-3 mb-2 uppercase tracking-wider">DANH MỤC</div>
-                              {mobileCategoryItems.map((cat) => (
-                                <Link
-                                  key={cat.id}
-                                  href={`/san-pham/${cat.slug}`}
-                                  onClick={(e) => {
-                                    closeMobileMenu();
-                                    if (cat.href) window.open(cat.href, '_blank');
-                                  }}
-                                  className="block py-2.5 px-3 text-sm text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
-                                >
-                                  {cat.name}
-                                </Link>
-                              ))}
-                            </div>
-                            <div className="border-t border-gray-200 my-2"></div>
-                          </div>
-                        );
-                      }
-                      return (
-                        <Link
-                          key={item.id}
-                          href={item.href}
-                          target={item.target || '_self'}
-                          onClick={closeMobileMenu}
-                          className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
-                        >
-                          {item.label}
-                        </Link>
-                      );
-                    })
-                  }
-
-                  {/* Wishlist in mobile - controlled by navSettings */}
-                  {navSettings.showWishlist && (
-                    <>
-                      <div className="border-t border-gray-200 my-2"></div>
-                      <Link
-                        href="/yeu-thich"
-                        onClick={closeMobileMenu}
-                        className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span>Sản phẩm yêu thích</span>
-                          {wishlistCount > 0 && (
-                            <span className="bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-                              {wishlistCount}
-                            </span>
-                          )}
-                        </div>
-                      </Link>
-                    </>
-                  )}
-
-                  {/* CTA Buttons in mobile - controlled by navSettings */}
-                  <div className="border-t border-gray-200 my-2"></div>
-                  {navSettings.showCatalogButton && (
-                    <Link
-                      href={navSettings.catalogButtonUrl}
-                      onClick={closeMobileMenu}
-                      className="block py-2.5 px-3 text-sm font-medium text-gray-700 hover:bg-[#5f7ab8] hover:text-white rounded-lg"
-                    >
-                      {navSettings.catalogButtonText}
-                    </Link>
-                  )}
-                  {navSettings.showContactButton && (
-                    <Link
-                      href={navSettings.contactButtonUrl}
-                      onClick={closeMobileMenu}
-                      className="block py-3 px-3 text-sm bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white font-semibold text-center rounded-lg mt-2 hover:from-[#4a6199] hover:to-[#3d4f7d] shadow-md"
-                    >
-                      {navSettings.contactButtonText}
-                    </Link>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        </nav>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

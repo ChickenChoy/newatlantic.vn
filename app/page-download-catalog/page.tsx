@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import DownloadCatalogClient from './DownloadCatalogClient';
 import HolidayBanner from '@/components/HolidayBanner';
+import { PageHero, Section, CTABand, ArrowButton } from '@/components/sections';
 
 export const metadata: Metadata = {
   title: 'Catalog Sản Phẩm | NewAtlantic - Thiết Bị Công Nghiệp Chính Hãng',
@@ -78,50 +79,44 @@ export default function DownloadCatalogPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050c3a] relative overflow-hidden">
-      {/* Background decorative elements - Subtle green accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-green-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-500/20 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
-      </div>
-
-      {/* Structured Data */}
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Main Content */}
-      <main className="pt-24 sm:pt-28 md:pt-32 relative z-10">
+      <PageHero
+        eyebrow="Tài liệu kỹ thuật"
+        title="Catalog sản phẩm"
+        image="/images/place-holder/telescopic-mast-tower.jpg"
+        intro="Tải về tài liệu kỹ thuật chi tiết, thông số và hướng dẫn sử dụng cho các dòng sản phẩm chính hãng Will-Burt, Hiab và SKYMARK."
+        breadcrumbs={[{ name: 'Trang chủ', href: '/' }, { name: 'Catalog sản phẩm' }]}
+      />
 
+      {/* Holiday banner — collapses on days with no active holiday effect */}
+      <div className="mx-auto flex w-full max-w-site justify-center px-5 py-12 md:px-gutter empty:hidden">
+        <HolidayBanner variant="minimal" />
+      </div>
 
-        {/* Header Section */}
-        <div className="relative z-10 border-b border-white/10">
-          <div className="container mx-auto px-4 py-12 md:py-16">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                Tài liệu kỹ thuật
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
-                Catalog <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400">Sản Phẩm</span>
-              </h1>
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto mb-8">
-                Tải về tài liệu kỹ thuật chi tiết, thông số và hướng dẫn sử dụng cho các dòng sản phẩm chính hãng.
-              </p>
+      <Section>
+        <DownloadCatalogClient />
+      </Section>
 
-              {/* Holiday Banner - Centered Minimal */}
-              <div className="flex justify-center">
-                <HolidayBanner variant="minimal" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-          <DownloadCatalogClient />
-        </div>
-      </main>
-    </div>
+      <CTABand
+        eyebrow="Chưa tìm được tài liệu?"
+        title="Yêu cầu catalog theo cấu hình"
+        intro="Gửi model hoặc mô tả nhu cầu — kỹ sư New Atlantic gửi lại tài liệu kỹ thuật và bản chào giá phù hợp trong 24 giờ làm việc."
+        actions={
+          <>
+            <ArrowButton href="/lien-he" variant="accent">
+              Liên hệ kỹ sư
+            </ArrowButton>
+            <ArrowButton href="/san-pham" variant="outline-light">
+              Xem sản phẩm
+            </ArrowButton>
+          </>
+        }
+      />
+    </>
   );
 }

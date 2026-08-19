@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import ArrowButton from './sections/ArrowButton';
 
 interface CookiePreferences {
   necessary: boolean;
@@ -14,6 +15,74 @@ declare global {
   interface Window {
     doNotTrack?: string;
   }
+}
+
+/** Neutral pill used for the two secondary choices next to the accent CTA. */
+const SECONDARY_BUTTON =
+  'rounded-pill border border-navy/14 px-5 py-[13px] text-sm font-semibold leading-none text-navy transition-colors duration-300 ease-brand hover:border-navy';
+
+function ToggleSwitch({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={onChange}
+      className={`relative h-7 w-14 flex-shrink-0 rounded-pill transition-colors duration-300 ease-brand ${
+        checked ? 'bg-accent' : 'bg-navy/14'
+      }`}
+    >
+      <span
+        aria-hidden="true"
+        className={`absolute left-0.5 top-0.5 h-6 w-6 rounded-pill bg-white shadow-sm transition-transform duration-300 ease-brand ${
+          checked ? 'translate-x-7' : 'translate-x-0'
+        }`}
+      />
+    </button>
+  );
+}
+
+function PreferenceRow({
+  title,
+  subtitle,
+  body,
+  icon,
+  control,
+}: {
+  title: string;
+  subtitle: string;
+  body: string;
+  icon: React.ReactNode;
+  control: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-card border border-navy/14 bg-surface p-4">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-card border border-navy/14 bg-white text-navy/60">
+            {icon}
+          </div>
+          <div>
+            <h3 className="font-display text-[15px] uppercase leading-tight tracking-display text-navy">
+              {title}
+            </h3>
+            <p className="mt-1 text-sm leading-[1.6] text-ink">{subtitle}</p>
+          </div>
+        </div>
+        {control}
+      </div>
+      <p className="mt-3 text-sm leading-[1.6] text-muted">{body}</p>
+    </div>
+  );
 }
 
 export default function CookieConsent() {
@@ -112,56 +181,60 @@ export default function CookieConsent() {
   return (
     <>
       {/* Overlay */}
-      <div className="fixed inset-0 bg-black/50 z-[9998] backdrop-blur-sm" />
+      <div className="fixed inset-0 z-[9998] bg-navy/60 backdrop-blur-sm" />
 
       {/* Cookie Banner */}
-      <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6 animate-slide-up">
-        <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cookie-consent-title"
+        className="animate-slide-up fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6"
+      >
+        <div className="mx-auto max-w-6xl overflow-hidden rounded-card border border-navy/14 bg-white shadow-xl">
           {!showPreferences ? (
             // Main Banner
             <div className="p-6 md:p-8">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              <div className="mb-6 flex items-start gap-4">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-card border border-navy/14 bg-surface text-navy">
+                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M9 12h.01M12 15h.01M15 11h.01M12 3a9 9 0 109 9 3 3 0 01-3-3 3 3 0 01-3-3 3 3 0 01-3-3z"
+                    />
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                    Cookie & Quyền Riêng Tư
+                  <h2
+                    id="cookie-consent-title"
+                    className="font-display text-d5 uppercase leading-display tracking-display text-navy"
+                  >
+                    Cookie &amp; Quyền riêng tư
                   </h2>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="mt-3 max-w-3xl text-base leading-[1.6] text-ink">
                     Chúng tôi sử dụng cookies để cải thiện trải nghiệm của bạn, phân tích lưu lượng truy cập và cá nhân hóa nội dung.
                     Bạn có thể chọn loại cookies mà bạn chấp nhận.
                   </p>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-                <button
-                  onClick={acceptAll}
-                  className="flex-1 sm:flex-none px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-sm"
-                >
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+                <ArrowButton onClick={acceptAll} variant="accent">
                   Chấp nhận tất cả
-                </button>
-                <button
-                  onClick={acceptNecessary}
-                  className="flex-1 sm:flex-none px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold rounded-lg transition-colors duration-200"
-                >
+                </ArrowButton>
+                <button onClick={acceptNecessary} className={SECONDARY_BUTTON}>
                   Chỉ cần thiết
                 </button>
-                <button
-                  onClick={() => setShowPreferences(true)}
-                  className="flex-1 sm:flex-none px-6 py-3 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-semibold rounded-lg transition-colors duration-200"
-                >
+                <button onClick={() => setShowPreferences(true)} className={SECONDARY_BUTTON}>
                   Tùy chỉnh
                 </button>
               </div>
 
-              <div className="mt-4 text-center">
+              <div className="mt-6 border-t border-navy/14 pt-4">
                 <Link
                   href="/chinh-sach-bao-mat"
-                  className="text-sm text-blue-600 hover:text-blue-700 underline"
+                  className="text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 transition-colors duration-300 ease-brand hover:text-accent hover:decoration-accent"
                 >
                   Đọc Chính sách Bảo mật
                 </Link>
@@ -173,117 +246,101 @@ export default function CookieConsent() {
               <div className="mb-6">
                 <button
                   onClick={() => setShowPreferences(false)}
-                  className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+                  className="mb-4 flex items-center gap-2 text-sm font-medium text-navy/60 transition-colors duration-300 ease-brand hover:text-accent"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
                   </svg>
                   Quay lại
                 </button>
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                <h2
+                  id="cookie-consent-title"
+                  className="font-display text-d5 uppercase leading-display tracking-display text-navy"
+                >
                   Tùy chỉnh Cookie
                 </h2>
-                <p className="text-gray-600">
+                <p className="mt-3 text-base leading-[1.6] text-ink">
                   Chọn loại cookies mà bạn muốn cho phép
                 </p>
               </div>
 
-              <div className="space-y-4 mb-6">
+              <div className="mb-6 space-y-3">
                 {/* Necessary Cookies */}
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">Cookies Cần thiết</h3>
-                        <p className="text-sm text-gray-600">Bắt buộc cho hoạt động của website</p>
-                      </div>
-                    </div>
-                    <div className="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
+                <PreferenceRow
+                  title="Cookies cần thiết"
+                  subtitle="Bắt buộc cho hoạt động của website"
+                  body="Cookies này cần thiết để website hoạt động và không thể tắt. Chúng thường chỉ được đặt để đáp ứng các hành động của bạn như đăng nhập, điền biểu mẫu."
+                  icon={
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M12 3l7 4v5c0 4.418-2.867 7.61-7 9-4.133-1.39-7-4.582-7-9V7l7-4z"
+                      />
+                    </svg>
+                  }
+                  control={
+                    <span className="flex-shrink-0 rounded-pill border border-navy/14 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-navy/60">
                       Luôn bật
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-500 ml-13">
-                    Cookies này cần thiết để website hoạt động và không thể tắt. Chúng thường chỉ được đặt để đáp ứng các hành động của bạn như đăng nhập, điền biểu mẫu.
-                  </p>
-                </div>
+                    </span>
+                  }
+                />
 
                 {/* Analytics Cookies */}
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">Cookies Phân tích</h3>
-                        <p className="text-sm text-gray-600">Google Analytics để hiểu cách sử dụng</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => togglePreference('analytics')}
-                      className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${preferences.analytics ? 'bg-blue-600' : 'bg-gray-300'
-                        }`}
-                    >
-                      <span
-                        className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full transition-transform duration-200 ${preferences.analytics ? 'translate-x-7' : 'translate-x-0'
-                          }`}
+                <PreferenceRow
+                  title="Cookies phân tích"
+                  subtitle="Google Analytics để hiểu cách sử dụng"
+                  body="Giúp chúng tôi hiểu cách khách truy cập tương tác với website, cải thiện trải nghiệm người dùng. Bao gồm Google Analytics 4."
+                  icon={
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
                       />
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-500 ml-13">
-                    Giúp chúng tôi hiểu cách khách truy cập tương tác với website, cải thiện trải nghiệm người dùng. Bao gồm Google Analytics 4.
-                  </p>
-                </div>
+                    </svg>
+                  }
+                  control={
+                    <ToggleSwitch
+                      checked={preferences.analytics}
+                      onChange={() => togglePreference('analytics')}
+                      label="Bật cookies phân tích"
+                    />
+                  }
+                />
 
                 {/* Marketing Cookies */}
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">Cookies Marketing</h3>
-                        <p className="text-sm text-gray-600">Quảng cáo và nội dung được cá nhân hóa</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => togglePreference('marketing')}
-                      className={`relative w-14 h-7 rounded-full transition-colors duration-200 ${preferences.marketing ? 'bg-purple-600' : 'bg-gray-300'
-                        }`}
-                    >
-                      <span
-                        className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full transition-transform duration-200 ${preferences.marketing ? 'translate-x-7' : 'translate-x-0'
-                          }`}
+                <PreferenceRow
+                  title="Cookies marketing"
+                  subtitle="Quảng cáo và nội dung được cá nhân hóa"
+                  body="Được sử dụng để hiển thị quảng cáo phù hợp với sở thích của bạn. Có thể bao gồm nội dung từ các đối tác bên thứ ba."
+                  icon={
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
                       />
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-500 ml-13">
-                    Được sử dụng để hiển thị quảng cáo phù hợp với sở thích của bạn. Có thể bao gồm nội dung từ các đối tác bên thứ ba.
-                  </p>
-                </div>
+                    </svg>
+                  }
+                  control={
+                    <ToggleSwitch
+                      checked={preferences.marketing}
+                      onChange={() => togglePreference('marketing')}
+                      label="Bật cookies marketing"
+                    />
+                  }
+                />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={saveCustomPreferences}
-                  className="flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200"
-                >
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+                <ArrowButton onClick={saveCustomPreferences} variant="accent">
                   Lưu tùy chọn
-                </button>
-                <button
-                  onClick={acceptAll}
-                  className="flex-1 px-6 py-3 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold rounded-lg transition-colors duration-200"
-                >
+                </ArrowButton>
+                <button onClick={acceptAll} className={SECONDARY_BUTTON}>
                   Chấp nhận tất cả
                 </button>
               </div>
@@ -291,22 +348,6 @@ export default function CookieConsent() {
           )}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes slide-up {
-          from {
-            transform: translateY(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-        .animate-slide-up {
-          animation: slide-up 0.3s ease-out;
-        }
-      `}</style>
     </>
   );
 }

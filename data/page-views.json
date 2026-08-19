@@ -1118,5 +1118,37 @@
     "ip": "::ffff:169.254.83.107",
     "referrer": "http://169.254.83.107:3000/masttech",
     "createdAt": "2026-06-30T17:13:23.610Z"
+  },
+  {
+    "path": "/",
+    "sessionId": "qvyq8ctxy3mszprlfa",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Whale/4.39.410.14 Safari/537.36",
+    "ip": "::ffff:169.254.22.35",
+    "referrer": "http://169.254.22.35:3000/",
+    "createdAt": "2026-08-19T06:31:49.605Z"
+  },
+  {
+    "path": "/thu-vien-hinh-anh",
+    "sessionId": "qvyq8ctxy3mszprlfa",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Whale/4.39.410.14 Safari/537.36",
+    "ip": "::ffff:169.254.22.35",
+    "referrer": "http://169.254.22.35:3000/thu-vien-hinh-anh",
+    "createdAt": "2026-08-19T06:31:57.042Z"
+  },
+  {
+    "path": "/tin-tuc",
+    "sessionId": "qvyq8ctxy3mszprlfa",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Whale/4.39.410.14 Safari/537.36",
+    "ip": "::ffff:169.254.22.35",
+    "referrer": "http://169.254.22.35:3000/tin-tuc",
+    "createdAt": "2026-08-19T06:31:58.412Z"
+  },
+  {
+    "path": "/tin-tuc/cot-tu-nang-will-burt-gan-den-cuu-ho",
+    "sessionId": "qvyq8ctxy3mszprlfa",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Whale/4.39.410.14 Safari/537.36",
+    "ip": "::ffff:169.254.22.35",
+    "referrer": "http://169.254.22.35:3000/tin-tuc/cot-tu-nang-will-burt-gan-den-cuu-ho",
+    "createdAt": "2026-08-19T06:31:59.845Z"
   }
 ]

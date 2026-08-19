@@ -269,7 +269,7 @@ export default function ActivityLogsTab() {
                                             </span>
                                             {log.entityName && (
                                                 <span className="text-sm font-medium text-primary truncate max-w-[200px]">
-                                                    "{log.entityName}"
+                                                    &quot;{log.entityName}&quot;
                                                 </span>
                                             )}
                                         </div>

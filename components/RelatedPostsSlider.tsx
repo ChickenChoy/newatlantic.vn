@@ -106,109 +106,108 @@ export default function RelatedPostsSlider({ relatedPosts }: RelatedPostsSliderP
   }, [relatedPosts.length]);
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Bài viết liên quan</h2>
-      
-      {/* Slider Container */}
-      <div className="relative group">
-        {/* Navigation Arrows */}
+    <div>
+      {/* Header — display heading left, circular controls right */}
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-6 border-b border-navy/14 pb-6">
+        <h2 className="font-display text-d4 uppercase leading-display tracking-display text-navy">
+          Bài viết liên quan
+        </h2>
+
         {relatedPosts.length > 3 && (
-          <>
+          <div className="flex items-center gap-3">
             <button
               onClick={scrollLeft}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
-              aria-label="Scroll left"
+              className="flex h-10 w-10 items-center justify-center rounded-pill border border-navy/14 bg-background text-navy transition-colors duration-300 ease-brand hover:border-accent hover:bg-accent hover:text-white"
+              aria-label="Xem bài trước"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={scrollRight}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 opacity-0 group-hover:opacity-100"
-              aria-label="Scroll right"
+              className="flex h-10 w-10 items-center justify-center rounded-pill border border-navy/14 bg-background text-navy transition-colors duration-300 ease-brand hover:border-accent hover:bg-accent hover:text-white"
+              aria-label="Xem bài tiếp theo"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
-          </>
+          </div>
         )}
+      </div>
 
-        {/* Slider Track */}
-        <div 
-          ref={sliderRef} 
-          className="overflow-x-auto scrollbar-hide"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="flex gap-4 pb-4">
-            {relatedPosts.map((relatedPost) => {
-              const relatedFormattedDate = new Date(relatedPost.date).toLocaleDateString('vi-VN', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-              });
-              return (
-                <Link 
-                  key={relatedPost.id} 
-                  href={`/tin-tuc/${relatedPost.slug}`}
-                  className="group flex-shrink-0 w-64 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  {/* Image Container */}
-                  <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-xl overflow-hidden">
-                    {relatedPost.image ? (
-                      <>
-                        <Image
-                          src={relatedPost.image}
-                          alt={relatedPost.title}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                        {/* Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
-                      </>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-300">
-                        <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                        </svg>
-                      </div>
-                    )}
-                    
-                    {/* Date Badge */}
-                    <div className="absolute top-2 left-2 bg-white/95 backdrop-blur-md px-2 py-1 rounded-lg text-xs font-bold text-gray-700">
-                      {relatedFormattedDate}
+      {/* Slider Track */}
+      <div
+        ref={sliderRef}
+        className="scrollbar-hide overflow-x-auto"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div className="flex gap-6 pb-2">
+          {relatedPosts.map((relatedPost) => {
+            const relatedFormattedDate = new Date(relatedPost.date).toLocaleDateString('vi-VN', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            });
+            return (
+              <Link
+                key={relatedPost.id}
+                href={`/tin-tuc/${relatedPost.slug}`}
+                className="group w-64 shrink-0 overflow-hidden rounded-card border border-navy/14 bg-background transition-colors duration-300 ease-brand hover:border-navy"
+              >
+                {/* Image Container */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-surface">
+                  {relatedPost.image ? (
+                    <Image
+                      src={relatedPost.image}
+                      alt={relatedPost.title}
+                      fill
+                      sizes="256px"
+                      className="object-cover transition-transform duration-700 ease-brand group-hover:scale-[1.06]"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-navy/14">
+                      <svg className="h-16 w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                      </svg>
                     </div>
-                  </div>
+                  )}
+                </div>
 
-                  {/* Content */}
-                  <div className="p-4">
-                    <h3 className="text-sm font-bold text-gray-900 mb-1 group-hover:text-[#5f7ab8] transition-colors line-clamp-2">
-                      {relatedPost.title}
-                    </h3>
-                    
-                    <p className="text-gray-600 text-xs line-clamp-2">
+                {/* Content */}
+                <div className="p-6">
+                  <span className="text-xs uppercase tracking-[0.14em] text-muted">
+                    {relatedFormattedDate}
+                  </span>
+
+                  <h3 className="mt-3 line-clamp-2 font-display text-lg uppercase leading-tight tracking-display text-navy transition-colors duration-300 ease-brand group-hover:text-accent">
+                    {relatedPost.title}
+                  </h3>
+
+                  {relatedPost.excerpt && (
+                    <p className="mt-3 line-clamp-2 text-sm leading-[1.6] text-ink">
                       {relatedPost.excerpt}
                     </p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="flex justify-center mt-4 gap-2">
-          <div className="text-xs text-gray-500 flex items-center">
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-            Vuốt sang để xem thêm
-          </div>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
+
+      {/* Scroll hint */}
+      {relatedPosts.length > 3 && (
+        <p className="mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-muted">
+          <svg className="h-4 w-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+          Vuốt sang để xem thêm
+        </p>
+      )}
     </div>
   );
 }

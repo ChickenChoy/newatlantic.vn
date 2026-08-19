@@ -2,6 +2,11 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { getSessionUser, getSessionCookieValue, SESSION_COOKIE_NAME } from '@/lib/auth';
 
+// `@/lib/auth` reads sessions from disk (node:fs) and hashes with node:crypto.
+// That is safe here because a Next 16 proxy file ALWAYS runs on the Node.js
+// runtime — route segment config (`export const runtime`) is rejected in this
+// file for exactly that reason, so there is nothing to declare.
+
 // ─── API routes that are ALWAYS admin-only (all methods) ───────────────
 const ADMIN_ONLY_ROUTES = [
     '/api/system-health',

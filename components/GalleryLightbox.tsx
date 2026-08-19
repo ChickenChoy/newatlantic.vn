@@ -277,7 +277,7 @@ export default function GalleryLightbox({
   const modalContent = (
     <div
       ref={containerRef}
-      className="fixed inset-0 bg-black/95 z-[9999] flex items-center justify-center"
+      className="fixed inset-0 bg-navy/95 z-[9999] flex items-center justify-center"
       style={{
         position: 'fixed',
         top: 0,
@@ -299,7 +299,7 @@ export default function GalleryLightbox({
       {/* Close Button */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
+        className="absolute top-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-all duration-300 ease-brand hover:scale-105 hover:bg-accent"
         aria-label="Đóng"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -312,7 +312,7 @@ export default function GalleryLightbox({
         <>
           <button
             onClick={prevImage}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
+            className="absolute left-4 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-all duration-300 ease-brand hover:scale-105 hover:bg-accent"
             aria-label="Ảnh trước"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -321,7 +321,7 @@ export default function GalleryLightbox({
           </button>
           <button
             onClick={nextImage}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-200 hover:scale-110"
+            className="absolute right-4 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-all duration-300 ease-brand hover:scale-105 hover:bg-accent"
             aria-label="Ảnh sau"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -358,29 +358,27 @@ export default function GalleryLightbox({
       </div>
 
       {/* Controls Bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-6 z-50">
-        <div className="max-w-7xl mx-auto">
-
-
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-navy to-transparent p-6 z-50">
+        <div className="mx-auto max-w-site">
           {/* Controls */}
-          <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             {/* Zoom Controls */}
             <div className="flex items-center gap-2">
               <button
                 onClick={handleZoomOut}
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg transition-all"
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-colors duration-300 ease-brand hover:bg-accent"
                 aria-label="Thu nhỏ"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                 </svg>
               </button>
-              <span className="text-white text-sm min-w-[60px] text-center">
+              <span className="min-w-[60px] text-center text-sm text-white">
                 {Math.round(scale * 100)}%
               </span>
               <button
                 onClick={handleZoomIn}
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg transition-all"
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-colors duration-300 ease-brand hover:bg-accent"
                 aria-label="Phóng to"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -389,17 +387,35 @@ export default function GalleryLightbox({
               </button>
               <button
                 onClick={resetZoom}
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white px-3 py-2 rounded-lg text-sm transition-all"
+                className="rounded-pill border border-white/14 bg-white/10 px-4 py-2 text-sm text-white transition-colors duration-300 ease-brand hover:bg-accent"
               >
-                Reset
+                Đặt lại
               </button>
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center gap-2">
               <button
+                onClick={downloadImage}
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-colors duration-300 ease-brand hover:bg-accent"
+                aria-label="Tải ảnh xuống"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </button>
+              <button
+                onClick={shareImage}
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-colors duration-300 ease-brand hover:bg-accent"
+                aria-label="Chia sẻ ảnh"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342A3 3 0 106.316 10.658m2.368 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684zm0-12.684a3 3 0 105.368-2.684 3 3 0 00-5.368 2.684z" />
+                </svg>
+              </button>
+              <button
                 onClick={toggleFullscreen}
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-2 rounded-lg transition-all"
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-white/14 bg-white/10 text-white transition-colors duration-300 ease-brand hover:bg-accent"
                 aria-label="Toàn màn hình"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -410,8 +426,8 @@ export default function GalleryLightbox({
 
             {/* Image Counter */}
             {images.length > 1 && (
-              <div className="text-white text-sm">
-                {imageIndex + 1} / {images.length}
+              <div className="text-sm text-white/60">
+                {String(imageIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
               </div>
             )}
           </div>
@@ -431,10 +447,12 @@ export default function GalleryLightbox({
                   setPosition({ x: 0, y: 0 });
                   onNavigate?.(index);
                 }}
-                className={`flex-shrink-0 relative w-16 h-12 rounded-lg overflow-hidden border-2 transition-all ${index === imageIndex
-                    ? 'border-white scale-110'
-                    : 'border-transparent hover:border-white/50 opacity-60 hover:opacity-100'
+                className={`relative h-12 w-16 flex-shrink-0 overflow-hidden rounded-card border-2 transition-all duration-300 ease-brand ${index === imageIndex
+                    ? 'border-accent scale-110'
+                    : 'border-transparent opacity-60 hover:border-white/60 hover:opacity-100'
                   }`}
+                aria-label={`Xem ảnh ${index + 1}`}
+                aria-current={index === imageIndex}
               >
                 <Image
                   src={image.src}

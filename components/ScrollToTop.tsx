@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { EASE_BRAND } from './motion/ease';
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,7 +14,7 @@ export default function ScrollToTop() {
       setIsVisible(window.scrollY > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Check initial state
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -20,36 +23,39 @@ export default function ScrollToTop() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
     });
   };
 
-  if (!isVisible) return null;
-
   return (
-    <button
-      onClick={scrollToTop}
-      className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white shadow-lg hover:shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 group cursor-pointer"
-      aria-label="Lên đầu trang"
-      title="Lên đầu trang"
-    >
-      <svg
-        className="w-6 h-6 transition-transform group-hover:-translate-y-1"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M5 10l7-7m0 0l7 7m-7-7v18"
-        />
-      </svg>
-      
-      {/* Pulse ring animation */}
-      <span className="absolute inset-0 rounded-full bg-[#5f7ab8] opacity-30 animate-ping" />
-    </button>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          onClick={scrollToTop}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+          transition={{ duration: 0.3, ease: EASE_BRAND }}
+          className="group fixed bottom-6 right-4 z-40 flex h-12 w-12 cursor-pointer items-center justify-center rounded-pill bg-navy text-white shadow-lg transition-colors duration-300 ease-brand hover:bg-accent md:right-6 md:h-14 md:w-14"
+          aria-label="Lên đầu trang"
+          title="Lên đầu trang"
+        >
+          <svg
+            className="h-5 w-5 transition-transform duration-300 ease-brand group-hover:-translate-y-0.5 md:h-6 md:w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 }
-

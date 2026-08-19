@@ -152,7 +152,7 @@ export default function HomepageServicesTab({ services, onUpdate, saving, setSav
                 <div>
                     <h2 className="text-lg font-semibold text-dark dark:text-white">Dịch vụ trang chủ</h2>
                     <p className="text-sm text-muted dark:text-gray-400">
-                        Quản lý các dịch vụ hiển thị trong phần "Sản phẩm & Dịch vụ" trên trang chủ
+                        Quản lý các dịch vụ hiển thị trong phần &quot;Sản phẩm &amp; Dịch vụ&quot; trên trang chủ
                     </p>
                 </div>
                 <Button

@@ -43,25 +43,17 @@ export default function ProductCard({
     setShowQuickView(true);
   };
 
-  const handleWishlistToggle = (liked: boolean) => {
-    if (!liked) {
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isInWishlist) {
       WishlistManager.removeFromWishlist(product.id);
       showToast.info('Đã xóa khỏi yêu thích');
     } else {
       WishlistManager.addToWishlist(product);
       showToast.success(`Đã thêm "${product.name}" vào yêu thích`);
     }
-  };
-
-  // Extract product model and category from name
-  const getProductModel = () => {
-    // Try to extract model number/name (first part before category)
-    const parts = product.name.split(' ');
-    if (parts.length > 1) {
-      // Return first 2-3 words as model
-      return parts.slice(0, Math.min(3, parts.length - 1)).join(' ');
-    }
-    return product.name;
   };
 
   const getProductCategory = () => {
@@ -73,72 +65,102 @@ export default function ProductCard({
     <>
       <Link
         href={`/san-pham/${product.categorySlug || product.category}/${product.slug}`}
-        className={`block relative group h-full ${className}`}
+        className={`group flex h-full flex-col overflow-hidden rounded-card border border-navy/14 bg-background transition-colors duration-300 ease-brand hover:border-navy/30 ${className}`}
       >
-        {/* Background - Premium card with enhanced shadows */}
-        <div className="urun-liste-hover absolute inset-0 transition-all duration-500 rounded-2xl product-card-bg overflow-hidden bg-gradient-to-br from-slate-800/95 to-slate-900/98 shadow-[0_4px_20px_rgba(0,0,0,0.25),0_0_0_1px_rgba(255,255,255,0.05)] border border-white/8 z-10" />
-
-        {/* Image Container */}
-        <div className="relative w-full group-hover:z-30 transition-all duration-300 pt-12 pb-6 px-6 md:pt-[60px] md:pb-[30px] md:px-[35px] z-20">
+        {/* Image */}
+        <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-surface">
           {product.image ? (
-            <div className="relative w-full aspect-[4/3] min-h-[160px] max-h-[160px] md:min-h-[240px] md:max-h-[240px]">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-contain group-hover:scale-105 transition-transform duration-500 mix-blend-multiply [filter:contrast(1.1)_brightness(1.05)]"
-                quality={95}
-                priority={priority}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-              />
-            </div>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-contain p-6 transition-transform duration-[400ms] ease-brand group-hover:scale-105 md:p-8"
+              quality={95}
+              priority={priority}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            />
           ) : (
-            <div className="w-full aspect-[4/3] flex items-center justify-center text-gray-500 bg-white/5 min-h-[160px] max-h-[160px] md:min-h-[240px] md:max-h-[240px]">
-              <svg className="w-20 h-20 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex h-full w-full items-center justify-center text-navy/14">
+              <svg className="h-20 w-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
           )}
 
-          {/* Quick View Button */}
-          {!hideQuickView && (
+          {/* Hover actions */}
+          <div className="absolute right-4 top-4 flex flex-col gap-2">
             <button
-              onClick={handleQuickView}
-              className="absolute top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-0 md:opacity-0 md:group-hover:opacity-100 rounded-full bg-white/95 shadow-md hover:shadow-lg hover:bg-white"
-              aria-label={`Xem nhanh sản phẩm ${product.name}`}
-              title="Xem nhanh"
+              onClick={handleWishlistToggle}
+              className="flex h-10 w-10 items-center justify-center rounded-pill border border-navy/14 bg-background text-navy transition-all duration-300 ease-brand hover:scale-105 hover:border-accent hover:text-accent"
+              aria-label={
+                isInWishlist
+                  ? `Xóa ${product.name} khỏi yêu thích`
+                  : `Thêm ${product.name} vào yêu thích`
+              }
+              aria-pressed={isInWishlist}
+              title={isInWishlist ? 'Xóa khỏi yêu thích' : 'Thêm vào yêu thích'}
             >
               <svg
-                className="w-5 h-5 text-slate-700 group-hover:text-primary transition-colors"
-                fill="none"
+                className={`h-5 w-5 transition-colors ${isInWishlist ? 'text-accent' : ''}`}
+                fill={isInWishlist ? 'currentColor' : 'none'}
                 stroke="currentColor"
                 strokeWidth={2}
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
               </svg>
             </button>
-          )}
 
+            {!hideQuickView && (
+              <button
+                onClick={handleQuickView}
+                className="flex h-10 w-10 items-center justify-center rounded-pill border border-navy/14 bg-background text-navy opacity-0 transition-all duration-300 ease-brand hover:scale-105 hover:border-accent hover:text-accent focus-visible:opacity-100 group-hover:opacity-100"
+                aria-label={`Xem nhanh sản phẩm ${product.name}`}
+                title="Xem nhanh"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Title Box */}
-        <div className="relative px-6 pb-8 md:px-[35px] md:pb-[45px] z-15">
-          {/* Separator line - Premium gradient */}
-          <div className="product-separator transition-all duration-500 w-10 h-1 md:w-[60px] md:h-[5px] mb-4 md:mb-5 group-hover:w-16 md:group-hover:w-[80px] bg-gradient-to-r from-[#3b5998] via-[#5a7fc2] to-[#14b8a6] rounded shadow-[0_0_10px_rgba(59,89,152,0.3)]" />
-
-          {/* Product Model/Name - Enhanced typography */}
-          <div className="product-model transition-all duration-500 text-base md:text-xl font-bold leading-tight mb-2 md:mb-2.5 break-words line-clamp-2 text-white font-sans min-h-[2.4em] [text-shadow:0_1px_2px_rgba(0,0,0,0.2)]">
-            {product.name}
-          </div>
-
-          {/* Product Category/Type - Better contrast */}
-          <div className="product-category transition-all duration-500 text-xs md:text-sm font-medium leading-snug flex items-center gap-2 text-slate-400 font-sans">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-teal-400/70"></span>
+        {/* Body */}
+        <div className="flex flex-grow flex-col p-6 md:p-8">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.14em] text-accent">
             {getProductCategory()}
-          </div>
+          </p>
+
+          <h3 className="font-display text-d6 uppercase leading-display tracking-display text-navy transition-colors duration-300 ease-brand group-hover:text-accent">
+            {product.name}
+          </h3>
+
+          <span className="mt-auto flex items-center gap-2 pt-6 text-sm font-semibold text-navy transition-colors duration-300 ease-brand group-hover:text-accent">
+            Xem chi tiết
+            <svg
+              className="h-4 w-4 transition-transform duration-300 ease-brand group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
         </div>
       </Link>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import ArrowButton from './sections/ArrowButton';
 
 interface EmptyStateProps {
     icon?: React.ReactNode;
@@ -20,15 +20,15 @@ export default function EmptyState({
     className = ''
 }: EmptyStateProps) {
     return (
-        <div className={`text-center py-16 md:py-20 ${className}`}>
+        <div className={`rounded-card border border-navy/14 bg-surface px-6 py-20 text-center ${className}`}>
             {/* Icon */}
             {icon ? (
-                <div className="mb-6" aria-hidden="true">
+                <div className="mb-8 flex justify-center" aria-hidden="true">
                     {icon}
                 </div>
             ) : (
                 <svg
-                    className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 text-gray-300"
+                    className="mx-auto mb-8 h-20 w-20 text-navy/14"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -44,26 +44,22 @@ export default function EmptyState({
             )}
 
             {/* Title */}
-            <h3 className="text-xl md:text-2xl font-bold text-gray-700 mb-3">
+            <h3 className="font-display text-d5 uppercase leading-display tracking-display text-navy">
                 {title}
             </h3>
 
             {/* Description */}
-            <p className="text-gray-500 text-sm md:text-base mb-6 max-w-md mx-auto leading-relaxed">
+            <p className="mx-auto mt-4 max-w-md text-base leading-[1.6] text-ink">
                 {description}
             </p>
 
             {/* Action Button */}
             {actionLabel && actionHref && (
-                <Link
-                    href={actionHref}
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#4a6199] hover:to-[#3d4f7d] transition-all duration-300 shadow-md hover:shadow-xl"
-                >
-                    {actionLabel}
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                </Link>
+                <div className="mt-8 flex justify-center">
+                    <ArrowButton href={actionHref} variant="accent">
+                        {actionLabel}
+                    </ArrowButton>
+                </div>
             )}
         </div>
     );

@@ -75,39 +75,39 @@ export default function ConfirmDialog({
   const typeStyles = {
     danger: {
       icon: {
-        bg: 'bg-red-100',
-        text: 'text-red-600',
+        bg: 'bg-error/10',
+        text: 'text-error',
         svg: (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
         ),
       },
-      confirmButton: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+      confirmButton: 'bg-error text-white hover:bg-error/90 focus:ring-error',
     },
     warning: {
       icon: {
-        bg: 'bg-amber-100',
-        text: 'text-amber-600',
+        bg: 'bg-warning/10',
+        text: 'text-warning',
         svg: (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
         ),
       },
-      confirmButton: 'bg-amber-600 hover:bg-amber-700 focus:ring-amber-500',
+      confirmButton: 'bg-warning text-white hover:bg-warning/90 focus:ring-warning',
     },
     info: {
       icon: {
-        bg: 'bg-blue-100',
-        text: 'text-blue-600',
+        bg: 'bg-surface',
+        text: 'text-navy',
         svg: (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         ),
       },
-      confirmButton: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+      confirmButton: 'bg-navy text-white hover:bg-accent focus:ring-accent',
     },
   };
 
@@ -115,18 +115,18 @@ export default function ConfirmDialog({
 
   return (
     <div
-      className={`fixed inset-0 z-[100001] flex items-center justify-center p-4 transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[100001] flex items-center justify-center p-4 transition-opacity duration-300 ease-brand ${
         isAnimating ? 'opacity-100' : 'opacity-0'
       }`}
       onClick={onCancel}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-navy/60 backdrop-blur-sm" />
 
       {/* Dialog */}
       <div
-        className={`relative bg-white rounded-2xl shadow-2xl max-w-md w-full transition-all duration-300 ${
-          isAnimating ? 'scale-100 translate-y-0' : 'scale-95 translate-y-4'
+        className={`relative w-full max-w-md rounded-card border border-navy/14 bg-white shadow-xl transition-all duration-300 ease-brand ${
+          isAnimating ? 'translate-y-0 scale-100' : 'translate-y-4 scale-95'
         }`}
         onClick={(e) => e.stopPropagation()}
         role="alertdialog"
@@ -136,14 +136,14 @@ export default function ConfirmDialog({
         {/* Content */}
         <div className="p-6">
           {/* Icon */}
-          <div className={`mx-auto flex items-center justify-center w-12 h-12 rounded-full ${styles.icon.bg} mb-4`}>
-            <span className={styles.icon.text}>{styles.icon.svg}</span>
+          <div className={`mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-card ${styles.icon.bg} ${styles.icon.text}`}>
+            {styles.icon.svg}
           </div>
 
           {/* Title */}
           <h3
             id="confirm-dialog-title"
-            className="text-lg font-semibold text-gray-900 text-center mb-2"
+            className="text-center font-display text-d6 uppercase leading-display tracking-display text-navy"
           >
             {title}
           </h3>
@@ -151,7 +151,7 @@ export default function ConfirmDialog({
           {/* Message */}
           <p
             id="confirm-dialog-description"
-            className="text-sm text-gray-600 text-center mb-6"
+            className="mx-auto mt-3 mb-6 max-w-sm text-center text-sm leading-[1.6] text-ink"
           >
             {message}
           </p>
@@ -162,7 +162,7 @@ export default function ConfirmDialog({
               ref={cancelButtonRef}
               type="button"
               onClick={onCancel}
-              className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200"
+              className="flex-1 rounded-pill border border-navy/14 bg-white px-4 py-2.5 text-sm font-semibold text-navy transition-colors duration-300 ease-brand hover:border-navy focus:outline-none focus:ring-2 focus:ring-navy/40 focus:ring-offset-2"
             >
               {cancelText}
             </button>
@@ -170,7 +170,7 @@ export default function ConfirmDialog({
               ref={confirmButtonRef}
               type="button"
               onClick={onConfirm}
-              className={`flex-1 px-4 py-2.5 text-sm font-medium text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200 ${styles.confirmButton}`}
+              className={`flex-1 rounded-pill px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ease-brand focus:outline-none focus:ring-2 focus:ring-offset-2 ${styles.confirmButton}`}
             >
               {confirmText}
             </button>
@@ -178,8 +178,8 @@ export default function ConfirmDialog({
         </div>
 
         {/* Keyboard hint */}
-        <div className="px-6 pb-4 pt-0">
-          <p className="text-xs text-gray-400 text-center">
+        <div className="border-t border-navy/14 px-6 py-3">
+          <p className="text-center text-[11px] uppercase tracking-wide text-muted">
             ESC để hủy • Ctrl+Enter để xác nhận
           </p>
         </div>

@@ -158,7 +158,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[70] overflow-hidden"
+            className="fixed inset-0 z-[70] overflow-hidden bg-navy/70 backdrop-blur-sm"
           >
             {/* Modal Container - Centered */}
             <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 md:p-8">
@@ -167,22 +167,23 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ type: 'spring', duration: 0.5 }}
-                className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full relative max-h-[90vh] overflow-y-auto"
+                className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-card border border-navy/14 bg-background shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="sticky top-4 right-4 z-10 w-10 h-10 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 ml-auto mb-4 mr-4 mt-4"
+                aria-label="Đóng"
+                className="sticky top-4 right-4 z-10 ml-auto mb-4 mr-4 mt-4 flex h-10 w-10 items-center justify-center rounded-pill border border-navy/14 bg-background text-navy transition-colors duration-300 ease-brand hover:border-navy/30 hover:bg-surface"
               >
-                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
 
               <div className="grid md:grid-cols-2 gap-8 lg:gap-12 p-6 md:p-8 lg:p-10 pt-0">
                 {/* Product Image */}
-                <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
+                <div className="relative aspect-square overflow-hidden rounded-card bg-surface">
                   {product.image ? (
                     <Image
                       src={product.image}
@@ -193,16 +194,16 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <svg className="w-24 h-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-24 w-24 text-navy/14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>
                   )}
-                  
+
                   {/* Featured Badge */}
                   {product.featured && (
                     <div className="absolute top-4 left-4">
-                      <span className="bg-gradient-to-r from-[#f97316] to-[#ea580c] text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
+                      <span className="rounded-pill bg-accent px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-white">
                         Nổi bật
                       </span>
                     </div>
@@ -213,13 +214,13 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                 <div className="flex flex-col space-y-6">
                   {/* Category */}
                   <div>
-                    <span className="inline-block bg-gray-100 text-gray-700 px-3 py-1.5 rounded-full text-xs font-medium">
+                    <span className="inline-flex items-center rounded-pill border border-navy/14 bg-surface px-4 py-2 text-sm font-medium leading-none text-navy">
                       {product.categoryName || product.category}
                     </span>
                   </div>
 
                   {/* Product Name */}
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+                  <h2 className="font-display text-d4 uppercase leading-display tracking-display text-navy">
                     {product.name}
                   </h2>
 
@@ -228,7 +229,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                     <div className="w-full">
                       {(() => {
                         // Clean and format text: remove HTML tags and WordPress shortcodes
-                        let formatted = formatDescription(product.description);
+                        const formatted = formatDescription(product.description);
                         
                         const isLong = formatted.length > MAX_DESCRIPTION_LENGTH;
                         const displayText = isLong && !isDescriptionExpanded 
@@ -237,8 +238,8 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                         
                         return (
                           <>
-                            <div 
-                              className="text-gray-600 leading-relaxed text-base md:text-lg break-words"
+                            <div
+                              className="break-words text-base leading-[1.6] text-ink"
                               style={{
                                 wordWrap: 'break-word',
                                 overflowWrap: 'break-word',
@@ -251,7 +252,7 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                             {isLong && (
                               <button
                                 onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                                className="mt-3 text-[#5f7ab8] hover:text-[#4a6199] font-medium text-sm transition-colors duration-200 inline-flex items-center gap-1"
+                                className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-navy transition-colors duration-300 ease-brand hover:text-accent"
                               >
                                 {isDescriptionExpanded ? (
                                   <>
@@ -279,29 +280,34 @@ export default function QuickViewModal({ product, isOpen, onClose }: QuickViewMo
                   {/* Specifications */}
                   {product.specifications && Object.keys(product.specifications).length > 0 && (
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-4 text-lg">Thông số kỹ thuật:</h3>
-                      <div className="space-y-3 bg-gray-50 rounded-lg p-4">
+                      <h3 className="font-display mb-4 text-d6 uppercase leading-display tracking-display text-navy">
+                        Thông số kỹ thuật
+                      </h3>
+                      <dl className="rounded-card border border-navy/14 bg-surface p-5">
                         {Object.entries(product.specifications).map(([key, value]) => (
-                          <div key={key} className="flex justify-between items-start py-2 border-b border-gray-200 last:border-0">
-                            <span className="text-sm md:text-base text-gray-600 font-medium pr-4">{key}:</span>
-                            <span className="text-sm md:text-base font-medium text-gray-900 text-right flex-1">{value}</span>
+                          <div
+                            key={key}
+                            className="flex items-start justify-between gap-4 border-b border-navy/14 py-2.5 first:pt-0 last:border-0 last:pb-0"
+                          >
+                            <dt className="text-sm font-medium text-ink">{key}</dt>
+                            <dd className="flex-1 text-right text-sm font-semibold text-navy">{value}</dd>
                           </div>
                         ))}
-                      </div>
+                      </dl>
                     </div>
                   )}
 
                   {/* Action Buttons */}
-                  <div className="mt-auto pt-4 space-y-3">
+                  <div className="mt-auto space-y-3 pt-4">
                     <Link
                       href={`/san-pham/${product.categorySlug}/${product.slug}`}
-                      className="block w-full bg-gradient-to-r from-[#5f7ab8] to-[#4a6199] text-white py-3 px-6 rounded-xl font-semibold text-center hover:shadow-xl hover:scale-105 transition-all duration-300"
+                      className="block w-full rounded-pill bg-accent px-6 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.06em] text-white transition-colors duration-300 ease-brand hover:bg-accent-dark"
                     >
                       Xem chi tiết đầy đủ
                     </Link>
                     <Link
                       href="/lien-he"
-                      className="block w-full border-2 border-[#5f7ab8] text-[#5f7ab8] py-3 px-6 rounded-xl font-semibold text-center hover:bg-[#5f7ab8] hover:text-white transition-all duration-300"
+                      className="block w-full rounded-pill border border-navy px-6 py-3.5 text-center text-sm font-semibold uppercase tracking-[0.06em] text-navy transition-colors duration-300 ease-brand hover:bg-navy hover:text-white"
                     >
                       Liên hệ tư vấn
                     </Link>

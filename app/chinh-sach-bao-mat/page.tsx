@@ -1,5 +1,16 @@
 import { generateMetadata as genMeta } from '@/lib/seo';
 import type { Metadata } from 'next';
+import {
+  PageHero,
+  Section,
+  CTABand,
+  ArrowButton,
+  ServiceCard,
+  LegalSection,
+  LegalList,
+  Callout,
+} from '@/components/sections';
+import Reveal from '@/components/motion/Reveal';
 
 export const metadata: Metadata = genMeta({
   title: 'Chính Sách Bảo Mật',
@@ -14,374 +25,277 @@ export const metadata: Metadata = genMeta({
   ],
 });
 
-export default function PrivacyPolicyPage() {
+/** Shared icon geometry for the security cards and the contact block. */
+function Icon({ path, className = 'h-6 w-6' }: { path: string; className?: string }) {
   return (
-    <div className="min-h-screen bg-[#050c3a] relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative border-b border-white/10 text-white pt-32 md:pt-28 pb-20 md:pb-28">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-            backgroundSize: '50px 50px'
-          }}></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block px-4 py-2 bg-white/20 rounded-full text-sm font-semibold mb-6">
-              CẬP NHẬT: {new Date().toLocaleDateString('vi-VN')}
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Chính Sách Bảo Mật</h1>
-            <p className="text-xl text-gray-100">
-              Cam kết bảo vệ thông tin cá nhân của khách hàng
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Content Section */}
-      <section className="py-16 md:py-20 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl shadow-lg border border-white/10 p-8 md:p-12 space-y-8">
-              
-              {/* Introduction */}
-              <div className="prose prose-lg max-w-none">
-                <p className="text-gray-300 leading-relaxed">
-                  Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương (NEW ATLANTIC) cam kết bảo vệ quyền riêng tư và thông tin cá nhân của khách hàng. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ thông tin của bạn.
-                </p>
-              </div>
-
-              {/* Section 1 */}
-              <div className="border-l-4 border-blue-400 pl-6">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg font-bold">1</span>
-                  Thu Thập Thông Tin
-                </h2>
-                <div className="space-y-4 text-gray-300">
-                  <p className="leading-relaxed">
-                    Chúng tôi thu thập thông tin khi bạn:
-                  </p>
-                  <ul className="space-y-2 ml-6">
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Đăng ký tài khoản hoặc liên hệ với chúng tôi</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Yêu cầu báo giá hoặc tư vấn sản phẩm</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Đặt hàng sản phẩm hoặc dịch vụ</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Tham gia khảo sát hoặc chương trình khuyến mãi</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Truy cập và sử dụng website của chúng tôi</span>
-                    </li>
-                  </ul>
-                  <div className="bg-white/5 rounded-xl p-6 mt-4">
-                    <h3 className="font-semibold text-white mb-3">Thông tin chúng tôi có thể thu thập:</h3>
-                    <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        Họ tên, chức vụ, tên công ty
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        Địa chỉ email, số điện thoại
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        Địa chỉ giao hàng và thanh toán
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        Thông tin kỹ thuật (IP, trình duyệt, thiết bị)
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 2 */}
-              <div className="border-l-4 border-blue-400 pl-6">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg font-bold">2</span>
-                  Mục Đích Sử Dụng Thông Tin
-                </h2>
-                <div className="space-y-3 text-gray-300">
-                  <p className="leading-relaxed">Thông tin của bạn được sử dụng để:</p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <strong className="text-white">Xử lý đơn hàng:</strong> Xác nhận, giao hàng và hỗ trợ sau bán hàng
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <strong className="text-white">Tư vấn kỹ thuật:</strong> Cung cấp thông tin sản phẩm và giải pháp phù hợp
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <strong className="text-white">Cải thiện dịch vụ:</strong> Nâng cao chất lượng sản phẩm và trải nghiệm khách hàng
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <strong className="text-white">Marketing:</strong> Gửi thông tin khuyến mãi, sản phẩm mới (chỉ khi có sự đồng ý)
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <strong className="text-white">Tuân thủ pháp luật:</strong> Đáp ứng các yêu cầu pháp lý và quy định
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Section 3 */}
-              <div className="border-l-4 border-blue-400 pl-6">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg font-bold">3</span>
-                  Bảo Mật Thông Tin
-                </h2>
-                <div className="space-y-4 text-gray-300">
-                  <p className="leading-relaxed">
-                    Chúng tôi áp dụng các biện pháp bảo mật nghiêm ngặt để bảo vệ thông tin của bạn:
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-5">
-                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                      </div>
-                      <h3 className="font-semibold text-white mb-2">Mã hóa dữ liệu</h3>
-                      <p className="text-sm">Sử dụng SSL/TLS để bảo vệ thông tin truyền tải</p>
-                    </div>
-                    <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-5">
-                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                      </div>
-                      <h3 className="font-semibold text-white mb-2">Kiểm soát truy cập</h3>
-                      <p className="text-sm">Chỉ nhân viên được ủy quyền mới có quyền truy cập</p>
-                    </div>
-                    <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-5">
-                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-                        </svg>
-                      </div>
-                      <h3 className="font-semibold text-white mb-2">Máy chủ an toàn</h3>
-                      <p className="text-sm">Lưu trữ trên hệ thống máy chủ bảo mật cao</p>
-                    </div>
-                    <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-5">
-                      <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-3">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                      </div>
-                      <h3 className="font-semibold text-white mb-2">Sao lưu định kỳ</h3>
-                      <p className="text-sm">Backup dữ liệu thường xuyên để đảm bảo an toàn</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 4 */}
-              <div className="border-l-4 border-blue-400 pl-6">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg font-bold">4</span>
-                  Chia Sẻ Thông Tin
-                </h2>
-                <div className="space-y-4 text-gray-300">
-                  <p className="leading-relaxed">
-                    Chúng tôi <strong className="text-white">KHÔNG</strong> bán, trao đổi hoặc cho thuê thông tin cá nhân của bạn cho bên thứ ba. Thông tin chỉ được chia sẻ trong các trường hợp:
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span><strong>Đối tác vận chuyển:</strong> Để giao hàng đến địa chỉ của bạn</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span><strong>Nhà cung cấp dịch vụ:</strong> Hỗ trợ vận hành website và thanh toán</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span><strong>Yêu cầu pháp lý:</strong> Khi được yêu cầu bởi cơ quan có thẩm quyền</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span><strong>Có sự đồng ý:</strong> Khi bạn cho phép chia sẻ thông tin</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Section 5 */}
-              <div className="border-l-4 border-blue-400 pl-6">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg font-bold">5</span>
-                  Quyền Của Bạn
-                </h2>
-                <div className="space-y-4 text-gray-300">
-                  <p className="leading-relaxed">Bạn có các quyền sau đối với thông tin cá nhân của mình:</p>
-                  <div className="bg-white/5 rounded-xl p-6 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <svg className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <div>
-                        <strong className="text-white">Quyền truy cập:</strong> Yêu cầu xem thông tin chúng tôi đang lưu trữ
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <svg className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <div>
-                        <strong className="text-white">Quyền chỉnh sửa:</strong> Cập nhật hoặc sửa đổi thông tin không chính xác
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <svg className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <div>
-                        <strong className="text-white">Quyền xóa:</strong> Yêu cầu xóa thông tin cá nhân (trong phạm vi cho phép)
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <svg className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <div>
-                        <strong className="text-white">Quyền từ chối:</strong> Không nhận email marketing hoặc tin khuyến mãi
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 6 */}
-              <div className="border-l-4 border-blue-400 pl-6">
-                <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="w-10 h-10 bg-blue-500 text-white rounded-lg flex items-center justify-center text-lg font-bold">6</span>
-                  Cookies
-                </h2>
-                <div className="space-y-4 text-gray-300">
-                  <p className="leading-relaxed">
-                    Website sử dụng cookies để cải thiện trải nghiệm người dùng. Cookies giúp chúng tôi:
-                  </p>
-                  <ul className="space-y-2 ml-6">
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Ghi nhớ thông tin đăng nhập và tùy chọn của bạn</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Phân tích lưu lượng truy cập và hành vi người dùng</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></span>
-                      <span>Cải thiện hiệu suất và chức năng website</span>
-                    </li>
-                  </ul>
-                  <p className="text-sm bg-yellow-500/10 border-l-4 border-yellow-400 p-4 rounded text-gray-300">
-                    <strong>Lưu ý:</strong> Bạn có thể từ chối cookies thông qua cài đặt trình duyệt, tuy nhiên điều này có thể ảnh hưởng đến trải nghiệm sử dụng website.
-                  </p>
-                </div>
-              </div>
-
-              {/* Contact Section */}
-              <div className="bg-gradient-to-br from-[#5f7ab8] to-[#4a6199] rounded-2xl p-8 text-white">
-                <h2 className="text-2xl font-bold mb-4">Liên Hệ</h2>
-                <p className="mb-6 text-gray-100">
-                  Nếu bạn có bất kỳ câu hỏi nào về chính sách bảo mật này hoặc muốn thực hiện các quyền của mình, vui lòng liên hệ:
-                </p>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                    </svg>
-                    <a href="mailto:info@newatlantic.vn" className="hover:text-gray-200 transition">info@newatlantic.vn</a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    <a href="tel:+842838733686" className="hover:text-gray-200 transition">+84 2838 733 686</a>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                    </svg>
-                    <span>A60 Phú Thuận, Phường Phú Thuận, Quận 7, TP. Hồ Chí Minh</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Update Notice */}
-              <div className="text-center pt-8 border-t border-white/10">
-                <p className="text-sm text-gray-400">
-                  Chính sách này có hiệu lực từ ngày {new Date().toLocaleDateString('vi-VN')}.<br />
-                  Chúng tôi có thể cập nhật chính sách này theo thời gian. Mọi thay đổi sẽ được thông báo trên website.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d={path} />
+    </svg>
   );
 }
 
+const SECURITY_MEASURES = [
+  {
+    title: 'Mã hóa dữ liệu',
+    description: 'Sử dụng SSL/TLS để bảo vệ thông tin truyền tải.',
+    icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
+  },
+  {
+    title: 'Kiểm soát truy cập',
+    description: 'Chỉ nhân viên được ủy quyền mới có quyền truy cập.',
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+  },
+  {
+    title: 'Máy chủ an toàn',
+    description: 'Lưu trữ trên hệ thống máy chủ bảo mật cao.',
+    icon: 'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01',
+  },
+  {
+    title: 'Sao lưu định kỳ',
+    description: 'Backup dữ liệu thường xuyên để đảm bảo an toàn.',
+    icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
+  },
+];
+
+const CONTACT = [
+  {
+    label: 'info@newatlantic.vn',
+    href: 'mailto:info@newatlantic.vn',
+    icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+  },
+  {
+    label: '+84 2838 733 686',
+    href: 'tel:+842838733686',
+    icon: 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z',
+  },
+  {
+    label: 'A60 Phú Thuận, Phường Phú Thuận, Quận 7, TP. Hồ Chí Minh',
+    icon: 'M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z',
+  },
+];
+
+export default function PrivacyPolicyPage() {
+  const updatedAt = new Date().toLocaleDateString('vi-VN');
+
+  return (
+    <>
+      <PageHero
+        eyebrow={`Cập nhật: ${updatedAt}`}
+        title="Chính sách bảo mật"
+        intro="Cam kết bảo vệ quyền riêng tư và thông tin cá nhân của khách hàng NEW ATLANTIC."
+        breadcrumbs={[{ name: 'Trang chủ', href: '/' }, { name: 'Chính sách bảo mật' }]}
+      />
+
+      <Section>
+        <div className="mx-auto max-w-4xl space-y-14">
+          {/* Lead paragraph */}
+          <Reveal>
+            <p className="text-lg leading-[1.6] text-ink">
+              Công ty Cổ phần Thương mại Quốc tế Tân Đại Tây Dương (NEW ATLANTIC) cam kết bảo vệ quyền riêng tư và
+              thông tin cá nhân của khách hàng. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng,
+              lưu trữ và bảo vệ thông tin của bạn.
+            </p>
+          </Reveal>
+
+          <LegalSection index={1} title="Thu thập thông tin">
+            <p>Chúng tôi thu thập thông tin khi bạn:</p>
+            <LegalList
+              items={[
+                'Đăng ký tài khoản hoặc liên hệ với chúng tôi',
+                'Yêu cầu báo giá hoặc tư vấn sản phẩm',
+                'Đặt hàng sản phẩm hoặc dịch vụ',
+                'Tham gia khảo sát hoặc chương trình khuyến mãi',
+                'Truy cập và sử dụng website của chúng tôi',
+              ]}
+            />
+
+            <div className="rounded-card border border-navy/14 bg-surface p-6">
+              <h3 className="mb-4 text-base font-semibold text-navy">
+                Thông tin chúng tôi có thể thu thập:
+              </h3>
+              <LegalList
+                items={[
+                  'Họ tên, chức vụ, tên công ty',
+                  'Địa chỉ email, số điện thoại',
+                  'Địa chỉ giao hàng và thanh toán',
+                  'Thông tin kỹ thuật (IP, trình duyệt, thiết bị)',
+                ]}
+              />
+            </div>
+          </LegalSection>
+
+          <LegalSection index={2} title="Mục đích sử dụng thông tin">
+            <p>Thông tin của bạn được sử dụng để:</p>
+            <LegalList
+              items={[
+                <>
+                  <strong className="font-semibold text-navy">Xử lý đơn hàng:</strong> Xác nhận, giao hàng và hỗ trợ
+                  sau bán hàng
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Tư vấn kỹ thuật:</strong> Cung cấp thông tin sản phẩm
+                  và giải pháp phù hợp
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Cải thiện dịch vụ:</strong> Nâng cao chất lượng sản
+                  phẩm và trải nghiệm khách hàng
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Marketing:</strong> Gửi thông tin khuyến mãi, sản phẩm
+                  mới (chỉ khi có sự đồng ý)
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Tuân thủ pháp luật:</strong> Đáp ứng các yêu cầu pháp
+                  lý và quy định
+                </>,
+              ]}
+            />
+          </LegalSection>
+
+          <LegalSection index={3} title="Bảo mật thông tin">
+            <p>Chúng tôi áp dụng các biện pháp bảo mật nghiêm ngặt để bảo vệ thông tin của bạn:</p>
+            <div className="grid gap-6 md:grid-cols-2">
+              {SECURITY_MEASURES.map((measure) => (
+                <ServiceCard
+                  key={measure.title}
+                  title={measure.title}
+                  description={measure.description}
+                  icon={<Icon path={measure.icon} />}
+                />
+              ))}
+            </div>
+          </LegalSection>
+
+          <LegalSection index={4} title="Chia sẻ thông tin">
+            <p>
+              Chúng tôi <strong className="font-semibold text-navy">KHÔNG</strong> bán, trao đổi hoặc cho thuê thông
+              tin cá nhân của bạn cho bên thứ ba. Thông tin chỉ được chia sẻ trong các trường hợp:
+            </p>
+            <LegalList
+              items={[
+                <>
+                  <strong className="font-semibold text-navy">Đối tác vận chuyển:</strong> Để giao hàng đến địa chỉ
+                  của bạn
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Nhà cung cấp dịch vụ:</strong> Hỗ trợ vận hành website
+                  và thanh toán
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Yêu cầu pháp lý:</strong> Khi được yêu cầu bởi cơ quan
+                  có thẩm quyền
+                </>,
+                <>
+                  <strong className="font-semibold text-navy">Có sự đồng ý:</strong> Khi bạn cho phép chia sẻ thông
+                  tin
+                </>,
+              ]}
+            />
+          </LegalSection>
+
+          <LegalSection index={5} title="Quyền của bạn">
+            <p>Bạn có các quyền sau đối với thông tin cá nhân của mình:</p>
+            <div className="rounded-card border border-navy/14 bg-surface p-6">
+              <LegalList
+                items={[
+                  <>
+                    <strong className="font-semibold text-navy">Quyền truy cập:</strong> Yêu cầu xem thông tin chúng
+                    tôi đang lưu trữ
+                  </>,
+                  <>
+                    <strong className="font-semibold text-navy">Quyền chỉnh sửa:</strong> Cập nhật hoặc sửa đổi thông
+                    tin không chính xác
+                  </>,
+                  <>
+                    <strong className="font-semibold text-navy">Quyền xóa:</strong> Yêu cầu xóa thông tin cá nhân
+                    (trong phạm vi cho phép)
+                  </>,
+                  <>
+                    <strong className="font-semibold text-navy">Quyền từ chối:</strong> Không nhận email marketing
+                    hoặc tin khuyến mãi
+                  </>,
+                ]}
+              />
+            </div>
+          </LegalSection>
+
+          <LegalSection index={6} title="Cookies">
+            <p>Website sử dụng cookies để cải thiện trải nghiệm người dùng. Cookies giúp chúng tôi:</p>
+            <LegalList
+              items={[
+                'Ghi nhớ thông tin đăng nhập và tùy chọn của bạn',
+                'Phân tích lưu lượng truy cập và hành vi người dùng',
+                'Cải thiện hiệu suất và chức năng website',
+              ]}
+            />
+            <Callout label="Lưu ý" tone="warning">
+              Bạn có thể từ chối cookies thông qua cài đặt trình duyệt, tuy nhiên điều này có thể ảnh hưởng đến trải
+              nghiệm sử dụng website.
+            </Callout>
+          </LegalSection>
+
+          {/* Contact */}
+          <Reveal className="rounded-card border border-navy/14 bg-surface p-8 md:p-10">
+            <h2 className="font-display text-d5 uppercase leading-display tracking-display text-navy">Liên hệ</h2>
+            <p className="mt-4 text-base leading-[1.6] text-ink">
+              Nếu bạn có bất kỳ câu hỏi nào về chính sách bảo mật này hoặc muốn thực hiện các quyền của mình, vui lòng
+              liên hệ:
+            </p>
+            <ul className="mt-6 space-y-4">
+              {CONTACT.map((item) => (
+                <li key={item.label} className="flex items-start gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-pill bg-accent text-white"
+                  >
+                    <Icon path={item.icon} className="h-5 w-5" />
+                  </span>
+                  {/* `min-w-0 break-words`: CONTACT carries an email and a long
+                      street address. As flex children they default to
+                      `min-width: auto` and so would not shrink below their
+                      longest token, overflowing this bordered card on narrow
+                      phones. */}
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      className="min-w-0 break-words pt-2.5 text-base font-medium text-navy transition-colors duration-300 ease-brand hover:text-accent"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <span className="min-w-0 break-words pt-2.5 text-base leading-[1.6] text-ink">{item.label}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          {/* Update notice */}
+          <div className="border-t border-navy/14 pt-8 text-center text-sm leading-[1.6] text-muted">
+            <p>
+              Chính sách này có hiệu lực từ ngày {updatedAt}.
+              <br />
+              Chúng tôi có thể cập nhật chính sách này theo thời gian. Mọi thay đổi sẽ được thông báo trên website.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <CTABand
+        eyebrow="Còn câu hỏi?"
+        title="Chúng tôi luôn sẵn sàng giải đáp"
+        intro="Liên hệ với NEW ATLANTIC để được hỗ trợ về quyền riêng tư, dữ liệu cá nhân hoặc bất kỳ thắc mắc nào khác."
+        actions={
+          <>
+            <ArrowButton href="/lien-he" variant="accent">
+              Liên hệ ngay
+            </ArrowButton>
+            <ArrowButton href="/dieu-khoan-dich-vu" variant="outline-light">
+              Điều khoản dịch vụ
+            </ArrowButton>
+          </>
+        }
+      />
+    </>
+  );
+}

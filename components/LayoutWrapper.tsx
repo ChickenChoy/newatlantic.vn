@@ -1,14 +1,12 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Header from "@/components/Header";
 import HeaderBottom from "@/components/HeaderBottom";
 import Footer, { FooterProps } from "@/components/Footer";
 
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
 import ScrollToTop from "@/components/ScrollToTop";
-import GlobalBackground from "@/components/GlobalBackground";
 import HolidayDecorations from "@/components/HolidayDecorations";
 import PageGuard from "@/components/PageGuard";
 import TetAnnouncementPopup from "@/components/TetAnnouncementPopup";
@@ -28,7 +26,7 @@ export default function LayoutWrapper({
     children,
     footerData,
 }: LayoutWrapperProps) {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? '';
 
     // Check if current path is a standalone route (no header/footer)
     const isStandalonePage = STANDALONE_ROUTES.some(
@@ -54,17 +52,15 @@ export default function LayoutWrapper({
 
     // For normal pages, render with full layout
     return (
-        <>
-            <GlobalBackground />
+        <div className="bg-background text-foreground">
             <ScrollProgressBar />
             <HolidayDecorations />
-            <Header />
             <HeaderBottom />
             <main className="min-h-screen">{pageContent}</main>
             <Footer {...footerData} />
             <FloatingContactButtons />
             <ScrollToTop />
             <TetAnnouncementPopup />
-        </>
+        </div>
     );
 }

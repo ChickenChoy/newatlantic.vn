@@ -86,7 +86,6 @@ export default function ProductPage({ params }: ProductPageProps) {
     } finally {
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependencies - function should only be created once
 
   useEffect(() => {

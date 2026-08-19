@@ -77,7 +77,7 @@ function generateParticles(holidaySlug: string): Particle[] {
  * HolidayDecorations - Dynamic falling effects for all holidays
  */
 export default function HolidayDecorations() {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? '';
     const [mounted, setMounted] = useState(false);
     const [activeHoliday, setActiveHoliday] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);

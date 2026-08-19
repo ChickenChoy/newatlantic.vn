@@ -116,26 +116,38 @@
 }
 
 :root {
-  /* === UPGRADED PREMIUM COLOR SYSTEM === */
+  /* === BRAND COLOR SYSTEM ===
+     Navy + orange identity. Variable names are kept stable so the existing
+     .btn / .card rules further down this file inherit the new palette. */
   --background: #ffffff;
-  --background-alt: #f8fafc;
-  --foreground: #0f172a;
-  --foreground-muted: #64748b;
+  --background-alt: #f6f6f6;
+  --foreground: #0a2540;
+  --foreground-muted: #555555;
 
-  /* Primary - Deeper, more striking blue */
-  --primary: #3b5998;
-  --primary-dark: #2d4373;
-  --primary-light: #5a7fc2;
-  --primary-gradient: linear-gradient(135deg, #3b5998 0%, #5a7fc2 50%, #3b5998 100%);
+  /* Primary - deep navy, the dominant surface colour */
+  --primary: #0a2540;
+  --primary-dark: #071a2e;
+  --primary-light: #1c3d5f;
+  --primary-gradient: linear-gradient(135deg, #0a2540 0%, #1c3d5f 50%, #0a2540 100%);
 
   /* Secondary */
-  --secondary: #f1f5f9;
-  --secondary-dark: #e2e8f0;
+  --secondary: #f6f6f6;
+  --secondary-dark: #e8e8e8;
 
-  /* Accent - Vibrant coral red */
-  --accent: #ef4444;
-  --accent-light: #f87171;
-  --accent-gradient: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+  /* Accent - signal orange, reserved for CTAs and emphasis */
+  --accent: #ff5f00;
+  --accent-light: #ff7d2e;
+  --accent-dark: #d94f00;
+  --accent-gradient: linear-gradient(135deg, #ff5f00 0%, #ff9147 100%);
+
+  /* Translucent brand layers, used for borders and overlays on
+     navy and photographic backgrounds */
+  --navy-14: rgba(10, 37, 64, 0.14);
+  --navy-30: rgba(10, 37, 64, 0.3);
+  --white-80: rgba(255, 255, 255, 0.8);
+  --white-60: rgba(255, 255, 255, 0.6);
+  --white-14: rgba(255, 255, 255, 0.14);
+  --muted: #999999;
 
   /* Status colors */
   --success: #10b981;
@@ -167,8 +179,8 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(59, 89, 152, 0.3);
-  --shadow-glow-accent: 0 0 20px rgba(239, 68, 68, 0.3);
+  --shadow-glow: 0 0 20px rgba(10, 37, 64, 0.3);
+  --shadow-glow-accent: 0 0 20px rgba(255, 95, 0, 0.3);
 
   /* Border radius */
   --radius-sm: 0.375rem;
@@ -177,116 +189,307 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-full: 9999px;
+  /* Brand shapes: 10px on cards and media, 100px on pill buttons */
+  --radius-card: 10px;
+  --radius-pill: 100px;
 
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transitions - one signature easing curve across the whole site */
+  --ease-brand: cubic-bezier(0.44, 0, 0.56, 1);
+  --transition-fast: 200ms var(--ease-brand);
+  --transition-normal: 300ms var(--ease-brand);
+  --transition-slow: 400ms var(--ease-brand);
 }
 
 @theme inline {
+  /* Core semantic colours */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
-  --font-sans: var(--font-inter);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+
+  /* Brand palette as utilities: bg-navy, text-accent, bg-surface, text-ink,
+     and opacity modifiers such as border-navy/14 */
+  --color-navy: var(--primary);
+  --color-navy-dark: var(--primary-dark);
+  --color-navy-light: var(--primary-light);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+  --color-surface: var(--background-alt);
+  --color-ink: var(--foreground-muted);
+  --color-muted: var(--muted);
+
+  /* State colours. Kept out of the brand palette on purpose: they only ever
+     carry meaning (toasts, form validation), never decoration. */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  /* Typography */
+  --font-display: var(--font-oswald), "Arial Narrow", system-ui, sans-serif;
+  --font-body: var(--font-be-vietnam), var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-be-vietnam), var(--font-inter), system-ui, sans-serif;
+
+  /* Display type scale, fluid against the template's 1440px design width so
+     each step lands on its exact ceiling there and degrades cleanly to 390px.
+     d1 hero 200px · d2 sub-hero 120px · d3 big section 76px ·
+     d4 section 48px · d5 card title 32px · d6 label 24px.
+     The display face is condensed with -0.02em tracking; pair these with
+     `font-display uppercase tracking-tight` and a tight leading. */
+  --text-d1: clamp(4rem, 13.89vw, 12.5rem);
+  --text-d2: clamp(3rem, 8.33vw, 7.5rem);
+  --text-d3: clamp(2.5rem, 5.28vw, 4.75rem);
+  --text-d4: clamp(1.875rem, 3.33vw, 3rem);
+  --text-d5: clamp(1.25rem, 2.22vw, 2rem);
+  --text-d6: clamp(1rem, 1.67vw, 1.5rem);
+
+  /* Layout */
+  --container-site: 1200px;
+
+  /* Vertical section rhythm: the template's 120px desktop padding, easing down
+     to 64px on phones. Used as `py-section`. Horizontal gutter is 30px. */
+  --spacing-section: clamp(4rem, 8.33vw, 7.5rem);
+  --spacing-gutter: 30px;
+
+  /* The condensed display face is drawn tight */
+  --tracking-display: -0.02em;
+
+  /* Line height for display headings. NOT `leading-none`.
+
+     Measured from the shipped Oswald Vietnamese subset (upem 1000):
+
+       cap height (Ị)          0.810em
+       single mark above (Ă)   1.009em   (Ồ Ế 1.086 · Ả 1.062 · Ừ 1.056)
+       stacked marks (Ẫ)       1.184em   (Ẩ 1.143)
+       dot below (Ị Ọ Ụ Ự)    -0.176em
+
+     Two lines of uppercase only clear each other when the baseline-to-baseline
+     distance — which is exactly the line-height — exceeds the lower line's ink
+     top plus the upper line's ink depth. At `leading-none` a mark above sits
+     0.19em ABOVE the previous baseline, which is what made "NĂM 2003" collide
+     with "HÀNH TRÌNH TỪ" and dropped the Ị of "THIẾT BỊ" into "CÔNG TRÌNH".
+
+     1.25 clears the common case (1.009 + 0.176 = 1.185) with room to spare and
+     the frequent Ồ/Ế case (1.086 + 0.176 = 1.262) at a hair under a pixel at
+     body sizes. Only a stacked Ẫ/Ẩ sitting directly under a dot-below capital
+     still needs more (1.36), which no heading on the site currently hits.
+
+     Latin display type would take 1.0 here; Vietnamese cannot. */
+  --leading-display: 1.25;
+
+  /* Shapes and motion */
+  --radius-card: 10px;
+  --radius-pill: 100px;
+  --ease-brand: cubic-bezier(0.44, 0, 0.56, 1);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  font-size: 14px;
+  font-family: var(--font-be-vietnam), var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-size: 16px;
   line-height: 1.6;
   touch-action: manipulation;
   /* Prevent double-tap zoom on mobile */
 }
 
-/* Responsive font sizing */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-
+/* Base heading scale.
+   Lives in @layer base so any Tailwind utility (text-d1, text-4xl, ...) wins
+   without !important. Sizes are fluid, so they hold shape from 390px to 1440px
+   and no longer need per-breakpoint overrides.
+   The condensed display face is applied deliberately per use via `font-display`,
+   not forced here, so the admin panel and legal pages keep a readable UI font. */
+@layer base {
   h1 {
-    font-size: 1.75rem !important;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
   }
 
   h2 {
-    font-size: 1.5rem !important;
+    font-size: clamp(1.625rem, 3vw, 2.375rem);
+    line-height: 1.15;
   }
 
   h3 {
-    font-size: 1.25rem !important;
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+    line-height: 1.25;
   }
 
-  .text-4xl {
-    font-size: 1.75rem !important;
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.35;
   }
 
-  .text-5xl {
-    font-size: 2rem !important;
+  h5 {
+    font-size: 1.0625rem;
+    line-height: 1.5;
   }
 
-  .text-6xl {
-    font-size: 2.25rem !important;
-  }
-}
-
-@media (max-width: 640px) {
-  body {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 1.5rem !important;
-  }
-
-  h2 {
-    font-size: 1.25rem !important;
-  }
-
-  .text-3xl {
-    font-size: 1.5rem !important;
-  }
-
-  .text-4xl {
-    font-size: 1.5rem !important;
-  }
-
-  .text-5xl {
-    font-size: 1.75rem !important;
+  h6 {
+    font-size: 0.9375rem;
+    line-height: 1.5;
   }
 }
 
-/* Heading adjustments */
-h1 {
-  font-size: 2rem;
-  line-height: 1.2;
+/* Oversized sequence numerals ("01" … "04") and monogram placeholders, used as
+   a decorative ghost beside card content.
+
+   Four things keep them crisp instead of hazy:
+
+   1. Integer font sizes. The fluid `d4` step resolves to fractional pixels at
+      most viewport widths (3.33vw is 41.62px at 1250px), so glyph stems cannot
+      snap to the pixel grid and the edges smear. These steps are whole pixels.
+   2. Greyscale antialiasing. Subpixel AA lays colour fringes along the stems,
+      which at this weight reads as chromatic blur rather than as light ink.
+   3. An outline instead of a wash. A 14% navy fill sits at roughly 1.2:1
+      against the card — there is no edge left for the rasteriser to resolve,
+      which is what makes the numeral look out of focus. Stroking the glyph and
+      leaving the counter open gives a defined contour at the same visual
+      weight, so it reads as deliberate typography rather than faded text.
+   4. Tabular lining figures, so 01 and 04 occupy identical width and the
+      numerals align down a card row.
+
+   The stroke is applied inside @supports, so a browser without text-stroke
+   degrades to the original faint fill rather than to an invisible element. */
+.ghost-numeral {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--navy-14);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h2 {
-  font-size: 1.5rem;
-  line-height: 1.3;
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .ghost-numeral {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--navy-30);
+  }
 }
 
-h3 {
-  font-size: 1.25rem;
-  line-height: 1.4;
+@media (min-width: 768px) {
+  .ghost-numeral {
+    font-size: 48px;
+  }
+
+  @supports (-webkit-text-stroke: 1px currentColor) {
+    .ghost-numeral {
+      -webkit-text-stroke-width: 2px;
+    }
+  }
 }
 
-h4 {
-  font-size: 1.125rem;
-  line-height: 1.4;
+/* Light-on-dark variant, for the error page and any navy surface. */
+.ghost-numeral-light {
+  color: var(--white-14);
 }
 
-h5 {
-  font-size: 1rem;
-  line-height: 1.5;
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .ghost-numeral-light {
+    color: transparent;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.35);
+  }
 }
 
-h6 {
-  font-size: 0.9375rem;
-  line-height: 1.5;
+/* Interactive partner map (components/InteractivePartnerMap.tsx).
+
+   `transform-box: fill-box` is the load-bearing line. An SVG path's transform
+   origin defaults to the viewBox origin, so `scale(1.02)` on a region sitting
+   at x=570 also slides it ~11px to the right — the shape appears to drift
+   instead of to lift. Anchoring the box to the shape's own bounds makes the
+   hover scale happen in place. */
+.map-region {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 300ms var(--ease-brand);
+}
+
+.map-region:hover,
+.map-region[data-active='true'] {
+  transform: scale(1.015);
+}
+
+/* Travelling dash, so the routes read as flowing toward the Vietnam hub rather
+   than as static hatching. The offset equals exactly one dash+gap cycle
+   (6 + 12), which is what makes the loop seamless. */
+@keyframes map-flow {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+.map-arc {
+  stroke-dasharray: 6 12;
+  animation: map-flow 1.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .map-region,
+  .map-arc {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Dot mesh for dark surfaces (components/sections/SurfaceBackdrop.tsx).
+
+   A 1px dot on a 22px grid, masked so it fades out toward the bottom of the
+   band. At 12% white it is below the threshold where it would compete with
+   copy, but it gives a large empty navy area a scale reference — which is what
+   stops the surface reading as an unfinished block of flat colour. The mask is
+   what keeps it from turning into wallpaper: the texture is densest at the seam
+   and gone by the time it reaches the content. */
+.surface-mesh {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(115% 95% at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(115% 95% at 50% 0%, #000 0%, transparent 72%);
+}
+
+/* Background clips are decoration, so reduced-motion users get the poster frame
+   instead. Hiding the element rather than pausing it also stops the download. */
+@media (prefers-reduced-motion: reduce) {
+  .backdrop-clip {
+    display: none;
+  }
+}
+
+/* Continuous logo/brand scroller.
+   The track holds two copies of its children, so translating by exactly -50%
+   lands the second copy where the first began and the loop has no visible seam.
+   Consumed by components/motion/Marquee.tsx. */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  [style*="marquee-left"],
+  [style*="marquee-right"] {
+    animation: none !important;
+  }
 }
 
 p {
@@ -368,10 +571,13 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Page transition optimization */
-main {
-  will-change: transform, opacity;
-}
+/* Page transition optimization.
+   `will-change` is deliberately NOT set on `main`. Declaring it permanently
+   promotes the whole main column to its own composited layer for the lifetime of
+   the page, which costs memory and — because the layer is rasterised once and
+   then resampled — softens every glyph inside it. The reveal components set
+   their own short-lived hints while they animate, which is what the property is
+   for. Nothing is needed here. */
 
 /* Prevent scroll jump during transitions */
 html,
@@ -671,6 +877,42 @@ img {
 
 .animate-progress {
   animation: progressBar 5s linear forwards;
+}
+
+/* Route-change indicator: separate from the carousel bar above, which runs 5s */
+@keyframes routeProgress {
+  0% {
+    width: 0%;
+  }
+
+  50% {
+    width: 70%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-route-progress {
+  animation: routeProgress 0.3s var(--ease-brand) forwards;
+}
+
+/* Toast auto-dismiss countdown. Each toast sets --toast-duration inline;
+   naming it as a variable keeps the shorthand from resetting the duration
+   to its 0s initial value. */
+@keyframes toastProgress {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0%;
+  }
+}
+
+.animate-toast-progress {
+  animation: toastProgress var(--toast-duration, 3500ms) linear forwards;
 }
 
 /* Glass morphism effect */
@@ -2076,17 +2318,6 @@ html {
 /* Tabular numbers for consistent digit width */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
-}
-
-/* ===================================
-   Toast Component - Force White Text
-   Highest specificity to override any other styles
-   =================================== */
-[style*="z-index: 100000"] p,
-[style*="z-index: 100000"] div,
-.fixed.z-\[100000\] p,
-.fixed.z-\[100000\] div {
-  color: #ffffff !important;
 }
 
 /* ===================================

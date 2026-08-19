@@ -54,7 +54,7 @@ export default function TetBanner({
     variant = "hero",
     className = "",
 }: TetBannerProps) {
-    const pathname = usePathname();
+    const pathname = usePathname() ?? '';
     const [mounted, setMounted] = useState(false);
     const [isTetEnabled, setIsTetEnabled] = useState(false);
     const [loading, setLoading] = useState(true);

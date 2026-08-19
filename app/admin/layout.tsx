@@ -8,6 +8,8 @@ import './admin.css';
 
 type AuthStep = 'login' | 'totp' | 'authenticated';
 
+const sleep = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
+
 // Extended AdminContext with user management
 interface AdminContextType {
   handleLogout: () => void;
@@ -67,64 +69,113 @@ export default function AdminLayout({
   }, []);
 
   const checkAuth = async () => {
-    try {
-      const res = await fetch('/api/auth/me');
+    // A reload must only drop to the login screen when the server actually says
+    // "not authenticated". A 5xx or a dropped connection is INDETERMINATE — if we
+    // treated it as a logout, a transient blip would look exactly like the session
+    // expiring, which is the "F5 makes me get kicked out" symptom.
+    const MAX_ATTEMPTS = 3;
+    let lastFailure: string | null = null;
 
-      if (!res.ok || res.status === 404) {
-        setAuthStep('login');
-        setUserEmail(null);
-        setCurrentUser(null);
-        setIsLoading(false);
-        setIsLoadingUser(false);
-        return;
-      }
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      try {
+        const res = await fetch(`/api/auth/me?_t=${Date.now()}`, {
+          credentials: 'same-origin',
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache', Pragma: 'no-cache' },
+        });
 
-      const contentType = res.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        setAuthStep('login');
-        setUserEmail(null);
-        setCurrentUser(null);
-        setIsLoading(false);
-        setIsLoadingUser(false);
-        return;
-      }
+        // Definitive "you are not logged in".
+        if (res.status === 401 || res.status === 403) {
+          applySignedOut();
+          return;
+        }
 
-      const { user, totpVerified } = await res.json();
+        // Indeterminate — server-side fault. Retry rather than logging out.
+        if (!res.ok) {
+          lastFailure = `HTTP ${res.status}`;
+          if (attempt < MAX_ATTEMPTS) {
+            await sleep(attempt * 400);
+            continue;
+          }
+          break;
+        }
 
-      if (user) {
+        const contentType = res.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+          // Something intercepted the request (offline page, proxy error page).
+          // Also indeterminate, not a logout.
+          lastFailure = 'phản hồi không hợp lệ';
+          if (attempt < MAX_ATTEMPTS) {
+            await sleep(attempt * 400);
+            continue;
+          }
+          break;
+        }
+
+        const { user, totpVerified } = await res.json();
+
+        if (!user) {
+          applySignedOut();
+          return;
+        }
+
         setUserEmail(user.email || null);
         setCurrentUser(user);
         setTotpEnabled(user.totpEnabled || false);
-
-        // Refresh full profile and update lastLogin in background
-        fetchCurrentUser(user.email).catch(console.error);
 
         if (user.totpEnabled && !totpVerified) {
           setAuthStep('totp');
         } else {
           setAuthStep('authenticated');
         }
-      } else {
-        // No valid session
-        setAuthStep('login');
-        setUserEmail(null);
-        setCurrentUser(null);
-        sessionStorage.removeItem('totp_verified');
+
+        setIsLoading(false);
+
+        // Refresh the full profile in the background. `user` is passed as a
+        // fallback so a failure here can never null out currentUser — that would
+        // make every hasPermission()/canAccessTab() check return false and the
+        // panel would render with no usable tabs.
+        fetchCurrentUser(user.email, true, user).catch(console.error);
+        return;
+      } catch (error) {
+        console.error(`Error checking auth (attempt ${attempt}/${MAX_ATTEMPTS}):`, error);
+        lastFailure = 'không kết nối được máy chủ';
+        if (attempt < MAX_ATTEMPTS) {
+          await sleep(attempt * 400);
+        }
       }
-    } catch (error) {
-      console.error('Error checking auth:', error);
-      setAuthStep('login');
-      setUserEmail(null);
-      setCurrentUser(null);
     }
+
+    // Every attempt was indeterminate. Show the login form (we genuinely cannot
+    // confirm a session) but say WHY, so a server outage is not mistaken for a
+    // silent logout.
+    applySignedOut();
+    setError(
+      `Không xác minh được phiên đăng nhập (${lastFailure ?? 'lỗi không rõ'}). Vui lòng thử lại.`
+    );
+  };
+
+  const applySignedOut = () => {
+    setAuthStep('login');
+    setUserEmail(null);
+    setCurrentUser(null);
     setIsLoading(false);
     setIsLoadingUser(false);
+    try {
+      sessionStorage.removeItem('totp_verified');
+    } catch {
+      // sessionStorage can throw in hardened/private browsing modes.
+    }
   };
 
   // Fetch current user from API
-  const fetchCurrentUser = async (email: string, updateLogin: boolean = true) => {
+  const fetchCurrentUser = async (
+    email: string,
+    updateLogin: boolean = true,
+    fallbackUser: AdminUser | null = null
+  ) => {
     if (!email) {
-      setCurrentUser(null);
+      setCurrentUser(prev => prev ?? fallbackUser);
       setIsLoadingUser(false);
       return;
     }
@@ -132,17 +183,22 @@ export default function AdminLayout({
     try {
       setIsLoadingUser(true);
       const loginParam = updateLogin ? '&updateLogin=true' : '';
-      const response = await fetch(`/api/users?action=me&email=${encodeURIComponent(email)}${loginParam}`);
+      const response = await fetch(
+        `/api/users?action=me&email=${encodeURIComponent(email)}${loginParam}&_t=${Date.now()}`,
+        { credentials: 'same-origin', cache: 'no-store' }
+      );
 
       if (response.ok) {
         const data = await response.json();
-        setCurrentUser(data.user || null);
+        setCurrentUser(data.user || fallbackUser);
       } else {
-        setCurrentUser(null);
+        // Keep whoever we already have; dropping to null strips all permissions.
+        console.error('Error fetching user profile: HTTP', response.status);
+        setCurrentUser(prev => prev ?? fallbackUser);
       }
     } catch (error) {
       console.error('Error fetching user:', error);
-      setCurrentUser(null);
+      setCurrentUser(prev => prev ?? fallbackUser);
     } finally {
       setIsLoadingUser(false);
     }
@@ -203,8 +259,28 @@ export default function AdminLayout({
     return checkPermission(currentUser.role, requiredPermission);
   }, [currentUser]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  /**
+   * Re-probe the session endpoint on a fresh request to prove the browser really
+   * stored (and will resend) the session cookie. This is what turns a silent
+   * "logged in until you reload" failure into an actionable error at login time.
+   */
+  const confirmSessionPersisted = async (): Promise<boolean> => {
+    try {
+      const res = await fetch(`/api/auth/me?_t=${Date.now()}`, {
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { 'Cache-Control': 'no-cache', Pragma: 'no-cache' },
+      });
+      if (!res.ok) return false;
+      const data = await res.json();
+      return Boolean(data?.user);
+    } catch (error) {
+      console.error('Session persistence check failed:', error);
+      return false;
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {    e.preventDefault();
     setError('');
     setIsLoading(true);
 
@@ -224,6 +300,22 @@ export default function AdminLayout({
       }
 
       if (data.user) {
+        // The 200 above only proves the credentials were right — it does NOT prove
+        // the browser kept the session cookie. If the cookie was rejected (e.g. a
+        // `Secure` cookie over plain HTTP), entering the panel here would "work"
+        // and then break on the very next request: reload kicks you back to login
+        // and every save returns 401. So confirm the session round-trips first.
+        const sessionOk = await confirmSessionPersisted();
+
+        if (!sessionOk) {
+          setError(
+            'Đăng nhập đúng nhưng trình duyệt không lưu được phiên (cookie bị chặn). ' +
+            'Vui lòng bật cookie cho trang này, hoặc truy cập admin qua HTTPS.'
+          );
+          setIsLoading(false);
+          return;
+        }
+
         setUserEmail(data.user.email || null);
         setCurrentUser(data.user);
         setEmail('');

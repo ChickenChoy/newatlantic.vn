@@ -8,13 +8,53 @@ const VIDEO_MAP: Record<string, string> = {
   'hero-2': 'hero-video-2.mp4',
 }
 
-// Allowed origins for referer check
-const ALLOWED_ORIGINS = [
-  'https://newatlantic.vn',
-  'https://www.newatlantic.vn',
-  'http://localhost:3000',
-  'http://localhost:3001',
-]
+/** The host the client actually addressed, honouring a TLS/proxy hop. */
+function getRequestHost(request: NextRequest): string | null {
+  const forwarded = request.headers.get('x-forwarded-host')
+  const host = forwarded?.split(',')[0].trim() || request.headers.get('host')
+  return host ? host.toLowerCase() : null
+}
+
+/** Optional extra hosts (CDN, staging alias), comma-separated. */
+function extraAllowedHosts(): string[] {
+  return (process.env.MEDIA_ALLOWED_HOSTS ?? '')
+    .split(',')
+    .map(h => h.trim().toLowerCase())
+    .filter(Boolean)
+}
+
+/**
+ * Anti-hotlinking check for a PUBLIC marketing video.
+ *
+ * This used to compare the referer against a hardcoded list of origins
+ * (newatlantic.vn / localhost:3000). Any other origin — the LAN IP the server
+ * prints, a staging alias, a different port, or the real domain served over
+ * plain HTTP — got a 403, so the hero video silently vanished in production.
+ *
+ * Comparing against the request's OWN host instead makes this work on every
+ * origin the site is actually served from, while still refusing embeds from a
+ * different site (which is the only thing the check was ever buying).
+ *
+ * A missing Referer/Origin is allowed: privacy modes and some media requests
+ * omit it, and its absence is not evidence of hotlinking.
+ */
+function isSameSiteMediaRequest(request: NextRequest): boolean {
+  const source = request.headers.get('referer') || request.headers.get('origin')
+  if (!source) return true
+
+  let sourceHost: string
+  try {
+    sourceHost = new URL(source).host.toLowerCase()
+  } catch {
+    // Unparseable header — treat as absent rather than hostile.
+    return true
+  }
+
+  const selfHost = getRequestHost(request)
+  if (selfHost && sourceHost === selfHost) return true
+
+  return extraAllowedHosts().includes(sourceHost)
+}
 
 function createSafeWebStream(videoPath: string, start?: number, end?: number): ReadableStream<Uint8Array> {
   const nodeStream = createReadStream(videoPath, start !== undefined && end !== undefined ? { start, end } : undefined)
@@ -75,18 +115,11 @@ export async function GET(request: NextRequest) {
       return new NextResponse('Video not found', { status: 404 })
     }
 
-    // Referer check - block direct access
-    const referer = request.headers.get('referer')
-    const origin = request.headers.get('origin')
-
-    // In production, require valid referer
-    if (process.env.NODE_ENV === 'production') {
-      const isValidReferer = referer && ALLOWED_ORIGINS.some(o => referer.startsWith(o))
-      const isValidOrigin = origin && ALLOWED_ORIGINS.includes(origin)
-
-      if (!isValidReferer && !isValidOrigin) {
-        return new NextResponse('Forbidden', { status: 403 })
-      }
+    // Anti-hotlinking. Runs in every environment: it is host-relative now, so it
+    // cannot produce the "works in dev, 403 in production" split that hid the
+    // original bug.
+    if (!isSameSiteMediaRequest(request)) {
+      return new NextResponse('Forbidden', { status: 403 })
     }
 
     // Get video path

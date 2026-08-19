@@ -145,7 +145,7 @@ export default function LazyVideoBackground({
         </video>
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/65 to-black/75"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-navy/85 via-navy/75 to-navy/85"></div>
     </div>
   )
 }

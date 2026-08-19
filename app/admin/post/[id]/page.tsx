@@ -79,7 +79,6 @@ export default function PostPage({ params }: PostPageProps) {
     } finally {
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty deps - function should only be created once
 
   useEffect(() => {

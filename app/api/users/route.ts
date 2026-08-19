@@ -13,14 +13,30 @@ import {
 } from '@/lib/users';
 import { createAdminClient } from '@/lib/supabase';
 import { logActivity } from '@/lib/activity-logs';
-import { AdminUser, UserRole } from '@/types';
+import { AdminUser, StoredAdminUser, UserRole } from '@/types';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { verifyPasswordSync, hashPasswordSync, getSessionCookieValue, getSession } from '@/lib/auth';
 import { updateUserPassword } from '@/lib/users';
 
+/**
+ * Strip the password hash before a user record crosses the network.
+ *
+ * `lib/users.ts` is typed as returning `AdminUser`, but the objects it reads out
+ * of admin-users.json are really `StoredAdminUser` and still carry the scrypt
+ * `passwordHash` at runtime — so the leak is invisible to the type checker.
+ * Every user-shaped response body must go through here.
+ */
+function toSafeUser(user: AdminUser | StoredAdminUser): AdminUser;
+function toSafeUser(user: null | undefined): null;
+function toSafeUser(user: AdminUser | StoredAdminUser | null | undefined): AdminUser | null;
+function toSafeUser(user: AdminUser | StoredAdminUser | null | undefined): AdminUser | null {
+    if (!user) return null;
+    const { passwordHash: _passwordHash, ...safe } = user as StoredAdminUser;
+    return safe as AdminUser;
+}
+
 // Helper to get current user from request (from session cookie first, then header)
-async function getCurrentUserEmail(request: NextRequest): Promise<string | null> {
-    // Try our own session cookie first
+async function getCurrentUserEmail(request: NextRequest): Promise<string | null> {    // Try our own session cookie first
     const token = getSessionCookieValue(request);
     if (token) {
         const session = getSession(token);
@@ -45,7 +61,7 @@ export async function GET(request: NextRequest) {
                 // Sync from auth if user doesn't exist in DB
                 try {
                     const syncedUser = await syncUserFromAuth(email);
-                    return NextResponse.json({ user: syncedUser });
+                    return NextResponse.json({ user: toSafeUser(syncedUser) });
                 } catch {
                     return NextResponse.json({ error: 'Người dùng không tồn tại' }, { status: 404 });
                 }
@@ -60,7 +76,7 @@ export async function GET(request: NextRequest) {
                 }
             }
 
-            return NextResponse.json({ user });
+            return NextResponse.json({ user: toSafeUser(user) });
         }
 
         // Get user statistics
@@ -72,7 +88,7 @@ export async function GET(request: NextRequest) {
         // Get single user by email
         if (email && action === 'check') {
             const user = await getUserByEmail(email);
-            return NextResponse.json({ exists: !!user, user: user || null });
+            return NextResponse.json({ exists: !!user, user: user ? toSafeUser(user) : null });
         }
 
         // List all users - requires manage_users permission
@@ -122,7 +138,7 @@ export async function GET(request: NextRequest) {
         }
 
         return NextResponse.json({
-            users,
+            users: users.map(u => toSafeUser(u)),
             stats,
             success: true
         });
@@ -511,7 +527,7 @@ export async function POST(request: NextRequest) {
         });
 
         return NextResponse.json({
-            user: newUser,
+            user: toSafeUser(newUser),
             success: true,
             message: password
                 ? 'Tạo người dùng thành công. Người dùng có thể đăng nhập ngay.'
@@ -601,7 +617,7 @@ export async function PUT(request: NextRequest) {
         });
 
         return NextResponse.json({
-            user: updatedUser,
+            user: toSafeUser(updatedUser),
             success: true,
             message: 'Cập nhật người dùng thành công'
         });

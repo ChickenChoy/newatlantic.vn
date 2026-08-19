@@ -91,7 +91,7 @@ export default function PageVisibilityTab({ onDataChange }: PageVisibilityTabPro
             <div>
                 <h2 className="text-lg font-semibold text-dark dark:text-white">Quản lý hiển thị trang</h2>
                 <p className="text-sm text-muted dark:text-gray-400 mt-1">
-                    Bật/tắt hiển thị các trang cho người dùng. Trang bị tắt sẽ hiển thị thông báo "Trang tạm thời không khả dụng".
+                    Bật/tắt hiển thị các trang cho người dùng. Trang bị tắt sẽ hiển thị thông báo &quot;Trang tạm thời không khả dụng&quot;.
                 </p>
             </div>
 
@@ -102,7 +102,7 @@ export default function PageVisibilityTab({ onDataChange }: PageVisibilityTabPro
                     <div className="text-sm text-blue-800 dark:text-blue-200">
                         <p className="font-medium mb-1">Lưu ý quan trọng:</p>
                         <ul className="list-disc list-inside space-y-1 text-blue-700 dark:text-blue-300">
-                            <li>Trang <strong>ẩn</strong> sẽ hiển thị thông báo "Tạm thời không khả dụng" cho người dùng</li>
+                            <li>Trang <strong>ẩn</strong> sẽ hiển thị thông báo &quot;Tạm thời không khả dụng&quot; cho người dùng</li>
                             <li>Trang <strong>Admin</strong> không bị ảnh hưởng bởi cài đặt này</li>
                             <li>Thay đổi có hiệu lực ngay lập tức</li>
                             <li><strong>Tự động phát hiện:</strong> Khi bạn tạo trang mới trong code, nó sẽ tự động xuất hiện ở đây</li>

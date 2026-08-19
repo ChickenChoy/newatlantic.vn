@@ -91,7 +91,7 @@ export default function AdminSidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['content', 'media']); // Mặc định mở
   const [logo, setLogo] = useState<string>('/images/logo/logo-color.png');
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const currentTab = searchParams.get('tab') || 'dashboard';
   const { handleLogout, userEmail, mfaEnabled, currentUser, canAccessTab, isSidebarCollapsed, setIsSidebarCollapsed } = useAdminContext();
 

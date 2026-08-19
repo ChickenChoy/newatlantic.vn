@@ -1,11 +1,18 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import Toast, { useToast, setGlobalToastHandler, setGlobalConfirmHandler, ConfirmOptions } from './micro-interactions/Toast';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import {
+    ToastContext,
+    ToastViewport,
+    useToastStore,
+    setGlobalToastHandler,
+    setGlobalConfirmHandler,
+    type ConfirmOptions,
+} from './micro-interactions/Toast';
 import ConfirmDialog from './micro-interactions/ConfirmDialog';
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
-    const { toasts, removeToast, showToast } = useToast();
+    const { toasts, showToast, removeToast } = useToastStore();
     const [confirmState, setConfirmState] = useState<{
         isOpen: boolean;
         options: ConfirmOptions;
@@ -15,11 +22,6 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         options: { message: '' },
         resolver: null,
     });
-
-    // Set up global toast handler
-    useEffect(() => {
-        setGlobalToastHandler(showToast);
-    }, [showToast]);
 
     // Set up global confirm handler
     const handleConfirm = useCallback((options: ConfirmOptions): Promise<boolean> => {
@@ -31,6 +33,13 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             });
         });
     }, []);
+
+    // The `toast.*` / `showToast.*` imperative helpers are used from ~250 call
+    // sites that are not React components, so the handlers stay registered
+    // module-side alongside the context.
+    useEffect(() => {
+        setGlobalToastHandler(showToast);
+    }, [showToast]);
 
     useEffect(() => {
         setGlobalConfirmHandler(handleConfirm);
@@ -55,22 +64,17 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
         });
     }, [confirmState.resolver]);
 
+    // Stable across the provider's lifetime -- the toast array is deliberately
+    // left out so that showing a toast does not re-render every consumer.
+    const contextValue = useMemo(
+        () => ({ showToast, removeToast, confirm: handleConfirm }),
+        [showToast, removeToast, handleConfirm]
+    );
+
     return (
-        <>
+        <ToastContext.Provider value={contextValue}>
             {children}
-            {/* Render all active toasts */}
-            {toasts.map((toast) => (
-                <Toast
-                    key={toast.id}
-                    message={toast.message}
-                    type={toast.type}
-                    duration={toast.duration}
-                    position={toast.position}
-                    icon={toast.icon}
-                    onClose={() => removeToast(toast.id)}
-                />
-            ))}
-            {/* Render confirm dialog */}
+            <ToastViewport toasts={toasts} onDismiss={removeToast} />
             <ConfirmDialog
                 isOpen={confirmState.isOpen}
                 title={confirmState.options.title}
@@ -81,9 +85,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                 onConfirm={handleConfirmAction}
                 onCancel={handleCancelAction}
             />
-        </>
+        </ToastContext.Provider>
     );
 }
 
 // Re-export for convenience
 export { useToast, toast } from './micro-interactions/Toast';
+export type { ToastProps, ToastType, ToastPosition, ConfirmOptions } from './micro-interactions/Toast';

@@ -1,10 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  env: {
-    // Make PERSISTENT_DATA_PATH available to server-side code
-    PERSISTENT_DATA_PATH: process.env.PERSISTENT_DATA_PATH || '',
-  },
+  // NOTE: PERSISTENT_DATA_PATH must NOT be listed under `env`.
+  //
+  // Next resolves `env` at BUILD time and bakes the result into
+  // .next/required-server-files.json, then re-applies it over process.env when
+  // the server boots. Because the build ran without the variable, it baked in
+  // `''` and then OVERWROTE the real runtime value — so the Railway volume was
+  // silently ignored and every write went to the container's ephemeral disk.
+  // Effect: all admin edits reverted on the next restart/redeploy, and
+  // data/admin-sessions.json was wiped, logging admins out on reload.
+  //
+  // Server-side code reads process.env natively at runtime, so no `env` entry is
+  // needed (and a server data path must never be exposed to the client bundle).
+
   // Allow cross-origin requests from local network devices (mobile testing)
   // Include 169.254.*.* for link-local addresses (Windows APIPA)
   allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.16.*.*', '169.254.*.*', '100.*.*.*'],

@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { OfficeLocation } from '@/types';
+
+const EASE_BRAND = [0.22, 1, 0.36, 1] as const;
 
 interface InteractiveMapProps {
   offices: OfficeLocation[];
@@ -38,6 +40,7 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
   const [selectedOffice, setSelectedOffice] = useState<OfficeLocation | null>(null);
   const [activeTab, setActiveTab] = useState<'map' | 'directions'>('map');
   const [isLoading, setIsLoading] = useState(true);
+  const reduceMotion = useReducedMotion();
 
   // Use provided offices or fallback
   const displayOffices = offices.length > 0 ? offices : fallbackOffices;
@@ -74,39 +77,38 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
 
   if (displayOffices.length === 0) {
     return (
-      <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/10 text-center">
-        <p className="text-gray-400">Không có thông tin văn phòng</p>
+      <div className="rounded-card border border-navy/14 bg-background p-12 text-center">
+        <p className="text-sm text-muted">Không có thông tin văn phòng</p>
       </div>
     );
   }
 
+  const tabClass = (isActive: boolean) =>
+    `flex flex-1 items-center justify-center gap-2 rounded-pill px-4 py-3 text-sm font-semibold transition-colors duration-300 ease-brand ${
+      isActive ? 'bg-navy text-white' : 'text-ink hover:text-navy'
+    }`;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Tab Navigation */}
-      <div className="flex gap-2 p-1 bg-white/10 backdrop-blur-sm rounded-xl border border-white/10">
+      <div className="flex gap-2 rounded-pill border border-navy/14 bg-background p-1">
         <button
           onClick={() => setActiveTab('map')}
-          className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-            activeTab === 'map'
-              ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
-          }`}
+          aria-pressed={activeTab === 'map'}
+          className={tabClass(activeTab === 'map')}
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.553-.894L15 7m0 13V7" />
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.553-.894L15 7m0 13V7" />
           </svg>
           Bản đồ
         </button>
         <button
           onClick={() => setActiveTab('directions')}
-          className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-            activeTab === 'directions'
-              ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg'
-              : 'text-gray-400 hover:text-white hover:bg-white/5'
-          }`}
+          aria-pressed={activeTab === 'directions'}
+          className={tabClass(activeTab === 'directions')}
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
           </svg>
           Chỉ đường
         </button>
@@ -117,29 +119,30 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
         {activeTab === 'map' && (
           <motion.div
             key="map"
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+            exit={reduceMotion ? undefined : { opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: EASE_BRAND }}
+            className="grid grid-cols-1 gap-6 lg:grid-cols-3"
           >
             {/* Map Frame - Left side (2/3 width on desktop) */}
             <div className="lg:col-span-2">
-              <div className="relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 h-[300px] lg:h-full lg:min-h-[450px]">
+              <div className="relative h-[300px] overflow-hidden rounded-card border border-navy/14 bg-background lg:h-full lg:min-h-[450px]">
                 {/* Loading Spinner */}
                 {isLoading && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-[#050c3a]">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
+                  <div className="absolute inset-0 flex items-center justify-center bg-background">
+                    <div className="h-12 w-12 animate-spin rounded-pill border-2 border-navy/14 border-t-accent" />
                   </div>
                 )}
-                
+
                 {/* Map Iframe */}
                 {selectedOffice && (
                   <iframe
                     src={getMapEmbedUrl(selectedOffice.address, selectedOffice.id)}
+                    title={`Bản đồ ${selectedOffice.name}`}
                     width="100%"
                     height="100%"
-                    style={{ border: 0, filter: 'grayscale(20%) contrast(1.1)' }}
+                    style={{ border: 0, filter: 'grayscale(30%) contrast(1.05)' }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -147,86 +150,104 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
                     className={`transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
                   />
                 )}
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#050c3a]/30 to-transparent" />
               </div>
             </div>
 
             {/* Office Cards - Right side (1/3 width on desktop) */}
-            <div className="space-y-4 lg:overflow-y-auto lg:max-h-[450px] lg:pr-2">
-              {displayOffices.map((office, index) => (
-                <motion.div
-                  key={office.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => {
-                    setSelectedOffice(office);
-                    setIsLoading(true);
-                  }}
-                  className={`group p-4 sm:p-5 rounded-3xl cursor-pointer transition-all duration-300 border backdrop-blur-sm ${
-                    selectedOffice?.id === office.id
-                      ? 'bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border-cyan-500/50 shadow-xl shadow-cyan-500/20'
-                      : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-white/5'
-                  }`}
-                >
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    {/* Marker Icon */}
-                    <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                      selectedOffice?.id === office.id
-                        ? 'bg-gradient-to-br from-cyan-500 to-teal-500 shadow-lg shadow-cyan-500/30'
-                        : 'bg-white/10 group-hover:bg-white/15'
-                    }`}>
-                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                        <h4 className="font-bold text-white text-sm sm:text-base truncate">{office.name}</h4>
-                        {office.type === 'headquarters' && (
-                          <span className="px-2 py-0.5 bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-cyan-300 text-[10px] sm:text-xs font-medium rounded-full border border-cyan-500/30">
-                            Trụ sở
-                          </span>
-                        )}
+            <div className="space-y-4 lg:max-h-[450px] lg:overflow-y-auto lg:pr-2">
+              {displayOffices.map((office) => {
+                const isActive = selectedOffice?.id === office.id;
+                return (
+                  <button
+                    key={office.id}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => {
+                      setSelectedOffice(office);
+                      setIsLoading(true);
+                    }}
+                    className={`group w-full rounded-card border p-6 text-left transition-colors duration-300 ease-brand ${
+                      isActive
+                        ? 'border-navy bg-navy'
+                        : 'border-navy/14 bg-background hover:border-navy'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Marker Icon */}
+                      <span
+                        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-pill transition-colors duration-300 ease-brand ${
+                          isActive ? 'bg-accent text-white' : 'bg-surface text-accent'
+                        }`}
+                      >
+                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </span>
+
+                      {/* Info */}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h4
+                            className={`font-display text-base uppercase leading-none tracking-display ${
+                              isActive ? 'text-white' : 'text-navy'
+                            }`}
+                          >
+                            {office.name}
+                          </h4>
+                          {office.type === 'headquarters' && (
+                            <span
+                              className={`rounded-pill px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] ${
+                                isActive ? 'bg-white/14 text-white' : 'bg-accent/10 text-accent'
+                              }`}
+                            >
+                              Trụ sở
+                            </span>
+                          )}
+                        </div>
+
+                        <p
+                          className={`mt-2 line-clamp-2 text-sm leading-[1.6] ${
+                            isActive ? 'text-white/60' : 'text-ink'
+                          }`}
+                        >
+                          {office.address}
+                        </p>
+
+                        {/* `break-words` on both: the wrapper above is
+                            `min-w-0 flex-1`, so it correctly shrinks with the
+                            column — which means an unbreakable value (an email,
+                            or a phone saved without spaces from the admin) would
+                            overflow it and cross the card edge. */}
+                        <div className="mt-3 space-y-1.5">
+                          {office.phone && (
+                            <a
+                              href={`tel:${office.phone}`}
+                              onClick={(e) => e.stopPropagation()}
+                              className={`block break-words text-sm font-semibold transition-colors duration-300 ease-brand hover:text-accent ${
+                                isActive ? 'text-white' : 'text-navy'
+                              }`}
+                            >
+                              {office.phone}
+                            </a>
+                          )}
+                          {office.email && (
+                            <a
+                              href={`mailto:${office.email}`}
+                              onClick={(e) => e.stopPropagation()}
+                              className={`block break-words text-sm transition-colors duration-300 ease-brand hover:text-accent ${
+                                isActive ? 'text-white/60' : 'text-muted'
+                              }`}
+                            >
+                              {office.email}
+                            </a>
+                          )}
+                        </div>
                       </div>
-                      <p className="text-xs sm:text-sm text-gray-400 leading-relaxed line-clamp-2 mb-2">{office.address}</p>
-                      {office.phone && (
-                        <a
-                          href={`tel:${office.phone}`}
-                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-cyan-400 hover:text-cyan-300 transition-colors group-hover:translate-x-1 duration-300 mb-1.5"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-cyan-500/10 flex items-center justify-center">
-                            <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                            </svg>
-                          </span>
-                          <span className="font-medium">{office.phone}</span>
-                        </a>
-                      )}
-                      {office.email && (
-                        <a
-                          href={`mailto:${office.email}`}
-                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-teal-400 hover:text-teal-300 transition-colors group-hover:translate-x-1 duration-300"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-teal-500/10 flex items-center justify-center">
-                            <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                          </span>
-                          <span className="font-medium">{office.email}</span>
-                        </a>
-                      )}
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
         )}
@@ -234,45 +255,46 @@ export default function InteractiveMap({ offices }: InteractiveMapProps) {
         {activeTab === 'directions' && (
           <motion.div
             key="directions"
-            initial={{ opacity: 0, y: 20 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: EASE_BRAND }}
             className="space-y-4"
           >
-            {displayOffices.map((office, index) => (
-              <motion.a
+            {displayOffices.map((office) => (
+              <a
                 key={office.id}
                 href={getDirectionsUrl(office)}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="group flex items-center gap-4 p-5 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/15 hover:border-cyan-500/30 transition-all duration-300"
+                className="group flex items-center gap-5 rounded-card border border-navy/14 bg-background p-6 transition-colors duration-300 ease-brand hover:border-navy"
               >
-                <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-pill bg-surface text-accent transition-colors duration-300 ease-brand group-hover:bg-accent group-hover:text-white">
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-bold text-white">{office.name}</h4>
+                </span>
+
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="font-display text-base uppercase leading-none tracking-display text-navy">
+                      {office.name}
+                    </span>
                     {office.type === 'headquarters' && (
-                      <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded-full">
+                      <span className="rounded-pill bg-accent/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
                         Trụ sở
                       </span>
                     )}
-                  </div>
-                  <p className="text-sm text-gray-400 line-clamp-1">{office.address}</p>
-                </div>
-                <div className="flex-shrink-0 text-cyan-400 group-hover:translate-x-1 transition-transform duration-300">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  </span>
+                  <span className="mt-2 block line-clamp-1 text-sm text-ink">{office.address}</span>
+                </span>
+
+                <span className="shrink-0 text-navy transition-transform duration-300 ease-brand group-hover:translate-x-1">
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
-                </div>
-              </motion.a>
+                </span>
+              </a>
             ))}
           </motion.div>
         )}

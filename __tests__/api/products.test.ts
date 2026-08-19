@@ -1,11 +1,17 @@
 /**
  * Integration Tests for Products API
  * Tests for the optimized /api/products endpoint
+ *
+ * Runs in the node environment, not jsdom: the handlers return `NextResponse`,
+ * which is built on the real `Response` (including the `Response.json` static).
+ * jsdom does not implement the fetch primitives.
+ *
+ * @jest-environment node
  */
 
 import { NextRequest } from 'next/server';
 import { GET, POST, PUT, DELETE } from '@/app/api/products/route';
-import { getProducts, getProductById, addProduct, updateProduct, deleteProduct } from '@/lib/db';
+import { getProducts, getProductById, getCategories, addProduct, updateProduct, deleteProduct } from '@/lib/db';
 import { logActivity } from '@/lib/activity-logs';
 import { revalidatePath } from 'next/cache';
 import type { Product } from '@/types';
@@ -17,6 +23,7 @@ jest.mock('next/cache');
 
 const mockGetProducts = getProducts as jest.MockedFunction<typeof getProducts>;
 const mockGetProductById = getProductById as jest.MockedFunction<typeof getProductById>;
+const mockGetCategories = getCategories as jest.MockedFunction<typeof getCategories>;
 const mockAddProduct = addProduct as jest.MockedFunction<typeof addProduct>;
 const mockUpdateProduct = updateProduct as jest.MockedFunction<typeof updateProduct>;
 const mockDeleteProduct = deleteProduct as jest.MockedFunction<typeof deleteProduct>;
@@ -82,8 +89,8 @@ describe('Products API - Pagination Tests', () => {
     await GET(request);
 
     expect(mockGetProducts).toHaveBeenCalledWith({
-      limit: 50,
-      offset: 0,
+      limit: undefined,
+      offset: undefined,
       category: 'electronics',
     });
   });
@@ -108,14 +115,17 @@ describe('Products API - Pagination Tests', () => {
     expect(body.error).toContain('page');
   });
 
-  it('should use default values when no parameters provided', async () => {
+  // No implicit page size: `/api/products` with no `limit` returns the full set.
+  // The admin dashboard, /san-pham and the search index all rely on this, so a
+  // default limit here would silently truncate them.
+  it('should return an unbounded result set when no parameters provided', async () => {
     const request = createMockRequest('http://localhost:3000/api/products');
 
     await GET(request);
 
     expect(mockGetProducts).toHaveBeenCalledWith({
-      limit: 50,
-      offset: 0,
+      limit: undefined,
+      offset: undefined,
       category: undefined,
     });
   });
@@ -261,6 +271,10 @@ describe('Products API - Activity Logging', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockLogActivity.mockResolvedValue(null);
+    // POST checks for a slug collision and resolves the category name before it
+    // ever reaches addProduct; without these the handler throws and returns 500.
+    mockGetProducts.mockReturnValue([]);
+    mockGetCategories.mockReturnValue([]);
   });
 
   it('should log activity when creating a product', async () => {
@@ -285,7 +299,7 @@ describe('Products API - Activity Logging', () => {
     expect(mockLogActivity).toHaveBeenCalled();
   });
 
-  it('should revalidate path after creating a product', async () => {
+  it('should revalidate the product listings after creating a product', async () => {
     const newProduct = {
       name: 'New Product',
       slug: 'new-product',
@@ -304,6 +318,8 @@ describe('Products API - Activity Logging', () => {
 
     await POST(request);
 
-    expect(mockRevalidatePath).toHaveBeenCalledWith('/shop');
+    expect(mockRevalidatePath).toHaveBeenCalledWith('/san-pham');
+    expect(mockRevalidatePath).toHaveBeenCalledWith('/san-pham/electronics');
+    expect(mockRevalidatePath).toHaveBeenCalledWith('/');
   });
 });
