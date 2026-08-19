@@ -1,5 +1,15 @@
 [
   {
+    "id": "1787134601545-rc1ongu",
+    "timestamp": "2026-08-19T10:16:41.545Z",
+    "action": "login",
+    "entity": "auth",
+    "entityId": "local-super-admin",
+    "entityName": "admin@newatlantic.vn",
+    "user": "admin@newatlantic.vn",
+    "details": "Đăng nhập thành công"
+  },
+  {
     "id": "1782839460442-kfiytbi",
     "timestamp": "2026-06-30T17:11:00.442Z",
     "action": "update",

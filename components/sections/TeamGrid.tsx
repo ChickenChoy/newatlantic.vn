@@ -20,7 +20,7 @@ export interface TeamGridProps {
 
 /**
  * The template's team grid: a portrait at the card radius, the name in the
- * condensed display face, and the role in accent orange.
+ * condensed display face, and the role in the accent blue.
  */
 export default function TeamGrid({ members, onDark = false, className = '' }: TeamGridProps) {
   if (members.length === 0) return null;

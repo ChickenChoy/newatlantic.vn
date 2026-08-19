@@ -128,7 +128,7 @@ const ENTER_OFFSET: Record<ToastPosition, { x?: number; y?: number }> = {
 /**
  * State is carried by a single accent rail and the icon, on the same white
  * card as the rest of the site. Gradient-filled toasts read as a different
- * product next to the navy/orange system.
+ * product next to the navy/blue brand system.
  */
 const TYPE_STYLES: Record<ToastType, { rail: string; icon: string; tile: string }> = {
   success: { rail: 'bg-success', icon: 'text-success', tile: 'bg-success/10' },

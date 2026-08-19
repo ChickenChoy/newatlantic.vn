@@ -22,7 +22,7 @@ export interface SurfaceBackdropProps {
  *
  *   1. optional photograph or looping clip, held under a scrim heavy enough that
  *      white copy keeps a ~10:1 contrast ratio over any frame;
- *   2. a cool highlight falling from the top left and a warm accent bloom rising
+ *   2. a cool highlight falling from the top left and an accent bloom rising
  *      from the opposite corner, so the panel has a light direction;
  *   3. a fine dot mesh, masked to fade out downward, which gives large empty
  *      areas something to catch the eye without competing with the copy;
@@ -82,7 +82,7 @@ export default function SurfaceBackdrop({
       )}
 
       <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_10%_0%,rgba(255,255,255,0.07),transparent_55%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(60%_70%_at_92%_100%,rgba(255,95,0,0.14),transparent_65%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(60%_70%_at_92%_100%,rgba(95,122,184,0.14),transparent_65%)]" />
 
       {mesh && <div className="surface-mesh absolute inset-0" />}
 

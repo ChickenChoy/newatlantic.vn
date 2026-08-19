@@ -136,7 +136,7 @@ export default function Footer({ categories, siteSettings, offices, footerLinks 
       {/* Same three depth layers as the partner-network panel, so the footer
           reads as the continuation of that material rather than as a new block:
           a specular hairline along the seam, a cool highlight from the top
-          left, and a warm accent bloom in the far corner. */}
+          left, and an accent bloom in the far corner. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent"
@@ -147,7 +147,7 @@ export default function Footer({ categories, siteSettings, offices, footerLinks 
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_70%_at_92%_100%,rgba(255,95,0,0.14),transparent_65%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_70%_at_92%_100%,rgba(95,122,184,0.14),transparent_65%)]"
       />
 
       <div className="relative mx-auto w-full max-w-site px-5 py-16 md:px-gutter md:py-20">

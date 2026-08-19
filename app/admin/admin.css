@@ -56,6 +56,23 @@
   --color-link: #e5e7eb;
 }
 
+/* Pin the scrollbar to the navy the dashboard shipped with.
+
+   app/globals.css styles ::-webkit-scrollbar-thumb unscoped, so the frontend
+   palette would otherwise reach the admin panel through it. That rule reads
+   --scrollbar-thumb with the frontend --primary only as a fallback, so setting
+   the variable here wins for admin without touching the frontend.
+
+   Two selectors are needed. Scrollbars on elements inside the panel inherit
+   the variable from the .admin-system-font wrapper. The viewport scrollbar is
+   painted on the root element, which the wrapper cannot reach from below, so
+   body:has() covers that case. */
+.admin-system-font,
+body:has(.admin-system-font) {
+  --scrollbar-thumb: #0a2540;
+  --scrollbar-thumb-hover: #071a2e;
+}
+
 /* ============================================
    SYSTEM FONT - Match OS Default Typography
    Apply to ALL admin pages including:

@@ -117,37 +117,52 @@
 
 :root {
   /* === BRAND COLOR SYSTEM ===
-     Navy + orange identity. Variable names are kept stable so the existing
-     .btn / .card rules further down this file inherit the new palette. */
+     Reverted to the palette the site shipped at a320ae8. Variable names are
+     kept stable, so the @theme utilities below and the .btn / .card rules
+     further down this file all pick these up without touching call sites.
+
+     a320ae8 hardcoded its brand colours in components rather than tokenising
+     them, so the roles map across as:
+
+       navy   #050c3a  full-bleed dark sections        (21 uses at a320ae8)
+       accent #5f7ab8  CTAs, links, icons, separators  (152 uses at a320ae8)
+
+     The neutrals below are a320ae8's own :root values verbatim.
+
+     NOTE: the admin panel does not consume any of these. It ships its own
+     tokens and admin-* components in app/admin/admin.css, which is where its
+     colours live and where they must stay. */
   --background: #ffffff;
-  --background-alt: #f6f6f6;
-  --foreground: #0a2540;
-  --foreground-muted: #555555;
+  --background-alt: #f8fafc;
+  --foreground: #0f172a;
+  --foreground-muted: #64748b;
 
   /* Primary - deep navy, the dominant surface colour */
-  --primary: #0a2540;
-  --primary-dark: #071a2e;
-  --primary-light: #1c3d5f;
-  --primary-gradient: linear-gradient(135deg, #0a2540 0%, #1c3d5f 50%, #0a2540 100%);
+  --primary: #050c3a;
+  --primary-dark: #03071f;
+  --primary-light: #3d4f7d;
+  --primary-gradient: linear-gradient(135deg, #050c3a 0%, #3d4f7d 50%, #050c3a 100%);
 
   /* Secondary */
-  --secondary: #f6f6f6;
-  --secondary-dark: #e8e8e8;
+  --secondary: #f1f5f9;
+  --secondary-dark: #e2e8f0;
 
-  /* Accent - signal orange, reserved for CTAs and emphasis */
-  --accent: #ff5f00;
-  --accent-light: #ff7d2e;
-  --accent-dark: #d94f00;
-  --accent-gradient: linear-gradient(135deg, #ff5f00 0%, #ff9147 100%);
+  /* Accent - brand blue, reserved for CTAs and emphasis */
+  --accent: #5f7ab8;
+  --accent-light: #7a92c9;
+  --accent-dark: #4a6199;
+  --accent-gradient: linear-gradient(135deg, #5f7ab8 0%, #7a92c9 100%);
 
   /* Translucent brand layers, used for borders and overlays on
      navy and photographic backgrounds */
-  --navy-14: rgba(10, 37, 64, 0.14);
-  --navy-30: rgba(10, 37, 64, 0.3);
+  --navy-14: rgba(5, 12, 58, 0.14);
+  --navy-30: rgba(5, 12, 58, 0.3);
   --white-80: rgba(255, 255, 255, 0.8);
   --white-60: rgba(255, 255, 255, 0.6);
   --white-14: rgba(255, 255, 255, 0.14);
-  --muted: #999999;
+  /* Lightest text step. a320ae8 defined no --muted, so this is derived:
+     slate-400 keeps it on the same ramp as --foreground-muted (slate-500). */
+  --muted: #94a3b8;
 
   /* Status colors */
   --success: #10b981;
@@ -179,8 +194,8 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(10, 37, 64, 0.3);
-  --shadow-glow-accent: 0 0 20px rgba(255, 95, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(5, 12, 58, 0.3);
+  --shadow-glow-accent: 0 0 20px rgba(95, 122, 184, 0.3);
 
   /* Border radius */
   --radius-sm: 0.375rem;
@@ -675,7 +690,12 @@ label:has(select) {
   cursor: pointer !important;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar.
+   This is the one colour rule in this file that also reaches /admin, because
+   it is unscoped and the viewport scrollbar is painted on the root element.
+   The thumb colour is therefore indirected through --scrollbar-thumb so the
+   admin panel can pin its own value; app/admin/admin.css does exactly that,
+   which is what keeps the frontend palette revert out of the dashboard. */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -685,12 +705,12 @@ label:has(select) {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
+  background: var(--scrollbar-thumb, var(--primary));
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
+  background: var(--scrollbar-thumb-hover, var(--primary-dark));
 }
 
 /* Performance optimizations */

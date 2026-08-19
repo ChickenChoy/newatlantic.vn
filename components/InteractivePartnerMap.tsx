@@ -18,6 +18,12 @@ interface Region {
 /** The Vietnam hub every route converges on. */
 const HUB_ID = 'southeast-asia';
 
+/* SVG paint attributes take no Tailwind utilities, so the two brand colours
+   this map needs are named here rather than repeated as literals. Keep them in
+   step with --accent / --primary in app/globals.css. */
+const ACCENT = '#5f7ab8';
+const NAVY = '#050c3a';
+
 const REGIONS: Region[] = [
     {
         id: 'north-america',
@@ -116,7 +122,7 @@ export default function InteractivePartnerMap() {
         <div className="relative mx-auto w-full max-w-5xl">
             <div className="relative overflow-hidden rounded-card border border-white/14 bg-navy p-5 sm:p-7 md:p-9">
                 {/* Depth, in three cheap layers instead of one flat gradient: a cool
-                    highlight falling from the top-left, a warm accent bloom rising
+                    highlight falling from the top-left, an accent bloom rising
                     behind the Vietnam hub, and a 1px specular edge along the top
                     that reads as a bevel and lifts the panel off the light section. */}
                 <div
@@ -125,7 +131,7 @@ export default function InteractivePartnerMap() {
                 />
                 <div
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_85%_at_82%_92%,rgba(255,95,0,0.16),transparent_62%)]"
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_85%_at_82%_92%,rgba(95,122,184,0.16),transparent_62%)]"
                 />
                 <div
                     aria-hidden="true"
@@ -181,8 +187,8 @@ export default function InteractivePartnerMap() {
                                 </pattern>
 
                                 <radialGradient id="pm-hub-glow">
-                                    <stop offset="0%" stopColor="#ff5f00" stopOpacity="0.3" />
-                                    <stop offset="100%" stopColor="#ff5f00" stopOpacity="0" />
+                                    <stop offset="0%" stopColor={ACCENT} stopOpacity="0.3" />
+                                    <stop offset="100%" stopColor={ACCENT} stopOpacity="0" />
                                 </radialGradient>
 
                                 {/* One gradient per route, in user space, so every line
@@ -199,12 +205,12 @@ export default function InteractivePartnerMap() {
                                         y2={HUB.y}
                                     >
                                         <stop offset="0%" stopColor="#ffffff" stopOpacity="0.06" />
-                                        <stop offset="100%" stopColor="#ff5f00" stopOpacity="0.5" />
+                                        <stop offset="100%" stopColor={ACCENT} stopOpacity="0.5" />
                                     </linearGradient>
                                 ))}
                             </defs>
 
-                            {/* Warm bloom under the hub, so the eye lands on Vietnam first. */}
+                            {/* Accent bloom under the hub, so the eye lands on Vietnam first. */}
                             <circle cx={HUB.x} cy={HUB.y} r="120" fill="url(#pm-hub-glow)" />
 
                             {/* Routes, behind the land masses. */}
@@ -223,7 +229,7 @@ export default function InteractivePartnerMap() {
                                             />
                                             <path
                                                 d={d}
-                                                stroke="#ff5f00"
+                                                stroke={ACCENT}
                                                 strokeWidth={1.6}
                                                 opacity={isActive ? 0.9 : 0}
                                                 className="map-arc transition-opacity duration-300 ease-brand"
@@ -258,7 +264,7 @@ export default function InteractivePartnerMap() {
                                             d={region.path}
                                             fill="none"
                                             strokeLinejoin="round"
-                                            stroke={isActive ? '#ff5f00' : 'rgba(255,255,255,0.22)'}
+                                            stroke={isActive ? ACCENT : 'rgba(255,255,255,0.22)'}
                                             strokeWidth={isActive ? 1.75 : 1}
                                             className="transition-all duration-300 ease-brand"
                                         />
@@ -277,7 +283,7 @@ export default function InteractivePartnerMap() {
                                             cx={region.x}
                                             cy={region.y}
                                             r={isActive ? 3.6 : 2.6}
-                                            fill={isActive ? '#ff5f00' : '#ffffff'}
+                                            fill={isActive ? ACCENT : '#ffffff'}
                                             fillOpacity={isActive ? 1 : 0.55}
                                             className="transition-all duration-300 ease-brand"
                                         />
@@ -293,7 +299,7 @@ export default function InteractivePartnerMap() {
                                         cx={HUB.x}
                                         cy={HUB.y}
                                         fill="none"
-                                        stroke="#ff5f00"
+                                        stroke={ACCENT}
                                         strokeWidth={1.4}
                                         initial={{ r: 6, opacity: 0.55 }}
                                         animate={reduceMotion ? { r: 6, opacity: 0.4 } : { r: [6, 36], opacity: [0.55, 0] }}
@@ -304,8 +310,8 @@ export default function InteractivePartnerMap() {
                                         }
                                     />
                                 ))}
-                                <circle cx={HUB.x} cy={HUB.y} r="9" fill="none" stroke="#ff5f00" strokeOpacity="0.35" />
-                                <circle cx={HUB.x} cy={HUB.y} r="4.6" fill="#ff5f00" />
+                                <circle cx={HUB.x} cy={HUB.y} r="9" fill="none" stroke={ACCENT} strokeOpacity="0.35" />
+                                <circle cx={HUB.x} cy={HUB.y} r="4.6" fill={ACCENT} />
                                 <circle cx={HUB.x} cy={HUB.y} r="1.7" fill="#ffffff" fillOpacity="0.95" />
 
                                 {/* Labels are hidden below sm: SVG font-size is in user units,
@@ -318,7 +324,7 @@ export default function InteractivePartnerMap() {
                                         y={region.id === HUB_ID ? region.y + 30 : region.y - 15}
                                         textAnchor="middle"
                                         paintOrder="stroke"
-                                        stroke="#0a2540"
+                                        stroke={NAVY}
                                         strokeWidth="3.5"
                                         strokeLinejoin="round"
                                         className={`max-sm:hidden select-none text-[16px] font-semibold uppercase tracking-[0.1em] sm:text-[14px] lg:text-[12px] ${

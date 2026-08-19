@@ -11,7 +11,7 @@ export interface CTABandProps {
   actions?: ReactNode;
   /** Optional photograph under the navy scrim. */
   image?: string;
-  /** `accent` swaps the navy band for solid orange. */
+  /** `accent` swaps the deep navy band for the solid brand blue. */
   tone?: 'navy' | 'accent';
   className?: string;
 }
