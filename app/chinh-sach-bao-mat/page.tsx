@@ -80,7 +80,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <PageHero
-        eyebrow={`Cập nhật: ${updatedAt} Bởi Nam Nam`}
+        eyebrow={`Cập nhật: ${updatedAt} `}
         title="Chính sách bảo mật"
         intro="Cam kết bảo vệ quyền riêng tư và thông tin cá nhân của khách hàng NEW ATLANTIC."
         breadcrumbs={[{ name: 'Trang chủ', href: '/' }, { name: 'Chính sách bảo mật' }]}

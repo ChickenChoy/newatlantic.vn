@@ -86,7 +86,7 @@ export default function TermsOfServicePage() {
   return (
     <>
       <PageHero
-        eyebrow={`Cập nhật: ${updatedAt} Bởi Nam Nam`}
+        eyebrow={`Cập nhật: ${updatedAt} `}
         title="Điều khoản dịch vụ"
         intro="Quy định sử dụng sản phẩm và dịch vụ của NEW ATLANTIC — Tân Đại Tây Dương."
         breadcrumbs={[{ name: 'Trang chủ', href: '/' }, { name: 'Điều khoản dịch vụ' }]}
