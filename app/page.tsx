@@ -98,23 +98,7 @@ const OFFICES = [
     phone: '+84 2838 733 686',
     tel: '+842838733686',
   },
-  {
-    id: 'hanoi',
-    badge: 'Chi nhánh miền Bắc',
-    city: 'Hà Nội',
-    address: 'Số 85 Nguyễn Phong Sắc, Phường Dịch Vọng Hậu, Quận Cầu Giấy, Hà Nội',
-    phone: '+84 2838 733 686',
-    tel: '+842838733686',
-  },
-  {
-    id: 'quangtri',
-    badge: 'Chi nhánh miền Trung',
-    city: 'Quảng Trị',
-    address: 'Xã Triệu Giang, Huyện Triệu Phong, Tỉnh Quảng Trị',
-    phone: '+84 2838 733 686',
-    tel: '+842838733686',
-  },
-];
+ ];
 
 /** The three promises the video band carries. */
 const PROMISES = [
